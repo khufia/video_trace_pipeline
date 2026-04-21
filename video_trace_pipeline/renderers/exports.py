@@ -1,0 +1,57 @@
+from __future__ import annotations
+
+from typing import Dict, List
+
+
+def export_trace_for_benchmark(benchmark: str, task, trace_package: dict) -> Dict[str, object]:
+    benchmark_key = str(benchmark or "").strip().lower()
+    inference_steps = [item.get("text", "") for item in trace_package.get("inference_steps") or []]
+    evidence_entries = trace_package.get("evidence_entries") or []
+    final_answer = trace_package.get("final_answer", "")
+    if benchmark_key == "videomathqa":
+        return {
+            "question_id": task.question_id,
+            "video_id": task.video_id,
+            "steps": ["%d. %s" % (idx + 1, step) for idx, step in enumerate(inference_steps)],
+            "answer": final_answer,
+        }
+    if benchmark_key == "minerva":
+        return {
+            "key": task.question_id,
+            "video_id": task.video_id,
+            "trace": "\n".join(inference_steps),
+            "answer": final_answer,
+        }
+    if benchmark_key == "omnivideobench":
+        triples = []
+        max_len = max(len(evidence_entries), len(inference_steps))
+        for idx in range(max_len):
+            evidence = evidence_entries[idx]["evidence_text"] if idx < len(evidence_entries) else ""
+            inference = inference_steps[idx] if idx < len(inference_steps) else ""
+            triples.append({"modality": "mixed", "evidence": evidence, "inference": inference})
+        return {"sample_key": task.sample_key, "trace": triples, "answer": final_answer}
+    return {"sample_key": task.sample_key, "trace_package": trace_package, "answer": final_answer}
+
+
+def render_trace_markdown(trace_package: dict) -> str:
+    lines = ["# Trace", ""]
+    lines.append("## Final Answer")
+    lines.append("")
+    lines.append(trace_package.get("final_answer", ""))
+    lines.append("")
+    lines.append("## Inference")
+    lines.append("")
+    for step in trace_package.get("inference_steps") or []:
+        lines.append("%s. %s" % (step.get("step_id"), step.get("text", "")))
+    lines.append("")
+    lines.append("## Evidence")
+    lines.append("")
+    for item in trace_package.get("evidence_entries") or []:
+        lines.append("### %s" % item.get("evidence_id", "evidence"))
+        lines.append("")
+        lines.append("- Tool: %s" % item.get("tool_name", ""))
+        lines.append("- Text: %s" % item.get("evidence_text", ""))
+        if item.get("observation_ids"):
+            lines.append("- Observations: %s" % ", ".join(item.get("observation_ids") or []))
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"

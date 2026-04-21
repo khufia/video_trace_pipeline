@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "video-trace-pipeline"
+version = "0.1.0"
+description = "File-first benchmark trace generation and refinement pipeline for video QA."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Proprietary"}
+authors = [{name = "OpenAI Codex"}]
+dependencies = []
+
+[project.scripts]
+vtp = "video_trace_pipeline.cli.main:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["video_trace_pipeline*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

@@ -1,0 +1,81 @@
+agents:
+  planner:
+    backend: openai
+    model: gpt-5.4
+    endpoint: default
+    temperature: 0.2
+    max_tokens: 4000
+    prompt_version: planner_v1
+  trace_synthesizer:
+    backend: openai
+    model: gpt-5.4
+    endpoint: default
+    temperature: 0.2
+    max_tokens: 5000
+    prompt_version: synthesizer_v1
+  trace_auditor:
+    backend: openai
+    model: gpt-5.4
+    endpoint: default
+    temperature: 0.1
+    max_tokens: 3000
+    prompt_version: auditor_v1
+  atomicizer:
+    backend: openai
+    model: gpt-5.4
+    endpoint: default
+    temperature: 0.1
+    max_tokens: 3000
+    prompt_version: atomicizer_v1
+
+tools:
+  visual_temporal_grounder:
+    enabled: true
+    backend: internal_temporal_grounder
+    prompt_version: tool_v1
+    top_k: 5
+  frame_retriever:
+    enabled: true
+    backend: internal_frame_retriever
+    prompt_version: tool_v1
+    endpoint: default
+    model: gpt-5.4
+    extra:
+      candidate_frames: 8
+  audio_temporal_grounder:
+    enabled: true
+    backend: internal_audio_temporal_grounder
+    prompt_version: tool_v1
+  asr:
+    enabled: true
+    backend: internal_asr
+    prompt_version: tool_v1
+    extra:
+      model_name: small
+      language: null
+  dense_captioner:
+    enabled: true
+    backend: internal_dense_captioner
+    prompt_version: tool_v1
+    endpoint: default
+    model: gpt-5.4
+    extra:
+      sample_frames: 8
+  ocr:
+    enabled: true
+    backend: internal_ocr
+    prompt_version: tool_v1
+    endpoint: default
+    model: gpt-5.4
+  spatial_grounder:
+    enabled: true
+    backend: internal_spatial_grounder
+    prompt_version: tool_v1
+    endpoint: default
+    model: gpt-5.4
+  generic_purpose:
+    enabled: true
+    backend: openai_multimodal
+    endpoint: default
+    model: gpt-5.4
+    prompt_version: tool_v1
