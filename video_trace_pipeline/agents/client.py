@@ -73,14 +73,19 @@ class OpenAIChatClient(object):
         temperature: float = 0.2,
         max_tokens: int = 4096,
         image_paths: Optional[List[str]] = None,
+        response_format: Optional[Dict[str, Any]] = None,
     ) -> str:
         client = self._build_client(endpoint_name)
+        request_kwargs: Dict[str, Any] = {}
+        if response_format is not None:
+            request_kwargs["response_format"] = dict(response_format)
         response = client.chat.completions.create(
             model=model_name,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": self._build_content(user_prompt, image_paths=image_paths)},
             ],
+            **request_kwargs,
             **_limit_kwargs(model_name, max_tokens),
             **_temperature_kwargs(model_name, temperature),
         )
@@ -107,6 +112,7 @@ class OpenAIChatClient(object):
             temperature=temperature,
             max_tokens=max_tokens,
             image_paths=image_paths,
+            response_format={"type": "json_object"},
         )
         payload = extract_json_object(text)
         if payload is None:
