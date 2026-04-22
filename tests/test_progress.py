@@ -36,6 +36,39 @@ def test_live_reporter_prints_confidence_summary_and_observation_confidence():
     assert "[0.9100]" in rendered
 
 
+def test_progress_prints_model_preload_summary():
+    console = Console(record=True, width=180)
+    reporter = LiveRunReporter(console)
+
+    reporter.on_model_preload_start(tool_names=["visual_temporal_grounder", "dense_captioner", "generic_purpose"])
+    reporter.on_model_preload_end(
+        preload_payload={
+            "enabled": True,
+            "parallel_workers": 3,
+            "loaded_models": [
+                {
+                    "tool_name": "visual_temporal_grounder",
+                    "device_label": "cuda:0",
+                    "resolved_model_path": "/tmp/timelens",
+                },
+                {
+                    "tool_name": "generic_purpose",
+                    "device_label": "cuda:3",
+                    "resolved_model_path": "/tmp/qwen35",
+                },
+            ],
+            "shared_tools": [{"tool_name": "spatial_grounder", "shared_with": "generic_purpose"}],
+        }
+    )
+
+    rendered = console.export_text()
+    assert "Model Preload" in rendered
+    assert "tools: visual_temporal_grounder | dense_captioner | generic_purpose" in rendered
+    assert "loaded=2 | parallel_workers=3" in rendered
+    assert "visual_temporal_grounder on cuda:0 -> /tmp/timelens" in rendered
+    assert "spatial_grounder shares the persisted runner with generic_purpose" in rendered
+
+
 def test_candidate_window_indices_expands_neighbors_and_caps_budget():
     windows = [(0.0, 60.0), (60.0, 120.0), (120.0, 180.0), (180.0, 240.0)]
     scored_frames = [

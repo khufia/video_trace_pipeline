@@ -93,6 +93,7 @@ def _transcribe_with_whisperx(audio_path: str, model_name: str, device_label: st
 
 class LocalASRAdapter(ToolAdapter):
     request_model = ASRRequest
+    output_model = ASROutput
 
     def __init__(self, name: str, extra: Optional[dict] = None):
         self.name = name

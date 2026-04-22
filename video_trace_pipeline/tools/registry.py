@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-from typing import Dict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Any, Dict, get_args, get_origin
+
+from pydantic import BaseModel
 
 from ..schemas import MachineProfile, ModelsConfig
 from ..storage import WorkspaceManager
@@ -25,6 +28,119 @@ def _request_field_names(model_cls) -> list[str]:
     if hasattr(model_cls, "__fields__"):
         return list(getattr(model_cls, "__fields__").keys())
     return []
+
+
+def _output_field_names(model_cls) -> list[str]:
+    if hasattr(model_cls, "model_fields"):
+        return list(getattr(model_cls, "model_fields").keys())
+    if hasattr(model_cls, "__fields__"):
+        return list(getattr(model_cls, "__fields__").keys())
+    return []
+
+
+def _model_fields(model_cls) -> Dict[str, object]:
+    if hasattr(model_cls, "model_fields"):
+        return dict(getattr(model_cls, "model_fields") or {})
+    if hasattr(model_cls, "__fields__"):
+        return dict(getattr(model_cls, "__fields__") or {})
+    return {}
+
+
+def _field_annotation(field_info) -> Any:
+    if hasattr(field_info, "annotation"):
+        return getattr(field_info, "annotation")
+    if hasattr(field_info, "outer_type_"):
+        return getattr(field_info, "outer_type_")
+    if hasattr(field_info, "type_"):
+        return getattr(field_info, "type_")
+    return Any
+
+
+def _is_basemodel_subclass(value: Any) -> bool:
+    return isinstance(value, type) and issubclass(value, BaseModel)
+
+
+def _format_annotation(annotation: Any) -> str:
+    if annotation is None:
+        return "Any"
+    if annotation is Any:
+        return "Any"
+    origin = get_origin(annotation)
+    if origin is None:
+        if annotation is type(None):
+            return "None"
+        if _is_basemodel_subclass(annotation):
+            return annotation.__name__
+        if isinstance(annotation, type):
+            return annotation.__name__
+        rendered = str(annotation).replace("typing.", "")
+        return rendered or "Any"
+    args = list(get_args(annotation) or [])
+    if origin is list:
+        inner = _format_annotation(args[0]) if args else "Any"
+        return "List[%s]" % inner
+    if origin is dict:
+        key_type = _format_annotation(args[0]) if len(args) > 0 else "Any"
+        value_type = _format_annotation(args[1]) if len(args) > 1 else "Any"
+        return "Dict[%s, %s]" % (key_type, value_type)
+    if origin is tuple:
+        inner = ", ".join(_format_annotation(arg) for arg in args) if args else "Any"
+        return "Tuple[%s]" % inner
+    if str(origin).endswith("Union"):
+        non_none = [arg for arg in args if arg is not type(None)]
+        if len(non_none) + 1 == len(args):
+            if len(non_none) == 1:
+                return "Optional[%s]" % _format_annotation(non_none[0])
+            return "Optional[Union[%s]]" % ", ".join(_format_annotation(arg) for arg in non_none)
+        return "Union[%s]" % ", ".join(_format_annotation(arg) for arg in args)
+    origin_name = getattr(origin, "__name__", str(origin).replace("typing.", ""))
+    if args:
+        return "%s[%s]" % (origin_name, ", ".join(_format_annotation(arg) for arg in args))
+    return str(origin_name or "Any")
+
+
+def _nested_model_specs(annotation: Any) -> list[tuple[str, type[BaseModel]]]:
+    origin = get_origin(annotation)
+    if origin is None:
+        if _is_basemodel_subclass(annotation):
+            return [("", annotation)]
+        return []
+    nested = []
+    for arg in list(get_args(annotation) or []):
+        if arg is type(None):
+            continue
+        child_specs = _nested_model_specs(arg)
+        if child_specs:
+            if origin is list:
+                return [("[]", model_cls) for _, model_cls in child_specs]
+            return child_specs
+    return nested
+
+
+def _model_signature_lines(model_cls, *, exclude_fields: set[str] | None = None) -> list[str]:
+    lines = []
+    exclude_fields = set(exclude_fields or set())
+    for field_name, field_info in _model_fields(model_cls).items():
+        if field_name in exclude_fields:
+            continue
+        annotation = _field_annotation(field_info)
+        lines.append("%s: %s" % (field_name, _format_annotation(annotation)))
+    return lines
+
+
+def _model_nested_lines(model_cls, *, exclude_fields: set[str] | None = None) -> list[str]:
+    lines = []
+    exclude_fields = set(exclude_fields or set())
+    for field_name, field_info in _model_fields(model_cls).items():
+        if field_name in exclude_fields:
+            continue
+        annotation = _field_annotation(field_info)
+        for suffix, nested_model in _nested_model_specs(annotation):
+            nested_fields = _model_signature_lines(nested_model)
+            if not nested_fields:
+                continue
+            lines.append("%s%s -> %s" % (field_name, suffix, ", ".join(nested_fields)))
+    return lines
 
 
 class ToolRegistry(object):
@@ -122,6 +238,119 @@ class ToolRegistry(object):
     def implementation_name(self, tool_name: str) -> str:
         return tool_implementation(tool_name)
 
+    def persistent_tool_names(self) -> list[str]:
+        names = []
+        for tool_name in sorted(self.model_pool.enabled_tools):
+            if tool_name in self.adapters:
+                names.append(tool_name)
+        return names
+
+    def _load_persistent_spec(self, spec: Dict[str, object]) -> Dict[str, object]:
+        runner_type = str(spec.get("runner_type") or "").strip()
+        if runner_type == "qwen_style":
+            self.model_pool.acquire_qwen_style_runner(
+                tool_name=str(spec.get("tool_name") or ""),
+                model_path=str(spec.get("resolved_model_path") or ""),
+                device_label=str(spec.get("device_label") or ""),
+                processor_use_fast=spec.get("processor_use_fast"),
+                processor_model_path=str(spec.get("processor_model_path") or "") or None,
+                generate_do_sample=bool(spec.get("generate_do_sample")),
+                generate_temperature=spec.get("generate_temperature"),
+            )
+        elif runner_type == "penguin":
+            self.model_pool.acquire_penguin_runner(
+                tool_name=str(spec.get("tool_name") or ""),
+                model_path=str(spec.get("resolved_model_path") or ""),
+                device_label=str(spec.get("device_label") or ""),
+                generate_do_sample=bool(spec.get("generate_do_sample")),
+                generate_temperature=spec.get("generate_temperature"),
+            )
+        else:
+            raise RuntimeError("Unsupported persistent preload runner type: %s" % runner_type)
+        return {
+            "tool_name": str(spec.get("tool_name") or ""),
+            "runner_type": runner_type,
+            "model_name": str(spec.get("model_name") or ""),
+            "resolved_model_path": str(spec.get("resolved_model_path") or ""),
+            "device_label": str(spec.get("device_label") or ""),
+        }
+
+    def preload_persistent_models(self) -> Dict[str, object]:
+        requested_tools = self.persistent_tool_names()
+        if not requested_tools:
+            return {
+                "enabled": False,
+                "requested_tools": [],
+                "loaded_models": [],
+                "parallel_workers": 0,
+                "shared_tools": [],
+            }
+
+        preload_specs = []
+        seen_keys = {}
+        shared_tools = []
+        for tool_name in requested_tools:
+            adapter = self.adapters.get(tool_name)
+            describe_spec = getattr(adapter, "persistent_preload_spec", None)
+            if describe_spec is None:
+                continue
+            spec = describe_spec(self.profile)
+            if not spec:
+                continue
+            load_key = tuple(spec.get("load_key") or ())
+            if load_key and load_key in seen_keys:
+                shared_tools.append(
+                    {
+                        "tool_name": tool_name,
+                        "shared_with": seen_keys[load_key],
+                    }
+                )
+                continue
+            if load_key:
+                seen_keys[load_key] = tool_name
+            preload_specs.append(spec)
+
+        if not preload_specs:
+            return {
+                "enabled": True,
+                "requested_tools": requested_tools,
+                "loaded_models": [],
+                "parallel_workers": 0,
+                "shared_tools": shared_tools,
+            }
+
+        specs_by_device = {}
+        for spec in preload_specs:
+            specs_by_device.setdefault(str(spec.get("device_label") or "cpu"), []).append(spec)
+
+        ordered_devices = sorted(specs_by_device)
+        parallel_workers = max(1, len(ordered_devices))
+
+        def _load_device_specs(device_label: str) -> list[Dict[str, object]]:
+            return [self._load_persistent_spec(spec) for spec in specs_by_device.get(device_label, [])]
+
+        loaded_models = []
+        if parallel_workers == 1:
+            loaded_models = _load_device_specs(ordered_devices[0])
+        else:
+            with ThreadPoolExecutor(max_workers=parallel_workers) as executor:
+                future_map = {
+                    executor.submit(_load_device_specs, device_label): device_label
+                    for device_label in ordered_devices
+                }
+                for future in as_completed(future_map):
+                    loaded_models.extend(future.result())
+
+        order_map = {name: index for index, name in enumerate(requested_tools)}
+        loaded_models.sort(key=lambda item: order_map.get(str(item.get("tool_name") or ""), 10**6))
+        return {
+            "enabled": True,
+            "requested_tools": requested_tools,
+            "loaded_models": loaded_models,
+            "parallel_workers": parallel_workers,
+            "shared_tools": shared_tools,
+        }
+
     def close(self) -> None:
         self.model_pool.close()
 
@@ -136,11 +365,21 @@ class ToolRegistry(object):
                 for field_name in _request_field_names(getattr(adapter, "request_model", None))
                 if field_name != "tool_name"
             ]
+            output_fields = _output_field_names(getattr(adapter, "output_model", None))
+            request_schema = _model_signature_lines(getattr(adapter, "request_model", None), exclude_fields={"tool_name"})
+            output_schema = _model_signature_lines(getattr(adapter, "output_model", None))
+            request_nested = _model_nested_lines(getattr(adapter, "request_model", None), exclude_fields={"tool_name"})
+            output_nested = _model_nested_lines(getattr(adapter, "output_model", None))
             catalog[tool_name] = {
                 "implementation": self.implementation_name(tool_name),
                 "model": config.model,
                 "description": config.description or "",
                 "extra": dict(config.extra or {}),
                 "request_fields": request_fields,
+                "output_fields": output_fields,
+                "request_schema": request_schema,
+                "output_schema": output_schema,
+                "request_nested": request_nested,
+                "output_nested": output_nested,
             }
         return catalog

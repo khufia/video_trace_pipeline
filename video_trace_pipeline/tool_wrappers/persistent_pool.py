@@ -51,6 +51,44 @@ class PersistentModelPool(object):
             return True
         return normalized in self.enabled_tools
 
+    def qwen_style_key(
+        self,
+        *,
+        tool_name: str,
+        model_path: str,
+        device_label: str,
+        processor_use_fast: bool | None = None,
+        processor_model_path: str | None = None,
+        generate_do_sample: bool = False,
+        generate_temperature: float | None = None,
+    ):
+        return (
+            self._share_scope(tool_name),
+            str(model_path),
+            str(device_label),
+            None if processor_use_fast is None else bool(processor_use_fast),
+            str(processor_model_path or ""),
+            bool(generate_do_sample),
+            None if generate_temperature is None else float(generate_temperature),
+        )
+
+    def penguin_key(
+        self,
+        *,
+        tool_name: str,
+        model_path: str,
+        device_label: str,
+        generate_do_sample: bool = False,
+        generate_temperature: float | None = None,
+    ):
+        return (
+            self._share_scope(tool_name),
+            str(model_path),
+            str(device_label),
+            bool(generate_do_sample),
+            None if generate_temperature is None else float(generate_temperature),
+        )
+
     def acquire_qwen_style_runner(
         self,
         *,
@@ -64,14 +102,14 @@ class PersistentModelPool(object):
     ):
         if not self.should_persist(tool_name):
             return None
-        key = (
-            self._share_scope(tool_name),
-            str(model_path),
-            str(device_label),
-            None if processor_use_fast is None else bool(processor_use_fast),
-            str(processor_model_path or ""),
-            bool(generate_do_sample),
-            None if generate_temperature is None else float(generate_temperature),
+        key = self.qwen_style_key(
+            tool_name=tool_name,
+            model_path=model_path,
+            device_label=device_label,
+            processor_use_fast=processor_use_fast,
+            processor_model_path=processor_model_path,
+            generate_do_sample=generate_do_sample,
+            generate_temperature=generate_temperature,
         )
         runner = self._qwen_style_runners.get(key)
         if runner is None:
@@ -97,12 +135,12 @@ class PersistentModelPool(object):
     ):
         if not self.should_persist(tool_name):
             return None
-        key = (
-            self._share_scope(tool_name),
-            str(model_path),
-            str(device_label),
-            bool(generate_do_sample),
-            None if generate_temperature is None else float(generate_temperature),
+        key = self.penguin_key(
+            tool_name=tool_name,
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=generate_do_sample,
+            generate_temperature=generate_temperature,
         )
         runner = self._penguin_runners.get(key)
         if runner is None:

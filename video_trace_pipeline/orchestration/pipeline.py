@@ -62,9 +62,17 @@ def _trace_from_initial_steps(task, steps: List[str]) -> TracePackage:
 
 
 class PipelineRunner(object):
-    def __init__(self, profile, models_config, persist_tool_models: Optional[List[str]] = None):
+    def __init__(
+        self,
+        profile,
+        models_config,
+        persist_tool_models: Optional[List[str]] = None,
+        preload_persisted_models: bool = False,
+    ):
         self.profile = profile
         self.models_config = models_config
+        self.preload_persisted_models = bool(preload_persisted_models)
+        self._persisted_models_preloaded = False
         self.workspace = WorkspaceManager(profile)
         self.llm_client = OpenAIChatClient(profile, models_config)
         self.tool_registry = ToolRegistry(
@@ -92,6 +100,24 @@ class PipelineRunner(object):
 
     def close(self):
         self.tool_registry.close()
+
+    def preload_models(self, progress_reporter=None):
+        if self._persisted_models_preloaded or not self.preload_persisted_models:
+            return {
+                "enabled": False,
+                "requested_tools": self.tool_registry.persistent_tool_names(),
+                "loaded_models": [],
+                "parallel_workers": 0,
+                "shared_tools": [],
+            }
+        requested_tools = self.tool_registry.persistent_tool_names()
+        if progress_reporter is not None and hasattr(progress_reporter, "on_model_preload_start"):
+            progress_reporter.on_model_preload_start(tool_names=requested_tools)
+        payload = self.tool_registry.preload_persistent_models()
+        self._persisted_models_preloaded = True
+        if progress_reporter is not None and hasattr(progress_reporter, "on_model_preload_end"):
+            progress_reporter.on_model_preload_end(preload_payload=sanitize_for_persistence(payload))
+        return payload
 
     def _write_runtime_snapshot(self, run):
         payload = {
@@ -166,6 +192,7 @@ class PipelineRunner(object):
                 max_rounds=max_rounds,
                 clip_duration_s=clip_duration_s,
             )
+        self.preload_models(progress_reporter=progress_reporter)
         if progress_reporter is not None and hasattr(progress_reporter, "on_preprocess_start"):
             progress_reporter.on_preprocess_start()
         preprocess_output = self.preprocessor.get_or_build(task, clip_duration_s=clip_duration_s)

@@ -2,15 +2,62 @@ from __future__ import annotations
 
 import copy
 import contextlib
+import inspect
+import json
 import sys
+from pathlib import Path
 from typing import Any, Dict, List, Sequence
 
 from .shared import cleanup_torch, move_batch_to_device, torch_dtype_for_device
 
 
+_QWEN35_MIN_TRANSFORMERS = "5.2.0"
+
+
+def _checkpoint_model_type(model_path: str) -> str | None:
+    config_path = Path(model_path).expanduser() / "config.json"
+    if not config_path.exists():
+        return None
+    with contextlib.suppress(Exception):
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        model_type = str(config.get("model_type") or "").strip()
+        return model_type or None
+    return None
+
+
+def _transformers_version_meets(minimum_version: str, current_version: str | None) -> bool:
+    if not current_version:
+        return False
+    from packaging.version import InvalidVersion, Version
+
+    try:
+        return Version(str(current_version)) >= Version(minimum_version)
+    except InvalidVersion:
+        return False
+
+
+def _require_supported_transformers_for_checkpoint(model_path: str, *, transformers_version: str | None) -> None:
+    model_type = _checkpoint_model_type(model_path)
+    if model_type != "qwen3_5":
+        return
+    if _transformers_version_meets(_QWEN35_MIN_TRANSFORMERS, transformers_version):
+        return
+    raise RuntimeError(
+        "Checkpoint %r uses model_type=%r, which requires transformers>=%s. "
+        "Found transformers %r. Upgrade the local multimodal environment before loading Qwen3.5 checkpoints."
+        % (model_path, model_type, _QWEN35_MIN_TRANSFORMERS, transformers_version or "unknown")
+    )
+
+
 def _qwen_style_model(model_path: str, device_label: str):
     import torch
+    import transformers
     from transformers import AutoModelForImageTextToText
+
+    _require_supported_transformers_for_checkpoint(
+        model_path,
+        transformers_version=getattr(transformers, "__version__", None),
+    )
 
     dtype = torch_dtype_for_device(device_label)
     with contextlib.suppress(Exception):
@@ -264,10 +311,97 @@ def _install_penguin_attention_fallback() -> None:
             module.flash_attn_varlen_func = _penguin_flash_attn_fallback
 
 
-def _configure_penguin_transformers_compat():
+def _install_penguin_processor_signature_compat(model_path: str) -> None:
+    config_path = Path(model_path).expanduser() / "preprocessor_config.json"
+    if not config_path.exists():
+        return
+    with contextlib.suppress(Exception):
+        payload = json.loads(config_path.read_text(encoding="utf-8"))
+        class_reference = str(((payload.get("auto_map") or {}).get("AutoProcessor")) or "").strip()
+        if not class_reference:
+            return
+        from transformers.dynamic_module_utils import get_class_from_dynamic_module
+
+        processor_class = get_class_from_dynamic_module(
+            class_reference,
+            pretrained_model_name_or_path=str(Path(model_path).expanduser()),
+            local_files_only=True,
+        )
+        original_method = getattr(processor_class, "_get_arguments_from_pretrained", None)
+        if original_method is None:
+            return
+        original_func = getattr(original_method, "__func__", original_method)
+        if getattr(original_func, "_penguin_processor_signature_compat", False):
+            return
+        if "processor_dict" in inspect.signature(original_func).parameters:
+            return
+
+        @classmethod
+        def _compat_get_arguments_from_pretrained(cls, pretrained_model_name_or_path, processor_dict=None, **kwargs):
+            return original_func(cls, pretrained_model_name_or_path, **kwargs)
+
+        _compat_get_arguments_from_pretrained.__func__._penguin_processor_signature_compat = True
+        processor_class._get_arguments_from_pretrained = _compat_get_arguments_from_pretrained
+
+
+def _install_penguin_rotary_embedding_compat(model_path: str) -> None:
+    with contextlib.suppress(Exception):
+        from transformers.dynamic_module_utils import get_class_from_dynamic_module
+        import transformers.modeling_rope_utils as hf_rope_utils
+
+        get_class_from_dynamic_module(
+            "modeling_penguinvl_encoder.PenguinVLVisionEncoderModel",
+            pretrained_model_name_or_path=str(Path(model_path).expanduser()),
+            local_files_only=True,
+        )
+        for module_name, module in list(sys.modules.items()):
+            if not module_name.endswith("modeling_penguinvl_encoder"):
+                continue
+            rotary_class = getattr(module, "VisualRotaryEmbedding", None)
+            if rotary_class is None or hasattr(rotary_class, "compute_default_rope_parameters"):
+                continue
+
+            @staticmethod
+            def _compute_default_rope_parameters(config=None, device=None, seq_len=None, layer_type=None):
+                return hf_rope_utils.ROPE_INIT_FUNCTIONS["default"](
+                    config=config,
+                    device=device,
+                    seq_len=seq_len,
+                    layer_type=layer_type,
+                )
+
+            rotary_class.compute_default_rope_parameters = _compute_default_rope_parameters
+
+
+def _configure_penguin_transformers_compat(model_path: str):
     from transformers import PreTrainedModel
+    from transformers.integrations import accelerate as hf_accelerate
+    import transformers.modeling_utils as hf_modeling_utils
+    import transformers.modeling_rope_utils as hf_rope_utils
     from transformers.utils import import_utils as hf_import_utils
     import transformers.utils as hf_utils
+
+    if "default" not in hf_rope_utils.ROPE_INIT_FUNCTIONS:
+        def _compat_default_rope_parameters(config=None, device=None, seq_len=None, layer_type=None):
+            import torch
+
+            if hasattr(config, "standardize_rope_params"):
+                config.standardize_rope_params()
+            rope_parameters = config.rope_parameters[layer_type] if layer_type is not None else config.rope_parameters
+            base = rope_parameters["rope_theta"]
+            partial_rotary_factor = rope_parameters.get("partial_rotary_factor", 1.0)
+            head_dim = getattr(config, "head_dim", None) or config.hidden_size // config.num_attention_heads
+            dim = int(head_dim * partial_rotary_factor)
+            target_device = device
+            if target_device is None or str(target_device) == "meta":
+                target_device = "cpu"
+            inv_freq = 1.0 / (
+                base
+                ** (torch.arange(0, dim, 2, device=target_device, dtype=torch.float) / dim)
+            )
+            return inv_freq, 1.0
+
+        hf_rope_utils.ROPE_INIT_FUNCTIONS["default"] = _compat_default_rope_parameters
 
     # Penguin's remote-code encoder tries to import flash-attn whenever
     # transformers reports the package as available. On this cluster the
@@ -282,10 +416,54 @@ def _configure_penguin_transformers_compat():
 
         def _compat_load_pretrained_model(*args, **kwargs):
             kwargs.pop("offload_state_dict", None)
+            if "load_config" not in kwargs and (kwargs or len(args) > 4):
+                model = kwargs.pop("model", args[0] if args else None)
+                state_dict = kwargs.pop("state_dict", args[1] if len(args) > 1 else None)
+                checkpoint_files = kwargs.pop("checkpoint_files", args[2] if len(args) > 2 else None)
+                pretrained_model_name_or_path = kwargs.pop("pretrained_model_name_or_path", None)
+                ignore_mismatched_sizes = kwargs.pop("ignore_mismatched_sizes", False)
+                sharded_metadata = kwargs.pop("sharded_metadata", None)
+                device_map = kwargs.pop("device_map", None)
+                disk_offload_folder = kwargs.pop("disk_offload_folder", None)
+                dtype = kwargs.pop("dtype", None)
+                hf_quantizer = kwargs.pop("hf_quantizer", None)
+                device_mesh = kwargs.pop("device_mesh", None)
+                weights_only = kwargs.pop("weights_only", True)
+                key_mapping = kwargs.pop("key_mapping", None)
+                kwargs.pop("keep_in_fp32_regex", None)
+                load_config = hf_modeling_utils.LoadStateDictConfig(
+                    pretrained_model_name_or_path=pretrained_model_name_or_path,
+                    ignore_mismatched_sizes=ignore_mismatched_sizes,
+                    sharded_metadata=sharded_metadata,
+                    device_map=device_map,
+                    disk_offload_folder=disk_offload_folder,
+                    dtype=dtype,
+                    hf_quantizer=hf_quantizer,
+                    device_mesh=device_mesh,
+                    weights_only=weights_only,
+                    weight_mapping=hf_modeling_utils.get_model_conversion_mapping(model, key_mapping, hf_quantizer),
+                )
+                return original_load_pretrained_model(model, state_dict, checkpoint_files, load_config)
             return original_load_pretrained_model(*args, **kwargs)
 
         _compat_load_pretrained_model._penguin_offload_compat = True
         PreTrainedModel._load_pretrained_model = _compat_load_pretrained_model
+    if not getattr(hf_modeling_utils.check_and_set_device_map, "_penguin_meta_device_compat", False):
+        original_check_and_set_device_map = hf_modeling_utils.check_and_set_device_map
+
+        def _compat_check_and_set_device_map(device_map):
+            try:
+                return original_check_and_set_device_map(device_map)
+            except RuntimeError as exc:
+                if device_map is None and "meta device context manager" in str(exc):
+                    return {"": "cpu"}
+                raise
+
+        _compat_check_and_set_device_map._penguin_meta_device_compat = True
+        hf_modeling_utils.check_and_set_device_map = _compat_check_and_set_device_map
+        hf_accelerate.check_and_set_device_map = _compat_check_and_set_device_map
+    _install_penguin_processor_signature_compat(model_path)
+    _install_penguin_rotary_embedding_compat(model_path)
 
 
 class PenguinRunner:
@@ -302,7 +480,7 @@ class PenguinRunner:
         self.model_path = model_path
         self.device_label = device_label
         self.dtype = torch_dtype_for_device(device_label)
-        _configure_penguin_transformers_compat()
+        _configure_penguin_transformers_compat(model_path)
         self.processor = AutoProcessor.from_pretrained(
             model_path,
             trust_remote_code=True,
@@ -315,7 +493,7 @@ class PenguinRunner:
                 dtype=self.dtype,
                 attn_implementation="sdpa",
                 local_files_only=True,
-                low_cpu_mem_usage=True,
+                low_cpu_mem_usage=False,
             ).to(device_label).eval()
         except Exception:
             self.model = AutoModelForCausalLM.from_pretrained(
@@ -323,7 +501,7 @@ class PenguinRunner:
                 trust_remote_code=True,
                 attn_implementation="eager",
                 local_files_only=True,
-                low_cpu_mem_usage=True,
+                low_cpu_mem_usage=False,
             ).to(device_label).eval()
         self.generate_kwargs = _apply_generation_controls(
             self.model,

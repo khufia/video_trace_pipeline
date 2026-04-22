@@ -28,10 +28,16 @@ def _load_runner(
     models: str,
     workspace_root: Optional[str] = None,
     persist_tool_models: Optional[List[str]] = None,
+    preload_persisted_models: bool = False,
 ) -> PipelineRunner:
     machine_profile = load_machine_profile(profile, workspace_root=workspace_root)
     models_config = load_models_config(models)
-    return PipelineRunner(machine_profile, models_config, persist_tool_models=persist_tool_models)
+    return PipelineRunner(
+        machine_profile,
+        models_config,
+        persist_tool_models=persist_tool_models,
+        preload_persisted_models=preload_persisted_models,
+    )
 
 
 def _parse_options(options_text: Optional[str]) -> List[str]:
@@ -392,14 +398,21 @@ def preprocess(
         "--persist-tool-models",
         help="Tool names as a JSON list or `||`-separated string to keep loaded on GPU during this CLI run",
     ),
+    preload_persisted_models: bool = typer.Option(
+        False,
+        "--preload-persisted-models/--no-preload-persisted-models",
+        help="Eagerly load persisted tool models at startup, in parallel across distinct devices",
+    ),
 ):
     runner = _load_runner(
         profile=profile,
         models=models,
         workspace_root=workspace_root,
         persist_tool_models=_parse_tool_names(persist_tool_models),
+        preload_persisted_models=preload_persisted_models,
     )
     try:
+        runner.preload_models()
         tasks = _load_tasks(
             runner,
             benchmark=benchmark,
@@ -456,6 +469,11 @@ def run(
         "--persist-tool-models",
         help="Tool names as a JSON list or `||`-separated string to keep loaded on GPU during this CLI run",
     ),
+    preload_persisted_models: bool = typer.Option(
+        False,
+        "--preload-persisted-models/--no-preload-persisted-models",
+        help="Eagerly load persisted tool models at startup, in parallel across distinct devices",
+    ),
     show_progress: bool = typer.Option(True, "--show-progress/--no-show-progress", help="Print live planner/tool/trace/auditor updates"),
 ):
     runner = _load_runner(
@@ -463,6 +481,7 @@ def run(
         models=models,
         workspace_root=workspace_root,
         persist_tool_models=_parse_tool_names(persist_tool_models),
+        preload_persisted_models=preload_persisted_models,
     )
     try:
         progress_reporter = LiveRunReporter(console) if show_progress else None

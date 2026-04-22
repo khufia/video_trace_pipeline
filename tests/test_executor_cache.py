@@ -562,6 +562,42 @@ def test_hydrate_arguments_with_task_context_fills_clip_shape():
     assert hydrated["clip"]["end_s"] == 5.0
 
 
+def test_hydrate_arguments_with_task_context_expands_full_video_clip_shorthand():
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="What text is visible?",
+        options=[],
+        video_path="/tmp/video.mp4",
+        metadata={"video_duration": 12.5},
+    )
+
+    hydrated = hydrate_arguments_with_task_context({"clip": "full_video", "query": "scoreboard"}, task)
+
+    assert hydrated["clip"]["video_id"] == "sample1"
+    assert hydrated["clip"]["start_s"] == 0.0
+    assert hydrated["clip"]["end_s"] == 12.5
+    assert hydrated["query"] == "scoreboard"
+
+
+def test_hydrate_arguments_with_task_context_expands_full_video_clip_list_shorthand():
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="What text is visible?",
+        options=[],
+        video_path="/tmp/video.mp4",
+        metadata={"video_duration_s": 12.5},
+    )
+
+    hydrated = hydrate_arguments_with_task_context({"clips": ["full_video"]}, task)
+
+    assert len(hydrated["clips"]) == 1
+    assert hydrated["clips"][0]["video_id"] == "sample1"
+    assert hydrated["clips"][0]["start_s"] == 0.0
+    assert hydrated["clips"][0]["end_s"] == 12.5
+
+
 def test_augment_dependency_output_promotes_analysis_and_best_frame():
     payload = {
         "frames": [{"video_id": "sample1", "timestamp_s": 2.5}],

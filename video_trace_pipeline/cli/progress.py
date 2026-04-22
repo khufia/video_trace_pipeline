@@ -74,6 +74,35 @@ class LiveRunReporter(object):
             self.console.print("options: %s" % " | ".join(str(item) for item in list(task.options or [])))
         self.console.print("run_dir: %s" % run_dir)
 
+    def on_model_preload_start(self, *, tool_names: List[str]):
+        if not list(tool_names or []):
+            return
+        self.console.print("")
+        self.console.print("[bold cyan]Model Preload[/bold cyan]")
+        self.console.print("tools: %s" % " | ".join(str(item) for item in list(tool_names or [])))
+
+    def on_model_preload_end(self, *, preload_payload: Dict[str, Any]):
+        if not bool(preload_payload.get("enabled")):
+            return
+        self.console.print(
+            "loaded=%s | parallel_workers=%s"
+            % (
+                len(list(preload_payload.get("loaded_models") or [])),
+                int(preload_payload.get("parallel_workers") or 0),
+            )
+        )
+        for item in list(preload_payload.get("loaded_models") or []):
+            tool_name = str(item.get("tool_name") or "").strip()
+            device_label = str(item.get("device_label") or "").strip()
+            resolved_model_path = str(item.get("resolved_model_path") or "").strip()
+            if tool_name and device_label and resolved_model_path:
+                self.console.print("  - %s on %s -> %s" % (tool_name, device_label, resolved_model_path))
+        for item in list(preload_payload.get("shared_tools") or []):
+            tool_name = str(item.get("tool_name") or "").strip()
+            shared_with = str(item.get("shared_with") or "").strip()
+            if tool_name and shared_with:
+                self.console.print("  - %s shares the persisted runner with %s" % (tool_name, shared_with))
+
     def on_preprocess_start(self):
         self.console.print("")
         self.console.print("[bold cyan]Preprocess[/bold cyan] dense-caption summary")

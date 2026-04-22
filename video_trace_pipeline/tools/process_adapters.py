@@ -13,6 +13,7 @@ from ..runtime_devices import resolve_device_label
 from ..tool_wrappers.penguin_dense_caption_runner import execute_payload as execute_dense_caption_payload
 from ..tool_wrappers.qwen35vl_runner import execute_payload as execute_generic_purpose_payload
 from ..tool_wrappers.spatial_grounder_runner import execute_payload as execute_spatial_grounder_payload
+from ..tool_wrappers.shared import resolve_generation_controls, resolve_model_path, resolved_device_label
 from ..tool_wrappers.timelens_runner import execute_payload as execute_visual_temporal_grounder_payload
 from ..schemas import (
     AudioTemporalGrounderOutput,
@@ -193,6 +194,84 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
             return payload, json.dumps(payload, ensure_ascii=False)
         return self._run_command_json(context, request_payload)
 
+    def _runtime_payload_for_profile(self, profile) -> Dict[str, Any]:
+        device = resolve_device_label(profile.gpu_assignments.get(self.name))
+        model_resolution = describe_model_resolution(
+            self.model_name,
+            hf_cache=profile.hf_cache,
+        )
+        return {
+            "backend": self.extra.get("backend_name") or getattr(self, "name", ""),
+            "model_name": self.model_name,
+            "device": device,
+            "hf_cache": profile.hf_cache,
+            "resolved_model_path": model_resolution.get("resolved_path"),
+            "model_resolution_status": model_resolution.get("status"),
+            "workspace_root": str(profile.workspace_root),
+            "extra": {key: value for key, value in self.extra.items() if key not in {"command", "cmd", "env", "cwd"}},
+        }
+
+    def _qwen_persistent_preload_spec(
+        self,
+        profile,
+        *,
+        processor_use_fast: Optional[bool] = None,
+        processor_model_path: Optional[str] = None,
+    ) -> Optional[Dict[str, Any]]:
+        if self.model_pool is None or not self.model_pool.should_persist(self.name):
+            return None
+        runtime = self._runtime_payload_for_profile(profile)
+        generation = resolve_generation_controls(runtime)
+        model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
+        device_label = resolved_device_label(runtime)
+        return {
+            "tool_name": self.name,
+            "runner_type": "qwen_style",
+            "load_key": self.model_pool.qwen_style_key(
+                tool_name=self.name,
+                model_path=model_path,
+                device_label=device_label,
+                processor_use_fast=processor_use_fast,
+                processor_model_path=processor_model_path,
+                generate_do_sample=bool(generation.get("do_sample")),
+                generate_temperature=generation.get("temperature"),
+            ),
+            "model_name": self.model_name,
+            "resolved_model_path": model_path,
+            "device_label": device_label,
+            "processor_use_fast": processor_use_fast,
+            "processor_model_path": processor_model_path,
+            "generate_do_sample": bool(generation.get("do_sample")),
+            "generate_temperature": generation.get("temperature"),
+        }
+
+    def _penguin_persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        if self.model_pool is None or not self.model_pool.should_persist(self.name):
+            return None
+        runtime = self._runtime_payload_for_profile(profile)
+        generation = resolve_generation_controls(runtime)
+        model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
+        device_label = resolved_device_label(runtime)
+        return {
+            "tool_name": self.name,
+            "runner_type": "penguin",
+            "load_key": self.model_pool.penguin_key(
+                tool_name=self.name,
+                model_path=model_path,
+                device_label=device_label,
+                generate_do_sample=bool(generation.get("do_sample")),
+                generate_temperature=generation.get("temperature"),
+            ),
+            "model_name": self.model_name,
+            "resolved_model_path": model_path,
+            "device_label": device_label,
+            "generate_do_sample": bool(generation.get("do_sample")),
+            "generate_temperature": generation.get("temperature"),
+        }
+
+    def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        return None
+
 
 def _dedupe_artifact_refs(items):
     deduped = []
@@ -221,6 +300,9 @@ class VisualTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
 
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_visual_temporal_grounder_payload(payload, runner_pool=self.model_pool)
+
+    def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        return self._qwen_persistent_preload_spec(profile)
 
     def execute(self, request, context):
         payload, raw = self._run_json(context, request.dict())
@@ -519,6 +601,9 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_dense_caption_payload(payload, runner_pool=self.model_pool)
 
+    def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        return self._penguin_persistent_preload_spec(profile)
+
     def _execute_single(self, request, context):
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
@@ -779,6 +864,9 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_spatial_grounder_payload(payload, runner_pool=self.model_pool)
 
+    def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        return self._qwen_persistent_preload_spec(profile)
+
     def _execute_single(self, request, context):
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
@@ -902,6 +990,9 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
 
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_generic_purpose_payload(payload, runner_pool=self.model_pool)
+
+    def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        return self._qwen_persistent_preload_spec(profile)
 
     def execute(self, request, context):
         payload, raw = self._run_json(context, request.dict())

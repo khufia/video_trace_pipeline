@@ -119,6 +119,77 @@ def test_pipeline_runner_writes_final_outputs(tmp_path):
     assert result["exported_results_dir"].endswith("/sample1")
 
 
+def test_pipeline_runner_preloads_models_before_preprocess(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    runner = PipelineRunner(
+        profile,
+        _models_config(),
+        persist_tool_models=["dense_captioner"],
+        preload_persisted_models=True,
+    )
+    runner.workspace.package_results_root = tmp_path / "repo_results"
+    runner.workspace.package_results_root.mkdir(parents=True, exist_ok=True)
+
+    call_order = []
+
+    class OrderedPreprocessor(object):
+        def get_or_build(self, task, clip_duration_s):
+            call_order.append("preprocess")
+            return {
+                "cache_hit": False,
+                "cache_dir": "cache/preprocess/fake",
+                "manifest": {},
+                "segments": [],
+                "summary": "A short summary.",
+                "video_fingerprint": "vid123",
+            }
+
+    runner.preprocessor = OrderedPreprocessor()
+    runner.planner = FakePlanner()
+    runner.executor = FakeExecutor()
+    runner.synthesizer = FakeSynthesizer()
+    runner.auditor = FakeAuditor()
+
+    def fake_preload():
+        call_order.append("preload")
+        return {
+            "enabled": True,
+            "requested_tools": ["dense_captioner"],
+            "loaded_models": [
+                {
+                    "tool_name": "dense_captioner",
+                    "runner_type": "penguin",
+                    "model_name": "tencent/Penguin-VL-8B",
+                    "resolved_model_path": "/models/penguin",
+                    "device_label": "cuda:1",
+                }
+            ],
+            "parallel_workers": 1,
+            "shared_tools": [],
+        }
+
+    runner.tool_registry.preload_persistent_models = fake_preload
+
+    task = TaskSpec(
+        benchmark="omnivideobench",
+        sample_key="sample1",
+        question="What is the answer?",
+        options=["A", "B"],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video")
+
+    runner.run_task(
+        task,
+        mode="generate",
+        max_rounds=1,
+        clip_duration_s=30.0,
+        results_name="rur_refiner_inputs",
+    )
+
+    assert call_order[:2] == ["preload", "preprocess"]
+
+
 def test_planner_agent_uses_prompt_based_request():
     llm_client = FakeLLMClient()
     planner = PlannerAgent(llm_client=llm_client, agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"))

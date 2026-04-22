@@ -1,13 +1,18 @@
 import pytest
 
 from video_trace_pipeline.common import traverse_path
-from video_trace_pipeline.schemas import ASRRequest, ClipRef, ExecutionPlan, FrameRetrieverRequest, TracePackage
+from video_trace_pipeline.schemas import ASRRequest, ClipRef, ExecutionPlan, FrameRetrieverRequest, OCRRequest, TracePackage
 from video_trace_pipeline.tools.base import ToolAdapter
 
 
 class DummyFrameRetrieverAdapter(ToolAdapter):
     name = "frame_retriever"
     request_model = FrameRetrieverRequest
+
+
+class DummyOCRAdapter(ToolAdapter):
+    name = "ocr"
+    request_model = OCRRequest
 
 
 def test_frame_retriever_accepts_clip():
@@ -64,6 +69,30 @@ def test_asr_request_accepts_multiple_clips():
 
     assert request.clip is None
     assert len(request.clips) == 2
+
+
+def test_ocr_request_prefers_specific_frame_inputs_over_clip_context():
+    adapter = DummyOCRAdapter()
+
+    request = adapter.parse_request(
+        {
+            "query": "read the chart values",
+            "clip": {"video_id": "video1", "start_s": 0.0, "end_s": 5.0},
+            "frames": [
+                {
+                    "video_id": "video1",
+                    "timestamp_s": 2.5,
+                    "clip": {"video_id": "video1", "start_s": 0.0, "end_s": 5.0},
+                    "metadata": {"source_path": "frame_00.png"},
+                }
+            ],
+        }
+    )
+
+    assert request.frame is not None
+    assert request.frames[0].timestamp_s == 2.5
+    assert request.clip is None
+    assert request.clips == []
 
 
 def test_clip_ref_validates_range():

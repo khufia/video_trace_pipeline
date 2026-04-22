@@ -146,12 +146,65 @@ def fallback_dependency_value(payload: Dict[str, Any], field_path: str) -> Any:
     return None
 
 
-def _hydrate_media_refs(value: Any, video_id: str) -> Any:
+def _normalize_clip_shorthand(value: Any, video_id: str, video_duration_s: float, field_hint: str | None) -> Any:
+    if field_hint not in {"clip", "clips"} or not isinstance(value, str):
+        return value
+    normalized = "_".join(str(value or "").strip().lower().replace("-", " ").split())
+    if normalized not in {"full_video", "whole_video", "entire_video"}:
+        return value
+    return {
+        "video_id": video_id,
+        "start_s": 0.0,
+        "end_s": max(0.0, float(video_duration_s or 0.0)),
+    }
+
+
+def _task_video_duration_s(task) -> float:
+    metadata = getattr(task, "metadata", {}) or {}
+    for key in ("video_duration", "video_duration_s", "duration_s", "duration"):
+        raw = metadata.get(key)
+        if raw in (None, ""):
+            continue
+        try:
+            return max(0.0, float(raw))
+        except Exception:
+            continue
+    video_path = str(getattr(task, "video_path", "") or "").strip()
+    if not video_path:
+        return 0.0
+    try:
+        from ..tools.media import get_video_duration
+
+        return max(0.0, float(get_video_duration(video_path) or 0.0))
+    except Exception:
+        return 0.0
+
+
+def _payload_uses_clip_shorthand(value: Any, field_hint: str | None = None) -> bool:
     if isinstance(value, list):
-        return [_hydrate_media_refs(item, video_id) for item in value]
+        return any(_payload_uses_clip_shorthand(item, field_hint) for item in value)
+    if isinstance(value, str) and field_hint in {"clip", "clips"}:
+        normalized = "_".join(str(value or "").strip().lower().replace("-", " ").split())
+        return normalized in {"full_video", "whole_video", "entire_video"}
+    if not isinstance(value, dict):
+        return False
+    for key, item in value.items():
+        child_hint = key if key in {"clip", "clips"} else field_hint
+        if _payload_uses_clip_shorthand(item, child_hint):
+            return True
+    return False
+
+
+def _hydrate_media_refs(value: Any, video_id: str, video_duration_s: float = 0.0, field_hint: str | None = None) -> Any:
+    if isinstance(value, list):
+        return [_hydrate_media_refs(item, video_id, video_duration_s, field_hint) for item in value]
+    value = _normalize_clip_shorthand(value, video_id, video_duration_s, field_hint)
     if not isinstance(value, dict):
         return value
-    hydrated = {key: _hydrate_media_refs(item, video_id) for key, item in value.items()}
+    hydrated = {}
+    for key, item in value.items():
+        child_hint = key if key in {"clip", "clips"} else field_hint
+        hydrated[key] = _hydrate_media_refs(item, video_id, video_duration_s, child_hint)
     has_clip_bounds = any(key in hydrated for key in ("start_s", "end_s", "time_start_s", "time_end_s"))
     if has_clip_bounds:
         if "start_s" not in hydrated and "time_start_s" in hydrated:
@@ -172,7 +225,8 @@ def hydrate_arguments_with_task_context(arguments: Dict[str, Any], task) -> Dict
     video_id = str(getattr(task, "video_id", None) or getattr(task, "sample_key", "")).strip()
     if not video_id:
         return dict(arguments or {})
-    hydrated = _hydrate_media_refs(dict(arguments or {}), video_id)
+    video_duration_s = _task_video_duration_s(task) if _payload_uses_clip_shorthand(arguments) else 0.0
+    hydrated = _hydrate_media_refs(dict(arguments or {}), video_id, video_duration_s)
     hydrated.setdefault("video_id", video_id)
     return hydrated
 
