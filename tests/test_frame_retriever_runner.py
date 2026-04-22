@@ -1,4 +1,7 @@
+import transformers.utils.generic as hf_generic
+
 from video_trace_pipeline.tool_wrappers import frame_retriever_runner
+from video_trace_pipeline.tool_wrappers import reference_adapter
 from video_trace_pipeline.schemas import ToolResult
 from video_trace_pipeline.tools.process_adapters import FrameRetrieverProcessAdapter
 
@@ -121,3 +124,17 @@ def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
     assert result.data["cache_metadata"]["embedding_cache_ready"] is True
     assert len(result.data["cache_groups"]) == 2
     assert result.metadata["dense_frame_cache_hit"] is True
+
+
+def test_reference_adapter_installs_check_model_inputs_compat(monkeypatch):
+    monkeypatch.delattr(hf_generic, "check_model_inputs", raising=False)
+
+    reference_adapter._install_transformers_generic_compat()
+
+    assert hasattr(hf_generic, "check_model_inputs")
+
+    @hf_generic.check_model_inputs
+    def _decorated(value):
+        return value
+
+    assert _decorated("ok") == "ok"

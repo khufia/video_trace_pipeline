@@ -43,8 +43,28 @@ def _ensure_reference_imports() -> Path:
     return eval_dir
 
 
+def _install_transformers_generic_compat() -> None:
+    try:
+        from transformers.utils import generic as hf_generic
+    except Exception:
+        return
+    if hasattr(hf_generic, "check_model_inputs"):
+        return
+
+    def check_model_inputs(func=None, *args, **kwargs):
+        if func is None:
+            def decorator(inner):
+                return inner
+
+            return decorator
+        return func
+
+    hf_generic.check_model_inputs = check_model_inputs
+
+
 _prime_reference_cache_env()
 _ensure_reference_imports()
+_install_transformers_generic_compat()
 
 from refiner_tools import RefinerToolsMixin  # type: ignore  # noqa: E402
 from refiner_utils import RefinerUtilsMixin  # type: ignore  # noqa: E402
