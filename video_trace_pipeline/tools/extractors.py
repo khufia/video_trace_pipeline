@@ -144,6 +144,7 @@ class ObservationExtractor(object):
         time_end_s: Optional[float] = None,
         frame_ts_s: Optional[float] = None,
         source_artifact_refs: Optional[List[str]] = None,
+        speaker_id: Optional[str] = None,
     ) -> List[AtomicObservation]:
         if self.atomicizer is None:
             return []
@@ -172,6 +173,7 @@ class ObservationExtractor(object):
                     time_end_s=time_end_s,
                     frame_ts_s=frame_ts_s,
                     source_artifact_refs=source_artifact_refs,
+                    speaker_id=speaker_id,
                     direct_or_derived="derived",
                 )
             )
@@ -225,58 +227,63 @@ class ObservationExtractor(object):
         return items
 
     def _from_asr(self, data: Dict[str, Any], artifact_ids: Optional[List[str]] = None) -> List[AtomicObservation]:
+        def _segment_observations(segment: Dict[str, Any], clip: Optional[Dict[str, Any]] = None) -> List[AtomicObservation]:
+            speaker = str(segment.get("speaker_id") or segment.get("speaker") or "unknown_speaker")
+            text = str(segment.get("text") or "").strip()
+            clip = dict(clip or {})
+            start = float(segment.get("start_s", segment.get("start", clip.get("start_s", 0.0))) or 0.0)
+            end = float(segment.get("end_s", segment.get("end", start)) or start)
+            if not text:
+                return []
+
+            items = []
+            sentence_parts = _sentence_chunks(text) or [text]
+            for part in sentence_parts:
+                chunk = str(part or "").strip()
+                if not chunk:
+                    continue
+                items.append(
+                    self._make_observation(
+                        "asr",
+                        subject=speaker,
+                        subject_type="speaker",
+                        predicate="said",
+                        object_text=chunk,
+                        object_type="utterance",
+                        atomic_text='%s said "%s" from %.2fs to %.2fs.' % (speaker, chunk, start, end),
+                        time_start_s=start,
+                        time_end_s=end,
+                        speaker_id=speaker,
+                        confidence=segment.get("confidence"),
+                        source_artifact_refs=artifact_ids,
+                    )
+                )
+
+            derived = self._llm_atomicize(
+                "asr",
+                text,
+                context_hint="ASR transcript from %.2fs to %.2fs by %s." % (start, end, speaker),
+                default_subject=speaker,
+                default_subject_type="speaker",
+                time_start_s=start,
+                time_end_s=end,
+                source_artifact_refs=artifact_ids,
+                speaker_id=speaker,
+            )
+            if derived:
+                items.extend(derived)
+            return items
+
         items = []
         transcripts = list(data.get("transcripts") or [])
         if transcripts:
             for transcript in transcripts:
                 clip = dict(transcript.get("clip") or {})
                 for segment in list(transcript.get("segments") or []):
-                    speaker = str(segment.get("speaker_id") or segment.get("speaker") or "unknown_speaker")
-                    text = str(segment.get("text") or "").strip()
-                    start = float(segment.get("start_s", segment.get("start", clip.get("start_s", 0.0))) or 0.0)
-                    end = float(segment.get("end_s", segment.get("end", start)) or start)
-                    if not text:
-                        continue
-                    items.append(
-                        self._make_observation(
-                            "asr",
-                            subject=speaker,
-                            subject_type="speaker",
-                            predicate="said",
-                            object_text=text,
-                            object_type="utterance",
-                            atomic_text='%s said "%s" from %.2fs to %.2fs.' % (speaker, text, start, end),
-                            time_start_s=start,
-                            time_end_s=end,
-                            speaker_id=speaker,
-                            confidence=segment.get("confidence"),
-                            source_artifact_refs=artifact_ids,
-                        )
-                    )
+                    items.extend(_segment_observations(segment, clip=clip))
             return items
         for segment in list(data.get("segments") or []):
-            speaker = str(segment.get("speaker_id") or segment.get("speaker") or "unknown_speaker")
-            text = str(segment.get("text") or "").strip()
-            start = float(segment.get("start_s", segment.get("start", 0.0)) or 0.0)
-            end = float(segment.get("end_s", segment.get("end", start)) or start)
-            if not text:
-                continue
-            items.append(
-                self._make_observation(
-                    "asr",
-                    subject=speaker,
-                    subject_type="speaker",
-                    predicate="said",
-                    object_text=text,
-                    object_type="utterance",
-                    atomic_text='%s said "%s" from %.2fs to %.2fs.' % (speaker, text, start, end),
-                    time_start_s=start,
-                    time_end_s=end,
-                    speaker_id=speaker,
-                    confidence=segment.get("confidence"),
-                    source_artifact_refs=artifact_ids,
-                )
-            )
+            items.extend(_segment_observations(segment))
         return items
 
     def _from_dense_caption(self, data: Dict[str, Any], artifact_ids: Optional[List[str]] = None) -> List[AtomicObservation]:

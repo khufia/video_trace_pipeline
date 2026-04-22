@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..prompts.templates import PLANNER_SYSTEM_PROMPT, build_planner_prompt
+from ..prompts.planner_prompt import PLANNER_SYSTEM_PROMPT, build_planner_prompt
 from ..schemas import ExecutionPlan
 
 

@@ -4,6 +4,7 @@ from typing import Dict
 
 from ..schemas import MachineProfile, ModelsConfig
 from ..storage import WorkspaceManager
+from ..tool_wrappers.persistent_pool import PersistentModelPool
 from .base import ToolAdapter
 from .local_asr import LocalASRAdapter
 from .process_adapters import (
@@ -27,11 +28,19 @@ def _request_field_names(model_cls) -> list[str]:
 
 
 class ToolRegistry(object):
-    def __init__(self, workspace: WorkspaceManager, profile: MachineProfile, models_config: ModelsConfig, llm_client=None):
+    def __init__(
+        self,
+        workspace: WorkspaceManager,
+        profile: MachineProfile,
+        models_config: ModelsConfig,
+        llm_client=None,
+        persist_tool_models=None,
+    ):
         self.workspace = workspace
         self.profile = profile
         self.models_config = models_config
         self.llm_client = llm_client
+        self.model_pool = PersistentModelPool(persist_tool_models)
         self.adapters = self._build_adapters()
 
     def _build_adapters(self) -> Dict[str, ToolAdapter]:
@@ -44,30 +53,35 @@ class ToolRegistry(object):
                     name=tool_name,
                     model_name=config.model or tool_name,
                     extra=config.extra,
+                    model_pool=self.model_pool,
                 )
             elif tool_name == "visual_temporal_grounder":
                 adapters[tool_name] = VisualTemporalGrounderProcessAdapter(
                     name=tool_name,
                     model_name=config.model or tool_name,
                     extra=config.extra,
+                    model_pool=self.model_pool,
                 )
             elif tool_name == "frame_retriever":
                 adapters[tool_name] = FrameRetrieverProcessAdapter(
                     name=tool_name,
                     model_name=config.model or tool_name,
                     extra=config.extra,
+                    model_pool=self.model_pool,
                 )
             elif tool_name == "ocr":
                 adapters[tool_name] = OCRProcessAdapter(
                     name=tool_name,
                     model_name=config.model or tool_name,
                     extra=config.extra,
+                    model_pool=self.model_pool,
                 )
             elif tool_name == "spatial_grounder":
                 adapters[tool_name] = SpatialGrounderProcessAdapter(
                     name=tool_name,
                     model_name=config.model or tool_name,
                     extra=config.extra,
+                    model_pool=self.model_pool,
                 )
             elif tool_name == "asr":
                 adapters[tool_name] = LocalASRAdapter(name=tool_name, extra=config.extra)
@@ -76,12 +90,14 @@ class ToolRegistry(object):
                     name=tool_name,
                     model_name=config.model or tool_name,
                     extra=config.extra,
+                    model_pool=self.model_pool,
                 )
             elif tool_name == "generic_purpose":
                 adapters[tool_name] = GenericPurposeProcessAdapter(
                     name=tool_name,
                     model_name=config.model or tool_name,
                     extra=config.extra,
+                    model_pool=self.model_pool,
                 )
             else:
                 raise ValueError("Unsupported tool %s" % tool_name)
@@ -107,7 +123,7 @@ class ToolRegistry(object):
         return tool_implementation(tool_name)
 
     def close(self) -> None:
-        return None
+        self.model_pool.close()
 
     def tool_catalog(self) -> Dict[str, Dict[str, object]]:
         catalog = {}

@@ -117,3 +117,55 @@ def test_plan_normalizer_maps_aliases_and_coerces_plural_fields_to_lists():
     normalized = normalizer.normalize(_task(), plan)
 
     assert normalized.steps[0].arguments == {"query": "Answer.", "text_contexts": ["line 1", "line 2"]}
+
+
+def test_plan_normalizer_preserves_additional_plural_aliases():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Normalize generic-purpose aliases.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="generic_purpose",
+                purpose="Use singular aliases for plural fields.",
+                arguments={"query": "Answer.", "text_context": "line 1", "evidence_id": "ev_1"},
+                input_refs=[],
+                depends_on=[],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    normalized = normalizer.normalize(_task(), plan)
+
+    assert normalized.steps[0].arguments == {
+        "evidence_ids": ["ev_1"],
+        "query": "Answer.",
+        "text_contexts": ["line 1"],
+    }
+
+
+def test_plan_normalizer_promotes_time_hint_bindings_to_time_hints():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Normalize frame retriever bindings.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="frame_retriever",
+                purpose="Use candidate time windows.",
+                arguments={"query": "Best frame."},
+                input_refs=[
+                    {"target_field": "time_hint", "source": {"step_id": 7, "field_path": "time_hints"}},
+                ],
+                depends_on=[7],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    normalized = normalizer.normalize(_task(), plan)
+
+    assert normalized.steps[0].input_refs[0].target_field == "time_hints"

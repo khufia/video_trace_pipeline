@@ -62,12 +62,18 @@ def _trace_from_initial_steps(task, steps: List[str]) -> TracePackage:
 
 
 class PipelineRunner(object):
-    def __init__(self, profile, models_config):
+    def __init__(self, profile, models_config, persist_tool_models: Optional[List[str]] = None):
         self.profile = profile
         self.models_config = models_config
         self.workspace = WorkspaceManager(profile)
         self.llm_client = OpenAIChatClient(profile, models_config)
-        self.tool_registry = ToolRegistry(self.workspace, profile, models_config, llm_client=self.llm_client)
+        self.tool_registry = ToolRegistry(
+            self.workspace,
+            profile,
+            models_config,
+            llm_client=self.llm_client,
+            persist_tool_models=persist_tool_models,
+        )
         self.preprocessor = DenseCaptionPreprocessor(self.workspace, self.tool_registry, models_config)
         self.executor = PlanExecutor(
             tool_registry=self.tool_registry,

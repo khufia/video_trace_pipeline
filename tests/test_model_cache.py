@@ -23,3 +23,13 @@ def test_describe_model_resolution_marks_missing(tmp_path):
     report = describe_model_resolution("Penguin-VL-8B", hf_cache=str(tmp_path / "hf"))
     assert report["status"] == "missing"
     assert report["resolved_path"] is None
+
+
+def test_resolve_model_snapshot_supports_qwen35_vl_alias(tmp_path):
+    cache_root = tmp_path / "huggingface"
+    repo_dir = cache_root / "models--Qwen--Qwen3.5-9B"
+    snapshot_path = _write_snapshot(repo_dir, snapshot_id="qwen35snapshot")
+
+    resolved = resolve_model_snapshot("Qwen/Qwen3.5-VL-9B-Instruct", hf_cache=str(cache_root))
+
+    assert resolved == snapshot_path.resolve()

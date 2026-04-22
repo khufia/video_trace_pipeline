@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple
 
 from ..common import extract_json_object
 from ..tools.media import get_video_duration
@@ -12,10 +12,14 @@ from .shared import (
     extracted_clip,
     iter_windows,
     merge_intervals,
+    resolve_generation_controls,
     resolve_model_path,
     resolved_device_label,
     summarize_intervals,
 )
+
+if TYPE_CHECKING:
+    from .persistent_pool import PersistentModelPool
 
 
 def _window_candidates(raw_text: str, *, window_start_s: float) -> List[Dict[str, Any]]:
@@ -181,8 +185,7 @@ def _prefilter_windows(
                 pass
 
 
-def main() -> None:
-    payload = load_request()
+def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPool | None" = None) -> Dict[str, Any]:
     request = dict(payload.get("request") or {})
     task = dict(payload.get("task") or {})
     runtime = dict(payload.get("runtime") or {})
@@ -199,6 +202,7 @@ def main() -> None:
     window_s = float((runtime.get("extra") or {}).get("clip_duration_s") or 60.0)
     sample_fps = float((runtime.get("extra") or {}).get("fps") or 2.0)
     max_new_tokens = int((runtime.get("extra") or {}).get("max_new_tokens") or 256)
+    generation = resolve_generation_controls(runtime)
     duration_s = float(get_video_duration(video_path) or 0.0)
     video_id = str(task.get("video_id") or task.get("sample_key") or "")
     top_k = max(1, int(request.get("top_k") or 5))
@@ -211,7 +215,24 @@ def main() -> None:
         top_k=top_k,
     )
 
-    runner = QwenStyleRunner(model_path=model_path, device_label=device_label)
+    runner = None
+    owns_runner = False
+    if runner_pool is not None:
+        runner = runner_pool.acquire_qwen_style_runner(
+            tool_name="visual_temporal_grounder",
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+        )
+    if runner is None:
+        runner = QwenStyleRunner(
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+        )
+        owns_runner = True
     try:
         raw_candidates: List[Dict[str, Any]] = []
         for window_start_s, window_end_s in candidate_windows:
@@ -256,19 +277,22 @@ def main() -> None:
                     },
                 }
             )
-        emit_json(
-            {
-                "query": query,
-                "clips": clips,
-                "video_duration": duration_s,
-                "retrieval_backend": "timelens_transformers",
-                "query_absent": not bool(clips),
-                "summary": summarize_intervals([(item["start_s"], item["end_s"]) for item in clips]),
-                "prefilter": prefilter_metadata,
-            }
-        )
+        return {
+            "query": query,
+            "clips": clips,
+            "video_duration": duration_s,
+            "retrieval_backend": "timelens_transformers",
+            "query_absent": not bool(clips),
+            "summary": summarize_intervals([(item["start_s"], item["end_s"]) for item in clips]),
+            "prefilter": prefilter_metadata,
+        }
     finally:
-        runner.close()
+        if owns_runner:
+            runner.close()
+
+
+def main() -> None:
+    emit_json(execute_payload(load_request()))
 
 
 if __name__ == "__main__":

@@ -1,11 +1,14 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List
 
 from ..common import extract_json_object
-from .local_multimodal import make_penguin_conversation, run_penguin_messages
+from .local_multimodal import PenguinRunner, make_penguin_conversation
 from .protocol import emit_json, fail_runtime, load_request
-from .shared import resolve_model_path, resolved_device_label, sample_request_frames, scratch_dir
+from .shared import resolve_generation_controls, resolve_model_path, resolved_device_label, sample_request_frames, scratch_dir
+
+if TYPE_CHECKING:
+    from .persistent_pool import PersistentModelPool
 
 
 def _normalize_span(raw: Dict[str, Any], *, start_s: float, end_s: float) -> Dict[str, Any]:
@@ -29,8 +32,7 @@ def _normalize_span(raw: Dict[str, Any], *, start_s: float, end_s: float) -> Dic
     }
 
 
-def main() -> None:
-    payload = load_request()
+def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPool | None" = None) -> Dict[str, Any]:
     request = dict(payload.get("request") or {})
     task = dict(payload.get("task") or {})
     runtime = dict(payload.get("runtime") or {})
@@ -56,6 +58,7 @@ def main() -> None:
 
     focus_query = str(request.get("focus_query") or "").strip()
     granularity = str(request.get("granularity") or "segment").strip()
+    generation = resolve_generation_controls(runtime)
     prompt = (
         "You are a dense captioning model for a chronological sample of frames from one video clip.\n"
         "Return JSON only with keys: captions, overall_summary.\n"
@@ -68,12 +71,32 @@ def main() -> None:
         f"Granularity: {granularity}\n"
         f"Focus query: {focus_query or '<none>'}"
     )
-    raw_text = run_penguin_messages(
-        model_path=model_path,
-        conversation=make_penguin_conversation(prompt, [item["frame_path"] for item in sampled]),
-        device_label=device_label,
-        max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 700),
-    )
+    runner = None
+    owns_runner = False
+    if runner_pool is not None:
+        runner = runner_pool.acquire_penguin_runner(
+            tool_name="dense_captioner",
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+        )
+    if runner is None:
+        runner = PenguinRunner(
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+        )
+        owns_runner = True
+    try:
+        raw_text = runner.generate(
+            make_penguin_conversation(prompt, [item["frame_path"] for item in sampled]),
+            max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 700),
+        )
+    finally:
+        if owns_runner:
+            runner.close()
     parsed = extract_json_object(raw_text) or {}
     captions = parsed.get("captions") if isinstance(parsed.get("captions"), list) else []
     if not captions:
@@ -90,16 +113,18 @@ def main() -> None:
             }
         ]
 
-    emit_json(
-        {
-            "clip": clip,
-            "captioned_range": {"start_s": start_s, "end_s": end_s},
-            "captions": [_normalize_span(item, start_s=start_s, end_s=end_s) for item in captions],
-            "overall_summary": str(parsed.get("overall_summary") or raw_text or "").strip(),
-            "sampled_frames": sampled,
-            "backend": "penguin_vl_transformers",
-        }
-    )
+    return {
+        "clip": clip,
+        "captioned_range": {"start_s": start_s, "end_s": end_s},
+        "captions": [_normalize_span(item, start_s=start_s, end_s=end_s) for item in captions],
+        "overall_summary": str(parsed.get("overall_summary") or raw_text or "").strip(),
+        "sampled_frames": sampled,
+        "backend": "penguin_vl_transformers",
+    }
+
+
+def main() -> None:
+    emit_json(execute_payload(load_request()))
 
 
 if __name__ == "__main__":

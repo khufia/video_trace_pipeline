@@ -97,6 +97,30 @@ def move_batch_to_device(batch: Any, device_label: str):
     return batch
 
 
+def resolve_generation_controls(runtime: Dict[str, Any]) -> Dict[str, Any]:
+    extra = dict(runtime.get("extra") or {})
+    do_sample = bool(extra.get("do_sample")) if "do_sample" in extra else False
+
+    raw_temperature = extra.get("temperature")
+    temperature = None
+    if raw_temperature not in (None, ""):
+        try:
+            temperature = float(raw_temperature)
+        except Exception:
+            temperature = None
+
+    if temperature is not None and temperature <= 0.0:
+        do_sample = False
+        temperature = None
+    if not do_sample:
+        temperature = None
+
+    return {
+        "do_sample": bool(do_sample),
+        "temperature": temperature,
+    }
+
+
 def resolve_model_path(model_name: str, runtime: Dict[str, Any], allow_download: bool = False) -> str:
     requested = str(model_name or "").strip()
     if not requested:

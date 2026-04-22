@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, Optional, Type, get_origin
 
 from pydantic import BaseModel
 
@@ -14,6 +14,33 @@ def _request_model_field_names(model_cls) -> set:
     if hasattr(model_cls, "__fields__"):
         return set(getattr(model_cls, "__fields__").keys())
     return set()
+
+
+def _request_model_list_field_names(model_cls) -> set:
+    list_fields = set()
+    if hasattr(model_cls, "model_fields"):
+        for name, field_info in dict(getattr(model_cls, "model_fields") or {}).items():
+            if get_origin(getattr(field_info, "annotation", None)) is list:
+                list_fields.add(name)
+        return list_fields
+    if hasattr(model_cls, "__fields__"):
+        for name, field_info in dict(getattr(model_cls, "__fields__") or {}).items():
+            if get_origin(getattr(field_info, "outer_type_", None)) is list:
+                list_fields.add(name)
+    return list_fields
+
+
+def _coerce_request_list_value(value: Any) -> list:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return list(value)
+    if isinstance(value, tuple):
+        return list(value)
+    if isinstance(value, str):
+        rendered = value.strip()
+        return [rendered] if rendered else []
+    return [value]
 
 
 def _normalize_request_payload(payload: Dict[str, Any], request_model: Type[BaseModel]) -> Dict[str, Any]:
@@ -122,6 +149,10 @@ def _normalize_request_payload(payload: Dict[str, Any], request_model: Type[Base
                     "start_s": start_s,
                     "end_s": end_s,
                 }
+    for field_name in _request_model_list_field_names(request_model):
+        if field_name not in normalized:
+            continue
+        normalized[field_name] = _coerce_request_list_value(normalized.get(field_name))
     return normalized
 
 

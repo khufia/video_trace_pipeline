@@ -1,11 +1,14 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List
 
 from ..common import extract_json_object
-from .local_multimodal import make_qwen_image_messages, run_qwen_style_messages
+from .local_multimodal import QwenStyleRunner, make_qwen_image_messages
 from .protocol import emit_json, fail_runtime, load_request
-from .shared import absolute_frame_path, resolve_model_path, resolved_device_label
+from .shared import absolute_frame_path, resolve_generation_controls, resolve_model_path, resolved_device_label
+
+if TYPE_CHECKING:
+    from .persistent_pool import PersistentModelPool
 
 
 def _build_prompt(request: Dict[str, Any]) -> str:
@@ -53,8 +56,7 @@ def _normalize_detections(raw_items: Any, default_label: str) -> List[Dict[str, 
     return detections
 
 
-def main() -> None:
-    payload = load_request()
+def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPool | None" = None) -> Dict[str, Any]:
     request = dict(payload.get("request") or {})
     runtime = dict(payload.get("runtime") or {})
 
@@ -70,25 +72,47 @@ def main() -> None:
     model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
     device_label = resolved_device_label(runtime)
     prompt = _build_prompt(request)
-
-    raw_text = run_qwen_style_messages(
-        model_path=model_path,
-        messages=make_qwen_image_messages(prompt, [frame_path]),
-        device_label=device_label,
-        max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 384),
-    )
+    generation = resolve_generation_controls(runtime)
+    runner = None
+    owns_runner = False
+    if runner_pool is not None:
+        runner = runner_pool.acquire_qwen_style_runner(
+            tool_name="spatial_grounder",
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+        )
+    if runner is None:
+        runner = QwenStyleRunner(
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+        )
+        owns_runner = True
+    try:
+        raw_text = runner.generate(
+            make_qwen_image_messages(prompt, [frame_path]),
+            max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 384),
+        )
+    finally:
+        if owns_runner:
+            runner.close()
     parsed = extract_json_object(raw_text) or {}
     detections = _normalize_detections(parsed.get("detections") or [], query)
-    emit_json(
-        {
-            "query": query,
-            "timestamp_s": frame_payload.get("timestamp_s") or frame_payload.get("timestamp"),
-            "detections": detections,
-            "spatial_description": str(parsed.get("spatial_description") or raw_text).strip(),
-            "source_frame_path": frame_path,
-            "backend": str(runtime.get("model_name") or "").strip(),
-        }
-    )
+    return {
+        "query": query,
+        "timestamp_s": frame_payload.get("timestamp_s") or frame_payload.get("timestamp"),
+        "detections": detections,
+        "spatial_description": str(parsed.get("spatial_description") or raw_text).strip(),
+        "source_frame_path": frame_path,
+        "backend": str(runtime.get("model_name") or "").strip(),
+    }
+
+
+def main() -> None:
+    emit_json(execute_payload(load_request()))
 
 
 if __name__ == "__main__":

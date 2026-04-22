@@ -95,3 +95,35 @@ def test_model_report_tracks_auxiliary_models(tmp_path):
     assert entry["model_resolution_status"] == "ok"
     assert entry["auxiliary_models"][0]["field"] == "reranker_model"
     assert entry["auxiliary_models"][0]["status"] == "ok"
+
+
+def test_model_report_uses_current_planned_qwen_vl_model(tmp_path):
+    vl_model = tmp_path / "vl_model"
+    vl_model.mkdir()
+    profile = MachineProfile(
+        workspace_root=str(tmp_path / "workspace"),
+        hf_cache=str(tmp_path / "hf"),
+        agent_endpoints={"default": ApiEndpointConfig(base_url="https://api.openai.com/v1", api_key="sk-test")},
+    )
+    models = ModelsConfig(
+        agents={"planner": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default")},
+        tools={
+            "generic_purpose": ToolConfig(
+                enabled=True,
+                model="Qwen/Qwen3.5-9B",
+                extra={"command": ["python3", "-m", "video_trace_pipeline.tool_wrappers.qwen35vl_runner"]},
+            ),
+            "spatial_grounder": ToolConfig(
+                enabled=True,
+                model="Qwen/Qwen3.5-9B",
+                extra={"command": ["python3", "-m", "video_trace_pipeline.tool_wrappers.spatial_grounder_runner"]},
+            ),
+        },
+    )
+
+    report = model_report(profile, models)
+    by_name = {(item["kind"], item["name"]): item for item in report}
+    assert by_name[("tool", "generic_purpose")]["expected_model"] == "Qwen/Qwen3.5-9B"
+    assert by_name[("tool", "generic_purpose")]["plan_status"] == "planned"
+    assert by_name[("tool", "spatial_grounder")]["expected_model"] == "Qwen/Qwen3.5-9B"
+    assert by_name[("tool", "spatial_grounder")]["plan_status"] == "planned"

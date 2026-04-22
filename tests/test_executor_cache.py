@@ -236,6 +236,63 @@ def test_executor_reuses_shared_cache(tmp_path):
     assert adapter.calls == 1
 
 
+def test_executor_writes_runtime_file_for_process_style_adapters(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    adapter = FakeAdapter()
+    adapter._runtime_payload = lambda context: {
+        "model_name": "TencentARC/TimeLens-8B",
+        "resolved_model_path": "/tmp/timelens-model",
+    }
+    executor = PlanExecutor(
+        tool_registry=FakeRegistry({"visual_temporal_grounder": adapter}),
+        evidence_cache=SharedEvidenceCache(workspace),
+        extractor=ObservationExtractor(),
+        models_config=_models_config(),
+    )
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="When does the event happen?",
+        options=[],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video-bytes")
+    run = workspace.create_run(task)
+    ledger = EvidenceLedger(run)
+    context = ToolExecutionContext(
+        workspace=workspace,
+        run=run,
+        task=task,
+        models_config=_models_config(),
+        preprocess_bundle={"segments": []},
+    )
+    plan = ExecutionPlan(
+        strategy="Locate the event.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="visual_temporal_grounder",
+                purpose="Find the event.",
+                arguments={"tool_name": "visual_temporal_grounder", "query": "goal"},
+                input_refs=[],
+                depends_on=[],
+            )
+        ],
+        refinement_instructions="",
+    )
+
+    executor.execute_plan(plan, context, ledger, video_fingerprint="abc123")
+
+    runtime_file = run.tool_step_dir(1, "visual_temporal_grounder") / "runtime.json"
+    request_full_file = run.tool_step_dir(1, "visual_temporal_grounder") / "request_full.json"
+    assert request_full_file.exists()
+    assert '"query": "goal"' in request_full_file.read_text(encoding="utf-8")
+    assert runtime_file.exists()
+    assert '"resolved_model_path": "/tmp/timelens-model"' in runtime_file.read_text(encoding="utf-8")
+
+
 def test_executor_resolves_clip_alias_and_numeric_path(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     workspace = WorkspaceManager(profile)
@@ -574,3 +631,31 @@ def test_executor_merges_duplicate_input_refs_for_plural_targets(tmp_path):
     resolved_text = executor._resolve_arguments(text_step, text_outputs)
 
     assert resolved_text["text_contexts"] == ["line one", "line two"]
+
+
+def test_resolve_arguments_wraps_single_scalar_binding_for_plural_target(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    executor = PlanExecutor(
+        tool_registry=FakeRegistry({}),
+        evidence_cache=SharedEvidenceCache(workspace),
+        extractor=ObservationExtractor(),
+        models_config=_models_config(),
+    )
+    text_step = PlanStep(
+        step_id=9,
+        tool_name="generic_purpose",
+        purpose="Keep OCR text list-shaped for the request model.",
+        arguments={"query": "goal"},
+        input_refs=[
+            {"target_field": "text_contexts", "source": {"step_id": 1, "field_path": "text"}},
+        ],
+        depends_on=[1],
+    )
+    text_outputs = {
+        1: {"text": "line one"},
+    }
+
+    resolved_text = executor._resolve_arguments(text_step, text_outputs)
+
+    assert resolved_text["text_contexts"] == ["line one"]

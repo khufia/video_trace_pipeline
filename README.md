@@ -15,6 +15,13 @@ The pipeline is organized around:
 - native in-repo tool backends
 - a readable evidence ledger backed by JSON/JSONL/Markdown plus a SQLite evidence database on disk
 
+Prompt definitions now live in separate files under `video_trace_pipeline/prompts/`:
+
+- `planner_prompt.py`
+- `trace_synthesizer_prompt.py`
+- `trace_auditor_prompt.py`
+- `atomicizer_prompt.py`
+
 ## Layout
 
 ```text
@@ -59,11 +66,11 @@ The environment created on this machine is:
 Two configs are provided:
 
 - `configs/models.yaml`
-  This is the planned production-style stack. It wires the pipeline to explicit backends for `TimeLens-8B`, `SpotSound`, `Penguin-VL-8B`, `olmOCR-2-7B`, and `Qwen3.5-VL-9B` through command-backed adapters.
+  This is the planned production-style stack. It wires the pipeline to explicit backends for `TimeLens-8B`, `SpotSound`, `Penguin-VL-8B`, `olmOCR-2-7B`, and the currently configured Qwen multimodal checkpoints through command-backed adapters.
 - `configs/models.tool_servers.example.yaml`
   This mirrors the production tool-server wiring and is kept as a reference/example copy.
 
-The command-backed adapters expect a wrapper to read a JSON request on stdin and return JSON on stdout. The repo now includes scaffold entrypoints under [`video_trace_pipeline/tool_wrappers/`](/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/video_trace_pipeline/tool_wrappers) so the request/response contract is explicit; you can replace those scaffolds with direct launches into TimeLens, SpotSound, Penguin-VL, olmOCR, or Qwen3.5-VL.
+The command-backed adapters expect a wrapper to read a JSON request on stdin and return JSON on stdout. The repo now includes scaffold entrypoints under [`video_trace_pipeline/tool_wrappers/`](/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/video_trace_pipeline/tool_wrappers) so the request/response contract is explicit; you can replace those scaffolds with direct launches into TimeLens, SpotSound, Penguin-VL, olmOCR, or whichever Qwen multimodal checkpoint you standardize on.
 
 ## Evidence DB
 

@@ -117,7 +117,7 @@ tools:
     enabled: true
     description: Bounding-box localization inside a retrieved frame using the local Qwen multimodal backend.
     prompt_version: tool_v2
-    model: Qwen/Qwen3-VL-8B-Instruct
+    model: Qwen/Qwen3.5-9B
     extra:
       command:
         - python3
@@ -128,8 +128,8 @@ tools:
       do_sample: false
   generic_purpose:
     enabled: true
-    description: Production generic extractor using Qwen3-VL-8B-Instruct with optional evidence-db context.
-    model: Qwen/Qwen3-VL-8B-Instruct
+    description: Production generic extractor using Qwen3.5-9B with optional evidence-db context.
+    model: Qwen/Qwen3.5-9B
     prompt_version: tool_v2
     extra:
       command:

@@ -30,7 +30,9 @@ _TOOL_ARGUMENT_ALIASES = {
     },
     "generic_purpose": {
         "evidence": "text_contexts",
+        "evidence_id": "evidence_ids",
         "text": "text_contexts",
+        "text_context": "text_contexts",
         "texts": "text_contexts",
         "ocr_text": "text_contexts",
         "ocr_texts": "text_contexts",
@@ -44,6 +46,7 @@ _LIST_FIELDS = {
     "transcripts",
     "text_contexts",
     "evidence_ids",
+    "time_hints",
 }
 
 
@@ -118,7 +121,9 @@ class ExecutionPlanNormalizer(object):
             "frame": "frames",
             "region": "regions",
             "transcript": "transcripts",
+            "time_hint": "time_hints",
             "text_context": "text_contexts",
+            "evidence_id": "evidence_ids",
         }
         if field_name in plural_map and source_tail.endswith("s") and plural_map[field_name] in allowed_fields:
             return plural_map[field_name]

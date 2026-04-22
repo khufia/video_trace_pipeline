@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
 
@@ -155,11 +157,14 @@ class LiveRunReporter(object):
         step_dir: Optional[str] = None,
     ):
         summary = _short_text(result_payload.get("summary") or "", limit=280)
+        metadata = dict(result_payload.get("metadata") or {})
         parts = [
             "status=%s" % ("ok" if result_payload.get("ok", True) else "error"),
-            "cache_hit=%s" % bool(result_payload.get("cache_hit")),
+            "result_cache_hit=%s" % bool(result_payload.get("cache_hit")),
             "observations=%s" % len(list(observations or [])),
         ]
+        if metadata.get("dense_frame_cache_hit") is not None:
+            parts.append("frame_cache_hit=%s" % bool(metadata.get("dense_frame_cache_hit")))
         confidence = _format_confidence(result_payload)
         if confidence:
             parts.append("confidence=%s" % confidence)
@@ -187,6 +192,21 @@ class LiveRunReporter(object):
                         suffix,
                     )
                 )
+        if any(
+            key in metadata
+            for key in ("dense_frame_count", "bounded_frame_count", "dense_frame_cache_hit", "embedding_cache_ready")
+        ):
+            parts = []
+            if metadata.get("dense_frame_count") is not None:
+                parts.append("dense_frames=%s" % int(metadata["dense_frame_count"]))
+            if metadata.get("bounded_frame_count") is not None:
+                parts.append("bounded_frames=%s" % int(metadata["bounded_frame_count"]))
+            if metadata.get("dense_frame_cache_hit") is not None:
+                parts.append("frame_cache_hit=%s" % bool(metadata["dense_frame_cache_hit"]))
+            if metadata.get("embedding_cache_ready") is not None:
+                parts.append("embedding_cache_ready=%s" % bool(metadata["embedding_cache_ready"]))
+            if parts:
+                self.console.print("frame_cache: %s" % " | ".join(parts))
         for item in list(observations or [])[:4]:
             atomic_text = _short_text(item.get("atomic_text") or "", limit=220)
             if atomic_text:
@@ -196,6 +216,25 @@ class LiveRunReporter(object):
                 self.console.print("  - %s%s" % (prefix, atomic_text))
         if step_dir:
             self.console.print("step_dir: %s" % step_dir)
+            self.console.print("request_file: %s" % str(Path(step_dir) / "request.json"))
+            request_full_file = Path(step_dir) / "request_full.json"
+            if request_full_file.exists():
+                self.console.print("request_full_file: %s" % str(request_full_file))
+            runtime_file = Path(step_dir) / "runtime.json"
+            if runtime_file.exists():
+                self.console.print("runtime_file: %s" % str(runtime_file))
+                try:
+                    runtime_payload = json.loads(runtime_file.read_text(encoding="utf-8"))
+                except Exception:
+                    runtime_payload = {}
+                requested_model = str(runtime_payload.get("model_name") or "").strip()
+                resolved_model_path = str(runtime_payload.get("resolved_model_path") or "").strip()
+                if requested_model and resolved_model_path:
+                    self.console.print("model: %s -> %s" % (requested_model, resolved_model_path))
+                elif requested_model:
+                    self.console.print("model: %s" % requested_model)
+                elif resolved_model_path:
+                    self.console.print("model_path: %s" % resolved_model_path)
 
     def on_trace(self, *, round_index: int, trace_payload: Dict[str, Any], trace_dir: Optional[str] = None):
         self.console.print("")

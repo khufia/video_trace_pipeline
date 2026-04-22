@@ -8,6 +8,7 @@ from typing import Dict, Iterable, List, Optional
 _MODEL_ALIASES = {
     "large-v3": "Systran/faster-whisper-large-v3",
     "small": "Systran/faster-whisper-small",
+    "Qwen/Qwen3.5-VL-9B-Instruct": "Qwen/Qwen3.5-9B",
 }
 
 

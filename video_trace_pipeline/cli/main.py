@@ -15,6 +15,7 @@ from ..orchestration import PipelineRunner
 from ..renderers import export_trace_for_benchmark
 from ..schemas import TaskSpec, TracePackage
 from ..storage import EvidenceLedger, RunContext, WorkspaceManager
+from ..tool_wrappers.persistent_pool import normalize_persist_tool_name
 from .progress import LiveRunReporter
 
 app = typer.Typer(help="Video Trace Pipeline CLI")
@@ -22,10 +23,15 @@ console = Console()
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
-def _load_runner(profile: str, models: str, workspace_root: Optional[str] = None) -> PipelineRunner:
+def _load_runner(
+    profile: str,
+    models: str,
+    workspace_root: Optional[str] = None,
+    persist_tool_models: Optional[List[str]] = None,
+) -> PipelineRunner:
     machine_profile = load_machine_profile(profile, workspace_root=workspace_root)
     models_config = load_models_config(models)
-    return PipelineRunner(machine_profile, models_config)
+    return PipelineRunner(machine_profile, models_config, persist_tool_models=persist_tool_models)
 
 
 def _parse_options(options_text: Optional[str]) -> List[str]:
@@ -63,6 +69,33 @@ def _parse_steps(steps_text: Optional[str]) -> Optional[List[str]]:
         values = [item.strip() for item in raw.split("||") if item.strip()]
         return values or None
     return [raw]
+
+
+def _parse_tool_names(tool_names_text: Optional[str]) -> List[str]:
+    raw = str(tool_names_text or "").strip()
+    if not raw:
+        return []
+    try:
+        parsed = json.loads(raw)
+    except Exception:
+        parsed = None
+    if isinstance(parsed, list):
+        values = [str(item).strip() for item in parsed if str(item).strip()]
+    elif isinstance(parsed, dict):
+        values = [str(value).strip() for _, value in sorted(parsed.items()) if str(value).strip()]
+    elif "||" in raw:
+        values = [item.strip() for item in raw.split("||") if item.strip()]
+    else:
+        values = [raw]
+    normalized = []
+    seen = set()
+    for item in values:
+        name = normalize_persist_tool_name(item)
+        if not name or name in seen:
+            continue
+        seen.add(name)
+        normalized.append(name)
+    return normalized
 
 
 def _read_inputs_sample(inputs_json: str, input_index: int) -> dict:
@@ -354,8 +387,18 @@ def preprocess(
     input_index: Optional[int] = typer.Option(None, help="Sample index inside `inputs_json`"),
     clip_duration: float = typer.Option(30.0, help="Dense-caption clip duration in seconds"),
     workspace_root: Optional[str] = typer.Option(None, help="Override workspace root"),
+    persist_tool_models: Optional[str] = typer.Option(
+        None,
+        "--persist-tool-models",
+        help="Tool names as a JSON list or `||`-separated string to keep loaded on GPU during this CLI run",
+    ),
 ):
-    runner = _load_runner(profile=profile, models=models, workspace_root=workspace_root)
+    runner = _load_runner(
+        profile=profile,
+        models=models,
+        workspace_root=workspace_root,
+        persist_tool_models=_parse_tool_names(persist_tool_models),
+    )
     try:
         tasks = _load_tasks(
             runner,
@@ -408,9 +451,19 @@ def run(
     initial_trace_path: Optional[str] = typer.Option(None, help="Optional initial trace package JSON"),
     results_name: Optional[str] = typer.Option(None, help="Optional repo-local results directory name"),
     workspace_root: Optional[str] = typer.Option(None, help="Override workspace root"),
+    persist_tool_models: Optional[str] = typer.Option(
+        None,
+        "--persist-tool-models",
+        help="Tool names as a JSON list or `||`-separated string to keep loaded on GPU during this CLI run",
+    ),
     show_progress: bool = typer.Option(True, "--show-progress/--no-show-progress", help="Print live planner/tool/trace/auditor updates"),
 ):
-    runner = _load_runner(profile=profile, models=models, workspace_root=workspace_root)
+    runner = _load_runner(
+        profile=profile,
+        models=models,
+        workspace_root=workspace_root,
+        persist_tool_models=_parse_tool_names(persist_tool_models),
+    )
     try:
         progress_reporter = LiveRunReporter(console) if show_progress else None
         tasks = _load_tasks(

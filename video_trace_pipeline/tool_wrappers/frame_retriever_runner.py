@@ -50,6 +50,7 @@ def main() -> None:
     )
     try:
         frame_items, _ = harness._list_dense_frame_paths(harness.dataset_folder, harness.video_path)
+        dense_frame_cache_hit = bool(frame_items)
         if not frame_items:
             harness._ensure_dense_frames()
             frame_items, _ = harness._list_dense_frame_paths(harness.dataset_folder, harness.video_path)
@@ -61,6 +62,7 @@ def main() -> None:
             }
             for frame_path in frame_items
         ]
+        embedding_cache_ready = bool(harness._precompute_frame_embeddings_cache(candidates))
         bounded = [
             item for item in candidates if clip_start_s <= float(item["timestamp"]) <= clip_end_s
         ] or candidates
@@ -100,6 +102,12 @@ def main() -> None:
                 "query": query or None,
                 "frames": frames,
                 "mode": "clip_bounded",
+                "cache_metadata": {
+                    "dense_frame_cache_hit": dense_frame_cache_hit,
+                    "dense_frame_count": len(candidates),
+                    "bounded_frame_count": len(bounded),
+                    "embedding_cache_ready": embedding_cache_ready,
+                },
                 "rationale": (
                     "Frames were ranked within the requested clip using the configured Qwen visual embedder."
                     if query

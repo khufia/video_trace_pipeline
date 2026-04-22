@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import contextlib
 import sys
 from typing import Any, Dict, List, Sequence
@@ -28,26 +29,90 @@ def _qwen_style_model(model_path: str, device_label: str):
     ).to(device_label).eval()
 
 
+def _normalize_generation_controls(*, do_sample: bool, temperature: float | None) -> tuple[bool, float | None]:
+    normalized_do_sample = bool(do_sample)
+    normalized_temperature = None if temperature is None else float(temperature)
+    if normalized_temperature is not None and normalized_temperature <= 0.0:
+        normalized_do_sample = False
+        normalized_temperature = None
+    if not normalized_do_sample:
+        normalized_temperature = None
+    return normalized_do_sample, normalized_temperature
+
+
+def _apply_generation_controls(model: Any, *, do_sample: bool, temperature: float | None) -> Dict[str, Any]:
+    normalized_do_sample, normalized_temperature = _normalize_generation_controls(
+        do_sample=do_sample,
+        temperature=temperature,
+    )
+    generation_kwargs: Dict[str, Any] = {"do_sample": normalized_do_sample}
+    if normalized_do_sample and normalized_temperature is not None:
+        generation_kwargs["temperature"] = normalized_temperature
+
+    generation_config = getattr(model, "generation_config", None)
+    if generation_config is not None:
+        configured = copy.deepcopy(generation_config)
+        configured.do_sample = normalized_do_sample
+        if normalized_do_sample:
+            if normalized_temperature is not None:
+                configured.temperature = normalized_temperature
+        else:
+            # Clear sampling-only fields so Transformers does not warn about
+            # checkpoint defaults while we are forcing deterministic decoding.
+            for field_name in (
+                "temperature",
+                "top_k",
+                "top_p",
+                "min_p",
+                "typical_p",
+                "epsilon_cutoff",
+                "eta_cutoff",
+            ):
+                if hasattr(configured, field_name):
+                    setattr(configured, field_name, None)
+        model.generation_config = configured
+    return generation_kwargs
+
+
 class QwenStyleRunner:
-    def __init__(self, *, model_path: str, device_label: str):
+    def __init__(
+        self,
+        *,
+        model_path: str,
+        device_label: str,
+        processor_use_fast: bool | None = None,
+        processor_model_path: str | None = None,
+        generate_do_sample: bool = False,
+        generate_temperature: float | None = None,
+    ):
         from transformers import AutoProcessor
 
         self.model_path = model_path
         self.device_label = device_label
+        processor_source = str(processor_model_path or model_path)
+        processor_kwargs: Dict[str, Any] = {
+            "trust_remote_code": True,
+            "local_files_only": True,
+        }
+        if processor_use_fast is not None:
+            processor_kwargs["use_fast"] = bool(processor_use_fast)
         try:
             self.processor = AutoProcessor.from_pretrained(
-                model_path,
-                trust_remote_code=True,
+                processor_source,
                 padding_side="left",
-                local_files_only=True,
+                **processor_kwargs,
             )
         except Exception:
             self.processor = AutoProcessor.from_pretrained(
-                model_path,
-                trust_remote_code=True,
-                local_files_only=True,
+                processor_source,
+                **processor_kwargs,
             )
         self.model = _qwen_style_model(model_path, device_label)
+        self.generate_kwargs = _apply_generation_controls(
+            self.model,
+            do_sample=generate_do_sample,
+            temperature=generate_temperature,
+        )
 
     def generate(self, messages: List[Dict[str, Any]], *, max_new_tokens: int) -> str:
         from qwen_vl_utils import process_vision_info
@@ -98,8 +163,8 @@ class QwenStyleRunner:
         batch = move_batch_to_device(batch, self.device_label)
         outputs = self.model.generate(
             **batch,
-            do_sample=False,
             max_new_tokens=max(32, int(max_new_tokens)),
+            **self.generate_kwargs,
         )
         input_ids = getattr(batch, "input_ids", None)
         if input_ids is None and isinstance(batch, dict):
@@ -123,8 +188,19 @@ def run_qwen_style_messages(
     messages: List[Dict[str, Any]],
     device_label: str,
     max_new_tokens: int,
+    processor_use_fast: bool | None = None,
+    processor_model_path: str | None = None,
+    generate_do_sample: bool = False,
+    generate_temperature: float | None = None,
 ) -> str:
-    runner = QwenStyleRunner(model_path=model_path, device_label=device_label)
+    runner = QwenStyleRunner(
+        model_path=model_path,
+        device_label=device_label,
+        processor_use_fast=processor_use_fast,
+        processor_model_path=processor_model_path,
+        generate_do_sample=generate_do_sample,
+        generate_temperature=generate_temperature,
+    )
     try:
         return runner.generate(messages, max_new_tokens=max_new_tokens)
     finally:
@@ -188,19 +264,11 @@ def _install_penguin_attention_fallback() -> None:
             module.flash_attn_varlen_func = _penguin_flash_attn_fallback
 
 
-def run_penguin_messages(
-    *,
-    model_path: str,
-    conversation: List[Dict[str, Any]],
-    device_label: str,
-    max_new_tokens: int,
-) -> str:
-    import torch
-    from transformers import AutoModelForCausalLM, AutoProcessor, PreTrainedModel
+def _configure_penguin_transformers_compat():
+    from transformers import PreTrainedModel
     from transformers.utils import import_utils as hf_import_utils
     import transformers.utils as hf_utils
 
-    dtype = torch_dtype_for_device(device_label)
     # Penguin's remote-code encoder tries to import flash-attn whenever
     # transformers reports the package as available. On this cluster the
     # installed flash-attn extension is ABI-incompatible with the pinned torch
@@ -218,43 +286,68 @@ def run_penguin_messages(
 
         _compat_load_pretrained_model._penguin_offload_compat = True
         PreTrainedModel._load_pretrained_model = _compat_load_pretrained_model
-    processor = AutoProcessor.from_pretrained(
-        model_path,
-        trust_remote_code=True,
-        local_files_only=True,
-    )
-    try:
-        model = AutoModelForCausalLM.from_pretrained(
+
+
+class PenguinRunner:
+    def __init__(
+        self,
+        *,
+        model_path: str,
+        device_label: str,
+        generate_do_sample: bool = False,
+        generate_temperature: float | None = None,
+    ):
+        from transformers import AutoModelForCausalLM, AutoProcessor
+
+        self.model_path = model_path
+        self.device_label = device_label
+        self.dtype = torch_dtype_for_device(device_label)
+        _configure_penguin_transformers_compat()
+        self.processor = AutoProcessor.from_pretrained(
             model_path,
             trust_remote_code=True,
-            dtype=dtype,
-            attn_implementation="sdpa",
             local_files_only=True,
-            low_cpu_mem_usage=True,
-        ).to(device_label).eval()
-    except Exception:
-        model = AutoModelForCausalLM.from_pretrained(
-            model_path,
-            trust_remote_code=True,
-            attn_implementation="eager",
-            local_files_only=True,
-            low_cpu_mem_usage=True,
-        ).to(device_label).eval()
-    _install_penguin_attention_fallback()
-    try:
-        batch = processor(conversation=conversation, return_tensors="pt")
+        )
+        try:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_path,
+                trust_remote_code=True,
+                dtype=self.dtype,
+                attn_implementation="sdpa",
+                local_files_only=True,
+                low_cpu_mem_usage=True,
+            ).to(device_label).eval()
+        except Exception:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_path,
+                trust_remote_code=True,
+                attn_implementation="eager",
+                local_files_only=True,
+                low_cpu_mem_usage=True,
+            ).to(device_label).eval()
+        self.generate_kwargs = _apply_generation_controls(
+            self.model,
+            do_sample=generate_do_sample,
+            temperature=generate_temperature,
+        )
+        _install_penguin_attention_fallback()
+
+    def generate(self, conversation: List[Dict[str, Any]], *, max_new_tokens: int) -> str:
+        import torch
+
+        batch = self.processor(conversation=conversation, return_tensors="pt")
         moved = {}
         for key, value in dict(batch).items():
             if isinstance(value, torch.Tensor):
-                moved[key] = value.to(device_label)
-                if key == "pixel_values" and str(device_label).startswith("cuda"):
-                    moved[key] = moved[key].to(dtype)
+                moved[key] = value.to(self.device_label)
+                if key == "pixel_values" and str(self.device_label).startswith("cuda"):
+                    moved[key] = moved[key].to(self.dtype)
             else:
                 moved[key] = value
-        outputs = model.generate(
+        outputs = self.model.generate(
             **moved,
-            do_sample=False,
             max_new_tokens=max(32, int(max_new_tokens)),
+            **self.generate_kwargs,
         )
         input_ids = moved.get("input_ids")
         if input_ids is not None:
@@ -262,12 +355,37 @@ def run_penguin_messages(
         else:
             trimmed = outputs
         with contextlib.suppress(Exception):
-            decoded = processor.batch_decode(trimmed, skip_special_tokens=True)
+            decoded = self.processor.batch_decode(trimmed, skip_special_tokens=True)
             return str(decoded[0] if decoded else "").strip()
-        return str(processor.decode(outputs[0], skip_special_tokens=True)).strip()
-    finally:
-        del model
+        return str(self.processor.decode(outputs[0], skip_special_tokens=True)).strip()
+
+    def close(self) -> None:
+        with contextlib.suppress(Exception):
+            del self.model
+        with contextlib.suppress(Exception):
+            del self.processor
         cleanup_torch()
+
+
+def run_penguin_messages(
+    *,
+    model_path: str,
+    conversation: List[Dict[str, Any]],
+    device_label: str,
+    max_new_tokens: int,
+    generate_do_sample: bool = False,
+    generate_temperature: float | None = None,
+) -> str:
+    runner = PenguinRunner(
+        model_path=model_path,
+        device_label=device_label,
+        generate_do_sample=generate_do_sample,
+        generate_temperature=generate_temperature,
+    )
+    try:
+        return runner.generate(conversation, max_new_tokens=max_new_tokens)
+    finally:
+        runner.close()
 
 
 def make_qwen_image_messages(prompt: str, image_paths: Sequence[str]) -> List[Dict[str, Any]]:

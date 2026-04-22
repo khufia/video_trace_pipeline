@@ -24,7 +24,7 @@ WORKSPACE_ROOT="${WORKSPACE_ROOT:-$REPO_ROOT/workspace}"
 
 MODE="${MODE:-refine}"
 INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
-INPUT_INDEX="${INPUT_INDEX:-0}"
+INPUT_INDEX="${INPUT_INDEX:-1}"
 RESULTS_NAME="${RESULTS_NAME:-rur_refiner_inputs}"
 CLIP_DURATION="${CLIP_DURATION:-60}"
 MAX_ROUNDS="${MAX_ROUNDS:-2}"
@@ -35,6 +35,7 @@ CHECK_ENV_ONLY="${CHECK_ENV_ONLY:-0}"
 RUN_CHECK_ENV="${RUN_CHECK_ENV:-0}"
 STRICT_ENV_CHECK="${STRICT_ENV_CHECK:-1}"
 SHOW_PROGRESS="${SHOW_PROGRESS:-1}"
+PERSIST_TOOL_MODELS="${PERSIST_TOOL_MODELS:-visual_temporal_grounder||dense_captioner||generic_purpose}"
 
 OPENAI_KEY_FILE="${OPENAI_KEY_FILE:-$COT_ROOT/OPENAI_API_KEY.txt}"
 HF_TOKEN_FILE="${HF_TOKEN_FILE:-$COT_ROOT/HF_TOKEN.txt}"
@@ -130,6 +131,10 @@ COMMON_ARGS=(
   --inputs-json "$INPUTS_JSON"
   --input-index "$INPUT_INDEX"
 )
+
+if [[ -n "$PERSIST_TOOL_MODELS" ]]; then
+  COMMON_ARGS+=(--persist-tool-models "$PERSIST_TOOL_MODELS")
+fi
 
 if [[ "$PREPROCESS_FIRST" == "1" ]]; then
   python -m video_trace_pipeline.cli.main preprocess "${COMMON_ARGS[@]}"

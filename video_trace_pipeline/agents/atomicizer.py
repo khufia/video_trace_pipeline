@@ -4,7 +4,7 @@ from typing import List
 
 from pydantic import BaseModel, Field
 
-from ..prompts.templates import ATOMICIZER_SYSTEM_PROMPT
+from ..prompts.atomicizer_prompt import ATOMICIZER_SYSTEM_PROMPT
 
 
 class AtomicFact(BaseModel):
@@ -48,4 +48,3 @@ class AtomicFactAgent(object):
             max_tokens=self.agent_config.max_tokens,
         )
         return [item.model_dump() for item in parsed.facts]
-

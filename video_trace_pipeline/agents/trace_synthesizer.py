@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..prompts.templates import SYNTHESIZER_SYSTEM_PROMPT, build_synthesizer_prompt
+from ..prompts.trace_synthesizer_prompt import SYNTHESIZER_SYSTEM_PROMPT, build_synthesizer_prompt
 from ..schemas import TracePackage
 
 

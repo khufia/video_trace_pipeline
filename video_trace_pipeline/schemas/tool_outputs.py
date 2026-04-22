@@ -93,6 +93,7 @@ class FrameRetrieverOutput(BaseModel):
     query: Optional[str] = None
     frames: List[RetrievedFrame] = Field(default_factory=list)
     mode: str = "clip_bounded"
+    cache_metadata: Dict[str, Any] = Field(default_factory=dict)
     rationale: str = ""
 
 

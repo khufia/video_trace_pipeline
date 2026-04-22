@@ -10,6 +10,10 @@ from typing import Any, Dict, List, Optional, Type
 from ..common import extract_json_object, hash_payload, sanitize_for_persistence
 from ..model_cache import describe_model_resolution
 from ..runtime_devices import resolve_device_label
+from ..tool_wrappers.penguin_dense_caption_runner import execute_payload as execute_dense_caption_payload
+from ..tool_wrappers.qwen35vl_runner import execute_payload as execute_generic_purpose_payload
+from ..tool_wrappers.spatial_grounder_runner import execute_payload as execute_spatial_grounder_payload
+from ..tool_wrappers.timelens_runner import execute_payload as execute_visual_temporal_grounder_payload
 from ..schemas import (
     AudioTemporalGrounderOutput,
     AudioTemporalGrounderRequest,
@@ -103,13 +107,7 @@ class JsonProcessMixin(object):
             "question_id": context.task.question_id,
         }
 
-    def _run_command_json(self, context, request_payload: Dict[str, Any]) -> tuple[Dict[str, Any], str]:
-        command = self._command()
-        env = os.environ.copy()
-        for key, value in dict(self.extra.get("env") or {}).items():
-            env[str(key)] = str(value)
-        cwd = self.extra.get("cwd")
-        timeout = float(self.extra.get("timeout_s") or 0.0) or None
+    def _request_envelope(self, context, request_payload: Dict[str, Any]) -> Dict[str, Any]:
         evidence_records = []
         evidence_ids = request_payload.get("evidence_ids")
         if context.evidence_lookup is not None and isinstance(evidence_ids, list) and evidence_ids:
@@ -121,13 +119,22 @@ class JsonProcessMixin(object):
                 ]
             except Exception:
                 evidence_records = []
-        payload = {
+        return {
             "tool_name": getattr(self, "name", ""),
             "request": request_payload,
             "task": self._task_payload(context),
             "runtime": self._runtime_payload(context),
             "evidence_records": evidence_records,
         }
+
+    def _run_command_json(self, context, request_payload: Dict[str, Any]) -> tuple[Dict[str, Any], str]:
+        command = self._command()
+        env = os.environ.copy()
+        for key, value in dict(self.extra.get("env") or {}).items():
+            env[str(key)] = str(value)
+        cwd = self.extra.get("cwd")
+        timeout = float(self.extra.get("timeout_s") or 0.0) or None
+        payload = self._request_envelope(context, request_payload)
         completed = subprocess.run(
             command,
             input=json.dumps(payload, ensure_ascii=False),
@@ -158,8 +165,15 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
     request_model = None
     output_model: Type = dict
 
-    def __init__(self, name: str, model_name: str, extra: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        name: str,
+        model_name: str,
+        extra: Optional[Dict[str, Any]] = None,
+        model_pool=None,
+    ):
         self.name = name
+        self.model_pool = model_pool
         JsonProcessMixin.__init__(self, model_name=model_name, extra=extra)
 
     def _parse_output(self, payload: Dict[str, Any]):
@@ -169,6 +183,15 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
         if hasattr(model_cls, "model_validate"):
             return model_cls.model_validate(payload)
         return model_cls.parse_obj(payload)
+
+    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        raise NotImplementedError("Persistent execution is not implemented for %s" % self.name)
+
+    def _run_json(self, context, request_payload: Dict[str, Any]) -> tuple[Dict[str, Any], str]:
+        if self.model_pool is not None and self.model_pool.should_persist(self.name):
+            payload = self._run_persisted_json(self._request_envelope(context, request_payload))
+            return payload, json.dumps(payload, ensure_ascii=False)
+        return self._run_command_json(context, request_payload)
 
 
 def _dedupe_artifact_refs(items):
@@ -196,8 +219,11 @@ class VisualTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
     request_model = VisualTemporalGrounderRequest
     output_model = VisualTemporalGrounderOutput
 
+    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        return execute_visual_temporal_grounder_payload(payload, runner_pool=self.model_pool)
+
     def execute(self, request, context):
-        payload, raw = self._run_command_json(context, request.dict())
+        payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         clips = [item.model_dump() for item in parsed.clips]
         confidence_metadata = _confidence_metadata(
@@ -233,7 +259,7 @@ class AudioTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
     output_model = AudioTemporalGrounderOutput
 
     def _execute_single(self, request, context):
-        payload, raw = self._run_command_json(context, request.dict())
+        payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         clips = [item.model_dump() for item in parsed.clips]
         events = [
@@ -328,7 +354,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
     output_model = FrameRetrieverOutput
 
     def _execute_single(self, request, context):
-        payload, raw = self._run_command_json(context, request.dict())
+        payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         artifact_refs = []
         frames = []
@@ -353,10 +379,12 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
             [item.relevance_score for item in parsed.frames],
             kind="frame_relevance",
         )
+        cache_metadata = dict(parsed.cache_metadata or {})
         data = {
             "query": parsed.query,
             "frames": frames,
             "mode": parsed.mode,
+            "cache_metadata": cache_metadata,
             "rationale": parsed.rationale,
         }
         return ToolResult(
@@ -367,7 +395,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
             artifact_refs=artifact_refs,
             request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
             summary=parsed.rationale or "Retrieved %d frame(s)." % len(frames),
-            metadata={"backend": self.model_name, **confidence_metadata},
+            metadata={"backend": self.model_name, **confidence_metadata, **cache_metadata},
         )
 
     def execute(self, request, context):
@@ -405,27 +433,61 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
             artifact_refs = []
             raw_blocks = []
             summaries = []
+            cache_groups = []
+            dense_frame_cache_hits = []
+            dense_frame_counts = []
+            bounded_frame_counts = []
+            embedding_cache_ready = []
             for subrequest, subresult in zip(subrequests, subresults):
                 group_frames = list(subresult.data.get("frames") or [])
+                group_cache_metadata = dict(subresult.data.get("cache_metadata") or {})
                 merged_frames.extend(group_frames)
                 frame_groups.append(
                     {
                         "clip": subrequest.clip.dict() if getattr(subrequest, "clip", None) is not None else None,
                         "time_hint": getattr(subrequest, "time_hint", None),
                         "frames": group_frames,
+                        "cache_metadata": group_cache_metadata,
                         "rationale": subresult.data.get("rationale") or subresult.summary,
                     }
                 )
+                if group_cache_metadata:
+                    cache_groups.append(
+                        {
+                            "clip": subrequest.clip.dict() if getattr(subrequest, "clip", None) is not None else None,
+                            "time_hint": getattr(subrequest, "time_hint", None),
+                            "cache_metadata": group_cache_metadata,
+                        }
+                    )
+                if group_cache_metadata.get("dense_frame_cache_hit") is not None:
+                    dense_frame_cache_hits.append(bool(group_cache_metadata.get("dense_frame_cache_hit")))
+                if group_cache_metadata.get("dense_frame_count") is not None:
+                    dense_frame_counts.append(int(group_cache_metadata.get("dense_frame_count")))
+                if group_cache_metadata.get("bounded_frame_count") is not None:
+                    bounded_frame_counts.append(int(group_cache_metadata.get("bounded_frame_count")))
+                if group_cache_metadata.get("embedding_cache_ready") is not None:
+                    embedding_cache_ready.append(bool(group_cache_metadata.get("embedding_cache_ready")))
                 artifact_refs.extend(list(subresult.artifact_refs or []))
                 if subresult.raw_output_text:
                     raw_blocks.append(subresult.raw_output_text)
                 if subresult.summary:
                     summaries.append(subresult.summary)
+            cache_metadata = {}
+            if dense_frame_cache_hits:
+                cache_metadata["dense_frame_cache_hit"] = all(dense_frame_cache_hits)
+            if dense_frame_counts:
+                cache_metadata["dense_frame_count"] = max(dense_frame_counts)
+            if bounded_frame_counts:
+                cache_metadata["bounded_frame_count"] = sum(bounded_frame_counts)
+            if embedding_cache_ready:
+                cache_metadata["embedding_cache_ready"] = all(embedding_cache_ready)
             merged_data = {
                 "query": request.query,
                 "clips": [item.clip.dict() for item in subrequests if getattr(item, "clip", None) is not None],
                 "frames": merged_frames,
                 "frame_groups": frame_groups,
+                "cache_groups": cache_groups,
+                "cache_metadata": cache_metadata,
                 "mode": "multi_clip_bounded",
                 "rationale": _join_text_blocks(summaries),
             }
@@ -444,6 +506,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                         [frame.get("metadata", {}).get("relevance_score") for frame in merged_frames],
                         kind="frame_relevance",
                     ),
+                    **cache_metadata,
                 },
             )
         return self._execute_single(request, context)
@@ -453,8 +516,11 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
     request_model = DenseCaptionRequest
     output_model = DenseCaptionOutput
 
+    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        return execute_dense_caption_payload(payload, runner_pool=self.model_pool)
+
     def _execute_single(self, request, context):
-        payload, raw = self._run_command_json(context, request.dict())
+        payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         artifact_refs = []
         sampled_frames = []
@@ -608,7 +674,7 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
     output_model = OCROutput
 
     def _execute_single(self, request, context):
-        payload, raw = self._run_command_json(context, request.dict())
+        payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         artifact_refs = []
         if parsed.source_frame_path:
@@ -710,8 +776,11 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
     request_model = SpatialGrounderRequest
     output_model = SpatialGrounderOutput
 
+    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        return execute_spatial_grounder_payload(payload, runner_pool=self.model_pool)
+
     def _execute_single(self, request, context):
-        payload, raw = self._run_command_json(context, request.dict())
+        payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         frame_path = parsed.source_frame_path or request.frame.metadata.get("source_path")
         artifact_refs = []
@@ -831,8 +900,11 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
     request_model = GenericPurposeRequest
     output_model = GenericPurposeOutput
 
+    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        return execute_generic_purpose_payload(payload, runner_pool=self.model_pool)
+
     def execute(self, request, context):
-        payload, raw = self._run_command_json(context, request.dict())
+        payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         data = {
             "response": parsed.answer,

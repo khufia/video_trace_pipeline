@@ -185,14 +185,35 @@ def request_model_field_names(model_cls) -> List[str]:
     return []
 
 
+_LIST_ARGUMENT_FIELDS = frozenset(
+    {
+        "clips",
+        "frames",
+        "regions",
+        "transcripts",
+        "text_contexts",
+        "evidence_ids",
+        "time_hints",
+    }
+)
+
+
+def _coerce_dependency_list_value(value: Any) -> List[Any]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return list(value)
+    return [value]
+
+
 def _merge_dependency_values(existing: Any, new_value: Any, target_field: str) -> Any:
+    target_leaf = str(target_field or "").split(".")[-1].strip().lower()
+    if target_leaf in _LIST_ARGUMENT_FIELDS:
+        existing_items = _coerce_dependency_list_value(existing)
+        new_items = _coerce_dependency_list_value(new_value)
+        return existing_items + new_items
     if existing is None:
         return new_value
-    target_leaf = str(target_field or "").split(".")[-1].strip().lower()
-    if target_leaf.endswith("s"):
-        existing_items = list(existing) if isinstance(existing, list) else [existing]
-        new_items = list(new_value) if isinstance(new_value, list) else [new_value]
-        return existing_items + new_items
     if isinstance(existing, list):
         if isinstance(new_value, list):
             return list(existing) + list(new_value)
@@ -223,8 +244,7 @@ class PlanExecutor(object):
                     "Could not resolve %s from step %s" % (binding.source.field_path, binding.source.step_id)
                 )
             existing_value = traverse_path(resolved, binding.target_field)
-            if existing_value is not None:
-                value = _merge_dependency_values(existing_value, value, binding.target_field)
+            value = _merge_dependency_values(existing_value, value, binding.target_field)
             assign_path(resolved, binding.target_field, value)
         return resolved
 
@@ -286,6 +306,14 @@ class PlanExecutor(object):
                 }
             )
             cached = self.evidence_cache.load(step.tool_name, request_hash)
+            step_dir = execution_context.run.tool_step_dir(step.step_id, step.tool_name)
+            write_json(step_dir / "request.json", sanitize_for_persistence(request.dict()))
+            write_json(step_dir / "request_full.json", request.dict())
+            if hasattr(adapter, "_runtime_payload"):
+                try:
+                    write_json(step_dir / "runtime.json", adapter._runtime_payload(execution_context))
+                except Exception:
+                    pass
             if cached:
                 tool_result = ToolResult.parse_obj(cached["result"])
                 tool_result.cache_hit = True
@@ -323,8 +351,6 @@ class PlanExecutor(object):
                 metadata={"request_hash": request_hash, "cache_hit": tool_result.cache_hit},
             )
             evidence_ledger.append(evidence_entry, observations)
-            step_dir = execution_context.run.tool_step_dir(step.step_id, step.tool_name)
-            write_json(step_dir / "request.json", sanitize_for_persistence(request.dict()))
             write_json(step_dir / "result.json", sanitize_for_persistence(tool_result.dict()))
             write_json(step_dir / "artifact_refs.json", [item.dict() for item in tool_result.artifact_refs])
             write_text(step_dir / "summary.md", summary_markdown)

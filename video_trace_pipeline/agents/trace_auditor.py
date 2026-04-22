@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..prompts.templates import AUDITOR_SYSTEM_PROMPT, build_auditor_prompt
+from ..prompts.trace_auditor_prompt import AUDITOR_SYSTEM_PROMPT, build_auditor_prompt
 from ..schemas import AuditReport
 
 

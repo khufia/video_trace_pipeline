@@ -1,18 +1,22 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List
 
 from ..common import extract_json_object
-from .local_multimodal import make_qwen_image_messages, run_qwen_style_messages
+from .local_multimodal import QwenStyleRunner, make_qwen_image_messages
 from .protocol import emit_json, fail_runtime, load_request
 from .shared import (
     absolute_frame_path,
+    resolve_generation_controls,
     resolve_model_path,
     resolved_device_label,
     sample_request_frames,
     scratch_dir,
 )
+
+if TYPE_CHECKING:
+    from .persistent_pool import PersistentModelPool
 
 
 def _build_prompt(request: Dict[str, Any], transcript_text: str, evidence_lines: List[str], text_contexts: List[str]) -> str:
@@ -50,8 +54,7 @@ def _build_prompt(request: Dict[str, Any], transcript_text: str, evidence_lines:
     return "\n".join(parts)
 
 
-def main() -> None:
-    payload = load_request()
+def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPool | None" = None) -> Dict[str, Any]:
     request = dict(payload.get("request") or {})
     task = dict(payload.get("task") or {})
     runtime = dict(payload.get("runtime") or {})
@@ -113,26 +116,48 @@ def main() -> None:
     ]
     text_contexts = [str(item).strip() for item in list(request.get("text_contexts") or []) if str(item).strip()]
     prompt = _build_prompt(request, transcript_text, evidence_lines, text_contexts)
-
-    raw_text = run_qwen_style_messages(
-        model_path=model_path,
-        messages=make_qwen_image_messages(prompt, image_paths),
-        device_label=device_label,
-        max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 512),
-    )
+    generation = resolve_generation_controls(runtime)
+    runner = None
+    owns_runner = False
+    if runner_pool is not None:
+        runner = runner_pool.acquire_qwen_style_runner(
+            tool_name="generic_purpose",
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+        )
+    if runner is None:
+        runner = QwenStyleRunner(
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+        )
+        owns_runner = True
+    try:
+        raw_text = runner.generate(
+            make_qwen_image_messages(prompt, image_paths),
+            max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 512),
+        )
+    finally:
+        if owns_runner:
+            runner.close()
     parsed = extract_json_object(raw_text) or {}
     answer = str(parsed.get("answer") or "").strip()
     supporting_points = parsed.get("supporting_points")
     if not isinstance(supporting_points, list):
         supporting_points = []
-    emit_json(
-        {
-            "answer": answer or raw_text.strip(),
-            "supporting_points": [str(item).strip() for item in supporting_points if str(item).strip()],
-            "confidence": parsed.get("confidence"),
-            "analysis": str(parsed.get("analysis") or answer or raw_text).strip(),
-        }
-    )
+    return {
+        "answer": answer or raw_text.strip(),
+        "supporting_points": [str(item).strip() for item in supporting_points if str(item).strip()],
+        "confidence": parsed.get("confidence"),
+        "analysis": str(parsed.get("analysis") or answer or raw_text).strip(),
+    }
+
+
+def main() -> None:
+    emit_json(execute_payload(load_request()))
 
 
 if __name__ == "__main__":
