@@ -3,7 +3,12 @@ from __future__ import annotations
 from typing import Any, Dict, List
 
 from .protocol import emit_json, fail_runtime, load_request
-from .reference_adapter import ReferenceHarness
+
+
+def _reference_harness_cls():
+    from .reference_adapter import ReferenceHarness
+
+    return ReferenceHarness
 
 
 def main() -> None:
@@ -17,7 +22,7 @@ def main() -> None:
         fail_runtime("audio_temporal_grounder requires a non-empty query")
 
     clip = dict(request.get("clip") or {})
-    harness = ReferenceHarness(
+    harness = _reference_harness_cls()(
         task=task,
         runtime=runtime,
         clip_duration_s=max(1.0, float((clip.get("end_s") or 0.0)) - float((clip.get("start_s") or 0.0)) or 30.0),
@@ -61,7 +66,7 @@ def main() -> None:
             "query": query,
             "clips": clips,
             "events": events,
-            "retrieval_backend": "spotsound_reference_clap",
+            "retrieval_backend": str(result.get("backend") or "local_clap"),
             "query_absent": not bool(events),
             "summary": str(result.get("audio_summary") or ("No matching audio event found." if not events else "")),
         }

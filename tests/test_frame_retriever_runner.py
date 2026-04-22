@@ -62,7 +62,11 @@ def test_frame_retriever_runner_reports_cache_metadata(monkeypatch):
             "runtime": {},
         },
     )
-    monkeypatch.setattr(frame_retriever_runner, "ReferenceHarness", lambda *args, **kwargs: fake_harness)
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "_reference_harness_cls",
+        lambda: (lambda *args, **kwargs: fake_harness),
+    )
     monkeypatch.setattr(frame_retriever_runner, "emit_json", lambda payload: emitted.update(payload))
     monkeypatch.setattr(frame_retriever_runner, "resolved_device_label", lambda runtime: "cpu")
 
@@ -138,3 +142,62 @@ def test_reference_adapter_installs_check_model_inputs_compat(monkeypatch):
         return value
 
     assert _decorated("ok") == "ok"
+
+
+def test_reference_adapter_loads_local_model_helper(tmp_path, monkeypatch):
+    model_dir = tmp_path / "models" / "qwen-embedder"
+    scripts_dir = model_dir / "scripts"
+    scripts_dir.mkdir(parents=True)
+    (scripts_dir / "qwen3_vl_embedding.py").write_text(
+        "class Qwen3VLEmbedder:\n"
+        "    def __init__(self, model_name_or_path, **kwargs):\n"
+        "        self.model_name_or_path = model_name_or_path\n"
+        "        self.kwargs = kwargs\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(reference_adapter, "get_video_duration", lambda _video_path: 12.0)
+
+    harness = reference_adapter.ReferenceHarness(
+        task={"video_path": str(tmp_path / "video.mp4"), "video_id": "video-1"},
+        runtime={"workspace_root": str(tmp_path), "model_name": str(model_dir)},
+        clip_duration_s=5.0,
+        embedder_model=str(model_dir),
+    )
+
+    helper_cls = harness._load_model_helper_class(
+        str(model_dir),
+        "qwen3_vl_embedding.py",
+        "Qwen3VLEmbedder",
+        "_temporal_grounder_embedder_class",
+    )
+
+    assert helper_cls.__name__ == "Qwen3VLEmbedder"
+    assert harness._load_model_helper_class(
+        str(model_dir),
+        "qwen3_vl_embedding.py",
+        "Qwen3VLEmbedder",
+        "_temporal_grounder_embedder_class",
+    ) is helper_cls
+
+
+def test_reference_adapter_lists_dense_frames_in_timestamp_order(tmp_path, monkeypatch):
+    monkeypatch.setattr(reference_adapter, "get_video_duration", lambda _video_path: 12.0)
+    harness = reference_adapter.ReferenceHarness(
+        task={"video_path": str(tmp_path / "sample.mp4"), "video_id": "video-1"},
+        runtime={"workspace_root": str(tmp_path), "model_name": str(tmp_path)},
+        clip_duration_s=5.0,
+        embedder_model=str(tmp_path),
+    )
+    dense_dir = tmp_path / "workspace" / "cache" / "tool_wrappers" / "reference" / "video-1" / "dense_frames" / "sample"
+    dense_dir.mkdir(parents=True)
+    for name in ("frame_10.00.png", "frame_2.00.png", "frame_1.50.png"):
+        (dense_dir / name).write_bytes(b"png")
+
+    frame_paths, dense_dir_path = harness._list_dense_frame_paths(harness.dataset_folder, harness.video_path)
+
+    assert dense_dir_path.endswith("/sample")
+    assert [path.rsplit("/", 1)[-1] for path in frame_paths] == [
+        "frame_1.50.png",
+        "frame_2.00.png",
+        "frame_10.00.png",
+    ]

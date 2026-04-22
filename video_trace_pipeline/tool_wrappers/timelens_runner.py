@@ -6,7 +6,6 @@ from ..common import extract_json_object
 from ..tools.media import get_video_duration
 from .local_multimodal import QwenStyleRunner, make_qwen_video_message
 from .protocol import emit_json, fail_runtime, load_request
-from .reference_adapter import ReferenceHarness
 from .shared import (
     extract_interval_candidates,
     extracted_clip,
@@ -20,6 +19,12 @@ from .shared import (
 
 if TYPE_CHECKING:
     from .persistent_pool import PersistentModelPool
+
+
+def _reference_harness_cls():
+    from .reference_adapter import ReferenceHarness
+
+    return ReferenceHarness
 
 
 def _window_candidates(raw_text: str, *, window_start_s: float) -> List[Dict[str, Any]]:
@@ -123,7 +128,7 @@ def _prefilter_windows(
         int(extra.get("prefilter_top_frames") or max_windows * 2),
     )
 
-    harness = ReferenceHarness(
+    harness = _reference_harness_cls()(
         task=task,
         runtime=runtime,
         clip_duration_s=max(1.0, float(window_s)),

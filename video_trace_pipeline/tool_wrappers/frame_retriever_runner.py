@@ -4,7 +4,6 @@ from typing import Any, Dict, List
 
 from ..tools.local_asr import _clip_from_time_hint
 from .protocol import emit_json, fail_runtime, load_request
-from .reference_adapter import ReferenceHarness
 from .shared import resolved_device_label
 
 
@@ -24,6 +23,12 @@ def _resolved_clip(request: Dict[str, Any], task: Dict[str, Any]) -> Dict[str, A
     return derived.dict()
 
 
+def _reference_harness_cls():
+    from .reference_adapter import ReferenceHarness
+
+    return ReferenceHarness
+
+
 def main() -> None:
     payload = load_request()
     request = dict(payload.get("request") or {})
@@ -41,7 +46,7 @@ def main() -> None:
         clip_end_s = clip_start_s
 
     num_frames = max(1, int(request.get("num_frames") or 5))
-    harness = ReferenceHarness(
+    harness = _reference_harness_cls()(
         task=task,
         runtime=runtime,
         clip_duration_s=max(1.0, clip_end_s - clip_start_s),
