@@ -30,7 +30,21 @@ def export_trace_for_benchmark(benchmark: str, task, trace_package: dict) -> Dic
             inference = inference_steps[idx] if idx < len(inference_steps) else ""
             triples.append({"modality": "mixed", "evidence": evidence, "inference": inference})
         return {"sample_key": task.sample_key, "trace": triples, "answer": final_answer}
-    return {"sample_key": task.sample_key, "trace_package": trace_package, "answer": final_answer}
+    return {
+        "sample_key": task.sample_key,
+        "trace": {
+            "inference_steps": inference_steps,
+            "evidence": [
+                {
+                    "tool_name": item.get("tool_name", ""),
+                    "evidence_text": item.get("evidence_text", ""),
+                    "observation_ids": list(item.get("observation_ids") or []),
+                }
+                for item in evidence_entries
+            ],
+        },
+        "answer": final_answer,
+    }
 
 
 def render_trace_markdown(trace_package: dict) -> str:

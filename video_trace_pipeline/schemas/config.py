@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, ConfigDict, Field, validator
 
 
 class DatasetConfig(BaseModel):
@@ -34,12 +34,13 @@ class AgentConfig(BaseModel):
 
 
 class ToolConfig(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
     enabled: bool = True
-    backend: str
+    description: Optional[str] = None
     prompt_version: str = "v1"
     top_k: Optional[int] = None
     model: Optional[str] = None
-    endpoint: Optional[str] = None
     extra: Dict[str, Any] = Field(default_factory=dict)
 
 
@@ -50,6 +51,7 @@ class ModelsConfig(BaseModel):
 
 class MachineProfile(BaseModel):
     workspace_root: str
+    cache_root: Optional[str] = None
     hf_cache: Optional[str] = None
     ffmpeg_bin: str = "ffmpeg"
     datasets: Dict[str, DatasetConfig] = Field(default_factory=dict)
@@ -60,6 +62,7 @@ class MachineProfile(BaseModel):
     def redacted_snapshot(self) -> Dict[str, Any]:
         return {
             "workspace_root": "<redacted>",
+            "cache_root": "<redacted>" if self.cache_root else None,
             "hf_cache": "<redacted>" if self.hf_cache else None,
             "ffmpeg_bin": self.ffmpeg_bin,
             "datasets": sorted(self.datasets.keys()),
@@ -79,4 +82,4 @@ class MachineProfile(BaseModel):
 class RuntimeSnapshot(BaseModel):
     machine: Dict[str, Any]
     agent_models: Dict[str, Dict[str, Any]]
-    tool_backends: Dict[str, Dict[str, Any]]
+    tool_implementations: Dict[str, Dict[str, Any]]

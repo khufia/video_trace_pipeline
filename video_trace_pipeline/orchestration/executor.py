@@ -9,6 +9,7 @@ from ..schemas import AtomicObservation, EvidenceEntry, ToolResult
 from ..storage import EvidenceLedger, SharedEvidenceCache
 from ..tools import ObservationExtractor
 from ..tools.base import ToolExecutionContext
+from ..tools.specs import tool_implementation
 
 
 def render_tool_summary_markdown(step_id: int, tool_name: str, tool_result: ToolResult, observations: List[AtomicObservation]) -> str:
@@ -55,6 +56,25 @@ def augment_dependency_output(payload: Dict[str, Any]) -> Dict[str, Any]:
             augmented["best_frame"] = augmented["frame"]
         elif isinstance(augmented.get("frames"), list) and augmented["frames"]:
             augmented["best_frame"] = augmented["frames"][0]
+    if "top_frame" not in augmented:
+        if isinstance(augmented.get("best_frame"), dict):
+            augmented["top_frame"] = augmented["best_frame"]
+        elif isinstance(augmented.get("frame"), dict):
+            augmented["top_frame"] = augmented["frame"]
+        elif isinstance(augmented.get("frames"), list) and augmented["frames"]:
+            augmented["top_frame"] = augmented["frames"][0]
+    if "top_clip" not in augmented:
+        if isinstance(augmented.get("clip"), dict):
+            augmented["top_clip"] = augmented["clip"]
+        elif isinstance(augmented.get("clips"), list) and augmented["clips"]:
+            augmented["top_clip"] = augmented["clips"][0]
+    if "best_clip" not in augmented:
+        if isinstance(augmented.get("clip"), dict):
+            augmented["best_clip"] = augmented["clip"]
+        elif isinstance(augmented.get("top_clip"), dict):
+            augmented["best_clip"] = augmented["top_clip"]
+        elif isinstance(augmented.get("clips"), list) and augmented["clips"]:
+            augmented["best_clip"] = augmented["clips"][0]
     if "puzzle_bbox" not in augmented:
         if isinstance(augmented.get("region"), dict):
             augmented["puzzle_bbox"] = augmented["region"]
@@ -67,6 +87,63 @@ def augment_dependency_output(payload: Dict[str, Any]) -> Dict[str, Any]:
                 augmented["analysis"] = candidate_value
                 break
     return augmented
+
+
+def fallback_dependency_value(payload: Dict[str, Any], field_path: str) -> Any:
+    if not isinstance(payload, dict):
+        return None
+    lowered = str(field_path or "").strip().lower()
+    if not lowered:
+        return None
+    clip_values = None
+    for key in ("clips", "segments"):
+        values = payload.get(key)
+        if isinstance(values, list) and values:
+            clip_values = values
+            break
+    if any(token in lowered for token in ("clip", "segment", "window")):
+        for key in ("best_clip", "top_clip", "clip"):
+            value = payload.get(key)
+            if value is not None:
+                return value
+        if clip_values:
+            return clip_values[0]
+    if any(token in lowered for token in ("interval", "range", "timespan", "time_range")) and clip_values:
+        semantic_index = None
+        if any(token in lowered for token in ("cleanliness", "clean", "hygiene", "sanitary")):
+            semantic_index = 0
+        elif any(token in lowered for token in ("value", "dollar", "price", "pricing", "cost")):
+            semantic_index = 1
+        elif "first" in lowered:
+            semantic_index = 0
+        elif "second" in lowered:
+            semantic_index = 1
+        elif "third" in lowered:
+            semantic_index = 2
+        elif "fourth" in lowered:
+            semantic_index = 3
+        if semantic_index is not None and semantic_index < len(clip_values):
+            return clip_values[semantic_index]
+        return clip_values[0]
+    if "frame" in lowered or "image" in lowered:
+        for key in ("best_frame", "top_frame", "frame"):
+            value = payload.get(key)
+            if value is not None:
+                return value
+        values = payload.get("frames")
+        if isinstance(values, list) and values:
+            return values[0]
+    if any(token in lowered for token in ("text", "ocr", "transcript", "analysis", "answer")):
+        for key in ("text", "full_text", "analysis", "answer", "summary"):
+            value = payload.get(key)
+            if isinstance(value, str) and value.strip():
+                return value
+    if "artifact" in lowered:
+        for key in ("source_artifact_refs", "artifact_refs"):
+            value = payload.get(key)
+            if isinstance(value, list) and value:
+                return value
+    return None
 
 
 def _hydrate_media_refs(value: Any, video_id: str) -> Any:
@@ -95,7 +172,9 @@ def hydrate_arguments_with_task_context(arguments: Dict[str, Any], task) -> Dict
     video_id = str(getattr(task, "video_id", None) or getattr(task, "sample_key", "")).strip()
     if not video_id:
         return dict(arguments or {})
-    return _hydrate_media_refs(dict(arguments or {}), video_id)
+    hydrated = _hydrate_media_refs(dict(arguments or {}), video_id)
+    hydrated.setdefault("video_id", video_id)
+    return hydrated
 
 
 def request_model_field_names(model_cls) -> List[str]:
@@ -104,6 +183,23 @@ def request_model_field_names(model_cls) -> List[str]:
     if hasattr(model_cls, "__fields__"):
         return list(getattr(model_cls, "__fields__").keys())
     return []
+
+
+def _merge_dependency_values(existing: Any, new_value: Any, target_field: str) -> Any:
+    if existing is None:
+        return new_value
+    target_leaf = str(target_field or "").split(".")[-1].strip().lower()
+    if target_leaf.endswith("s"):
+        existing_items = list(existing) if isinstance(existing, list) else [existing]
+        new_items = list(new_value) if isinstance(new_value, list) else [new_value]
+        return existing_items + new_items
+    if isinstance(existing, list):
+        if isinstance(new_value, list):
+            return list(existing) + list(new_value)
+        return list(existing) + [new_value]
+    if isinstance(new_value, list):
+        return [existing] + list(new_value)
+    return new_value
 
 
 class PlanExecutor(object):
@@ -121,9 +217,14 @@ class PlanExecutor(object):
                 raise KeyError("Missing step output for step %s" % binding.source.step_id)
             value = traverse_path(source_obj, binding.source.field_path)
             if value is None:
+                value = fallback_dependency_value(source_obj, binding.source.field_path)
+            if value is None:
                 raise KeyError(
                     "Could not resolve %s from step %s" % (binding.source.field_path, binding.source.step_id)
                 )
+            existing_value = traverse_path(resolved, binding.target_field)
+            if existing_value is not None:
+                value = _merge_dependency_values(existing_value, value, binding.target_field)
             assign_path(resolved, binding.target_field, value)
         return resolved
 
@@ -148,6 +249,8 @@ class PlanExecutor(object):
         execution_context: ToolExecutionContext,
         evidence_ledger: EvidenceLedger,
         video_fingerprint: str,
+        progress_reporter=None,
+        round_index: int | None = None,
     ) -> List[Dict[str, Any]]:
         results = []
         step_outputs = {}
@@ -163,12 +266,23 @@ class PlanExecutor(object):
                     "Failed to parse request for step %s (%s) with argument keys %s: %s"
                     % (step.step_id, step.tool_name, sorted(resolved_arguments.keys()), exc)
                 ) from exc
+            if progress_reporter is not None and hasattr(progress_reporter, "on_tool_start"):
+                progress_reporter.on_tool_start(
+                    round_index=round_index or 0,
+                    step_id=step.step_id,
+                    tool_name=step.tool_name,
+                    purpose=step.purpose,
+                    request_payload=sanitize_for_persistence(request.dict()),
+                )
             request_hash = hash_payload(
                 {
                     "tool": step.tool_name,
                     "request": request.dict(),
                     "video_fingerprint": video_fingerprint,
+                    "implementation": tool_implementation(step.tool_name),
+                    "model": self.models_config.tools[step.tool_name].model,
                     "prompt_version": self.models_config.tools[step.tool_name].prompt_version,
+                    "extraction_version": getattr(self.extractor, "VERSION", "v1"),
                 }
             )
             cached = self.evidence_cache.load(step.tool_name, request_hash)
@@ -215,7 +329,25 @@ class PlanExecutor(object):
             write_json(step_dir / "artifact_refs.json", [item.dict() for item in tool_result.artifact_refs])
             write_text(step_dir / "summary.md", summary_markdown)
 
-            step_outputs[step.step_id] = augment_dependency_output(tool_result.data)
+            step_output_payload = dict(tool_result.data or {})
+            serialized_artifacts = [item.dict() for item in tool_result.artifact_refs]
+            if serialized_artifacts:
+                step_output_payload.setdefault("artifact_refs", serialized_artifacts)
+                step_output_payload.setdefault("source_artifact_refs", serialized_artifacts)
+            if tool_result.summary:
+                step_output_payload.setdefault("summary", tool_result.summary)
+            if tool_result.raw_output_text:
+                step_output_payload.setdefault("raw_output_text", tool_result.raw_output_text)
+            step_outputs[step.step_id] = augment_dependency_output(step_output_payload)
+            if progress_reporter is not None and hasattr(progress_reporter, "on_tool_end"):
+                progress_reporter.on_tool_end(
+                    round_index=round_index or 0,
+                    step_id=step.step_id,
+                    tool_name=step.tool_name,
+                    result_payload=sanitize_for_persistence(tool_result.dict()),
+                    observations=[sanitize_for_persistence(item.dict()) for item in observations],
+                    step_dir=str(step_dir),
+                )
             results.append(
                 {
                     "step_id": step.step_id,

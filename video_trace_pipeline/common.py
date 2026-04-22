@@ -11,6 +11,10 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, Optional
 
 
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+_ABSOLUTE_PATH_RE = re.compile(r"(?<![A-Za-z0-9._-])(?P<path>/(?:[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*))")
+
+
 def utc_now_compact() -> str:
     return datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
 
@@ -203,6 +207,33 @@ def apply_env_map(env_overrides: Dict[str, str]) -> None:
         os.environ[str(key)] = str(value)
 
 
+def _repo_relative_path(value: str) -> Optional[str]:
+    raw = str(value or "").strip()
+    if not raw.startswith("/"):
+        return None
+    candidate = Path(raw).expanduser()
+    try:
+        resolved = candidate.resolve(strict=False)
+    except Exception:
+        resolved = candidate
+    try:
+        return str(resolved.relative_to(_REPO_ROOT))
+    except Exception:
+        return None
+
+
+def _sanitize_string_value(value: str) -> str:
+    text = str(value or "")
+    if text.startswith("/"):
+        return _repo_relative_path(text) or "<redacted-path>"
+
+    def _replace(match):
+        path_text = str(match.group("path") or "")
+        return _repo_relative_path(path_text) or "<redacted-path>"
+
+    return _ABSOLUTE_PATH_RE.sub(_replace, text)
+
+
 def sanitize_for_persistence(value: Any) -> Any:
     if isinstance(value, dict):
         cleaned = {}
@@ -216,8 +247,5 @@ def sanitize_for_persistence(value: Any) -> Any:
     if isinstance(value, tuple):
         return [sanitize_for_persistence(item) for item in value]
     if isinstance(value, str):
-        if value.startswith("/"):
-            return "<redacted-path>"
-        value = re.sub(r"(?:(?:/[A-Za-z0-9._-]+)+)", "<redacted-path>", value)
-        return value
+        return _sanitize_string_value(value)
     return value

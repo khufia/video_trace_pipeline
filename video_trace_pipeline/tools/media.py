@@ -102,7 +102,14 @@ def extract_audio_clip(video_path: str, ffmpeg_bin: str, start_s: float, end_s: 
         "16000",
         audio_path,
     ]
-    completed = subprocess.run(cmd, capture_output=True, text=True, check=False)
+    completed = subprocess.run(
+        cmd,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
     if completed.returncode != 0:
         raise RuntimeError("ffmpeg audio extraction failed: %s" % (completed.stderr or completed.stdout or "").strip())
     return audio_path

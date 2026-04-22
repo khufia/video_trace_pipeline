@@ -1,7 +1,9 @@
+from video_trace_pipeline.agents.planner import PlannerAgent
 from video_trace_pipeline.orchestration.pipeline import PipelineRunner
 from video_trace_pipeline.schemas import (
     AgentConfig,
     AuditReport,
+    ExecutionPlan,
     InferenceStep,
     MachineProfile,
     ModelsConfig,
@@ -60,6 +62,18 @@ class FakeAuditor(object):
         return "{}", AuditReport(verdict="PASS", confidence=0.9, scores={"support": 1.0}, findings=[], feedback="")
 
 
+class FakeLLMClient(object):
+    def __init__(self):
+        self.calls = []
+
+    def complete_json(self, **kwargs):
+        self.calls.append(kwargs)
+        return (
+            ExecutionPlan(strategy="Plan from prompt.", use_summary=True, steps=[], refinement_instructions=""),
+            "{}",
+        )
+
+
 def _models_config():
     return ModelsConfig(
         agents={
@@ -68,13 +82,15 @@ def _models_config():
             "trace_auditor": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
             "atomicizer": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
         },
-        tools={"dense_captioner": ToolConfig(enabled=True, backend="internal_dense_captioner", model="gpt-5.4", endpoint="default")},
+        tools={"dense_captioner": ToolConfig(enabled=True, model="tencent/Penguin-VL-8B")},
     )
 
 
 def test_pipeline_runner_writes_final_outputs(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     runner = PipelineRunner(profile, _models_config())
+    runner.workspace.package_results_root = tmp_path / "repo_results"
+    runner.workspace.package_results_root.mkdir(parents=True, exist_ok=True)
     runner.preprocessor = FakePreprocessor()
     runner.planner = FakePlanner()
     runner.executor = FakeExecutor()
@@ -88,7 +104,50 @@ def test_pipeline_runner_writes_final_outputs(tmp_path):
         video_path=str(tmp_path / "video.mp4"),
     )
     (tmp_path / "video.mp4").write_bytes(b"video")
-    result = runner.run_task(task, mode="generate", max_rounds=1, clip_duration_s=30.0)
+    result = runner.run_task(
+        task,
+        mode="generate",
+        max_rounds=1,
+        clip_duration_s=30.0,
+        results_name="rur_refiner_inputs",
+    )
     final_result_path = tmp_path / "workspace" / result["run_dir"] / "results" / "final_result.json"
     assert final_result_path.exists()
     assert result["trace_package"]["final_answer"] == "A"
+    exported_dir = tmp_path / "repo_results" / "rur_refiner_inputs"
+    assert exported_dir.exists()
+    assert result["exported_results_dir"].endswith("/sample1")
+
+
+def test_planner_agent_uses_prompt_based_request():
+    llm_client = FakeLLMClient()
+    planner = PlannerAgent(llm_client=llm_client, agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"))
+    task = TaskSpec(
+        benchmark="omnivideobench",
+        sample_key="sample1",
+        question="Among the shown charts, which option has the largest percentage difference?",
+        options=["A. 10%", "B. 25%", "C. 40%"],
+        video_path="video.mp4",
+    )
+    tool_catalog = {
+        "visual_temporal_grounder": {"request_fields": ["query", "top_k"]},
+        "frame_retriever": {},
+        "ocr": {},
+        "generic_purpose": {},
+        "spatial_grounder": {},
+    }
+
+    raw, plan = planner.plan(
+        task=task,
+        mode="refine",
+        summary_text="summary",
+        compact_rounds=[],
+        retrieved_observations=[],
+        audit_feedback={"feedback": "Need direct readings of the values."},
+        tool_catalog=tool_catalog,
+    )
+    assert raw == "{}"
+    assert plan.strategy == "Plan from prompt."
+    assert llm_client.calls
+    assert llm_client.calls[0]["system_prompt"].startswith("You are the Planner")
+    assert "AVAILABLE_TOOLS:" in llm_client.calls[0]["user_prompt"]

@@ -1,7 +1,7 @@
 import pytest
 
 from video_trace_pipeline.common import traverse_path
-from video_trace_pipeline.schemas import ClipRef, ExecutionPlan, FrameRetrieverRequest, TracePackage
+from video_trace_pipeline.schemas import ASRRequest, ClipRef, ExecutionPlan, FrameRetrieverRequest, TracePackage
 from video_trace_pipeline.tools.base import ToolAdapter
 
 
@@ -33,13 +33,37 @@ def test_frame_retriever_requires_clip_or_time_hint():
         FrameRetrieverRequest(tool_name="frame_retriever", query="scoreboard")
 
 
-def test_tool_adapter_normalizes_frame_retriever_aliases():
+def test_tool_adapter_normalizes_frame_retriever_clip_list_and_top_k():
     adapter = DummyFrameRetrieverAdapter()
 
-    request = adapter.parse_request({"clip_hint": "last 20% of the video", "max_frames": 6})
+    request = adapter.parse_request(
+        {
+            "clip": [
+                {"video_id": "video1", "start_s": 10.0, "end_s": 15.0},
+                {"video_id": "video1", "start_s": 20.0, "end_s": 25.0},
+            ],
+            "top_k": 3,
+        }
+    )
 
-    assert request.time_hint == "last 20% of the video"
-    assert request.num_frames == 6
+    assert request.clip is None
+    assert len(request.clips) == 2
+    assert request.clips[0].start_s == 10.0
+    assert request.clips[1].end_s == 25.0
+    assert request.num_frames == 3
+
+
+def test_asr_request_accepts_multiple_clips():
+    request = ASRRequest(
+        tool_name="asr",
+        clips=[
+            ClipRef(video_id="video1", start_s=0.0, end_s=5.0),
+            ClipRef(video_id="video1", start_s=5.0, end_s=10.0),
+        ],
+    )
+
+    assert request.clip is None
+    assert len(request.clips) == 2
 
 
 def test_clip_ref_validates_range():

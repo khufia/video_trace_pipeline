@@ -47,8 +47,14 @@ class RunContext(object):
 class WorkspaceManager(object):
     def __init__(self, profile: MachineProfile):
         self.profile = profile
+        self.repo_root = Path(__file__).resolve().parents[2]
         self.workspace_root = ensure_dir(Path(profile.workspace_root).expanduser().resolve())
-        self.cache_root = ensure_dir(self.workspace_root / "cache")
+        self.package_root = Path(__file__).resolve().parents[1]
+        self.package_results_root = ensure_dir(self.workspace_root / "results")
+        cache_root_value = str(profile.cache_root or "").strip()
+        self.cache_root = ensure_dir(
+            Path(cache_root_value).expanduser().resolve() if cache_root_value else (self.workspace_root / "cache")
+        )
         self.preprocess_root = ensure_dir(self.cache_root / "preprocess")
         self.evidence_cache_root = ensure_dir(self.cache_root / "evidence")
         self.artifacts_root = ensure_dir(self.cache_root / "artifacts")
@@ -108,7 +114,7 @@ class WorkspaceManager(object):
             with lock:
                 if not dest.exists():
                     shutil.copy2(str(source), str(dest))
-            stored_relpath = relative_to_root(dest, self.workspace_root)
+            stored_relpath = self.relative_path(dest)
         metadata = {
             "source_name": source.name,
             "copied": bool(stored_relpath),
@@ -129,4 +135,27 @@ class WorkspaceManager(object):
         write_json(run.manifest_path, payload)
 
     def relative_path(self, path: Path) -> str:
-        return relative_to_root(path, self.workspace_root)
+        resolved = path.resolve()
+        for root in (self.workspace_root, self.cache_root.parent, self.repo_root, self.package_root):
+            try:
+                return relative_to_root(resolved, root.resolve())
+            except Exception:
+                continue
+        return str(resolved)
+
+    def export_run_target(self, run: RunContext, task: TaskSpec, results_name: Optional[str]) -> Optional[Path]:
+        export_name = sanitize_path_component(str(results_name or "").strip())
+        if not export_name:
+            return None
+        video_id = sanitize_path_component(str(task.video_id or task.sample_key or "video"))
+        return self.package_results_root / export_name / sanitize_path_component(run.run_id) / video_id
+
+    def export_run_bundle(self, run: RunContext, task: TaskSpec, results_name: Optional[str]) -> Optional[Path]:
+        target = self.export_run_target(run, task, results_name)
+        if target is None:
+            return None
+        ensure_dir(target.parent)
+        if target.exists():
+            shutil.rmtree(target)
+        shutil.copytree(run.run_dir, target)
+        return target

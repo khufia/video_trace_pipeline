@@ -25,9 +25,6 @@ def _limit_kwargs(model_name: str, max_tokens: int) -> Dict[str, int]:
 
 
 def _temperature_kwargs(model_name: str, temperature: float) -> Dict[str, float]:
-    name = str(model_name or "").strip().lower()
-    if name.startswith("gpt-5") or name.startswith(("o1", "o2", "o3", "o4")):
-        return {}
     return {"temperature": float(temperature)}
 
 

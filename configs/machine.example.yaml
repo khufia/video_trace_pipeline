@@ -23,11 +23,13 @@ agent_endpoints:
 
 gpu_assignments:
   visual_temporal_grounder: cuda:0
-  dense_captioner: cuda:0
-  asr: cuda:1
-  ocr: cuda:1
-  audio_temporal_grounder: cuda:1
-  generic_purpose: cuda:0
+  dense_captioner: cuda:1
+  frame_retriever: cuda:2
+  asr: cuda:2
+  ocr: cuda:2
+  audio_temporal_grounder: cuda:3
+  spatial_grounder: cuda:3
+  generic_purpose: cuda:3
 
 env_overrides:
   HF_HOME: /nfs-stor/ghazi.ahmad/HF_HOME

@@ -3,79 +3,139 @@ agents:
     backend: openai
     model: gpt-5.4
     endpoint: default
-    temperature: 0.2
+    temperature: 0.0
     max_tokens: 4000
-    prompt_version: planner_v1
+    prompt_version: planner_v2
   trace_synthesizer:
     backend: openai
     model: gpt-5.4
     endpoint: default
-    temperature: 0.2
+    temperature: 0.0
     max_tokens: 5000
-    prompt_version: synthesizer_v1
+    prompt_version: synthesizer_v2
   trace_auditor:
     backend: openai
     model: gpt-5.4
     endpoint: default
-    temperature: 0.1
+    temperature: 0.0
     max_tokens: 3000
-    prompt_version: auditor_v1
+    prompt_version: auditor_v2
   atomicizer:
     backend: openai
     model: gpt-5.4
     endpoint: default
-    temperature: 0.1
+    temperature: 0.0
     max_tokens: 3000
     prompt_version: atomicizer_v1
 
 tools:
   visual_temporal_grounder:
     enabled: true
-    backend: internal_temporal_grounder
-    prompt_version: tool_v1
-    top_k: 5
+    description: Production visual temporal grounder using TimeLens-8B.
+    model: TencentARC/TimeLens-8B
+    prompt_version: tool_v2
+    top_k: 8
+    extra:
+      command:
+        - python3
+        - -m
+        - video_trace_pipeline.tool_wrappers.timelens_runner
+      backend_name: timelens
+      clip_duration_s: 60
+      use_embedding_prefilter: true
+      prefilter_embedder_model: Qwen/Qwen3-VL-Embedding-8B
+      prefilter_top_frames: 16
+      prefilter_window_budget: 16
+      prefilter_neighbor_radius: 1
+      temperature: 0.0
+      do_sample: false
   frame_retriever:
     enabled: true
-    backend: internal_frame_retriever
-    prompt_version: tool_v1
-    endpoint: default
-    model: gpt-5.4
+    description: Production frame retriever using a Qwen3 embedder and optional reranker within a bounded clip.
+    prompt_version: tool_v2
+    model: Qwen/Qwen3-VL-Embedding-8B
     extra:
-      candidate_frames: 8
+      command:
+        - python3
+        - -m
+        - video_trace_pipeline.tool_wrappers.frame_retriever_runner
+      backend_name: qwen_frame_retriever
+      reranker_model: Qwen/Qwen3-VL-Reranker-8B
+      use_reranker: true
+      candidate_frames: 12
+      temperature: 0.0
+      do_sample: false
   audio_temporal_grounder:
     enabled: true
-    backend: internal_audio_temporal_grounder
-    prompt_version: tool_v1
+    description: Production audio temporal grounder using SpotSound.
+    model: Loie/SpotSound
+    prompt_version: tool_v2
+    extra:
+      command:
+        - python3
+        - -m
+        - video_trace_pipeline.tool_wrappers.spotsound_runner
+      backend_name: spotsound
+      base_model: nvidia/audio-flamingo-3-hf
+      temperature: 0.0
+      do_sample: false
   asr:
     enabled: true
-    backend: internal_asr
-    prompt_version: tool_v1
+    description: WhisperX / Whisper-large-v3 ASR.
+    prompt_version: tool_v2
     extra:
-      model_name: small
+      model_name: large-v3
       language: null
   dense_captioner:
     enabled: true
-    backend: internal_dense_captioner
-    prompt_version: tool_v1
-    endpoint: default
-    model: gpt-5.4
+    description: Production dense captioner using Penguin-VL-8B over cached 30s/60s segments.
+    model: tencent/Penguin-VL-8B
+    prompt_version: tool_v2
     extra:
-      sample_frames: 8
+      command:
+        - python3
+        - -m
+        - video_trace_pipeline.tool_wrappers.penguin_dense_caption_runner
+      backend_name: penguin_vl
+      sample_frames: 10
+      temperature: 0.0
+      do_sample: false
   ocr:
     enabled: true
-    backend: internal_ocr
-    prompt_version: tool_v1
-    endpoint: default
-    model: gpt-5.4
+    description: Production OCR using olmOCR-2-7B FP8.
+    model: allenai/olmOCR-2-7B-1025-FP8
+    prompt_version: tool_v2
+    extra:
+      command:
+        - python3
+        - -m
+        - video_trace_pipeline.tool_wrappers.olmocr_runner
+      backend_name: olmocr
+      temperature: 0.0
+      do_sample: false
   spatial_grounder:
     enabled: true
-    backend: internal_spatial_grounder
-    prompt_version: tool_v1
-    endpoint: default
-    model: gpt-5.4
+    description: Bounding-box localization inside a retrieved frame using the local Qwen multimodal backend.
+    prompt_version: tool_v2
+    model: Qwen/Qwen3-VL-8B-Instruct
+    extra:
+      command:
+        - python3
+        - -m
+        - video_trace_pipeline.tool_wrappers.spatial_grounder_runner
+      backend_name: qwen35vl_spatial
+      temperature: 0.0
+      do_sample: false
   generic_purpose:
     enabled: true
-    backend: openai_multimodal
-    endpoint: default
-    model: gpt-5.4
-    prompt_version: tool_v1
+    description: Production generic extractor using Qwen3-VL-8B-Instruct with optional evidence-db context.
+    model: Qwen/Qwen3-VL-8B-Instruct
+    prompt_version: tool_v2
+    extra:
+      command:
+        - python3
+        - -m
+        - video_trace_pipeline.tool_wrappers.qwen35vl_runner
+      backend_name: qwen35vl
+      temperature: 0.0
+      do_sample: false

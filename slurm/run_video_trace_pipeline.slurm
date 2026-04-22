@@ -1,0 +1,152 @@
+#!/bin/bash
+#SBATCH --job-name=video_trace_pipeline
+#SBATCH --output=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%j.out
+#SBATCH --error=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%j.err
+#SBATCH --time=12:00:00
+#SBATCH --partition=gamma
+#SBATCH --account=gamma
+#SBATCH --qos=high
+#SBATCH --gres=gpu:l40s:4
+#SBATCH --mem=120G
+#SBATCH --mail-user=gnanesh@umd.edu
+#SBATCH --mail-type=END,FAIL
+
+set -Eeuo pipefail
+
+# Edit these values directly before running the script.
+REPO_ROOT="${REPO_ROOT:-/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline}"
+COT_ROOT="${COT_ROOT:-/fs/nexus-scratch/gnanesh/cot}"
+VENV_PATH="${VENV_PATH:-/fs/nexus-scratch/gnanesh/venv_vdr3}"
+
+PROFILE="${PROFILE:-$REPO_ROOT/configs/machine.nexus.yaml}"
+MODELS="${MODELS:-$REPO_ROOT/configs/models.yaml}"
+WORKSPACE_ROOT="${WORKSPACE_ROOT:-$REPO_ROOT/workspace}"
+
+MODE="${MODE:-refine}"
+INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
+INPUT_INDEX="${INPUT_INDEX:-0}"
+RESULTS_NAME="${RESULTS_NAME:-rur_refiner_inputs}"
+CLIP_DURATION="${CLIP_DURATION:-60}"
+MAX_ROUNDS="${MAX_ROUNDS:-2}"
+INITIAL_TRACE_PATH="${INITIAL_TRACE_PATH:-}"
+
+PREPROCESS_FIRST="${PREPROCESS_FIRST:-0}"
+CHECK_ENV_ONLY="${CHECK_ENV_ONLY:-0}"
+RUN_CHECK_ENV="${RUN_CHECK_ENV:-0}"
+STRICT_ENV_CHECK="${STRICT_ENV_CHECK:-1}"
+SHOW_PROGRESS="${SHOW_PROGRESS:-1}"
+
+OPENAI_KEY_FILE="${OPENAI_KEY_FILE:-$COT_ROOT/OPENAI_API_KEY.txt}"
+HF_TOKEN_FILE="${HF_TOKEN_FILE:-$COT_ROOT/HF_TOKEN.txt}"
+
+if [[ $# -gt 0 ]]; then
+  echo "This script no longer parses command-line arguments. Edit the config block at the top instead." >&2
+  exit 2
+fi
+
+if command -v module >/dev/null 2>&1; then
+  module purge
+  module load gcc/11.2.0
+  module load cuda/12.8.1
+  module load cudnn/v9.10.2
+  module load Python3/3.10.14
+fi
+
+if [[ -z "${CUDA_HOME:-}" ]] && command -v nvcc >/dev/null 2>&1; then
+  export CUDA_HOME="$(dirname "$(dirname "$(realpath "$(which nvcc)")")")"
+fi
+if [[ -n "${CUDA_HOME:-}" && -d "${CUDA_HOME}/lib64" ]]; then
+  export LD_LIBRARY_PATH="${CUDA_HOME}/lib64:${LD_LIBRARY_PATH:-}"
+fi
+
+source "$VENV_PATH/bin/activate"
+export PATH="/fs/nexus-scratch/gnanesh/ffmpeg-7.0.2-amd64-static:$PATH"
+
+export HF_HOME="${HF_HOME:-/fs/nexus-scratch/gnanesh/.cache/huggingface}"
+export HUGGINGFACE_HUB_CACHE="${HUGGINGFACE_HUB_CACHE:-$HF_HOME/hub}"
+export HF_HUB_CACHE="${HF_HUB_CACHE:-$HUGGINGFACE_HUB_CACHE}"
+export HF_HUB_OFFLINE="${HF_HUB_OFFLINE:-1}"
+export TRANSFORMERS_OFFLINE="${TRANSFORMERS_OFFLINE:-1}"
+export VDR_RUNTIME_ROOT="${VDR_RUNTIME_ROOT:-$(dirname "$HF_HOME")}"
+export NEXUS_RUNTIME_ROOT="${NEXUS_RUNTIME_ROOT:-$VDR_RUNTIME_ROOT}"
+export VDR_SHARED_HF_HOME="${VDR_SHARED_HF_HOME:-$HF_HOME}"
+export PADDLE_PDX_CACHE_HOME="${PADDLE_PDX_CACHE_HOME:-/fs/nexus-scratch/gnanesh/.cache/paddlex}"
+export PADDLE_HOME="${PADDLE_HOME:-/fs/nexus-scratch/gnanesh/.cache/paddle}"
+export TRITON_CACHE_DIR="${TRITON_CACHE_DIR:-/fs/nexus-scratch/gnanesh/.cache/triton}"
+export TORCH_HOME="${TORCH_HOME:-/fs/nexus-scratch/gnanesh/.cache/torch}"
+export TMPDIR="${TMPDIR:-/fs/nexus-scratch/gnanesh/.cache/tmp}"
+export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
+export FLAGS_enable_pir_api="${FLAGS_enable_pir_api:-0}"
+export PYTHONWARNINGS="${PYTHONWARNINGS:-ignore::UserWarning:pyannote.audio.core.io,ignore::UserWarning:pyannote.audio.utils.reproducibility}"
+mkdir -p "$HF_HOME" "$HUGGINGFACE_HUB_CACHE" "$PADDLE_PDX_CACHE_HOME" "$PADDLE_HOME" "$TRITON_CACHE_DIR" "$TORCH_HOME" "$TMPDIR" "$REPO_ROOT/logs"
+
+if [[ -z "${OPENAI_API_KEY:-}" && -f "$OPENAI_KEY_FILE" ]]; then
+  OPENAI_API_KEY="$(grep -E -v '^\s*(#|$)' "$OPENAI_KEY_FILE" | head -1 | xargs)"
+  export OPENAI_API_KEY
+fi
+
+if [[ -z "${HF_TOKEN:-}" && -f "$HF_TOKEN_FILE" ]]; then
+  HF_TOKEN="$(grep -E -v '^\s*(#|$)' "$HF_TOKEN_FILE" | head -1 | xargs)"
+  export HF_TOKEN
+fi
+if [[ -n "${HF_TOKEN:-}" ]]; then
+  export HUGGING_FACE_HUB_TOKEN="${HUGGING_FACE_HUB_TOKEN:-$HF_TOKEN}"
+fi
+
+if [[ ! -f "$INPUTS_JSON" ]]; then
+  echo "ERROR: inputs file not found: $INPUTS_JSON" >&2
+  exit 1
+fi
+
+if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+  echo "ERROR: OPENAI_API_KEY is not set and $OPENAI_KEY_FILE was not usable." >&2
+  exit 1
+fi
+
+cd "$REPO_ROOT"
+
+CHECK_ENV_ARGS=(
+  --profile "$PROFILE"
+  --models "$MODELS"
+  --workspace-root "$WORKSPACE_ROOT"
+)
+if [[ "$STRICT_ENV_CHECK" == "1" ]]; then
+  CHECK_ENV_ARGS+=(--strict)
+fi
+
+if [[ "$RUN_CHECK_ENV" == "1" || "$CHECK_ENV_ONLY" == "1" ]]; then
+  python -m video_trace_pipeline.cli.main check-env "${CHECK_ENV_ARGS[@]}"
+fi
+
+if [[ "$CHECK_ENV_ONLY" == "1" ]]; then
+  exit 0
+fi
+
+COMMON_ARGS=(
+  --profile "$PROFILE"
+  --models "$MODELS"
+  --workspace-root "$WORKSPACE_ROOT"
+  --clip-duration "$CLIP_DURATION"
+  --inputs-json "$INPUTS_JSON"
+  --input-index "$INPUT_INDEX"
+)
+
+if [[ "$PREPROCESS_FIRST" == "1" ]]; then
+  python -m video_trace_pipeline.cli.main preprocess "${COMMON_ARGS[@]}"
+fi
+
+RUN_ARGS=(
+  "${COMMON_ARGS[@]}"
+  --mode "$MODE"
+  --max-rounds "$MAX_ROUNDS"
+  --results-name "$RESULTS_NAME"
+)
+
+if [[ -n "$INITIAL_TRACE_PATH" ]]; then
+  RUN_ARGS+=(--initial-trace-path "$INITIAL_TRACE_PATH")
+fi
+if [[ "$SHOW_PROGRESS" != "1" ]]; then
+  RUN_ARGS+=(--no-show-progress)
+fi
+
+python -m video_trace_pipeline.cli.main run "${RUN_ARGS[@]}"

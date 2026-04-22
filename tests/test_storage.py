@@ -1,8 +1,8 @@
 from pathlib import Path
 
 from video_trace_pipeline.common import sanitize_for_persistence
-from video_trace_pipeline.schemas import MachineProfile, TaskSpec
-from video_trace_pipeline.storage import WorkspaceManager
+from video_trace_pipeline.schemas import AtomicObservation, EvidenceEntry, MachineProfile, TaskSpec
+from video_trace_pipeline.storage import EvidenceLedger, WorkspaceManager
 
 
 def test_workspace_creates_unique_run_dirs(tmp_path):
@@ -32,6 +32,21 @@ def test_store_file_artifact_copies_small_file(tmp_path):
     assert copied.exists()
 
 
+def test_store_file_artifact_uses_custom_cache_root(tmp_path):
+    profile = MachineProfile(
+        workspace_root=str(tmp_path / "workspace"),
+        cache_root=str(tmp_path / "repo_cache"),
+    )
+    workspace = WorkspaceManager(profile)
+    source = tmp_path / "frame.png"
+    source.write_bytes(b"fake image bytes")
+    artifact = workspace.store_file_artifact(str(source), kind="frame", source_tool="frame_retriever")
+    assert artifact.relpath is not None
+    copied = tmp_path / artifact.relpath
+    assert copied.exists()
+    assert str(copied).startswith(str(tmp_path / "repo_cache"))
+
+
 def test_sanitize_for_persistence_removes_absolute_paths():
     payload = {
         "frame": {"source_path": "/tmp/frame.png", "relpath": "cache/artifacts/frame.png"},
@@ -42,3 +57,57 @@ def test_sanitize_for_persistence_removes_absolute_paths():
     assert "video_path" not in cleaned
     assert "source_path" not in cleaned["frame"]
     assert cleaned["note"] == "keep me"
+
+
+def test_sanitize_for_persistence_relativizes_repo_paths():
+    repo_root = Path(__file__).resolve().parents[1]
+    repo_path = repo_root / "workspace" / "cache" / "preprocess" / "demo"
+    payload = {
+        "cache_dir": str(repo_path),
+        "note": "bundle stored at %s" % repo_path,
+        "relative_note": "cache/preprocess/demo",
+    }
+    cleaned = sanitize_for_persistence(payload)
+    assert cleaned["cache_dir"] == "workspace/cache/preprocess/demo"
+    assert cleaned["note"] == "bundle stored at workspace/cache/preprocess/demo"
+    assert cleaned["relative_note"] == "cache/preprocess/demo"
+
+
+def test_evidence_ledger_persists_sqlite_index(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="What is shown?",
+        options=[],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video")
+    run = workspace.create_run(task)
+    ledger = EvidenceLedger(run)
+
+    entry = EvidenceEntry(
+        evidence_id="ev_01_demo",
+        tool_name="asr",
+        evidence_text='speaker_1 said "hello"',
+        observation_ids=["obs_demo"],
+    )
+    observation = AtomicObservation(
+        observation_id="obs_demo",
+        subject="speaker_1",
+        subject_type="speaker",
+        predicate="said",
+        object_text="hello",
+        object_type="utterance",
+        source_tool="asr",
+        atomic_text='speaker_1 said "hello" from 1.00s to 2.00s.',
+        time_start_s=1.0,
+        time_end_s=2.0,
+    )
+    ledger.append(entry, [observation])
+
+    assert ledger.sqlite_path.exists()
+    retrieved = ledger.retrieve(query_terms=["hello"], subject="speaker_1")
+    assert len(retrieved) == 1
+    assert retrieved[0]["observation_id"] == "obs_demo"

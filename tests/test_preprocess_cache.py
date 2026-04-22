@@ -40,7 +40,7 @@ def _models_config():
             "trace_auditor": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
             "atomicizer": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
         },
-        tools={"dense_captioner": ToolConfig(enabled=True, backend="internal_dense_captioner", model="gpt-5.4", endpoint="default")},
+        tools={"dense_captioner": ToolConfig(enabled=True, model="tencent/Penguin-VL-8B")},
     )
 
 

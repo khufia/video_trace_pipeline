@@ -4,7 +4,7 @@ import json
 import re
 from typing import Dict, List, Optional
 
-from ..agents import OpenAIChatClient, PlannerAgent, TraceAuditorAgent, TraceSynthesizerAgent
+from ..agents import AtomicFactAgent, OpenAIChatClient, PlannerAgent, TraceAuditorAgent, TraceSynthesizerAgent
 from ..common import sanitize_for_persistence, write_json, write_text
 from ..config import save_runtime_snapshot
 from ..renderers import export_trace_for_benchmark, render_trace_markdown
@@ -12,7 +12,9 @@ from ..schemas import InferenceStep, TracePackage
 from ..storage import EvidenceLedger, SharedEvidenceCache, WorkspaceManager
 from ..tools import ObservationExtractor, ToolRegistry
 from ..tools.base import ToolExecutionContext
+from ..tools.specs import tool_implementation
 from .executor import PlanExecutor
+from .plan_normalizer import ExecutionPlanNormalizer
 from .preprocess import DenseCaptionPreprocessor
 
 
@@ -70,9 +72,14 @@ class PipelineRunner(object):
         self.executor = PlanExecutor(
             tool_registry=self.tool_registry,
             evidence_cache=SharedEvidenceCache(self.workspace),
-            extractor=ObservationExtractor(),
+            extractor=ObservationExtractor(
+                atomicizer=AtomicFactAgent(self.llm_client, models_config.agents["atomicizer"])
+                if models_config.agents.get("atomicizer") is not None
+                else None
+            ),
             models_config=models_config,
         )
+        self.plan_normalizer = ExecutionPlanNormalizer(self.tool_registry)
         self.planner = PlannerAgent(self.llm_client, models_config.agents["planner"])
         self.synthesizer = TraceSynthesizerAgent(self.llm_client, models_config.agents["trace_synthesizer"])
         self.auditor = TraceAuditorAgent(self.llm_client, models_config.agents["trace_auditor"])
@@ -92,11 +99,10 @@ class PipelineRunner(object):
                 }
                 for name, config in sorted(self.models_config.agents.items())
             },
-            "tool_backends": {
+            "tool_implementations": {
                 name: {
-                    "backend": config.backend,
+                    "implementation": tool_implementation(name),
                     "model": config.model,
-                    "endpoint": config.endpoint,
                     "prompt_version": config.prompt_version,
                 }
                 for name, config in sorted(self.models_config.tools.items())
@@ -115,9 +121,21 @@ class PipelineRunner(object):
     def _build_evidence_summary(self, ledger: EvidenceLedger) -> Dict[str, object]:
         entries = ledger.entries()
         observations = ledger.observations()
+        subjects = {}
+        predicates = {}
+        for item in observations:
+            subject = str(item.get("subject") or "").strip()
+            predicate = str(item.get("predicate") or "").strip()
+            if subject:
+                subjects[subject] = subjects.get(subject, 0) + 1
+            if predicate:
+                predicates[predicate] = predicates.get(predicate, 0) + 1
         return {
             "evidence_entry_count": len(entries),
             "observation_count": len(observations),
+            "database_path": self.workspace.relative_path(ledger.sqlite_path),
+            "top_subjects": sorted(subjects.items(), key=lambda pair: (-pair[1], pair[0]))[:15],
+            "top_predicates": sorted(predicates.items(), key=lambda pair: (-pair[1], pair[0]))[:15],
             "evidence_entries": entries[-10:],
             "recent_observations": observations[-20:],
         }
@@ -129,10 +147,24 @@ class PipelineRunner(object):
         max_rounds: int = 2,
         clip_duration_s: float = 30.0,
         initial_trace_path: Optional[str] = None,
+        results_name: Optional[str] = None,
+        progress_reporter=None,
     ) -> Dict[str, object]:
         run = self.workspace.create_run(task)
         self._write_runtime_snapshot(run)
+        if progress_reporter is not None and hasattr(progress_reporter, "on_run_start"):
+            progress_reporter.on_run_start(
+                task=task,
+                run_dir=self.workspace.relative_path(run.run_dir),
+                mode=mode,
+                max_rounds=max_rounds,
+                clip_duration_s=clip_duration_s,
+            )
+        if progress_reporter is not None and hasattr(progress_reporter, "on_preprocess_start"):
+            progress_reporter.on_preprocess_start()
         preprocess_output = self.preprocessor.get_or_build(task, clip_duration_s=clip_duration_s)
+        if progress_reporter is not None and hasattr(progress_reporter, "on_preprocess_end"):
+            progress_reporter.on_preprocess_end(sanitize_for_persistence(preprocess_output))
         video_fingerprint = preprocess_output["video_fingerprint"]
         summary_text = preprocess_output["summary"]
         self.workspace.write_run_manifest(
@@ -145,6 +177,7 @@ class PipelineRunner(object):
                 "task": task.persistable_dict(),
                 "preprocess_cache": preprocess_output["cache_dir"],
                 "clip_duration_s": float(clip_duration_s),
+                "results_name": str(results_name or "").strip() or None,
             },
         )
         evidence_ledger = EvidenceLedger(run)
@@ -177,43 +210,68 @@ class PipelineRunner(object):
             audit_raw, latest_audit = self.auditor.audit(task, current_trace_dict, initial_summary)
             write_text(run.auditor_dir / "initial_raw.txt", audit_raw)
             write_json(run.auditor_dir / "initial_report.json", latest_audit.dict())
+            if progress_reporter is not None and hasattr(progress_reporter, "on_initial_audit"):
+                progress_reporter.on_initial_audit(sanitize_for_persistence(latest_audit.dict()))
             if latest_audit.verdict == "PASS":
                 export_payload = self._persist_trace(run, task, current_trace)
+                export_target = self.workspace.export_run_target(run, task, results_name=results_name)
                 final_payload = {
                     "run_dir": self.workspace.relative_path(run.run_dir),
                     "trace_package": sanitize_for_persistence(current_trace.dict()),
                     "audit_report": latest_audit.dict(),
                     "benchmark_export": export_payload,
                 }
+                if export_target is not None:
+                    final_payload["exported_results_dir"] = str(export_target)
                 write_json(run.results_dir / "final_result.json", final_payload)
+                self.workspace.export_run_bundle(run, task, results_name=results_name)
+                if progress_reporter is not None and hasattr(progress_reporter, "on_complete"):
+                    progress_reporter.on_complete(final_payload=sanitize_for_persistence(final_payload))
                 return final_payload
 
         rounds_executed = 0
         while rounds_executed < max(1, int(max_rounds)):
             planning_mode = "generate" if current_trace is None else "refine"
-            use_summary = current_trace is None or latest_audit is None or bool(latest_audit.missing_information)
+            summary_context_supplied = current_trace is None or latest_audit is None or bool(latest_audit.missing_information)
             retrieved_observations = evidence_ledger.retrieve(
                 query_terms=_query_terms(task, latest_audit.dict() if latest_audit else None),
                 limit=50,
             )
-            planner_raw, plan = self.planner.plan(
+            if progress_reporter is not None and hasattr(progress_reporter, "on_round_start"):
+                progress_reporter.on_round_start(
+                    round_index=rounds_executed + 1,
+                    planning_mode=planning_mode,
+                    use_summary=summary_context_supplied,
+                    retrieved_count=len(list(retrieved_observations or [])),
+                )
+            planner_kwargs = dict(
                 task=task,
                 mode=planning_mode,
-                summary_text=summary_text if use_summary else "",
+                summary_text=summary_text if summary_context_supplied else "",
                 compact_rounds=compact_rounds,
                 retrieved_observations=retrieved_observations,
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
-                tool_names=self.tool_registry.adapters.keys(),
+                tool_catalog=self.tool_registry.tool_catalog(),
             )
+            planner_raw, plan = self.planner.plan(**planner_kwargs)
+            plan = self.plan_normalizer.normalize(task, plan)
             round_prefix = "round_%02d" % (rounds_executed + 1)
             write_text(run.planner_dir / ("%s_raw.txt" % round_prefix), planner_raw)
             write_json(run.planner_dir / ("%s_plan.json" % round_prefix), sanitize_for_persistence(plan.dict()))
+            if progress_reporter is not None and hasattr(progress_reporter, "on_planner"):
+                progress_reporter.on_planner(
+                    round_index=rounds_executed + 1,
+                    plan_payload=sanitize_for_persistence(plan.dict()),
+                    planner_dir=self.workspace.relative_path(run.planner_dir),
+                )
 
             execution_records = self.executor.execute_plan(
                 plan=plan,
                 execution_context=execution_context,
                 evidence_ledger=evidence_ledger,
                 video_fingerprint=video_fingerprint,
+                progress_reporter=progress_reporter,
+                round_index=rounds_executed + 1,
             )
 
             evidence_entries = evidence_ledger.entries()
@@ -236,6 +294,12 @@ class PipelineRunner(object):
                 run.synthesizer_dir / ("%s_trace_package.json" % round_prefix),
                 sanitize_for_persistence(trace_package.dict()),
             )
+            if progress_reporter is not None and hasattr(progress_reporter, "on_trace"):
+                progress_reporter.on_trace(
+                    round_index=rounds_executed + 1,
+                    trace_payload=sanitize_for_persistence(trace_package.dict()),
+                    trace_dir=self.workspace.relative_path(run.synthesizer_dir),
+                )
 
             evidence_summary = self._build_evidence_summary(evidence_ledger)
             audit_raw, latest_audit = self.auditor.audit(
@@ -245,6 +309,12 @@ class PipelineRunner(object):
             )
             write_text(run.auditor_dir / ("%s_raw.txt" % round_prefix), audit_raw)
             write_json(run.auditor_dir / ("%s_report.json" % round_prefix), latest_audit.dict())
+            if progress_reporter is not None and hasattr(progress_reporter, "on_audit"):
+                progress_reporter.on_audit(
+                    round_index=rounds_executed + 1,
+                    audit_payload=sanitize_for_persistence(latest_audit.dict()),
+                    auditor_dir=self.workspace.relative_path(run.auditor_dir),
+                )
 
             current_trace = trace_package
             compact_rounds.append(_compact_round_summary(rounds_executed + 1, plan, execution_records, latest_audit))
@@ -253,6 +323,7 @@ class PipelineRunner(object):
                 break
 
         export_payload = self._persist_trace(run, task, current_trace)
+        export_target = self.workspace.export_run_target(run, task, results_name=results_name)
         final_payload = {
             "run_dir": self.workspace.relative_path(run.run_dir),
             "trace_package": sanitize_for_persistence(current_trace.dict()) if current_trace is not None else None,
@@ -261,5 +332,10 @@ class PipelineRunner(object):
             "preprocess": sanitize_for_persistence(preprocess_output),
             "rounds_executed": rounds_executed,
         }
+        if export_target is not None:
+            final_payload["exported_results_dir"] = str(export_target)
         write_json(run.results_dir / "final_result.json", final_payload)
+        self.workspace.export_run_bundle(run, task, results_name=results_name)
+        if progress_reporter is not None and hasattr(progress_reporter, "on_complete"):
+            progress_reporter.on_complete(final_payload=sanitize_for_persistence(final_payload))
         return final_payload

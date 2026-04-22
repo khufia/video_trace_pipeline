@@ -1,11 +1,18 @@
+# Install these against the CUDA 12.4 PyTorch wheel index:
+# pip install -r requirements-local-tools.txt --index-url https://download.pytorch.org/whl/cu124
 torch==2.6.0
 torchvision==0.21.0
 torchaudio==2.6.0
 transformers==4.57.1
 accelerate==1.13.0
+peft==0.18.1
 safetensors==0.7.0
 sentencepiece==0.2.1
+Pillow==11.3.0
 opencv-python-headless==4.13.0.92
 av==17.0.1
+decord==0.6.0
 imageio-ffmpeg==0.6.0
 numpy==2.2.6
+qwen-vl-utils[decord]==0.0.14
+sentence-transformers==5.3.0

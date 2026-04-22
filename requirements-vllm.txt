@@ -1,3 +1,9 @@
-# Keep vLLM optional and machine-specific.
-# Pin this file after selecting the exact CUDA / wheel combination for the host.
-vllm
+# vLLM is optional.
+# The core pipeline does not require it unless you want to serve local multimodal models
+# behind an OpenAI-compatible endpoint.
+#
+# Follow the official vLLM installation guide for a CUDA-matched wheel:
+# - default wheels are built against newer CUDA/PyTorch stacks
+# - alternate official wheels are published for CUDA 12.6 and 11.8
+# If you use a CUDA 12.4 / torch 2.6 tool stack, prefer a separate serving env.
+vllm==0.19.0

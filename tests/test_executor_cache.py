@@ -1,7 +1,6 @@
 from video_trace_pipeline.orchestration.executor import PlanExecutor, augment_dependency_output, hydrate_arguments_with_task_context
 from video_trace_pipeline.schemas import (
     AgentConfig,
-    GenericPurposeRequest,
     ExecutionPlan,
     FrameRef,
     FrameRetrieverRequest,
@@ -56,37 +55,45 @@ class FakeRegistry(object):
         return self.adapters[tool_name]
 
 
-class FakeFrameRetrieverAdapter(object):
+class FakeFrameRetrieverAdapter(ToolAdapter):
+    name = "frame_retriever"
     request_model = FrameRetrieverRequest
 
     def __init__(self):
         self.calls = 0
         self.last_clip = None
+        self.last_clips = []
         self.last_frame = None
 
     def parse_request(self, arguments):
-        request = self.request_model.parse_obj(arguments)
-        self.last_clip = request.clip
+        request = super().parse_request(arguments)
+        self.last_clips = list(request.clips or ([request.clip] if request.clip is not None else []))
+        self.last_clip = request.clip or (self.last_clips[0] if self.last_clips else None)
         return request
 
     def execute(self, request, context):
         self.calls += 1
-        frame = FrameRef(
-            video_id=context.task.video_id or context.task.sample_key,
-            timestamp_s=2.5,
-            clip=request.clip,
-            metadata={"source_path": "frame.png"},
-        )
-        self.last_frame = frame
+        clips = list(request.clips or ([request.clip] if request.clip is not None else []))
+        frames = []
+        for index, clip in enumerate(clips or [None]):
+            frame = FrameRef(
+                video_id=context.task.video_id or context.task.sample_key,
+                timestamp_s=2.5 + float(index),
+                clip=clip,
+                metadata={"source_path": "frame_%02d.png" % index},
+            )
+            frames.append(frame)
+        self.last_frame = frames[0]
         return ToolResult(
             tool_name="frame_retriever",
             ok=True,
-            data={"frames": [frame.dict()]},
+            data={"frames": [frame.dict() for frame in frames]},
             summary="Frame retrieval succeeded.",
         )
 
 
 class FakeSpatialGrounderAdapter(object):
+    name = "spatial_grounder"
     request_model = SpatialGrounderRequest
 
     def __init__(self):
@@ -120,26 +127,34 @@ class FakeSpatialGrounderAdapter(object):
         )
 
 
-class FakeGenericAdapter(ToolAdapter):
-    name = "generic_purpose"
-    request_model = GenericPurposeRequest
-
-    def __init__(self):
-        self.calls = 0
-        self.last_frame = None
+class MultiClipTemporalAdapter(object):
+    request_model = VisualTemporalGrounderRequest
 
     def parse_request(self, arguments):
-        request = super().parse_request(arguments)
-        self.last_frame = request.frame
-        return request
+        return self.request_model.parse_obj(arguments)
 
     def execute(self, request, context):
-        self.calls += 1
         return ToolResult(
-            tool_name="generic_purpose",
+            tool_name="visual_temporal_grounder",
             ok=True,
-            data={"answer": "placeholder"},
-            summary="Generic reasoning succeeded.",
+            data={
+                "query": request.query,
+                "clips": [
+                    {
+                        "video_id": context.task.video_id or context.task.sample_key,
+                        "start_s": 0.0,
+                        "end_s": 5.0,
+                        "metadata": {"confidence": 0.9},
+                    },
+                    {
+                        "video_id": context.task.video_id or context.task.sample_key,
+                        "start_s": 10.0,
+                        "end_s": 15.0,
+                        "metadata": {"confidence": 0.8},
+                    },
+                ],
+            },
+            summary="The event appears in two clips.",
         )
 
 
@@ -154,17 +169,14 @@ def _models_config():
         tools={
             "visual_temporal_grounder": ToolConfig(
                 enabled=True,
-                backend="internal_temporal_grounder",
                 prompt_version="tool_v1",
             ),
             "frame_retriever": ToolConfig(
                 enabled=True,
-                backend="internal_frame_retriever",
                 prompt_version="tool_v1",
             ),
             "spatial_grounder": ToolConfig(
                 enabled=True,
-                backend="internal_spatial_grounder",
                 prompt_version="tool_v1",
             ),
         },
@@ -412,18 +424,16 @@ def test_executor_autofills_frame_from_dependency(tmp_path):
     assert spatial_adapter.last_frame.timestamp_s == 2.5
 
 
-def test_executor_maps_image_alias_to_frame(tmp_path):
+def test_executor_passes_clip_lists_into_frame_retriever(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     workspace = WorkspaceManager(profile)
-    temporal_adapter = FakeAdapter()
+    temporal_adapter = MultiClipTemporalAdapter()
     frame_adapter = FakeFrameRetrieverAdapter()
-    spatial_adapter = FakeSpatialGrounderAdapter()
     executor = PlanExecutor(
         tool_registry=FakeRegistry(
             {
                 "visual_temporal_grounder": temporal_adapter,
                 "frame_retriever": frame_adapter,
-                "spatial_grounder": spatial_adapter,
             }
         ),
         evidence_cache=SharedEvidenceCache(workspace),
@@ -433,7 +443,7 @@ def test_executor_maps_image_alias_to_frame(tmp_path):
     task = TaskSpec(
         benchmark="videomathqa",
         sample_key="sample1",
-        question="Where is the highlighted object?",
+        question="What appears in the grounded segments?",
         options=[],
         video_path=str(tmp_path / "video.mp4"),
     )
@@ -448,132 +458,35 @@ def test_executor_maps_image_alias_to_frame(tmp_path):
         preprocess_bundle={"segments": []},
     )
     plan = ExecutionPlan(
-        strategy="Ground the segment, get a frame, then localize the object.",
+        strategy="Ground the video and inspect each matched clip.",
         use_summary=True,
         steps=[
             PlanStep(
                 step_id=1,
                 tool_name="visual_temporal_grounder",
-                purpose="Find the relevant segment.",
-                arguments={"tool_name": "visual_temporal_grounder", "query": "highlighted object"},
+                purpose="Find all matching segments.",
+                arguments={"tool_name": "visual_temporal_grounder", "query": "goal"},
                 input_refs=[],
                 depends_on=[],
             ),
             PlanStep(
                 step_id=2,
                 tool_name="frame_retriever",
-                purpose="Get a representative frame.",
-                arguments={"tool_name": "frame_retriever", "query": "highlighted object"},
-                input_refs=[{"target_field": "clip", "source": {"step_id": 1, "field_path": "clip"}}],
+                purpose="Retrieve a representative frame from each matched clip.",
+                arguments={"tool_name": "frame_retriever", "query": "goal", "top_k": 2},
+                input_refs=[{"target_field": "clip", "source": {"step_id": 1, "field_path": "clips"}}],
                 depends_on=[1],
-            ),
-            PlanStep(
-                step_id=3,
-                tool_name="spatial_grounder",
-                purpose="Localize the object in the retrieved frame.",
-                arguments={"tool_name": "spatial_grounder", "query": "Locate the highlighted object"},
-                input_refs=[{"target_field": "image", "source": {"step_id": 2, "field_path": "frames[0]"}}],
-                depends_on=[2],
             ),
         ],
         refinement_instructions="",
     )
-    executor.execute_plan(plan, context, ledger, video_fingerprint="imagealias123")
-    assert spatial_adapter.calls == 1
-    assert spatial_adapter.last_frame is not None
-    assert spatial_adapter.last_frame.timestamp_s == 2.5
 
+    executor.execute_plan(plan, context, ledger, video_fingerprint="multiclip123")
 
-def test_executor_maps_image_region_alias_to_frame(tmp_path):
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    workspace = WorkspaceManager(profile)
-    temporal_adapter = FakeAdapter()
-    frame_adapter = FakeFrameRetrieverAdapter()
-    spatial_adapter = FakeSpatialGrounderAdapter()
-    generic_adapter = FakeGenericAdapter()
-    executor = PlanExecutor(
-        tool_registry=FakeRegistry(
-            {
-                "visual_temporal_grounder": temporal_adapter,
-                "frame_retriever": frame_adapter,
-                "spatial_grounder": spatial_adapter,
-                "generic_purpose": generic_adapter,
-            }
-        ),
-        evidence_cache=SharedEvidenceCache(workspace),
-        extractor=ObservationExtractor(),
-        models_config=ModelsConfig(
-            agents=_models_config().agents,
-            tools={
-                **_models_config().tools,
-                "generic_purpose": ToolConfig(
-                    enabled=True,
-                    backend="openai_multimodal",
-                    prompt_version="tool_v1",
-                ),
-            },
-        ),
-    )
-    task = TaskSpec(
-        benchmark="videomathqa",
-        sample_key="sample1",
-        question="How many shapes are visible?",
-        options=[],
-        video_path=str(tmp_path / "video.mp4"),
-    )
-    (tmp_path / "video.mp4").write_bytes(b"video-bytes")
-    run = workspace.create_run(task)
-    ledger = EvidenceLedger(run)
-    context = ToolExecutionContext(
-        workspace=workspace,
-        run=run,
-        task=task,
-        models_config=_models_config(),
-        preprocess_bundle={"segments": []},
-    )
-    plan = ExecutionPlan(
-        strategy="Ground the segment, get a frame, localize a region, then analyze it.",
-        use_summary=True,
-        steps=[
-            PlanStep(
-                step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find the relevant segment.",
-                arguments={"tool_name": "visual_temporal_grounder", "query": "shapes"},
-                input_refs=[],
-                depends_on=[],
-            ),
-            PlanStep(
-                step_id=2,
-                tool_name="frame_retriever",
-                purpose="Get a representative frame.",
-                arguments={"tool_name": "frame_retriever", "query": "shapes"},
-                input_refs=[{"target_field": "clip", "source": {"step_id": 1, "field_path": "clip"}}],
-                depends_on=[1],
-            ),
-            PlanStep(
-                step_id=3,
-                tool_name="spatial_grounder",
-                purpose="Localize the target region.",
-                arguments={"tool_name": "spatial_grounder", "query": "Locate the shape cluster"},
-                input_refs=[{"target_field": "frame", "source": {"step_id": 2, "field_path": "frames[0]"}}],
-                depends_on=[2],
-            ),
-            PlanStep(
-                step_id=4,
-                tool_name="generic_purpose",
-                purpose="Analyze the localized region.",
-                arguments={"tool_name": "generic_purpose", "task": "Count the shapes."},
-                input_refs=[{"target_field": "image_region", "source": {"step_id": 3, "field_path": "region"}}],
-                depends_on=[3],
-            ),
-        ],
-        refinement_instructions="",
-    )
-    executor.execute_plan(plan, context, ledger, video_fingerprint="imageregion123")
-    assert generic_adapter.calls == 1
-    assert generic_adapter.last_frame is not None
-    assert generic_adapter.last_frame.timestamp_s == 2.5
+    assert frame_adapter.calls == 1
+    assert len(frame_adapter.last_clips) == 2
+    assert frame_adapter.last_clips[0].start_s == 0.0
+    assert frame_adapter.last_clips[1].start_s == 10.0
 
 
 def test_hydrate_arguments_with_task_context_fills_clip_shape():
@@ -604,3 +517,60 @@ def test_augment_dependency_output_promotes_analysis_and_best_frame():
     assert augmented["best_frame"]["timestamp_s"] == 2.5
     assert augmented["puzzle_bbox"]["label"] == "puzzle"
     assert augmented["analysis"] == "Counted 18 triangles."
+
+
+def test_executor_merges_duplicate_input_refs_for_plural_targets(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    executor = PlanExecutor(
+        tool_registry=FakeRegistry(
+            {
+                "visual_temporal_grounder": MultiClipTemporalAdapter(),
+                "frame_retriever": FakeFrameRetrieverAdapter(),
+            }
+        ),
+        evidence_cache=SharedEvidenceCache(workspace),
+        extractor=ObservationExtractor(),
+        models_config=_models_config(),
+    )
+    step = PlanStep(
+        step_id=7,
+        tool_name="frame_retriever",
+        purpose="Merge duplicated bindings.",
+        arguments={"query": "goal"},
+        input_refs=[
+            {"target_field": "clips", "source": {"step_id": 1, "field_path": "clips"}},
+            {"target_field": "clips", "source": {"step_id": 2, "field_path": "clips"}},
+        ],
+        depends_on=[1, 2],
+    )
+    step_outputs = {
+        1: {"clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 5.0}]},
+        2: {"clips": [{"video_id": "sample1", "start_s": 10.0, "end_s": 15.0}]},
+    }
+
+    resolved = executor._resolve_arguments(step, step_outputs)
+
+    assert len(resolved["clips"]) == 2
+    assert resolved["clips"][0]["start_s"] == 0.0
+    assert resolved["clips"][1]["start_s"] == 10.0
+
+    text_step = PlanStep(
+        step_id=8,
+        tool_name="frame_retriever",
+        purpose="Merge scalar strings into a plural target.",
+        arguments={"query": "goal"},
+        input_refs=[
+            {"target_field": "text_contexts", "source": {"step_id": 1, "field_path": "text"}},
+            {"target_field": "text_contexts", "source": {"step_id": 2, "field_path": "text"}},
+        ],
+        depends_on=[1, 2],
+    )
+    text_outputs = {
+        1: {"text": "line one"},
+        2: {"text": "line two"},
+    }
+
+    resolved_text = executor._resolve_arguments(text_step, text_outputs)
+
+    assert resolved_text["text_contexts"] == ["line one", "line two"]
