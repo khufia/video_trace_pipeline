@@ -13,6 +13,7 @@ from typing import Any, Dict, Iterable, Optional
 
 _REPO_ROOT = Path(__file__).resolve().parents[1]
 _ABSOLUTE_PATH_RE = re.compile(r"(?<![A-Za-z0-9._-])(?P<path>/(?:[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*))")
+_WORD_RE = re.compile(r"[A-Za-z0-9]+")
 
 
 def utc_now_compact() -> str:
@@ -142,6 +143,44 @@ def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
         return parsed if isinstance(parsed, dict) else None
     except Exception:
         return None
+
+
+def is_low_signal_text(text: str) -> bool:
+    raw = str(text or "").strip()
+    if not raw:
+        return True
+
+    visible_chars = [char for char in raw if not char.isspace()]
+    if not visible_chars:
+        return True
+
+    alnum_chars = [char.lower() for char in raw if char.isalnum()]
+    if not alnum_chars:
+        return True
+
+    if len(visible_chars) >= 8 and len(set(visible_chars)) == 1:
+        return True
+
+    if len(alnum_chars) >= 8 and len(set(alnum_chars)) == 1:
+        return True
+
+    return False
+
+
+def has_meaningful_text(text: str) -> bool:
+    raw = str(text or "").strip()
+    if is_low_signal_text(raw):
+        return False
+
+    words = _WORD_RE.findall(raw)
+    if not words:
+        return False
+
+    alnum_count = sum(len(word) for word in words)
+    if alnum_count >= 6:
+        return True
+
+    return len(words) >= 2
 
 
 def traverse_path(obj: Any, field_path: str) -> Any:

@@ -17,6 +17,10 @@ class SharedEvidenceCache(object):
     def __init__(self, workspace: WorkspaceManager):
         self.workspace = workspace
 
+    def lock(self, tool_name: str, request_hash: str) -> FileLock:
+        cache_dir = self.workspace.evidence_cache_dir(tool_name, request_hash)
+        return FileLock(str(cache_dir / ".lock"))
+
     def load(self, tool_name: str, request_hash: str) -> Optional[Dict[str, Any]]:
         cache_dir = self.workspace.evidence_cache_dir(tool_name, request_hash)
         manifest_path = cache_dir / "manifest.json"
@@ -33,7 +37,7 @@ class SharedEvidenceCache(object):
             else "",
         }
 
-    def store(
+    def store_unlocked(
         self,
         tool_name: str,
         request_hash: str,
@@ -43,15 +47,33 @@ class SharedEvidenceCache(object):
         summary_markdown: str,
     ) -> Path:
         cache_dir = self.workspace.evidence_cache_dir(tool_name, request_hash)
-        lock = FileLock(str(cache_dir / ".lock"))
-        with lock:
-            write_json(cache_dir / "manifest.json", manifest)
-            write_json(cache_dir / "result.json", result)
-            write_text(cache_dir / "summary.md", summary_markdown)
-            obs_path = cache_dir / "observations.jsonl"
-            obs_path.unlink(missing_ok=True)  # type: ignore[attr-defined]
-            append_jsonl(obs_path, observations)
+        write_json(cache_dir / "manifest.json", manifest)
+        write_json(cache_dir / "result.json", result)
+        write_text(cache_dir / "summary.md", summary_markdown)
+        obs_path = cache_dir / "observations.jsonl"
+        obs_path.unlink(missing_ok=True)  # type: ignore[attr-defined]
+        append_jsonl(obs_path, observations)
         return cache_dir
+
+    def store(
+        self,
+        tool_name: str,
+        request_hash: str,
+        manifest: Dict[str, Any],
+        result: Dict[str, Any],
+        observations: Iterable[Dict[str, Any]],
+        summary_markdown: str,
+    ) -> Path:
+        lock = self.lock(tool_name, request_hash)
+        with lock:
+            return self.store_unlocked(
+                tool_name=tool_name,
+                request_hash=request_hash,
+                manifest=manifest,
+                result=result,
+                observations=observations,
+                summary_markdown=summary_markdown,
+            )
 
 
 class EvidenceLedger(object):

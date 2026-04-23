@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import wave
 from contextlib import contextmanager, nullcontext
 from pathlib import Path
@@ -166,12 +167,40 @@ class ReferenceHarness:
         self.use_clip_retrieval = False
         self.dense_segment_half_width = 0.5
         self.retrieval_top_k = 8
-        self.dense_frame_embed_batch = max(1, int((runtime.get("extra") or {}).get("candidate_frames") or 8))
+        extra = dict(runtime.get("extra") or {})
+        self.dense_frame_embed_batch = max(
+            1,
+            int(extra.get("dense_frame_embed_batch") or extra.get("candidate_frames") or 8),
+        )
         self.use_retrieved_context = False
         self.segment_size_s = float(self.clip_duration)
         self._temporal_grounder_embedder_class = None
         self._temporal_grounder_reranker_class = None
         self._frame_embedder = None
+        self._frame_embedder_attn_override = None
+        self._frame_embedder_requested_attn_implementation = str(extra.get("attn_implementation") or "").strip() or None
+        self._frame_embedder_loaded_attn_implementation = None
+        self._frame_embedder_diagnostics: Dict[str, Any] = {
+            "requested_attn_implementation": self._frame_embedder_requested_attn_implementation or "default",
+            "loaded_attn_implementation": None,
+            "fallback_attn_implementations": [],
+            "embed_call_count": 0,
+            "retry_count": 0,
+            "batch_attempt_count": 0,
+            "batch_failure_count": 0,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 0,
+            "dense_frame_embed_batch": self.dense_frame_embed_batch,
+            "cache_load_error": None,
+            "cache_build_error": None,
+            "cache_write_error": None,
+            "query_error": None,
+            "frame_error": None,
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.0,
+            "frame_embed_s": 0.0,
+        }
 
         device_label = resolved_device_label(runtime)
         device_idx = device_index(device_label)
@@ -186,9 +215,10 @@ class ReferenceHarness:
         self.temporal_grounder_model_name = resolve_model_path(
             embedder_model or str(runtime.get("model_name") or "Qwen/Qwen3-VL-Embedding-8B"),
             runtime,
+            prefer_runtime_resolved=not bool(embedder_model),
         )
         self.temporal_grounder_reranker_model_name = (
-            resolve_model_path(reranker_model, runtime)
+            resolve_model_path(reranker_model, runtime, prefer_runtime_resolved=False)
             if reranker_model
             else resolve_aux_model_path(runtime, "reranker_model")
             or self.temporal_grounder_model_name
@@ -262,12 +292,103 @@ class ReferenceHarness:
         try:
             import torch
         except Exception:
-            return {"local_files_only": True}
-        use_bf16 = torch.cuda.is_available() and hasattr(torch.cuda, "is_bf16_supported") and torch.cuda.is_bf16_supported()
+            torch = None
+        use_bf16 = bool(
+            torch is not None
+            and torch.cuda.is_available()
+            and hasattr(torch.cuda, "is_bf16_supported")
+            and torch.cuda.is_bf16_supported()
+        )
         kwargs: Dict[str, Any] = {"local_files_only": True}
         if use_bf16:
             kwargs["torch_dtype"] = torch.bfloat16
+        attn_implementation = str(self._frame_embedder_attn_override or self._frame_embedder_requested_attn_implementation or "").strip()
+        if attn_implementation:
+            kwargs["attn_implementation"] = attn_implementation
         return kwargs
+
+    def _frame_embedding_cache_ready(self) -> bool:
+        emb_path, paths_path = self._dense_frame_embed_cache_paths()
+        return emb_path.is_file() and paths_path.is_file()
+
+    def _frame_embedder_runtime_metadata(self) -> Dict[str, Any]:
+        metadata = dict(self._frame_embedder_diagnostics)
+        metadata["loaded_attn_implementation"] = self._frame_embedder_loaded_attn_implementation or "unknown"
+        metadata["embedding_cache_ready"] = self._frame_embedding_cache_ready()
+        return metadata
+
+    @staticmethod
+    def _frame_embedder_error_text(exc: Exception) -> str:
+        return "%s: %s" % (exc.__class__.__name__, exc)
+
+    def _record_frame_embedder_error(self, key: str, exc: Exception) -> None:
+        if key not in self._frame_embedder_diagnostics or self._frame_embedder_diagnostics.get(key) is None:
+            self._frame_embedder_diagnostics[key] = self._frame_embedder_error_text(exc)
+
+    @staticmethod
+    def _should_retry_without_flash_attention(exc: Exception) -> bool:
+        text = str(exc or "")
+        return "FlashAttention" in text or "flash_attention" in text or "dim=0" in text or "zero dimension" in text
+
+    def _fallback_frame_embedder_attn_implementations(self) -> List[Optional[str]]:
+        current = str(self._frame_embedder_loaded_attn_implementation or self._frame_embedder_attn_override or self._frame_embedder_requested_attn_implementation or "").strip() or "default"
+        candidates: List[Optional[str]] = ["sdpa", "eager", None]
+        fallbacks: List[Optional[str]] = []
+        for candidate in candidates:
+            normalized = str(candidate or "default")
+            if normalized == current:
+                continue
+            if normalized in [str(item or "default") for item in fallbacks]:
+                continue
+            fallbacks.append(candidate)
+        return fallbacks
+
+    def _reload_frame_embedder(self, attn_implementation: Optional[str]) -> None:
+        self._release_frame_embedder()
+        self._frame_embedder_attn_override = attn_implementation
+        self._frame_embedder_loaded_attn_implementation = None
+        if attn_implementation is not None:
+            normalized = str(attn_implementation or "default")
+            recorded = [str(item or "default") for item in self._frame_embedder_diagnostics["fallback_attn_implementations"]]
+            if normalized not in recorded:
+                self._frame_embedder_diagnostics["fallback_attn_implementations"].append(normalized)
+
+    def _embed_with_frame_embedder(self, samples: List[Dict[str, Any]], *, phase: str):
+        last_error: Optional[Exception] = None
+        attempt_specs: List[Optional[str]] = [self._frame_embedder_attn_override]
+        for fallback_attn in self._fallback_frame_embedder_attn_implementations():
+            if fallback_attn not in attempt_specs:
+                attempt_specs.append(fallback_attn)
+        for attempt_index, attn_implementation in enumerate(attempt_specs):
+            if attempt_index > 0:
+                self._frame_embedder_diagnostics["retry_count"] += 1
+                self._reload_frame_embedder(attn_implementation)
+            embedder = self._get_or_load_frame_embedder()
+            started_at = time.perf_counter()
+            self._frame_embedder_diagnostics["embed_call_count"] += 1
+            try:
+                with self._frame_embedder_inference_context():
+                    embs = _normalize_embeddings(embedder.process(samples))
+                elapsed_s = time.perf_counter() - started_at
+                if phase == "query":
+                    self._frame_embedder_diagnostics["query_embed_s"] += elapsed_s
+                else:
+                    self._frame_embedder_diagnostics["frame_embed_s"] += elapsed_s
+                return embs
+            except Exception as exc:
+                elapsed_s = time.perf_counter() - started_at
+                if phase == "query":
+                    self._frame_embedder_diagnostics["query_embed_s"] += elapsed_s
+                    self._record_frame_embedder_error("query_error", exc)
+                else:
+                    self._frame_embedder_diagnostics["frame_embed_s"] += elapsed_s
+                    self._record_frame_embedder_error("frame_error", exc)
+                last_error = exc
+                if not self._should_retry_without_flash_attention(exc):
+                    break
+        if last_error is not None:
+            raise last_error
+        raise RuntimeError("Frame embedder did not produce embeddings.")
 
     def _load_model_helper_class(
         self,
@@ -328,6 +449,10 @@ class ReferenceHarness:
                 model_name_or_path=str(self.temporal_grounder_model_name),
                 **model_kwargs,
             )
+        self._frame_embedder_loaded_attn_implementation = str(
+            self._frame_embedder_attn_override or self._frame_embedder_requested_attn_implementation or "default"
+        )
+        self._frame_embedder_diagnostics["loaded_attn_implementation"] = self._frame_embedder_loaded_attn_implementation
         return self._frame_embedder
 
     def _release_frame_embedder(self):
@@ -358,6 +483,7 @@ class ReferenceHarness:
             with torch.cuda.device(embed_dev_idx):
                 torch.cuda.empty_cache()
         self._frame_embedder = None
+        self._frame_embedder_loaded_attn_implementation = None
 
     def _precompute_frame_embeddings_cache(self, frame_items: list) -> bool:
         import torch
@@ -369,23 +495,29 @@ class ReferenceHarness:
             return False
 
         batch_size = max(1, int(getattr(self, "dense_frame_embed_batch", 8)))
-        embedder = self._get_or_load_frame_embedder()
         all_embs = []
+        started_at = time.perf_counter()
         try:
             for offset in range(0, len(frame_items), batch_size):
                 batch = frame_items[offset : offset + batch_size]
                 samples = [{"video": [item["frame_path"]]} for item in batch]
                 try:
-                    with self._frame_embedder_inference_context():
-                        embs = _normalize_embeddings(embedder.process(samples))
-                except Exception:
+                    self._frame_embedder_diagnostics["batch_attempt_count"] += 1
+                    embs = self._embed_with_frame_embedder(samples, phase="frame_batch")
+                except Exception as exc:
+                    self._frame_embedder_diagnostics["batch_failure_count"] += 1
+                    self._record_frame_embedder_error("frame_error", exc)
                     fallback = []
                     for item in batch:
+                        self._frame_embedder_diagnostics["single_item_fallback_count"] += 1
                         try:
-                            with self._frame_embedder_inference_context():
-                                emb = _normalize_embeddings(embedder.process([{"video": [item["frame_path"]]}]))
+                            emb = self._embed_with_frame_embedder(
+                                [{"video": [item["frame_path"]]}],
+                                phase="frame_single",
+                            )
                         except Exception:
                             emb = torch.zeros(1, 4096, dtype=torch.float32)
+                            self._frame_embedder_diagnostics["zero_embedding_fallback_count"] += 1
                         fallback.append(emb)
                     embs = torch.cat(fallback, dim=0)
                 all_embs.append(embs.cpu())
@@ -393,11 +525,14 @@ class ReferenceHarness:
             emb_path.parent.mkdir(parents=True, exist_ok=True)
             torch.save(frame_embs, emb_path)
             paths_path.write_text(json.dumps([item["frame_path"] for item in frame_items]), encoding="utf-8")
+            self._frame_embedder_diagnostics["cache_build_s"] += time.perf_counter() - started_at
             return True
-        except Exception:
+        except Exception as exc:
+            self._frame_embedder_diagnostics["cache_build_s"] += time.perf_counter() - started_at
+            self._record_frame_embedder_error("cache_build_error", exc)
             return False
 
-    def _qwen_score_frames(self, query: str, frame_items: list, top_k: int) -> list:
+    def _qwen_score_frames(self, query: str, frame_items: list, top_k: int, *, persist_cache: bool = True) -> list:
         import torch
 
         if not frame_items:
@@ -406,22 +541,23 @@ class ReferenceHarness:
         emb_path, paths_path = self._dense_frame_embed_cache_paths()
         cached_frame_embs = None
         cached_paths_index: Dict[str, int] = {}
-        if emb_path.is_file() and paths_path.is_file():
+        if self._frame_embedding_cache_ready():
+            cache_load_started_at = time.perf_counter()
             try:
                 saved_paths = json.loads(paths_path.read_text(encoding="utf-8"))
                 cached_frame_embs = torch.load(emb_path, map_location="cpu").float()
                 cached_paths_index = {str(path): idx for idx, path in enumerate(saved_paths)}
-            except Exception:
+            except Exception as exc:
                 cached_frame_embs = None
                 cached_paths_index = {}
+                self._record_frame_embedder_error("cache_load_error", exc)
+            finally:
+                self._frame_embedder_diagnostics["cache_load_s"] += time.perf_counter() - cache_load_started_at
 
-        embedder = self._get_or_load_frame_embedder()
-        with self._frame_embedder_inference_context():
-            q_emb = _normalize_embeddings(
-                embedder.process(
-                    [{"text": query, "instruction": "Retrieve frames relevant to the user's query."}]
-                )
-            )
+        q_emb = self._embed_with_frame_embedder(
+            [{"text": query, "instruction": "Retrieve frames relevant to the user's query."}],
+            phase="query",
+        )
 
         ordered_embs: List[Optional[torch.Tensor]] = [None] * len(frame_items)
         if cached_frame_embs is not None:
@@ -440,10 +576,16 @@ class ReferenceHarness:
                     batch = missing_items[offset : offset + batch_size]
                     batch_indices = missing_indices[offset : offset + batch_size]
                     try:
-                        with self._frame_embedder_inference_context():
-                            embs = _normalize_embeddings(embedder.process([{"video": [item["frame_path"]]} for item in batch]))
-                    except Exception:
+                        self._frame_embedder_diagnostics["batch_attempt_count"] += 1
+                        embs = self._embed_with_frame_embedder(
+                            [{"video": [item["frame_path"]]} for item in batch],
+                            phase="frame_batch",
+                        )
+                    except Exception as exc:
+                        self._frame_embedder_diagnostics["batch_failure_count"] += 1
+                        self._record_frame_embedder_error("frame_error", exc)
                         embs = torch.zeros(len(batch), q_emb.shape[-1], dtype=torch.float32)
+                        self._frame_embedder_diagnostics["zero_embedding_fallback_count"] += len(batch)
                     for row_idx, emb in enumerate(embs):
                         ordered_embs[batch_indices[row_idx]] = emb.float()
             frame_embs = torch.stack(
@@ -456,18 +598,25 @@ class ReferenceHarness:
             for offset in range(0, len(frame_items), batch_size):
                 batch = frame_items[offset : offset + batch_size]
                 try:
-                    with self._frame_embedder_inference_context():
-                        embs = _normalize_embeddings(embedder.process([{"video": [item["frame_path"]]} for item in batch]))
-                except Exception:
+                    self._frame_embedder_diagnostics["batch_attempt_count"] += 1
+                    embs = self._embed_with_frame_embedder(
+                        [{"video": [item["frame_path"]]} for item in batch],
+                        phase="frame_batch",
+                    )
+                except Exception as exc:
+                    self._frame_embedder_diagnostics["batch_failure_count"] += 1
+                    self._record_frame_embedder_error("frame_error", exc)
                     embs = torch.zeros(len(batch), q_emb.shape[-1], dtype=torch.float32)
+                    self._frame_embedder_diagnostics["zero_embedding_fallback_count"] += len(batch)
                 batches.append(embs)
             frame_embs = torch.cat(batches, dim=0).float()
-            try:
-                emb_path.parent.mkdir(parents=True, exist_ok=True)
-                torch.save(frame_embs.cpu(), emb_path)
-                paths_path.write_text(json.dumps([item["frame_path"] for item in frame_items]), encoding="utf-8")
-            except Exception:
-                pass
+            if persist_cache:
+                try:
+                    emb_path.parent.mkdir(parents=True, exist_ok=True)
+                    torch.save(frame_embs.cpu(), emb_path)
+                    paths_path.write_text(json.dumps([item["frame_path"] for item in frame_items]), encoding="utf-8")
+                except Exception as exc:
+                    self._record_frame_embedder_error("cache_write_error", exc)
 
         sims = (q_emb @ frame_embs.T).squeeze(0)
         if sims.dim() == 0:

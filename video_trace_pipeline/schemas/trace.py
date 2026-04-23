@@ -56,6 +56,9 @@ class EvidenceEntry(BaseModel):
     evidence_text: str
     inference_hint: Optional[str] = None
     confidence: Optional[float] = None
+    time_start_s: Optional[float] = None
+    time_end_s: Optional[float] = None
+    frame_ts_s: Optional[float] = None
     artifact_refs: List[ArtifactRef] = Field(default_factory=list)
     observation_ids: List[str] = Field(default_factory=list)
     metadata: Dict[str, Any] = Field(default_factory=dict)

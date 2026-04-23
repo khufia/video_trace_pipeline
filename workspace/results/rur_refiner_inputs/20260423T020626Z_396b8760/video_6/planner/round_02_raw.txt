@@ -1,0 +1,42 @@
+{
+  "strategy": "Repair the answer-selection failure using the already grounded transcript facts: do one focused text-analysis step that checks each option strictly against the text between the first and second occurrences of the repeated place name 'Alaska', and explicitly decide whether paraphrase counts as a mention.",
+  "use_summary": false,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine which option is uniquely not mentioned within the bounded interval between the first and second occurrences of 'Alaska', using only the already retrieved transcript observations and an explicit paraphrase-vs-literal comparison for A, B, C, and D.",
+      "arguments": {
+        "query": "Using only the grounded transcript facts provided in text_contexts, identify the text strictly between the first and second occurrences of the repeated place name 'Alaska'. Then evaluate options A, B, C, and D against only that bounded interval. For each option, state whether it is mentioned literally, mentioned by clear paraphrase, or not mentioned. Finally, report whether exactly one option is uniquely not mentioned; if not, say that the evidence does not support a unique option.",
+        "clips": [],
+        "frames": [],
+        "transcripts": [],
+        "text_contexts": [
+          "The earliest place name occurring at least twice is Alaska.",
+          "The extracted transcript span from the first occurrence up to the second occurrence begins with \"As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door\".",
+          "unknown_speaker said \"As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off.\" from 2.38s to 22.32s.",
+          "unknown_speaker said \"Here at Alaska, safety is our number one concern.\" from 2.38s to 22.32s.",
+          "unknown_speaker said \"You know, everyone's screaming, cell phones whipping out into the sky.\" from 2.38s to 22.32s.",
+          "unknown_speaker said \"Plane flying around, no door.\" from 2.38s to 22.32s.",
+          "unknown_speaker said \"But on Alaska, you're in the movie.\" from 22.32s to 41.85s.",
+          "Evaluate option statements against only the text between those two occurrences.",
+          "Return the single option that is not mentioned."
+        ],
+        "evidence_ids": [
+          "obs_f6026bf325a805db",
+          "obs_72ba6db9e9b5b5c4",
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905",
+          "obs_b33d8562e3748b11",
+          "obs_9ef312a562a5c1ce",
+          "obs_1e139189051f7998",
+          "obs_863510e8efee8936",
+          "obs_aaba3d1ea8150d2e"
+        ]
+      },
+      "input_refs": [],
+      "depends_on": []
+    }
+  ],
+  "refinement_instructions": "Preserve the already supported anchor that the earliest repeated place name is 'Alaska'. Do not relocalize or rerun ASR unless the new step explicitly says the evidence is insufficient. Replace the prior unsupported conclusion that A is uniquely not mentioned. The repaired trace must strictly use the interval between the first and second occurrences of 'Alaska', not text before the first occurrence or words from the second-occurrence phrase itself. Use the new step's per-option classification to compare A, B, C, and D consistently, including whether paraphrase counts as a mention. If the new analysis finds that more than one option is not mentioned, the trace must explicitly state that the current evidence does not justify a unique multiple-choice answer rather than forcing one. Keep D as potentially supported by paraphrase only if the bounded interval itself supports that mapping; otherwise remove that claim. Do not let later transcript lines such as 'Here at Alaska, safety is our number one concern' or 'But on Alaska, you're in the movie' count if they fall outside the bounded interval."
+}

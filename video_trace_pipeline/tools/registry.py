@@ -256,6 +256,7 @@ class ToolRegistry(object):
                 processor_model_path=str(spec.get("processor_model_path") or "") or None,
                 generate_do_sample=bool(spec.get("generate_do_sample")),
                 generate_temperature=spec.get("generate_temperature"),
+                attn_implementation=str(spec.get("attn_implementation") or "") or None,
             )
         elif runner_type == "penguin":
             self.model_pool.acquire_penguin_runner(
@@ -264,6 +265,16 @@ class ToolRegistry(object):
                 device_label=str(spec.get("device_label") or ""),
                 generate_do_sample=bool(spec.get("generate_do_sample")),
                 generate_temperature=spec.get("generate_temperature"),
+            )
+        elif runner_type == "timechat":
+            self.model_pool.acquire_timechat_runner(
+                tool_name=str(spec.get("tool_name") or ""),
+                model_path=str(spec.get("resolved_model_path") or ""),
+                device_label=str(spec.get("device_label") or ""),
+                generate_do_sample=bool(spec.get("generate_do_sample")),
+                generate_temperature=spec.get("generate_temperature"),
+                use_audio_in_video=bool(spec.get("use_audio_in_video", True)),
+                attn_implementation=str(spec.get("attn_implementation") or "") or None,
             )
         else:
             raise RuntimeError("Unsupported persistent preload runner type: %s" % runner_type)

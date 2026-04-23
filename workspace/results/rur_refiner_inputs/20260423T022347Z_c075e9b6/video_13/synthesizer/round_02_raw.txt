@@ -1,0 +1,277 @@
+{
+  "task_key": "video_13__e6e95b328626",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_ref_01_phrase_match",
+      "tool_name": "asr",
+      "evidence_text": "The transcript contains the line \"Come to Phil's Ammu Nation today.\" from 129.125s to 158.167s. This is the grounded match to the question's paraphrased sound \"come to bill's ammunition.\"",
+      "inference_hint": "Use this time span as the target moment for the visual count.",
+      "confidence": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_771f48d13cfe8e8c",
+        "obs_4a51f266d52423f6"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_ref_02_phrase_clip_frames",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Additional frames were retrieved from within or immediately adjacent to the phrase span at 130.00s, 131.00s, 132.00s, 154.00s, 155.00s, 156.00s, 157.00s, and 158.00s.",
+      "inference_hint": "These are the relevant visual candidates for the phrase moment, replacing the earlier intro-only temporal anchor.",
+      "confidence": 0.1345,
+      "artifact_refs": [
+        {
+          "artifact_id": "bbfd8bf38ade36e14977f548",
+          "kind": "frame",
+          "relpath": "cache/artifacts/bbfd8bf38ade36e14977f548/frame_155.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_155.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 1303940
+          }
+        },
+        {
+          "artifact_id": "0497c3603f366542e699568d",
+          "kind": "frame",
+          "relpath": "cache/artifacts/0497c3603f366542e699568d/frame_154.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_154.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 1519433
+          }
+        },
+        {
+          "artifact_id": "70a176b21c07f84823929fb3",
+          "kind": "frame",
+          "relpath": "cache/artifacts/70a176b21c07f84823929fb3/frame_156.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_156.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 797073
+          }
+        },
+        {
+          "artifact_id": "7dde6761c8860522cd1b220f",
+          "kind": "frame",
+          "relpath": "cache/artifacts/7dde6761c8860522cd1b220f/frame_157.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_157.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 170729
+          }
+        },
+        {
+          "artifact_id": "7232315d9449afa5e80994a8",
+          "kind": "frame",
+          "relpath": "cache/artifacts/7232315d9449afa5e80994a8/frame_158.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_158.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 476265
+          }
+        },
+        {
+          "artifact_id": "4cb477704a8bd0ef316f09a1",
+          "kind": "frame",
+          "relpath": "cache/artifacts/4cb477704a8bd0ef316f09a1/frame_130.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_130.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 1519384
+          }
+        },
+        {
+          "artifact_id": "475e4d7478d2d829f92013a2",
+          "kind": "frame",
+          "relpath": "cache/artifacts/475e4d7478d2d829f92013a2/frame_131.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_131.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 1530778
+          }
+        },
+        {
+          "artifact_id": "eac32b8729e6091add43fcc1",
+          "kind": "frame",
+          "relpath": "cache/artifacts/eac32b8729e6091add43fcc1/frame_132.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_132.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 1594917
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_e0130ec777c753f6",
+        "obs_050900e226333aaa",
+        "obs_ff4708481942ff5b",
+        "obs_358973c5bf4b85b2",
+        "obs_f1e683206c3733e6",
+        "obs_c31fa0245ad83c4f",
+        "obs_7bfdb7c9521cb80c",
+        "obs_e70f49ca026b715e"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_ref_03_visual_state_at_phrase",
+      "tool_name": "frame_retriever",
+      "evidence_text": "The evidence database provides timestamps for candidate frames during the phrase clip, but no grounded observation in the supplied record describes the contents of those frames. There is therefore no verified observation here stating that a table is visible, that beer bottles are visible, or how many bottles are empty.",
+      "inference_hint": "Do not infer a bottle count from the existence of retrieved frames alone.",
+      "confidence": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_e0130ec777c753f6",
+        "obs_050900e226333aaa",
+        "obs_ff4708481942ff5b",
+        "obs_358973c5bf4b85b2",
+        "obs_f1e683206c3733e6",
+        "obs_c31fa0245ad83c4f",
+        "obs_7bfdb7c9521cb80c",
+        "obs_e70f49ca026b715e"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The question's quoted sound is grounded by the transcript as \"Come to Phil's Ammu Nation today,\" spoken during 129.125s-158.167s.",
+      "supporting_observation_ids": [
+        "obs_771f48d13cfe8e8c",
+        "obs_4a51f266d52423f6"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 2,
+      "text": "There are candidate frames from that same phrase interval at 130s-132s and 154s-158s, so these are the relevant visual moments to use instead of the earlier intro frames.",
+      "supporting_observation_ids": [
+        "obs_e0130ec777c753f6",
+        "obs_050900e226333aaa",
+        "obs_ff4708481942ff5b",
+        "obs_358973c5bf4b85b2",
+        "obs_f1e683206c3733e6",
+        "obs_c31fa0245ad83c4f",
+        "obs_7bfdb7c9521cb80c",
+        "obs_e70f49ca026b715e",
+        "obs_771f48d13cfe8e8c"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 3,
+      "text": "However, the supplied grounded observations do not describe what those phrase-aligned frames show, so there is no verified evidence here of a table, any beer bottles, or a count of empty bottles.",
+      "supporting_observation_ids": [
+        "obs_e0130ec777c753f6",
+        "obs_050900e226333aaa",
+        "obs_ff4708481942ff5b",
+        "obs_358973c5bf4b85b2",
+        "obs_f1e683206c3733e6",
+        "obs_c31fa0245ad83c4f",
+        "obs_7bfdb7c9521cb80c",
+        "obs_e70f49ca026b715e"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 4,
+      "text": "Because no grounded bottle count is available for the phrase moment, the options A=0, B=1, C=2, and D=3 cannot be distinguished with support.",
+      "supporting_observation_ids": [
+        "obs_771f48d13cfe8e8c",
+        "obs_e0130ec777c753f6",
+        "obs_050900e226333aaa",
+        "obs_ff4708481942ff5b",
+        "obs_358973c5bf4b85b2",
+        "obs_f1e683206c3733e6",
+        "obs_c31fa0245ad83c4f",
+        "obs_7bfdb7c9521cb80c",
+        "obs_e70f49ca026b715e"
+      ],
+      "answer_relevance": "high"
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "video_13__e6e95b328626",
+      "trace": {
+        "inference_steps": [
+          "The question's quoted sound is grounded by the transcript as \"Come to Phil's Ammu Nation today,\" spoken during 129.125s-158.167s.",
+          "There are candidate frames from that same phrase interval at 130s-132s and 154s-158s, so these are the relevant visual moments to use instead of the earlier intro frames.",
+          "However, the supplied grounded observations do not describe what those phrase-aligned frames show, so there is no verified evidence here of a table, any beer bottles, or a count of empty bottles.",
+          "Because no grounded bottle count is available for the phrase moment, the options A=0, B=1, C=2, and D=3 cannot be distinguished with support."
+        ],
+        "evidence": [
+          {
+            "tool_name": "asr",
+            "evidence_text": "The transcript contains the line \"Come to Phil's Ammu Nation today.\" from 129.125s to 158.167s. This is the grounded match to the question's paraphrased sound \"come to bill's ammunition.\"",
+            "observation_ids": [
+              "obs_771f48d13cfe8e8c",
+              "obs_4a51f266d52423f6"
+            ]
+          },
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Additional frames were retrieved from within or immediately adjacent to the phrase span at 130.00s, 131.00s, 132.00s, 154.00s, 155.00s, 156.00s, 157.00s, and 158.00s.",
+            "observation_ids": [
+              "obs_e0130ec777c753f6",
+              "obs_050900e226333aaa",
+              "obs_ff4708481942ff5b",
+              "obs_358973c5bf4b85b2",
+              "obs_f1e683206c3733e6",
+              "obs_c31fa0245ad83c4f",
+              "obs_7bfdb7c9521cb80c",
+              "obs_e70f49ca026b715e"
+            ]
+          },
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "The evidence database provides timestamps for candidate frames during the phrase clip, but no grounded observation in the supplied record describes the contents of those frames. There is therefore no verified observation here stating that a table is visible, that beer bottles are visible, or how many bottles are empty.",
+            "observation_ids": [
+              "obs_e0130ec777c753f6",
+              "obs_050900e226333aaa",
+              "obs_ff4708481942ff5b",
+              "obs_358973c5bf4b85b2",
+              "obs_f1e683206c3733e6",
+              "obs_c31fa0245ad83c4f",
+              "obs_7bfdb7c9521cb80c",
+              "obs_e70f49ca026b715e"
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "source": "initial_trace_steps",
+    "refinement_note": "Preserved the supported audio anchor, replaced the earlier intro-frame reliance with phrase-aligned frame retrieval, and kept the answer unresolved because the supplied grounded record still does not describe table or bottle contents in those frames."
+  }
+}

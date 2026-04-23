@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import contextlib
+import importlib
 import json
+import os
 import re
-from typing import List, Optional
+from pathlib import Path
+from typing import List, Optional, Tuple
 
 from ..common import hash_payload
 from ..runtime_devices import resolve_device_label
@@ -14,6 +18,88 @@ from .media import cleanup_temp_path, extract_audio_clip, get_video_duration, no
 def _join_text_blocks(items: List[str]) -> str:
     cleaned = [str(item or "").strip() for item in list(items or []) if str(item or "").strip()]
     return "\n\n".join(cleaned)
+
+
+def _dedupe_existing_dirs(paths: List[str]) -> List[Path]:
+    deduped: List[Path] = []
+    seen = set()
+    for raw_path in paths:
+        candidate = Path(str(raw_path or "").strip()).expanduser()
+        if not str(candidate):
+            continue
+        try:
+            normalized = str(candidate.resolve()) if candidate.exists() else str(candidate)
+        except Exception:
+            normalized = str(candidate)
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        if candidate.is_dir():
+            deduped.append(candidate)
+    return deduped
+
+
+def _whisperx_library_dirs() -> List[Path]:
+    candidates: List[str] = []
+    for raw_entry in str(os.environ.get("LD_LIBRARY_PATH") or "").split(":"):
+        entry = raw_entry.strip()
+        if entry:
+            candidates.append(entry)
+
+    cuda_home = str(os.environ.get("CUDA_HOME") or "").strip()
+    if cuda_home:
+        candidates.append(str(Path(cuda_home) / "lib64"))
+
+    for module_name in ("nvidia.cublas.lib", "nvidia.cudnn.lib"):
+        try:
+            module = importlib.import_module(module_name)
+            candidates.extend(list(getattr(module, "__path__", []) or []))
+        except Exception:
+            continue
+
+    try:
+        import ctranslate2
+
+        candidates.append(str(Path(ctranslate2.__file__).resolve().parent.parent / "ctranslate2.libs"))
+    except Exception:
+        pass
+
+    return _dedupe_existing_dirs(candidates)
+
+
+def _find_shared_library(lib_name: str) -> Optional[Path]:
+    for directory in _whisperx_library_dirs():
+        candidate = directory / lib_name
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def _whisperx_gpu_runtime_issue() -> Optional[str]:
+    missing = []
+    for lib_name in ("libcublas.so.12", "libcudnn_ops_infer.so.8", "libcudnn_cnn_infer.so.8", "libcudnn_adv_infer.so.8"):
+        if _find_shared_library(lib_name) is None:
+            missing.append(lib_name)
+    if not missing:
+        return None
+    searched = [str(path) for path in _whisperx_library_dirs()]
+    if not searched:
+        return "missing %s; no candidate CUDA/cuDNN library directories were found" % ", ".join(missing)
+    return "missing %s; searched %s" % (", ".join(missing), ", ".join(searched))
+
+
+def _resolve_whisperx_runtime(device_label: str) -> Tuple[str, Optional[str]]:
+    resolved = resolve_device_label(device_label, default="cpu")
+    if not resolved.startswith("cuda"):
+        return resolved, None
+    runtime_issue = _whisperx_gpu_runtime_issue()
+    if runtime_issue is None:
+        return resolved, None
+    warning = (
+        "WhisperX GPU runtime unavailable on %s (%s). Falling back to CPU int8 ASR."
+        % (resolved, runtime_issue)
+    )
+    return "cpu", warning
 
 
 def _clip_from_time_hint(video_id: str, video_path: str, time_hint: Optional[str]) -> Optional[ClipRef]:
@@ -66,29 +152,62 @@ def _clip_from_time_hint(video_id: str, video_path: str, time_hint: Optional[str
     )
 
 
-def _transcribe_with_whisperx(audio_path: str, model_name: str, device_label: str, language: Optional[str] = None):
+@contextlib.contextmanager
+def _temporary_torch_load_weights_only_false():
+    import torch
+
+    original_load = torch.load
+    if getattr(original_load, "_video_trace_pipeline_weights_only_compat", False):
+        yield
+        return
+
+    def _compat_load(*args, **kwargs):
+        # PyTorch 2.6 changed torch.load to default to weights_only=True.
+        # WhisperX's pyannote VAD checkpoint path still expects full checkpoint
+        # deserialization for trusted local model files. Lightning/pyannote may
+        # pass weights_only=None explicitly, which still triggers the new
+        # PyTorch default, so normalize both missing and None to False here.
+        if kwargs.get("weights_only") is None:
+            kwargs["weights_only"] = False
+        return original_load(*args, **kwargs)
+
+    _compat_load._video_trace_pipeline_weights_only_compat = True
+    torch.load = _compat_load
+    try:
+        yield
+    finally:
+        torch.load = original_load
+
+
+def _transcribe_with_whisperx(
+    audio_path: str,
+    model_name: str,
+    device_label: str,
+    language: Optional[str] = None,
+) -> Tuple[dict, Optional[str]]:
     import whisperx  # pragma: no cover - heavy optional dependency
 
-    device = resolve_device_label(device_label, default="cpu")
+    device, runtime_warning = _resolve_whisperx_runtime(device_label)
     device_name = "cpu"
-    device_index = None
+    load_kwargs = {}
     if device.startswith("cuda"):
         device_name = "cuda"
         if ":" in device:
             try:
-                device_index = int(device.split(":", 1)[1])
+                load_kwargs["device_index"] = int(device.split(":", 1)[1])
             except Exception:
-                device_index = 0
-    model = whisperx.load_model(
-        model_name,
-        device_name,
-        device_index=device_index,
-        compute_type="float16" if device_name == "cuda" else "int8",
-    )
-    kwargs = {}
-    if language:
-        kwargs["language"] = language
-    return model.transcribe(audio_path, batch_size=8, **kwargs)
+                load_kwargs["device_index"] = 0
+    with _temporary_torch_load_weights_only_false():
+        model = whisperx.load_model(
+            model_name,
+            device_name,
+            compute_type="float16" if device_name == "cuda" else "int8",
+            **load_kwargs,
+        )
+        kwargs = {}
+        if language:
+            kwargs["language"] = language
+        return model.transcribe(audio_path, batch_size=8, **kwargs), runtime_warning
 
 
 class LocalASRAdapter(ToolAdapter):
@@ -115,9 +234,16 @@ class LocalASRAdapter(ToolAdapter):
             model_name = str(self.extra.get("model_name") or "large-v3")
             language = self.extra.get("language")
             device = context.workspace.profile.gpu_assignments.get("asr", "cpu")
+            runtime_warning = None
             try:
-                result = _transcribe_with_whisperx(audio_path, model_name=model_name, device_label=device, language=language)
+                result, runtime_warning = _transcribe_with_whisperx(
+                    audio_path,
+                    model_name=model_name,
+                    device_label=device,
+                    language=language,
+                )
             except Exception as exc:
+                error_text = str(exc)
                 failed_data = ASROutput.model_validate(
                     {
                         "clip": clip.model_dump(),
@@ -126,7 +252,7 @@ class LocalASRAdapter(ToolAdapter):
                         "backend": "whisperx_local",
                     }
                 ).model_dump()
-                failed_data["error"] = str(exc)
+                failed_data["error"] = error_text
                 return ToolResult(
                     tool_name=self.name,
                     ok=False,
@@ -134,8 +260,8 @@ class LocalASRAdapter(ToolAdapter):
                     raw_output_text="",
                     artifact_refs=[],
                     request_hash=hash_payload({"tool": self.name, "clip": clip.model_dump()}),
-                    summary="ASR unavailable: %s" % exc,
-                    metadata={},
+                    summary="ASR unavailable.",
+                    metadata={"error": error_text},
                 )
             segments = []
             for item in result.get("segments") or []:
@@ -167,7 +293,7 @@ class LocalASRAdapter(ToolAdapter):
                 artifact_refs=[],
                 request_hash=hash_payload({"tool": self.name, "clip": clip.model_dump()}),
                 summary=(text or "No speech detected.")[:2000],
-                metadata={},
+                metadata={"runtime_warning": runtime_warning} if runtime_warning else {},
             )
         finally:
             cleanup_temp_path(audio_path)

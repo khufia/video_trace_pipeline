@@ -1,0 +1,904 @@
+{
+  "run_dir": "runs/adhoc/video_6__cee540735a2c/20260423T020626Z_396b8760",
+  "trace_package": {
+    "task_key": "video_6__cee540735a2c",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_ref_01",
+        "tool_name": "asr",
+        "evidence_text": "The earliest repeated place name in the spoken transcript is \"Alaska.\" The first occurrence is in \"As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off.\" and the second occurrence is in \"Here at Alaska, safety is our number one concern.\" Both occur within the 2.38s-22.32s transcript segment.",
+        "inference_hint": null,
+        "confidence": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905",
+          "obs_f6026bf325a805db"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_ref_02",
+        "tool_name": "asr",
+        "evidence_text": "Using only the text strictly after the first \"Alaska\" in \"Alaska Airlines\" and strictly before the second \"Alaska\" in \"Here at Alaska,\" the bounded interval is \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\". This interval mentions a cabin door breaking off, but it does not include the later words \"safety is our number one concern.\"",
+        "inference_hint": null,
+        "confidence": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_ref_03",
+        "tool_name": "asr",
+        "evidence_text": "Relevant nearby lines fall outside the bounded interval: the second-occurrence phrase contains \"safety is our number one concern\" in the same 2.38s-22.32s segment, \"cell phones whipping out into the sky\" also appears later in that segment, and \"But on Alaska, you're in the movie\" appears later at 22.32s-41.85s. These should not be counted as inside the interval between the two \"Alaska\" occurrences.",
+        "inference_hint": null,
+        "confidence": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_277ea7fec5f66905",
+          "obs_b33d8562e3748b11",
+          "obs_1e139189051f7998"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_ref_04",
+        "tool_name": "generic_purpose",
+        "evidence_text": "The transcript analysis identifies \"Alaska\" as the earliest place name that occurs at least twice; other listed place names in the transcript include \"Hawaiian\" and \"Cleveland,\" each only once in the provided analysis.",
+        "inference_hint": null,
+        "confidence": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_e44504e98f54ad36",
+          "obs_d9b2f4f577628229",
+          "obs_50ed0a22cc44d3b0",
+          "obs_440b0076158b4709",
+          "obs_6accf2e1cd494bc2",
+          "obs_f6026bf325a805db"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The repeated place name to use is \"Alaska,\" with the first occurrence in \"Alaska Airlines\" and the second in \"Here at Alaska.\"",
+        "supporting_observation_ids": [
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905",
+          "obs_f6026bf325a805db"
+        ],
+        "answer_relevance": "high"
+      },
+      {
+        "step_id": 2,
+        "text": "The interval to inspect is only the text strictly between those two occurrences: \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\".",
+        "supporting_observation_ids": [
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905"
+        ],
+        "answer_relevance": "high"
+      },
+      {
+        "step_id": 3,
+        "text": "Within that interval, option D is supported only by paraphrase because it mentions a cabin door breaking off, but the interval does not mention safety, cell phones going into the sky, or being in the movie.",
+        "supporting_observation_ids": [
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905",
+          "obs_b33d8562e3748b11",
+          "obs_1e139189051f7998"
+        ],
+        "answer_relevance": "high"
+      },
+      {
+        "step_id": 4,
+        "text": "That leaves A, B, and C all not mentioned within the bounded interval, so the evidence does not justify a unique multiple-choice answer.",
+        "supporting_observation_ids": [
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905",
+          "obs_b33d8562e3748b11",
+          "obs_1e139189051f7998"
+        ],
+        "answer_relevance": "high"
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "video_6__cee540735a2c",
+        "trace": {
+          "inference_steps": [
+            "The repeated place name to use is \"Alaska,\" with the first occurrence in \"Alaska Airlines\" and the second in \"Here at Alaska.\"",
+            "The interval to inspect is only the text strictly between those two occurrences: \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\".",
+            "Within that interval, option D is supported only by paraphrase because it mentions a cabin door breaking off, but the interval does not mention safety, cell phones going into the sky, or being in the movie.",
+            "That leaves A, B, and C all not mentioned within the bounded interval, so the evidence does not justify a unique multiple-choice answer."
+          ],
+          "evidence": [
+            {
+              "tool_name": "asr",
+              "evidence_text": "The earliest repeated place name in the spoken transcript is \"Alaska.\" The first occurrence is in \"As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off.\" and the second occurrence is in \"Here at Alaska, safety is our number one concern.\" Both occur within the 2.38s-22.32s transcript segment.",
+              "observation_ids": [
+                "obs_5dc192b1454c7d6b",
+                "obs_277ea7fec5f66905",
+                "obs_f6026bf325a805db"
+              ]
+            },
+            {
+              "tool_name": "asr",
+              "evidence_text": "Using only the text strictly after the first \"Alaska\" in \"Alaska Airlines\" and strictly before the second \"Alaska\" in \"Here at Alaska,\" the bounded interval is \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\". This interval mentions a cabin door breaking off, but it does not include the later words \"safety is our number one concern.\"",
+              "observation_ids": [
+                "obs_5dc192b1454c7d6b",
+                "obs_277ea7fec5f66905"
+              ]
+            },
+            {
+              "tool_name": "asr",
+              "evidence_text": "Relevant nearby lines fall outside the bounded interval: the second-occurrence phrase contains \"safety is our number one concern\" in the same 2.38s-22.32s segment, \"cell phones whipping out into the sky\" also appears later in that segment, and \"But on Alaska, you're in the movie\" appears later at 22.32s-41.85s. These should not be counted as inside the interval between the two \"Alaska\" occurrences.",
+              "observation_ids": [
+                "obs_277ea7fec5f66905",
+                "obs_b33d8562e3748b11",
+                "obs_1e139189051f7998"
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "The transcript analysis identifies \"Alaska\" as the earliest place name that occurs at least twice; other listed place names in the transcript include \"Hawaiian\" and \"Cleveland,\" each only once in the provided analysis.",
+              "observation_ids": [
+                "obs_e44504e98f54ad36",
+                "obs_d9b2f4f577628229",
+                "obs_50ed0a22cc44d3b0",
+                "obs_440b0076158b4709",
+                "obs_6accf2e1cd494bc2",
+                "obs_f6026bf325a805db"
+              ]
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {
+      "source": "initial_trace_steps",
+      "refinement_note": "Preserved the supported Alaska anchor and replaced the unsupported unique-choice conclusion with interval-strict option comparison showing the answer is unresolved."
+    }
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.95,
+    "scores": {
+      "logical_coherence": 0.72,
+      "completeness": 0.28,
+      "factual_correctness": 0.83,
+      "reasoning_order": 0.86
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "ANSWER_ERROR",
+        "message": "The trace does not answer the multiple-choice question with one option or an explicitly selected unresolved outcome; `final_answer` is blank even though the question requires a single option.",
+        "evidence_ids": []
+      },
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace concludes that A, B, and C are all 'not mentioned,' so it cannot justify a unique answer. But the question requires identifying which option is not mentioned, and the trace never resolves the ambiguity among those three candidates. This is an answer-critical completeness gap.",
+        "evidence_ids": [
+          "ev_ref_02",
+          "ev_ref_03"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "INFERENCE_ERROR",
+        "message": "Step 3 treats option D as supported 'only by paraphrase' from 'a cabin door broke off.' That may support the broader idea of a missing door, but the trace does not establish a principled option-matching standard for why this paraphrase counts while the other options do not. This weakens the option comparison.",
+        "evidence_ids": [
+          "ev_ref_02"
+        ]
+      }
+    ],
+    "feedback": "The trace has a plausible interval anchor, but it fails to produce a justified single answer. It leaves multiple options unresolved and provides no final selection, so the current package is not complete enough for the question.",
+    "missing_information": [
+      "Which single answer option is justified as not mentioned between the first and second occurrence of the repeated place name",
+      "A consistent option-matching basis for whether paraphrased wording counts as 'mentioned' for each answer choice"
+    ]
+  },
+  "benchmark_export": {
+    "sample_key": "video_6__cee540735a2c",
+    "trace": {
+      "inference_steps": [
+        "The repeated place name to use is \"Alaska,\" with the first occurrence in \"Alaska Airlines\" and the second in \"Here at Alaska.\"",
+        "The interval to inspect is only the text strictly between those two occurrences: \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\".",
+        "Within that interval, option D is supported only by paraphrase because it mentions a cabin door breaking off, but the interval does not mention safety, cell phones going into the sky, or being in the movie.",
+        "That leaves A, B, and C all not mentioned within the bounded interval, so the evidence does not justify a unique multiple-choice answer."
+      ],
+      "evidence": [
+        {
+          "tool_name": "asr",
+          "evidence_text": "The earliest repeated place name in the spoken transcript is \"Alaska.\" The first occurrence is in \"As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off.\" and the second occurrence is in \"Here at Alaska, safety is our number one concern.\" Both occur within the 2.38s-22.32s transcript segment.",
+          "observation_ids": [
+            "obs_5dc192b1454c7d6b",
+            "obs_277ea7fec5f66905",
+            "obs_f6026bf325a805db"
+          ]
+        },
+        {
+          "tool_name": "asr",
+          "evidence_text": "Using only the text strictly after the first \"Alaska\" in \"Alaska Airlines\" and strictly before the second \"Alaska\" in \"Here at Alaska,\" the bounded interval is \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\". This interval mentions a cabin door breaking off, but it does not include the later words \"safety is our number one concern.\"",
+          "observation_ids": [
+            "obs_5dc192b1454c7d6b",
+            "obs_277ea7fec5f66905"
+          ]
+        },
+        {
+          "tool_name": "asr",
+          "evidence_text": "Relevant nearby lines fall outside the bounded interval: the second-occurrence phrase contains \"safety is our number one concern\" in the same 2.38s-22.32s segment, \"cell phones whipping out into the sky\" also appears later in that segment, and \"But on Alaska, you're in the movie\" appears later at 22.32s-41.85s. These should not be counted as inside the interval between the two \"Alaska\" occurrences.",
+          "observation_ids": [
+            "obs_277ea7fec5f66905",
+            "obs_b33d8562e3748b11",
+            "obs_1e139189051f7998"
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "The transcript analysis identifies \"Alaska\" as the earliest place name that occurs at least twice; other listed place names in the transcript include \"Hawaiian\" and \"Cleveland,\" each only once in the provided analysis.",
+          "observation_ids": [
+            "obs_e44504e98f54ad36",
+            "obs_d9b2f4f577628229",
+            "obs_50ed0a22cc44d3b0",
+            "obs_440b0076158b4709",
+            "obs_6accf2e1cd494bc2",
+            "obs_f6026bf325a805db"
+          ]
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": false,
+    "cache_dir": "cache/preprocess/6a09f3a95ea1fda8ce9984e16a52786d2b6b97e5f31ceebe69c5d23a876e8fa0/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/30/tool_v2",
+    "manifest": {
+      "video_fingerprint": "6a09f3a95ea1fda8ce9984e16a52786d2b6b97e5f31ceebe69c5d23a876e8fa0",
+      "clip_duration_s": 30.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "segment_count": 5,
+      "summary_status": "available"
+    },
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 30.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_6",
+            "start_s": 0.0,
+            "end_s": 30.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 0.0,
+              "end": 5.0,
+              "visual": "The video begins with a black screen as applause is heard. It then transitions to a shot of a ground crew member in an orange safety vest and headphones, walking away from the camera toward the front of a large, white Alaska Airlines plane. The scene then cuts to a low-angle shot of a passenger's legs walking through a modern airport terminal, pulling a grey rolling suitcase. The Alaska Airlines logo is superimposed over both scenes.",
+              "audio": "speech: As you may have heard, an Alaska Airlines flight had to make an emergency landing...; acoustics: 1) Tone of speech: Informative, neutral. 2) Background sounds or music: Upbeat, gentle music begins to play, accompanied by the sound of applause at the start.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The first shot is a static medium shot from behind the ground crew member. The second shot is a low-angle tracking shot following the passenger's feet and suitcase.",
+                "video_background: The first scene is on an airport tarmac with a large passenger jet. The second scene is inside a spacious, modern airport terminal with polished floors and large windows.",
+                "storyline: This opening montage establishes the setting and introduces the airline, Alaska Airlines, through its logo and imagery associated with travel and airport life.",
+                "shooting_style: This is a montage of two distinct shots connected by the airline's logo, setting the brand's visual identity."
+              ]
+            },
+            {
+              "start": 6.0,
+              "end": 11.0,
+              "visual": "A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt with a pussy-bow blouse, stands in an airport waiting area. She looks directly at the camera and begins to speak. The scene then cuts to a male flight attendant with brown hair, wearing a dark blue uniform, who also stands in the same waiting area and speaks to the camera with a slight smile.",
+              "audio": "speech: Female Flight Attendant: ...after a cabin door broke off. Male Flight Attendant: Here at Alaska, safety is our number one concern.; acoustics: 1) Tone of speech: The female attendant is serious; the male attendant is reassuring and professional. 2) Background sounds or music: The gentle, upbeat music continues.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: Both shots are medium close-ups, framed from the waist up, with the subjects centered. The camera is static.",
+                "video_background: The background is a modern airport waiting area with rows of empty seats, large windows, and digital flight information displays in the distance.",
+                "storyline: Two flight attendants are introduced, addressing the audience directly to set up the premise of the commercial: a recent, dramatic flight incident.",
+                "shooting_style: The scene intercuts between two different flight attendants speaking to the camera, creating a sense of a team message."
+              ]
+            },
+            {
+              "start": 12.0,
+              "end": 17.0,
+              "visual": "A male flight attendant, wearing a grey vest over a light blue shirt and a patterned tie, stands in the airport terminal. He smiles broadly and gestures with his hands as he speaks, looking directly at the camera. He has a name tag that reads 'ROBERT' and a winged pilot badge.",
+              "audio": "speech: But, you gotta admit, it looked pretty cool. Plane flying around, no door.; acoustics: 1) Tone of speech: Amused, enthusiastic, and conversational. 2) Background sounds or music: The upbeat, positive music continues.",
+              "on_screen_text": "ROBERT",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium shot, framed from the chest up, and remains static.",
+                "video_background: The background is an airport terminal with a sign for 'Gates C37-C3...' visible behind him, along with large support pillars.",
+                "storyline: A third flight attendant is introduced, offering a humorous and lighthearted perspective on the emergency landing, contrasting with the previous serious tone.",
+                "shooting_style: This is a single, static shot of a character speaking to the camera."
+              ]
+            }
+          ],
+          "overall_summary": "The video begins with a black screen as applause is heard. It then transitions to a shot of a ground crew member in an orange safety vest and headphones, walking away from the camera toward the front of a large, white Alaska Airlines plane. The scene then cuts to a low-angle shot of a passenger's legs walking through a modern airport terminal, pulling a grey rolling suitcase. The Alaska Airlines logo is superimposed over both scenes.; speech: As you may have heard, an Alaska Airlines flight had to make an emergency landing...; acoustics: 1) Tone of speech: Informative, neutral. 2) Background sounds or music: Upbeat, gentle music begins to play, accompanied by the sound of applause at the start.; attributes: camera_state: The first shot is a static medium shot from behind the ground crew member. The second shot is a low-angle tracking shot following the passenger's feet and suitcase., video_background: The first scene is on an airport tarmac with a large passenger jet. The second scene is inside a spacious, modern airport terminal with polished floors and large windows., storyline: This opening montage establishes the setting and introduces the airline, Alaska Airlines, through its logo and imagery associated with travel and airport life., shooting_style: This is a montage of two distinct shots connected by the airline's logo, setting the brand's visual identity. A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt with a pussy-bow blouse, stands in an airport waiting area. She looks directly at the camera and begins to speak. The scene then cuts to a male flight attendant with brown hair, wearing a dark blue uniform, who also stands in the same waiting area and speaks to the camera with a slight smile.; speech: Female Flight Attendant: ...after a cabin door broke off. Male Flight Attendant: Here at Alaska, safety is our number one concern.; acoustics: 1) Tone of speech: The female attendant is serious; the male attendant is reassuring and professional. 2) Background sounds or music: The gentle, upbeat music continues.; attributes: camera_state: Both shots are medium close-ups, framed from the waist up, with the subjects centered. The camera is static., video_background: The background is a modern airport waiting area with rows of empty seats, large windows, and digital flight information displays in the distance., storyline: Two flight attendants are introduced, addressing the audience directly to set up the premise of the commercial: a recent, dramatic flight incident., shooting_style: The scene intercuts between two different flight attendants speaking to the camera, creating a sense of a team message. A male flight attendant, wearing a grey vest over a light blue shirt and a patterned tie, stands in the airport terminal. He smiles broadly and gestures with his hands as he speaks, looking directly at the camera. He has a name tag that reads 'ROBERT' and a winged pilot badge.; speech: But, you gotta admit, it looked pretty cool. Plane flying around, no door.; acoustics: 1) Tone of speech: Amused, enthusiastic, and conversational. 2) Background sounds or music: The upbeat, positive music continues.; ROBERT; attributes: camera_state: The camera is at a medium shot, framed from the chest up, and remains static., video_background: The background is an airport terminal with a sign for 'Gates C37-C3...' visible behind him, along with large support pillars., storyline: A third flight attendant is introduced, offering a humorous and lighthearted perspective on the emergency landing, contrasting with the previous serious tone., shooting_style: This is a single, static shot of a character speaking to the camera.",
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 30.0
+          },
+          "sampled_frames": [
+            {
+              "timestamp_s": 0.0,
+              "artifact_id": "28b8ec72d3c8e96256bb8ee3",
+              "relpath": "cache/artifacts/28b8ec72d3c8e96256bb8ee3/dense_caption_01_000.000.jpg"
+            },
+            {
+              "timestamp_s": 3.3333333333333335,
+              "artifact_id": "6e27b1ba902d7b6dd968a7d6",
+              "relpath": "cache/artifacts/6e27b1ba902d7b6dd968a7d6/dense_caption_02_003.333.jpg"
+            },
+            {
+              "timestamp_s": 6.666666666666667,
+              "artifact_id": "45f004797bcebba58690e5fc",
+              "relpath": "cache/artifacts/45f004797bcebba58690e5fc/dense_caption_03_006.667.jpg"
+            },
+            {
+              "timestamp_s": 10.0,
+              "artifact_id": "4c80a894436a56cbcc1a5227",
+              "relpath": "cache/artifacts/4c80a894436a56cbcc1a5227/dense_caption_04_010.000.jpg"
+            },
+            {
+              "timestamp_s": 13.333333333333334,
+              "artifact_id": "490a272413053dd04c33f247",
+              "relpath": "cache/artifacts/490a272413053dd04c33f247/dense_caption_05_013.333.jpg"
+            },
+            {
+              "timestamp_s": 16.666666666666668,
+              "artifact_id": "f846b0ea67cad26f983ddd94",
+              "relpath": "cache/artifacts/f846b0ea67cad26f983ddd94/dense_caption_06_016.667.jpg"
+            },
+            {
+              "timestamp_s": 20.0,
+              "artifact_id": "4ecf098580f4a0f26d1d2826",
+              "relpath": "cache/artifacts/4ecf098580f4a0f26d1d2826/dense_caption_07_020.000.jpg"
+            },
+            {
+              "timestamp_s": 23.333333333333336,
+              "artifact_id": "44594bf15331a625eed71343",
+              "relpath": "cache/artifacts/44594bf15331a625eed71343/dense_caption_08_023.333.jpg"
+            },
+            {
+              "timestamp_s": 26.666666666666668,
+              "artifact_id": "ebaad2a544b246b243e7d888",
+              "relpath": "cache/artifacts/ebaad2a544b246b243e7d888/dense_caption_09_026.667.jpg"
+            },
+            {
+              "timestamp_s": 30.0,
+              "artifact_id": "16edea892750f23afb5d6bd1",
+              "relpath": "cache/artifacts/16edea892750f23afb5d6bd1/dense_caption_10_030.000.jpg"
+            }
+          ],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "caption_summary": "The video begins with a black screen as applause is heard. It then transitions to a shot of a ground crew member in an orange safety vest and headphones, walking away from the camera toward the front of a large, white Alaska Airlines plane. The scene then cuts to a low-angle shot of a passenger's legs walking through a modern airport terminal, pulling a grey rolling suitcase. The Alaska Airlines logo is superimposed over both scenes.; speech: As you may have heard, an Alaska Airlines flight had to make an emergency landing...; acoustics: 1) Tone of speech: Informative, neutral. 2) Background sounds or music: Upbeat, gentle music begins to play, accompanied by the sound of applause at the start.; attributes: camera_state: The first shot is a static medium shot from behind the ground crew member. The second shot is a low-angle tracking shot following the passenger's feet and suitcase., video_background: The first scene is on an airport tarmac with a large passenger jet. The second scene is inside a spacious, modern airport terminal with polished floors and large windows., storyline: This opening montage establishes the setting and introduces the airline, Alaska Airlines, through its logo and imagery associated with travel and airport life., shooting_style: This is a montage of two distinct shots connected by the airline's logo, setting the brand's visual identity. A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt with a pussy-bow blouse, stands in an airport waiting area. She looks directly at the camera and begins to speak. The scene then cuts to a male flight attendant with brown hair, wearing a dark blue uniform, who also stands in the same waiting area and speaks to the camera with a slight smile.; speech: Female Flight Attendant: ...after a cabin door broke off. Male Flight Attendant: Here at Alaska, safety is our number one concern.; acoustics: 1) Tone of speech: The female attendant is serious; the male attendant is reassuring and professional. 2) Background sounds or music: The gentle, upbeat music continues.; attributes: camera_state: Both shots are medium close-ups, framed from the waist up, with the subjects centered. The camera is static., video_background: The background is a modern airport waiting area with rows of empty seats, large windows, and digital flight information displays in the distance., storyline: Two flight attendants are introduced, addressing the audience directly to set up the premise of the commercial: a recent, dramatic flight incident., shooting_style: The scene intercuts between two different flight attendants speaking to the camera, creating a sense of a team message. A male flight attendant, wearing a grey vest over a light blue shirt and a patterned tie, stands in the airport terminal. He smiles broadly and gestures with his hands as he speaks, looking directly at the camera. He has a name tag that reads 'ROBERT' and a winged pilot badge.; speech: But, you gotta admit, it looked pretty cool. Plane flying around, no door.; acoustics: 1) Tone of speech: Amused, enthusiastic, and conversational. 2) Background sounds or music: The upbeat, positive music continues.; ROBERT; attributes: camera_state: The camera is at a medium shot, framed from the chest up, and remains static., video_background: The background is an airport terminal with a sign for 'Gates C37-C3...' visible behind him, along with large support pillars., storyline: A third flight attendant is introduced, offering a humorous and lighthearted perspective on the emergency landing, contrasting with the previous serious tone., shooting_style: This is a single, static shot of a character speaking to the camera."
+      },
+      {
+        "start": 30.0,
+        "end": 60.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_6",
+            "start_s": 30.0,
+            "end_s": 60.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 30.0,
+              "end": 33.0,
+              "visual": "A young man in a dark blue and black Alaska Airlines uniform stands in a bright airport terminal. He smiles warmly at the camera and gestures with his hands as he speaks, with a large airplane visible through the windows behind him.",
+              "audio": "speech: John: On Alaska, you're in the movie.; acoustics: 1) Tone of speech: Cheerful and confident. 2) Background sounds or music: Faint, uplifting music begins to play.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A medium shot, framed from the waist up, with the camera remaining static.",
+                "video_background: The background is a modern airport terminal with large windows. An airplane is visible outside, and a flight information display board is on the left wall.",
+                "storyline: The video begins with an employee, John, introducing the airline's slogan, setting a friendly and engaging tone for the advertisement.",
+                "shooting_style: This is a standard talking-head shot, establishing the first character."
+              ]
+            },
+            {
+              "start": 34.0,
+              "end": 37.0,
+              "visual": "The scene abruptly cuts to a dark, chaotic sequence inside a plane. Passengers are screaming and panicking as the cabin is bathed in flashing blue emergency lights. The camera shakes violently, showing people hugging, covering their ears, and looking terrified.",
+              "audio": "speech: (Screaming and panicked shouts); acoustics: 1) Tone of speech: Panicked and terrified. 2) Background sounds or music: Loud, chaotic sounds of alarms, wind, and screaming.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is handheld and shaky, moving quickly through the cabin to create a sense of chaos and disorientation. It includes close-ups on panicked passengers.",
+                "video_background: The interior of an airplane cabin is dark, with the only light coming from the flashing blue emergency lights. The windows show a dark, turbulent sky outside.",
+                "storyline: This segment introduces a dramatic and dangerous event, creating a stark contrast with the calm airport setting and the airline's slogan, hinting at a major incident.",
+                "shooting_style: This is a fast-paced montage with quick cuts and shaky cam to immerse the viewer in the panic."
+              ]
+            },
+            {
+              "start": 38.0,
+              "end": 42.0,
+              "visual": "A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt, stands in an empty airport waiting area. She speaks directly to the camera with a slightly wry expression, delivering a dark joke about the plane's safety.",
+              "audio": "speech: Flight Attendant: And if you think Alaska the state is cold, just wait 'til our plane's roof rips off.; acoustics: 1) Tone of speech: Deadpan and sarcastic. 2) Background sounds or music: The chaotic sounds from the plane scene are briefly layered over her speech before cutting off.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A static medium shot, framed from the waist up, focusing on the flight attendant.",
+                "video_background: The background is a modern, empty airport waiting area with rows of purple seats and large windows.",
+                "storyline: This segment continues the dark humor, with a flight attendant humorously exaggerating the dangers of the plane, directly referencing the incident shown in the previous scene.",
+                "shooting_style: This is another talking-head shot, intercutting with the previous scene to create a comedic juxtaposition."
+              ]
+            },
+            {
+              "start": 43.0,
+              "end": 45.0,
+              "visual": "The scene cuts back to the chaotic plane interior, showing more passengers screaming in terror. It then cuts to a male flight attendant in a grey vest, standing in the airport and speaking to the camera with a serious expression.",
+              "audio": "speech: Male Flight Attendant: Since the incident, we're starting to make some changes.; acoustics: 1) Tone of speech: Serious and informative. 2) Background sounds or music: The sound of screaming is cut off, replaced by the ambient noise of the airport.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is handheld and shaky inside the plane, then cuts to a static medium shot of the male flight attendant.",
+                "video_background: The background alternates between the dark, panicked plane cabin and a brightly lit airport terminal with a 'Gates' sign visible behind the attendant.",
+                "storyline: This segment transitions from the initial panic to the airline's response, with a flight attendant explaining that they are making changes after the incident.",
+                "shooting_style: The scene intercuts between the chaotic plane footage and a calm, informative talking-head shot."
+              ]
+            }
+          ],
+          "overall_summary": "A young man in a dark blue and black Alaska Airlines uniform stands in a bright airport terminal. He smiles warmly at the camera and gestures with his hands as he speaks, with a large airplane visible through the windows behind him.; speech: John: On Alaska, you're in the movie.; acoustics: 1) Tone of speech: Cheerful and confident. 2) Background sounds or music: Faint, uplifting music begins to play.; attributes: camera_state: A medium shot, framed from the waist up, with the camera remaining static., video_background: The background is a modern airport terminal with large windows. An airplane is visible outside, and a flight information display board is on the left wall., storyline: The video begins with an employee, John, introducing the airline's slogan, setting a friendly and engaging tone for the advertisement., shooting_style: This is a standard talking-head shot, establishing the first character. The scene abruptly cuts to a dark, chaotic sequence inside a plane. Passengers are screaming and panicking as the cabin is bathed in flashing blue emergency lights. The camera shakes violently, showing people hugging, covering their ears, and looking terrified.; speech: (Screaming and panicked shouts); acoustics: 1) Tone of speech: Panicked and terrified. 2) Background sounds or music: Loud, chaotic sounds of alarms, wind, and screaming.; attributes: camera_state: The camera is handheld and shaky, moving quickly through the cabin to create a sense of chaos and disorientation. It includes close-ups on panicked passengers., video_background: The interior of an airplane cabin is dark, with the only light coming from the flashing blue emergency lights. The windows show a dark, turbulent sky outside., storyline: This segment introduces a dramatic and dangerous event, creating a stark contrast with the calm airport setting and the airline's slogan, hinting at a major incident., shooting_style: This is a fast-paced montage with quick cuts and shaky cam to immerse the viewer in the panic. A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt, stands in an empty airport waiting area. She speaks directly to the camera with a slightly wry expression, delivering a dark joke about the plane's safety.; speech: Flight Attendant: And if you think Alaska the state is cold, just wait 'til our plane's roof rips off.; acoustics: 1) Tone of speech: Deadpan and sarcastic. 2) Background sounds or music: The chaotic sounds from the plane scene are briefly layered over her speech before cutting off.; attributes: camera_state: A static medium shot, framed from the waist up, focusing on the flight attendant., video_background: The background is a modern, empty airport waiting area with rows of purple seats and large windows., storyline: This segment continues the dark humor, with a flight attendant humorously exaggerating the dangers of the plane, directly referencing the incident shown in the previous scene., shooting_style: This is another talking-head shot, intercutting with the previous scene to create a comedic juxtaposition. The scene cuts back to the chaotic plane interior, showing more passengers screaming in terror. It then cuts to a male flight attendant in a grey vest, standing in the airport and speaking to the camera with a serious expression.; speech: Male Flight Attendant: Since the incident, we're starting to make some changes.; acoustics: 1) Tone of speech: Serious and informative. 2) Background sounds or music: The sound of screaming is cut off, replaced by the ambient noise of the airport.; attributes: camera_state: The camera is handheld and shaky inside the plane, then cuts to a static medium shot of the male flight attendant., video_background: The background alternates between the dark, panicked plane cabin and a brightly lit airport terminal with a 'Gates' sign visible behind the attendant., storyline: This segment transitions from the initial panic to the airline's response, with a flight attendant explaining that they are making changes after the incident., shooting_style: The scene intercuts between the chaotic plane footage and a calm, informative talking-head shot.",
+          "captioned_range": {
+            "start_s": 30.0,
+            "end_s": 60.0
+          },
+          "sampled_frames": [
+            {
+              "timestamp_s": 30.0,
+              "artifact_id": "1d760055521672185aa385c3",
+              "relpath": "cache/artifacts/1d760055521672185aa385c3/dense_caption_01_030.000.jpg"
+            },
+            {
+              "timestamp_s": 33.333333333333336,
+              "artifact_id": "4ece0abf12a0bdb4a1f27a6e",
+              "relpath": "cache/artifacts/4ece0abf12a0bdb4a1f27a6e/dense_caption_02_033.333.jpg"
+            },
+            {
+              "timestamp_s": 36.666666666666664,
+              "artifact_id": "1eab66c310fbd24eb457077e",
+              "relpath": "cache/artifacts/1eab66c310fbd24eb457077e/dense_caption_03_036.667.jpg"
+            },
+            {
+              "timestamp_s": 40.0,
+              "artifact_id": "288d6bf554f8afe81fd391f4",
+              "relpath": "cache/artifacts/288d6bf554f8afe81fd391f4/dense_caption_04_040.000.jpg"
+            },
+            {
+              "timestamp_s": 43.333333333333336,
+              "artifact_id": "0087ee5241d0983e9b0e5fa3",
+              "relpath": "cache/artifacts/0087ee5241d0983e9b0e5fa3/dense_caption_05_043.333.jpg"
+            },
+            {
+              "timestamp_s": 46.66666666666667,
+              "artifact_id": "1c3bbede713d4285629a96ac",
+              "relpath": "cache/artifacts/1c3bbede713d4285629a96ac/dense_caption_06_046.667.jpg"
+            },
+            {
+              "timestamp_s": 50.0,
+              "artifact_id": "cbfd307f0081c77177708eaf",
+              "relpath": "cache/artifacts/cbfd307f0081c77177708eaf/dense_caption_07_050.000.jpg"
+            },
+            {
+              "timestamp_s": 53.333333333333336,
+              "artifact_id": "35b0ea8ae2301d14c6c023ea",
+              "relpath": "cache/artifacts/35b0ea8ae2301d14c6c023ea/dense_caption_08_053.333.jpg"
+            },
+            {
+              "timestamp_s": 56.66666666666667,
+              "artifact_id": "384e275e3e20371753bef920",
+              "relpath": "cache/artifacts/384e275e3e20371753bef920/dense_caption_09_056.667.jpg"
+            },
+            {
+              "timestamp_s": 60.0,
+              "artifact_id": "a7f40d3bad771df39a0ddec1",
+              "relpath": "cache/artifacts/a7f40d3bad771df39a0ddec1/dense_caption_10_060.000.jpg"
+            }
+          ],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "caption_summary": "A young man in a dark blue and black Alaska Airlines uniform stands in a bright airport terminal. He smiles warmly at the camera and gestures with his hands as he speaks, with a large airplane visible through the windows behind him.; speech: John: On Alaska, you're in the movie.; acoustics: 1) Tone of speech: Cheerful and confident. 2) Background sounds or music: Faint, uplifting music begins to play.; attributes: camera_state: A medium shot, framed from the waist up, with the camera remaining static., video_background: The background is a modern airport terminal with large windows. An airplane is visible outside, and a flight information display board is on the left wall., storyline: The video begins with an employee, John, introducing the airline's slogan, setting a friendly and engaging tone for the advertisement., shooting_style: This is a standard talking-head shot, establishing the first character. The scene abruptly cuts to a dark, chaotic sequence inside a plane. Passengers are screaming and panicking as the cabin is bathed in flashing blue emergency lights. The camera shakes violently, showing people hugging, covering their ears, and looking terrified.; speech: (Screaming and panicked shouts); acoustics: 1) Tone of speech: Panicked and terrified. 2) Background sounds or music: Loud, chaotic sounds of alarms, wind, and screaming.; attributes: camera_state: The camera is handheld and shaky, moving quickly through the cabin to create a sense of chaos and disorientation. It includes close-ups on panicked passengers., video_background: The interior of an airplane cabin is dark, with the only light coming from the flashing blue emergency lights. The windows show a dark, turbulent sky outside., storyline: This segment introduces a dramatic and dangerous event, creating a stark contrast with the calm airport setting and the airline's slogan, hinting at a major incident., shooting_style: This is a fast-paced montage with quick cuts and shaky cam to immerse the viewer in the panic. A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt, stands in an empty airport waiting area. She speaks directly to the camera with a slightly wry expression, delivering a dark joke about the plane's safety.; speech: Flight Attendant: And if you think Alaska the state is cold, just wait 'til our plane's roof rips off.; acoustics: 1) Tone of speech: Deadpan and sarcastic. 2) Background sounds or music: The chaotic sounds from the plane scene are briefly layered over her speech before cutting off.; attributes: camera_state: A static medium shot, framed from the waist up, focusing on the flight attendant., video_background: The background is a modern, empty airport waiting area with rows of purple seats and large windows., storyline: This segment continues the dark humor, with a flight attendant humorously exaggerating the dangers of the plane, directly referencing the incident shown in the previous scene., shooting_style: This is another talking-head shot, intercutting with the previous scene to create a comedic juxtaposition. The scene cuts back to the chaotic plane interior, showing more passengers screaming in terror. It then cuts to a male flight attendant in a grey vest, standing in the airport and speaking to the camera with a serious expression.; speech: Male Flight Attendant: Since the incident, we're starting to make some changes.; acoustics: 1) Tone of speech: Serious and informative. 2) Background sounds or music: The sound of screaming is cut off, replaced by the ambient noise of the airport.; attributes: camera_state: The camera is handheld and shaky inside the plane, then cuts to a static medium shot of the male flight attendant., video_background: The background alternates between the dark, panicked plane cabin and a brightly lit airport terminal with a 'Gates' sign visible behind the attendant., storyline: This segment transitions from the initial panic to the airline's response, with a flight attendant explaining that they are making changes after the incident., shooting_style: The scene intercuts between the chaotic plane footage and a calm, informative talking-head shot."
+      },
+      {
+        "start": 60.0,
+        "end": 90.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_6",
+            "start_s": 60.0,
+            "end_s": 90.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 60.0,
+              "end": 62.0,
+              "visual": "An Alaska Airlines plane, featuring a special livery with a large face on the tail and a yellow nose cone, is shown landing on a runway. The camera follows the plane as it touches down, with motion blur creating a sense of speed. In the background, there are green trees and airport infrastructure.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of the plane's engines roaring as it lands, followed by a subtle, upbeat musical score.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A panning shot that follows the airplane as it lands, keeping it centered in the frame.",
+                "video_background: The scene is set on an airport runway, with lush green grass on either side and trees in the distance under an overcast sky.",
+                "storyline: The video opens with the arrival of an airplane, setting the scene for the subsequent events inside the flight.",
+                "shooting_style: This is a standard shot with motion blur to emphasize the speed of the landing."
+              ]
+            },
+            {
+              "start": 63.0,
+              "end": 70.0,
+              "visual": "Inside the plane, a flight attendant in a grey vest and tie stands in the aisle. He gestures with his hands as he explains the location of the emergency exits. He humorously points to different seats, then points to himself and jokes that he'll probably be in one of them in 10 minutes.",
+              "audio": "speech: Flight Attendant: When people ask me where the emergency exits are, I'm like, 'There. There. And in 10 minutes, probably there.'; acoustics: 1) Tone of speech: Comedic, deadpan. 2) Background sounds or music: Upbeat, lighthearted music continues in the background.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A medium shot of the flight attendant, with the camera panning slightly to follow his gestures as he moves down the aisle.",
+                "video_background: The interior of an airplane cabin, with rows of empty black seats and bright windows lining the aisle.",
+                "storyline: A flight attendant provides a humorous and slightly unhelpful safety instruction, establishing a comedic tone for the advertisement.",
+                "shooting_style: This is a standard shot focusing on the character's performance."
+              ]
+            },
+            {
+              "start": 71.0,
+              "end": 74.0,
+              "visual": "A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt, stands in a modern airport waiting area. She speaks directly to the camera, introducing a unique safety feature of Hawaiian Airlines.",
+              "audio": "speech: Flight Attendant: You know how Hawaiian Airlines always gives out Lays when you land? Well, we've got our own version.; acoustics: 1) Tone of speech: Cheerful, engaging. 2) Background sounds or music: The upbeat music continues.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A medium shot of the flight attendant, with the camera remaining static.",
+                "video_background: The background is a spacious, modern airport terminal with large windows, high ceilings, and rows of empty seats.",
+                "storyline: A second flight attendant introduces a new element of the ad: a parody of Hawaiian Airlines' famous safety video, humorously suggesting they have their own version.",
+                "shooting_style: This is a standard talking-head shot."
+              ]
+            },
+            {
+              "start": 75.0,
+              "end": 80.0,
+              "visual": "A flight attendant hands a yellow life vest to a passenger. The passenger, a woman with dark hair and bangs, looks at the vest and asks if they are in Cleveland. The flight attendant, who is also a pilot, looks at her and jokes that they are close to the Pacific Ocean.",
+              "audio": "speech: Passenger: Are we in Cleveland? Flight Attendant: Close. The Pacific Ocean.; acoustics: 1) Tone of speech: Playful, humorous. 2) Background sounds or music: Light, comedic music.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is positioned over the shoulder of the flight attendant, focusing on the passenger's reaction. It then cuts to a reverse shot of the flight attendant.",
+                "video_background: The scene is inside the airplane cabin, with other passengers visible in the background.",
+                "storyline: This scene continues the parody, with the flight attendant playing a joke on a passenger about their location, blending a real-life event (the plane's landing) with humor.",
+                "shooting_style: The scene uses shot-reverse-shot to capture the dialogue between the flight attendant and the passenger."
+              ]
+            }
+          ],
+          "overall_summary": "An Alaska Airlines plane, featuring a special livery with a large face on the tail and a yellow nose cone, is shown landing on a runway. The camera follows the plane as it touches down, with motion blur creating a sense of speed. In the background, there are green trees and airport infrastructure.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of the plane's engines roaring as it lands, followed by a subtle, upbeat musical score.; attributes: camera_state: A panning shot that follows the airplane as it lands, keeping it centered in the frame., video_background: The scene is set on an airport runway, with lush green grass on either side and trees in the distance under an overcast sky., storyline: The video opens with the arrival of an airplane, setting the scene for the subsequent events inside the flight., shooting_style: This is a standard shot with motion blur to emphasize the speed of the landing. Inside the plane, a flight attendant in a grey vest and tie stands in the aisle. He gestures with his hands as he explains the location of the emergency exits. He humorously points to different seats, then points to himself and jokes that he'll probably be in one of them in 10 minutes.; speech: Flight Attendant: When people ask me where the emergency exits are, I'm like, 'There. There. And in 10 minutes, probably there.'; acoustics: 1) Tone of speech: Comedic, deadpan. 2) Background sounds or music: Upbeat, lighthearted music continues in the background.; attributes: camera_state: A medium shot of the flight attendant, with the camera panning slightly to follow his gestures as he moves down the aisle., video_background: The interior of an airplane cabin, with rows of empty black seats and bright windows lining the aisle., storyline: A flight attendant provides a humorous and slightly unhelpful safety instruction, establishing a comedic tone for the advertisement., shooting_style: This is a standard shot focusing on the character's performance. A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt, stands in a modern airport waiting area. She speaks directly to the camera, introducing a unique safety feature of Hawaiian Airlines.; speech: Flight Attendant: You know how Hawaiian Airlines always gives out Lays when you land? Well, we've got our own version.; acoustics: 1) Tone of speech: Cheerful, engaging. 2) Background sounds or music: The upbeat music continues.; attributes: camera_state: A medium shot of the flight attendant, with the camera remaining static., video_background: The background is a spacious, modern airport terminal with large windows, high ceilings, and rows of empty seats., storyline: A second flight attendant introduces a new element of the ad: a parody of Hawaiian Airlines' famous safety video, humorously suggesting they have their own version., shooting_style: This is a standard talking-head shot. A flight attendant hands a yellow life vest to a passenger. The passenger, a woman with dark hair and bangs, looks at the vest and asks if they are in Cleveland. The flight attendant, who is also a pilot, looks at her and jokes that they are close to the Pacific Ocean.; speech: Passenger: Are we in Cleveland? Flight Attendant: Close. The Pacific Ocean.; acoustics: 1) Tone of speech: Playful, humorous. 2) Background sounds or music: Light, comedic music.; attributes: camera_state: The camera is positioned over the shoulder of the flight attendant, focusing on the passenger's reaction. It then cuts to a reverse shot of the flight attendant., video_background: The scene is inside the airplane cabin, with other passengers visible in the background., storyline: This scene continues the parody, with the flight attendant playing a joke on a passenger about their location, blending a real-life event (the plane's landing) with humor., shooting_style: The scene uses shot-reverse-shot to capture the dialogue between the flight attendant and the passenger.",
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 90.0
+          },
+          "sampled_frames": [
+            {
+              "timestamp_s": 60.0,
+              "artifact_id": "33af2da42d0eaeaee5f829fc",
+              "relpath": "cache/artifacts/33af2da42d0eaeaee5f829fc/dense_caption_01_060.000.jpg"
+            },
+            {
+              "timestamp_s": 63.333333333333336,
+              "artifact_id": "891cb8c0837174c7b07523a1",
+              "relpath": "cache/artifacts/891cb8c0837174c7b07523a1/dense_caption_02_063.333.jpg"
+            },
+            {
+              "timestamp_s": 66.66666666666667,
+              "artifact_id": "582334df56649508efc1269e",
+              "relpath": "cache/artifacts/582334df56649508efc1269e/dense_caption_03_066.667.jpg"
+            },
+            {
+              "timestamp_s": 70.0,
+              "artifact_id": "63c9cc3aaa141097c00a514f",
+              "relpath": "cache/artifacts/63c9cc3aaa141097c00a514f/dense_caption_04_070.000.jpg"
+            },
+            {
+              "timestamp_s": 73.33333333333333,
+              "artifact_id": "6c35d182857b8b5a873ff437",
+              "relpath": "cache/artifacts/6c35d182857b8b5a873ff437/dense_caption_05_073.333.jpg"
+            },
+            {
+              "timestamp_s": 76.66666666666667,
+              "artifact_id": "64ff207c4b017dc33868a1cb",
+              "relpath": "cache/artifacts/64ff207c4b017dc33868a1cb/dense_caption_06_076.667.jpg"
+            },
+            {
+              "timestamp_s": 80.0,
+              "artifact_id": "b0d657e755bac44c056487e6",
+              "relpath": "cache/artifacts/b0d657e755bac44c056487e6/dense_caption_07_080.000.jpg"
+            },
+            {
+              "timestamp_s": 83.33333333333334,
+              "artifact_id": "75008c27308c5de0e6dd2c3a",
+              "relpath": "cache/artifacts/75008c27308c5de0e6dd2c3a/dense_caption_08_083.333.jpg"
+            },
+            {
+              "timestamp_s": 86.66666666666667,
+              "artifact_id": "280c6071e7d718d8979827cd",
+              "relpath": "cache/artifacts/280c6071e7d718d8979827cd/dense_caption_09_086.667.jpg"
+            },
+            {
+              "timestamp_s": 90.0,
+              "artifact_id": "be5f87a5db7833236e76cd48",
+              "relpath": "cache/artifacts/be5f87a5db7833236e76cd48/dense_caption_10_090.000.jpg"
+            }
+          ],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "caption_summary": "An Alaska Airlines plane, featuring a special livery with a large face on the tail and a yellow nose cone, is shown landing on a runway. The camera follows the plane as it touches down, with motion blur creating a sense of speed. In the background, there are green trees and airport infrastructure.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of the plane's engines roaring as it lands, followed by a subtle, upbeat musical score.; attributes: camera_state: A panning shot that follows the airplane as it lands, keeping it centered in the frame., video_background: The scene is set on an airport runway, with lush green grass on either side and trees in the distance under an overcast sky., storyline: The video opens with the arrival of an airplane, setting the scene for the subsequent events inside the flight., shooting_style: This is a standard shot with motion blur to emphasize the speed of the landing. Inside the plane, a flight attendant in a grey vest and tie stands in the aisle. He gestures with his hands as he explains the location of the emergency exits. He humorously points to different seats, then points to himself and jokes that he'll probably be in one of them in 10 minutes.; speech: Flight Attendant: When people ask me where the emergency exits are, I'm like, 'There. There. And in 10 minutes, probably there.'; acoustics: 1) Tone of speech: Comedic, deadpan. 2) Background sounds or music: Upbeat, lighthearted music continues in the background.; attributes: camera_state: A medium shot of the flight attendant, with the camera panning slightly to follow his gestures as he moves down the aisle., video_background: The interior of an airplane cabin, with rows of empty black seats and bright windows lining the aisle., storyline: A flight attendant provides a humorous and slightly unhelpful safety instruction, establishing a comedic tone for the advertisement., shooting_style: This is a standard shot focusing on the character's performance. A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt, stands in a modern airport waiting area. She speaks directly to the camera, introducing a unique safety feature of Hawaiian Airlines.; speech: Flight Attendant: You know how Hawaiian Airlines always gives out Lays when you land? Well, we've got our own version.; acoustics: 1) Tone of speech: Cheerful, engaging. 2) Background sounds or music: The upbeat music continues.; attributes: camera_state: A medium shot of the flight attendant, with the camera remaining static., video_background: The background is a spacious, modern airport terminal with large windows, high ceilings, and rows of empty seats., storyline: A second flight attendant introduces a new element of the ad: a parody of Hawaiian Airlines' famous safety video, humorously suggesting they have their own version., shooting_style: This is a standard talking-head shot. A flight attendant hands a yellow life vest to a passenger. The passenger, a woman with dark hair and bangs, looks at the vest and asks if they are in Cleveland. The flight attendant, who is also a pilot, looks at her and jokes that they are close to the Pacific Ocean.; speech: Passenger: Are we in Cleveland? Flight Attendant: Close. The Pacific Ocean.; acoustics: 1) Tone of speech: Playful, humorous. 2) Background sounds or music: Light, comedic music.; attributes: camera_state: The camera is positioned over the shoulder of the flight attendant, focusing on the passenger's reaction. It then cuts to a reverse shot of the flight attendant., video_background: The scene is inside the airplane cabin, with other passengers visible in the background., storyline: This scene continues the parody, with the flight attendant playing a joke on a passenger about their location, blending a real-life event (the plane's landing) with humor., shooting_style: The scene uses shot-reverse-shot to capture the dialogue between the flight attendant and the passenger."
+      },
+      {
+        "start": 90.0,
+        "end": 120.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_6",
+            "start_s": 90.0,
+            "end_s": 120.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 90.0,
+              "end": 99.0,
+              "visual": "A woman with long black hair and a black polka-dot shirt, identified as 'Corinne, Real Passenger,' speaks to the camera. She initially looks terrified, with wide eyes and hand gestures, but then her expression shifts to a proud, confident smile as she explains how the incident made her popular at her office.",
+              "audio": "speech: Corinne: At the time, I was terrified. But now, I'm the coolest person at the office. Everyone stopping by my cubicle all want to know about that little boy whose shirt got sucked out the plane.; acoustics: 1) Tone of speech: Starts with a panicked, high-pitched tone, then shifts to a proud and cheerful tone. 2) Background sounds or music: Upbeat, quirky music plays.",
+              "on_screen_text": "Corinne, Real Passenger,",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium shot, focused on Corinne. It remains static.",
+                "video_background: The setting is a modern office with a large plant, a desk with a computer, and shelves in the background.",
+                "storyline: This segment introduces a real passenger's story, adding a layer of authenticity and humor. Her initial fear is humorously contrasted with her current 'cool' status, showing how the event turned into a source of pride.",
+                "shooting_style: This is a standard interview-style shot with a lower-third graphic identifying the speaker."
+              ]
+            },
+            {
+              "start": 100.0,
+              "end": 103.0,
+              "visual": "A man in a plaid shirt sits in an airplane seat, looking startled. Suddenly, his shirt is pulled off by an unseen force, revealing his bare chest and a small tattoo on his chest. He stares in shock and disbelief as the shirt is completely removed.",
+              "audio": "speech: (No dialogue); acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A dramatic whooshing sound effect accompanies the shirt being pulled off, followed by a tense, low hum.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium shot, focused on the man from the waist up. It remains static.",
+                "video_background: The setting is the dark, blue-lit interior of an airplane cabin, with the window showing darkness outside.",
+                "storyline: This is a direct re-enactment of the 'shirt-sucking' incident, providing a visual gag that humorously depicts the event.",
+                "shooting_style: This is a straightforward shot focused on the comedic action."
+              ]
+            },
+            {
+              "start": 104.0,
+              "end": 112.0,
+              "visual": "A man identified as 'Robert, Real Passenger,' sits on a plane and speaks to the camera. He explains that while other airlines give wing pins, Alaska Airlines provides a commemorative photo of the flight. He holds up a framed photo showing the chaotic moment of the shirt-sucking incident, with the text 'I SURVIVED ALASKA FLIGHT 1282!' He jokes that the photo cost $50.",
+              "audio": "speech: Robert: Some airlines give you a little wing pin when you get off the plane, but Alaska gives you a commemorative photo of your flight. It was $50.; acoustics: 1) Tone of speech: Cheerful and amused. 2) Background sounds or music: Light, upbeat music plays, with a laugh track and applause sound effect when the photo is shown.",
+              "on_screen_text": "Robert, Real Passenger, | I SURVIVED ALASKA FLIGHT 1282!",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium shot, focused on Robert. It remains static.",
+                "video_background: The setting is the interior of an airplane cabin, with other passengers visible but out of focus behind him.",
+                "storyline: This segment humorously highlights a unique feature of Alaska Airlines, using a real passenger's story to showcase the airline's customer service and brand identity.",
+                "shooting_style: This is an interview-style shot with a lower-third graphic identifying the speaker."
+              ]
+            }
+          ],
+          "overall_summary": "A woman with long black hair and a black polka-dot shirt, identified as 'Corinne, Real Passenger,' speaks to the camera. She initially looks terrified, with wide eyes and hand gestures, but then her expression shifts to a proud, confident smile as she explains how the incident made her popular at her office.; speech: Corinne: At the time, I was terrified. But now, I'm the coolest person at the office. Everyone stopping by my cubicle all want to know about that little boy whose shirt got sucked out the plane.; acoustics: 1) Tone of speech: Starts with a panicked, high-pitched tone, then shifts to a proud and cheerful tone. 2) Background sounds or music: Upbeat, quirky music plays.; Corinne, Real Passenger,; attributes: camera_state: The camera is at a medium shot, focused on Corinne. It remains static., video_background: The setting is a modern office with a large plant, a desk with a computer, and shelves in the background., storyline: This segment introduces a real passenger's story, adding a layer of authenticity and humor. Her initial fear is humorously contrasted with her current 'cool' status, showing how the event turned into a source of pride., shooting_style: This is a standard interview-style shot with a lower-third graphic identifying the speaker. A man in a plaid shirt sits in an airplane seat, looking startled. Suddenly, his shirt is pulled off by an unseen force, revealing his bare chest and a small tattoo on his chest. He stares in shock and disbelief as the shirt is completely removed.; speech: (No dialogue); acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A dramatic whooshing sound effect accompanies the shirt being pulled off, followed by a tense, low hum.; attributes: camera_state: The camera is at a medium shot, focused on the man from the waist up. It remains static., video_background: The setting is the dark, blue-lit interior of an airplane cabin, with the window showing darkness outside., storyline: This is a direct re-enactment of the 'shirt-sucking' incident, providing a visual gag that humorously depicts the event., shooting_style: This is a straightforward shot focused on the comedic action. A man identified as 'Robert, Real Passenger,' sits on a plane and speaks to the camera. He explains that while other airlines give wing pins, Alaska Airlines provides a commemorative photo of the flight. He holds up a framed photo showing the chaotic moment of the shirt-sucking incident, with the text 'I SURVIVED ALASKA FLIGHT 1282!' He jokes that the photo cost $50.; speech: Robert: Some airlines give you a little wing pin when you get off the plane, but Alaska gives you a commemorative photo of your flight. It was $50.; acoustics: 1) Tone of speech: Cheerful and amused. 2) Background sounds or music: Light, upbeat music plays, with a laugh track and applause sound effect when the photo is shown.; Robert, Real Passenger, | I SURVIVED ALASKA FLIGHT 1282!; attributes: camera_state: The camera is at a medium shot, focused on Robert. It remains static., video_background: The setting is the interior of an airplane cabin, with other passengers visible but out of focus behind him., storyline: This segment humorously highlights a unique feature of Alaska Airlines, using a real passenger's story to showcase the airline's customer service and brand identity., shooting_style: This is an interview-style shot with a lower-third graphic identifying the speaker.",
+          "captioned_range": {
+            "start_s": 90.0,
+            "end_s": 120.0
+          },
+          "sampled_frames": [
+            {
+              "timestamp_s": 90.0,
+              "artifact_id": "f7f9d067c94d995ed6cd3871",
+              "relpath": "cache/artifacts/f7f9d067c94d995ed6cd3871/dense_caption_01_090.000.jpg"
+            },
+            {
+              "timestamp_s": 93.33333333333333,
+              "artifact_id": "1d66acddbd2d0a6c1d0510e5",
+              "relpath": "cache/artifacts/1d66acddbd2d0a6c1d0510e5/dense_caption_02_093.333.jpg"
+            },
+            {
+              "timestamp_s": 96.66666666666667,
+              "artifact_id": "4a50c30116b8003c35793c93",
+              "relpath": "cache/artifacts/4a50c30116b8003c35793c93/dense_caption_03_096.667.jpg"
+            },
+            {
+              "timestamp_s": 100.0,
+              "artifact_id": "8f019589baf45bbeb6b980af",
+              "relpath": "cache/artifacts/8f019589baf45bbeb6b980af/dense_caption_04_100.000.jpg"
+            },
+            {
+              "timestamp_s": 103.33333333333333,
+              "artifact_id": "13150ecdba6d8b7a9d42bd81",
+              "relpath": "cache/artifacts/13150ecdba6d8b7a9d42bd81/dense_caption_05_103.333.jpg"
+            },
+            {
+              "timestamp_s": 106.66666666666667,
+              "artifact_id": "7884da9987b7e215a3803d26",
+              "relpath": "cache/artifacts/7884da9987b7e215a3803d26/dense_caption_06_106.667.jpg"
+            },
+            {
+              "timestamp_s": 110.0,
+              "artifact_id": "519fb953c4c0c875c3dadbf5",
+              "relpath": "cache/artifacts/519fb953c4c0c875c3dadbf5/dense_caption_07_110.000.jpg"
+            },
+            {
+              "timestamp_s": 113.33333333333334,
+              "artifact_id": "05dc2ebdd7f2bea2da96c8e9",
+              "relpath": "cache/artifacts/05dc2ebdd7f2bea2da96c8e9/dense_caption_08_113.333.jpg"
+            },
+            {
+              "timestamp_s": 116.66666666666667,
+              "artifact_id": "097fefb34045eee643701747",
+              "relpath": "cache/artifacts/097fefb34045eee643701747/dense_caption_09_116.667.jpg"
+            },
+            {
+              "timestamp_s": 120.0,
+              "artifact_id": "fea76bdf5733f61bc989a13a",
+              "relpath": "cache/artifacts/fea76bdf5733f61bc989a13a/dense_caption_10_120.000.jpg"
+            }
+          ],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "caption_summary": "A woman with long black hair and a black polka-dot shirt, identified as 'Corinne, Real Passenger,' speaks to the camera. She initially looks terrified, with wide eyes and hand gestures, but then her expression shifts to a proud, confident smile as she explains how the incident made her popular at her office.; speech: Corinne: At the time, I was terrified. But now, I'm the coolest person at the office. Everyone stopping by my cubicle all want to know about that little boy whose shirt got sucked out the plane.; acoustics: 1) Tone of speech: Starts with a panicked, high-pitched tone, then shifts to a proud and cheerful tone. 2) Background sounds or music: Upbeat, quirky music plays.; Corinne, Real Passenger,; attributes: camera_state: The camera is at a medium shot, focused on Corinne. It remains static., video_background: The setting is a modern office with a large plant, a desk with a computer, and shelves in the background., storyline: This segment introduces a real passenger's story, adding a layer of authenticity and humor. Her initial fear is humorously contrasted with her current 'cool' status, showing how the event turned into a source of pride., shooting_style: This is a standard interview-style shot with a lower-third graphic identifying the speaker. A man in a plaid shirt sits in an airplane seat, looking startled. Suddenly, his shirt is pulled off by an unseen force, revealing his bare chest and a small tattoo on his chest. He stares in shock and disbelief as the shirt is completely removed.; speech: (No dialogue); acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A dramatic whooshing sound effect accompanies the shirt being pulled off, followed by a tense, low hum.; attributes: camera_state: The camera is at a medium shot, focused on the man from the waist up. It remains static., video_background: The setting is the dark, blue-lit interior of an airplane cabin, with the window showing darkness outside., storyline: This is a direct re-enactment of the 'shirt-sucking' incident, providing a visual gag that humorously depicts the event., shooting_style: This is a straightforward shot focused on the comedic action. A man identified as 'Robert, Real Passenger,' sits on a plane and speaks to the camera. He explains that while other airlines give wing pins, Alaska Airlines provides a commemorative photo of the flight. He holds up a framed photo showing the chaotic moment of the shirt-sucking incident, with the text 'I SURVIVED ALASKA FLIGHT 1282!' He jokes that the photo cost $50.; speech: Robert: Some airlines give you a little wing pin when you get off the plane, but Alaska gives you a commemorative photo of your flight. It was $50.; acoustics: 1) Tone of speech: Cheerful and amused. 2) Background sounds or music: Light, upbeat music plays, with a laugh track and applause sound effect when the photo is shown.; Robert, Real Passenger, | I SURVIVED ALASKA FLIGHT 1282!; attributes: camera_state: The camera is at a medium shot, focused on Robert. It remains static., video_background: The setting is the interior of an airplane cabin, with other passengers visible but out of focus behind him., storyline: This segment humorously highlights a unique feature of Alaska Airlines, using a real passenger's story to showcase the airline's customer service and brand identity., shooting_style: This is an interview-style shot with a lower-third graphic identifying the speaker."
+      },
+      {
+        "start": 120.0,
+        "end": 139.97316666666666,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_6",
+            "start_s": 120.0,
+            "end_s": 139.97316666666666,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 120.0,
+              "end": 124.0,
+              "visual": "A man in a light blue shirt, dark vest, and patterned tie stands in an airport terminal. He wears a name tag that reads 'Terry' and a pin with the Alaska Airlines logo. He speaks directly to the camera, gesturing with his right hand as he explains that a recent flight was their second worst.",
+              "audio": "speech: on mushrooms. And now we're so proud to say, that's our second worst flight.; acoustics: 1) Tone of speech: Enthusiastic, proud, and slightly dramatic. 2) Background sounds or music: Faint ambient airport noise.",
+              "on_screen_text": "Terry",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium shot, focused on the man from the waist up. The shot is static.",
+                "video_background: The background is a modern airport terminal with large white pillars, a complex ceiling structure, and a sign overhead that reads 'Gate C37-C38' with an arrow pointing upwards.",
+                "storyline: The scene introduces a character, likely an airport employee or a parody thereof, who is humorously recounting a story about a terrible flight experience with Alaska Airlines.",
+                "shooting_style: This is a standard, direct-to-camera shot, establishing the speaker and the setting."
+              ]
+            },
+            {
+              "start": 125.0,
+              "end": 128.0,
+              "visual": "The scene cuts to a solid dark blue background. The white 'Alaska' logo animates into view, followed by the tagline 'STILL BETTER THAN SPIRIT' appearing below it.",
+              "audio": "speech: Alaska Airlines. Still better than Spirit.; acoustics: 1) Tone of speech: Upbeat and commercial-like. 2) Background sounds or music: A brief, triumphant musical sting plays.",
+              "on_screen_text": "Alaska | STILL BETTER THAN SPIRIT",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the logo against the blue background.",
+                "video_background: The background is a simple, dark blue gradient.",
+                "storyline: This is a commercial break bumper for Alaska Airlines, humorously contrasting the airline with Spirit Airlines, which is the subject of the parody.",
+                "shooting_style: This is a simple logo reveal animation."
+              ]
+            },
+            {
+              "start": 129.0,
+              "end": 138.0,
+              "visual": "The video fades to a dark, aerial shot of a city skyline at night, with lights twinkling from the buildings and a bridge over a river. Text overlays appear on the screen, reading 'SUBSCRIBE NOW' in the top corners and 'STREAM ALL SEASONS ON PEACOCK' in the center.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: An upbeat, jazzy instrumental track with a prominent horn section plays.",
+              "on_screen_text": "SUBSCRIBE NOW | STREAM ALL SEASONS ON PEACOCK",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static, holding a wide aerial shot of the city at night.",
+                "video_background: The background is a dark cityscape with illuminated buildings, a river with a bridge, and moving car lights.",
+                "storyline: This is the end screen of the video, serving as a call to action for viewers to subscribe to the service and watch more content.",
+                "shooting_style: This is a static shot with text overlays, typical of an end screen or outro."
+              ]
+            }
+          ],
+          "overall_summary": "A man in a light blue shirt, dark vest, and patterned tie stands in an airport terminal. He wears a name tag that reads 'Terry' and a pin with the Alaska Airlines logo. He speaks directly to the camera, gesturing with his right hand as he explains that a recent flight was their second worst.; speech: on mushrooms. And now we're so proud to say, that's our second worst flight.; acoustics: 1) Tone of speech: Enthusiastic, proud, and slightly dramatic. 2) Background sounds or music: Faint ambient airport noise.; Terry; attributes: camera_state: The camera is at a medium shot, focused on the man from the waist up. The shot is static., video_background: The background is a modern airport terminal with large white pillars, a complex ceiling structure, and a sign overhead that reads 'Gate C37-C38' with an arrow pointing upwards., storyline: The scene introduces a character, likely an airport employee or a parody thereof, who is humorously recounting a story about a terrible flight experience with Alaska Airlines., shooting_style: This is a standard, direct-to-camera shot, establishing the speaker and the setting. The scene cuts to a solid dark blue background. The white 'Alaska' logo animates into view, followed by the tagline 'STILL BETTER THAN SPIRIT' appearing below it.; speech: Alaska Airlines. Still better than Spirit.; acoustics: 1) Tone of speech: Upbeat and commercial-like. 2) Background sounds or music: A brief, triumphant musical sting plays.; Alaska | STILL BETTER THAN SPIRIT; attributes: camera_state: The camera is static, holding a wide shot of the logo against the blue background., video_background: The background is a simple, dark blue gradient., storyline: This is a commercial break bumper for Alaska Airlines, humorously contrasting the airline with Spirit Airlines, which is the subject of the parody., shooting_style: This is a simple logo reveal animation. The video fades to a dark, aerial shot of a city skyline at night, with lights twinkling from the buildings and a bridge over a river. Text overlays appear on the screen, reading 'SUBSCRIBE NOW' in the top corners and 'STREAM ALL SEASONS ON PEACOCK' in the center.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: An upbeat, jazzy instrumental track with a prominent horn section plays.; SUBSCRIBE NOW | STREAM ALL SEASONS ON PEACOCK; attributes: camera_state: The camera is static, holding a wide aerial shot of the city at night., video_background: The background is a dark cityscape with illuminated buildings, a river with a bridge, and moving car lights., storyline: This is the end screen of the video, serving as a call to action for viewers to subscribe to the service and watch more content., shooting_style: This is a static shot with text overlays, typical of an end screen or outro.",
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 139.97316666666666
+          },
+          "sampled_frames": [
+            {
+              "timestamp_s": 120.0,
+              "artifact_id": "36c711851d3a0ad8e79bb4f2",
+              "relpath": "cache/artifacts/36c711851d3a0ad8e79bb4f2/dense_caption_01_120.000.jpg"
+            },
+            {
+              "timestamp_s": 122.21924074074074,
+              "artifact_id": "d1d1e8b6c072ad9eb4166a01",
+              "relpath": "cache/artifacts/d1d1e8b6c072ad9eb4166a01/dense_caption_02_122.219.jpg"
+            },
+            {
+              "timestamp_s": 124.43848148148147,
+              "artifact_id": "20fdc5b4219ad27e43448cbb",
+              "relpath": "cache/artifacts/20fdc5b4219ad27e43448cbb/dense_caption_03_124.438.jpg"
+            },
+            {
+              "timestamp_s": 126.65772222222222,
+              "artifact_id": "e4fe2bd6b909f0990b98796e",
+              "relpath": "cache/artifacts/e4fe2bd6b909f0990b98796e/dense_caption_04_126.658.jpg"
+            },
+            {
+              "timestamp_s": 128.87696296296295,
+              "artifact_id": "6272f37917bd6b3b39c41ae4",
+              "relpath": "cache/artifacts/6272f37917bd6b3b39c41ae4/dense_caption_05_128.877.jpg"
+            },
+            {
+              "timestamp_s": 131.0962037037037,
+              "artifact_id": "d30bdc2d36a939c37e0fcd56",
+              "relpath": "cache/artifacts/d30bdc2d36a939c37e0fcd56/dense_caption_06_131.096.jpg"
+            },
+            {
+              "timestamp_s": 133.31544444444444,
+              "artifact_id": "8c2d2221a237aed321dce372",
+              "relpath": "cache/artifacts/8c2d2221a237aed321dce372/dense_caption_07_133.315.jpg"
+            },
+            {
+              "timestamp_s": 135.53468518518517,
+              "artifact_id": "3a9b0170c6225c6971560599",
+              "relpath": "cache/artifacts/3a9b0170c6225c6971560599/dense_caption_08_135.535.jpg"
+            },
+            {
+              "timestamp_s": 137.75392592592593,
+              "artifact_id": "0354945d8c15e411a881ce09",
+              "relpath": "cache/artifacts/0354945d8c15e411a881ce09/dense_caption_09_137.754.jpg"
+            }
+          ],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "caption_summary": "A man in a light blue shirt, dark vest, and patterned tie stands in an airport terminal. He wears a name tag that reads 'Terry' and a pin with the Alaska Airlines logo. He speaks directly to the camera, gesturing with his right hand as he explains that a recent flight was their second worst.; speech: on mushrooms. And now we're so proud to say, that's our second worst flight.; acoustics: 1) Tone of speech: Enthusiastic, proud, and slightly dramatic. 2) Background sounds or music: Faint ambient airport noise.; Terry; attributes: camera_state: The camera is at a medium shot, focused on the man from the waist up. The shot is static., video_background: The background is a modern airport terminal with large white pillars, a complex ceiling structure, and a sign overhead that reads 'Gate C37-C38' with an arrow pointing upwards., storyline: The scene introduces a character, likely an airport employee or a parody thereof, who is humorously recounting a story about a terrible flight experience with Alaska Airlines., shooting_style: This is a standard, direct-to-camera shot, establishing the speaker and the setting. The scene cuts to a solid dark blue background. The white 'Alaska' logo animates into view, followed by the tagline 'STILL BETTER THAN SPIRIT' appearing below it.; speech: Alaska Airlines. Still better than Spirit.; acoustics: 1) Tone of speech: Upbeat and commercial-like. 2) Background sounds or music: A brief, triumphant musical sting plays.; Alaska | STILL BETTER THAN SPIRIT; attributes: camera_state: The camera is static, holding a wide shot of the logo against the blue background., video_background: The background is a simple, dark blue gradient., storyline: This is a commercial break bumper for Alaska Airlines, humorously contrasting the airline with Spirit Airlines, which is the subject of the parody., shooting_style: This is a simple logo reveal animation. The video fades to a dark, aerial shot of a city skyline at night, with lights twinkling from the buildings and a bridge over a river. Text overlays appear on the screen, reading 'SUBSCRIBE NOW' in the top corners and 'STREAM ALL SEASONS ON PEACOCK' in the center.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: An upbeat, jazzy instrumental track with a prominent horn section plays.; SUBSCRIBE NOW | STREAM ALL SEASONS ON PEACOCK; attributes: camera_state: The camera is static, holding a wide aerial shot of the city at night., video_background: The background is a dark cityscape with illuminated buildings, a river with a bridge, and moving car lights., storyline: This is the end screen of the video, serving as a call to action for viewers to subscribe to the service and watch more content., shooting_style: This is a static shot with text overlays, typical of an end screen or outro."
+      }
+    ],
+    "summary": "The video is a parody commercial set mainly in Alaska Airlines airport terminals and airplane cabins, with a brief office interview setting and an end-screen city skyline. The main entities are several Alaska Airlines employees and flight attendants speaking directly to camera, a few “real passengers,” and Alaska Airlines planes and branding throughout.\n\nIt opens with Alaska Airlines imagery: a ground crew worker near a plane, a traveler pulling a suitcase through an airport, and attendants in a waiting area addressing a recent emergency landing in which a cabin door broke off. The tone starts serious, with staff saying safety is the top concern, but quickly shifts into dark comedy when another employee jokes that the incident “looked pretty cool” and says that on Alaska, “you’re in the movie.”\n\nThe video then cuts between calm airport talking-head shots and chaotic dramatizations inside a plane cabin. In the cabin scenes, passengers scream in panic under flashing blue emergency lights while the camera shakes violently, emphasizing the danger and absurdity of the incident. Flight attendants continue delivering deadpan jokes about roofs ripping off and emergency exits, while one employee says the airline is “starting to make some changes.”\n\nThe middle section expands the parody with more airline-themed humor. A plane is shown landing, then attendants joke through mock safety instructions and compare Alaska to Hawaiian Airlines, introducing a gag involving life vests and an emergency landing near the Pacific Ocean. The ad keeps blending real airline imagery with exaggerated disaster humor.\n\nNext, “real passengers” are interviewed. Corinne says she was terrified during the event but now enjoys being the most interesting person in her office because everyone asks about the boy whose shirt got sucked off the plane. That story is then reenacted visually with a man’s shirt being ripped away in the cabin. Another passenger, Robert, jokes that instead of a wing pin, Alaska gives passengers a commemorative photo of the traumatic flight, proudly showing a framed “I SURVIVED ALASKA FLIGHT 1282!” picture.\n\nNear the end, another employee humorously boasts that the recent flight was only Alaska’s “second worst.” The video concludes with a blue Alaska Airlines title card and the punchline tagline, “Still better than Spirit,” making clear that the whole piece is a satirical ad. After that, it transitions to a Peacock promotional end screen over a nighttime city skyline, inviting viewers to subscribe and stream more content.",
+    "video_fingerprint": "6a09f3a95ea1fda8ce9984e16a52786d2b6b97e5f31ceebe69c5d23a876e8fa0"
+  },
+  "rounds_executed": 2,
+  "exported_results_dir": "/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/workspace/results/rur_refiner_inputs/20260423T020626Z_396b8760/video_6"
+}

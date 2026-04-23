@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 LOCAL_PROCESS_IMPLEMENTATION = "local_process"
-LOCAL_ASR_IMPLEMENTATION = "local_whisperx"
+LOCAL_ASR_IMPLEMENTATION = "local_whisperx_v2"
 CUSTOM_IMPLEMENTATION = "custom_extension"
 
 _TOOL_IMPLEMENTATIONS = {

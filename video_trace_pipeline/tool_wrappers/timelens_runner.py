@@ -21,6 +21,9 @@ if TYPE_CHECKING:
     from .persistent_pool import PersistentModelPool
 
 
+_EMBEDDING_PREFILTER_ENABLED = False
+
+
 def _reference_harness_cls():
     from .reference_adapter import ReferenceHarness
 
@@ -111,7 +114,11 @@ def _prefilter_windows(
         "candidate_windows": len(all_windows),
     }
     extra = dict(runtime.get("extra") or {})
-    if not all_windows or not query or not bool(extra.get("use_embedding_prefilter", True)):
+    metadata["configured"] = bool(extra.get("use_embedding_prefilter", True))
+    if not _EMBEDDING_PREFILTER_ENABLED:
+        metadata["reason"] = "prefilter_disabled_in_code"
+        return all_windows, metadata
+    if not all_windows or not query or not metadata["configured"]:
         return all_windows, metadata
 
     embedder_model = str(extra.get("prefilter_embedder_model") or "Qwen/Qwen3-VL-Embedding-8B").strip()
@@ -208,6 +215,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     sample_fps = float((runtime.get("extra") or {}).get("fps") or 2.0)
     max_new_tokens = int((runtime.get("extra") or {}).get("max_new_tokens") or 256)
     generation = resolve_generation_controls(runtime)
+    attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
     duration_s = float(get_video_duration(video_path) or 0.0)
     video_id = str(task.get("video_id") or task.get("sample_key") or "")
     top_k = max(1, int(request.get("top_k") or 5))
@@ -229,6 +237,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             device_label=device_label,
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
+            attn_implementation=attn_implementation,
         )
     if runner is None:
         runner = QwenStyleRunner(
@@ -236,6 +245,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             device_label=device_label,
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
+            attn_implementation=attn_implementation,
         )
         owns_runner = True
     try:

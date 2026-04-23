@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import gc
 import json
 import os
@@ -14,7 +15,7 @@ from typing import Any, Dict, Iterable, Iterator, List, Optional, Sequence, Tupl
 from PIL import Image
 
 from ..common import extract_json_object, make_run_id
-from ..model_cache import resolve_model_snapshot
+from ..model_cache import download_model_snapshot, resolve_model_snapshot
 from ..runtime_devices import resolve_device_label
 from ..tools.media import get_video_duration, sample_frames
 
@@ -121,22 +122,41 @@ def resolve_generation_controls(runtime: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def resolve_model_path(model_name: str, runtime: Dict[str, Any], allow_download: bool = False) -> str:
+def resolve_model_path(
+    model_name: str,
+    runtime: Dict[str, Any],
+    allow_download: bool = False,
+    *,
+    prefer_runtime_resolved: bool = True,
+) -> str:
     requested = str(model_name or "").strip()
     if not requested:
         raise RuntimeError("Model name is empty.")
-
-    resolved = str(runtime.get("resolved_model_path") or "").strip()
-    if resolved and Path(resolved).exists():
-        return str(Path(resolved).resolve())
 
     direct = Path(requested).expanduser()
     if direct.exists():
         return str(direct.resolve())
 
+    resolved = str(runtime.get("resolved_model_path") or "").strip()
+    runtime_model_name = str(runtime.get("model_name") or "").strip()
+    if (
+        prefer_runtime_resolved
+        and resolved
+        and Path(resolved).exists()
+        and (
+            not runtime_model_name
+            or requested == runtime_model_name
+        )
+    ):
+        return str(Path(resolved).resolve())
+
     snapshot = resolve_model_snapshot(requested, hf_cache=runtime.get("hf_cache"))
     if snapshot is not None:
         return str(snapshot)
+
+    if allow_download and "/" in requested:
+        downloaded = download_model_snapshot(requested, hf_cache=runtime.get("hf_cache"))
+        return str(downloaded)
 
     if not allow_download or "/" not in requested:
         raise RuntimeError(
@@ -144,11 +164,7 @@ def resolve_model_path(model_name: str, runtime: Dict[str, Any], allow_download:
             "Populate HF_HOME/HUGGINGFACE_HUB_CACHE first instead of downloading at runtime."
             % requested
         )
-
-    raise RuntimeError(
-        "Runtime downloads are disabled for %r. Populate HF_HOME/HUGGINGFACE_HUB_CACHE first."
-        % requested
-    )
+    raise RuntimeError("Runtime downloads are disabled for %r." % requested)
 
 
 def resolve_aux_model_path(runtime: Dict[str, Any], field_name: str, allow_download: bool = True) -> Optional[str]:
@@ -156,7 +172,7 @@ def resolve_aux_model_path(runtime: Dict[str, Any], field_name: str, allow_downl
     value = str(extra.get(field_name) or "").strip()
     if not value:
         return None
-    return resolve_model_path(value, runtime, allow_download=allow_download)
+    return resolve_model_path(value, runtime, allow_download=allow_download, prefer_runtime_resolved=False)
 
 
 def payload_clip(request: Dict[str, Any], task: Dict[str, Any]) -> Dict[str, Any]:
@@ -250,6 +266,20 @@ def iter_windows(duration_s: float, window_s: float) -> Iterator[Tuple[float, fl
         start = end
 
 
+def _ffmpeg_binary(preferred: Optional[str] = None) -> str:
+    candidate = str(preferred or "").strip()
+    if candidate:
+        return candidate
+    resolved = shutil.which("ffmpeg")
+    if resolved:
+        return str(resolved)
+    with contextlib.suppress(Exception):
+        import imageio_ffmpeg
+
+        return str(imageio_ffmpeg.get_ffmpeg_exe())
+    return "ffmpeg"
+
+
 @contextmanager
 def extracted_clip(
     video_path: str,
@@ -258,6 +288,7 @@ def extracted_clip(
     *,
     ffmpeg_bin: Optional[str] = None,
     suffix: str = ".mp4",
+    include_audio: bool = False,
 ):
     start_s = float(start_s or 0.0)
     end_s = float(end_s or start_s)
@@ -265,7 +296,7 @@ def extracted_clip(
         yield str(Path(video_path).resolve())
         return
 
-    ffmpeg = ffmpeg_bin or shutil.which("ffmpeg") or "ffmpeg"
+    ffmpeg = _ffmpeg_binary(ffmpeg_bin)
     tmp_dir = Path(tempfile.mkdtemp(prefix="vtp_clip_"))
     clip_path = tmp_dir / ("clip_%s%s" % (make_run_id(), suffix))
     cmd = [
@@ -279,13 +310,23 @@ def extracted_clip(
         str(video_path),
         "-map",
         "0:v:0",
-        "-an",
         "-c:v",
         "libx264",
         "-preset",
         "ultrafast",
-        str(clip_path),
     ]
+    if include_audio:
+        cmd.extend(
+            [
+                "-map",
+                "0:a?",
+                "-c:a",
+                "aac",
+            ]
+        )
+    else:
+        cmd.append("-an")
+    cmd.append(str(clip_path))
     completed = subprocess.run(
         cmd,
         capture_output=True,

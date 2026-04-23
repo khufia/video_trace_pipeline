@@ -7,6 +7,43 @@ from pydantic import BaseModel, Field, validator
 from .artifacts import ClipRef
 
 
+_GENERIC_CONFIDENCE_LABELS = {
+    "very low": 0.1,
+    "low": 0.25,
+    "medium": 0.5,
+    "moderate": 0.5,
+    "high": 0.85,
+    "very high": 0.95,
+}
+
+
+def _coerce_optional_generic_confidence(value: Any) -> Optional[float]:
+    if value is None or isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        numeric = float(value)
+        return numeric if 0.0 <= numeric <= 1.0 else None
+    text = str(value or "").strip()
+    if not text:
+        return None
+    normalized = text.lower()
+    if normalized in {"none", "null", "unknown", "n/a", "na", "unavailable"}:
+        return None
+    if normalized in _GENERIC_CONFIDENCE_LABELS:
+        return _GENERIC_CONFIDENCE_LABELS[normalized]
+    if normalized.endswith("%"):
+        try:
+            numeric = float(normalized[:-1].strip()) / 100.0
+        except ValueError:
+            return None
+        return numeric if 0.0 <= numeric <= 1.0 else None
+    try:
+        numeric = float(normalized)
+    except ValueError:
+        return None
+    return numeric if 0.0 <= numeric <= 1.0 else None
+
+
 class TimeRange(BaseModel):
     start_s: float
     end_s: float
@@ -200,3 +237,7 @@ class GenericPurposeOutput(BaseModel):
     supporting_points: List[str] = Field(default_factory=list)
     confidence: Optional[float] = None
     analysis: str = ""
+
+    @validator("confidence", pre=True)
+    def _normalize_confidence(cls, value):  # noqa: N805
+        return _coerce_optional_generic_confidence(value)

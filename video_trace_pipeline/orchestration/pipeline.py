@@ -165,7 +165,6 @@ class PipelineRunner(object):
         return {
             "evidence_entry_count": len(entries),
             "observation_count": len(observations),
-            "database_path": self.workspace.relative_path(ledger.sqlite_path),
             "top_subjects": sorted(subjects.items(), key=lambda pair: (-pair[1], pair[0]))[:15],
             "top_predicates": sorted(predicates.items(), key=lambda pair: (-pair[1], pair[0]))[:15],
             "evidence_entries": entries[-10:],
@@ -265,7 +264,9 @@ class PipelineRunner(object):
         rounds_executed = 0
         while rounds_executed < max(1, int(max_rounds)):
             planning_mode = "generate" if current_trace is None else "refine"
-            summary_context_supplied = current_trace is None or latest_audit is None or bool(latest_audit.missing_information)
+            summary_context_supplied = bool(str(summary_text or "").strip()) and (
+                current_trace is None or latest_audit is None or bool(latest_audit.missing_information)
+            )
             retrieved_observations = evidence_ledger.retrieve(
                 query_terms=_query_terms(task, latest_audit.dict() if latest_audit else None),
                 limit=50,

@@ -11,6 +11,7 @@ from video_trace_pipeline.schemas import (
     TracePackage,
     ToolConfig,
 )
+from video_trace_pipeline.storage import EvidenceLedger
 
 
 class FakePreprocessor(object):
@@ -82,7 +83,7 @@ def _models_config():
             "trace_auditor": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
             "atomicizer": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
         },
-        tools={"dense_captioner": ToolConfig(enabled=True, model="tencent/Penguin-VL-8B")},
+        tools={"dense_captioner": ToolConfig(enabled=True, model="yaolily/TimeChat-Captioner-GRPO-7B")},
     )
 
 
@@ -158,9 +159,9 @@ def test_pipeline_runner_preloads_models_before_preprocess(tmp_path):
             "loaded_models": [
                 {
                     "tool_name": "dense_captioner",
-                    "runner_type": "penguin",
-                    "model_name": "tencent/Penguin-VL-8B",
-                    "resolved_model_path": "/models/penguin",
+                    "runner_type": "timechat",
+                    "model_name": "yaolily/TimeChat-Captioner-GRPO-7B",
+                    "resolved_model_path": "/models/timechat",
                     "device_label": "cuda:1",
                 }
             ],
@@ -222,3 +223,24 @@ def test_planner_agent_uses_prompt_based_request():
     assert llm_client.calls
     assert llm_client.calls[0]["system_prompt"].startswith("You are the Planner")
     assert "AVAILABLE_TOOLS:" in llm_client.calls[0]["user_prompt"]
+
+
+def test_pipeline_evidence_summary_is_stable_across_runs(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    runner = PipelineRunner(profile, _models_config())
+    task = TaskSpec(
+        benchmark="omnivideobench",
+        sample_key="sample1",
+        question="What is the answer?",
+        options=["A", "B"],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video")
+
+    run_a = runner.workspace.create_run(task)
+    run_b = runner.workspace.create_run(task)
+    summary_a = runner._build_evidence_summary(EvidenceLedger(run_a))
+    summary_b = runner._build_evidence_summary(EvidenceLedger(run_b))
+
+    assert "database_path" not in summary_a
+    assert summary_a == summary_b

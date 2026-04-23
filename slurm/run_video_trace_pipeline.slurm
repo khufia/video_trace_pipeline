@@ -24,9 +24,9 @@ WORKSPACE_ROOT="${WORKSPACE_ROOT:-$REPO_ROOT/workspace}"
 
 MODE="${MODE:-refine}"
 INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
-INPUT_INDEX="${INPUT_INDEX:-0}"
+INPUT_INDEX="${INPUT_INDEX:-2}"
 RESULTS_NAME="${RESULTS_NAME:-rur_refiner_inputs}"
-CLIP_DURATION="${CLIP_DURATION:-60}"
+CLIP_DURATION="${CLIP_DURATION:-30}"
 MAX_ROUNDS="${MAX_ROUNDS:-2}"
 INITIAL_TRACE_PATH="${INITIAL_TRACE_PATH:-}"
 
@@ -35,9 +35,8 @@ CHECK_ENV_ONLY="${CHECK_ENV_ONLY:-0}"
 RUN_CHECK_ENV="${RUN_CHECK_ENV:-0}"
 STRICT_ENV_CHECK="${STRICT_ENV_CHECK:-1}"
 SHOW_PROGRESS="${SHOW_PROGRESS:-1}"
-# Default to on-demand model loading for direct bash runs. You can still opt
-# back into persistent/preloaded tool models by exporting these env vars before
-# launch on a roomier Slurm allocation.
+# Default to on-demand model loading for direct bash runs. Opt into
+# persisted/preloaded tool models only when the allocation has enough GPU headroom.
 PERSIST_TOOL_MODELS="${PERSIST_TOOL_MODELS:-}"
 PRELOAD_PERSISTED_MODELS="${PRELOAD_PERSISTED_MODELS:-0}"
 

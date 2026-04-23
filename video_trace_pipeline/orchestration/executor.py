@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import time
+from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 from pydantic import ValidationError
@@ -8,6 +10,7 @@ from ..common import assign_path, hash_payload, sanitize_for_persistence, traver
 from ..schemas import AtomicObservation, EvidenceEntry, ToolResult
 from ..storage import EvidenceLedger, SharedEvidenceCache
 from ..tools import ObservationExtractor
+from ..tools.extractors import evidence_temporal_bounds
 from ..tools.base import ToolExecutionContext
 from ..tools.specs import tool_implementation
 
@@ -315,7 +318,33 @@ class PlanExecutor(object):
                 if value is not None:
                     payload[field_name] = value
                     break
+        if (
+            str(getattr(step, "tool_name", "") or "").strip() == "asr"
+            and "clip" in model_fields
+            and payload.get("clip") is None
+            and not payload.get("clips")
+        ):
+            payload["clip"] = "full_video"
         return payload
+
+    def _load_cached_tool_result(self, cached: Dict[str, Any] | None, step_id: int, tool_name: str):
+        if not cached:
+            return None
+        try:
+            tool_result = ToolResult.parse_obj(cached.get("result") or {})
+        except Exception:
+            return None
+        if not tool_result.ok:
+            return None
+        try:
+            observations = [AtomicObservation.parse_obj(item) for item in cached.get("observations") or []]
+        except Exception:
+            return None
+        tool_result.cache_hit = True
+        summary_markdown = cached.get("summary_markdown") or render_tool_summary_markdown(
+            step_id, tool_name, tool_result, observations
+        )
+        return tool_result, observations, summary_markdown
 
     def execute_plan(
         self,
@@ -368,44 +397,71 @@ class PlanExecutor(object):
                     write_json(step_dir / "runtime.json", adapter._runtime_payload(execution_context))
                 except Exception:
                     pass
-            if cached:
-                tool_result = ToolResult.parse_obj(cached["result"])
-                tool_result.cache_hit = True
-                observations = [AtomicObservation.parse_obj(item) for item in cached["observations"]]
-                summary_markdown = cached.get("summary_markdown") or render_tool_summary_markdown(
-                    step.step_id, step.tool_name, tool_result, observations
-                )
+            timing_metadata = {
+                "started_at_utc": None,
+                "finished_at_utc": None,
+                "duration_s": 0.0,
+                "cache_wait_s": 0.0,
+                "execution_mode": "cache_hit",
+            }
+            cached_payload = self._load_cached_tool_result(cached, step.step_id, step.tool_name)
+            if cached_payload is not None:
+                tool_result, observations, summary_markdown = cached_payload
             else:
-                tool_result = adapter.execute(request, execution_context)
-                tool_result.request_hash = request_hash
-                tool_result.cache_hit = False
-                observations = self.extractor.extract(tool_result)
-                summary_markdown = render_tool_summary_markdown(step.step_id, step.tool_name, tool_result, observations)
-                self.evidence_cache.store(
-                    tool_name=step.tool_name,
-                    request_hash=request_hash,
-                    manifest={
-                        "tool_name": step.tool_name,
-                        "request_hash": request_hash,
-                        "prompt_version": self.models_config.tools[step.tool_name].prompt_version,
-                        "request": sanitize_for_persistence(request.dict()),
-                    },
-                    result=sanitize_for_persistence(tool_result.dict()),
-                    observations=[sanitize_for_persistence(item.dict()) for item in observations],
-                    summary_markdown=summary_markdown,
-                )
+                cache_lock = self.evidence_cache.lock(step.tool_name, request_hash)
+                cache_wait_started_at = time.perf_counter()
+                with cache_lock:
+                    timing_metadata["cache_wait_s"] = round(time.perf_counter() - cache_wait_started_at, 4)
+                    cached = self.evidence_cache.load(step.tool_name, request_hash)
+                    cached_payload = self._load_cached_tool_result(cached, step.step_id, step.tool_name)
+                    if cached_payload is not None:
+                        timing_metadata["execution_mode"] = "cache_hit_after_lock"
+                        tool_result, observations, summary_markdown = cached_payload
+                    else:
+                        tool_started_at = datetime.now(timezone.utc)
+                        execution_started_at = time.perf_counter()
+                        tool_result = adapter.execute(request, execution_context)
+                        tool_finished_at = datetime.now(timezone.utc)
+                        tool_result.request_hash = request_hash
+                        tool_result.cache_hit = False
+                        timing_metadata = {
+                            "started_at_utc": tool_started_at.isoformat(),
+                            "finished_at_utc": tool_finished_at.isoformat(),
+                            "duration_s": round(time.perf_counter() - execution_started_at, 4),
+                            "cache_wait_s": timing_metadata["cache_wait_s"],
+                            "execution_mode": "executed",
+                        }
+                        tool_result.metadata = {**dict(tool_result.metadata or {}), "timing": timing_metadata}
+                        observations = self.extractor.extract(tool_result)
+                        summary_markdown = render_tool_summary_markdown(step.step_id, step.tool_name, tool_result, observations)
+                        self.evidence_cache.store_unlocked(
+                            tool_name=step.tool_name,
+                            request_hash=request_hash,
+                            manifest={
+                                "tool_name": step.tool_name,
+                                "request_hash": request_hash,
+                                "prompt_version": self.models_config.tools[step.tool_name].prompt_version,
+                                "request": sanitize_for_persistence(request.dict()),
+                            },
+                            result=sanitize_for_persistence(tool_result.dict()),
+                            observations=[sanitize_for_persistence(item.dict()) for item in observations],
+                            summary_markdown=summary_markdown,
+                        )
+            tool_result.metadata = {**dict(tool_result.metadata or {}), "timing": timing_metadata}
 
             evidence_entry = EvidenceEntry(
                 evidence_id="ev_%02d_%s" % (step.step_id, request_hash[:8]),
                 tool_name=step.tool_name,
                 evidence_text=tool_result.summary or tool_result.raw_output_text or "",
                 confidence=tool_result.metadata.get("confidence") if isinstance(tool_result.metadata, dict) else None,
+                **evidence_temporal_bounds(observations),
                 artifact_refs=tool_result.artifact_refs,
                 observation_ids=[item.observation_id for item in observations],
                 metadata={"request_hash": request_hash, "cache_hit": tool_result.cache_hit},
             )
             evidence_ledger.append(evidence_entry, observations)
             write_json(step_dir / "result.json", sanitize_for_persistence(tool_result.dict()))
+            write_json(step_dir / "timing.json", sanitize_for_persistence(timing_metadata))
             write_json(step_dir / "artifact_refs.json", [item.dict() for item in tool_result.artifact_refs])
             write_text(step_dir / "summary.md", summary_markdown)
 

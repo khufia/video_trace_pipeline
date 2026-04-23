@@ -73,6 +73,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     device_label = resolved_device_label(runtime)
     prompt = _build_prompt(request)
     generation = resolve_generation_controls(runtime)
+    attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
     runner = None
     owns_runner = False
     if runner_pool is not None:
@@ -82,6 +83,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             device_label=device_label,
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
+            attn_implementation=attn_implementation,
         )
     if runner is None:
         runner = QwenStyleRunner(
@@ -89,6 +91,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             device_label=device_label,
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
+            attn_implementation=attn_implementation,
         )
         owns_runner = True
     try:

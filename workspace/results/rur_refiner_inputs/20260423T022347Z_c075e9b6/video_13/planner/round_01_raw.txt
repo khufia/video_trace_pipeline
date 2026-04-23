@@ -1,0 +1,93 @@
+{
+  "strategy": "Ground the quoted audio phrase first with bounded ASR over likely candidate clips, then inspect frames from the matched clip to count empty beer bottles on the table at that same moment, and finally map the grounded count to the answer option.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "audio_temporal_grounder",
+      "purpose": "Localize candidate moments where the commercial-like spoken phrase about Bill's Ammunition occurs so later ASR can verify the exact wording.",
+      "arguments": {
+        "query": "spoken commercial phrase mentioning Bill's Ammunition",
+        "clips": []
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "asr",
+      "purpose": "Verify which candidate clip actually contains the phrase 'come to bill's ammunition' or the closest exact spoken wording and provide the precise transcript context.",
+      "arguments": {
+        "clips": [],
+        "speaker_attribution": false
+      },
+      "input_refs": [
+        {
+          "target_field": "clips",
+          "source": {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step_id": 3,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve frames within the verified phrase clip that show the table clearly at the moment the Bill's Ammunition line is spoken.",
+      "arguments": {
+        "clips": [],
+        "query": "table in the gun-store commercial scene, showing beer bottles on the tabletop while the Bill's Ammunition line is spoken",
+        "num_frames": 6,
+        "time_hints": []
+      },
+      "input_refs": [
+        {
+          "target_field": "clips",
+          "source": {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        }
+      ],
+      "depends_on": [
+        1,
+        2
+      ]
+    },
+    {
+      "step_id": 4,
+      "tool_name": "generic_purpose",
+      "purpose": "Count how many empty beer bottles are on the table in the retrieved frames from the verified phrase moment and identify the matching multiple-choice option.",
+      "arguments": {
+        "query": "Using the retrieved frames and the transcript context, identify the frame(s) corresponding to the spoken Bill's Ammunition phrase, count the number of empty beer bottles visible on the table at that moment, and map the count to one option among A.0, B.1, C.2, D.3.",
+        "frames": [],
+        "text_contexts": []
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 3,
+            "field_path": "frames"
+          }
+        },
+        {
+          "target_field": "text_contexts",
+          "source": {
+            "step_id": 2,
+            "field_path": "text"
+          }
+        }
+      ],
+      "depends_on": [
+        2,
+        3
+      ]
+    }
+  ],
+  "refinement_instructions": "Repair the trace strictly in the order of the diagnosis gaps. First, use step 2 ASR to confirm whether the spoken phrase about Bill's Ammunition is actually present and which candidate clip from step 1 contains it; do not rely on the audio grounder alone for exact wording. Second, use only frames from the matched clip in step 3 to assess the tabletop state at that same moment; do not count bottles from a different montage shot before or after unless the transcript timing and frame evidence clearly align. Third, base the bottle count on direct visual evidence from the retrieved frames, not on plausibility or trailer context. If multiple retrieved frames differ, prefer the frame(s) temporally aligned with the ASR-confirmed phrase and state that alignment explicitly. Replace the unsupported prior claim about there being no bottles with the grounded count from step 4. The final repaired trace must explicitly include: the grounded phrase timing/context, the counted number of empty beer bottles on the table at that moment, and the mapping to exactly one answer option. If the phrase wording is slightly different in ASR but clearly refers to Bill's Ammunition, note that and still use the matched clip; if the count remains ambiguous across frames, state the ambiguity rather than inventing certainty."
+}

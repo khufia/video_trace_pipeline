@@ -1,0 +1,30 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "video_13__e6e95b328626",
+  "run_id": "20260423T030424Z_dee01c05",
+  "mode": "refine",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "video_13__e6e95b328626",
+    "question": "When the sound 'come to bill's ammunition' appears in the video, how many empty beer bottles are there on the table in the picture?",
+    "options": [
+      "A.0.",
+      "B.1.",
+      "C.2.",
+      "D.3."
+    ],
+    "video_id": "video_13",
+    "question_id": null,
+    "gold_answer": "0.",
+    "initial_trace_steps": [
+      "At 1:31, a man mentioned 'come to bill's ammunition'. Get the point they talked about.",
+      "From vision, there are not empty beer bottles on the table."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "cache/preprocess/647390d7c1fb5c394891830996a9323a00e899f2a525f5e8291fd34a181838de/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/30/tool_v2",
+  "clip_duration_s": 30.0,
+  "results_name": "rur_refiner_inputs"
+}

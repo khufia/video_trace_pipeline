@@ -17,14 +17,23 @@ def normalize_model_reference(model_name: Optional[str]) -> str:
     return _MODEL_ALIASES.get(raw, raw)
 
 
+def normalize_hf_cache_root(hf_cache: Optional[str]) -> Optional[Path]:
+    raw = str(hf_cache or "").strip()
+    if not raw:
+        return None
+    path = Path(raw).expanduser()
+    if path.name == "hub":
+        return path.parent
+    return path
+
+
 def hf_cache_roots(explicit_hf_cache: Optional[str] = None) -> List[Path]:
     roots: List[Path] = []
 
     def _add(path_value: Optional[str]) -> None:
-        text = str(path_value or "").strip()
-        if not text:
+        path = normalize_hf_cache_root(path_value)
+        if path is None:
             return
-        path = Path(text).expanduser()
         candidates = [path]
         if path.name != "hub":
             candidates.append(path / "hub")
@@ -98,3 +107,86 @@ def describe_model_resolution(model_name: Optional[str], hf_cache: Optional[str]
         "hf_cache": str(Path(hf_cache).expanduser()) if str(hf_cache or "").strip() else None,
         "status": "ok" if resolved is not None else "missing",
     }
+
+
+def _repo_cache_paths(model_name: Optional[str], hf_cache: Optional[str]) -> Optional[Dict[str, Path]]:
+    normalized = normalize_model_reference(model_name)
+    cache_root = normalize_hf_cache_root(hf_cache)
+    if not normalized or "/" not in normalized or cache_root is None:
+        return None
+    repo_suffix = normalized.replace("/", "--")
+    return {
+        "cache_root": cache_root,
+        "hub_root": cache_root / "hub",
+        "root_repo_dir": cache_root / ("models--%s" % repo_suffix),
+        "hub_repo_dir": cache_root / "hub" / ("models--%s" % repo_suffix),
+    }
+
+
+def ensure_hf_cache_symlink(model_name: Optional[str], hf_cache: Optional[str]) -> Dict[str, Optional[str]]:
+    layout = _repo_cache_paths(model_name, hf_cache)
+    if layout is None:
+        return {"status": "not_hf_repo", "created": None, "source": None, "target": None}
+
+    root_repo_dir = layout["root_repo_dir"]
+    hub_repo_dir = layout["hub_repo_dir"]
+    hub_root = layout["hub_root"]
+
+    root_exists = root_repo_dir.exists() or root_repo_dir.is_symlink()
+    hub_exists = hub_repo_dir.exists() or hub_repo_dir.is_symlink()
+    if root_exists and hub_exists:
+        return {"status": "ok", "created": None, "source": str(root_repo_dir), "target": str(hub_repo_dir)}
+
+    if hub_exists:
+        source = hub_repo_dir
+        target = root_repo_dir
+    elif root_exists:
+        source = root_repo_dir
+        target = hub_repo_dir
+    else:
+        return {"status": "missing_repo_dir", "created": None, "source": None, "target": None}
+
+    target.parent.mkdir(parents=True, exist_ok=True)
+    if target.is_symlink() and not target.exists():
+        target.unlink()
+    if not target.exists():
+        target.symlink_to(source)
+        return {"status": "ok", "created": str(target), "source": str(source), "target": str(target)}
+    return {"status": "ok", "created": None, "source": str(source), "target": str(target)}
+
+
+def download_model_snapshot(
+    model_name: Optional[str],
+    *,
+    hf_cache: Optional[str],
+    revision: Optional[str] = None,
+    allow_patterns: Optional[Iterable[str]] = None,
+    ignore_patterns: Optional[Iterable[str]] = None,
+) -> Path:
+    normalized = normalize_model_reference(model_name)
+    if not normalized or "/" not in normalized:
+        raise ValueError("download_model_snapshot requires a Hugging Face repo id, got %r" % (model_name,))
+
+    resolved = resolve_model_snapshot(normalized, hf_cache=hf_cache)
+    if resolved is not None:
+        ensure_hf_cache_symlink(normalized, hf_cache)
+        return resolved
+
+    cache_root = normalize_hf_cache_root(hf_cache)
+    if cache_root is None:
+        raise RuntimeError("HF cache root is not configured for %r" % normalized)
+    cache_root.mkdir(parents=True, exist_ok=True)
+
+    from huggingface_hub import snapshot_download
+
+    snapshot_path = Path(
+        snapshot_download(
+            repo_id=normalized,
+            cache_dir=str(cache_root),
+            revision=revision,
+            allow_patterns=list(allow_patterns) if allow_patterns is not None else None,
+            ignore_patterns=list(ignore_patterns) if ignore_patterns is not None else None,
+        )
+    ).resolve()
+    ensure_hf_cache_symlink(normalized, hf_cache)
+    return snapshot_path

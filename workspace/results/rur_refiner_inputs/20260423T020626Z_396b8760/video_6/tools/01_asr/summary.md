@@ -1,0 +1,85 @@
+# Tool Step 01 - asr
+
+## Summary
+
+As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off. Here at Alaska, safety is our number one concern. But you gotta admit, look pretty cool. Plane flying around, no door. You know, everyone's screaming, cell phones whipping out into the sky. It was awesome. That's why our new slogan is Alaska Airlines. You didn't die, and you got a cool story. On other airlines, you can watch movies. But on Alaska, you're in the movie. And if you think Alaska the state is cold, just wait till our plane's roof rips off. Since the incident, we're starting to make some changes. You know those bolts that, like, hold the plane together? We're gonna go ahead and tighten some of those. We've also made a few small updates to our in-flight safety brochure. And for extra precaution, we'll now be taking off with the inflatable slide already deployed. When people ask me where the emergency exits are, I'm like, there, there, and in ten minutes, Probably there. You know how Hawaiian Airlines always gives out lays when you land? Well, we've got our own version. Are we in Cleveland? Close. The Pacific Ocean. And to make everyone feel safer, we've hired Sully out of retirement. I don't know if I can do it again. He's a lot older now. I was on that flight. At the time, I was terrified. But now, I'm the coolest person at the office. Everyone stopping by my cubicle all want to know about that little boy whose shirt got sucked out the plane. Some airlines give you a little wing pin when you get off the plane, but Alaska gives you a commemorative photo of your flight. This was $50. So fly Alaska. Fly Alaska. We're the same airline where a pilot tried to turn off the engine mid-flight while on mushrooms. And now we're so proud to say that's our second worst flight. Alaska Airlines. Still better than Spirit.
+
+## Observations
+
+- unknown_speaker said "As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off." from 2.38s to 22.32s.
+- unknown_speaker said "Here at Alaska, safety is our number one concern." from 2.38s to 22.32s.
+- unknown_speaker said "But you gotta admit, look pretty cool." from 2.38s to 22.32s.
+- unknown_speaker said "Plane flying around, no door." from 2.38s to 22.32s.
+- unknown_speaker said "You know, everyone's screaming, cell phones whipping out into the sky." from 2.38s to 22.32s.
+- unknown_speaker said "It was awesome." from 2.38s to 22.32s.
+- From 2.38s to 22.32s, unknown_speaker said that an Alaska Airlines flight had to make an emergency landing after a cabin door broke off.
+- From 2.38s to 22.32s, unknown_speaker said, "Here at Alaska, safety is our number one concern."
+- From 2.38s to 22.32s, unknown_speaker said that it looked pretty cool.
+- From 2.38s to 22.32s, unknown_speaker described a plane flying around with no door.
+- From 2.38s to 22.32s, unknown_speaker said that everyone was screaming.
+- From 2.38s to 22.32s, unknown_speaker said that cell phones were whipping out into the sky.
+- From 2.38s to 22.32s, unknown_speaker said, "It was awesome."
+- unknown_speaker said "That's why our new slogan is Alaska Airlines." from 22.32s to 41.85s.
+- unknown_speaker said "You didn't die, and you got a cool story." from 22.32s to 41.85s.
+- unknown_speaker said "On other airlines, you can watch movies." from 22.32s to 41.85s.
+- unknown_speaker said "But on Alaska, you're in the movie." from 22.32s to 41.85s.
+- unknown_speaker said "And if you think Alaska the state is cold, just wait till our plane's roof rips off." from 22.32s to 41.85s.
+- From 22.32s to 41.85s, unknown_speaker says the new slogan is "Alaska Airlines. You didn't die, and you got a cool story."
+- From 22.32s to 41.85s, unknown_speaker says, "On other airlines, you can watch movies."
+- From 22.32s to 41.85s, unknown_speaker says, "But on Alaska, you're in the movie."
+- From 22.32s to 41.85s, unknown_speaker says, "And if you think Alaska the state is cold, just wait till our plane's roof rips off."
+- unknown_speaker said "Since the incident, we're starting to make some changes." from 42.91s to 68.41s.
+- unknown_speaker said "You know those bolts that, like, hold the plane together?" from 42.91s to 68.41s.
+- unknown_speaker said "We're gonna go ahead and tighten some of those." from 42.91s to 68.41s.
+- unknown_speaker said "We've also made a few small updates to our in-flight safety brochure." from 42.91s to 68.41s.
+- unknown_speaker said "And for extra precaution, we'll now be taking off with the inflatable slide already deployed." from 42.91s to 68.41s.
+- unknown_speaker said "When people ask me where the emergency exits are, I'm like, there, there, and in ten minutes," from 42.91s to 68.41s.
+- Since the incident, we're starting to make some changes.
+- We're gonna go ahead and tighten some of those bolts that hold the plane together.
+- We've also made a few small updates to our in-flight safety brochure.
+- For extra precaution, we'll now be taking off with the inflatable slide already deployed.
+- When people ask me where the emergency exits are, I'm like, there, there, and in ten minutes.
+- unknown_speaker said "Probably there." from 68.98s to 85.97s.
+- unknown_speaker said "You know how Hawaiian Airlines always gives out lays when you land?" from 68.98s to 85.97s.
+- unknown_speaker said "Well, we've got our own version." from 68.98s to 85.97s.
+- unknown_speaker said "Are we in Cleveland?" from 68.98s to 85.97s.
+- unknown_speaker said "Close." from 68.98s to 85.97s.
+- unknown_speaker said "The Pacific Ocean." from 68.98s to 85.97s.
+- unknown_speaker said "And to make everyone feel safer, we've hired Sully out of retirement." from 68.98s to 85.97s.
+- unknown_speaker said "I don't know if I can do it again." from 68.98s to 85.97s.
+- At 68.98s–85.97s, unknown_speaker says, "Probably there."
+- At 68.98s–85.97s, unknown_speaker says, "You know how Hawaiian Airlines always gives out lays when you land?"
+- At 68.98s–85.97s, unknown_speaker says, "Well, we've got our own version."
+- At 68.98s–85.97s, unknown_speaker says, "Are we in Cleveland?"
+- At 68.98s–85.97s, unknown_speaker says, "Close."
+- At 68.98s–85.97s, unknown_speaker says, "The Pacific Ocean."
+- At 68.98s–85.97s, unknown_speaker says, "And to make everyone feel safer, we've hired Sully out of retirement."
+- At 68.98s–85.97s, unknown_speaker says, "I don't know if I can do it again."
+- unknown_speaker said "He's a lot older now." from 87.78s to 99.68s.
+- unknown_speaker said "I was on that flight." from 87.78s to 99.68s.
+- unknown_speaker said "At the time, I was terrified." from 87.78s to 99.68s.
+- unknown_speaker said "But now, I'm the coolest person at the office." from 87.78s to 99.68s.
+- unknown_speaker said "Everyone stopping by my cubicle all want to know about that little boy whose shirt got sucked out the plane." from 87.78s to 99.68s.
+- unknown_speaker says he is a lot older now.
+- unknown_speaker was on that flight.
+- At the time, unknown_speaker was terrified.
+- Now, unknown_speaker is the coolest person at the office.
+- Everyone stopping by unknown_speaker's cubicle wants to know about that little boy.
+- That little boy's shirt got sucked out of the plane.
+- unknown_speaker said "Some airlines give you a little wing pin when you get off the plane, but Alaska gives you a commemorative photo of your flight." from 103.20s to 128.25s.
+- unknown_speaker said "This was $50." from 103.20s to 128.25s.
+- unknown_speaker said "So fly Alaska." from 103.20s to 128.25s.
+- unknown_speaker said "Fly Alaska." from 103.20s to 128.25s.
+- unknown_speaker said "We're the same airline where a pilot tried to turn off the engine mid-flight while on mushrooms." from 103.20s to 128.25s.
+- unknown_speaker said "And now we're so proud to say that's our second worst flight." from 103.20s to 128.25s.
+- unknown_speaker said "Alaska Airlines." from 103.20s to 128.25s.
+- unknown_speaker said "Still better than Spirit." from 103.20s to 128.25s.
+- Some airlines give you a little wing pin when you get off the plane.
+- Alaska gives you a commemorative photo of your flight.
+- This was $50.
+- The speaker says, "Fly Alaska."
+- The speaker repeats, "Fly Alaska."
+- A pilot tried to turn off the engine mid-flight.
+- A pilot was on mushrooms.
+- The speaker says that now that is Alaska's second worst flight.
+- Alaska Airlines is still better than Spirit.

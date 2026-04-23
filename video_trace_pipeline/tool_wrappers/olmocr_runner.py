@@ -1,14 +1,16 @@
 from __future__ import annotations
 
+import contextlib
 from pathlib import Path
 from typing import Any, Dict, List
 
 from PIL import Image
 
 from ..common import extract_json_object
-from .local_multimodal import make_qwen_image_messages, run_qwen_style_messages
+from .local_multimodal import QwenStyleRunner, make_qwen_image_messages, run_qwen_style_messages
 from .protocol import emit_json, load_request
 from .shared import (
+    cleanup_torch,
     crop_region,
     ensure_frame_for_request,
     resolve_generation_controls,
@@ -16,6 +18,7 @@ from .shared import (
     resolved_device_label,
     scratch_dir,
 )
+
 
 def _normalize_lines(parsed: Dict[str, Any], text: str) -> List[Dict[str, Any]]:
     raw_lines = parsed.get("lines")
@@ -82,13 +85,32 @@ def _extract_text_from_raw_output(raw_text: str) -> str:
     return cleaned
 
 
-def main() -> None:
-    payload = load_request()
-    request = dict(payload.get("request") or {})
-    task = dict(payload.get("task") or {})
-    runtime = dict(payload.get("runtime") or {})
-    frame_out_dir = scratch_dir(runtime, "ocr")
+def _ocr_prompt(query: str) -> str:
+    return (
+        "Extract all visible text from this image.\n"
+        "This may be a chart or slide, so include titles, legends, labels, numbers, percentages, and source text.\n"
+        "Return JSON only with keys: text, lines.\n"
+        "Each lines item must contain text, bbox, confidence.\n"
+        "If bbox values are unavailable, set bbox to null.\n"
+        f"Focus query: {query or '<none>'}"
+    )
 
+
+def _extract_request_items(request: Dict[str, Any]) -> List[Dict[str, Any]]:
+    query = str(request.get("query") or "").strip() or None
+    regions = list(request.get("regions") or [])
+    if regions:
+        return [{"tool_name": "ocr", "query": query, "region": item} for item in regions]
+    frames = list(request.get("frames") or [])
+    if frames:
+        return [{"tool_name": "ocr", "query": query, "frame": item} for item in frames]
+    clips = list(request.get("clips") or [])
+    if clips:
+        return [{"tool_name": "ocr", "query": query, "clip": item} for item in clips]
+    return [dict(request or {})]
+
+
+def _prepare_single_request(request: Dict[str, Any], task: Dict[str, Any], runtime: Dict[str, Any], frame_out_dir: Path):
     frame_path, timestamp_s = ensure_frame_for_request(
         request,
         task,
@@ -105,27 +127,11 @@ def main() -> None:
             frame_out_dir / ("ocr_crop_%s.png" % Path(source_frame_path).stem),
         )
     prepared_frame_path = _prepare_olmocr_image(frame_path, frame_out_dir)
-
     query = str(request.get("query") or "").strip()
-    model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
-    generation = resolve_generation_controls(runtime)
-    prompt = (
-        "Extract all visible text from this image.\n"
-        "This may be a chart or slide, so include titles, legends, labels, numbers, percentages, and source text.\n"
-        "Return JSON only with keys: text, lines.\n"
-        "Each lines item must contain text, bbox, confidence.\n"
-        "If bbox values are unavailable, set bbox to null.\n"
-        f"Focus query: {query or '<none>'}"
-    )
-    raw_text = run_qwen_style_messages(
-        model_path=model_path,
-        messages=make_qwen_image_messages(prompt, [prepared_frame_path]),
-        device_label=resolved_device_label(runtime),
-        max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 384),
-        processor_use_fast=False,
-        generate_do_sample=bool(generation.get("do_sample")),
-        generate_temperature=generation.get("temperature"),
-    )
+    return prepared_frame_path, source_frame_path, float(timestamp_s), query
+
+
+def _normalize_single_output(raw_text: str, *, query: str, timestamp_s: float, source_frame_path: str) -> Dict[str, Any]:
     parsed = extract_json_object(raw_text) or {}
     text = str(parsed.get("text") or "").strip()
     if not text:
@@ -133,17 +139,112 @@ def main() -> None:
     fallback_lines = _normalize_lines(parsed, text)
     if not text and fallback_lines:
         text = "\n".join(str(item.get("text") or "").strip() for item in fallback_lines if str(item.get("text") or "").strip())
+    return {
+        "text": text,
+        "lines": fallback_lines,
+        "query": query or None,
+        "timestamp_s": float(timestamp_s),
+        "source_frame_path": source_frame_path,
+        "backend": "olmocr_transformers",
+    }
 
-    emit_json(
-        {
-            "text": text,
-            "lines": fallback_lines,
-            "query": query or None,
-            "timestamp_s": float(timestamp_s),
-            "source_frame_path": source_frame_path,
-            "backend": "olmocr_transformers",
-        }
+
+def _run_single_request(
+    request: Dict[str, Any],
+    *,
+    task: Dict[str, Any],
+    runtime: Dict[str, Any],
+    frame_out_dir: Path,
+    model_path: str,
+    generation: Dict[str, Any],
+    attn_implementation: str | None,
+    runner: QwenStyleRunner | None = None,
+) -> Dict[str, Any]:
+    prepared_frame_path, source_frame_path, timestamp_s, query = _prepare_single_request(
+        request,
+        task,
+        runtime,
+        frame_out_dir,
     )
+    prompt = _ocr_prompt(query)
+    messages = make_qwen_image_messages(prompt, [prepared_frame_path])
+    if runner is None:
+        raw_text = run_qwen_style_messages(
+            model_path=model_path,
+            messages=messages,
+            device_label=resolved_device_label(runtime),
+            max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 384),
+            processor_use_fast=False,
+            generate_do_sample=bool(generation.get("do_sample")),
+            generate_temperature=generation.get("temperature"),
+            attn_implementation=attn_implementation,
+        )
+    else:
+        raw_text = runner.generate(
+            messages,
+            max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 384),
+        )
+    return _normalize_single_output(
+        raw_text,
+        query=query,
+        timestamp_s=timestamp_s,
+        source_frame_path=source_frame_path,
+    )
+
+
+def main() -> None:
+    payload = load_request()
+    request = dict(payload.get("request") or {})
+    task = dict(payload.get("task") or {})
+    runtime = dict(payload.get("runtime") or {})
+    frame_out_dir = scratch_dir(runtime, "ocr")
+    model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
+    generation = resolve_generation_controls(runtime)
+    attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
+    request_items = _extract_request_items(request)
+    if len(request_items) <= 1:
+        emit_json(
+            _run_single_request(
+                request_items[0] if request_items else request,
+                task=task,
+                runtime=runtime,
+                frame_out_dir=frame_out_dir,
+                model_path=model_path,
+                generation=generation,
+                attn_implementation=attn_implementation,
+            )
+        )
+        return
+
+    runner = QwenStyleRunner(
+        model_path=model_path,
+        device_label=resolved_device_label(runtime),
+        processor_use_fast=False,
+        generate_do_sample=bool(generation.get("do_sample")),
+        generate_temperature=generation.get("temperature"),
+        attn_implementation=attn_implementation,
+    )
+    try:
+        results = []
+        for item in request_items:
+            results.append(
+                _run_single_request(
+                    item,
+                    task=task,
+                    runtime=runtime,
+                    frame_out_dir=frame_out_dir,
+                    model_path=model_path,
+                    generation=generation,
+                    attn_implementation=attn_implementation,
+                    runner=runner,
+                )
+            )
+            with contextlib.suppress(Exception):
+                cleanup_torch()
+    finally:
+        runner.close()
+
+    emit_json({"results": results, "backend": "olmocr_transformers"})
 
 
 if __name__ == "__main__":

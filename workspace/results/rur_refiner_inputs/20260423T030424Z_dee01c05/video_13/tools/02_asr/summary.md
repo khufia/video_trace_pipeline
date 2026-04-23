@@ -1,0 +1,91 @@
+# Tool Step 02 - asr
+
+## Summary
+
+What you doing up there? I'm just fixing some leaks. Seriously, dude, you got some time on your hands. I got some properties with paying tenants. That's why you came by? Just go get me my checks. See you, Brian. Love you, Jason. Hi, Jason. Hi, Jason. I'm here for Lucia Caminos. She's supposed to be getting out. What's your name? Jason Duvall. I've seen you here before. You might have. Hey. Hey. Hands above your heads, now! You, stay. The new beginnings. You make the news, isn't it? Trust me, this place is just the start for us. Ring the bells! Shots, baby! The only thing that matters is who you know and what you got. If you're gonna do this, you're doing it right. Yo, D, this full effect? They got your name, address, they got everything. Us cops, we gotta protect each other. You and me, girl. We got this. We got it. Say my city, baby. My city, baby. Come to Phil's Ammu Nation today. We got more guns than the law allows. Hey. Hey, if you got friends, can you hook me up, please? Oh!
+
+## Observations
+
+- unknown_speaker said "What you doing up there?" from 9.84s to 33.49s.
+- unknown_speaker said "I'm just fixing some leaks." from 9.84s to 33.49s.
+- unknown_speaker said "Seriously, dude, you got some time on your hands." from 9.84s to 33.49s.
+- unknown_speaker said "I got some properties with paying tenants." from 9.84s to 33.49s.
+- unknown_speaker said "That's why you came by?" from 9.84s to 33.49s.
+- unknown_speaker said "Just go get me my checks." from 9.84s to 33.49s.
+- unknown_speaker said "See you, Brian." from 9.84s to 33.49s.
+- unknown_speaker said "Love you, Jason." from 9.84s to 33.49s.
+- unknown_speaker said "Hi, Jason." from 9.84s to 33.49s.
+- unknown_speaker said "Hi, Jason." from 9.84s to 33.49s.
+- From 9.84s to 33.49s, unknown_speaker said, "What you doing up there?"
+- From 9.84s to 33.49s, unknown_speaker said, "I'm just fixing some leaks."
+- From 9.84s to 33.49s, unknown_speaker said, "Seriously, dude, you got some time on your hands."
+- From 9.84s to 33.49s, unknown_speaker said, "I got some properties with paying tenants."
+- From 9.84s to 33.49s, unknown_speaker said, "That's why you came by?"
+- From 9.84s to 33.49s, unknown_speaker said, "Just go get me my checks."
+- From 9.84s to 33.49s, unknown_speaker said, "See you, Brian."
+- From 9.84s to 33.49s, unknown_speaker said, "Love you, Jason."
+- From 9.84s to 33.49s, unknown_speaker said, "Hi, Jason."
+- From 9.84s to 33.49s, unknown_speaker said, "Hi, Jason."
+- unknown_speaker said "I'm here for Lucia Caminos." from 42.84s to 68.51s.
+- unknown_speaker said "She's supposed to be getting out." from 42.84s to 68.51s.
+- unknown_speaker said "What's your name?" from 42.84s to 68.51s.
+- unknown_speaker said "Jason Duvall." from 42.84s to 68.51s.
+- unknown_speaker said "I've seen you here before." from 42.84s to 68.51s.
+- unknown_speaker said "You might have." from 42.84s to 68.51s.
+- unknown_speaker said "Hey." from 42.84s to 68.51s.
+- unknown_speaker said "Hey." from 42.84s to 68.51s.
+- unknown_speaker says they are here for Lucia Caminos.
+- unknown_speaker says Lucia Caminos is supposed to be getting out during this transcript segment.
+- unknown_speaker asks another person, "What's your name?"
+- A person states, "Jason Duvall."
+- unknown_speaker says they have seen Jason Duvall here before.
+- Jason Duvall responds, "You might have."
+- unknown_speaker says, "Hey."
+- Another person says, "Hey."
+- unknown_speaker said "Hands above your heads, now!" from 71.80s to 99.34s.
+- unknown_speaker said "You, stay." from 71.80s to 99.34s.
+- unknown_speaker said "The new beginnings." from 71.80s to 99.34s.
+- unknown_speaker said "You make the news, isn't it?" from 71.80s to 99.34s.
+- unknown_speaker said "Trust me, this place is just the start for us." from 71.80s to 99.34s.
+- unknown_speaker said "Ring the bells!" from 71.80s to 99.34s.
+- unknown_speaker said "Shots, baby!" from 71.80s to 99.34s.
+- unknown_speaker said "The only thing that matters is who you know and what you got." from 71.80s to 99.34s.
+- unknown_speaker said "If you're gonna do this, you're doing it right." from 71.80s to 99.34s.
+- From 71.80s to 99.34s, unknown_speaker says, "Hands above your heads, now!"
+- From 71.80s to 99.34s, unknown_speaker says, "You, stay."
+- From 71.80s to 99.34s, unknown_speaker says, "The new beginnings."
+- From 71.80s to 99.34s, unknown_speaker says, "You make the news, isn't it?"
+- From 71.80s to 99.34s, unknown_speaker says, "Trust me, this place is just the start for us."
+- From 71.80s to 99.34s, unknown_speaker says, "Ring the bells!"
+- From 71.80s to 99.34s, unknown_speaker says, "Shots, baby!"
+- From 71.80s to 99.34s, unknown_speaker says, "The only thing that matters is who you know."
+- From 71.80s to 99.34s, unknown_speaker says, "The only thing that matters is what you got."
+- From 71.80s to 99.34s, unknown_speaker says, "If you're gonna do this, you're doing it right."
+- unknown_speaker said "Yo, D, this full effect?" from 102.07s to 127.56s.
+- unknown_speaker said "They got your name, address, they got everything." from 102.07s to 127.56s.
+- unknown_speaker said "Us cops, we gotta protect each other." from 102.07s to 127.56s.
+- unknown_speaker said "You and me, girl." from 102.07s to 127.56s.
+- unknown_speaker said "We got this." from 102.07s to 127.56s.
+- unknown_speaker said "We got it." from 102.07s to 127.56s.
+- unknown_speaker said "Say my city, baby." from 102.07s to 127.56s.
+- unknown_speaker said "My city, baby." from 102.07s to 127.56s.
+- At 102.07s-127.56s, unknown_speaker asks, "Yo, D, this full effect?"
+- At 102.07s-127.56s, unknown_speaker says, "They got your name."
+- At 102.07s-127.56s, unknown_speaker says, "They got your address."
+- At 102.07s-127.56s, unknown_speaker says, "They got everything."
+- At 102.07s-127.56s, unknown_speaker says, "Us cops, we gotta protect each other."
+- At 102.07s-127.56s, unknown_speaker says, "You and me, girl."
+- At 102.07s-127.56s, unknown_speaker says, "We got this."
+- At 102.07s-127.56s, unknown_speaker says, "We got it."
+- At 102.07s-127.56s, unknown_speaker says, "Say my city, baby."
+- At 102.07s-127.56s, unknown_speaker says, "My city, baby."
+- unknown_speaker said "Come to Phil's Ammu Nation today." from 129.12s to 158.17s.
+- unknown_speaker said "We got more guns than the law allows." from 129.12s to 158.17s.
+- unknown_speaker said "Hey." from 129.12s to 158.17s.
+- unknown_speaker said "Hey, if you got friends, can you hook me up, please?" from 129.12s to 158.17s.
+- unknown_speaker said "Oh!" from 129.12s to 158.17s.
+- At 129.12s–158.17s, unknown_speaker says, "Come to Phil's Ammu Nation today."
+- At 129.12s–158.17s, unknown_speaker says, "We got more guns than the law allows."
+- At 129.12s–158.17s, unknown_speaker says, "Hey."
+- At 129.12s–158.17s, unknown_speaker says, "Hey, if you got friends, can you hook me up, please?"
+- At 129.12s–158.17s, unknown_speaker says, "Oh!"

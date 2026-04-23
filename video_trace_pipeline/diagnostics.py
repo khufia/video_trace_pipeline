@@ -3,8 +3,11 @@ from __future__ import annotations
 import importlib.metadata
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Set
+from urllib.parse import unquote, urlparse
 
-from packaging.requirements import Requirement
+from packaging.requirements import InvalidRequirement, Requirement
+from packaging.specifiers import SpecifierSet
+from packaging.utils import parse_wheel_filename
 
 from .config import resolve_api_key
 from .model_cache import describe_model_resolution
@@ -32,7 +35,7 @@ _PLANNED_TOOL_IMPLEMENTATIONS = {
 _PLANNED_TOOL_MODELS = {
     "asr": "Systran/faster-whisper-large-v3",
     "audio_temporal_grounder": "Loie/SpotSound",
-    "dense_captioner": "tencent/Penguin-VL-8B",
+    "dense_captioner": "yaolily/TimeChat-Captioner-GRPO-7B",
     "frame_retriever": "Qwen/Qwen3-VL-Embedding-8B",
     "generic_purpose": "Qwen/Qwen3.5-9B",
     "ocr": "allenai/olmOCR-2-7B-1025-FP8",
@@ -46,6 +49,19 @@ def _requirement_lines(path: Path) -> Iterable[str]:
         line = raw_line.split("#", 1)[0].strip()
         if line:
             yield line
+
+
+def _parse_requirement_line(line: str) -> Dict[str, object]:
+    try:
+        requirement = Requirement(line)
+        return {"name": requirement.name, "specifier": requirement.specifier}
+    except InvalidRequirement:
+        parsed_url = urlparse(line)
+        wheel_name = unquote(Path(parsed_url.path or line).name)
+        if not wheel_name.endswith(".whl"):
+            raise
+        name, version, _, _ = parse_wheel_filename(wheel_name)
+        return {"name": name, "specifier": SpecifierSet(f"=={version}")}
 
 
 def package_report(requirement_files: Iterable[Path], optional_packages: Optional[Set[str]] = None) -> List[Dict[str, object]]:
@@ -64,11 +80,24 @@ def package_report(requirement_files: Iterable[Path], optional_packages: Optiona
             )
             continue
         for line in _requirement_lines(path):
-            requirement = Requirement(line)
-            is_optional = requirement.name in optional
             try:
-                installed_version = importlib.metadata.version(requirement.name)
-                status = "ok" if installed_version in requirement.specifier else (
+                requirement = _parse_requirement_line(line)
+            except InvalidRequirement:
+                report.append(
+                    {
+                        "requirement_file": str(path),
+                        "requirement": line,
+                        "name": None,
+                        "installed_version": None,
+                        "status": "invalid_requirement",
+                        "optional": False,
+                    }
+                )
+                continue
+            is_optional = str(requirement["name"]) in optional
+            try:
+                installed_version = importlib.metadata.version(str(requirement["name"]))
+                status = "ok" if installed_version in requirement["specifier"] else (
                     "optional_version_mismatch" if is_optional else "version_mismatch"
                 )
             except importlib.metadata.PackageNotFoundError:
@@ -78,7 +107,7 @@ def package_report(requirement_files: Iterable[Path], optional_packages: Optiona
                 {
                     "requirement_file": str(path),
                     "requirement": line,
-                    "name": requirement.name,
+                    "name": requirement["name"],
                     "installed_version": installed_version,
                     "status": status,
                     "optional": is_optional,
@@ -115,7 +144,7 @@ def _wrapper_status(extra: Dict[str, object]) -> Dict[str, Optional[str]]:
 
 def _auxiliary_model_resolutions(extra: Dict[str, object], hf_cache: Optional[str]) -> List[Dict[str, Optional[str]]]:
     items: List[Dict[str, Optional[str]]] = []
-    for field_name in ("reranker_model", "base_model", "pretrain_model"):
+    for field_name in ("reranker_model", "base_model", "pretrain_model", "prefilter_embedder_model"):
         value = extra.get(field_name)
         if not isinstance(value, str) or not value.strip():
             continue

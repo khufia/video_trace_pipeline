@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from .local_multimodal import PenguinRunner, QwenStyleRunner
+from .local_multimodal import PenguinRunner, QwenStyleRunner, TimeChatCaptionerRunner
 
 
 _QWEN35_SHARED_TOOLS = frozenset({"generic_purpose", "spatial_grounder"})
@@ -38,6 +38,7 @@ class PersistentModelPool(object):
         self.enabled_tools = set(normalized)
         self._qwen_style_runners = {}
         self._penguin_runners = {}
+        self._timechat_runners = {}
 
     def _share_scope(self, tool_name: str) -> str:
         normalized = normalize_persist_tool_name(tool_name)
@@ -61,6 +62,7 @@ class PersistentModelPool(object):
         processor_model_path: str | None = None,
         generate_do_sample: bool = False,
         generate_temperature: float | None = None,
+        attn_implementation: str | None = None,
     ):
         return (
             self._share_scope(tool_name),
@@ -70,6 +72,7 @@ class PersistentModelPool(object):
             str(processor_model_path or ""),
             bool(generate_do_sample),
             None if generate_temperature is None else float(generate_temperature),
+            str(attn_implementation or ""),
         )
 
     def penguin_key(
@@ -89,6 +92,27 @@ class PersistentModelPool(object):
             None if generate_temperature is None else float(generate_temperature),
         )
 
+    def timechat_key(
+        self,
+        *,
+        tool_name: str,
+        model_path: str,
+        device_label: str,
+        generate_do_sample: bool = False,
+        generate_temperature: float | None = None,
+        use_audio_in_video: bool = True,
+        attn_implementation: str | None = None,
+    ):
+        return (
+            self._share_scope(tool_name),
+            str(model_path),
+            str(device_label),
+            bool(generate_do_sample),
+            None if generate_temperature is None else float(generate_temperature),
+            bool(use_audio_in_video),
+            str(attn_implementation or ""),
+        )
+
     def acquire_qwen_style_runner(
         self,
         *,
@@ -99,6 +123,7 @@ class PersistentModelPool(object):
         processor_model_path: str | None = None,
         generate_do_sample: bool = False,
         generate_temperature: float | None = None,
+        attn_implementation: str | None = None,
     ):
         if not self.should_persist(tool_name):
             return None
@@ -110,6 +135,7 @@ class PersistentModelPool(object):
             processor_model_path=processor_model_path,
             generate_do_sample=generate_do_sample,
             generate_temperature=generate_temperature,
+            attn_implementation=attn_implementation,
         )
         runner = self._qwen_style_runners.get(key)
         if runner is None:
@@ -120,6 +146,7 @@ class PersistentModelPool(object):
                 processor_model_path=processor_model_path,
                 generate_do_sample=generate_do_sample,
                 generate_temperature=generate_temperature,
+                attn_implementation=attn_implementation,
             )
             self._qwen_style_runners[key] = runner
         return runner
@@ -153,9 +180,44 @@ class PersistentModelPool(object):
             self._penguin_runners[key] = runner
         return runner
 
+    def acquire_timechat_runner(
+        self,
+        *,
+        tool_name: str,
+        model_path: str,
+        device_label: str,
+        generate_do_sample: bool = False,
+        generate_temperature: float | None = None,
+        use_audio_in_video: bool = True,
+        attn_implementation: str | None = None,
+    ):
+        if not self.should_persist(tool_name):
+            return None
+        key = self.timechat_key(
+            tool_name=tool_name,
+            model_path=model_path,
+            device_label=device_label,
+            generate_do_sample=generate_do_sample,
+            generate_temperature=generate_temperature,
+            use_audio_in_video=use_audio_in_video,
+            attn_implementation=attn_implementation,
+        )
+        runner = self._timechat_runners.get(key)
+        if runner is None:
+            runner = TimeChatCaptionerRunner(
+                model_path=model_path,
+                device_label=device_label,
+                generate_do_sample=generate_do_sample,
+                generate_temperature=generate_temperature,
+                use_audio_in_video=use_audio_in_video,
+                attn_implementation=attn_implementation,
+            )
+            self._timechat_runners[key] = runner
+        return runner
+
     def close(self) -> None:
         closed = set()
-        for runner in list(self._qwen_style_runners.values()) + list(self._penguin_runners.values()):
+        for runner in list(self._qwen_style_runners.values()) + list(self._penguin_runners.values()) + list(self._timechat_runners.values()):
             runner_id = id(runner)
             if runner is None or runner_id in closed:
                 continue
@@ -166,3 +228,4 @@ class PersistentModelPool(object):
                 pass
         self._qwen_style_runners.clear()
         self._penguin_runners.clear()
+        self._timechat_runners.clear()

@@ -1,0 +1,36 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.97,
+  "scores": {
+    "logical_coherence": 0.92,
+    "completeness": 0.18,
+    "factual_correctness": 0.9,
+    "reasoning_order": 0.95
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The trace correctly grounds the spoken phrase interval but does not reach a supported answer to the multiple-choice question. It concludes the options cannot be distinguished and leaves final_answer blank, which is not a justified resolution for a question requiring one option.",
+      "evidence_ids": [
+        "ev_ref_01_phrase_match",
+        "ev_ref_03_visual_state_at_phrase"
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "category": "COUNTING_GAP",
+      "message": "No supplied grounded observation describes the phrase-aligned frames' visual contents, so there is no textually supported evidence about whether a table is visible, whether beer bottles are present, or how many empty bottles are on the table at the relevant moment.",
+      "evidence_ids": [
+        "ev_ref_02_phrase_clip_frames",
+        "ev_ref_03_visual_state_at_phrase"
+      ]
+    }
+  ],
+  "feedback": "The trace is internally consistent but incomplete: it anchors the audio phrase without any grounded visual observation for the relevant frames, so it cannot justify a bottle count or select an answer choice.",
+  "missing_information": [
+    "What the phrase-aligned frames show at the moment of \"Come to Phil's Ammu Nation today,\" specifically whether a table is visible",
+    "Whether beer bottles are visible on that table during the phrase-aligned moment",
+    "The count of empty beer bottles on the table at that moment"
+  ]
+}

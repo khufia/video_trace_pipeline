@@ -26,9 +26,10 @@ class _FakeChatCompletions(object):
         )
 
 
-def _make_client(fake_completions):
+def _make_client(fake_completions, *, workspace_root="/tmp/workspace", cache_root=None):
     profile = MachineProfile(
-        workspace_root="/tmp/workspace",
+        workspace_root=str(workspace_root),
+        cache_root=str(cache_root) if cache_root is not None else None,
         agent_endpoints={"default": ApiEndpointConfig(base_url="https://api.openai.com/v1", api_key="sk-test")},
     )
     models_config = ModelsConfig(agents={}, tools={})
@@ -38,9 +39,13 @@ def _make_client(fake_completions):
     return client
 
 
-def test_complete_json_requests_json_object_response_format():
+def test_complete_json_requests_json_object_response_format(tmp_path):
     fake_completions = _FakeChatCompletions('{"strategy": "focus on OCR"}')
-    client = _make_client(fake_completions)
+    client = _make_client(
+        fake_completions,
+        workspace_root=tmp_path / "workspace",
+        cache_root=tmp_path / "cache",
+    )
 
     parsed, raw = client.complete_json(
         endpoint_name="default",
@@ -53,3 +58,36 @@ def test_complete_json_requests_json_object_response_format():
     assert parsed.strategy == "focus on OCR"
     assert raw == '{"strategy": "focus on OCR"}'
     assert fake_completions.calls[0]["response_format"] == {"type": "json_object"}
+
+
+def test_complete_json_reuses_cached_response(tmp_path):
+    fake_completions = _FakeChatCompletions('{"strategy": "focus on OCR"}')
+    profile = MachineProfile(
+        workspace_root=str(tmp_path / "workspace"),
+        cache_root=str(tmp_path / "cache"),
+        agent_endpoints={"default": ApiEndpointConfig(base_url="https://api.openai.com/v1", api_key="sk-test")},
+    )
+    models_config = ModelsConfig(agents={}, tools={})
+    client = OpenAIChatClient(profile=profile, models_config=models_config)
+    fake_client = SimpleNamespace(chat=SimpleNamespace(completions=fake_completions))
+    client._build_client = lambda endpoint_name: fake_client
+
+    first, first_raw = client.complete_json(
+        endpoint_name="default",
+        model_name="gpt-5.4",
+        system_prompt="Return JSON only.",
+        user_prompt="Plan this task.",
+        response_model=_DummyResponseModel,
+    )
+    second, second_raw = client.complete_json(
+        endpoint_name="default",
+        model_name="gpt-5.4",
+        system_prompt="Return JSON only.",
+        user_prompt="Plan this task.",
+        response_model=_DummyResponseModel,
+    )
+
+    assert first.strategy == "focus on OCR"
+    assert second.strategy == "focus on OCR"
+    assert first_raw == second_raw == '{"strategy": "focus on OCR"}'
+    assert len(fake_completions.calls) == 1

@@ -1,0 +1,203 @@
+{
+  "task_key": "video_13__e6e95b328626",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_ref_01_phrase_match",
+      "tool_name": "asr",
+      "evidence_text": "ASR contains the line \"Come to Phil's Ammu Nation today.\" from 129.125s to 158.167s. This is the only grounded match for the prompt's misheard \"come to bill's ammunition\" wording.",
+      "inference_hint": "Use this clip as the audio-aligned target moment; do not substitute earlier or later dialogue.",
+      "confidence": null,
+      "time_start_s": 129.125,
+      "time_end_s": 158.167,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_771f48d13cfe8e8c",
+        "obs_4a51f266d52423f6"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_ref_02_available_frames",
+      "tool_name": "frame_retriever",
+      "evidence_text": "The retrieved visual candidates are only at 0.00s, 1.00s, 2.00s, 3.00s, 4.00s, and 5.00s.",
+      "inference_hint": "These frames are far earlier than the ASR-matched phrase at 129.125s-158.167s, so they are not temporally aligned with the asked moment.",
+      "confidence": 0.0,
+      "time_start_s": 0.0,
+      "time_end_s": 5.0,
+      "frame_ts_s": null,
+      "artifact_refs": [
+        {
+          "artifact_id": "895d16b529f19648b7d3a754",
+          "kind": "frame",
+          "relpath": "cache/artifacts/895d16b529f19648b7d3a754/frame_0.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_0.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 9287
+          }
+        },
+        {
+          "artifact_id": "911868dae1de8eb5a686afc4",
+          "kind": "frame",
+          "relpath": "cache/artifacts/911868dae1de8eb5a686afc4/frame_1.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_1.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 242508
+          }
+        },
+        {
+          "artifact_id": "581908acd959508b92287ea3",
+          "kind": "frame",
+          "relpath": "cache/artifacts/581908acd959508b92287ea3/frame_2.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_2.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 242525
+          }
+        },
+        {
+          "artifact_id": "5c11f2f5f2b3da865304f4e1",
+          "kind": "frame",
+          "relpath": "cache/artifacts/5c11f2f5f2b3da865304f4e1/frame_3.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_3.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 30350
+          }
+        },
+        {
+          "artifact_id": "5a77bdc23dbaa068a1131591",
+          "kind": "frame",
+          "relpath": "cache/artifacts/5a77bdc23dbaa068a1131591/frame_4.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_4.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 33706
+          }
+        },
+        {
+          "artifact_id": "ce70fc0587db7a0ce69489c9",
+          "kind": "frame",
+          "relpath": "cache/artifacts/ce70fc0587db7a0ce69489c9/frame_5.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_5.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 33628
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_28b25e1f0d8f6412",
+        "obs_287207b77fd468e3",
+        "obs_2412291926a594b3",
+        "obs_e57a69fd41be2d82",
+        "obs_8146e931865f27f0",
+        "obs_60daffedc7b0864c"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_ref_03_visual_mismatch",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The available retrieved images are intro visuals only: black screen, ESRB warning, and Rockstar logo. They do not show a table, beer bottles, characters, or the described scene.",
+      "inference_hint": "Because the available frames are not from the matched phrase clip and do not show the tabletop, they cannot support a bottle count at the asked moment.",
+      "confidence": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_cf282f94f38ef821",
+        "obs_c0acf48fa138e354",
+        "obs_21d6d4318c04e34c",
+        "obs_92c09b2d7285d6e3",
+        "obs_40372202bfdf95cd",
+        "obs_ba1190e5a1fb7c35",
+        "obs_64dd5be0d35e3c47"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The spoken phrase is grounded by the ASR as \"Come to Phil's Ammu Nation today\" at 129.125s-158.167s, which is the clear match to the prompt's misheard \"bill's ammunition.\"",
+      "supporting_observation_ids": [
+        "obs_771f48d13cfe8e8c",
+        "obs_4a51f266d52423f6"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 2,
+      "text": "The only retrieved frames are from 0s to 5s, so none are temporally aligned with the phrase spoken around 129s-158s.",
+      "supporting_observation_ids": [
+        "obs_28b25e1f0d8f6412",
+        "obs_287207b77fd468e3",
+        "obs_2412291926a594b3",
+        "obs_e57a69fd41be2d82",
+        "obs_8146e931865f27f0",
+        "obs_60daffedc7b0864c",
+        "obs_771f48d13cfe8e8c"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 3,
+      "text": "Those available frames show only intro screens and do not show the table or any beer bottles, so they do not provide direct visual evidence for the bottle count at the asked moment.",
+      "supporting_observation_ids": [
+        "obs_cf282f94f38ef821",
+        "obs_c0acf48fa138e354",
+        "obs_21d6d4318c04e34c",
+        "obs_92c09b2d7285d6e3",
+        "obs_40372202bfdf95cd",
+        "obs_ba1190e5a1fb7c35",
+        "obs_64dd5be0d35e3c47"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 4,
+      "text": "Because there is no frame aligned with the matched phrase that shows the tabletop, the number of empty beer bottles cannot be determined from the provided evidence, so no answer option is supported.",
+      "supporting_observation_ids": [
+        "obs_771f48d13cfe8e8c",
+        "obs_28b25e1f0d8f6412",
+        "obs_287207b77fd468e3",
+        "obs_2412291926a594b3",
+        "obs_e57a69fd41be2d82",
+        "obs_8146e931865f27f0",
+        "obs_60daffedc7b0864c",
+        "obs_92c09b2d7285d6e3",
+        "obs_40372202bfdf95cd"
+      ],
+      "answer_relevance": "high"
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {},
+  "metadata": {
+    "source": "initial_trace_steps",
+    "refinement_note": "Unsupported bottle-count claim removed because no temporally aligned visual evidence was provided."
+  }
+}

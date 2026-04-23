@@ -1,6 +1,7 @@
 from video_trace_pipeline.orchestration.executor import PlanExecutor, augment_dependency_output, hydrate_arguments_with_task_context
 from video_trace_pipeline.schemas import (
     AgentConfig,
+    ASRRequest,
     ExecutionPlan,
     FrameRef,
     FrameRetrieverRequest,
@@ -127,6 +128,53 @@ class FakeSpatialGrounderAdapter(object):
         )
 
 
+class FakeASRAdapter(ToolAdapter):
+    name = "asr"
+    request_model = ASRRequest
+
+    def __init__(self):
+        self.calls = 0
+        self.last_request = None
+
+    def parse_request(self, arguments):
+        request = super().parse_request(arguments)
+        self.last_request = request
+        return request
+
+    def execute(self, request, context):
+        self.calls += 1
+        clip = request.clip
+        return ToolResult(
+            tool_name="asr",
+            ok=True,
+            data={
+                "clip": clip.dict(),
+                "text": "hello world",
+                "segments": [],
+                "backend": "fake_asr",
+            },
+            summary="ASR succeeded.",
+        )
+
+
+class FailingASRAdapter(ToolAdapter):
+    name = "asr"
+    request_model = ASRRequest
+
+    def __init__(self):
+        self.calls = 0
+
+    def execute(self, request, context):
+        self.calls += 1
+        return ToolResult(
+            tool_name="asr",
+            ok=False,
+            data={"error": "ASR unavailable."},
+            summary="ASR unavailable.",
+            metadata={"error": "ASR unavailable."},
+        )
+
+
 class MultiClipTemporalAdapter(object):
     request_model = VisualTemporalGrounderRequest
 
@@ -176,6 +224,10 @@ def _models_config():
                 prompt_version="tool_v1",
             ),
             "spatial_grounder": ToolConfig(
+                enabled=True,
+                prompt_version="tool_v1",
+            ),
+            "asr": ToolConfig(
                 enabled=True,
                 prompt_version="tool_v1",
             ),
@@ -287,10 +339,16 @@ def test_executor_writes_runtime_file_for_process_style_adapters(tmp_path):
 
     runtime_file = run.tool_step_dir(1, "visual_temporal_grounder") / "runtime.json"
     request_full_file = run.tool_step_dir(1, "visual_temporal_grounder") / "request_full.json"
+    result_file = run.tool_step_dir(1, "visual_temporal_grounder") / "result.json"
+    timing_file = run.tool_step_dir(1, "visual_temporal_grounder") / "timing.json"
     assert request_full_file.exists()
     assert '"query": "goal"' in request_full_file.read_text(encoding="utf-8")
     assert runtime_file.exists()
     assert '"resolved_model_path": "/tmp/timelens-model"' in runtime_file.read_text(encoding="utf-8")
+    assert result_file.exists()
+    assert '"timing"' in result_file.read_text(encoding="utf-8")
+    assert timing_file.exists()
+    assert '"execution_mode": "executed"' in timing_file.read_text(encoding="utf-8")
 
 
 def test_executor_resolves_clip_alias_and_numeric_path(tmp_path):
@@ -596,6 +654,134 @@ def test_hydrate_arguments_with_task_context_expands_full_video_clip_list_shorth
     assert hydrated["clips"][0]["video_id"] == "sample1"
     assert hydrated["clips"][0]["start_s"] == 0.0
     assert hydrated["clips"][0]["end_s"] == 12.5
+
+
+def test_executor_defaults_asr_to_full_video_when_clip_is_missing(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    adapter = FakeASRAdapter()
+    executor = PlanExecutor(
+        tool_registry=FakeRegistry({"asr": adapter}),
+        evidence_cache=SharedEvidenceCache(workspace),
+        extractor=ObservationExtractor(),
+        models_config=_models_config(),
+    )
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="What is said?",
+        options=[],
+        video_path=str(tmp_path / "video.mp4"),
+        metadata={"video_duration_s": 12.5},
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video-bytes")
+    run = workspace.create_run(task)
+    ledger = EvidenceLedger(run)
+    context = ToolExecutionContext(
+        workspace=workspace,
+        run=run,
+        task=task,
+        models_config=_models_config(),
+        preprocess_bundle={"segments": []},
+    )
+    plan = ExecutionPlan(
+        strategy="Transcribe the video.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="asr",
+                purpose="Transcribe the speech in the video.",
+                arguments={"speaker_attribution": False},
+                input_refs=[],
+                depends_on=[],
+            )
+        ],
+        refinement_instructions="",
+    )
+
+    executor.execute_plan(plan, context, ledger, video_fingerprint="asrfullvideo123")
+
+    assert adapter.calls == 1
+    assert adapter.last_request is not None
+    assert adapter.last_request.clip is not None
+    assert adapter.last_request.clip.video_id == "sample1"
+    assert adapter.last_request.clip.start_s == 0.0
+    assert adapter.last_request.clip.end_s == 12.5
+
+
+def test_executor_does_not_reuse_failed_cached_results(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    failing_adapter = FailingASRAdapter()
+    failing_executor = PlanExecutor(
+        tool_registry=FakeRegistry({"asr": failing_adapter}),
+        evidence_cache=SharedEvidenceCache(workspace),
+        extractor=ObservationExtractor(),
+        models_config=_models_config(),
+    )
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="What is said?",
+        options=[],
+        video_path=str(tmp_path / "video.mp4"),
+        metadata={"video_duration_s": 12.5},
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video-bytes")
+    plan = ExecutionPlan(
+        strategy="Transcribe the video.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="asr",
+                purpose="Transcribe the speech in the video.",
+                arguments={"speaker_attribution": False},
+                input_refs=[],
+                depends_on=[],
+            )
+        ],
+        refinement_instructions="",
+    )
+    first_run = workspace.create_run(task)
+    first_ledger = EvidenceLedger(first_run)
+    first_context = ToolExecutionContext(
+        workspace=workspace,
+        run=first_run,
+        task=task,
+        models_config=_models_config(),
+        preprocess_bundle={"segments": []},
+    )
+
+    first_results = failing_executor.execute_plan(plan, first_context, first_ledger, video_fingerprint="asrretry123")
+
+    assert failing_adapter.calls == 1
+    assert first_results[0]["result"]["ok"] is False
+    assert first_results[0]["result"]["cache_hit"] is False
+
+    success_adapter = FakeASRAdapter()
+    success_executor = PlanExecutor(
+        tool_registry=FakeRegistry({"asr": success_adapter}),
+        evidence_cache=SharedEvidenceCache(workspace),
+        extractor=ObservationExtractor(),
+        models_config=_models_config(),
+    )
+    second_run = workspace.create_run(task)
+    second_ledger = EvidenceLedger(second_run)
+    second_context = ToolExecutionContext(
+        workspace=workspace,
+        run=second_run,
+        task=task,
+        models_config=_models_config(),
+        preprocess_bundle={"segments": []},
+    )
+
+    second_results = success_executor.execute_plan(plan, second_context, second_ledger, video_fingerprint="asrretry123")
+
+    assert success_adapter.calls == 1
+    assert second_results[0]["result"]["ok"] is True
+    assert second_results[0]["result"]["cache_hit"] is False
 
 
 def test_augment_dependency_output_promotes_analysis_and_best_frame():

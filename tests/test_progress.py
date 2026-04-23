@@ -1,6 +1,7 @@
 from rich.console import Console
 
 from video_trace_pipeline.cli.progress import LiveRunReporter
+from video_trace_pipeline.tool_wrappers.timelens_runner import _prefilter_windows
 from video_trace_pipeline.tool_wrappers.timelens_runner import _candidate_window_indices
 
 
@@ -84,6 +85,27 @@ def test_candidate_window_indices_expands_neighbors_and_caps_budget():
     )
 
     assert indices == [0, 1, 2, 3]
+
+
+def test_visual_temporal_grounder_prefilter_is_disabled_in_code():
+    windows, metadata = _prefilter_windows(
+        task={"video_path": "/tmp/video.mp4", "video_id": "video-1"},
+        runtime={
+            "extra": {
+                "use_embedding_prefilter": True,
+                "prefilter_embedder_model": "Qwen/Qwen3-VL-Embedding-8B",
+            }
+        },
+        query="find the chart segment",
+        duration_s=180.0,
+        window_s=60.0,
+        top_k=3,
+    )
+
+    assert windows == [(0.0, 60.0), (60.0, 120.0), (120.0, 180.0)]
+    assert metadata["enabled"] is False
+    assert metadata["configured"] is True
+    assert metadata["reason"] == "prefilter_disabled_in_code"
 
 
 def test_progress_distinguishes_summary_context_from_plan_use_summary():

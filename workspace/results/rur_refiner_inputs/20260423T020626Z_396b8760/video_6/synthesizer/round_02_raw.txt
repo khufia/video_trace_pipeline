@@ -1,0 +1,154 @@
+{
+  "task_key": "video_6__cee540735a2c",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_ref_01",
+      "tool_name": "asr",
+      "evidence_text": "The earliest repeated place name in the spoken transcript is \"Alaska.\" The first occurrence is in \"As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off.\" and the second occurrence is in \"Here at Alaska, safety is our number one concern.\" Both occur within the 2.38s-22.32s transcript segment.",
+      "inference_hint": null,
+      "confidence": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_5dc192b1454c7d6b",
+        "obs_277ea7fec5f66905",
+        "obs_f6026bf325a805db"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_ref_02",
+      "tool_name": "asr",
+      "evidence_text": "Using only the text strictly after the first \"Alaska\" in \"Alaska Airlines\" and strictly before the second \"Alaska\" in \"Here at Alaska,\" the bounded interval is \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\". This interval mentions a cabin door breaking off, but it does not include the later words \"safety is our number one concern.\"",
+      "inference_hint": null,
+      "confidence": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_5dc192b1454c7d6b",
+        "obs_277ea7fec5f66905"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_ref_03",
+      "tool_name": "asr",
+      "evidence_text": "Relevant nearby lines fall outside the bounded interval: the second-occurrence phrase contains \"safety is our number one concern\" in the same 2.38s-22.32s segment, \"cell phones whipping out into the sky\" also appears later in that segment, and \"But on Alaska, you're in the movie\" appears later at 22.32s-41.85s. These should not be counted as inside the interval between the two \"Alaska\" occurrences.",
+      "inference_hint": null,
+      "confidence": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_277ea7fec5f66905",
+        "obs_b33d8562e3748b11",
+        "obs_1e139189051f7998"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_ref_04",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The transcript analysis identifies \"Alaska\" as the earliest place name that occurs at least twice; other listed place names in the transcript include \"Hawaiian\" and \"Cleveland,\" each only once in the provided analysis.",
+      "inference_hint": null,
+      "confidence": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_e44504e98f54ad36",
+        "obs_d9b2f4f577628229",
+        "obs_50ed0a22cc44d3b0",
+        "obs_440b0076158b4709",
+        "obs_6accf2e1cd494bc2",
+        "obs_f6026bf325a805db"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The repeated place name to use is \"Alaska,\" with the first occurrence in \"Alaska Airlines\" and the second in \"Here at Alaska.\"",
+      "supporting_observation_ids": [
+        "obs_5dc192b1454c7d6b",
+        "obs_277ea7fec5f66905",
+        "obs_f6026bf325a805db"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 2,
+      "text": "The interval to inspect is only the text strictly between those two occurrences: \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\".",
+      "supporting_observation_ids": [
+        "obs_5dc192b1454c7d6b",
+        "obs_277ea7fec5f66905"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 3,
+      "text": "Within that interval, option D is supported only by paraphrase because it mentions a cabin door breaking off, but the interval does not mention safety, cell phones going into the sky, or being in the movie.",
+      "supporting_observation_ids": [
+        "obs_5dc192b1454c7d6b",
+        "obs_277ea7fec5f66905",
+        "obs_b33d8562e3748b11",
+        "obs_1e139189051f7998"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 4,
+      "text": "That leaves A, B, and C all not mentioned within the bounded interval, so the evidence does not justify a unique multiple-choice answer.",
+      "supporting_observation_ids": [
+        "obs_5dc192b1454c7d6b",
+        "obs_277ea7fec5f66905",
+        "obs_b33d8562e3748b11",
+        "obs_1e139189051f7998"
+      ],
+      "answer_relevance": "high"
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "video_6__cee540735a2c",
+      "trace": {
+        "inference_steps": [
+          "The repeated place name to use is \"Alaska,\" with the first occurrence in \"Alaska Airlines\" and the second in \"Here at Alaska.\"",
+          "The interval to inspect is only the text strictly between those two occurrences: \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\".",
+          "Within that interval, option D is supported only by paraphrase because it mentions a cabin door breaking off, but the interval does not mention safety, cell phones going into the sky, or being in the movie.",
+          "That leaves A, B, and C all not mentioned within the bounded interval, so the evidence does not justify a unique multiple-choice answer."
+        ],
+        "evidence": [
+          {
+            "tool_name": "asr",
+            "evidence_text": "The earliest repeated place name in the spoken transcript is \"Alaska.\" The first occurrence is in \"As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off.\" and the second occurrence is in \"Here at Alaska, safety is our number one concern.\" Both occur within the 2.38s-22.32s transcript segment.",
+            "observation_ids": [
+              "obs_5dc192b1454c7d6b",
+              "obs_277ea7fec5f66905",
+              "obs_f6026bf325a805db"
+            ]
+          },
+          {
+            "tool_name": "asr",
+            "evidence_text": "Using only the text strictly after the first \"Alaska\" in \"Alaska Airlines\" and strictly before the second \"Alaska\" in \"Here at Alaska,\" the bounded interval is \"Airlines flight had to make an emergency landing after a cabin door broke off. Here at\". This interval mentions a cabin door breaking off, but it does not include the later words \"safety is our number one concern.\"",
+            "observation_ids": [
+              "obs_5dc192b1454c7d6b",
+              "obs_277ea7fec5f66905"
+            ]
+          },
+          {
+            "tool_name": "asr",
+            "evidence_text": "Relevant nearby lines fall outside the bounded interval: the second-occurrence phrase contains \"safety is our number one concern\" in the same 2.38s-22.32s segment, \"cell phones whipping out into the sky\" also appears later in that segment, and \"But on Alaska, you're in the movie\" appears later at 22.32s-41.85s. These should not be counted as inside the interval between the two \"Alaska\" occurrences.",
+            "observation_ids": [
+              "obs_277ea7fec5f66905",
+              "obs_b33d8562e3748b11",
+              "obs_1e139189051f7998"
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "source": "initial_trace_steps",
+    "refinement_note": "Preserved the supported Alaska anchor and replaced the unsupported unique-choice conclusion with interval-strict option comparison showing the answer is unresolved."
+  }
+}

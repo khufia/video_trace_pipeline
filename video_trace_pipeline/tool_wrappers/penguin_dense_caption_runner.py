@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Dict, List
 
-from ..common import extract_json_object
+from ..common import extract_json_object, is_low_signal_text
 from .local_multimodal import PenguinRunner, make_penguin_conversation
 from .protocol import emit_json, fail_runtime, load_request
 from .shared import resolve_generation_controls, resolve_model_path, resolved_device_label, sample_request_frames, scratch_dir
@@ -12,19 +12,23 @@ if TYPE_CHECKING:
 
 
 def _normalize_span(raw: Dict[str, Any], *, start_s: float, end_s: float) -> Dict[str, Any]:
+    def _text(value: Any) -> str:
+        text = str(value or "").strip()
+        return "" if is_low_signal_text(text) else text
+
     def _list(value: Any) -> List[str]:
         if value is None:
             return []
         if isinstance(value, list):
-            return [str(item).strip() for item in value if str(item).strip()]
-        text = str(value).strip()
+            return [item for item in (_text(item) for item in value) if item]
+        text = _text(value)
         return [text] if text else []
 
     return {
         "start": float(raw.get("start") if raw.get("start") is not None else start_s),
         "end": float(raw.get("end") if raw.get("end") is not None else end_s),
-        "visual": str(raw.get("visual") or "").strip(),
-        "audio": str(raw.get("audio") or "").strip(),
+        "visual": _text(raw.get("visual")),
+        "audio": _text(raw.get("audio")),
         "on_screen_text": " | ".join(_list(raw.get("on_screen_text"))),
         "actions": _list(raw.get("actions")),
         "objects": _list(raw.get("objects")),
@@ -98,13 +102,16 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
         if owns_runner:
             runner.close()
     parsed = extract_json_object(raw_text) or {}
+    fallback_text = str(raw_text or "").strip()
+    if is_low_signal_text(fallback_text):
+        fallback_text = ""
     captions = parsed.get("captions") if isinstance(parsed.get("captions"), list) else []
     if not captions:
         captions = [
             {
                 "start": start_s,
                 "end": end_s,
-                "visual": str(parsed.get("overall_summary") or raw_text or "").strip(),
+                "visual": str(parsed.get("overall_summary") or fallback_text or "").strip(),
                 "audio": "",
                 "on_screen_text": "",
                 "actions": [],
@@ -117,7 +124,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
         "clip": clip,
         "captioned_range": {"start_s": start_s, "end_s": end_s},
         "captions": [_normalize_span(item, start_s=start_s, end_s=end_s) for item in captions],
-        "overall_summary": str(parsed.get("overall_summary") or raw_text or "").strip(),
+        "overall_summary": str(parsed.get("overall_summary") or fallback_text or "").strip(),
         "sampled_frames": sampled,
         "backend": "penguin_vl_transformers",
     }

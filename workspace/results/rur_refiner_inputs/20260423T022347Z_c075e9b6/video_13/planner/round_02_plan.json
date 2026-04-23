@@ -1,0 +1,56 @@
+{
+  "strategy": "Reuse the already grounded transcript anchor for the phrase at 129.125s-158.167s, then retrieve frames only within that clip and directly inspect those frames for the table and empty beer bottles at the phrase moment. Finish with a focused extraction that maps the grounded bottle count to the answer option.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Get candidate frames from the already grounded phrase clip that show the visual scene during the 'Come to Phil's Ammu Nation today' audio, with emphasis on any table and bottles.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "video",
+            "start_s": 129.125,
+            "end_s": 158.167,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "source": "retrieved_atomic_observation",
+              "anchor_phrase": "Come to Phil's Ammu Nation today"
+            }
+          }
+        ],
+        "num_frames": 8,
+        "query": "scene during the Phil's Ammu Nation advertisement, showing any table with beer bottles or a person holding beer near a table",
+        "time_hints": [
+          "early in the clip when the phrase begins",
+          "middle of the clip while the advertisement continues",
+          "late in the clip before the next scene change"
+        ]
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine what scene is shown in the retrieved frames and count the number of empty beer bottles visible on the table at the phrase moment, then map that count to the multiple-choice option.",
+      "arguments": {
+        "query": "Among these frames from the clip where the audio says 'Come to Phil's Ammu Nation today,' identify the frame or frames that best match the phrase moment. State whether a table is visible, count the number of empty beer bottles on the table only, and map the count to the answer options A=0, B=1, C=2, D=3. If no table with bottles is visible in any retrieved frame, say that explicitly."
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    }
+  ],
+  "refinement_instructions": "Preserve the already supported audio anchor from the evidence database: the relevant phrase is the transcript-matched line 'Come to Phil's Ammu Nation today' within 129.125s-158.167s, even though the question paraphrases it as 'bill's ammunition.' Replace the earlier unsupported visual claim set that relied on intro frames only; those observations established a wrong temporal anchor and should not control the answer. Use the new frame retrieval as the decisive visual evidence for the first two missing-information items: what scene is shown during the phrase clip, and how many empty beer bottles are on the table at that moment. In the repaired trace, explicitly cite whether the retrieved frames actually show a table and bottles; do not infer a bottle count from plausibility or from the trailer summary. If the generic extraction identifies multiple candidate frames, rely only on the frame(s) it says best align with the phrase moment and keep any uncertainty explicit. Then map the grounded numeric count directly to the provided options A=0, B=1, C=2, D=3. If the new frames still do not show a table with bottles, the trace should say the visual evidence remains insufficient rather than guessing an option."
+}

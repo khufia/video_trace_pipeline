@@ -19,15 +19,27 @@ if TYPE_CHECKING:
     from .persistent_pool import PersistentModelPool
 
 
-def _build_prompt(request: Dict[str, Any], transcript_text: str, evidence_lines: List[str], text_contexts: List[str]) -> str:
+def _build_prompt(
+    request: Dict[str, Any],
+    task: Dict[str, Any],
+    transcript_text: str,
+    evidence_lines: List[str],
+    text_contexts: List[str],
+) -> str:
     parts = [
         "Answer the query using the supplied evidence and any sampled media.",
         "Return JSON only with keys: answer, supporting_points, confidence, analysis.",
+        "Set confidence to a numeric score from 0.0 to 1.0, not a label like High, Medium, or Low.",
         "Do not mention hidden tools or APIs.",
-        "",
-        "QUERY:",
-        str(request.get("query") or "").strip(),
     ]
+    task_question = str(task.get("question") or "").strip()
+    if task_question:
+        parts.extend(["", "TASK QUESTION:", task_question])
+    options = [str(item).strip() for item in list(task.get("options") or []) if str(item).strip()]
+    if options:
+        parts.extend(["", "ANSWER OPTIONS:"])
+        parts.extend("- %s" % option for option in options)
+    parts.extend(["", "QUERY:", str(request.get("query") or "").strip()])
     if transcript_text:
         parts.extend(["", "TRANSCRIPT:", transcript_text])
     if evidence_lines:
@@ -115,8 +127,9 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
         if isinstance(item, dict) and str(item.get("atomic_text") or item.get("text") or "").strip()
     ]
     text_contexts = [str(item).strip() for item in list(request.get("text_contexts") or []) if str(item).strip()]
-    prompt = _build_prompt(request, transcript_text, evidence_lines, text_contexts)
+    prompt = _build_prompt(request, task, transcript_text, evidence_lines, text_contexts)
     generation = resolve_generation_controls(runtime)
+    attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
     runner = None
     owns_runner = False
     if runner_pool is not None:
@@ -126,6 +139,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             device_label=device_label,
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
+            attn_implementation=attn_implementation,
         )
     if runner is None:
         runner = QwenStyleRunner(
@@ -133,6 +147,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             device_label=device_label,
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
+            attn_implementation=attn_implementation,
         )
         owns_runner = True
     try:

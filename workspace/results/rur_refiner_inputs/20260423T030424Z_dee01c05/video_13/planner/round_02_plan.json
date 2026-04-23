@@ -1,0 +1,56 @@
+{
+  "strategy": "Reuse the already grounded audio anchor at 129.12s–158.17s for the Phil's Ammu Nation line, then retrieve frames only within that clip and directly inspect those frames to count empty beer bottles on the table at the relevant moment, finally map the verified count to A/B/C/D.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Get candidate frames from the already grounded clip where the Phil's Ammu Nation audio ad is playing, prioritizing frames that show a table and beer bottles.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "video",
+            "start_s": 129.125,
+            "end_s": 158.167,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "source": "retrieved_atomic_observations",
+              "anchor_quote": "Come to Phil's Ammu Nation today."
+            }
+          }
+        ],
+        "num_frames": 8,
+        "query": "frames in the Phil's Ammu Nation ad clip showing a table with empty beer bottles",
+        "time_hints": [
+          "early in the clip when the line begins",
+          "middle of the clip while the ad continues",
+          "late in the clip before the clip ends"
+        ]
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Inspect the retrieved frames and determine how many empty beer bottles are visible on the table at the moment corresponding to the spoken Phil's Ammu Nation line, identifying the best-supported count if multiple candidate frames are returned.",
+      "arguments": {
+        "query": "Among these frames from the clip where the audio says \"Come to Phil's Ammu Nation today,\" identify which frame or frames actually show the relevant scene at that moment and count the number of empty beer bottles visible on the table. Report the count only if directly visible, and note which frame timestamps support it."
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    }
+  ],
+  "refinement_instructions": "Preserve the already supported temporal anchor from the evidence database: the quoted line is grounded in ASR within 129.12s–158.17s. Do not reuse the earlier intro frames or claims derived from them for bottle counting; those were from the wrong phase of the video. Replace the prior unsupported visual conclusion with the new frame-based evidence from step 1 and the bottle-count extraction from step 2. In the repaired trace, explicitly state that the count must come from frames inside the 129.12s–158.17s clip, not from earlier black/intro frames. If step 2 identifies a directly visible count, map it explicitly to the options: 0->A, 1->B, 2->C, 3->D. If multiple retrieved frames differ, rely only on the frame(s) that step 2 says correspond to the relevant moment and explain that selection briefly. If no frame in the bounded clip shows a table with bottles clearly enough to count, state that the visual evidence remains unresolved rather than inventing a count."
+}

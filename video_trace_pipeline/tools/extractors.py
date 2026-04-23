@@ -42,6 +42,35 @@ def _atomic_chunks(text: str) -> List[str]:
     return deduped
 
 
+def evidence_temporal_bounds(observations: List[AtomicObservation]) -> Dict[str, float]:
+    time_starts: List[float] = []
+    time_ends: List[float] = []
+    frame_timestamps: List[float] = []
+    for item in list(observations or []):
+        if item.time_start_s is not None:
+            start_s = float(item.time_start_s)
+            end_s = float(item.time_end_s if item.time_end_s is not None else item.time_start_s)
+            time_starts.append(start_s)
+            time_ends.append(end_s)
+        elif item.time_end_s is not None:
+            time_ends.append(float(item.time_end_s))
+        if item.frame_ts_s is not None:
+            frame_timestamps.append(float(item.frame_ts_s))
+
+    payload: Dict[str, float] = {}
+    if time_starts or time_ends:
+        payload["time_start_s"] = round(min(time_starts or time_ends), 3)
+        payload["time_end_s"] = round(max(time_ends or time_starts), 3)
+    elif frame_timestamps:
+        payload["time_start_s"] = round(min(frame_timestamps), 3)
+        payload["time_end_s"] = round(max(frame_timestamps), 3)
+
+    rounded_frames = sorted({round(value, 3) for value in frame_timestamps})
+    if len(rounded_frames) == 1:
+        payload["frame_ts_s"] = rounded_frames[0]
+    return payload
+
+
 class ObservationExtractor(object):
     VERSION = "v2"
 
@@ -49,13 +78,15 @@ class ObservationExtractor(object):
         self.atomicizer = atomicizer
 
     def build_evidence_entry(self, step_id: int, tool_result: ToolResult) -> EvidenceEntry:
-        observation_ids = [item.metadata.get("observation_id") for item in getattr(tool_result, "_observations", [])]
+        observations = list(getattr(tool_result, "_observations", []) or [])
+        observation_ids = [item.metadata.get("observation_id") for item in observations]
         observation_ids = [item for item in observation_ids if item]
         return EvidenceEntry(
             evidence_id="ev_%02d_%s" % (int(step_id), hash_payload({"step": step_id, "tool": tool_result.tool_name}, 8)),
             tool_name=tool_result.tool_name,
             evidence_text=tool_result.summary or tool_result.raw_output_text or "",
             confidence=tool_result.metadata.get("confidence") if isinstance(tool_result.metadata, dict) else None,
+            **evidence_temporal_bounds(observations),
             artifact_refs=tool_result.artifact_refs,
             observation_ids=observation_ids,
             metadata={"request_hash": tool_result.request_hash, "cache_hit": tool_result.cache_hit},

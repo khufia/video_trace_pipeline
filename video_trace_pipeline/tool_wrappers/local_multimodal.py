@@ -4,6 +4,8 @@ import copy
 import contextlib
 import inspect
 import json
+import logging
+import os
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Sequence
@@ -12,6 +14,7 @@ from .shared import cleanup_torch, move_batch_to_device, torch_dtype_for_device
 
 
 _QWEN35_MIN_TRANSFORMERS = "5.2.0"
+logger = logging.getLogger(__name__)
 
 
 def _checkpoint_model_type(model_path: str) -> str | None:
@@ -49,7 +52,243 @@ def _require_supported_transformers_for_checkpoint(model_path: str, *, transform
     )
 
 
-def _qwen_style_model(model_path: str, device_label: str):
+def _configure_audioread_ffmpeg_command() -> None:
+    with contextlib.suppress(Exception):
+        import audioread.ffdec
+
+        ffmpeg_binary = None
+        with contextlib.suppress(Exception):
+            import imageio_ffmpeg
+
+            ffmpeg_binary = imageio_ffmpeg.get_ffmpeg_exe()
+        if not ffmpeg_binary:
+            return
+        ffmpeg_path = str(Path(str(ffmpeg_binary)).expanduser().resolve())
+        ffmpeg_dir = str(Path(ffmpeg_path).parent)
+        current_path = str(os.environ.get("PATH") or "")
+        path_entries = [entry for entry in current_path.split(os.pathsep) if entry]
+        if ffmpeg_dir not in path_entries:
+            os.environ["PATH"] = ffmpeg_dir if not current_path else ffmpeg_dir + os.pathsep + current_path
+        commands = []
+        for command in (ffmpeg_path, "ffmpeg", "avconv"):
+            normalized = str(command or "").strip()
+            if normalized and normalized not in commands:
+                commands.append(normalized)
+        if commands:
+            audioread.ffdec.COMMANDS = tuple(commands)
+
+
+def _patch_qwen_omni_video_reader_bounds() -> None:
+    with contextlib.suppress(Exception):
+        import torch
+        from qwen_omni_utils.v2_5 import vision_process
+
+        if getattr(vision_process, "_video_trace_pipeline_bounds_patch", False):
+            return
+
+        def _read_video_decord_clamped(ele: Dict[str, Any]):
+            import decord
+            import time
+
+            video_path = ele["video"]
+            st = time.time()
+            vr = decord.VideoReader(video_path)
+            source_total_frames = len(vr)
+            video_fps = vr.get_avg_fps()
+            start_frame, end_frame, selected_total_frames = vision_process.calculate_video_frame_range(
+                ele,
+                source_total_frames,
+                video_fps,
+            )
+            nframes = vision_process.smart_nframes(
+                ele,
+                total_frames=selected_total_frames,
+                video_fps=video_fps,
+            )
+            idx = torch.linspace(start_frame, end_frame, nframes).round().long()
+            if source_total_frames > 0:
+                idx = idx.clamp(0, source_total_frames - 1)
+            idx_list = idx.tolist()
+            video = vr.get_batch(idx_list).asnumpy()
+            video = torch.tensor(video).permute(0, 3, 1, 2)
+            vision_process.logger.info(
+                "decord(clamped): %s total_frames=%s video_fps=%s time=%.3fs",
+                video_path,
+                selected_total_frames,
+                video_fps,
+                time.time() - st,
+            )
+            sample_fps = nframes / max(selected_total_frames, 1e-6) * video_fps
+            video_metadata = dict(
+                fps=video_fps,
+                frames_indices=idx_list,
+                total_num_frames=selected_total_frames,
+                video_backend="decord",
+            )
+            return video, video_metadata, sample_fps
+
+        def _read_video_torchvision_clamped(ele: Dict[str, Any]):
+            import time
+            import torchvision
+
+            video_path = ele["video"]
+            if vision_process.version.parse(torchvision.__version__) < vision_process.version.parse("0.19.0"):
+                if "http://" in video_path or "https://" in video_path:
+                    vision_process.warnings.warn(
+                        "torchvision < 0.19.0 does not support http/https video path, please upgrade to 0.19.0."
+                    )
+                if "file://" in video_path:
+                    video_path = video_path[7:]
+            st = time.time()
+            video, audio, info = vision_process.io.read_video(
+                video_path,
+                start_pts=ele.get("video_start", 0.0),
+                end_pts=ele.get("video_end", None),
+                pts_unit="sec",
+                output_format="TCHW",
+            )
+            del audio
+            total_frames = video.size(0)
+            video_fps = info["video_fps"]
+            vision_process.logger.info(
+                "torchvision(clamped): %s total_frames=%s video_fps=%s time=%.3fs",
+                video_path,
+                total_frames,
+                video_fps,
+                time.time() - st,
+            )
+            nframes = vision_process.smart_nframes(
+                ele,
+                total_frames=total_frames,
+                video_fps=video_fps,
+            )
+            idx = torch.linspace(0, total_frames - 1, nframes).round().long()
+            if total_frames > 0:
+                idx = idx.clamp(0, total_frames - 1)
+            sample_fps = nframes / max(total_frames, 1e-6) * video_fps
+            video = video[idx]
+            video_metadata = dict(
+                fps=video_fps,
+                frames_indices=idx,
+                total_num_frames=total_frames,
+                video_backend="torchvision",
+            )
+            return video, video_metadata, sample_fps
+
+        vision_process._read_video_decord = _read_video_decord_clamped
+        vision_process._read_video_torchvision = _read_video_torchvision_clamped
+        if isinstance(getattr(vision_process, "VIDEO_READER_BACKENDS", None), dict):
+            vision_process.VIDEO_READER_BACKENDS["decord"] = _read_video_decord_clamped
+            vision_process.VIDEO_READER_BACKENDS["torchvision"] = _read_video_torchvision_clamped
+        vision_process._video_trace_pipeline_bounds_patch = True
+
+
+def _patch_qwen_vl_video_reader_bounds() -> None:
+    with contextlib.suppress(Exception):
+        import torch
+        from qwen_vl_utils import vision_process
+
+        if getattr(vision_process, "_video_trace_pipeline_bounds_patch", False):
+            return
+
+        def _read_video_decord_clamped(ele: Dict[str, Any]):
+            import decord
+            import time
+
+            video_path = ele["video"]
+            st = time.time()
+            vr = decord.VideoReader(video_path)
+            source_total_frames = len(vr)
+            video_fps = vr.get_avg_fps()
+            start_frame, end_frame, selected_total_frames = vision_process.calculate_video_frame_range(
+                ele,
+                source_total_frames,
+                video_fps,
+            )
+            nframes = vision_process.smart_nframes(
+                ele,
+                total_frames=selected_total_frames,
+                video_fps=video_fps,
+            )
+            idx = torch.linspace(start_frame, end_frame, nframes).round().long()
+            if source_total_frames > 0:
+                idx = idx.clamp(0, source_total_frames - 1)
+            idx_list = idx.tolist()
+            video = vr.get_batch(idx_list).asnumpy()
+            video = torch.tensor(video).permute(0, 3, 1, 2)
+            vision_process.logger.info(
+                "decord(clamped): %s total_frames=%s video_fps=%s time=%.3fs",
+                video_path,
+                selected_total_frames,
+                video_fps,
+                time.time() - st,
+            )
+            sample_fps = nframes / max(selected_total_frames, 1e-6) * video_fps
+            video_metadata = dict(
+                fps=video_fps,
+                frames_indices=idx_list,
+                total_num_frames=selected_total_frames,
+                video_backend="decord",
+            )
+            return video, video_metadata, sample_fps
+
+        def _read_video_torchvision_clamped(ele: Dict[str, Any]):
+            import time
+            import torchvision
+
+            video_path = ele["video"]
+            if vision_process.version.parse(torchvision.__version__) < vision_process.version.parse("0.19.0"):
+                if "http://" in video_path or "https://" in video_path:
+                    vision_process.warnings.warn(
+                        "torchvision < 0.19.0 does not support http/https video path, please upgrade to 0.19.0."
+                    )
+                if "file://" in video_path:
+                    video_path = video_path[7:]
+            st = time.time()
+            video, audio, info = vision_process.io.read_video(
+                video_path,
+                start_pts=ele.get("video_start", 0.0),
+                end_pts=ele.get("video_end", None),
+                pts_unit="sec",
+                output_format="TCHW",
+            )
+            del audio
+            total_frames = video.size(0)
+            video_fps = info["video_fps"]
+            vision_process.logger.info(
+                "torchvision(clamped): %s total_frames=%s video_fps=%s time=%.3fs",
+                video_path,
+                total_frames,
+                video_fps,
+                time.time() - st,
+            )
+            nframes = vision_process.smart_nframes(
+                ele,
+                total_frames=total_frames,
+                video_fps=video_fps,
+            )
+            idx = torch.linspace(0, total_frames - 1, nframes).round().long()
+            if total_frames > 0:
+                idx = idx.clamp(0, total_frames - 1)
+            sample_fps = nframes / max(total_frames, 1e-6) * video_fps
+            video = video[idx]
+            video_metadata = dict(
+                fps=video_fps,
+                frames_indices=idx,
+                total_num_frames=total_frames,
+                video_backend="torchvision",
+            )
+            return video, video_metadata, sample_fps
+
+        vision_process._read_video_decord = _read_video_decord_clamped
+        vision_process._read_video_torchvision = _read_video_torchvision_clamped
+        if isinstance(getattr(vision_process, "VIDEO_READER_BACKENDS", None), dict):
+            vision_process.VIDEO_READER_BACKENDS["decord"] = _read_video_decord_clamped
+            vision_process.VIDEO_READER_BACKENDS["torchvision"] = _read_video_torchvision_clamped
+        vision_process._video_trace_pipeline_bounds_patch = True
+
+
+def _qwen_style_model(model_path: str, device_label: str, *, attn_implementation: str | None = None):
     import torch
     import transformers
     from transformers import AutoModelForImageTextToText
@@ -60,20 +299,32 @@ def _qwen_style_model(model_path: str, device_label: str):
     )
 
     dtype = torch_dtype_for_device(device_label)
-    with contextlib.suppress(Exception):
-        return AutoModelForImageTextToText.from_pretrained(
-            model_path,
-            dtype=dtype,
-            trust_remote_code=True,
-            local_files_only=True,
-            low_cpu_mem_usage=True,
-        ).to(device_label).eval()
-    return AutoModelForImageTextToText.from_pretrained(
-        model_path,
-        trust_remote_code=True,
-        local_files_only=True,
-        low_cpu_mem_usage=True,
-    ).to(device_label).eval()
+    common_kwargs = {
+        "trust_remote_code": True,
+        "local_files_only": True,
+        "low_cpu_mem_usage": True,
+    }
+    if attn_implementation:
+        common_kwargs["attn_implementation"] = str(attn_implementation)
+    load_attempts = [
+        {
+            **common_kwargs,
+            "dtype": dtype,
+        },
+        dict(common_kwargs),
+    ]
+    last_error = None
+    for kwargs in load_attempts:
+        try:
+            return AutoModelForImageTextToText.from_pretrained(
+                model_path,
+                **kwargs,
+            ).to(device_label).eval()
+        except Exception as exc:
+            last_error = exc
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("Could not load Qwen-style model.")
 
 
 def _normalize_generation_controls(*, do_sample: bool, temperature: float | None) -> tuple[bool, float | None]:
@@ -131,11 +382,14 @@ class QwenStyleRunner:
         processor_model_path: str | None = None,
         generate_do_sample: bool = False,
         generate_temperature: float | None = None,
+        attn_implementation: str | None = None,
     ):
         from transformers import AutoProcessor
 
         self.model_path = model_path
         self.device_label = device_label
+        self.requested_attn_implementation = str(attn_implementation or "").strip() or None
+        self.loaded_attn_implementation = None
         processor_source = str(processor_model_path or model_path)
         processor_kwargs: Dict[str, Any] = {
             "trust_remote_code": True,
@@ -154,7 +408,12 @@ class QwenStyleRunner:
                 processor_source,
                 **processor_kwargs,
             )
-        self.model = _qwen_style_model(model_path, device_label)
+        self.model = _qwen_style_model(
+            model_path,
+            device_label,
+            attn_implementation=self.requested_attn_implementation,
+        )
+        self.loaded_attn_implementation = self.requested_attn_implementation or "default"
         self.generate_kwargs = _apply_generation_controls(
             self.model,
             do_sample=generate_do_sample,
@@ -162,6 +421,7 @@ class QwenStyleRunner:
         )
 
     def generate(self, messages: List[Dict[str, Any]], *, max_new_tokens: int) -> str:
+        _patch_qwen_vl_video_reader_bounds()
         from qwen_vl_utils import process_vision_info
 
         prompt_text = self.processor.apply_chat_template(
@@ -239,6 +499,7 @@ def run_qwen_style_messages(
     processor_model_path: str | None = None,
     generate_do_sample: bool = False,
     generate_temperature: float | None = None,
+    attn_implementation: str | None = None,
 ) -> str:
     runner = QwenStyleRunner(
         model_path=model_path,
@@ -247,6 +508,229 @@ def run_qwen_style_messages(
         processor_model_path=processor_model_path,
         generate_do_sample=generate_do_sample,
         generate_temperature=generate_temperature,
+        attn_implementation=attn_implementation,
+    )
+    try:
+        return runner.generate(messages, max_new_tokens=max_new_tokens)
+    finally:
+        runner.close()
+
+
+class TimeChatCaptionerRunner:
+    def __init__(
+        self,
+        *,
+        model_path: str,
+        device_label: str,
+        generate_do_sample: bool = False,
+        generate_temperature: float | None = None,
+        use_audio_in_video: bool = True,
+        attn_implementation: str | None = None,
+    ):
+        from transformers import Qwen2_5OmniForConditionalGeneration, Qwen2_5OmniProcessor
+
+        self.model_path = model_path
+        self.device_label = device_label
+        self.dtype = torch_dtype_for_device(device_label)
+        self.use_audio_in_video = bool(use_audio_in_video)
+        self._audio_in_video_runtime_disabled = False
+        self.requested_attn_implementation = str(attn_implementation or "").strip() or None
+        self.loaded_attn_implementation = None
+        self.processor = Qwen2_5OmniProcessor.from_pretrained(
+            model_path,
+            local_files_only=True,
+        )
+        self.model = None
+        if self.requested_attn_implementation:
+            load_attempts = [
+                {
+                    "torch_dtype": self.dtype,
+                    "attn_implementation": self.requested_attn_implementation,
+                    "local_files_only": True,
+                    "low_cpu_mem_usage": True,
+                }
+            ]
+        else:
+            load_attempts = [
+                {
+                    "torch_dtype": self.dtype,
+                    "attn_implementation": "flash_attention_2",
+                    "local_files_only": True,
+                    "low_cpu_mem_usage": True,
+                },
+                {
+                    "torch_dtype": self.dtype,
+                    "attn_implementation": "sdpa",
+                    "local_files_only": True,
+                    "low_cpu_mem_usage": True,
+                },
+                {
+                    "torch_dtype": self.dtype,
+                    "local_files_only": True,
+                    "low_cpu_mem_usage": True,
+                },
+                {
+                    "torch_dtype": self.dtype,
+                    "attn_implementation": "eager",
+                    "local_files_only": True,
+                    "low_cpu_mem_usage": True,
+                },
+            ]
+        last_error = None
+        for kwargs in load_attempts:
+            try:
+                self.model = Qwen2_5OmniForConditionalGeneration.from_pretrained(
+                    model_path,
+                    **kwargs,
+                ).to(device_label).eval()
+                self.loaded_attn_implementation = str(kwargs.get("attn_implementation") or "default")
+                break
+            except Exception as exc:
+                last_error = exc
+        if self.model is None:
+            if last_error is not None:
+                raise last_error
+            raise RuntimeError("Could not load TimeChat captioner model.")
+        with contextlib.suppress(Exception):
+            self.model.disable_talker()
+        self.generate_kwargs = _apply_generation_controls(
+            self.model,
+            do_sample=generate_do_sample,
+            temperature=generate_temperature,
+        )
+
+    def _build_batch(self, messages: List[Dict[str, Any]], *, use_audio_in_video: bool):
+        _patch_qwen_omni_video_reader_bounds()
+        from qwen_omni_utils import process_mm_info
+
+        if use_audio_in_video:
+            _configure_audioread_ffmpeg_command()
+        prompt_text = self.processor.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+        )
+        audios, images, videos = process_mm_info(
+            messages,
+            use_audio_in_video=use_audio_in_video,
+        )
+        return self.processor(
+            text=prompt_text,
+            audio=audios,
+            images=images,
+            videos=videos,
+            return_tensors="pt",
+            padding=True,
+            use_audio_in_video=use_audio_in_video,
+        )
+
+    def _audio_placeholder_mismatch(self, batch) -> str | None:
+        batch_dict = dict(batch)
+        input_ids = batch_dict.get("input_ids")
+        feature_attention_mask = batch_dict.get("feature_attention_mask")
+        if input_ids is None or feature_attention_mask is None:
+            return None
+
+        config = getattr(self.model, "config", None)
+        audio_token_id = getattr(config, "audio_token_id", None)
+        if audio_token_id is None:
+            audio_token_id = getattr(config, "audio_token_index", None)
+        if audio_token_id is None:
+            return None
+
+        placeholder_tokens = int((input_ids == int(audio_token_id)).sum().item())
+        feature_lengths = feature_attention_mask.sum(-1)
+        audio_tower = getattr(self.model, "audio_tower", None)
+        if audio_tower is not None and hasattr(audio_tower, "_get_feat_extract_output_lengths"):
+            _, output_lengths = audio_tower._get_feat_extract_output_lengths(feature_lengths)
+        else:
+            input_lengths = (feature_lengths - 1) // 2 + 1
+            output_lengths = (input_lengths - 2) // 2 + 1
+        feature_tokens = int(output_lengths.sum().item())
+        if placeholder_tokens != feature_tokens:
+            return "audio placeholders=%d features=%d" % (placeholder_tokens, feature_tokens)
+        return None
+
+    def _move_batch(self, batch):
+        import torch
+
+        moved = {}
+        for key, value in dict(batch).items():
+            if isinstance(value, torch.Tensor):
+                tensor = value.to(self.device_label)
+                if torch.is_floating_point(tensor):
+                    tensor = tensor.to(self.dtype)
+                moved[key] = tensor
+            else:
+                moved[key] = value
+        return moved
+
+    def generate(self, messages: List[Dict[str, Any]], *, max_new_tokens: int) -> str:
+        use_audio_in_video = bool(self.use_audio_in_video and not self._audio_in_video_runtime_disabled)
+        batch = self._build_batch(messages, use_audio_in_video=use_audio_in_video)
+        mismatch = self._audio_placeholder_mismatch(batch) if use_audio_in_video else None
+        if mismatch:
+            # Avoid a CUDA device-side assert when Qwen Omni expands more audio
+            # placeholders than the extracted audio encoder features can fill.
+            self._audio_in_video_runtime_disabled = True
+            logger.warning(
+                "TimeChat audio-in-video disabled after placeholder mismatch for %s: %s",
+                self.model_path,
+                mismatch,
+            )
+            use_audio_in_video = False
+            batch = self._build_batch(messages, use_audio_in_video=False)
+        moved = self._move_batch(batch)
+        outputs = self.model.generate(
+            **moved,
+            use_audio_in_video=use_audio_in_video,
+            return_audio=False,
+            thinker_max_new_tokens=max(32, int(max_new_tokens)),
+            talker_max_tokens=max(32, int(max_new_tokens)),
+            **self.generate_kwargs,
+        )
+        input_ids = moved.get("input_ids")
+        if input_ids is not None:
+            trimmed = outputs[:, input_ids.shape[1] :]
+        else:
+            trimmed = outputs
+        with contextlib.suppress(Exception):
+            decoded = self.processor.batch_decode(
+                trimmed,
+                skip_special_tokens=True,
+                clean_up_tokenization_spaces=False,
+            )
+            text = str(decoded[0] if decoded else "").strip()
+            if text:
+                return text
+        return str(self.processor.decode(trimmed[0], skip_special_tokens=True)).strip()
+
+    def close(self) -> None:
+        with contextlib.suppress(Exception):
+            del self.model
+        with contextlib.suppress(Exception):
+            del self.processor
+        cleanup_torch()
+
+
+def run_timechat_messages(
+    *,
+    model_path: str,
+    messages: List[Dict[str, Any]],
+    device_label: str,
+    max_new_tokens: int,
+    generate_do_sample: bool = False,
+    generate_temperature: float | None = None,
+    use_audio_in_video: bool = True,
+    attn_implementation: str | None = None,
+) -> str:
+    runner = TimeChatCaptionerRunner(
+        model_path=model_path,
+        device_label=device_label,
+        generate_do_sample=generate_do_sample,
+        generate_temperature=generate_temperature,
+        use_audio_in_video=use_audio_in_video,
+        attn_implementation=attn_implementation,
     )
     try:
         return runner.generate(messages, max_new_tokens=max_new_tokens)
@@ -344,6 +828,73 @@ def _install_penguin_processor_signature_compat(model_path: str) -> None:
         processor_class._get_arguments_from_pretrained = _compat_get_arguments_from_pretrained
 
 
+def _install_penguin_processor_kwargs_compat(model_path: str) -> None:
+    with contextlib.suppress(Exception):
+        from transformers.dynamic_module_utils import get_class_from_dynamic_module
+
+        processor_class = get_class_from_dynamic_module(
+            "processing_penguinvl.PenguinVLQwen3Processor",
+            pretrained_model_name_or_path=str(Path(model_path).expanduser()),
+            local_files_only=True,
+        )
+        module = sys.modules.get(processor_class.__module__)
+        if module is None:
+            module = __import__(processor_class.__module__, fromlist=["PenguinVLQwen3ProcessorKwargs"])
+        kwargs_class = getattr(module, "PenguinVLQwen3ProcessorKwargs", None)
+        if kwargs_class is None or getattr(kwargs_class, "_penguin_processor_kwargs_compat", False):
+            return
+
+        class _EmptyCommonKwargs(object):
+            __annotations__ = {}
+
+        annotations = dict(getattr(kwargs_class, "__annotations__", {}) or {})
+        annotations.setdefault("common_kwargs", _EmptyCommonKwargs)
+        annotations.setdefault("chat_template_kwargs", getattr(module, "ChatTemplateKwargs", _EmptyCommonKwargs))
+        kwargs_class.__annotations__ = annotations
+
+        defaults = dict(getattr(kwargs_class, "_defaults", {}) or {})
+        if "images_kwargs" not in defaults:
+            defaults["images_kwargs"] = dict(defaults.get("image_kwargs") or {})
+        if defaults.get("images_kwargs", {}).get("merge_size") is None:
+            defaults["images_kwargs"] = {
+                key: value
+                for key, value in dict(defaults.get("images_kwargs") or {}).items()
+                if key != "merge_size"
+            }
+        defaults.setdefault("text_kwargs", {})
+        defaults.setdefault("images_kwargs", {})
+        defaults.setdefault("videos_kwargs", {})
+        defaults.setdefault("audio_kwargs", {})
+        defaults.setdefault("chat_template_kwargs", {})
+        defaults.setdefault("common_kwargs", {})
+        kwargs_class._defaults = defaults
+        kwargs_class._penguin_processor_kwargs_compat = True
+
+
+def _install_penguin_image_processor_compat(model_path: str) -> None:
+    with contextlib.suppress(Exception):
+        from transformers.dynamic_module_utils import get_class_from_dynamic_module
+
+        image_processor_class = get_class_from_dynamic_module(
+            "image_processing_penguinvl.PenguinVLImageProcessor",
+            pretrained_model_name_or_path=str(Path(model_path).expanduser()),
+            local_files_only=True,
+        )
+        original_init = getattr(image_processor_class, "__init__", None)
+        original_func = getattr(original_init, "__func__", original_init)
+        if original_func is None or getattr(original_func, "_penguin_image_processor_compat", False):
+            return
+
+        def _compat_init(self, *args, **kwargs):
+            merge_size = kwargs.pop("merge_size", None)
+            original_func(self, *args, **kwargs)
+            if not hasattr(self, "merge_size"):
+                self.merge_size = 1 if merge_size is None else merge_size
+
+        _compat_init._penguin_image_processor_compat = True
+        image_processor_class.__init__ = _compat_init
+
+
 def _install_penguin_rotary_embedding_compat(model_path: str) -> None:
     with contextlib.suppress(Exception):
         from transformers.dynamic_module_utils import get_class_from_dynamic_module
@@ -411,6 +962,8 @@ def _configure_penguin_transformers_compat(model_path: str):
     hf_import_utils.is_flash_attn_greater_or_equal_2_10 = lambda: False
     hf_utils.is_flash_attn_2_available = lambda: False
     hf_utils.is_flash_attn_greater_or_equal_2_10 = lambda: False
+    _install_penguin_processor_kwargs_compat(model_path)
+    _install_penguin_image_processor_compat(model_path)
     if not getattr(PreTrainedModel._load_pretrained_model, "_penguin_offload_compat", False):
         original_load_pretrained_model = PreTrainedModel._load_pretrained_model
 
@@ -534,7 +1087,14 @@ class PenguinRunner:
             trimmed = outputs
         with contextlib.suppress(Exception):
             decoded = self.processor.batch_decode(trimmed, skip_special_tokens=True)
-            return str(decoded[0] if decoded else "").strip()
+            text = str(decoded[0] if decoded else "").strip()
+            if text:
+                return text
+        with contextlib.suppress(Exception):
+            decoded = self.processor.batch_decode(outputs, skip_special_tokens=True)
+            text = str(decoded[0] if decoded else "").strip()
+            if text:
+                return text
         return str(self.processor.decode(outputs[0], skip_special_tokens=True)).strip()
 
     def close(self) -> None:
@@ -589,6 +1149,36 @@ def make_qwen_video_message(prompt: str, video_path: str, fps: float = 2.0) -> L
                 {
                     "type": "text",
                     "text": str(prompt or "").strip(),
+                },
+            ],
+        }
+    ]
+
+
+def make_timechat_video_conversation(
+    prompt: str,
+    video_path: str,
+    *,
+    fps: float = 2.0,
+    max_frames: int = 160,
+    max_pixels: int = 297920,
+    video_max_pixels: int = 297920,
+) -> List[Dict[str, Any]]:
+    return [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": str(prompt or "").strip(),
+                },
+                {
+                    "type": "video",
+                    "video": str(video_path),
+                    "max_pixels": int(max_pixels),
+                    "max_frames": int(max_frames),
+                    "fps": float(fps),
+                    "video_max_pixels": int(video_max_pixels),
                 },
             ],
         }

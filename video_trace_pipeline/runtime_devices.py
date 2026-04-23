@@ -17,6 +17,9 @@ def _env_visible_cuda_count() -> int:
 
 
 def available_cuda_device_count() -> int:
+    explicit_visible = _env_visible_cuda_count()
+    if explicit_visible > 0:
+        return explicit_visible
     try:
         import torch
 
@@ -24,7 +27,7 @@ def available_cuda_device_count() -> int:
             return int(torch.cuda.device_count())
     except Exception:
         pass
-    return _env_visible_cuda_count()
+    return explicit_visible
 
 
 def resolve_device_label(device_label: Optional[str], default: str = "cpu") -> str:

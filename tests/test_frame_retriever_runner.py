@@ -1,7 +1,11 @@
+from contextlib import nullcontext
+
+import torch
 import transformers.utils.generic as hf_generic
 
 from video_trace_pipeline.tool_wrappers import frame_retriever_runner
 from video_trace_pipeline.tool_wrappers import reference_adapter
+from video_trace_pipeline.tool_wrappers import shared
 from video_trace_pipeline.schemas import ToolResult
 from video_trace_pipeline.tools.process_adapters import FrameRetrieverProcessAdapter
 
@@ -11,6 +15,7 @@ class _FakeHarness:
         self.dataset_folder = "/tmp/reference"
         self.video_path = "/tmp/video.mp4"
         self.precompute_calls = 0
+        self.persist_cache = None
 
     def _list_dense_frame_paths(self, dataset_folder, video_path):
         return (
@@ -32,7 +37,14 @@ class _FakeHarness:
         self.precompute_calls += 1
         return True
 
-    def _qwen_score_frames(self, query, bounded, top_k):
+    def _frame_embedding_cache_ready(self):
+        return False
+
+    def _frame_embedder_runtime_metadata(self):
+        return {"loaded_attn_implementation": "flash_attention_2", "retry_count": 0}
+
+    def _qwen_score_frames(self, query, bounded, top_k, *, persist_cache=True):
+        self.persist_cache = persist_cache
         return [
             {
                 "frame_path": bounded[0]["frame_path"],
@@ -72,9 +84,11 @@ def test_frame_retriever_runner_reports_cache_metadata(monkeypatch):
 
     frame_retriever_runner.main()
 
-    assert fake_harness.precompute_calls == 1
+    assert fake_harness.precompute_calls == 0
+    assert fake_harness.persist_cache is False
     assert emitted["cache_metadata"]["dense_frame_cache_hit"] is True
-    assert emitted["cache_metadata"]["embedding_cache_ready"] is True
+    assert emitted["cache_metadata"]["embedding_cache_ready"] is False
+    assert emitted["cache_metadata"]["persist_cache_on_bounded_request"] is False
     assert emitted["cache_metadata"]["bounded_frame_count"] == 2
 
 
@@ -201,3 +215,105 @@ def test_reference_adapter_lists_dense_frames_in_timestamp_order(tmp_path, monke
         "frame_2.00.png",
         "frame_10.00.png",
     ]
+
+
+def test_resolve_model_path_prefers_requested_snapshot_over_runtime_resolved(tmp_path, monkeypatch):
+    timelens_dir = tmp_path / "timelens"
+    timelens_dir.mkdir()
+    qwen_snapshot = tmp_path / "qwen_snapshot"
+    qwen_snapshot.mkdir()
+
+    monkeypatch.setattr(
+        shared,
+        "resolve_model_snapshot",
+        lambda model_name, hf_cache=None: qwen_snapshot if model_name == "Qwen/Qwen3-VL-Embedding-8B" else None,
+    )
+
+    runtime = {
+        "model_name": "TencentARC/TimeLens-8B",
+        "resolved_model_path": str(timelens_dir),
+    }
+
+    assert shared.resolve_model_path("TencentARC/TimeLens-8B", runtime) == str(timelens_dir.resolve())
+    assert shared.resolve_model_path("Qwen/Qwen3-VL-Embedding-8B", runtime) == str(qwen_snapshot)
+
+
+def test_reference_adapter_qwen_score_frames_retries_without_flash_attention(tmp_path, monkeypatch):
+    monkeypatch.setattr(reference_adapter, "get_video_duration", lambda _video_path: 12.0)
+    harness = reference_adapter.ReferenceHarness(
+        task={"video_path": str(tmp_path / "sample.mp4"), "video_id": "video-1"},
+        runtime={
+            "workspace_root": str(tmp_path),
+            "model_name": str(tmp_path),
+            "extra": {
+                "attn_implementation": "flash_attention_2",
+                "dense_frame_embed_batch": 4,
+            },
+        },
+        clip_duration_s=5.0,
+        embedder_model=str(tmp_path),
+    )
+
+    class _FakeEmbedder:
+        def __init__(self, attn_implementation):
+            self.attn_implementation = attn_implementation
+
+        def process(self, samples):
+            if samples and samples[0].get("text") and self.attn_implementation == "flash_attention_2":
+                raise ValueError("FlashAttention does not support inputs with dim=0.")
+            rows = len(samples)
+            return torch.ones(rows, 2, dtype=torch.float32)
+
+    def _fake_get_or_load(self):
+        if self._frame_embedder is None:
+            attn = str(self._frame_embedder_attn_override or self._frame_embedder_requested_attn_implementation or "default")
+            self._frame_embedder = _FakeEmbedder(attn)
+            self._frame_embedder_loaded_attn_implementation = attn
+            self._frame_embedder_diagnostics["loaded_attn_implementation"] = attn
+        return self._frame_embedder
+
+    def _fake_release(self):
+        self._frame_embedder = None
+        self._frame_embedder_loaded_attn_implementation = None
+
+    monkeypatch.setattr(reference_adapter.ReferenceHarness, "_get_or_load_frame_embedder", _fake_get_or_load)
+    monkeypatch.setattr(reference_adapter.ReferenceHarness, "_release_frame_embedder", _fake_release)
+    monkeypatch.setattr(reference_adapter.ReferenceHarness, "_frame_embedder_inference_context", lambda self: nullcontext())
+
+    scored = harness._qwen_score_frames(
+        "find the chart frame",
+        [{"frame_path": "/tmp/frame_159.00.png", "timestamp": 159.0}],
+        1,
+        persist_cache=False,
+    )
+
+    assert len(scored) == 1
+    assert harness._frame_embedder_runtime_metadata()["loaded_attn_implementation"] == "sdpa"
+    assert harness._frame_embedder_runtime_metadata()["retry_count"] >= 1
+
+
+def test_frame_retriever_process_adapter_runs_persisted_payload_without_releasing_embedder(monkeypatch):
+    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
+    fake_harness = object()
+    seen = {}
+
+    monkeypatch.setattr(adapter, "_persisted_frame_harness", lambda payload: fake_harness)
+    monkeypatch.setattr(
+        "video_trace_pipeline.tool_wrappers.frame_retriever_runner.execute_payload",
+        lambda payload, *, harness=None, release_embedder=True: seen.update(
+            {"payload": payload, "harness": harness, "release_embedder": release_embedder}
+        )
+        or {"frames": [], "cache_metadata": {}, "mode": "clip_bounded", "rationale": ""},
+    )
+
+    payload = {
+        "request": {"tool_name": "frame_retriever", "query": "chart", "clip": {"start_s": 1.0, "end_s": 2.0}},
+        "task": {"video_id": "video-1", "video_path": "/tmp/video.mp4"},
+        "runtime": {"model_name": "Qwen/Qwen3-VL-Embedding-8B"},
+    }
+
+    result = adapter._run_persisted_json(payload)
+
+    assert result["mode"] == "clip_bounded"
+    assert seen["harness"] is fake_harness
+    assert seen["release_embedder"] is False

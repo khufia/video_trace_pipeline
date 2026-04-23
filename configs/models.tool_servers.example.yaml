@@ -47,6 +47,8 @@ tools:
       prefilter_top_frames: 16
       prefilter_window_budget: 16
       prefilter_neighbor_radius: 1
+      dense_frame_embed_batch: 24
+      attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
 
@@ -64,6 +66,8 @@ tools:
       reranker_model: Qwen/Qwen3-VL-Reranker-8B
       use_reranker: true
       candidate_frames: 12
+      dense_frame_embed_batch: 24
+      attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
 
@@ -92,16 +96,22 @@ tools:
 
   dense_captioner:
     enabled: true
-    description: Production dense captioner using Penguin-VL-8B over cached 30s/60s segments.
-    model: tencent/Penguin-VL-8B
+    description: Production dense captioner using TimeChat-Captioner over bounded 30s/60s video clips.
+    model: yaolily/TimeChat-Captioner-GRPO-7B
     prompt_version: tool_v2
     extra:
       command:
         - python3
         - -m
-        - video_trace_pipeline.tool_wrappers.penguin_dense_caption_runner
-      backend_name: penguin_vl
+        - video_trace_pipeline.tool_wrappers.timechat_dense_caption_runner
+      backend_name: timechat_captioner
       sample_frames: 10
+      fps: 2.0
+      max_frames: 160
+      max_pixels: 297920
+      video_max_pixels: 297920
+      use_audio_in_video: true
+      attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
 
@@ -116,6 +126,7 @@ tools:
         - -m
         - video_trace_pipeline.tool_wrappers.olmocr_runner
       backend_name: olmocr
+      attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
 
@@ -130,6 +141,7 @@ tools:
         - -m
         - video_trace_pipeline.tool_wrappers.spatial_grounder_runner
       backend_name: qwen35vl_spatial
+      attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
 
@@ -144,5 +156,6 @@ tools:
         - -m
         - video_trace_pipeline.tool_wrappers.qwen35vl_runner
       backend_name: qwen35vl
+      attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false

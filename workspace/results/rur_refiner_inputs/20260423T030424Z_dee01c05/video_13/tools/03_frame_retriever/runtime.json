@@ -1,0 +1,20 @@
+{
+  "backend": "qwen_frame_retriever",
+  "model_name": "Qwen/Qwen3-VL-Embedding-8B",
+  "device": "cuda:2",
+  "hf_cache": "/fs/nexus-scratch/gnanesh/.cache/huggingface",
+  "resolved_model_path": "/fs/nexus-scratch/gnanesh/.cache/huggingface/hub/models--Qwen--Qwen3-VL-Embedding-8B/snapshots/2c4565515e0f265c6511776e7193b22c0968ddc7",
+  "model_resolution_status": "ok",
+  "workspace_root": "/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/workspace",
+  "scratch_dir": "/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/workspace/runs/adhoc/video_13__e6e95b328626/20260423T030424Z_dee01c05/tools/_scratch/frame_retriever",
+  "extra": {
+    "backend_name": "qwen_frame_retriever",
+    "reranker_model": "Qwen/Qwen3-VL-Reranker-8B",
+    "use_reranker": true,
+    "candidate_frames": 12,
+    "dense_frame_embed_batch": 24,
+    "attn_implementation": "flash_attention_2",
+    "temperature": 0.0,
+    "do_sample": false
+  }
+}

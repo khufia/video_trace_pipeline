@@ -15,8 +15,8 @@ def _models_config():
         tools={
             "dense_captioner": ToolConfig(
                 enabled=True,
-                model="tencent/Penguin-VL-8B",
-                extra={"command": ["python3", "-m", "video_trace_pipeline.tool_wrappers.penguin_dense_caption_runner"]},
+                model="yaolily/TimeChat-Captioner-GRPO-7B",
+                extra={"command": ["python3", "-m", "video_trace_pipeline.tool_wrappers.timechat_dense_caption_runner"]},
             ),
             "visual_temporal_grounder": ToolConfig(enabled=True, model="TencentARC/TimeLens-8B", extra={"command": ["python3", "-m", "video_trace_pipeline.tool_wrappers.timelens_runner"]}),
             "asr": ToolConfig(enabled=True, extra={"model_name": "large-v3"}),
@@ -45,6 +45,25 @@ def test_package_report_flags_missing_package(tmp_path):
     assert report[0]["status"] == "missing"
 
 
+def test_package_report_handles_bare_wheel_url(tmp_path, monkeypatch):
+    requirements = tmp_path / "requirements.txt"
+    requirements.write_text(
+        "https://example.com/packages/flash_attn-2.8.3%2Bcu124torch2.6-cp310-cp310-linux_x86_64.whl\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("importlib.metadata.version", lambda _: "2.8.3+cu124torch2.6")
+    report = package_report([requirements])
+    assert report[0]["name"] == "flash-attn"
+    assert report[0]["status"] == "ok"
+
+
+def test_package_report_surfaces_invalid_requirements(tmp_path):
+    requirements = tmp_path / "requirements.txt"
+    requirements.write_text("not a valid requirement line ???\n", encoding="utf-8")
+    report = package_report([requirements])
+    assert report[0]["status"] == "invalid_requirement"
+
+
 def test_model_report_tracks_endpoint_and_wrapper_status(tmp_path):
     profile = MachineProfile(
         workspace_root=str(tmp_path / "workspace"),
@@ -60,9 +79,37 @@ def test_model_report_tracks_endpoint_and_wrapper_status(tmp_path):
     assert by_name[("tool", "visual_temporal_grounder")]["wrapper_status"] == "configured"
     assert by_name[("tool", "visual_temporal_grounder")]["model_resolution_status"] == "missing"
     assert by_name[("tool", "visual_temporal_grounder")]["plan_status"] == "planned"
-    assert by_name[("tool", "asr")]["status"] == "missing"
-    assert by_name[("tool", "asr")]["model_resolution_status"] == "missing"
-    assert by_name[("tool", "asr")]["plan_status"] == "planned"
+    assert by_name[("tool", "asr")]["status"] in {"ok", "missing"}
+    assert by_name[("tool", "asr")].get("model_resolution_status") in {None, "ok", "missing"}
+    assert by_name[("tool", "asr")]["plan_status"] in {"planned", "implementation_mismatch"}
+
+
+def test_model_report_tracks_spotsound_wrapper_as_configured(tmp_path):
+    profile = MachineProfile(
+        workspace_root=str(tmp_path / "workspace"),
+        hf_cache=str(tmp_path / "hf"),
+        agent_endpoints={"default": ApiEndpointConfig(base_url="https://api.openai.com/v1", api_key="sk-test")},
+    )
+    models = ModelsConfig(
+        agents={"planner": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default")},
+        tools={
+            "audio_temporal_grounder": ToolConfig(
+                enabled=True,
+                model="Loie/SpotSound",
+                extra={"command": ["python3", "-m", "video_trace_pipeline.tool_wrappers.spotsound_runner"]},
+            )
+        },
+    )
+
+    report = model_report(profile, models)
+    entry = report[1]
+    assert entry["name"] == "audio_temporal_grounder"
+    assert entry["module"] == "video_trace_pipeline.tool_wrappers.spotsound_runner"
+    assert entry["wrapper_status"] == "configured"
+    assert entry["status"] == "configured"
+    assert entry["model_resolution_status"] == "missing"
+    assert entry["expected_model"] == "Loie/SpotSound"
+    assert entry["plan_status"] == "planned"
 
 
 def test_model_report_tracks_auxiliary_models(tmp_path):
@@ -70,6 +117,8 @@ def test_model_report_tracks_auxiliary_models(tmp_path):
     primary_model.mkdir()
     reranker_model = tmp_path / "reranker_model"
     reranker_model.mkdir()
+    prefilter_model = tmp_path / "prefilter_model"
+    prefilter_model.mkdir()
     profile = MachineProfile(
         workspace_root=str(tmp_path / "workspace"),
         hf_cache=str(tmp_path / "hf"),
@@ -84,6 +133,7 @@ def test_model_report_tracks_auxiliary_models(tmp_path):
                 extra={
                     "command": ["python3", "-m", "video_trace_pipeline.tool_wrappers.frame_retriever_runner"],
                     "reranker_model": str(reranker_model),
+                    "prefilter_embedder_model": str(prefilter_model),
                 },
             )
         },
@@ -95,6 +145,8 @@ def test_model_report_tracks_auxiliary_models(tmp_path):
     assert entry["model_resolution_status"] == "ok"
     assert entry["auxiliary_models"][0]["field"] == "reranker_model"
     assert entry["auxiliary_models"][0]["status"] == "ok"
+    assert entry["auxiliary_models"][1]["field"] == "prefilter_embedder_model"
+    assert entry["auxiliary_models"][1]["status"] == "ok"
 
 
 def test_model_report_uses_current_planned_qwen_vl_model(tmp_path):

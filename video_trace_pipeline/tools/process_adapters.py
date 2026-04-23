@@ -7,10 +7,10 @@ import subprocess
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Type
 
-from ..common import extract_json_object, hash_payload, sanitize_for_persistence
+from ..common import extract_json_object, has_meaningful_text, hash_payload, is_low_signal_text, sanitize_for_persistence
 from ..model_cache import describe_model_resolution
 from ..runtime_devices import resolve_device_label
-from ..tool_wrappers.penguin_dense_caption_runner import execute_payload as execute_dense_caption_payload
+from ..tool_wrappers.timechat_dense_caption_runner import execute_payload as execute_dense_caption_payload
 from ..tool_wrappers.qwen35vl_runner import execute_payload as execute_generic_purpose_payload
 from ..tool_wrappers.spatial_grounder_runner import execute_payload as execute_spatial_grounder_payload
 from ..tool_wrappers.shared import resolve_generation_controls, resolve_model_path, resolved_device_label
@@ -63,6 +63,32 @@ def _confidence_metadata(values: List[Any], *, kind: str) -> Dict[str, Any]:
         "confidence_count": len(cleaned),
         "confidence_kind": str(kind or "confidence"),
     }
+
+
+def _dense_caption_summary_text(payload: Dict[str, Any]) -> str:
+    if not isinstance(payload, dict):
+        return ""
+    overall_summary = str(payload.get("overall_summary") or "").strip()
+    if has_meaningful_text(overall_summary):
+        return overall_summary
+    captions = list(payload.get("captions") or [])
+    segments = []
+    for item in captions:
+        if not isinstance(item, dict):
+            continue
+        parts = []
+        for key in ("visual", "audio", "on_screen_text"):
+            value = str(item.get(key) or "").strip()
+            if has_meaningful_text(value):
+                parts.append(value)
+        for key in ("actions", "objects", "attributes"):
+            values = [str(value).strip() for value in list(item.get(key) or []) if str(value).strip()]
+            if values:
+                parts.append("%s: %s" % (key, ", ".join(values)))
+        combined = "; ".join(parts).strip()
+        if combined:
+            segments.append(combined)
+    return " ".join(segments).strip()
 
 
 class JsonProcessMixin(object):
@@ -224,6 +250,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
         generation = resolve_generation_controls(runtime)
         model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
         device_label = resolved_device_label(runtime)
+        attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
         return {
             "tool_name": self.name,
             "runner_type": "qwen_style",
@@ -235,6 +262,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
                 processor_model_path=processor_model_path,
                 generate_do_sample=bool(generation.get("do_sample")),
                 generate_temperature=generation.get("temperature"),
+                attn_implementation=attn_implementation,
             ),
             "model_name": self.model_name,
             "resolved_model_path": model_path,
@@ -243,6 +271,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
             "processor_model_path": processor_model_path,
             "generate_do_sample": bool(generation.get("do_sample")),
             "generate_temperature": generation.get("temperature"),
+            "attn_implementation": attn_implementation,
         }
 
     def _penguin_persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
@@ -267,6 +296,36 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
             "device_label": device_label,
             "generate_do_sample": bool(generation.get("do_sample")),
             "generate_temperature": generation.get("temperature"),
+        }
+
+    def _timechat_persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        if self.model_pool is None or not self.model_pool.should_persist(self.name):
+            return None
+        runtime = self._runtime_payload_for_profile(profile)
+        generation = resolve_generation_controls(runtime)
+        model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
+        device_label = resolved_device_label(runtime)
+        use_audio_in_video = bool((runtime.get("extra") or {}).get("use_audio_in_video", True))
+        attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
+        return {
+            "tool_name": self.name,
+            "runner_type": "timechat",
+            "load_key": self.model_pool.timechat_key(
+                tool_name=self.name,
+                model_path=model_path,
+                device_label=device_label,
+                generate_do_sample=bool(generation.get("do_sample")),
+                generate_temperature=generation.get("temperature"),
+                use_audio_in_video=use_audio_in_video,
+                attn_implementation=attn_implementation,
+            ),
+            "model_name": self.model_name,
+            "resolved_model_path": model_path,
+            "device_label": device_label,
+            "generate_do_sample": bool(generation.get("do_sample")),
+            "generate_temperature": generation.get("temperature"),
+            "use_audio_in_video": use_audio_in_video,
+            "attn_implementation": attn_implementation,
         }
 
     def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
@@ -435,6 +494,66 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
     request_model = FrameRetrieverRequest
     output_model = FrameRetrieverOutput
 
+    def __init__(
+        self,
+        name: str,
+        model_name: str,
+        extra: Optional[Dict[str, Any]] = None,
+        model_pool=None,
+    ):
+        super().__init__(name=name, model_name=model_name, extra=extra, model_pool=model_pool)
+        self._persisted_frame_harnesses: Dict[tuple, Any] = {}
+
+    def _persisted_frame_harness_key(self, payload: Dict[str, Any]) -> tuple:
+        request = dict(payload.get("request") or {})
+        task = dict(payload.get("task") or {})
+        runtime = dict(payload.get("runtime") or {})
+        clip = dict(request.get("clip") or {})
+        clip_start_s = float(clip.get("start_s") or 0.0)
+        clip_end_s = float(clip.get("end_s") or clip_start_s)
+        clip_duration_s = max(1.0, clip_end_s - clip_start_s)
+        extra = dict(runtime.get("extra") or {})
+        return (
+            str(task.get("video_id") or task.get("sample_key") or ""),
+            str(task.get("video_path") or ""),
+            str(runtime.get("device") or ""),
+            str(runtime.get("model_name") or ""),
+            str(runtime.get("resolved_model_path") or ""),
+            str(extra.get("reranker_model") or ""),
+            str(extra.get("attn_implementation") or ""),
+            round(float(clip_duration_s), 3),
+        )
+
+    def _persisted_frame_harness(self, payload: Dict[str, Any]):
+        from ..tool_wrappers.reference_adapter import ReferenceHarness
+
+        key = self._persisted_frame_harness_key(payload)
+        harness = self._persisted_frame_harnesses.get(key)
+        if harness is not None:
+            return harness
+
+        request = dict(payload.get("request") or {})
+        task = dict(payload.get("task") or {})
+        runtime = dict(payload.get("runtime") or {})
+        clip = dict(request.get("clip") or {})
+        clip_start_s = float(clip.get("start_s") or 0.0)
+        clip_end_s = float(clip.get("end_s") or clip_start_s)
+        harness = ReferenceHarness(
+            task=task,
+            runtime=runtime,
+            clip_duration_s=max(1.0, clip_end_s - clip_start_s),
+            embedder_model=str(runtime.get("model_name") or ""),
+            reranker_model=str((runtime.get("extra") or {}).get("reranker_model") or ""),
+        )
+        self._persisted_frame_harnesses[key] = harness
+        return harness
+
+    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        from ..tool_wrappers.frame_retriever_runner import execute_payload
+
+        harness = self._persisted_frame_harness(payload)
+        return execute_payload(payload, harness=harness, release_embedder=False)
+
     def _execute_single(self, request, context):
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
@@ -602,7 +721,7 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
         return execute_dense_caption_payload(payload, runner_pool=self.model_pool)
 
     def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
-        return self._penguin_persistent_preload_spec(profile)
+        return self._timechat_persistent_preload_spec(profile)
 
     def _execute_single(self, request, context):
         payload, raw = self._run_json(context, request.dict())
@@ -720,14 +839,25 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
                     "start": float(start),
                     "end": float(end),
                     "dense_caption": result.data,
-                    "caption_summary": result.data.get("overall_summary", ""),
+                    "caption_summary": _dense_caption_summary_text(result.data),
                 }
             )
             if end <= start:
                 break
             start = end
-        summary = " ".join(item.get("caption_summary", "") for item in segments if item.get("caption_summary")).strip()
-        if context.llm_client is not None and segments:
+        summary = " ".join(
+            item.get("caption_summary", "")
+            for item in segments
+            if has_meaningful_text(item.get("caption_summary", ""))
+        ).strip()
+        summary_agent = None
+        if getattr(context, "models_config", None) is not None:
+            for agent_name in ("planner", "trace_synthesizer", "trace_auditor", "atomicizer"):
+                candidate = context.models_config.agents.get(agent_name)
+                if candidate is not None and str(candidate.model or "").strip():
+                    summary_agent = candidate
+                    break
+        if context.llm_client is not None and segments and has_meaningful_text(summary) and summary_agent is not None:
             prompt = "\n".join(
                 [
                     "Summarize the full video from the segment summaries below.",
@@ -742,11 +872,11 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
             )
             try:
                 summary = context.llm_client.complete_text(
-                    endpoint_name="default",
-                    model_name=self.model_name,
+                    endpoint_name=summary_agent.endpoint or "default",
+                    model_name=summary_agent.model,
                     system_prompt="You summarize videos from segment summaries.",
                     user_prompt=prompt,
-                    temperature=float(self.extra.get("temperature", 0.0) or 0.0),
+                    temperature=float(summary_agent.temperature or 0.0),
                     max_tokens=1200,
                 )
             except Exception:
@@ -800,34 +930,100 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
                 units = [("frame", item) for item in frames]
             else:
                 units = [("clip", item) for item in clips]
-            subrequests = []
-            for field_name, item in units:
-                payload = {"tool_name": self.name, "query": request.query}
-                payload[field_name] = item.dict() if hasattr(item, "dict") else item
-                subrequests.append(self.request_model.parse_obj(payload))
-            subresults = [self._execute_single(item, context) for item in subrequests]
+            payload, raw = self._run_json(context, request.dict())
+            batch_results = list(payload.get("results") or []) if isinstance(payload, dict) else []
+            if not batch_results:
+                subrequests = []
+                for field_name, item in units:
+                    single_payload = {"tool_name": self.name, "query": request.query}
+                    single_payload[field_name] = item.dict() if hasattr(item, "dict") else item
+                    subrequests.append(self.request_model.parse_obj(single_payload))
+                subresults = [self._execute_single(item, context) for item in subrequests]
+                artifact_refs = []
+                raw_blocks = []
+                texts = []
+                merged_lines = []
+                reads = []
+                for field_name, item, subresult in zip(
+                    [name for name, _ in units],
+                    [value for _, value in units],
+                    subresults,
+                ):
+                    artifact_refs.extend(list(subresult.artifact_refs or []))
+                    if subresult.raw_output_text:
+                        raw_blocks.append(subresult.raw_output_text)
+                    text = str(subresult.data.get("text") or "").strip()
+                    if text:
+                        texts.append(text)
+                    lines = list(subresult.data.get("lines") or [])
+                    merged_lines.extend(lines)
+                    reads.append(
+                        {
+                            field_name: item.dict() if hasattr(item, "dict") else item,
+                            "text": text,
+                            "lines": lines,
+                            "timestamp_s": subresult.data.get("timestamp_s"),
+                            "source_frame_path": subresult.data.get("source_frame_path"),
+                            "backend": subresult.data.get("backend"),
+                        }
+                    )
+                merged_data = {
+                    "query": request.query,
+                    "text": _join_text_blocks(texts),
+                    "lines": merged_lines,
+                    "reads": reads,
+                    "backend": reads[0].get("backend") if reads else self.model_name,
+                }
+                return ToolResult(
+                    tool_name=self.name,
+                    ok=True,
+                    data=merged_data,
+                    raw_output_text=_join_text_blocks(raw_blocks),
+                    artifact_refs=_dedupe_artifact_refs(artifact_refs),
+                    request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
+                    summary="OCR completed for %d input item(s)." % len(reads),
+                    metadata={
+                        "backend": merged_data["backend"],
+                        "group_count": len(reads),
+                        **_confidence_metadata(
+                            [line.get("confidence") for line in merged_lines],
+                            kind="ocr_line",
+                        ),
+                    },
+                )
+            if len(batch_results) != len(units):
+                raise ValueError(
+                    "OCR batch runner returned %d result(s) for %d input item(s)." % (len(batch_results), len(units))
+                )
             artifact_refs = []
-            raw_blocks = []
             texts = []
             merged_lines = []
             reads = []
-            for field_name, item, subresult in zip([name for name, _ in units], [value for _, value in units], subresults):
-                artifact_refs.extend(list(subresult.artifact_refs or []))
-                if subresult.raw_output_text:
-                    raw_blocks.append(subresult.raw_output_text)
-                text = str(subresult.data.get("text") or "").strip()
+            batch_backend = str(payload.get("backend") or "").strip() if isinstance(payload, dict) else ""
+            for field_name, item, result_payload in zip(
+                [name for name, _ in units],
+                [value for _, value in units],
+                batch_results,
+            ):
+                parsed = self._parse_output(result_payload)
+                if parsed.source_frame_path:
+                    artifact_refs.append(
+                        context.workspace.store_file_artifact(parsed.source_frame_path, kind="frame", source_tool=self.name)
+                    )
+                lines = [line.dict() for line in parsed.lines]
+                text = str(parsed.text or "").strip()
                 if text:
                     texts.append(text)
-                lines = list(subresult.data.get("lines") or [])
                 merged_lines.extend(lines)
+                backend = parsed.backend or batch_backend or self.model_name
                 reads.append(
                     {
                         field_name: item.dict() if hasattr(item, "dict") else item,
                         "text": text,
                         "lines": lines,
-                        "timestamp_s": subresult.data.get("timestamp_s"),
-                        "source_frame_path": subresult.data.get("source_frame_path"),
-                        "backend": subresult.data.get("backend"),
+                        "timestamp_s": parsed.timestamp_s,
+                        "source_frame_path": parsed.source_frame_path,
+                        "backend": backend,
                     }
                 )
             merged_data = {
@@ -841,13 +1037,14 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
                 tool_name=self.name,
                 ok=True,
                 data=merged_data,
-                raw_output_text=_join_text_blocks(raw_blocks),
+                raw_output_text=raw,
                 artifact_refs=_dedupe_artifact_refs(artifact_refs),
                 request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
                 summary="OCR completed for %d input item(s)." % len(reads),
                 metadata={
                     "backend": merged_data["backend"],
                     "group_count": len(reads),
+                    "batch_execution": "single_subprocess",
                     **_confidence_metadata(
                         [line.get("confidence") for line in merged_lines],
                         kind="ocr_line",
@@ -997,6 +1194,12 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
     def execute(self, request, context):
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
+        low_signal_output = False
+        candidate_chunks = [str(parsed.answer or "").strip(), str(parsed.analysis or "").strip()]
+        candidate_chunks.extend(str(item).strip() for item in list(parsed.supporting_points or []) if str(item).strip())
+        if candidate_chunks and all(is_low_signal_text(item) for item in candidate_chunks):
+            low_signal_output = True
+            parsed = GenericPurposeOutput(answer="", analysis="", supporting_points=[], confidence=parsed.confidence)
         data = {
             "response": parsed.answer,
             "answer": parsed.answer,
@@ -1010,9 +1213,14 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
             data=data,
             raw_output_text=raw,
             request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
-            summary=(parsed.answer or parsed.analysis or "")[:2000],
+            summary=(
+                "generic_purpose produced a low-signal response and it was omitted from evidence."
+                if low_signal_output
+                else (parsed.answer or parsed.analysis or "")[:2000]
+            ),
             metadata={
                 "backend": self.model_name,
+                "low_signal_output": low_signal_output,
                 **_confidence_metadata([parsed.confidence], kind="answer_confidence"),
             },
         )
