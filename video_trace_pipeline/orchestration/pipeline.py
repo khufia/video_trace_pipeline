@@ -1,13 +1,15 @@
 from __future__ import annotations
 
+import contextlib
 import json
+import os
 import re
 from typing import Dict, List, Optional
 
 from ..agents import AtomicFactAgent, OpenAIChatClient, PlannerAgent, TraceAuditorAgent, TraceSynthesizerAgent
 from ..common import sanitize_for_persistence, write_json, write_text
 from ..config import save_runtime_snapshot
-from ..renderers import export_trace_for_benchmark, render_trace_markdown
+from ..renderers import export_trace_for_benchmark, render_trace_markdown, write_run_debug_bundle, write_run_readable_bundle
 from ..schemas import InferenceStep, TracePackage
 from ..storage import EvidenceLedger, SharedEvidenceCache, WorkspaceManager
 from ..tools import ObservationExtractor, ToolRegistry
@@ -122,6 +124,15 @@ class PipelineRunner(object):
     def _write_runtime_snapshot(self, run):
         payload = {
             "machine": self.profile.redacted_snapshot(),
+            "runtime_environment": sanitize_for_persistence(
+                {
+                    "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                    "cuda_device_order": os.environ.get("CUDA_DEVICE_ORDER"),
+                    "requested_nvidia_smi_gpu_indices": os.environ.get("VTP_NVIDIA_SMI_GPU_INDICES"),
+                    "machine_profile_path": os.environ.get("VTP_MACHINE_PROFILE_PATH"),
+                    "models_config_path": os.environ.get("VTP_MODELS_CONFIG_PATH"),
+                }
+            ),
             "agent_models": {
                 name: {
                     "backend": config.backend,
@@ -171,25 +182,43 @@ class PipelineRunner(object):
             "recent_observations": observations[-20:],
         }
 
+    def _refresh_run_readables(self, run) -> None:
+        with contextlib.suppress(Exception):
+            write_run_readable_bundle(run.run_dir)
+
     def run_task(
         self,
         task,
         mode: str = "generate",
         max_rounds: int = 2,
-        clip_duration_s: float = 30.0,
+        clip_duration_s: Optional[float] = None,
         initial_trace_path: Optional[str] = None,
         results_name: Optional[str] = None,
         progress_reporter=None,
     ) -> Dict[str, object]:
+        preprocess_settings = self.preprocessor.resolve_preprocess_settings(clip_duration_s)
+        effective_clip_duration_s = float(preprocess_settings["clip_duration_s"])
         run = self.workspace.create_run(task)
         self._write_runtime_snapshot(run)
+        manifest_payload = {
+            "benchmark": task.benchmark,
+            "sample_key": task.sample_key,
+            "run_id": run.run_id,
+            "mode": mode,
+            "task": task.persistable_dict(),
+            "preprocess_cache": None,
+            "clip_duration_s": effective_clip_duration_s,
+            "results_name": str(results_name or "").strip() or None,
+        }
+        self.workspace.write_run_manifest(run, manifest_payload)
+        self._refresh_run_readables(run)
         if progress_reporter is not None and hasattr(progress_reporter, "on_run_start"):
             progress_reporter.on_run_start(
                 task=task,
                 run_dir=self.workspace.relative_path(run.run_dir),
                 mode=mode,
                 max_rounds=max_rounds,
-                clip_duration_s=clip_duration_s,
+                clip_duration_s=effective_clip_duration_s,
             )
         self.preload_models(progress_reporter=progress_reporter)
         if progress_reporter is not None and hasattr(progress_reporter, "on_preprocess_start"):
@@ -199,19 +228,10 @@ class PipelineRunner(object):
             progress_reporter.on_preprocess_end(sanitize_for_persistence(preprocess_output))
         video_fingerprint = preprocess_output["video_fingerprint"]
         summary_text = preprocess_output["summary"]
-        self.workspace.write_run_manifest(
-            run,
-            {
-                "benchmark": task.benchmark,
-                "sample_key": task.sample_key,
-                "run_id": run.run_id,
-                "mode": mode,
-                "task": task.persistable_dict(),
-                "preprocess_cache": preprocess_output["cache_dir"],
-                "clip_duration_s": float(clip_duration_s),
-                "results_name": str(results_name or "").strip() or None,
-            },
-        )
+        manifest_payload["preprocess_cache"] = preprocess_output["cache_dir"]
+        manifest_payload["clip_duration_s"] = effective_clip_duration_s
+        self.workspace.write_run_manifest(run, manifest_payload)
+        self._refresh_run_readables(run)
         evidence_ledger = EvidenceLedger(run)
         execution_context = ToolExecutionContext(
             workspace=self.workspace,
@@ -242,6 +262,7 @@ class PipelineRunner(object):
             audit_raw, latest_audit = self.auditor.audit(task, current_trace_dict, initial_summary)
             write_text(run.auditor_dir / "initial_raw.txt", audit_raw)
             write_json(run.auditor_dir / "initial_report.json", latest_audit.dict())
+            self._refresh_run_readables(run)
             if progress_reporter is not None and hasattr(progress_reporter, "on_initial_audit"):
                 progress_reporter.on_initial_audit(sanitize_for_persistence(latest_audit.dict()))
             if latest_audit.verdict == "PASS":
@@ -256,6 +277,8 @@ class PipelineRunner(object):
                 if export_target is not None:
                     final_payload["exported_results_dir"] = str(export_target)
                 write_json(run.results_dir / "final_result.json", final_payload)
+                with contextlib.suppress(Exception):
+                    write_run_debug_bundle(run.run_dir)
                 self.workspace.export_run_bundle(run, task, results_name=results_name)
                 if progress_reporter is not None and hasattr(progress_reporter, "on_complete"):
                     progress_reporter.on_complete(final_payload=sanitize_for_persistence(final_payload))
@@ -292,6 +315,7 @@ class PipelineRunner(object):
             round_prefix = "round_%02d" % (rounds_executed + 1)
             write_text(run.planner_dir / ("%s_raw.txt" % round_prefix), planner_raw)
             write_json(run.planner_dir / ("%s_plan.json" % round_prefix), sanitize_for_persistence(plan.dict()))
+            self._refresh_run_readables(run)
             if progress_reporter is not None and hasattr(progress_reporter, "on_planner"):
                 progress_reporter.on_planner(
                     round_index=rounds_executed + 1,
@@ -307,6 +331,7 @@ class PipelineRunner(object):
                 progress_reporter=progress_reporter,
                 round_index=rounds_executed + 1,
             )
+            self._refresh_run_readables(run)
 
             evidence_entries = evidence_ledger.entries()
             observations = evidence_ledger.observations()
@@ -328,6 +353,7 @@ class PipelineRunner(object):
                 run.synthesizer_dir / ("%s_trace_package.json" % round_prefix),
                 sanitize_for_persistence(trace_package.dict()),
             )
+            self._refresh_run_readables(run)
             if progress_reporter is not None and hasattr(progress_reporter, "on_trace"):
                 progress_reporter.on_trace(
                     round_index=rounds_executed + 1,
@@ -343,6 +369,7 @@ class PipelineRunner(object):
             )
             write_text(run.auditor_dir / ("%s_raw.txt" % round_prefix), audit_raw)
             write_json(run.auditor_dir / ("%s_report.json" % round_prefix), latest_audit.dict())
+            self._refresh_run_readables(run)
             if progress_reporter is not None and hasattr(progress_reporter, "on_audit"):
                 progress_reporter.on_audit(
                     round_index=rounds_executed + 1,
@@ -369,6 +396,8 @@ class PipelineRunner(object):
         if export_target is not None:
             final_payload["exported_results_dir"] = str(export_target)
         write_json(run.results_dir / "final_result.json", final_payload)
+        with contextlib.suppress(Exception):
+            write_run_debug_bundle(run.run_dir)
         self.workspace.export_run_bundle(run, task, results_name=results_name)
         if progress_reporter is not None and hasattr(progress_reporter, "on_complete"):
             progress_reporter.on_complete(final_payload=sanitize_for_persistence(final_payload))

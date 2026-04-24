@@ -1,0 +1,155 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "strategy": "Use the summary-indicated moment around the Ammu-Nation audio to bound ASR, then retrieve frames from that same clip and directly count empty beer bottles visible on the table in the picture.",
+      "refinement_instructions": "Use ASR only to confirm that the relevant audio is the Phil's Ammu Nation line and that the visual evidence should be taken from that same short clip. Base the answer on the retrieved frames, not on the summary alone. In the final trace, explicitly state the counted number of empty beer bottles visible on the table in the picture and map that count to the multiple-choice option. Do not count bottles on the floor, couch area, or elsewhere off the table. If the retrieved frames vary, rely on the clearest frame(s) that actually show the table during the anchored clip.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "asr",
+          "purpose": "Verify the exact spoken phrase and anchor the relevant short clip where the line about Phil's Ammu Nation is spoken.",
+          "query": ""
+        },
+        {
+          "step_id": 2,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve frames within the same bounded clip that show the living room scene with the passed-out man and the table with empty beer bottles.",
+          "query": "living room scene with a passed-out man on a couch and a table showing empty beer bottles"
+        },
+        {
+          "step_id": 3,
+          "tool_name": "generic_purpose",
+          "purpose": "Count how many empty beer bottles are on the table in the retrieved frames from the Ammu-Nation moment.",
+          "query": "In these frames from the moment when the audio says 'Come to Phil's Ammu Nation today', count the number of empty beer bottles visible on the table in the picture. Use only bottles clearly on the table, not bottles elsewhere in the room."
+        }
+      ],
+      "trace_final_answer": "C.2.",
+      "trace_evidence_count": 5,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The relevant moment is the clip beginning around 129.03s where the Phil's Ammu-Nation-style line is heard, so the matching frames around 129-134s are the right visuals to inspect."
+        },
+        {
+          "step_id": 2,
+          "text": "In the clear table-view frames from that clip, the picture shows two bottles on the table: one on the left and one on the right, and this two-bottle count is consistent across the visible table frames."
+        },
+        {
+          "step_id": 3,
+          "text": "The analysis identifies them as beer bottles, although emptiness is not directly verified from the frames; the visible on-table count is still two."
+        },
+        {
+          "step_id": 4,
+          "text": "A count of 2 matches option C."
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.96,
+      "audit_feedback": "The trace is well anchored in time and supports that two beer bottles are visible on the table, but it does not justify that those bottles are empty. The final multiple-choice selection is therefore not fully supported by the text-only evidence.",
+      "audit_missing_information": [
+        "Whether the bottles on the table during the anchored audio are empty, not just visible beer bottles."
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace answers a question about the number of empty beer bottles, but the provided evidence explicitly preserves uncertainty about whether the two visible bottles are empty. The conclusion substitutes visible bottle count for empty-bottle count without grounding that answer-critical attribute.",
+          "evidence_ids": [
+            "ev_empty_uncertainty",
+            "ev_visual_table_bottles"
+          ]
+        },
+        {
+          "severity": "MEDIUM",
+          "category": "ANSWER_ERROR",
+          "message": "Given the stated uncertainty about emptiness, selecting option C as a definite answer is overconfident. The text supports 'two bottles on the table' but not definitively 'two empty beer bottles.'",
+          "evidence_ids": [
+            "ev_empty_uncertainty",
+            "ev_option_map"
+          ]
+        }
+      ],
+      "planner_plan_path": "planner/round_01_plan.json",
+      "planner_raw_path": "planner/round_01_raw.txt",
+      "trace_path": "synthesizer/round_01_trace_package.json",
+      "trace_raw_path": "synthesizer/round_01_raw.txt",
+      "audit_path": "auditor/round_01_report.json",
+      "audit_raw_path": "auditor/round_01_raw.txt"
+    },
+    {
+      "round_index": 2,
+      "strategy": "Preserve the already grounded temporal anchor and bottle count, and run one focused visual follow-up on the previously retrieved frame bundle to determine whether the two table bottles are empty rather than merely visible.",
+      "refinement_instructions": "Keep the prior supported facts that the relevant audio is the Ammu-Nation line around 129s-134s and that two beer bottles are visible on the glass table in the anchored scene. Replace the unsupported claim that the answer is definitely two empty bottles unless the new frame analysis directly supports emptiness. The repaired trace should explicitly distinguish 'two visible beer bottles' from 'two empty beer bottles.' Use step 2 as the controlling evidence for the missing attribute: if both bottles are visibly empty, then the trace may conclude 2 and map to option C; if only one is visibly empty, map to option B; if none are visibly empty, map to option A; if emptiness remains indeterminate from the frames, the trace must state that the evidence does not fully support a definite multiple-choice selection rather than repeating the old overconfident answer.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve a tight frame bundle within the already anchored Ammu-Nation moment, optimized for clearly seeing the two bottles on the glass table and their fill state.",
+          "query": "glass table in the living room scene with two beer bottles, showing whether the bottles contain liquid or are empty"
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "Inspect the retrieved frames and determine for each visible bottle on the table whether it appears empty, partially full, or indeterminate, then count how many are empty.",
+          "query": "For the bottles sitting on the glass table in these frames, determine whether each bottle appears empty, partially full, full, or indeterminate based only on visible liquid level or transparency cues. Then report how many table bottles are visibly empty and whether the evidence is decisive."
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 5,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The relevant moment is the clip beginning around 129.03s where the Phil's Ammu-Nation-style line is heard, so the matching frames around 129-134s are the right visuals to inspect."
+        },
+        {
+          "step_id": 2,
+          "text": "In the clear table-view frames from that clip, the picture shows two beer bottles on the table, one on the left and one on the right, and this visible two-bottle count is consistent across the inspected frames."
+        },
+        {
+          "step_id": 3,
+          "text": "The frames do not clearly show whether either bottle is empty: the left bottle may contain liquid or may only look that way because of glass color, and the right bottle also may contain liquid or may only appear that way because it is brown glass."
+        },
+        {
+          "step_id": 4,
+          "text": "Because the question asks for the number of empty beer bottles, the supported evidence is insufficient to choose among 0, 1, 2, or 3 empty bottles."
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.97,
+      "audit_feedback": "The trace is internally consistent but stops at uncertainty: it grounds two bottles on the table while explicitly leaving emptiness unresolved, so it cannot justify any answer choice and does not provide a final answer.",
+      "audit_missing_information": [
+        "Whether each of the two beer bottles on the table is empty at the moment anchored by the quoted audio",
+        "A uniquely justified answer choice, or an explicit resolved statement that the provided evidence is insufficient to select among A-D"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace correctly establishes that two beer bottles are visible on the table during the anchored audio, but it also states that emptiness is not established from the frames. Since the question asks for the number of empty beer bottles and provides only fixed multiple-choice options, the trace does not justify any unique option or an explicit final answer.",
+          "evidence_ids": [
+            "ev_visual_table_bottles",
+            "ev_empty_uncertainty",
+            "ev_option_map"
+          ]
+        },
+        {
+          "severity": "MEDIUM",
+          "category": "ANSWER_ERROR",
+          "message": "The final answer field is blank. Even if the intended conclusion is 'insufficient evidence,' that conclusion is not rendered as the final answer, so the package does not reach a complete answer state aligned with the multiple-choice question.",
+          "evidence_ids": [
+            "ev_option_map"
+          ]
+        }
+      ],
+      "planner_plan_path": "planner/round_02_plan.json",
+      "planner_raw_path": "planner/round_02_raw.txt",
+      "trace_path": "synthesizer/round_02_trace_package.json",
+      "trace_raw_path": "synthesizer/round_02_raw.txt",
+      "audit_path": "auditor/round_02_report.json",
+      "audit_raw_path": "auditor/round_02_raw.txt"
+    }
+  ]
+}

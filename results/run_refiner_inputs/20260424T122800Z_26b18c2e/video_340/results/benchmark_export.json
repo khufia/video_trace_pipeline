@@ -1,0 +1,58 @@
+{
+  "sample_key": "video_340__65ca4d212fa0",
+  "trace": {
+    "inference_steps": [
+      "The broad bang interval is 11.10s-23.54s, but the tighter grounding places the single metallic bang at 11.50s-12.50s.",
+      "The retrieved frame at 12.00s falls inside that tightened bang window and is the closest available frame to the bang in the provided evidence; in that frame, no man is clearly visible well enough to read his posture or action.",
+      "Because the bang-anchored frame does not show the man clearly enough to determine whether he is walking, drinking, leaning, or standing, none of the four options is verified."
+    ],
+    "evidence": [
+      {
+        "tool_name": "audio_temporal_grounder",
+        "evidence_text": "A broader candidate interval for the loud metallic bang was localized to 11.10s-23.54s.",
+        "observation_ids": [
+          "obs_7c75ce50c4ff0f23"
+        ],
+        "time_start_s": 11.1,
+        "time_end_s": 23.544,
+        "frame_ts_s": null
+      },
+      {
+        "tool_name": "audio_temporal_grounder",
+        "evidence_text": "A tighter localization for a single loud metallic bang or clang places it at 11.50s-12.50s.",
+        "observation_ids": [
+          "obs_d617028b5c4b0dc9"
+        ],
+        "time_start_s": 11.5,
+        "time_end_s": 12.5,
+        "frame_ts_s": null
+      },
+      {
+        "tool_name": "frame_retriever",
+        "evidence_text": "A frame was retrieved at 12.00s, which lies inside the tightened 11.50s-12.50s bang interval and is the closest available retrieved frame to the bang moment in the provided evidence.",
+        "observation_ids": [
+          "obs_290f8f0bf18bd60d",
+          "obs_d617028b5c4b0dc9"
+        ],
+        "time_start_s": 12.0,
+        "time_end_s": 12.0,
+        "frame_ts_s": 12.0
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "In the 12.00s frame, the view is out of the ship's bridge windows toward the sea and deck. No person is clearly visible in the foreground or mid-ground in a way that allows posture to be seen, and no person is seen on the bridge itself in this specific frame.",
+        "observation_ids": [
+          "obs_966f0912c699c2d8",
+          "obs_844ce88ffa54a164",
+          "obs_91b81d879c9271bc",
+          "obs_ef8d6b4d2b961cd8",
+          "obs_f2f829a96cae9158"
+        ],
+        "time_start_s": 12.0,
+        "time_end_s": 12.0,
+        "frame_ts_s": 12.0
+      }
+    ]
+  },
+  "answer": ""
+}

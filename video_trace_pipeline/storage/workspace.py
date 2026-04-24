@@ -67,8 +67,15 @@ class WorkspaceManager(object):
     def video_fingerprint(self, video_path: str) -> str:
         return fingerprint_file(video_path)
 
-    def preprocess_dir(self, video_fingerprint_value: str, model_id: str, clip_duration_s: float, prompt_version: str) -> Path:
-        return ensure_dir(
+    def preprocess_dir(
+        self,
+        video_fingerprint_value: str,
+        model_id: str,
+        clip_duration_s: float,
+        prompt_version: str,
+        settings_signature: Optional[str] = None,
+    ) -> Path:
+        path = (
             self.preprocess_root
             / video_fingerprint_value
             / "dense_caption"
@@ -76,6 +83,9 @@ class WorkspaceManager(object):
             / sanitize_path_component(str(int(clip_duration_s)))
             / sanitize_path_component(prompt_version)
         )
+        if str(settings_signature or "").strip():
+            path = path / sanitize_path_component(str(settings_signature))
+        return ensure_dir(path)
 
     def evidence_cache_dir(self, tool_name: str, request_hash: str) -> Path:
         return ensure_dir(

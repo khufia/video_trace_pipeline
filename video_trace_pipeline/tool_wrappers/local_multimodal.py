@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import contextlib
+import functools
 import inspect
 import json
 import logging
@@ -288,6 +289,31 @@ def _patch_qwen_vl_video_reader_bounds() -> None:
         vision_process._video_trace_pipeline_bounds_patch = True
 
 
+def _patch_qwen35_flash_attention_position_ids() -> None:
+    with contextlib.suppress(Exception):
+        from transformers.models.qwen3_5 import modeling_qwen3_5
+
+        attention_cls = getattr(modeling_qwen3_5, "Qwen3_5Attention", None)
+        if attention_cls is None or getattr(attention_cls, "_video_trace_pipeline_position_ids_patch", False):
+            return
+
+        original_forward = attention_cls.forward
+
+        @functools.wraps(original_forward)
+        def _forward(self, *args, **kwargs):
+            position_ids = kwargs.get("position_ids")
+            if getattr(position_ids, "ndim", 0) == 3 and getattr(position_ids, "shape", (0,))[0] >= 1:
+                # Qwen3.5 uses 3D multimodal RoPE position ids, but FlashAttention's
+                # packed-sequence heuristic expects 2D text positions. Feeding the
+                # 3D tensor into that path can misclassify ordinary single-sample
+                # requests as packed sequences and crash inside flash-attn2.
+                kwargs["position_ids"] = position_ids[0]
+            return original_forward(self, *args, **kwargs)
+
+        attention_cls.forward = _forward
+        attention_cls._video_trace_pipeline_position_ids_patch = True
+
+
 def _qwen_style_model(model_path: str, device_label: str, *, attn_implementation: str | None = None):
     import torch
     import transformers
@@ -408,6 +434,7 @@ class QwenStyleRunner:
                 processor_source,
                 **processor_kwargs,
             )
+        _patch_qwen35_flash_attention_position_ids()
         self.model = _qwen_style_model(
             model_path,
             device_label,

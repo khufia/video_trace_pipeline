@@ -1,0 +1,61 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "strategy": "Localize the customer-survey chart/table comparing grocers on Store Cleanliness and Value for Dollar, retrieve the best frames from that bounded clip, then use targeted frame analysis to read the two percentages for Walmart, Target, Whole Foods, and Albertsons and identify the largest gap.",
+      "refinement_instructions": "Build the trace around the survey graphic evidence, not the narration alone. Use step 1 only to justify the temporal anchor. Use step 2 to establish the exact frames that contain the comparison graphic. Use step 3 as the decisive evidence source: preserve the extracted percentages for Store Cleanliness and Value for Dollar for Walmart, Target, Whole Foods, and Albertsons, and explicitly compare the absolute gaps across those four stores. The final answer should be based on the largest verified gap and then mapped to the closest option if the extracted difference is approximate. Do not infer from Aldi-related narration, since Aldi is not among the answer choices. If multiple retrieved frames show partial or progressive versions of the graphic, rely on the frame(s) that most clearly show both categories and the relevant store rows; do not average across inconsistent partial reads.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "visual_temporal_grounder",
+          "purpose": "Find the clip where the survey graphic or chart shows grocers with customer-rated categories including Store Cleanliness and Value for Dollar.",
+          "query": "graphic or chart comparing grocery stores on customer survey ratings, including Store Cleanliness and Value for Dollar for stores such as Walmart, Target, Whole Foods, and Albertsons"
+        },
+        {
+          "step_id": 2,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve the most relevant frames within the localized chart clip that clearly show the store names and the two rating categories needed for comparison.",
+          "query": "customer survey chart or table showing Walmart, Target, Whole Foods, and Albertsons with Store Cleanliness and Value for Dollar percentages"
+        },
+        {
+          "step_id": 3,
+          "tool_name": "generic_purpose",
+          "purpose": "Read the grounded frames and extract the Store Cleanliness and Value for Dollar percentages for Walmart, Target, Whole Foods, and Albertsons, then compute which store has the largest discrepancy and the approximate difference in percentage points.",
+          "query": "From these frames, identify the percentages for Store Cleanliness and Value for Dollar for Walmart, Target, Whole Foods, and Albertsons. Compute the absolute difference between those two percentages for each of the four stores, and report which store has the largest discrepancy and the approximate magnitude in percentage points. Quote the relevant values used."
+        }
+      ],
+      "trace_final_answer": "B. Whole Foods, 65%",
+      "trace_evidence_count": 4,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The relevant survey graphic appears in the video during 158.00s-168.00s and again during 207.00s-213.00s, so those intervals anchor where the needed comparison charts are shown."
+        },
+        {
+          "step_id": 2,
+          "text": "The retrieved frames cover those anchored intervals, and the clearest complete views are identified as frame 6 for the Customer Satisfaction by Store Attribute chart and frame 12 for the Value for Dollar chart, each showing all stores needed for comparison."
+        },
+        {
+          "step_id": 3,
+          "text": "From those chart reads, the approximate pairs are Walmart 25% vs 68%, Target 65% vs 40%, Whole Foods 75% vs 10%, and Albertsons 55% vs 23%, giving absolute gaps of about 43, 25, 65, and 32 percentage points respectively."
+        },
+        {
+          "step_id": 4,
+          "text": "The largest verified gap is Whole Foods at about 65 percentage points, which matches the Whole Foods 65% option."
+        }
+      ],
+      "audit_verdict": "PASS",
+      "audit_confidence": 0.97,
+      "audit_feedback": "The trace is aligned with the question, uses textually provided chart reads for all four stores, computes the absolute differences correctly, and selects the matching option uniquely.",
+      "audit_missing_information": [],
+      "audit_findings": [],
+      "planner_plan_path": "planner/round_01_plan.json",
+      "planner_raw_path": "planner/round_01_raw.txt",
+      "trace_path": "synthesizer/round_01_trace_package.json",
+      "trace_raw_path": "synthesizer/round_01_raw.txt",
+      "audit_path": "auditor/round_01_report.json",
+      "audit_raw_path": "auditor/round_01_raw.txt"
+    }
+  ]
+}

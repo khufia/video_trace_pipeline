@@ -1,0 +1,36 @@
+workspace_root: /nfs-stor/ghazi.ahmad/video_trace_pipeline
+hf_cache: /nfs-stor/ghazi.ahmad/HF_HOME
+ffmpeg_bin: ffmpeg
+
+datasets:
+  videomathqa:
+    root: /nfs-stor/ghazi.ahmad/VideoMathQA
+    annotations: /nfs-stor/ghazi.ahmad/VideoMathQA/mcq.json
+    videos_subdir: videos
+  minerva:
+    root: /nfs-stor/ghazi.ahmad/minerva
+    annotations: /nfs-stor/ghazi.ahmad/minerva/annotations.json
+    videos_subdir: videos
+  omnivideobench:
+    root: /nfs-stor/ghazi.ahmad/omnivideobench
+    annotations: /nfs-stor/ghazi.ahmad/omnivideobench/annotations.json
+    videos_subdir: videos
+
+agent_endpoints:
+  default:
+    base_url: https://api.openai.com/v1
+    api_key_env: OPENAI_API_KEY
+
+gpu_assignments:
+  visual_temporal_grounder: cuda:0
+  audio_temporal_grounder: cuda:0
+  asr: cuda:0
+  dense_captioner: cuda:1
+  frame_retriever: cuda:1
+  ocr: cuda:1
+  spatial_grounder: cuda:1
+  generic_purpose: cuda:1
+
+env_overrides:
+  HF_HOME: /nfs-stor/ghazi.ahmad/HF_HOME
+  TEMPORAL_GROUNDER_DEVICE_INDEX: "0"

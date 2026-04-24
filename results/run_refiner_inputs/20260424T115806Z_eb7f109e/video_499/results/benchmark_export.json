@@ -1,0 +1,68 @@
+{
+  "sample_key": "video_499__cdf7364687f2",
+  "trace": {
+    "inference_steps": [
+      "In the clear binocular-view frames where Dr. Sturgis and the pot are visible, he is holding the pot in his left hand.",
+      "The dialogue explicitly says Sheldon's brother was born premature, and then confirms it again by calling him a \"preemie,\" so the second part is yes.",
+      "Combining left hand with yes matches option A."
+    ],
+    "evidence": [
+      {
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "The binoculars scene with Sheldon observing Dr. Sturgis holding a pot is grounded at 10.00-15.00s, 163.00-169.00s, and 181.00-183.00s.",
+        "observation_ids": [
+          "obs_27b5432d3202dc40",
+          "obs_0ea1bd16efa29152",
+          "obs_640e1f44da50197f"
+        ],
+        "time_start_s": 10.0,
+        "time_end_s": 183.0,
+        "frame_ts_s": null
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "In the binocular-view frames where Dr. Sturgis and the pot are clearly visible, Frame 7 shows Dr. Sturgis walking out of a house with a large black pot in his left hand, and Frame 8 shows him on the porch still holding the pot in his left hand.",
+        "observation_ids": [
+          "obs_e435dd8ca4b4acde",
+          "obs_68ed0f47b85522aa",
+          "obs_4a28e0a613fa1789",
+          "obs_a67c6f30d10ccbdb",
+          "obs_624fc087cb5c5f1b",
+          "obs_7221567afc66bb4f"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null
+      },
+      {
+        "tool_name": "asr",
+        "evidence_text": "From 58.03s to 95.19s, the dialogue explicitly includes: \"That's because you were born premature.\" It is later reinforced by \"Yes, that's true\" and \"You were a big fat preemie.\"",
+        "observation_ids": [
+          "obs_569168d532d65f05",
+          "obs_abfcbb2778a8be87",
+          "obs_5d964c2789b0a73f",
+          "obs_ef64d6d88284b318",
+          "obs_114f8a4b51b16861",
+          "obs_7012b2627014ef5b"
+        ],
+        "time_start_s": 58.031,
+        "time_end_s": 95.19,
+        "frame_ts_s": null
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "The answer choices are: A left hand, yes; B left hand, no; C right hand, yes; D right hand, no.",
+        "observation_ids": [
+          "obs_feb7998a7d2b250e",
+          "obs_14d462edb49d6d59",
+          "obs_9104a8ee400c6f28",
+          "obs_759700b13ddf1edc"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null
+      }
+    ]
+  },
+  "answer": "A"
+}

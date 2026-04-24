@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "Sheldon looking through binoculars out a window at Dr. Sturgis outside near Meemaw's house, with Dr. Sturgis visible holding a pot",
+    "clips": [
+      {
+        "video_id": "video_499",
+        "start_s": 10.0,
+        "end_s": 15.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "video_499",
+        "start_s": 163.0,
+        "end_s": 169.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "video_499",
+        "start_s": 181.0,
+        "end_s": 183.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 201.7,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 10.00s-15.00s, 163.00s-169.00s, 181.00s-183.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 4,
+      "candidate_windows": 4,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"Sheldon looking through binoculars out a window at Dr. Sturgis outside near Meemaw's house, with Dr. Sturgis visible holding a pot\", \"clips\": [{\"video_id\": \"video_499\", \"start_s\": 10.0, \"end_s\": 15.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"video_499\", \"start_s\": 163.0, \"end_s\": 169.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"video_499\", \"start_s\": 181.0, \"end_s\": 183.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 201.7, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 10.00s-15.00s, 163.00s-169.00s, 181.00s-183.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 4, \"candidate_windows\": 4, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "667d424eaa21d3b7004b1b1f",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 10.00s-15.00s, 163.00s-169.00s, 181.00s-183.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 4,
+      "candidate_windows": 4,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 0.9833,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-24T12:00:07.061729+00:00",
+      "finished_at_utc": "2026-04-24T12:01:00.591281+00:00",
+      "duration_s": 53.5296,
+      "cache_wait_s": 0.0006,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_27b5432d3202dc40",
+      "obs_0ea1bd16efa29152",
+      "obs_640e1f44da50197f"
+    ]
+  }
+}

@@ -63,3 +63,58 @@ def test_summary_from_captions_uses_mapped_fields():
     assert "speech: Milk is $2.18." in summary
     assert "PRICE IN NEW YORK CITY" in summary
     assert "camera_state: top-down" in summary
+
+
+def test_execute_payload_skips_sampled_frames_when_collection_disabled(monkeypatch, tmp_path):
+    sample_calls = {"count": 0}
+
+    def _fake_sample_request_frames(*args, **kwargs):
+        del args, kwargs
+        sample_calls["count"] += 1
+        return [{"frame_path": "unused.jpg", "timestamp_s": 0.0}]
+
+    class _FakeRunner(object):
+        def generate(self, conversation, max_new_tokens):
+            del conversation, max_new_tokens
+            return '{"captions":[{"start":0.0,"end":5.0,"visual":"A shopper enters the store.","audio":"","on_screen_text":"ALDI","actions":["enters store"],"objects":["shopper"],"attributes":["bright aisle"]}],"overall_summary":"A shopper enters the store."}'
+
+    class _ClipContext(object):
+        def __enter__(self):
+            return str(tmp_path / "clip.mp4")
+
+        def __exit__(self, exc_type, exc, tb):
+            del exc_type, exc, tb
+            return False
+
+    monkeypatch.setattr(timechat_dense_caption_runner, "sample_request_frames", _fake_sample_request_frames)
+    monkeypatch.setattr(timechat_dense_caption_runner, "resolve_model_path", lambda *args, **kwargs: "/models/fake")
+    monkeypatch.setattr(timechat_dense_caption_runner, "resolved_device_label", lambda runtime: "cuda:0")
+    monkeypatch.setattr(timechat_dense_caption_runner, "scratch_dir", lambda runtime, name: tmp_path / name)
+    monkeypatch.setattr(timechat_dense_caption_runner, "extracted_clip", lambda *args, **kwargs: _ClipContext())
+    monkeypatch.setattr(timechat_dense_caption_runner, "make_timechat_video_conversation", lambda *args, **kwargs: [])
+
+    payload = {
+        "request": {
+            "clip": {"video_id": "video1", "start_s": 0.0, "end_s": 5.0},
+            "granularity": "segment",
+            "focus_query": "",
+        },
+        "task": {"video_path": str(tmp_path / "video.mp4")},
+        "runtime": {
+            "model_name": "fake-model",
+            "device": "cuda:0",
+            "extra": {
+                "fps": 1.0,
+                "max_frames": 96,
+                "collect_sampled_frames": False,
+                "use_audio_in_video": False,
+                "max_new_tokens": 700,
+            },
+        },
+    }
+
+    result = timechat_dense_caption_runner.execute_payload(payload, runner=_FakeRunner())
+
+    assert sample_calls["count"] == 0
+    assert result["sampled_frames"] == []
+    assert result["captions"][0]["visual"] == "A shopper enters the store."

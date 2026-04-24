@@ -38,7 +38,7 @@ _PLANNED_TOOL_MODELS = {
     "dense_captioner": "yaolily/TimeChat-Captioner-GRPO-7B",
     "frame_retriever": "Qwen/Qwen3-VL-Embedding-8B",
     "generic_purpose": "Qwen/Qwen3.5-9B",
-    "ocr": "allenai/olmOCR-2-7B-1025-FP8",
+    "ocr": "PaddleOCR",
     "spatial_grounder": "Qwen/Qwen3.5-9B",
     "visual_temporal_grounder": "TencentARC/TimeLens-8B",
 }

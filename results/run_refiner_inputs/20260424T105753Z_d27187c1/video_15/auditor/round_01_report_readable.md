@@ -1,0 +1,22 @@
+# Round 01 Audit
+
+- Verdict: FAIL
+- Confidence: 0.95
+- Feedback: The root problem is the unsupported mapping from Mary to 'the person in red.' The transcript grounds Mary and also grounds that the kids support the idea, so the current trace does not justify selecting option B over option C from text alone.
+
+## Missing Information
+
+- Which answer choice Mary corresponds to among the visible people
+- Whether the question expects the proposer of the water-slide idea or any group that wants to do it when both Mary and the children are textually supported
+
+## Findings
+
+- [HIGH/INCOMPLETE_TRACE] The trace supports that Mary is associated with the water-slide idea and that multiple people, including the kids, support it, but it does not justify mapping Mary to the answer choice 'the person in red.' The only mapping evidence cited is a generic summary that itself says this is based on context clues and image inspection, which is not grounded by the provided textual evidence.
+  Evidence: ev_syn_02, ev_syn_03, ev_syn_04, ev_02_ad444028
+- [MEDIUM/INFERENCE_ERROR] The trace overcommits from 'Mary pitched/won the vote' to 'the correct answer is the person in red rather than the children alone.' The evidence explicitly says 'It's all the kids' and reports raised hands for the slide plan, so the text supports that children want it too. Without a grounded identity-to-option mapping, the exclusion of option C is not justified from text alone.
+  Evidence: ev_syn_03, ev_02_ad444028
+
+## Files
+
+- [audit json](auditor/round_01_report.json)
+- [auditor raw](auditor/round_01_raw.txt)

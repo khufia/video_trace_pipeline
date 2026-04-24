@@ -79,6 +79,64 @@ def test_qwen_style_runner_honors_requested_attn_implementation(monkeypatch):
     runner.model = None
 
 
+def test_patch_qwen35_flash_attention_position_ids_reduces_multirope_positions(monkeypatch):
+    fake_transformers = types.ModuleType("transformers")
+    fake_models = types.ModuleType("transformers.models")
+    fake_qwen_package = types.ModuleType("transformers.models.qwen3_5")
+    fake_modeling = types.ModuleType("transformers.models.qwen3_5.modeling_qwen3_5")
+
+    class FakeAttention:
+        def forward(self, *args, **kwargs):
+            del args
+            return kwargs.get("position_ids")
+
+    fake_modeling.Qwen3_5Attention = FakeAttention
+    fake_qwen_package.modeling_qwen3_5 = fake_modeling
+    fake_models.qwen3_5 = fake_qwen_package
+    fake_transformers.models = fake_models
+
+    monkeypatch.setitem(sys.modules, "transformers", fake_transformers)
+    monkeypatch.setitem(sys.modules, "transformers.models", fake_models)
+    monkeypatch.setitem(sys.modules, "transformers.models.qwen3_5", fake_qwen_package)
+    monkeypatch.setitem(sys.modules, "transformers.models.qwen3_5.modeling_qwen3_5", fake_modeling)
+
+    local_multimodal._patch_qwen35_flash_attention_position_ids()
+
+    position_ids = torch.arange(12).view(3, 1, 4)
+    reduced = FakeAttention().forward(position_ids=position_ids)
+
+    assert torch.equal(reduced, position_ids[0])
+
+
+def test_qwen_style_runner_applies_qwen35_flash_attention_position_patch(monkeypatch):
+    patched = {"called": False}
+
+    class FakeAutoProcessor:
+        @classmethod
+        def from_pretrained(cls, model_path, **kwargs):
+            del model_path, kwargs
+            return object()
+
+    fake_transformers = types.ModuleType("transformers")
+    fake_transformers.AutoProcessor = FakeAutoProcessor
+    monkeypatch.setitem(sys.modules, "transformers", fake_transformers)
+    monkeypatch.setattr(local_multimodal, "_qwen_style_model", lambda *args, **kwargs: object())
+    monkeypatch.setattr(
+        local_multimodal,
+        "_patch_qwen35_flash_attention_position_ids",
+        lambda: patched.__setitem__("called", True),
+    )
+
+    runner = local_multimodal.QwenStyleRunner(
+        model_path="/tmp/demo-model",
+        device_label="cuda:0",
+        attn_implementation="flash_attention_2",
+    )
+
+    assert patched["called"] is True
+    runner.model = None
+
+
 def test_qwen_style_runner_generate_applies_video_bounds_patch(monkeypatch):
     patched = {"called": False}
 

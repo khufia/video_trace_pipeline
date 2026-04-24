@@ -205,7 +205,7 @@ def build_synthesizer_prompt(
             "TracePackage schema reminder:",
             "- task_key: string",
             "- mode: string",
-            "- evidence_entries: list of evidence packets",
+            "- evidence_entries: list[{evidence_id, tool_name, evidence_text, inference_hint?, confidence?, time_start_s?, time_end_s?, frame_ts_s?, artifact_refs, observation_ids, metadata}]",
             "- inference_steps: list[{step_id, text, supporting_observation_ids, answer_relevance}]",
             "- final_answer: string",
             "- benchmark_renderings: object",

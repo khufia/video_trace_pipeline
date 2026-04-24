@@ -75,6 +75,9 @@ def test_planner_system_prompt_uses_original_style_repair_decomposition():
     assert "Create the fewest tool calls that directly resolve the diagnosed evidence gaps." in PLANNER_SYSTEM_PROMPT
     assert "For identical prompt inputs" not in PLANNER_SYSTEM_PROMPT
     assert "Consult `AVAILABLE_TOOLS` for canonical argument names, top-level output fields, and the dynamically rendered request/output schemas." in PLANNER_SYSTEM_PROMPT
+    assert "Use it when explicit text must be read or detected from a grounded frame or region." in PLANNER_SYSTEM_PROMPT
+    assert "prefer `generic_purpose` for the frame analysis itself" in PLANNER_SYSTEM_PROMPT
+    assert "common pattern is `visual_temporal_grounder -> frame_retriever -> generic_purpose`" in PLANNER_SYSTEM_PROMPT
 
 
 def test_build_auditor_prompt_mentions_atomic_missing_information_contract():

@@ -237,7 +237,12 @@ def _normalize_span(raw: Dict[str, Any], *, start_s: float, end_s: float) -> Dic
     }
 
 
-def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPool | None" = None) -> Dict[str, Any]:
+def execute_payload(
+    payload: Dict[str, Any],
+    *,
+    runner_pool: "PersistentModelPool | None" = None,
+    runner: "TimeChatCaptionerRunner | None" = None,
+) -> Dict[str, Any]:
     request = dict(payload.get("request") or {})
     task = dict(payload.get("task") or {})
     runtime = dict(payload.get("runtime") or {})
@@ -255,15 +260,18 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
     device_label = resolved_device_label(runtime)
     out_dir = scratch_dir(runtime, "dense_captioner")
-    sampled = sample_request_frames(
-        request,
-        task,
-        out_dir=out_dir,
-        prefix="dense_caption",
-        num_frames=int((runtime.get("extra") or {}).get("sample_frames") or 10),
-    )
-    if not sampled:
-        fail_runtime("dense_captioner could not sample any frames from the requested clip")
+    collect_sampled_frames = bool((runtime.get("extra") or {}).get("collect_sampled_frames", True))
+    sampled = []
+    if collect_sampled_frames:
+        sampled = sample_request_frames(
+            request,
+            task,
+            out_dir=out_dir,
+            prefix="dense_caption",
+            num_frames=int((runtime.get("extra") or {}).get("sample_frames") or 10),
+        )
+        if not sampled:
+            fail_runtime("dense_captioner could not sample any frames from the requested clip")
 
     focus_query = str(request.get("focus_query") or "").strip()
     granularity = str(request.get("granularity") or "segment").strip()
@@ -274,21 +282,25 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     video_max_pixels = int((runtime.get("extra") or {}).get("video_max_pixels") or max_pixels)
     use_audio_in_video = bool((runtime.get("extra") or {}).get("use_audio_in_video", True))
     attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
+    modality_text = "audio-visual" if use_audio_in_video else "visual"
     prompt = (
-        "You are a dense audio-visual captioning model for one bounded video clip.\n"
+        f"You are a dense {modality_text} captioning model for one bounded video clip.\n"
         "Return JSON only with keys: captions, overall_summary.\n"
         "Each captions item must contain: start, end, visual, audio, on_screen_text, actions, objects, attributes.\n"
         "Use timestamps as relative seconds inside the provided clip, starting at 0.0.\n"
-        "Keep captions chronological and cover the important scene or event changes in the clip.\n"
+        "Keep captions chronological and cover the important visible changes in the clip.\n"
+        "Prioritize visible entities, actions, on-screen text, charts, quantities, labels, and event progression.\n"
+        "Do not spend space on generic camera, background, or shooting-style narration unless it materially affects what happens.\n"
         "Use one atomic item per action/object/attribute entry.\n"
         "If a field is unavailable, use an empty string or an empty list.\n\n"
         f"Clip duration: {max(0.0, end_s - start_s):.3f}\n"
         f"Granularity: {granularity}\n"
         f"Focus query: {focus_query or '<none>'}"
     )
-    runner = None
+    if not use_audio_in_video:
+        prompt += "\nAudio is disabled for this request. Leave audio as an empty string unless clear speech text appears on screen."
     owns_runner = False
-    if runner_pool is not None:
+    if runner is None and runner_pool is not None:
         runner = runner_pool.acquire_timechat_runner(
             tool_name="dense_captioner",
             model_path=model_path,

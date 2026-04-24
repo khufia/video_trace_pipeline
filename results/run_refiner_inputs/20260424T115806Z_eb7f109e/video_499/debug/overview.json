@@ -1,0 +1,210 @@
+{
+  "run": {
+    "run_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/adhoc/video_499__cdf7364687f2/20260424T115806Z_eb7f109e",
+    "benchmark": "adhoc",
+    "sample_key": "video_499__cdf7364687f2",
+    "run_id": "20260424T115806Z_eb7f109e",
+    "mode": "generate"
+  },
+  "task": {
+    "question": "Which hand is Dr. Sturgis holding the pot in when Sheldon observes him through the binoculars, and was Sheldon's brother a premature baby?",
+    "options": [
+      "A left hand, yes",
+      "B left hand, no",
+      "C right hand, yes",
+      "D right hand, no"
+    ],
+    "gold_answer": "left hand, no",
+    "video_id": "video_499",
+    "question_id": ""
+  },
+  "result": {
+    "final_answer": "A",
+    "latest_audit_verdict": "PASS",
+    "latest_audit_feedback": "The trace is aligned with the question, grounds the hand determination in explicit frame-based text, grounds the premature-baby determination in explicit dialogue text, and correctly maps the combined result to option A.",
+    "rounds_executed": 1
+  },
+  "rounds": [
+    {
+      "round_index": 1,
+      "strategy": "Use one visual branch to localize the binoculars scene and inspect frames for which hand holds the pot, and one speech branch to transcribe the family conversation about whether Sheldon's brother was premature.",
+      "refinement_instructions": "Build the answer from direct evidence only. For the hand subquestion, rely on step 3's frame-based determination from the binoculars scene; do not infer handedness from summary text alone. If multiple frames differ, use only the frames where Dr. Sturgis and the pot are clearly visible and note any ambiguity rather than guessing. For the premature-baby subquestion, use the ASR transcript from step 4 to capture the explicit dialogue: the brother asks about being premature and the mother says he was born premature, even if the exchange is comedic or contradictory. Map the final answer to the option combining the verified hand and whether the dialogue explicitly says yes or no about prematurity.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "asr",
+          "purpose": "Transcribe the dialogue where Sheldon's brother asks whether he was born before the wedding and the mother discusses prematurity.",
+          "query": ""
+        },
+        {
+          "step_id": 2,
+          "tool_name": "visual_temporal_grounder",
+          "purpose": "Localize the scene where Sheldon watches Dr. Sturgis through binoculars and Dr. Sturgis is visible holding a pot.",
+          "query": "Sheldon looking through binoculars out a window at Dr. Sturgis outside near Meemaw's house, with Dr. Sturgis visible holding a pot"
+        },
+        {
+          "step_id": 3,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve the most relevant frames within the localized binoculars scene that clearly show Dr. Sturgis and the pot for hand identification.",
+          "query": "Dr. Sturgis holding a pot while being observed through binoculars, showing which hand holds the pot"
+        },
+        {
+          "step_id": 4,
+          "tool_name": "generic_purpose",
+          "purpose": "Determine whether Dr. Sturgis is holding the pot in his left or right hand from the retrieved frames.",
+          "query": "For each frame, identify Dr. Sturgis and the pot, then determine whether the pot is being held in Dr. Sturgis's left hand or right hand. Use only clearly visible frames and report the consistent hand if visible."
+        }
+      ],
+      "trace_final_answer": "A",
+      "trace_evidence_count": 4,
+      "trace_inference_count": 3,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "In the clear binocular-view frames where Dr. Sturgis and the pot are visible, he is holding the pot in his left hand."
+        },
+        {
+          "step_id": 2,
+          "text": "The dialogue explicitly says Sheldon's brother was born premature, and then confirms it again by calling him a \"preemie,\" so the second part is yes."
+        },
+        {
+          "step_id": 3,
+          "text": "Combining left hand with yes matches option A."
+        }
+      ],
+      "audit_verdict": "PASS",
+      "audit_confidence": 0.96,
+      "audit_feedback": "The trace is aligned with the question, grounds the hand determination in explicit frame-based text, grounds the premature-baby determination in explicit dialogue text, and correctly maps the combined result to option A.",
+      "audit_missing_information": [],
+      "audit_findings": [],
+      "planner_plan_path": "planner/round_01_plan.json",
+      "planner_raw_path": "planner/round_01_raw.txt",
+      "trace_path": "synthesizer/round_01_trace_package.json",
+      "trace_raw_path": "synthesizer/round_01_raw.txt",
+      "audit_path": "auditor/round_01_report.json",
+      "audit_raw_path": "auditor/round_01_raw.txt"
+    }
+  ],
+  "tool_steps": [
+    {
+      "tool_dir": "01_asr",
+      "tool_name": "asr",
+      "query": "",
+      "input_summary": "clips=58s-96s",
+      "result_summary": "You can ask me anything. Were you pregnant with me when you married dad? Um, why would you ask that? Sheldon said so. How would Sheldon know? He did the math. What math? He said the time between my birthday and your w...",
+      "summary_excerpt": "# Tool Step 01 - asr ## Summary You can ask me anything. Were you pregnant with me when you married dad? Um, why would you ask that? Sheldon said so. How would Sheldon know? He did the math. What math? He said the time between my birthday and your wedding day was six months. Um, yeah. That's beca...",
+      "ok": true,
+      "cache_hit": false,
+      "execution_mode": "executed",
+      "duration_s": 66.6079,
+      "observation_count": 29,
+      "artifact_count": 0,
+      "request_path": "tools/01_asr/request_full.json",
+      "result_path": "tools/01_asr/result.json",
+      "summary_path": "tools/01_asr/summary.md",
+      "timing_path": "tools/01_asr/timing.json"
+    },
+    {
+      "tool_dir": "02_visual_temporal_grounder",
+      "tool_name": "visual_temporal_grounder",
+      "query": "Sheldon looking through binoculars out a window at Dr. Sturgis outside near Meemaw's house, with Dr. Sturgis visible holding a pot",
+      "input_summary": "top_k=3",
+      "result_summary": "The queried event appears at: 10.00s-15.00s, 163.00s-169.00s, 181.00s-183.00s.",
+      "summary_excerpt": "# Tool Step 02 - visual_temporal_grounder ## Summary The queried event appears at: 10.00s-15.00s, 163.00s-169.00s, 181.00s-183.00s. ## Observations - \"Sheldon looking through binoculars out a window at Dr. Sturgis outside near Meemaw's house, with Dr. Sturgis visible holding a pot\" is present fro...",
+      "ok": true,
+      "cache_hit": false,
+      "execution_mode": "executed",
+      "duration_s": 53.5296,
+      "observation_count": 3,
+      "artifact_count": 0,
+      "request_path": "tools/02_visual_temporal_grounder/request_full.json",
+      "result_path": "tools/02_visual_temporal_grounder/result.json",
+      "summary_path": "tools/02_visual_temporal_grounder/summary.md",
+      "timing_path": "tools/02_visual_temporal_grounder/timing.json"
+    },
+    {
+      "tool_dir": "03_frame_retriever",
+      "tool_name": "frame_retriever",
+      "query": "Dr. Sturgis holding a pot while being observed through binoculars, showing which hand holds the pot",
+      "input_summary": "clips=10s-15s, 163s-169s, 181s-183s; num_frames=4",
+      "result_summary": "clips: 10s-15s, 163s-169s, 181s-183s",
+      "summary_excerpt": "# Tool Step 03 - frame_retriever ## Summary Retrieved 11 frame(s) across 3 input clip(s). ## Observations - A candidate frame was retrieved at 15.00s. - A candidate frame was retrieved at 13.00s. - A candidate frame was retrieved at 12.00s. - A candidate frame was retrieved at 11.00s. - A candida...",
+      "ok": true,
+      "cache_hit": false,
+      "execution_mode": "executed",
+      "duration_s": 134.895,
+      "observation_count": 11,
+      "artifact_count": 11,
+      "request_path": "tools/03_frame_retriever/request_full.json",
+      "result_path": "tools/03_frame_retriever/result.json",
+      "summary_path": "tools/03_frame_retriever/summary.md",
+      "timing_path": "tools/03_frame_retriever/timing.json"
+    },
+    {
+      "tool_dir": "04_generic_purpose",
+      "tool_name": "generic_purpose",
+      "query": "For each frame, identify Dr. Sturgis and the pot, then determine whether the pot is being held in Dr. Sturgis's left hand or right hand. Use only clearly visible frames and report the consistent hand if visible.",
+      "input_summary": "clips=10s-15s; frames=15s, 13s, 12s, 11s, 164s, 163s, +5 more",
+      "result_summary": "The user wants me to identify which hand Dr. Sturgis is holding a pot in, based on the provided video frames. I also need to answer a secondary question about whether Sheldon's brother was a premature baby, based on t...",
+      "summary_excerpt": "# Tool Step 04 - generic_purpose ## Summary The user wants me to identify which hand Dr. Sturgis is holding a pot in, based on the provided video frames. I also need to answer a secondary question about whether Sheldon's brother was a premature baby, based on the provided options. **Step 1: Analy...",
+      "ok": true,
+      "cache_hit": false,
+      "execution_mode": "executed",
+      "duration_s": 81.3431,
+      "observation_count": 26,
+      "artifact_count": 0,
+      "request_path": "tools/04_generic_purpose/request_full.json",
+      "result_path": "tools/04_generic_purpose/result.json",
+      "summary_path": "tools/04_generic_purpose/summary.md",
+      "timing_path": "tools/04_generic_purpose/timing.json"
+    }
+  ],
+  "evidence_summary": {
+    "evidence_entry_count": 4,
+    "observation_count": 69,
+    "evidence_entries_by_tool": [
+      {
+        "tool_name": "asr",
+        "count": 1
+      },
+      {
+        "tool_name": "frame_retriever",
+        "count": 1
+      },
+      {
+        "tool_name": "generic_purpose",
+        "count": 1
+      },
+      {
+        "tool_name": "visual_temporal_grounder",
+        "count": 1
+      }
+    ],
+    "observations_by_tool": [
+      {
+        "tool_name": "asr",
+        "count": 29
+      },
+      {
+        "tool_name": "generic_purpose",
+        "count": 26
+      },
+      {
+        "tool_name": "frame_retriever",
+        "count": 11
+      },
+      {
+        "tool_name": "visual_temporal_grounder",
+        "count": 3
+      }
+    ]
+  },
+  "key_files": {
+    "final_result": "results/final_result.json",
+    "trace_readable": "trace/trace_readable.md",
+    "trace_package": "trace/trace_package.json",
+    "evidence_readable": "evidence/evidence_readable.md",
+    "run_manifest": "run_manifest.json",
+    "runtime_snapshot": "runtime_snapshot.yaml"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "backend": "spotsound",
+  "model_name": "Loie/SpotSound",
+  "device": "cuda:0",
+  "device_mapping": {
+    "requested_label": "cuda:0",
+    "resolved_label": "cuda:0",
+    "cuda_visible_devices": "1,3",
+    "cuda_device_order": null,
+    "local_index": 0,
+    "physical_index_hint": "1",
+    "mapping_source": "CUDA_VISIBLE_DEVICES"
+  },
+  "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+  "resolved_model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--Loie--SpotSound/snapshots/6765e3a265b39d4719592b2470f5596b366c2a77",
+  "model_resolution_status": "ok",
+  "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+  "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/adhoc/video_355__1afe264fa0b0/20260424T105128Z_439af265/tools/_scratch/audio_temporal_grounder",
+  "extra": {
+    "backend_name": "spotsound",
+    "base_model": "nvidia/audio-flamingo-3-hf",
+    "temperature": 0.0,
+    "do_sample": false
+  }
+}

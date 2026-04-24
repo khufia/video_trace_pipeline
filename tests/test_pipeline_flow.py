@@ -15,6 +15,9 @@ from video_trace_pipeline.storage import EvidenceLedger
 
 
 class FakePreprocessor(object):
+    def resolve_preprocess_settings(self, clip_duration_s):
+        return {"clip_duration_s": float(clip_duration_s or 60.0)}
+
     def get_or_build(self, task, clip_duration_s):
         return {
             "cache_hit": False,
@@ -113,7 +116,13 @@ def test_pipeline_runner_writes_final_outputs(tmp_path):
         results_name="rur_refiner_inputs",
     )
     final_result_path = tmp_path / "workspace" / result["run_dir"] / "results" / "final_result.json"
+    readme_path = tmp_path / "workspace" / result["run_dir"] / "README.md"
+    final_result_readable_path = tmp_path / "workspace" / result["run_dir"] / "results" / "final_result_readable.md"
+    debug_report_path = tmp_path / "workspace" / result["run_dir"] / "debug" / "README.md"
     assert final_result_path.exists()
+    assert readme_path.exists()
+    assert final_result_readable_path.exists()
+    assert debug_report_path.exists()
     assert result["trace_package"]["final_answer"] == "A"
     exported_dir = tmp_path / "repo_results" / "rur_refiner_inputs"
     assert exported_dir.exists()
@@ -134,6 +143,9 @@ def test_pipeline_runner_preloads_models_before_preprocess(tmp_path):
     call_order = []
 
     class OrderedPreprocessor(object):
+        def resolve_preprocess_settings(self, clip_duration_s):
+            return {"clip_duration_s": float(clip_duration_s or 60.0)}
+
         def get_or_build(self, task, clip_duration_s):
             call_order.append("preprocess")
             return {
@@ -223,6 +235,66 @@ def test_planner_agent_uses_prompt_based_request():
     assert llm_client.calls
     assert llm_client.calls[0]["system_prompt"].startswith("You are the Planner")
     assert "AVAILABLE_TOOLS:" in llm_client.calls[0]["user_prompt"]
+
+
+def test_planner_agent_repairs_zero_based_input_refs_before_validation():
+    class FakeLLMClientWithZeroBasedRef(object):
+        def complete_json(self, **kwargs):
+            del kwargs
+            return (
+                {
+                    "strategy": "Plan from prompt.",
+                    "use_summary": True,
+                    "steps": [
+                        {
+                            "step_id": 1,
+                            "tool_name": "visual_temporal_grounder",
+                            "purpose": "Find the right clip.",
+                            "arguments": {"query": "Find the chart."},
+                            "input_refs": [],
+                            "depends_on": [],
+                        },
+                        {
+                            "step_id": 2,
+                            "tool_name": "frame_retriever",
+                            "purpose": "Grab a frame.",
+                            "arguments": {"query": "Best frame."},
+                            "input_refs": [
+                                {"target_field": "clip", "source": {"step_id": 0, "field_path": "clips"}}
+                            ],
+                            "depends_on": [0],
+                        },
+                    ],
+                    "refinement_instructions": "",
+                },
+                "{}",
+            )
+
+    planner = PlannerAgent(
+        llm_client=FakeLLMClientWithZeroBasedRef(),
+        agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
+    )
+    task = TaskSpec(
+        benchmark="omnivideobench",
+        sample_key="sample1",
+        question="Among the shown charts, which option has the largest percentage difference?",
+        options=["A. 10%", "B. 25%", "C. 40%"],
+        video_path="video.mp4",
+    )
+
+    raw, plan = planner.plan(
+        task=task,
+        mode="refine",
+        summary_text="summary",
+        compact_rounds=[],
+        retrieved_observations=[],
+        audit_feedback=None,
+        tool_catalog={},
+    )
+
+    assert raw == "{}"
+    assert plan.steps[1].input_refs[0].source.step_id == 1
+    assert plan.steps[1].depends_on == [1]
 
 
 def test_pipeline_evidence_summary_is_stable_across_runs(tmp_path):

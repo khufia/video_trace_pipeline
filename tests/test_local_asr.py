@@ -1,5 +1,6 @@
 import sys
 import types
+import wave
 
 import torch
 
@@ -146,3 +147,57 @@ def test_local_asr_failure_summary_does_not_expose_loader_error_text(monkeypatch
     assert result.summary == "ASR unavailable."
     assert "Weights only load failed" in result.data["error"]
     assert "Weights only load failed" in result.metadata["error"]
+
+
+def test_transcribe_with_whisperx_returns_empty_segments_on_index_error(monkeypatch):
+    calls = []
+
+    class FakeModel(object):
+        def transcribe(self, audio_path, batch_size=8, **kwargs):
+            calls.append({"audio_path": audio_path, "batch_size": batch_size, "kwargs": dict(kwargs)})
+            raise IndexError("list index out of range")
+
+    fake_whisperx = types.ModuleType("whisperx")
+    fake_whisperx.load_model = lambda *args, **kwargs: FakeModel()
+    monkeypatch.setitem(sys.modules, "whisperx", fake_whisperx)
+
+    result, runtime_warning = local_asr._transcribe_with_whisperx(
+        "/tmp/audio.wav",
+        model_name="large-v3",
+        device_label="cpu",
+        language=None,
+    )
+
+    assert runtime_warning is None
+    assert result == {"segments": [], "language": None}
+    assert calls == [{"audio_path": "/tmp/audio.wav", "batch_size": 8, "kwargs": {}}]
+
+
+def test_transcribe_with_whisperx_returns_empty_segments_for_empty_wav(tmp_path, monkeypatch):
+    calls = []
+    audio_path = tmp_path / "empty.wav"
+    with wave.open(str(audio_path), "wb") as handle:
+        handle.setnchannels(1)
+        handle.setsampwidth(2)
+        handle.setframerate(16000)
+        handle.writeframes(b"")
+
+    class FakeModel(object):
+        def transcribe(self, audio_path, batch_size=8, **kwargs):
+            calls.append({"audio_path": audio_path, "batch_size": batch_size, "kwargs": dict(kwargs)})
+            return {"segments": [{"start": 0.0, "end": 1.0, "text": "hello"}]}
+
+    fake_whisperx = types.ModuleType("whisperx")
+    fake_whisperx.load_model = lambda *args, **kwargs: FakeModel()
+    monkeypatch.setitem(sys.modules, "whisperx", fake_whisperx)
+
+    result, runtime_warning = local_asr._transcribe_with_whisperx(
+        str(audio_path),
+        model_name="large-v3",
+        device_label="cpu",
+        language=None,
+    )
+
+    assert runtime_warning is None
+    assert result == {"segments": [], "language": None}
+    assert calls == []

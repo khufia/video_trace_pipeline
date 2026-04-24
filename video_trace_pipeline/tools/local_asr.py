@@ -5,6 +5,7 @@ import importlib
 import json
 import os
 import re
+import wave
 from pathlib import Path
 from typing import List, Optional, Tuple
 
@@ -18,6 +19,31 @@ from .media import cleanup_temp_path, extract_audio_clip, get_video_duration, no
 def _join_text_blocks(items: List[str]) -> str:
     cleaned = [str(item or "").strip() for item in list(items or []) if str(item or "").strip()]
     return "\n\n".join(cleaned)
+
+
+def _missing_audio_error(error_text: str) -> bool:
+    lowered = str(error_text or "").strip().lower()
+    if not lowered:
+        return False
+    markers = (
+        "does not contain any stream",
+        "matches no streams",
+        "stream map",
+        "no such stream",
+        "output file #0 does not contain any stream",
+    )
+    return any(marker in lowered for marker in markers)
+
+
+def _wav_frame_count(audio_path: str) -> Optional[int]:
+    candidate = Path(str(audio_path or "").strip()).expanduser()
+    if not candidate.is_file():
+        return None
+    try:
+        with wave.open(str(candidate), "rb") as handle:
+            return int(handle.getnframes())
+    except Exception:
+        return None
 
 
 def _dedupe_existing_dirs(paths: List[str]) -> List[Path]:
@@ -188,6 +214,9 @@ def _transcribe_with_whisperx(
     import whisperx  # pragma: no cover - heavy optional dependency
 
     device, runtime_warning = _resolve_whisperx_runtime(device_label)
+    frame_count = _wav_frame_count(audio_path)
+    if frame_count is not None and frame_count <= 0:
+        return {"segments": [], "language": str(language or "").strip() or None}, runtime_warning
     device_name = "cpu"
     load_kwargs = {}
     if device.startswith("cuda"):
@@ -207,7 +236,14 @@ def _transcribe_with_whisperx(
         kwargs = {}
         if language:
             kwargs["language"] = language
-        return model.transcribe(audio_path, batch_size=8, **kwargs), runtime_warning
+        try:
+            return model.transcribe(audio_path, batch_size=8, **kwargs), runtime_warning
+        except IndexError:
+            return {"segments": [], "language": str(language or "").strip() or None}, runtime_warning
+        except Exception as exc:
+            if "list index out of range" in str(exc).strip().lower():
+                return {"segments": [], "language": str(language or "").strip() or None}, runtime_warning
+            raise
 
 
 class LocalASRAdapter(ToolAdapter):
@@ -348,3 +384,47 @@ class LocalASRAdapter(ToolAdapter):
                 metadata={"group_count": len(transcripts)},
             )
         return self._execute_single(request, context)
+
+    def build_preprocess_transcript(self, task, context):
+        duration = max(0.0, float(get_video_duration(task.video_path) or 0.0))
+        clip = ClipRef(
+            video_id=task.video_id or task.sample_key,
+            start_s=0.0,
+            end_s=duration,
+        )
+        request = self.request_model.model_validate(
+            {
+                "tool_name": self.name,
+                "clip": clip.model_dump(),
+                "speaker_attribution": False,
+            }
+        )
+        try:
+            result = self._execute_single(request, context)
+        except Exception as exc:
+            if _missing_audio_error(str(exc)):
+                return {
+                    "clip": clip.model_dump(),
+                    "text": "",
+                    "segments": [],
+                    "backend": "whisperx_local",
+                    "warning": str(exc),
+                }
+            raise
+        if getattr(result, "ok", True):
+            return {
+                "clip": clip.model_dump(),
+                "text": str(result.data.get("text") or "").strip(),
+                "segments": list(result.data.get("segments") or []),
+                "backend": result.data.get("backend") or "whisperx_local",
+            }
+        error_text = str((result.metadata or {}).get("error") or "").strip()
+        if _missing_audio_error(error_text):
+            return {
+                "clip": clip.model_dump(),
+                "text": "",
+                "segments": [],
+                "backend": "whisperx_local",
+                "warning": error_text,
+            }
+        raise RuntimeError(error_text or "ASR preprocess failed")

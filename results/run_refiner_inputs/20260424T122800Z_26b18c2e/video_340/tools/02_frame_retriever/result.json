@@ -1,0 +1,136 @@
+{
+  "tool_name": "frame_retriever",
+  "ok": true,
+  "data": {
+    "query": "man inside the ship's bridge near the windows, showing his body posture at the moment of the metallic bang",
+    "frames": [
+      {
+        "video_id": "video_340",
+        "timestamp_s": 12.0,
+        "artifact_id": "f5da5cf471b5bfd302b3d5a8",
+        "relpath": "cache/artifacts/f5da5cf471b5bfd302b3d5a8/frame_12.00.png",
+        "clip": {
+          "video_id": "video",
+          "start_s": 11.5,
+          "end_s": 12.5,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "event_label": "a single loud metallic bang or clang sound",
+            "tool_backend": "spotsound",
+            "request_clip_start_s": 11.1,
+            "request_clip_end_s": 23.544
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.5197116136550903,
+          "device": "cuda:1",
+          "clip_start_s": 11.5,
+          "clip_end_s": 12.5
+        }
+      }
+    ],
+    "mode": "clip_bounded",
+    "cache_metadata": {
+      "dense_frame_cache_hit": true,
+      "dense_frame_count": 42,
+      "bounded_frame_count": 1,
+      "embedding_cache_ready": false,
+      "embedding_cache_scope": "none",
+      "persist_cache_on_bounded_request": false,
+      "timings": {
+        "total_s": 21.1539
+      },
+      "embedder": {
+        "requested_attn_implementation": "flash_attention_2",
+        "loaded_attn_implementation": "flash_attention_2",
+        "fallback_attn_implementations": [],
+        "embed_call_count": 2,
+        "retry_count": 0,
+        "batch_attempt_count": 1,
+        "batch_failure_count": 0,
+        "single_item_fallback_count": 0,
+        "zero_embedding_fallback_count": 0,
+        "dense_frame_embed_batch": 24,
+        "cache_load_error": null,
+        "cache_build_error": null,
+        "cache_write_error": null,
+        "query_error": null,
+        "frame_error": null,
+        "cache_load_s": 0.0,
+        "cache_build_s": 0.0,
+        "query_embed_s": 0.476617231965065,
+        "frame_embed_s": 3.013545658090152,
+        "embedding_cache_ready": false
+      }
+    },
+    "rationale": "Frames were ranked within the requested clip using the configured Qwen visual embedder."
+  },
+  "raw_output_text": "{\"query\": \"man inside the ship's bridge near the windows, showing his body posture at the moment of the metallic bang\", \"frames\": [{\"frame_path\": \"workspace/cache/tool_wrappers/reference/video_340/dense_frames/video_340/frame_12.00.png\", \"timestamp_s\": 12.0, \"relevance_score\": 0.5197116136550903, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 11.5, \"clip_end_s\": 12.5}}], \"mode\": \"clip_bounded\", \"cache_metadata\": {\"dense_frame_cache_hit\": true, \"dense_frame_count\": 42, \"bounded_frame_count\": 1, \"embedding_cache_ready\": false, \"embedding_cache_scope\": \"none\", \"persist_cache_on_bounded_request\": false, \"timings\": {\"total_s\": 21.1539}, \"embedder\": {\"requested_attn_implementation\": \"flash_attention_2\", \"loaded_attn_implementation\": \"flash_attention_2\", \"fallback_attn_implementations\": [], \"embed_call_count\": 2, \"retry_count\": 0, \"batch_attempt_count\": 1, \"batch_failure_count\": 0, \"single_item_fallback_count\": 0, \"zero_embedding_fallback_count\": 0, \"dense_frame_embed_batch\": 24, \"cache_load_error\": null, \"cache_build_error\": null, \"cache_write_error\": null, \"query_error\": null, \"frame_error\": null, \"cache_load_s\": 0.0, \"cache_build_s\": 0.0, \"query_embed_s\": 0.476617231965065, \"frame_embed_s\": 3.013545658090152, \"embedding_cache_ready\": false}}, \"rationale\": \"Frames were ranked within the requested clip using the configured Qwen visual embedder.\"}\n",
+  "artifact_refs": [
+    {
+      "artifact_id": "f5da5cf471b5bfd302b3d5a8",
+      "kind": "frame",
+      "relpath": "cache/artifacts/f5da5cf471b5bfd302b3d5a8/frame_12.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_12.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 1480849
+      }
+    }
+  ],
+  "request_hash": "f51812a3643dcd654690586b",
+  "cache_hit": false,
+  "summary": "Frames were ranked within the requested clip using the configured Qwen visual embedder.",
+  "metadata": {
+    "backend": "Qwen/Qwen3-VL-Embedding-8B",
+    "confidence": 0.5197,
+    "confidence_avg": 0.5197,
+    "confidence_count": 1,
+    "confidence_kind": "frame_relevance",
+    "dense_frame_cache_hit": true,
+    "dense_frame_count": 42,
+    "bounded_frame_count": 1,
+    "embedding_cache_ready": false,
+    "embedding_cache_scope": "none",
+    "persist_cache_on_bounded_request": false,
+    "timings": {
+      "total_s": 21.1539
+    },
+    "embedder": {
+      "requested_attn_implementation": "flash_attention_2",
+      "loaded_attn_implementation": "flash_attention_2",
+      "fallback_attn_implementations": [],
+      "embed_call_count": 2,
+      "retry_count": 0,
+      "batch_attempt_count": 1,
+      "batch_failure_count": 0,
+      "single_item_fallback_count": 0,
+      "zero_embedding_fallback_count": 0,
+      "dense_frame_embed_batch": 24,
+      "cache_load_error": null,
+      "cache_build_error": null,
+      "cache_write_error": null,
+      "query_error": null,
+      "frame_error": null,
+      "cache_load_s": 0.0,
+      "cache_build_s": 0.0,
+      "query_embed_s": 0.476617231965065,
+      "frame_embed_s": 3.013545658090152,
+      "embedding_cache_ready": false
+    },
+    "timing": {
+      "started_at_utc": "2026-04-24T12:32:45.490480+00:00",
+      "finished_at_utc": "2026-04-24T12:33:17.853472+00:00",
+      "duration_s": 32.363,
+      "cache_wait_s": 0.0007,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_290f8f0bf18bd60d"
+    ]
+  }
+}

@@ -1,0 +1,509 @@
+{
+  "run_dir": "runs/adhoc/video_6__cee540735a2c/20260424T065249Z_7102bde9",
+  "trace_package": {
+    "task_key": "video_6__cee540735a2c",
+    "mode": "generate",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_syn_01",
+        "tool_name": "asr",
+        "evidence_text": "Transcript opening includes the first two spoken occurrences of the repeated place name \"Alaska\": first in \"an Alaska Airlines flight had to make an emergency landing after a cabin door broke off\" (2.38s–22.32s), then in \"Here at Alaska, safety is our number one concern\" (2.38s–22.32s).",
+        "inference_hint": "Use transcript order, not summary labels, to identify the first place name that repeats.",
+        "confidence": null,
+        "time_start_s": 2.377,
+        "time_end_s": 22.323,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_syn_02",
+        "tool_name": "asr",
+        "evidence_text": "The words spoken strictly between those two Alaska mentions are the remainder of the second sentence cluster after \"Here at Alaska\": \"safety is our number one concern. But you gotta admit, look pretty cool. Plane flying around, no door. You know, everyone's screaming, cell phones whipping out into the sky.\" These lines occur in the 2.38s–22.32s span before the later sentence \"That's why our new slogan is Alaska Airlines.\"",
+        "inference_hint": "Restrict comparison to only the words between the first and second Alaska occurrences.",
+        "confidence": null,
+        "time_start_s": 2.377,
+        "time_end_s": 22.323,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_277ea7fec5f66905",
+          "obs_dd3176246975cf5a",
+          "obs_9ef312a562a5c1ce",
+          "obs_b33d8562e3748b11"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_syn_03",
+        "tool_name": "asr",
+        "evidence_text": "Within that between-occurrences interval, the transcript clearly contains ideas matching option A (\"safety is our number one concern\"), option D (\"no door\"), and option B's intended idea (\"cell phones whipping out into the sky\").",
+        "inference_hint": "These options are mentioned or clearly represented inside the restricted interval.",
+        "confidence": null,
+        "time_start_s": 2.377,
+        "time_end_s": 22.323,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_277ea7fec5f66905",
+          "obs_9ef312a562a5c1ce",
+          "obs_b33d8562e3748b11"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_syn_04",
+        "tool_name": "asr",
+        "evidence_text": "The phrase matching option C appears later, outside the restricted interval: \"But on Alaska, you're in the movie.\" It is spoken at 22.32s–41.85s, after the later Alaska mention in \"That's why our new slogan is Alaska Airlines.\"",
+        "inference_hint": "Option C is not between the first and second Alaska occurrences.",
+        "confidence": null,
+        "time_start_s": 22.323,
+        "time_end_s": 41.847,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_80a38b1e1705c529",
+          "obs_1e139189051f7998"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The first place name that repeats in the transcript is \"Alaska\": it appears first in \"an Alaska Airlines flight...\" and then again in \"Here at Alaska, safety is our number one concern.\"",
+        "supporting_observation_ids": [
+          "obs_5dc192b1454c7d6b",
+          "obs_277ea7fec5f66905"
+        ],
+        "answer_relevance": "critical"
+      },
+      {
+        "step_id": 2,
+        "text": "The words between those two Alaska mentions include safety, \"no door,\" and \"cell phones whipping out into the sky.\"",
+        "supporting_observation_ids": [
+          "obs_277ea7fec5f66905",
+          "obs_9ef312a562a5c1ce",
+          "obs_b33d8562e3748b11"
+        ],
+        "answer_relevance": "critical"
+      },
+      {
+        "step_id": 3,
+        "text": "So option A is mentioned, option D is mentioned, and option B is also clearly represented by the line about cell phones going into the sky.",
+        "supporting_observation_ids": [
+          "obs_277ea7fec5f66905",
+          "obs_9ef312a562a5c1ce",
+          "obs_b33d8562e3748b11"
+        ],
+        "answer_relevance": "critical"
+      },
+      {
+        "step_id": 4,
+        "text": "Option C is not in that interval; the related line \"you're in the movie\" occurs later, after the later Alaska mention.",
+        "supporting_observation_ids": [
+          "obs_80a38b1e1705c529",
+          "obs_1e139189051f7998"
+        ],
+        "answer_relevance": "critical"
+      }
+    ],
+    "final_answer": "C. You are in movie.",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "video_6__cee540735a2c",
+        "trace": {
+          "inference_steps": [
+            "The first place name that repeats in the transcript is \"Alaska\": it appears first in \"an Alaska Airlines flight...\" and then again in \"Here at Alaska, safety is our number one concern.\"",
+            "The words between those two Alaska mentions include safety, \"no door,\" and \"cell phones whipping out into the sky.\"",
+            "So option A is mentioned, option D is mentioned, and option B is also clearly represented by the line about cell phones going into the sky.",
+            "Option C is not in that interval; the related line \"you're in the movie\" occurs later, after the later Alaska mention."
+          ],
+          "evidence": [
+            {
+              "tool_name": "asr",
+              "evidence_text": "Transcript opening includes the first two spoken occurrences of the repeated place name \"Alaska\": first in \"an Alaska Airlines flight had to make an emergency landing after a cabin door broke off\" (2.38s–22.32s), then in \"Here at Alaska, safety is our number one concern\" (2.38s–22.32s).",
+              "observation_ids": [
+                "obs_5dc192b1454c7d6b",
+                "obs_277ea7fec5f66905"
+              ],
+              "time_start_s": 2.377,
+              "time_end_s": 22.323,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "asr",
+              "evidence_text": "The words spoken strictly between those two Alaska mentions are the remainder of the second sentence cluster after \"Here at Alaska\": \"safety is our number one concern. But you gotta admit, look pretty cool. Plane flying around, no door. You know, everyone's screaming, cell phones whipping out into the sky.\" These lines occur in the 2.38s–22.32s span before the later sentence \"That's why our new slogan is Alaska Airlines.\"",
+              "observation_ids": [
+                "obs_277ea7fec5f66905",
+                "obs_dd3176246975cf5a",
+                "obs_9ef312a562a5c1ce",
+                "obs_b33d8562e3748b11"
+              ],
+              "time_start_s": 2.377,
+              "time_end_s": 22.323,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "asr",
+              "evidence_text": "Within that between-occurrences interval, the transcript clearly contains ideas matching option A (\"safety is our number one concern\"), option D (\"no door\"), and option B's intended idea (\"cell phones whipping out into the sky\").",
+              "observation_ids": [
+                "obs_277ea7fec5f66905",
+                "obs_9ef312a562a5c1ce",
+                "obs_b33d8562e3748b11"
+              ],
+              "time_start_s": 2.377,
+              "time_end_s": 22.323,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "asr",
+              "evidence_text": "The phrase matching option C appears later, outside the restricted interval: \"But on Alaska, you're in the movie.\" It is spoken at 22.32s–41.85s, after the later Alaska mention in \"That's why our new slogan is Alaska Airlines.\"",
+              "observation_ids": [
+                "obs_80a38b1e1705c529",
+                "obs_1e139189051f7998"
+              ],
+              "time_start_s": 22.323,
+              "time_end_s": 41.847,
+              "frame_ts_s": null
+            }
+          ]
+        },
+        "answer": "C. You are in movie."
+      }
+    },
+    "metadata": {}
+  },
+  "audit_report": {
+    "verdict": "PASS",
+    "confidence": 0.95,
+    "scores": {
+      "logical_coherence": 0.94,
+      "completeness": 0.92,
+      "factual_correctness": 0.93,
+      "reasoning_order": 0.95
+    },
+    "findings": [],
+    "feedback": "The trace is textually justified: it identifies the repeated place name, restricts the interval, matches A/B/D within that interval, and places the movie line later, supporting option C as the one not mentioned.",
+    "missing_information": []
+  },
+  "benchmark_export": {
+    "sample_key": "video_6__cee540735a2c",
+    "trace": {
+      "inference_steps": [
+        "The first place name that repeats in the transcript is \"Alaska\": it appears first in \"an Alaska Airlines flight...\" and then again in \"Here at Alaska, safety is our number one concern.\"",
+        "The words between those two Alaska mentions include safety, \"no door,\" and \"cell phones whipping out into the sky.\"",
+        "So option A is mentioned, option D is mentioned, and option B is also clearly represented by the line about cell phones going into the sky.",
+        "Option C is not in that interval; the related line \"you're in the movie\" occurs later, after the later Alaska mention."
+      ],
+      "evidence": [
+        {
+          "tool_name": "asr",
+          "evidence_text": "Transcript opening includes the first two spoken occurrences of the repeated place name \"Alaska\": first in \"an Alaska Airlines flight had to make an emergency landing after a cabin door broke off\" (2.38s–22.32s), then in \"Here at Alaska, safety is our number one concern\" (2.38s–22.32s).",
+          "observation_ids": [
+            "obs_5dc192b1454c7d6b",
+            "obs_277ea7fec5f66905"
+          ],
+          "time_start_s": 2.377,
+          "time_end_s": 22.323,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "asr",
+          "evidence_text": "The words spoken strictly between those two Alaska mentions are the remainder of the second sentence cluster after \"Here at Alaska\": \"safety is our number one concern. But you gotta admit, look pretty cool. Plane flying around, no door. You know, everyone's screaming, cell phones whipping out into the sky.\" These lines occur in the 2.38s–22.32s span before the later sentence \"That's why our new slogan is Alaska Airlines.\"",
+          "observation_ids": [
+            "obs_277ea7fec5f66905",
+            "obs_dd3176246975cf5a",
+            "obs_9ef312a562a5c1ce",
+            "obs_b33d8562e3748b11"
+          ],
+          "time_start_s": 2.377,
+          "time_end_s": 22.323,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "asr",
+          "evidence_text": "Within that between-occurrences interval, the transcript clearly contains ideas matching option A (\"safety is our number one concern\"), option D (\"no door\"), and option B's intended idea (\"cell phones whipping out into the sky\").",
+          "observation_ids": [
+            "obs_277ea7fec5f66905",
+            "obs_9ef312a562a5c1ce",
+            "obs_b33d8562e3748b11"
+          ],
+          "time_start_s": 2.377,
+          "time_end_s": 22.323,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "asr",
+          "evidence_text": "The phrase matching option C appears later, outside the restricted interval: \"But on Alaska, you're in the movie.\" It is spoken at 22.32s–41.85s, after the later Alaska mention in \"That's why our new slogan is Alaska Airlines.\"",
+          "observation_ids": [
+            "obs_80a38b1e1705c529",
+            "obs_1e139189051f7998"
+          ],
+          "time_start_s": 22.323,
+          "time_end_s": 41.847,
+          "frame_ts_s": null
+        }
+      ]
+    },
+    "answer": "C. You are in movie."
+  },
+  "preprocess": {
+    "cache_hit": false,
+    "cache_dir": "cache/preprocess/168b4913d2867be9be835be5f127a9ed2ef28067e1aeb70a720200c1de6a314c/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/e70580d1fa54",
+    "manifest": {
+      "video_fingerprint": "168b4913d2867be9be835be5f127a9ed2ef28067e1aeb70a720200c1de6a314c",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "summary_format": "dense_interleaved",
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "e70580d1fa54",
+      "summary_format": "dense_interleaved",
+      "include_asr": true,
+      "transcript_segment_count": 6,
+      "segment_count": 3,
+      "summary_status": "available"
+    },
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 60.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_6",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 0.0,
+              "end": 3.0,
+              "visual": "The video begins with the Alaska Airlines logo appearing over a shot of a ground crew member in an orange safety vest and headphones, standing in front of a large jet. The scene then cuts to a montage: a passenger's feet in white sneakers walking on a jet bridge, a flight attendant in a blue shirt and grey blazer walking through an airport, and a passenger in a suit sitting at a desk with a laptop. The sequence ends with the full 'Alaska AIRLINES' logo appearing over a flight attendant's face.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": "Alaska AIRLINES",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The sequence uses a series of quick cuts. It starts with a medium shot from behind the ground crew member, then cuts to a low-angle shot of feet walking, a medium shot of a flight attendant walking, a medium shot of a passenger at a desk, and finally a close-up on a flight attendant's face with the logo overlay.",
+                "video_background: The settings include an airport tarmac with a large jet, a jet bridge, a modern airport terminal with large windows, and an office environment.",
+                "storyline: This opening montage introduces the key elements of the advertisement: the airline (Alaska Airlines), the airport environment, and the people involved in the journey (ground crew, flight attendants, passengers).",
+                "shooting_style: This is a fast-paced montage with quick cuts between different scenes and characters, establishing the brand and setting."
+              ]
+            },
+            {
+              "start": 4.0,
+              "end": 8.0,
+              "visual": "A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt with a cravat, stands in an airport waiting area and smiles warmly at the camera. The scene cuts to a male flight attendant with dark hair, wearing a dark blue and black pullover, who also smiles at the camera. Finally, a male ground crew member with a grey vest and a name tag that reads 'DWAYNE,' smiles and speaks enthusiastically.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, positive music continues.",
+              "on_screen_text": "DWAYNE,",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera uses a series of medium close-up shots, focusing on each person's face and upper body as they speak or smile directly into the lens.",
+                "video_background: The flight attendants are in a modern, spacious airport waiting area with rows of empty seats and large windows. The ground crew member is in a similar airport setting, with a 'Gates' sign visible behind him.",
+                "storyline: This segment introduces the friendly and welcoming faces of the airline's staff, positioning them as the human element of the travel experience.",
+                "shooting_style: The segment uses simple, direct-to-camera shots to create a personal connection with the viewer."
+              ]
+            }
+          ],
+          "overall_summary": "The video begins with the Alaska Airlines logo appearing over a shot of a ground crew member in an orange safety vest and headphones, standing in front of a large jet. The scene then cuts to a montage: a passenger's feet in white sneakers walking on a jet bridge, a flight attendant in a blue shirt and grey blazer walking through an airport, and a passenger in a suit sitting at a desk with a laptop. The sequence ends with the full 'Alaska AIRLINES' logo appearing over a flight attendant's face.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; Alaska AIRLINES; attributes: camera_state: The sequence uses a series of quick cuts. It starts with a medium shot from behind the ground crew member, then cuts to a low-angle shot of feet walking, a medium shot of a flight attendant walking, a medium shot of a passenger at a desk, and finally a close-up on a flight attendant's face with the logo overlay., video_background: The settings include an airport tarmac with a large jet, a jet bridge, a modern airport terminal with large windows, and an office environment., storyline: This opening montage introduces the key elements of the advertisement: the airline (Alaska Airlines), the airport environment, and the people involved in the journey (ground crew, flight attendants, passengers)., shooting_style: This is a fast-paced montage with quick cuts between different scenes and characters, establishing the brand and setting. A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt with a cravat, stands in an airport waiting area and smiles warmly at the camera. The scene cuts to a male flight attendant with dark hair, wearing a dark blue and black pullover, who also smiles at the camera. Finally, a male ground crew member with a grey vest and a name tag that reads 'DWAYNE,' smiles and speaks enthusiastically.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, positive music continues.; DWAYNE,; attributes: camera_state: The camera uses a series of medium close-up shots, focusing on each person's face and upper body as they speak or smile directly into the lens., video_background: The flight attendants are in a modern, spacious airport waiting area with rows of empty seats and large windows. The ground crew member is in a similar airport setting, with a 'Gates' sign visible behind him., storyline: This segment introduces the friendly and welcoming faces of the airline's staff, positioning them as the human element of the travel experience., shooting_style: The segment uses simple, direct-to-camera shots to create a personal connection with the viewer.",
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 2.377,
+            "end_s": 22.323,
+            "text": "As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off. Here at Alaska, safety is our number one concern. But you gotta admit, look pretty cool. Plane flying around, no door. You know, everyone's screaming, cell phones whipping out into the sky. It was awesome.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 22.323,
+            "end_s": 41.847,
+            "text": "That's why our new slogan is Alaska Airlines. You didn't die, and you got a cool story. On other airlines, you can watch movies. But on Alaska, you're in the movie. And if you think Alaska the state is cold, just wait till our plane's roof rips off.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 42.91,
+            "end_s": 68.408,
+            "text": "Since the incident, we're starting to make some changes. You know those bolts that, like, hold the plane together? We're gonna go ahead and tighten some of those. We've also made a few small updates to our in-flight safety brochure. And for extra precaution, we'll now be taking off with the inflatable slide already deployed. When people ask me where the emergency exits are, I'm like, there, there, and in ten minutes,",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 60.0,
+        "end": 120.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_6",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 60.0,
+              "end": 65.0,
+              "visual": "An Alaska Airlines plane, a Boeing 737, is shown taking off from a runway, with green trees blurring past. The scene then cuts to the interior of the plane, where a male flight attendant in a grey vest and tie stands in the aisle. He smiles and gestures with his hands as he speaks to the passengers, who are seated in the background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The first shot is a panning shot following the plane. The second shot is a medium shot of the flight attendant, with the camera slowly panning to the right.",
+                "video_background: The first scene is an airport runway with lush greenery. The second scene is the interior of a modern airplane cabin with blue and white overhead panels and passenger seats.",
+                "storyline: The video begins by establishing the setting: a flight with Alaska Airlines. A flight attendant is introduced, setting a welcoming and professional tone.",
+                "shooting_style: This is a montage of two distinct shots: an exterior action shot of the plane and an interior character shot of the flight attendant."
+              ]
+            },
+            {
+              "start": 66.0,
+              "end": 70.0,
+              "visual": "A female flight attendant with long brown hair, wearing a grey blazer and a blue shirt with a neckerchief, stands in an airport waiting area and speaks to the camera. The scene then cuts to a male flight attendant handing a yellow infant life vest to a female passenger. The vest has cartoon illustrations and text that reads 'INFANT-SMALL CHILD'.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The inspirational music continues.",
+              "on_screen_text": "INFANT-SMALL CHILD",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The first shot is a medium shot of the flight attendant. The second shot is a medium close-up focusing on the interaction between the flight attendant and the passenger.",
+                "video_background: The first scene is a modern airport terminal with large windows and seating. The second scene is inside the airplane, near the entrance.",
+                "storyline: This segment introduces another flight attendant and shows a standard pre-flight safety procedure, highlighting the airline's safety protocols.",
+                "shooting_style: This is a montage, cutting between a flight attendant speaking and a safety demonstration."
+              ]
+            }
+          ],
+          "overall_summary": "An Alaska Airlines plane, a Boeing 737, is shown taking off from a runway, with green trees blurring past. The scene then cuts to the interior of the plane, where a male flight attendant in a grey vest and tie stands in the aisle. He smiles and gestures with his hands as he speaks to the passengers, who are seated in the background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; attributes: camera_state: The first shot is a panning shot following the plane. The second shot is a medium shot of the flight attendant, with the camera slowly panning to the right., video_background: The first scene is an airport runway with lush greenery. The second scene is the interior of a modern airplane cabin with blue and white overhead panels and passenger seats., storyline: The video begins by establishing the setting: a flight with Alaska Airlines. A flight attendant is introduced, setting a welcoming and professional tone., shooting_style: This is a montage of two distinct shots: an exterior action shot of the plane and an interior character shot of the flight attendant. A female flight attendant with long brown hair, wearing a grey blazer and a blue shirt with a neckerchief, stands in an airport waiting area and speaks to the camera. The scene then cuts to a male flight attendant handing a yellow infant life vest to a female passenger. The vest has cartoon illustrations and text that reads 'INFANT-SMALL CHILD'.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The inspirational music continues.; INFANT-SMALL CHILD; attributes: camera_state: The first shot is a medium shot of the flight attendant. The second shot is a medium close-up focusing on the interaction between the flight attendant and the passenger., video_background: The first scene is a modern airport terminal with large windows and seating. The second scene is inside the airplane, near the entrance., storyline: This segment introduces another flight attendant and shows a standard pre-flight safety procedure, highlighting the airline's safety protocols., shooting_style: This is a montage, cutting between a flight attendant speaking and a safety demonstration.",
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 68.982,
+            "end_s": 85.975,
+            "text": "Probably there. You know how Hawaiian Airlines always gives out lays when you land? Well, we've got our own version. Are we in Cleveland? Close. The Pacific Ocean. And to make everyone feel safer, we've hired Sully out of retirement. I don't know if I can do it again.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 87.781,
+            "end_s": 99.678,
+            "text": "He's a lot older now. I was on that flight. At the time, I was terrified. But now, I'm the coolest person at the office. Everyone stopping by my cubicle all want to know about that little boy whose shirt got sucked out the plane.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 103.205,
+            "end_s": 128.247,
+            "text": "some airlines give you a little wing pin when you get off the plane but alaska gives you a commemorative photo of your flight this was fifty dollars so fly alaska fly alaska we're the same airline where a pilot tried to turn off the engine mid-flight while on mushrooms and now we're so proud to say that's our second worst flight alaska airlines still better than spirit",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 120.0,
+        "end": 139.97316666666666,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_6",
+            "start_s": 120.0,
+            "end_s": 139.97316666666666,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 120.0,
+              "end": 123.0,
+              "visual": "A man in a light blue shirt, patterned tie, and grey vest, wearing an Alaska Airlines employee name tag, stands in an airport terminal. He speaks directly to the camera with an animated expression, gesturing with his right hand as he talks. A sign for 'Gates C37-C38' is visible over his shoulder.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient airport noise.",
+              "on_screen_text": "Gates C37-C38",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium shot, focused on the man from the waist up. The shot is static.",
+                "video_background: The background is an airport terminal with white support pillars and a sign overhead indicating directions to gates. The lighting is bright and neutral.",
+                "storyline: The video opens with a direct address from an Alaska Airlines employee, setting a promotional or informational tone.",
+                "shooting_style: This is a standard, direct-to-camera shot."
+              ]
+            },
+            {
+              "start": 124.0,
+              "end": 124.0,
+              "visual": "The scene cuts to a solid, dark blue background. The 'Alaska' logo, written in a stylized white font, appears in the center of the screen, followed by the tagline 'STILL BETTER THAN SPIRIT' fading in below it.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, brief sound effect accompanies the logo's appearance.",
+              "on_screen_text": "Alaska | STILL BETTER THAN SPIRIT",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the logo against the blue background.",
+                "video_background: The background is a simple, dark blue gradient.",
+                "storyline: This segment serves as a brand identity card, reinforcing the airline's name and its competitive tagline.",
+                "shooting_style: This is a simple logo reveal with a fade-in text effect."
+              ]
+            },
+            {
+              "start": 125.0,
+              "end": 129.0,
+              "visual": "The video fades to a dark, nighttime aerial view of a city skyline across a river, with a bridge illuminated in the foreground. Text overlays appear on the screen, reading 'SUBSCRIBE NOW' in the top center, 'MORE CLIPS' in the top right, and 'STREAM ALL SEASONS ON PEACOCK' in the center.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, ambient musical score plays.",
+              "on_screen_text": "SUBSCRIBE NOW | MORE CLIPS | STREAM ALL SEASONS ON PEACOCK",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is positioned high, providing an aerial wide shot of the city at night. The shot is static.",
+                "video_background: The background is a dark cityscape at night, with the lights of buildings and a bridge reflecting on the water below.",
+                "storyline: This is an end screen or promotional bumper, encouraging viewers to subscribe to a service and watch more content.",
+                "shooting_style: This is a static shot with text overlays."
+              ]
+            }
+          ],
+          "overall_summary": "A man in a light blue shirt, patterned tie, and grey vest, wearing an Alaska Airlines employee name tag, stands in an airport terminal. He speaks directly to the camera with an animated expression, gesturing with his right hand as he talks. A sign for 'Gates C37-C38' is visible over his shoulder.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient airport noise.; Gates C37-C38; attributes: camera_state: The camera is at a medium shot, focused on the man from the waist up. The shot is static., video_background: The background is an airport terminal with white support pillars and a sign overhead indicating directions to gates. The lighting is bright and neutral., storyline: The video opens with a direct address from an Alaska Airlines employee, setting a promotional or informational tone., shooting_style: This is a standard, direct-to-camera shot. The scene cuts to a solid, dark blue background. The 'Alaska' logo, written in a stylized white font, appears in the center of the screen, followed by the tagline 'STILL BETTER THAN SPIRIT' fading in below it.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, brief sound effect accompanies the logo's appearance.; Alaska | STILL BETTER THAN SPIRIT; attributes: camera_state: The camera is static, holding a wide shot of the logo against the blue background., video_background: The background is a simple, dark blue gradient., storyline: This segment serves as a brand identity card, reinforcing the airline's name and its competitive tagline., shooting_style: This is a simple logo reveal with a fade-in text effect. The video fades to a dark, nighttime aerial view of a city skyline across a river, with a bridge illuminated in the foreground. Text overlays appear on the screen, reading 'SUBSCRIBE NOW' in the top center, 'MORE CLIPS' in the top right, and 'STREAM ALL SEASONS ON PEACOCK' in the center.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, ambient musical score plays.; SUBSCRIBE NOW | MORE CLIPS | STREAM ALL SEASONS ON PEACOCK; attributes: camera_state: The camera is positioned high, providing an aerial wide shot of the city at night. The shot is static., video_background: The background is a dark cityscape at night, with the lights of buildings and a bridge reflecting on the water below., storyline: This is an end screen or promotional bumper, encouraging viewers to subscribe to a service and watch more content., shooting_style: This is a static shot with text overlays.",
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 139.97316666666666
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": []
+      }
+    ],
+    "summary": "[00:00-00:03] Visual: The video begins with the Alaska Airlines logo appearing over a shot of a ground crew member in an orange safety vest and headphones, standing in front of a large jet. The scene then cuts to a montage: a passenger's feet in white sneakers walking on a jet bridge, a flight attendant in a blue shirt and grey blazer walking through an airport, and a passenger in a suit sitting at a desk with a laptop. The sequence ends with the full 'Alaska AIRLINES' logo appearing over a flight attendant's face. | Text: Alaska AIRLINES\n[00:02-00:22] Speech: As you may have heard, an Alaska Airlines flight had to make an emergency landing after a cabin door broke off. Here at Alaska, safety is our number one concern. But you gotta admit, look pretty cool. Plane flying around, no door. You know, everyone's screaming, cell phones whipping out into the sky. It was awesome.\n[00:04-00:08] Visual: A female flight attendant with reddish-brown hair, wearing a grey blazer and a blue shirt with a cravat, stands in an airport waiting area and smiles warmly at the camera. The scene cuts to a male flight attendant with dark hair, wearing a dark blue and black pullover, who also smiles at the camera. Finally, a male ground crew member with a grey vest and a name tag that reads 'DWAYNE,' smiles and speaks enthusiastically. | Text: DWAYNE,\n[00:22-00:42] Speech: That's why our new slogan is Alaska Airlines. You didn't die, and you got a cool story. On other airlines, you can watch movies. But on Alaska, you're in the movie. And if you think Alaska the state is cold, just wait till our plane's roof rips off.\n[00:43-01:08] Speech: Since the incident, we're starting to make some changes. You know those bolts that, like, hold the plane together? We're gonna go ahead and tighten some of those. We've also made a few small updates to our in-flight safety brochure. And for extra precaution, we'll now be taking off with the inflatable slide already deployed. When people ask me where the emergency exits are, I'm like, there, there, and in ten minutes,\n[01:00-01:05] Visual: An Alaska Airlines plane, a Boeing 737, is shown taking off from a runway, with green trees blurring past. The scene then cuts to the interior of the plane, where a male flight attendant in a grey vest and tie stands in the aisle. He smiles and gestures with his hands as he speaks to the passengers, who are seated in the background.\n[01:06-01:10] Visual: A female flight attendant with long brown hair, wearing a grey blazer and a blue shirt with a neckerchief, stands in an airport waiting area and speaks to the camera. The scene then cuts to a male flight attendant handing a yellow infant life vest to a female passenger. The vest has cartoon illustrations and text that reads 'INFANT-SMALL CHILD'. | Text: INFANT-SMALL CHILD\n[01:09-01:26] Speech: Probably there. You know how Hawaiian Airlines always gives out lays when you land? Well, we've got our own version. Are we in Cleveland? Close. The Pacific Ocean. And to make everyone feel safer, we've hired Sully out of retirement. I don't know if I can do it again.\n[01:28-01:40] Speech: He's a lot older now. I was on that flight. At the time, I was terrified. But now, I'm the coolest person at the office. Everyone stopping by my cubicle all want to know about that little boy whose shirt got sucked out the plane.\n[01:43-02:08] Speech: some airlines give you a little wing pin when you get off the plane but alaska gives you a commemorative photo of your flight this was fifty dollars so fly alaska fly alaska we're the same airline where a pilot tried to turn off the engine mid-flight while on mushrooms and now we're so proud to say that's our second worst flight alaska airlines still better than spirit\n[02:00-02:03] Visual: A man in a light blue shirt, patterned tie, and grey vest, wearing an Alaska Airlines employee name tag, stands in an airport terminal. He speaks directly to the camera with an animated expression, gesturing with his right hand as he talks. A sign for 'Gates C37-C38' is visible over his shoulder. | Text: Gates C37-C38\n[02:04-02:04] Visual: The scene cuts to a solid, dark blue background. The 'Alaska' logo, written in a stylized white font, appears in the center of the screen, followed by the tagline 'STILL BETTER THAN SPIRIT' fading in below it. | Text: Alaska | STILL BETTER THAN SPIRIT\n[02:05-02:09] Visual: The video fades to a dark, nighttime aerial view of a city skyline across a river, with a bridge illuminated in the foreground. Text overlays appear on the screen, reading 'SUBSCRIBE NOW' in the top center, 'MORE CLIPS' in the top right, and 'STREAM ALL SEASONS ON PEACOCK' in the center. | Text: SUBSCRIBE NOW | MORE CLIPS | STREAM ALL SEASONS ON PEACOCK",
+    "video_fingerprint": "168b4913d2867be9be835be5f127a9ed2ef28067e1aeb70a720200c1de6a314c"
+  },
+  "rounds_executed": 1,
+  "exported_results_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/results/run_refiner_inputs/20260424T065249Z_7102bde9/video_6"
+}

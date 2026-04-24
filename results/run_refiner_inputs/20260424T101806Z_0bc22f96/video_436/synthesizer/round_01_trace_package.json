@@ -1,0 +1,227 @@
+{
+  "task_key": "video_436__1abde050646c",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_use_intervals",
+      "tool_name": "visual_temporal_grounder",
+      "evidence_text": "Ketchup-bottle use is visually grounded in three separate intervals: 9.00-12.00s, 56.00-59.00s, and 63.00-66.00s.",
+      "inference_hint": "These intervals anchor when to count bottle-use sounds.",
+      "confidence": 1.0,
+      "time_start_s": 9.0,
+      "time_end_s": 66.0,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_13117ad652dfc931",
+        "obs_a93b8750470ff707",
+        "obs_0fcc8c9a34db77e6"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_audio_candidates",
+      "tool_name": "audio_temporal_grounder",
+      "evidence_text": "Audio retrieval found bottle-use sound candidates aligned with the three use moments: 9.00-10.00s, 56.00-58.17s, and a very brief event at 63.00s.",
+      "inference_hint": "These are candidate sound-bearing intervals during ketchup use, not yet distinct sound types by themselves.",
+      "confidence": null,
+      "time_start_s": 9.0,
+      "time_end_s": 63.0,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_d69badcac90f604e",
+        "obs_90aaed41f775c1c8",
+        "obs_7d9c1a47e08a5b7c"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_sound_type_early",
+      "tool_name": "dense_captioner",
+      "evidence_text": "During the early ketchup-use interval around 9.00-11.00s, the bottle use is described as creating a loud, distinct squirting sound.",
+      "inference_hint": "This supports one bottle-use sound type before later use moments.",
+      "confidence": null,
+      "time_start_s": 9.0,
+      "time_end_s": 11.0,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_96145bac5e2225bf",
+        "obs_695d9ccfdcf1cf27",
+        "obs_76847790d8d5e97f",
+        "obs_acd8f087d41a4572",
+        "obs_d87c63ff48d69322"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_sound_type_mid",
+      "tool_name": "dense_captioner",
+      "evidence_text": "During the ketchup-use interval around 56.00-58.00s, squeezing the bottle is again described as making a loud, distinct squirting sound.",
+      "inference_hint": "This matches the earlier squirting sound rather than establishing a new sound type.",
+      "confidence": null,
+      "time_start_s": 56.0,
+      "time_end_s": 58.0,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_f75d3c49a99095f0",
+        "obs_155a1a5cb2e8e7b6",
+        "obs_85d15f460e1d8a11",
+        "obs_709176e1a5c44abb",
+        "obs_a922890941fbe4e6"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_sound_type_late",
+      "tool_name": "dense_captioner",
+      "evidence_text": "During the later ketchup-use interval around 63.00-66.00s, the bottle is squeezed over food and the sound is described as a distinct wet squirting sound.",
+      "inference_hint": "This supports a different bottle-use sound type from the earlier plain squirting sound.",
+      "confidence": null,
+      "time_start_s": 63.0,
+      "time_end_s": 66.0,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_b899562fb0411db8",
+        "obs_fd813bdba26070b9",
+        "obs_bf1565ef863b2556",
+        "obs_e158fa869446b94a",
+        "obs_c235da484b5fff02"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The red sauce is used in three separate grounded intervals: about 9-12s, 56-59s, and 63-66s.",
+      "supporting_observation_ids": [
+        "obs_13117ad652dfc931",
+        "obs_a93b8750470ff707",
+        "obs_0fcc8c9a34db77e6"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 2,
+      "text": "The first two use intervals are both described with the same bottle-use sound: a loud, distinct squirting sound, so they count as repeats of one sound type rather than two different sounds.",
+      "supporting_observation_ids": [
+        "obs_76847790d8d5e97f",
+        "obs_acd8f087d41a4572",
+        "obs_d87c63ff48d69322",
+        "obs_85d15f460e1d8a11",
+        "obs_709176e1a5c44abb",
+        "obs_a922890941fbe4e6"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 3,
+      "text": "The later use interval is described differently, as a distinct wet squirting sound when the ketchup is squeezed, which supports a second bottle-use sound type.",
+      "supporting_observation_ids": [
+        "obs_e158fa869446b94a",
+        "obs_c235da484b5fff02",
+        "obs_fd813bdba26070b9",
+        "obs_bf1565ef863b2556"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 4,
+      "text": "Counting only distinct sounds tied to using or squeezing the bottle gives 2 sound types in total.",
+      "supporting_observation_ids": [
+        "obs_76847790d8d5e97f",
+        "obs_85d15f460e1d8a11",
+        "obs_c235da484b5fff02"
+      ],
+      "answer_relevance": "high"
+    }
+  ],
+  "final_answer": "A. 2",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "video_436__1abde050646c",
+      "trace": {
+        "inference_steps": [
+          "The red sauce is used in three separate grounded intervals: about 9-12s, 56-59s, and 63-66s.",
+          "The first two use intervals are both described with the same bottle-use sound: a loud, distinct squirting sound, so they count as repeats of one sound type rather than two different sounds.",
+          "The later use interval is described differently, as a distinct wet squirting sound when the ketchup is squeezed, which supports a second bottle-use sound type.",
+          "Counting only distinct sounds tied to using or squeezing the bottle gives 2 sound types in total."
+        ],
+        "evidence": [
+          {
+            "tool_name": "visual_temporal_grounder",
+            "evidence_text": "Ketchup-bottle use is visually grounded in three separate intervals: 9.00-12.00s, 56.00-59.00s, and 63.00-66.00s.",
+            "observation_ids": [
+              "obs_13117ad652dfc931",
+              "obs_a93b8750470ff707",
+              "obs_0fcc8c9a34db77e6"
+            ],
+            "time_start_s": 9.0,
+            "time_end_s": 66.0,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "audio_temporal_grounder",
+            "evidence_text": "Audio retrieval found bottle-use sound candidates aligned with the three use moments: 9.00-10.00s, 56.00-58.17s, and a very brief event at 63.00s.",
+            "observation_ids": [
+              "obs_d69badcac90f604e",
+              "obs_90aaed41f775c1c8",
+              "obs_7d9c1a47e08a5b7c"
+            ],
+            "time_start_s": 9.0,
+            "time_end_s": 63.0,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "During the early ketchup-use interval around 9.00-11.00s, the bottle use is described as creating a loud, distinct squirting sound.",
+            "observation_ids": [
+              "obs_96145bac5e2225bf",
+              "obs_695d9ccfdcf1cf27",
+              "obs_76847790d8d5e97f",
+              "obs_acd8f087d41a4572",
+              "obs_d87c63ff48d69322"
+            ],
+            "time_start_s": 9.0,
+            "time_end_s": 11.0,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "During the ketchup-use interval around 56.00-58.00s, squeezing the bottle is again described as making a loud, distinct squirting sound.",
+            "observation_ids": [
+              "obs_f75d3c49a99095f0",
+              "obs_155a1a5cb2e8e7b6",
+              "obs_85d15f460e1d8a11",
+              "obs_709176e1a5c44abb",
+              "obs_a922890941fbe4e6"
+            ],
+            "time_start_s": 56.0,
+            "time_end_s": 58.0,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "During the later ketchup-use interval around 63.00-66.00s, the bottle is squeezed over food and the sound is described as a distinct wet squirting sound.",
+            "observation_ids": [
+              "obs_b899562fb0411db8",
+              "obs_fd813bdba26070b9",
+              "obs_bf1565ef863b2556",
+              "obs_e158fa869446b94a",
+              "obs_c235da484b5fff02"
+            ],
+            "time_start_s": 63.0,
+            "time_end_s": 66.0,
+            "frame_ts_s": null
+          }
+        ]
+      },
+      "answer": "A. 2"
+    }
+  },
+  "metadata": {}
+}

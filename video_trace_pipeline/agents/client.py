@@ -244,6 +244,8 @@ class OpenAIChatClient(object):
                     raise ValueError("Model did not return a JSON object: %s" % text[:1000])
                 write_json(request_path, request_payload)
                 write_text(response_path, text)
+        if response_model is dict:
+            return payload, text
         if hasattr(response_model, "model_validate"):
             return response_model.model_validate(payload), text
         return response_model.parse_obj(payload), text

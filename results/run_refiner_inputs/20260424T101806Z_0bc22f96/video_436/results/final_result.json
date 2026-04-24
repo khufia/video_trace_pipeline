@@ -1,0 +1,578 @@
+{
+  "run_dir": "runs/adhoc/video_436__1abde050646c/20260424T101806Z_0bc22f96",
+  "trace_package": {
+    "task_key": "video_436__1abde050646c",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_use_intervals",
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "Ketchup-bottle use is visually grounded in three separate intervals: 9.00-12.00s, 56.00-59.00s, and 63.00-66.00s.",
+        "inference_hint": "These intervals anchor when to count bottle-use sounds.",
+        "confidence": 1.0,
+        "time_start_s": 9.0,
+        "time_end_s": 66.0,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_13117ad652dfc931",
+          "obs_a93b8750470ff707",
+          "obs_0fcc8c9a34db77e6"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_audio_candidates",
+        "tool_name": "audio_temporal_grounder",
+        "evidence_text": "Audio retrieval found bottle-use sound candidates aligned with the three use moments: 9.00-10.00s, 56.00-58.17s, and a very brief event at 63.00s.",
+        "inference_hint": "These are candidate sound-bearing intervals during ketchup use, not distinct sound categories by themselves.",
+        "confidence": null,
+        "time_start_s": 9.0,
+        "time_end_s": 63.0,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_d69badcac90f604e",
+          "obs_90aaed41f775c1c8",
+          "obs_7d9c1a47e08a5b7c"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_sound_type_early",
+        "tool_name": "dense_captioner",
+        "evidence_text": "During the early ketchup-use interval around 9.00-11.00s, the bottle use is described as creating a loud, distinct squirting sound.",
+        "inference_hint": "This grounds the product sound during the first use moment.",
+        "confidence": null,
+        "time_start_s": 9.0,
+        "time_end_s": 11.0,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_96145bac5e2225bf",
+          "obs_695d9ccfdcf1cf27",
+          "obs_76847790d8d5e97f",
+          "obs_acd8f087d41a4572",
+          "obs_d87c63ff48d69322"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_sound_type_mid",
+        "tool_name": "dense_captioner",
+        "evidence_text": "During the ketchup-use interval around 56.00-58.00s, squeezing the bottle is again described as making a loud, distinct squirting sound.",
+        "inference_hint": "This matches the earlier squirting description at another use moment.",
+        "confidence": null,
+        "time_start_s": 56.0,
+        "time_end_s": 58.0,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_f75d3c49a99095f0",
+          "obs_155a1a5cb2e8e7b6",
+          "obs_85d15f460e1d8a11",
+          "obs_709176e1a5c44abb",
+          "obs_a922890941fbe4e6"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_sound_type_late",
+        "tool_name": "dense_captioner",
+        "evidence_text": "During the later ketchup-use interval around 63.00-66.00s, the bottle is squeezed over food and the sound is described as a distinct wet squirting sound.",
+        "inference_hint": "This is another squirting-type description during ketchup use, but the evidence alone does not prove it is a separate counted category from the earlier squirting sound.",
+        "confidence": null,
+        "time_start_s": 63.0,
+        "time_end_s": 66.0,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_b899562fb0411db8",
+          "obs_fd813bdba26070b9",
+          "obs_bf1565ef863b2556",
+          "obs_e158fa869446b94a",
+          "obs_c235da484b5fff02"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_asr_framing",
+        "tool_name": "asr",
+        "evidence_text": "Across the later dialogue span (56.03-65.97s), the transcript includes: \"What was that?\" followed by \"That was the soothing sound of Heinz Relax,\" and later \"Looks like this bottle's almost empty.\"",
+        "inference_hint": "The ad's dialogue frames the ketchup-use noise as one named product sound rather than clearly separating multiple different sound categories.",
+        "confidence": null,
+        "time_start_s": 56.031,
+        "time_end_s": 65.97,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_4455ed45360cdb97",
+          "obs_ed0101a336cacd59",
+          "obs_7d62f4123db0f983"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The red sauce is used in three grounded intervals: about 9-12s, 56-59s, and 63-66s.",
+        "supporting_observation_ids": [
+          "obs_13117ad652dfc931",
+          "obs_a93b8750470ff707",
+          "obs_0fcc8c9a34db77e6"
+        ],
+        "answer_relevance": "high"
+      },
+      {
+        "step_id": 2,
+        "text": "Those use moments are all associated with the same general product noise: a squirting-type sound from the ketchup bottle.",
+        "supporting_observation_ids": [
+          "obs_76847790d8d5e97f",
+          "obs_85d15f460e1d8a11",
+          "obs_c235da484b5fff02"
+        ],
+        "answer_relevance": "high"
+      },
+      {
+        "step_id": 3,
+        "text": "The dialogue also refers to the ketchup noise in the singular as \"the soothing sound of Heinz Relax,\" which supports treating the bottle-use noise as one framed sound rather than several different counted sounds.",
+        "supporting_observation_ids": [
+          "obs_4455ed45360cdb97",
+          "obs_ed0101a336cacd59",
+          "obs_7d62f4123db0f983"
+        ],
+        "answer_relevance": "high"
+      },
+      {
+        "step_id": 4,
+        "text": "Because the evidence supports one recurring sauce-produced sound and does not clearly establish additional distinct sauce-use sound categories, none of the answer choices is supported.",
+        "supporting_observation_ids": [
+          "obs_76847790d8d5e97f",
+          "obs_85d15f460e1d8a11",
+          "obs_c235da484b5fff02",
+          "obs_ed0101a336cacd59"
+        ],
+        "answer_relevance": "high"
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "video_436__1abde050646c",
+        "trace": {
+          "inference_steps": [
+            "The red sauce is used in three grounded intervals: about 9-12s, 56-59s, and 63-66s.",
+            "Those use moments are all associated with the same general product noise: a squirting-type sound from the ketchup bottle.",
+            "The dialogue also refers to the ketchup noise in the singular as \"the soothing sound of Heinz Relax,\" which supports treating the bottle-use noise as one framed sound rather than several different counted sounds.",
+            "Because the evidence supports one recurring sauce-produced sound and does not clearly establish additional distinct sauce-use sound categories, none of the answer choices is supported."
+          ],
+          "evidence": [
+            {
+              "tool_name": "visual_temporal_grounder",
+              "evidence_text": "Ketchup-bottle use is visually grounded in three separate intervals: 9.00-12.00s, 56.00-59.00s, and 63.00-66.00s.",
+              "observation_ids": [
+                "obs_13117ad652dfc931",
+                "obs_a93b8750470ff707",
+                "obs_0fcc8c9a34db77e6"
+              ],
+              "time_start_s": 9.0,
+              "time_end_s": 66.0,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "audio_temporal_grounder",
+              "evidence_text": "Audio retrieval found bottle-use sound candidates aligned with the three use moments: 9.00-10.00s, 56.00-58.17s, and a very brief event at 63.00s.",
+              "observation_ids": [
+                "obs_d69badcac90f604e",
+                "obs_90aaed41f775c1c8",
+                "obs_7d9c1a47e08a5b7c"
+              ],
+              "time_start_s": 9.0,
+              "time_end_s": 63.0,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "dense_captioner",
+              "evidence_text": "During the early ketchup-use interval around 9.00-11.00s, the bottle use is described as creating a loud, distinct squirting sound.",
+              "observation_ids": [
+                "obs_96145bac5e2225bf",
+                "obs_695d9ccfdcf1cf27",
+                "obs_76847790d8d5e97f",
+                "obs_acd8f087d41a4572",
+                "obs_d87c63ff48d69322"
+              ],
+              "time_start_s": 9.0,
+              "time_end_s": 11.0,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "dense_captioner",
+              "evidence_text": "During the ketchup-use interval around 56.00-58.00s, squeezing the bottle is again described as making a loud, distinct squirting sound.",
+              "observation_ids": [
+                "obs_f75d3c49a99095f0",
+                "obs_155a1a5cb2e8e7b6",
+                "obs_85d15f460e1d8a11",
+                "obs_709176e1a5c44abb",
+                "obs_a922890941fbe4e6"
+              ],
+              "time_start_s": 56.0,
+              "time_end_s": 58.0,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "dense_captioner",
+              "evidence_text": "During the later ketchup-use interval around 63.00-66.00s, the bottle is squeezed over food and the sound is described as a distinct wet squirting sound.",
+              "observation_ids": [
+                "obs_b899562fb0411db8",
+                "obs_fd813bdba26070b9",
+                "obs_bf1565ef863b2556",
+                "obs_e158fa869446b94a",
+                "obs_c235da484b5fff02"
+              ],
+              "time_start_s": 63.0,
+              "time_end_s": 66.0,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "asr",
+              "evidence_text": "Across the later dialogue span (56.03-65.97s), the transcript includes: \"What was that?\" followed by \"That was the soothing sound of Heinz Relax,\" and later \"Looks like this bottle's almost empty.\"",
+              "observation_ids": [
+                "obs_4455ed45360cdb97",
+                "obs_ed0101a336cacd59",
+                "obs_7d62f4123db0f983"
+              ],
+              "time_start_s": 56.031,
+              "time_end_s": 65.97,
+              "frame_ts_s": null
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {}
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.97,
+    "scores": {
+      "logical_coherence": 0.62,
+      "completeness": 0.18,
+      "factual_correctness": 0.74,
+      "reasoning_order": 0.79
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "ANSWER_ERROR",
+        "message": "The trace does not answer the multiple-choice question with one of the provided options. It concludes that none of the answer choices is supported and leaves the final answer blank, which is not aligned with the task requirement to select among A/B/C/D.",
+        "evidence_ids": [
+          "ev_sound_type_early",
+          "ev_sound_type_mid",
+          "ev_sound_type_late",
+          "ev_asr_framing"
+        ]
+      },
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The core reasoning does not justify a count of 'different sounds' among the provided numeric options. The evidence supports repeated ketchup-use sound events and descriptions, but the trace only argues that they may all be one recurring sound and stops there. It never establishes how the question's intended counting scheme maps to the answer choices 2/3/4/5.",
+        "evidence_ids": [
+          "ev_use_intervals",
+          "ev_audio_candidates",
+          "ev_sound_type_early",
+          "ev_sound_type_mid",
+          "ev_sound_type_late"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "INFERENCE_ERROR",
+        "message": "The singular ASR phrase 'the soothing sound of Heinz Relax' is used to support collapsing the observed descriptions into one sound category, but that phrase only frames a later ketchup noise and does not by itself prove that all sauce-use intervals should be counted as one category for this question.",
+        "evidence_ids": [
+          "ev_asr_framing",
+          "ev_sound_type_early",
+          "ev_sound_type_mid",
+          "ev_sound_type_late"
+        ]
+      }
+    ],
+    "feedback": "The trace is not sufficient for a multiple-choice answer: it leaves the answer blank and does not resolve how many different sounds should be counted from the grounded sauce-use intervals.",
+    "missing_information": [
+      "Which sound occurrences during red-sauce use should be counted as distinct sounds for this question",
+      "How the grounded sauce-use sound evidence maps to one of the provided options A/B/C/D",
+      "A final selected answer choice justified by the trace"
+    ]
+  },
+  "benchmark_export": {
+    "sample_key": "video_436__1abde050646c",
+    "trace": {
+      "inference_steps": [
+        "The red sauce is used in three grounded intervals: about 9-12s, 56-59s, and 63-66s.",
+        "Those use moments are all associated with the same general product noise: a squirting-type sound from the ketchup bottle.",
+        "The dialogue also refers to the ketchup noise in the singular as \"the soothing sound of Heinz Relax,\" which supports treating the bottle-use noise as one framed sound rather than several different counted sounds.",
+        "Because the evidence supports one recurring sauce-produced sound and does not clearly establish additional distinct sauce-use sound categories, none of the answer choices is supported."
+      ],
+      "evidence": [
+        {
+          "tool_name": "visual_temporal_grounder",
+          "evidence_text": "Ketchup-bottle use is visually grounded in three separate intervals: 9.00-12.00s, 56.00-59.00s, and 63.00-66.00s.",
+          "observation_ids": [
+            "obs_13117ad652dfc931",
+            "obs_a93b8750470ff707",
+            "obs_0fcc8c9a34db77e6"
+          ],
+          "time_start_s": 9.0,
+          "time_end_s": 66.0,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "audio_temporal_grounder",
+          "evidence_text": "Audio retrieval found bottle-use sound candidates aligned with the three use moments: 9.00-10.00s, 56.00-58.17s, and a very brief event at 63.00s.",
+          "observation_ids": [
+            "obs_d69badcac90f604e",
+            "obs_90aaed41f775c1c8",
+            "obs_7d9c1a47e08a5b7c"
+          ],
+          "time_start_s": 9.0,
+          "time_end_s": 63.0,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "dense_captioner",
+          "evidence_text": "During the early ketchup-use interval around 9.00-11.00s, the bottle use is described as creating a loud, distinct squirting sound.",
+          "observation_ids": [
+            "obs_96145bac5e2225bf",
+            "obs_695d9ccfdcf1cf27",
+            "obs_76847790d8d5e97f",
+            "obs_acd8f087d41a4572",
+            "obs_d87c63ff48d69322"
+          ],
+          "time_start_s": 9.0,
+          "time_end_s": 11.0,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "dense_captioner",
+          "evidence_text": "During the ketchup-use interval around 56.00-58.00s, squeezing the bottle is again described as making a loud, distinct squirting sound.",
+          "observation_ids": [
+            "obs_f75d3c49a99095f0",
+            "obs_155a1a5cb2e8e7b6",
+            "obs_85d15f460e1d8a11",
+            "obs_709176e1a5c44abb",
+            "obs_a922890941fbe4e6"
+          ],
+          "time_start_s": 56.0,
+          "time_end_s": 58.0,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "dense_captioner",
+          "evidence_text": "During the later ketchup-use interval around 63.00-66.00s, the bottle is squeezed over food and the sound is described as a distinct wet squirting sound.",
+          "observation_ids": [
+            "obs_b899562fb0411db8",
+            "obs_fd813bdba26070b9",
+            "obs_bf1565ef863b2556",
+            "obs_e158fa869446b94a",
+            "obs_c235da484b5fff02"
+          ],
+          "time_start_s": 63.0,
+          "time_end_s": 66.0,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "asr",
+          "evidence_text": "Across the later dialogue span (56.03-65.97s), the transcript includes: \"What was that?\" followed by \"That was the soothing sound of Heinz Relax,\" and later \"Looks like this bottle's almost empty.\"",
+          "observation_ids": [
+            "obs_4455ed45360cdb97",
+            "obs_ed0101a336cacd59",
+            "obs_7d62f4123db0f983"
+          ],
+          "time_start_s": 56.031,
+          "time_end_s": 65.97,
+          "frame_ts_s": null
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": true,
+    "cache_dir": "cache/preprocess/f9ece26f11a131e309e66ed8640d2b23adefc54699c31439a9d5965537362b60/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/e70580d1fa54",
+    "manifest": {
+      "video_fingerprint": "f9ece26f11a131e309e66ed8640d2b23adefc54699c31439a9d5965537362b60",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "summary_format": "dense_interleaved",
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "e70580d1fa54",
+      "summary_format": "dense_interleaved",
+      "include_asr": true,
+      "transcript_segment_count": 5,
+      "segment_count": 2,
+      "summary_status": "available"
+    },
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 60.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_436",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 0.0,
+              "end": 5.0,
+              "visual": "The scene opens on a close-up of a yellow bowl of chili being passed from one person to another at a dinner table. The camera then cuts to a medium shot of a family sitting around a Thanksgiving dinner. A man in a red cardigan smiles and talks animatedly, while a woman next to him smiles and listens. Another woman with reddish-brown hair looks on with a gentle smile.",
+              "audio": "acoustics: 1) Tone of speech: Cheerful and conversational. 2) Background sounds or music: Light, uplifting music plays in the background.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera starts with a close-up on the bowl, then cuts to a medium shot of the family at the table, focusing on the man and the two women.",
+                "video_background: The setting is a warm, inviting dining room decorated for a holiday meal. A fireplace is visible in the background, and the table is set with wine glasses, a bottle of wine, and a floral centerpiece.",
+                "storyline: The scene establishes a happy, festive family gathering around a Thanksgiving meal, setting a warm and communal tone.",
+                "shooting_style: The scene uses quick cuts between different characters to show their interactions and reactions, creating a sense of lively conversation."
+              ]
+            },
+            {
+              "start": 6.0,
+              "end": 13.0,
+              "visual": "A man in a red cardigan and glasses holds a Heinz ketchup bottle, examining it with a confused and slightly concerned expression. He turns it over in his hands, reading the label. The camera cuts to two young women at the table who are laughing heartily at his reaction. The man then looks up, his expression shifting to one of serious contemplation.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The uplifting music continues, punctuated by the women's laughter.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera focuses on a close-up of the man's face as he inspects the ketchup bottle. It then cuts to a medium shot of the two women laughing before returning to the man's now-serious face.",
+                "video_background: The background is a cozy, well-lit living room with a window and a plant, suggesting a comfortable home environment.",
+                "storyline: The central conflict is introduced: the man's dissatisfaction with the ketchup. His initial confusion turns into a serious, almost existential, problem, creating a humorous and relatable moment.",
+                "shooting_style: The scene uses intercutting to contrast the man's serious expression with the women's amusement, highlighting his unique reaction to a common product."
+              ]
+            }
+          ],
+          "overall_summary": "The scene opens on a close-up of a yellow bowl of chili being passed from one person to another at a dinner table. The camera then cuts to a medium shot of a family sitting around a Thanksgiving dinner. A man in a red cardigan smiles and talks animatedly, while a woman next to him smiles and listens. Another woman with reddish-brown hair looks on with a gentle smile.; acoustics: 1) Tone of speech: Cheerful and conversational. 2) Background sounds or music: Light, uplifting music plays in the background.; attributes: camera_state: The camera starts with a close-up on the bowl, then cuts to a medium shot of the family at the table, focusing on the man and the two women., video_background: The setting is a warm, inviting dining room decorated for a holiday meal. A fireplace is visible in the background, and the table is set with wine glasses, a bottle of wine, and a floral centerpiece., storyline: The scene establishes a happy, festive family gathering around a Thanksgiving meal, setting a warm and communal tone., shooting_style: The scene uses quick cuts between different characters to show their interactions and reactions, creating a sense of lively conversation. A man in a red cardigan and glasses holds a Heinz ketchup bottle, examining it with a confused and slightly concerned expression. He turns it over in his hands, reading the label. The camera cuts to two young women at the table who are laughing heartily at his reaction. The man then looks up, his expression shifting to one of serious contemplation.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The uplifting music continues, punctuated by the women's laughter.; attributes: camera_state: The camera focuses on a close-up of the man's face as he inspects the ketchup bottle. It then cuts to a medium shot of the two women laughing before returning to the man's now-serious face., video_background: The background is a cozy, well-lit living room with a window and a plant, suggesting a comfortable home environment., storyline: The central conflict is introduced: the man's dissatisfaction with the ketchup. His initial confusion turns into a serious, almost existential, problem, creating a humorous and relatable moment., shooting_style: The scene uses intercutting to contrast the man's serious expression with the women's amusement, highlighting his unique reaction to a common product.",
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 1.043,
+            "end_s": 27.2,
+            "text": "It's Thanksgiving, and it wouldn't be the holidays without Heinz. Honey, can you pass the ketchup? Well, I'm just happy that we're all together for Thanksgiving. Whoa, easy there, Greg. That wasn't me. That was the ketchup bottle. Are you sure about that, Dad? Yeah, I'm very sure. I didn't cut a fart at Thanksgiving dinner. I wouldn't do that. That's not who I am. Yeah, Dad, we know.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 27.284,
+            "end_s": 54.149,
+            "text": "It happens every year. The ketchup bottle makes an innocent noise and everyone thinks you ripped one at the dinner table. They say they believe you, but you know what they're thinking. It's made every Thanksgiving a living hell. Until now. Introducing Heinz Relax. The ketchup you know and love without the uncomfortable noise. Now, when you squeeze the bottle, it simply lets out a relaxing sigh. So this Thanksgiving, things will be different.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 54.149,
+            "end_s": 65.708,
+            "text": "Honey, can you pass the ketchup? Oh, sure. Can I just say, I am so grateful to be here. What was that? That was the soothing sound of Heinz Relax. Looks like this bottle's almost empty.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 60.0,
+        "end": 114.07229166666666,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_436",
+            "start_s": 60.0,
+            "end_s": 114.07229166666666,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 60.0,
+              "end": 61.0,
+              "visual": "A woman with brown hair, wearing a purple cardigan over a collared shirt, looks off-screen with a concerned and slightly confused expression. Her mouth is slightly open as if she is in the middle of speaking or reacting to something.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, indistinct background chatter.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A medium close-up shot, focusing on the woman's face and upper torso. The camera is static.",
+                "video_background: The background is a warm, softly lit interior, likely a dining room. A painting is visible on the wall behind her, along with a vase of flowers on a table to her right.",
+                "storyline: The scene opens on a character who appears troubled or uncertain, setting a slightly tense or emotional tone for the narrative.",
+                "shooting_style: This is a standard shot establishing a character's emotional state."
+              ]
+            },
+            {
+              "start": 62.0,
+              "end": 68.0,
+              "visual": "A man in a brown sweater and tie holds up a Heinz ketchup bottle, smiling as he speaks. The scene cuts to another man at the table, who looks shocked and covers his face with the ketchup bottle. The first man continues to talk, gesturing with the bottle.",
+              "audio": "speech: Man 1: (Smiling) Oh, it's so good.; acoustics: 1) Tone of speech: Cheerful and enthusiastic. 2) Background sounds or music: Light, festive background music.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera cuts between a medium shot of the first man and a close-up of the second man's reaction. The shots are static.",
+                "video_background: The setting is a formal dining table with wine glasses, a fireplace mantel with candles, and a plant in the background. The atmosphere is festive, like a holiday dinner.",
+                "storyline: A comedic sketch begins, centered around a man's enthusiastic but inappropriate use of a ketchup bottle during a dinner conversation, leading to a humorous reaction from another character.",
+                "shooting_style: The scene uses intercutting to show the action and the reaction simultaneously, creating a comedic effect."
+              ]
+            }
+          ],
+          "overall_summary": "A woman with brown hair, wearing a purple cardigan over a collared shirt, looks off-screen with a concerned and slightly confused expression. Her mouth is slightly open as if she is in the middle of speaking or reacting to something.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, indistinct background chatter.; attributes: camera_state: A medium close-up shot, focusing on the woman's face and upper torso. The camera is static., video_background: The background is a warm, softly lit interior, likely a dining room. A painting is visible on the wall behind her, along with a vase of flowers on a table to her right., storyline: The scene opens on a character who appears troubled or uncertain, setting a slightly tense or emotional tone for the narrative., shooting_style: This is a standard shot establishing a character's emotional state. A man in a brown sweater and tie holds up a Heinz ketchup bottle, smiling as he speaks. The scene cuts to another man at the table, who looks shocked and covers his face with the ketchup bottle. The first man continues to talk, gesturing with the bottle.; speech: Man 1: (Smiling) Oh, it's so good.; acoustics: 1) Tone of speech: Cheerful and enthusiastic. 2) Background sounds or music: Light, festive background music.; attributes: camera_state: The camera cuts between a medium shot of the first man and a close-up of the second man's reaction. The shots are static., video_background: The setting is a formal dining table with wine glasses, a fireplace mantel with candles, and a plant in the background. The atmosphere is festive, like a holiday dinner., storyline: A comedic sketch begins, centered around a man's enthusiastic but inappropriate use of a ketchup bottle during a dinner conversation, leading to a humorous reaction from another character., shooting_style: The scene uses intercutting to show the action and the reaction simultaneously, creating a comedic effect.",
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 114.07229166666666
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 67.143,
+            "end_s": 91.966,
+            "text": "kind of sounds like a relaxed sigh i know that ain't what that sounds like hey everyone just relax spare yourself from further embarrassment with our whole family of heintz relax products glass bottles mustard even maya mom may i be excused absolutely wait where are you going with that",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 92.557,
+            "end_s": 102.378,
+            "text": "No, put that down! The boy loves ketchup. Just like his old man. Heinz Relax. Now available at your local supermarket. Must be 18 or older to buy.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      }
+    ],
+    "summary": "[00:00-00:05] Visual: The scene opens on a close-up of a yellow bowl of chili being passed from one person to another at a dinner table. The camera then cuts to a medium shot of a family sitting around a Thanksgiving dinner. A man in a red cardigan smiles and talks animatedly, while a woman next to him smiles and listens. Another woman with reddish-brown hair looks on with a gentle smile.\n[00:01-00:27] Speech: It's Thanksgiving, and it wouldn't be the holidays without Heinz. Honey, can you pass the ketchup? Well, I'm just happy that we're all together for Thanksgiving. Whoa, easy there, Greg. That wasn't me. That was the ketchup bottle. Are you sure about that, Dad? Yeah, I'm very sure. I didn't cut a fart at Thanksgiving dinner. I wouldn't do that. That's not who I am. Yeah, Dad, we know.\n[00:06-00:13] Visual: A man in a red cardigan and glasses holds a Heinz ketchup bottle, examining it with a confused and slightly concerned expression. He turns it over in his hands, reading the label. The camera cuts to two young women at the table who are laughing heartily at his reaction. The man then looks up, his expression shifting to one of serious contemplation.\n[00:27-00:54] Speech: It happens every year. The ketchup bottle makes an innocent noise and everyone thinks you ripped one at the dinner table. They say they believe you, but you know what they're thinking. It's made every Thanksgiving a living hell. Until now. Introducing Heinz Relax. The ketchup you know and love without the uncomfortable noise. Now, when you squeeze the bottle, it simply lets out a relaxing sigh. So this Thanksgiving, things will be different.\n[00:54-01:06] Speech: Honey, can you pass the ketchup? Oh, sure. Can I just say, I am so grateful to be here. What was that? That was the soothing sound of Heinz Relax. Looks like this bottle's almost empty.\n[01:00-01:01] Visual: A woman with brown hair, wearing a purple cardigan over a collared shirt, looks off-screen with a concerned and slightly confused expression. Her mouth is slightly open as if she is in the middle of speaking or reacting to something.\n[01:02-01:08] Visual: A man in a brown sweater and tie holds up a Heinz ketchup bottle, smiling as he speaks. The scene cuts to another man at the table, who looks shocked and covers his face with the ketchup bottle. The first man continues to talk, gesturing with the bottle.\n[01:07-01:32] Speech: kind of sounds like a relaxed sigh i know that ain't what that sounds like hey everyone just relax spare yourself from further embarrassment with our whole family of heintz relax products glass bottles mustard even maya mom may i be excused absolutely wait where are you going with that\n[01:33-01:42] Speech: No, put that down! The boy loves ketchup. Just like his old man. Heinz Relax. Now available at your local supermarket. Must be 18 or older to buy.",
+    "video_fingerprint": "f9ece26f11a131e309e66ed8640d2b23adefc54699c31439a9d5965537362b60"
+  },
+  "rounds_executed": 2,
+  "exported_results_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/results/run_refiner_inputs/20260424T101806Z_0bc22f96/video_436"
+}

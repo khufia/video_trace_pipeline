@@ -1,0 +1,104 @@
+{
+  "tool_name": "audio_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table",
+    "clips": [
+      {
+        "video_id": "video_436",
+        "start_s": 9.0,
+        "end_s": 10.0,
+        "confidence": null,
+        "metadata": {
+          "event_label": "distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table",
+          "tool_backend": "spotsound",
+          "request_clip_start_s": 9.0,
+          "request_clip_end_s": 12.0
+        }
+      },
+      {
+        "video_id": "video_436",
+        "start_s": 56.0,
+        "end_s": 58.174,
+        "confidence": null,
+        "metadata": {
+          "event_label": "distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table",
+          "tool_backend": "spotsound",
+          "request_clip_start_s": 56.0,
+          "request_clip_end_s": 59.0
+        }
+      },
+      {
+        "video_id": "video_436",
+        "start_s": 63.0,
+        "end_s": 63.0,
+        "confidence": null,
+        "metadata": {
+          "event_label": "distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table",
+          "tool_backend": "spotsound",
+          "request_clip_start_s": 63.0,
+          "request_clip_end_s": 66.0
+        }
+      }
+    ],
+    "events": [
+      {
+        "event_label": "distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table",
+        "start": 9.0,
+        "end": 10.0,
+        "confidence": null,
+        "metadata": {
+          "tool_backend": "spotsound",
+          "request_clip_start_s": 9.0,
+          "request_clip_end_s": 12.0
+        }
+      },
+      {
+        "event_label": "distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table",
+        "start": 56.0,
+        "end": 58.174,
+        "confidence": null,
+        "metadata": {
+          "tool_backend": "spotsound",
+          "request_clip_start_s": 56.0,
+          "request_clip_end_s": 59.0
+        }
+      },
+      {
+        "event_label": "distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table",
+        "start": 63.0,
+        "end": 63.0,
+        "confidence": null,
+        "metadata": {
+          "tool_backend": "spotsound",
+          "request_clip_start_s": 63.0,
+          "request_clip_end_s": 66.0
+        }
+      }
+    ],
+    "retrieval_backend": "Loie/SpotSound",
+    "query_absent": false,
+    "summary": "SpotSound localized 1 candidate audio interval(s) for 'distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table': 9.000-10.000s.\n\nSpotSound localized 1 candidate audio interval(s) for 'distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table': 56.000-58.174s.\n\nSpotSound localized 1 candidate audio interval(s) for 'distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table': 63.000-63.000s."
+  },
+  "raw_output_text": "{\"query\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"clips\": [{\"video_id\": \"video_436\", \"start_s\": 9.0, \"end_s\": 10.0, \"confidence\": null, \"metadata\": {\"event_label\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"tool_backend\": \"spotsound\", \"request_clip_start_s\": 9.0, \"request_clip_end_s\": 12.0}}], \"events\": [{\"event_label\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"start_s\": 9.0, \"end_s\": 10.0, \"confidence\": null, \"metadata\": {\"tool_backend\": \"spotsound\", \"request_clip_start_s\": 9.0, \"request_clip_end_s\": 12.0}}], \"retrieval_backend\": \"spotsound\", \"query_absent\": false, \"summary\": \"SpotSound localized 1 candidate audio interval(s) for 'distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table': 9.000-10.000s.\", \"model_response\": \"from 0.000s to 1.000s\", \"runtime_info\": {\"repo_checkout\": \".cache/SpotSound\", \"base_model_path\": \"<redacted-path>\", \"adapter_path\": \"<redacted-path>\", \"device_label\": \"cuda:0\"}}\n\n{\"query\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"clips\": [{\"video_id\": \"video_436\", \"start_s\": 56.0, \"end_s\": 58.174, \"confidence\": null, \"metadata\": {\"event_label\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"tool_backend\": \"spotsound\", \"request_clip_start_s\": 56.0, \"request_clip_end_s\": 59.0}}], \"events\": [{\"event_label\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"start_s\": 56.0, \"end_s\": 58.174, \"confidence\": null, \"metadata\": {\"tool_backend\": \"spotsound\", \"request_clip_start_s\": 56.0, \"request_clip_end_s\": 59.0}}], \"retrieval_backend\": \"spotsound\", \"query_absent\": false, \"summary\": \"SpotSound localized 1 candidate audio interval(s) for 'distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table': 56.000-58.174s.\", \"model_response\": \"from 0.000s to 2.174s\", \"runtime_info\": {\"repo_checkout\": \".cache/SpotSound\", \"base_model_path\": \"<redacted-path>\", \"adapter_path\": \"<redacted-path>\", \"device_label\": \"cuda:0\"}}\n\n{\"query\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"clips\": [{\"video_id\": \"video_436\", \"start_s\": 63.0, \"end_s\": 63.0, \"confidence\": null, \"metadata\": {\"event_label\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"tool_backend\": \"spotsound\", \"request_clip_start_s\": 63.0, \"request_clip_end_s\": 66.0}}], \"events\": [{\"event_label\": \"distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table\", \"start_s\": 63.0, \"end_s\": 63.0, \"confidence\": null, \"metadata\": {\"tool_backend\": \"spotsound\", \"request_clip_start_s\": 63.0, \"request_clip_end_s\": 66.0}}], \"retrieval_backend\": \"spotsound\", \"query_absent\": false, \"summary\": \"SpotSound localized 1 candidate audio interval(s) for 'distinct non-speech sounds made when squeezing or using the Heinz ketchup bottle at the dinner table': 63.000-63.000s.\", \"model_response\": \"from 0.000s to 0.000s\", \"runtime_info\": {\"repo_checkout\": \".cache/SpotSound\", \"base_model_path\": \"<redacted-path>\", \"adapter_path\": \"<redacted-path>\", \"device_label\": \"cuda:0\"}}",
+  "artifact_refs": [],
+  "request_hash": "4c262988644232f730d284e8",
+  "cache_hit": false,
+  "summary": "Found 3 candidate audio interval(s) across 3 input clip(s).",
+  "metadata": {
+    "backend": "Loie/SpotSound",
+    "group_count": 3,
+    "timing": {
+      "started_at_utc": "2026-04-24T10:18:21.603681+00:00",
+      "finished_at_utc": "2026-04-24T10:19:06.305682+00:00",
+      "duration_s": 44.702,
+      "cache_wait_s": 0.0012,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_d69badcac90f604e",
+      "obs_90aaed41f775c1c8",
+      "obs_7d9c1a47e08a5b7c"
+    ]
+  }
+}

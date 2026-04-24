@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "video_15__90c31956ea61",
+  "run_id": "20260424T105753Z_d27187c1",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "video_15__90c31956ea61",
+    "question": "Who wants to send the body into the water slide?",
+    "options": [
+      "A.The person in black.",
+      "B.The person in red.",
+      "C.The children.",
+      "D.Nobody wants."
+    ],
+    "video_id": "video_15",
+    "question_id": null,
+    "gold_answer": "The person in black.",
+    "initial_trace_steps": [
+      "Get the point they talked about. At 4:24, the man said he will do it.",
+      "The person in black. At 4:24, the man in black is sending the body.",
+      "Final answer: The person in black."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "cache/preprocess/439ed9ec9e350d8fe8e02255f02df7680ab4b206f094b7726715808e1af66bea/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/e70580d1fa54",
+  "clip_duration_s": 60.0,
+  "results_name": "run_refiner_inputs"
+}

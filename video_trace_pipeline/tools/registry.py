@@ -229,11 +229,22 @@ class ToolRegistry(object):
         request = adapter.parse_request(arguments)
         return adapter.execute(request, context)
 
-    def build_dense_caption_cache(self, task, clip_duration_s: float, context):
+    def build_dense_caption_cache(self, task, clip_duration_s: float, context, preprocess_settings=None):
         adapter = self.get_adapter("dense_captioner")
         if not hasattr(adapter, "build_segment_cache"):
             raise RuntimeError("dense_captioner adapter does not support preprocessing")
-        return adapter.build_segment_cache(task=task, clip_duration_s=clip_duration_s, context=context)
+        return adapter.build_segment_cache(
+            task=task,
+            clip_duration_s=clip_duration_s,
+            context=context,
+            preprocess_settings=preprocess_settings,
+        )
+
+    def build_asr_preprocess_transcript(self, task, context):
+        adapter = self.get_adapter("asr")
+        if not hasattr(adapter, "build_preprocess_transcript"):
+            raise RuntimeError("asr adapter does not support preprocessing")
+        return adapter.build_preprocess_transcript(task=task, context=context)
 
     def implementation_name(self, tool_name: str) -> str:
         return tool_implementation(tool_name)

@@ -1,0 +1,37 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.97,
+  "scores": {
+    "logical_coherence": 0.86,
+    "completeness": 0.22,
+    "factual_correctness": 0.9,
+    "reasoning_order": 0.9
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The trace does not answer the multiple-choice question with one justified option. It concludes only that none of the four options is verified and leaves the final answer blank.",
+      "evidence_ids": [
+        "ev_01_06013b3b",
+        "ev_02_f51812a3",
+        "ev_03_a62f5296"
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "category": "TEMPORAL_GAP",
+      "message": "The bang is localized only to a 11.50s-12.50s interval, and the sole posture evidence is a single frame at 12.00s where no man is visible. This is insufficient to determine what the man is doing at the bang moment or to rule among the answer choices.",
+      "evidence_ids": [
+        "ev_01_06013b3b",
+        "ev_02_f51812a3",
+        "ev_03_a62f5296"
+      ]
+    }
+  ],
+  "feedback": "The trace is cautious and internally consistent, but it remains unresolved. It needs answer-critical grounding of the man's action at the bang moment and a justified selection of one option.",
+  "missing_information": [
+    "What the man on the bridge is doing during the localized loud metallic bang interval (11.50s-12.50s)",
+    "Which single answer choice is supported for the man's action at that moment"
+  ]
+}

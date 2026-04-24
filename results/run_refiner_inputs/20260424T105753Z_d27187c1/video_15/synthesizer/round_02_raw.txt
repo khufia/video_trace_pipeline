@@ -1,0 +1,240 @@
+{
+  "task_key": "video_15__90c31956ea61",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_syn_01",
+      "tool_name": "asr",
+      "evidence_text": "At 93.16s-113.48s, one speaker explains the discussion by saying, \"They want to send the dead guy down the water slide.\" This establishes that some people in the group want that plan.",
+      "inference_hint": "Grounds that the slide plan is actively wanted by members of the group.",
+      "confidence": 0.88,
+      "time_start_s": 93.164,
+      "time_end_s": 113.482,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_c63943c5addbe59a",
+        "obs_969d6109ffc90cf2"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_syn_02",
+      "tool_name": "asr",
+      "evidence_text": "At 114.59s-142.51s, the transcript says, \"And then, you know, she pitched the water slide idea,\" followed by, \"I mean, yeah, it's a good idea, Mary.\" This ties the water-slide proposal to Mary by name.",
+      "inference_hint": "Identifies Mary as the person associated with the idea.",
+      "confidence": 0.84,
+      "time_start_s": 114.595,
+      "time_end_s": 142.507,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_4a69443b0f76f487",
+        "obs_f16a526e200461af",
+        "obs_3ce63eb56cda28bb",
+        "obs_f7d3aad9c7b89656"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_syn_03",
+      "tool_name": "asr",
+      "evidence_text": "At 196.32s-224.01s, the group explicitly votes on \"her idea\" to \"push the body down the slide.\" The count is reported as \"that's three of us,\" then \"It's all the kids,\" and the result is announced: \"Mary, you won the vote.\"",
+      "inference_hint": "Shows both that multiple people want the slide plan and that Mary's side wins the vote.",
+      "confidence": 0.92,
+      "time_start_s": 196.321,
+      "time_end_s": 224.013,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_46d06f0884347d42",
+        "obs_ba0d7987b5962b6a",
+        "obs_efcbaed9feca4202",
+        "obs_3886176917f09c72",
+        "obs_8f0980a69fb0efcd",
+        "obs_42fca22cc31dabd9",
+        "obs_74281c1fcbf82e58",
+        "obs_d4ca187421c38e04"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_syn_04",
+      "tool_name": "visual_temporal_grounder",
+      "evidence_text": "Visual grounding marks intervals 35.00s-38.00s, 104.00s-108.00s, and 125.00s-128.00s as showing the vote scene about pushing the body down the slide, including a woman in a red hoodie raising her hand.",
+      "inference_hint": "Provides visual support that a woman in red participates in the vote scene.",
+      "confidence": 1.0,
+      "time_start_s": 35.0,
+      "time_end_s": 128.0,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_61a3ad91db94ce80",
+        "obs_b87b8f71dd252682",
+        "obs_b7329e9873cd731f"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_syn_05",
+      "tool_name": "asr",
+      "evidence_text": "The transcript separately identifies the supporters as children during the vote: after the prompt to raise hands for \"her idea,\" a speaker says, \"It's all the kids.\"",
+      "inference_hint": "Preserves that the children also want the slide plan.",
+      "confidence": 0.9,
+      "time_start_s": 196.321,
+      "time_end_s": 224.013,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_46d06f0884347d42",
+        "obs_efcbaed9feca4202",
+        "obs_74281c1fcbf82e58"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The transcript explicitly says some people want to send the body down the water slide, so the answer is not that nobody wants it.",
+      "supporting_observation_ids": [
+        "obs_c63943c5addbe59a",
+        "obs_969d6109ffc90cf2"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 2,
+      "text": "The plan is described as \"her idea,\" and one speaker says, \"it's a good idea, Mary,\" so Mary is the named person associated with proposing the slide idea.",
+      "supporting_observation_ids": [
+        "obs_4a69443b0f76f487",
+        "obs_f16a526e200461af"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 3,
+      "text": "During the vote on \"her idea,\" the speaker also says, \"It's all the kids,\" so the children are supporters of the plan as well.",
+      "supporting_observation_ids": [
+        "obs_46d06f0884347d42",
+        "obs_efcbaed9feca4202",
+        "obs_74281c1fcbf82e58"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 4,
+      "text": "The result is announced as \"Mary, you won the vote,\" which points to Mary as the answer-targeted person behind the idea rather than the children as a supporting group.",
+      "supporting_observation_ids": [
+        "obs_3886176917f09c72",
+        "obs_d4ca187421c38e04"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 5,
+      "text": "The visual evidence shows a woman in red raising her hand in the vote scene, but it does not directly identify that woman as Mary. Because the Mary-to-red mapping is not grounded here, the choice \"the person in red\" remains unsupported.",
+      "supporting_observation_ids": [
+        "obs_61a3ad91db94ce80",
+        "obs_b87b8f71dd252682",
+        "obs_b7329e9873cd731f"
+      ],
+      "answer_relevance": "high"
+    },
+    {
+      "step_id": 6,
+      "text": "Among the listed options, the directly grounded group that wants to do it is the children.",
+      "supporting_observation_ids": [
+        "obs_46d06f0884347d42",
+        "obs_efcbaed9feca4202",
+        "obs_74281c1fcbf82e58"
+      ],
+      "answer_relevance": "high"
+    }
+  ],
+  "final_answer": "C.The children.",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "video_15__90c31956ea61",
+      "trace": {
+        "inference_steps": [
+          "The transcript explicitly says some people want to send the body down the water slide, so the answer is not that nobody wants it.",
+          "The plan is described as \"her idea,\" and one speaker says, \"it's a good idea, Mary,\" so Mary is the named person associated with proposing the slide idea.",
+          "During the vote on \"her idea,\" the speaker also says, \"It's all the kids,\" so the children are supporters of the plan as well.",
+          "The result is announced as \"Mary, you won the vote,\" which points to Mary as the answer-targeted person behind the idea rather than the children as a supporting group.",
+          "The visual evidence shows a woman in red raising her hand in the vote scene, but it does not directly identify that woman as Mary. Because the Mary-to-red mapping is not grounded here, the choice \"the person in red\" remains unsupported.",
+          "Among the listed options, the directly grounded group that wants to do it is the children."
+        ],
+        "evidence": [
+          {
+            "tool_name": "asr",
+            "evidence_text": "At 93.16s-113.48s, one speaker explains the discussion by saying, \"They want to send the dead guy down the water slide.\" This establishes that some people in the group want that plan.",
+            "observation_ids": [
+              "obs_c63943c5addbe59a",
+              "obs_969d6109ffc90cf2"
+            ],
+            "time_start_s": 93.164,
+            "time_end_s": 113.482,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "asr",
+            "evidence_text": "At 114.59s-142.51s, the transcript says, \"And then, you know, she pitched the water slide idea,\" followed by, \"I mean, yeah, it's a good idea, Mary.\" This ties the water-slide proposal to Mary by name.",
+            "observation_ids": [
+              "obs_4a69443b0f76f487",
+              "obs_f16a526e200461af",
+              "obs_3ce63eb56cda28bb",
+              "obs_f7d3aad9c7b89656"
+            ],
+            "time_start_s": 114.595,
+            "time_end_s": 142.507,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "asr",
+            "evidence_text": "At 196.32s-224.01s, the group explicitly votes on \"her idea\" to \"push the body down the slide.\" The count is reported as \"that's three of us,\" then \"It's all the kids,\" and the result is announced: \"Mary, you won the vote.\"",
+            "observation_ids": [
+              "obs_46d06f0884347d42",
+              "obs_ba0d7987b5962b6a",
+              "obs_efcbaed9feca4202",
+              "obs_3886176917f09c72",
+              "obs_8f0980a69fb0efcd",
+              "obs_42fca22cc31dabd9",
+              "obs_74281c1fcbf82e58",
+              "obs_d4ca187421c38e04"
+            ],
+            "time_start_s": 196.321,
+            "time_end_s": 224.013,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "visual_temporal_grounder",
+            "evidence_text": "Visual grounding marks intervals 35.00s-38.00s, 104.00s-108.00s, and 125.00s-128.00s as showing the vote scene about pushing the body down the slide, including a woman in a red hoodie raising her hand.",
+            "observation_ids": [
+              "obs_61a3ad91db94ce80",
+              "obs_b87b8f71dd252682",
+              "obs_b7329e9873cd731f"
+            ],
+            "time_start_s": 35.0,
+            "time_end_s": 128.0,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "asr",
+            "evidence_text": "The transcript separately identifies the supporters as children during the vote: after the prompt to raise hands for \"her idea,\" a speaker says, \"It's all the kids.\"",
+            "observation_ids": [
+              "obs_46d06f0884347d42",
+              "obs_efcbaed9feca4202",
+              "obs_74281c1fcbf82e58"
+            ],
+            "time_start_s": 196.321,
+            "time_end_s": 224.013,
+            "frame_ts_s": null
+          }
+        ]
+      },
+      "answer": "C.The children."
+    }
+  },
+  "metadata": {}
+}

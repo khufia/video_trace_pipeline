@@ -1,0 +1,694 @@
+{
+  "run_dir": "runs/adhoc/video_13__e6e95b328626/20260424T081942Z_78b1c727",
+  "trace_package": {
+    "task_key": "video_13__e6e95b328626",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_anchor_audio",
+        "tool_name": "asr",
+        "evidence_text": "The relevant audio clip includes the Phil's Ammu-Nation-style line: \"Come to Phil's Hamlet Nation today\" and \"We got more guns than the law allows,\" spanning about 129.03s to 158.97s. This anchors the time window for selecting matching frames.",
+        "inference_hint": "Use this only to anchor the clip timing; answer the bottle count from frames in this interval.",
+        "confidence": null,
+        "time_start_s": 129.031,
+        "time_end_s": 158.967,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_b2e9d89eb7448b98",
+          "obs_b191b98d912fed8f"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_frames_clip",
+        "tool_name": "frame_retriever",
+        "evidence_text": "Frames were retrieved from the anchored clip at 129.00s, 130.00s, 131.00s, 132.00s, 133.00s, and 134.00s.",
+        "inference_hint": "These are the candidate visual moments to inspect for the table during the anchored audio.",
+        "confidence": null,
+        "time_start_s": 129.0,
+        "time_end_s": 134.0,
+        "frame_ts_s": null,
+        "artifact_refs": [
+          {
+            "artifact_id": "7d1e4e990504d042331663be",
+            "kind": "frame",
+            "relpath": "cache/artifacts/7d1e4e990504d042331663be/frame_129.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_129.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1327307
+            }
+          },
+          {
+            "artifact_id": "96c6e97963d32eae14aa2012",
+            "kind": "frame",
+            "relpath": "cache/artifacts/96c6e97963d32eae14aa2012/frame_130.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_130.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1519384
+            }
+          },
+          {
+            "artifact_id": "6699e95d430c6b0ce6c47bcb",
+            "kind": "frame",
+            "relpath": "cache/artifacts/6699e95d430c6b0ce6c47bcb/frame_131.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_131.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1530778
+            }
+          },
+          {
+            "artifact_id": "1b4855d1b8f404c847cd5fea",
+            "kind": "frame",
+            "relpath": "cache/artifacts/1b4855d1b8f404c847cd5fea/frame_132.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_132.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1594917
+            }
+          },
+          {
+            "artifact_id": "e0f3f5bcf0014397d822b487",
+            "kind": "frame",
+            "relpath": "cache/artifacts/e0f3f5bcf0014397d822b487/frame_133.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_133.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1604175
+            }
+          },
+          {
+            "artifact_id": "6df164474ec34e78f7922ef1",
+            "kind": "frame",
+            "relpath": "cache/artifacts/6df164474ec34e78f7922ef1/frame_134.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_134.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1558704
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_cdf91975c35f8e4a",
+          "obs_e0130ec777c753f6",
+          "obs_050900e226333aaa",
+          "obs_ff4708481942ff5b",
+          "obs_df46e4794e2e4b07",
+          "obs_5bc67d5047cb2acb"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_visual_table_bottles",
+        "tool_name": "generic_purpose",
+        "evidence_text": "In the frames from this anchored clip that show the table clearly, the foreground contains a glass table with two bottles on it. Image 2 shows the table plus two bottles, with one bottle on the left and one on the right; Images 3, 4, 5, and 6 also show two beer bottles on the table.",
+        "inference_hint": "Count only bottles on the table, not elsewhere in the room.",
+        "confidence": null,
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_7f6a1c68d7aca405",
+          "obs_94429a49a23902de",
+          "obs_8bcf62465e8380df",
+          "obs_253fb66db356a5cd",
+          "obs_a0526fe55d13fc37",
+          "obs_358659aa4226a3ab",
+          "obs_c73ed3e6519ea110",
+          "obs_52e55c03349d8256",
+          "obs_d29bce1b7f995050"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_empty_uncertainty",
+        "tool_name": "generic_purpose",
+        "evidence_text": "The visible objects are identified as beer bottles, but the source analysis explicitly notes uncertainty about whether they are empty. A follow-up visual reading also says the left bottle may have liquid or may just reflect glass color, and the right bottle seems to have liquid or may only appear that way because it is brown glass. So emptiness is not directly established from the frames.",
+        "inference_hint": "Distinguish the supported visible bottle count from the unsupported emptiness attribute.",
+        "confidence": null,
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_d85e61764f484316",
+          "obs_5071d0742eba2975",
+          "obs_46d60fe6daca825d",
+          "obs_5f8eb9cb2b5edfb4",
+          "obs_e72323c37c6091bd",
+          "obs_9a6bc71e38b381c6",
+          "obs_9642c66f7241fd4d",
+          "obs_098f0fed4d5d91e1",
+          "obs_e568235aef440c40"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_option_map",
+        "tool_name": "generic_purpose",
+        "evidence_text": "The options map counts to choices as follows: A = 0, B = 1, C = 2, D = 3.",
+        "inference_hint": "Use this mapping only if the count of empty bottles is actually supported.",
+        "confidence": null,
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_27765d80d68db393"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The relevant moment is the clip beginning around 129.03s where the Phil's Ammu-Nation-style line is heard, so the matching frames around 129-134s are the right visuals to inspect.",
+        "supporting_observation_ids": [
+          "obs_b2e9d89eb7448b98",
+          "obs_b191b98d912fed8f",
+          "obs_cdf91975c35f8e4a",
+          "obs_e0130ec777c753f6",
+          "obs_050900e226333aaa",
+          "obs_ff4708481942ff5b",
+          "obs_df46e4794e2e4b07",
+          "obs_5bc67d5047cb2acb"
+        ],
+        "answer_relevance": "anchors the time window for the visual count"
+      },
+      {
+        "step_id": 2,
+        "text": "In the clear table-view frames from that clip, the picture shows two beer bottles on the table, one on the left and one on the right, and this visible two-bottle count is consistent across the inspected frames.",
+        "supporting_observation_ids": [
+          "obs_7f6a1c68d7aca405",
+          "obs_94429a49a23902de",
+          "obs_8bcf62465e8380df",
+          "obs_253fb66db356a5cd",
+          "obs_a0526fe55d13fc37",
+          "obs_358659aa4226a3ab",
+          "obs_c73ed3e6519ea110",
+          "obs_52e55c03349d8256",
+          "obs_d29bce1b7f995050",
+          "obs_d85e61764f484316"
+        ],
+        "answer_relevance": "establishes the supported visible bottle count and bottle type"
+      },
+      {
+        "step_id": 3,
+        "text": "The frames do not clearly show whether either bottle is empty: the left bottle may contain liquid or may only look that way because of glass color, and the right bottle also may contain liquid or may only appear that way because it is brown glass.",
+        "supporting_observation_ids": [
+          "obs_5071d0742eba2975",
+          "obs_46d60fe6daca825d",
+          "obs_5f8eb9cb2b5edfb4",
+          "obs_e72323c37c6091bd",
+          "obs_9a6bc71e38b381c6",
+          "obs_9642c66f7241fd4d",
+          "obs_098f0fed4d5d91e1",
+          "obs_e568235aef440c40"
+        ],
+        "answer_relevance": "shows that the answer-critical emptiness attribute remains unresolved"
+      },
+      {
+        "step_id": 4,
+        "text": "Because the question asks for the number of empty beer bottles, the supported evidence is insufficient to choose among 0, 1, 2, or 3 empty bottles.",
+        "supporting_observation_ids": [
+          "obs_2542634194794ca0",
+          "obs_5071d0742eba2975",
+          "obs_46d60fe6daca825d",
+          "obs_5f8eb9cb2b5edfb4",
+          "obs_e72323c37c6091bd",
+          "obs_9a6bc71e38b381c6",
+          "obs_9642c66f7241fd4d",
+          "obs_098f0fed4d5d91e1",
+          "obs_e568235aef440c40"
+        ],
+        "answer_relevance": "prevents an unsupported multiple-choice selection"
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "video_13__e6e95b328626",
+        "trace": {
+          "inference_steps": [
+            "The relevant moment is the clip beginning around 129.03s where the Phil's Ammu-Nation-style line is heard, so the matching frames around 129-134s are the right visuals to inspect.",
+            "In the clear table-view frames from that clip, the picture shows two beer bottles on the table, one on the left and one on the right, and this visible two-bottle count is consistent across the inspected frames.",
+            "The frames do not clearly show whether either bottle is empty: the left bottle may contain liquid or may only look that way because of glass color, and the right bottle also may contain liquid or may only appear that way because it is brown glass.",
+            "Because the question asks for the number of empty beer bottles, the supported evidence is insufficient to choose among 0, 1, 2, or 3 empty bottles."
+          ],
+          "evidence": [
+            {
+              "tool_name": "asr",
+              "evidence_text": "The relevant audio clip includes the Phil's Ammu-Nation-style line: \"Come to Phil's Hamlet Nation today\" and \"We got more guns than the law allows,\" spanning about 129.03s to 158.97s. This anchors the time window for selecting matching frames.",
+              "observation_ids": [
+                "obs_b2e9d89eb7448b98",
+                "obs_b191b98d912fed8f"
+              ],
+              "time_start_s": 129.031,
+              "time_end_s": 158.967,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "frame_retriever",
+              "evidence_text": "Frames were retrieved from the anchored clip at 129.00s, 130.00s, 131.00s, 132.00s, 133.00s, and 134.00s.",
+              "observation_ids": [
+                "obs_cdf91975c35f8e4a",
+                "obs_e0130ec777c753f6",
+                "obs_050900e226333aaa",
+                "obs_ff4708481942ff5b",
+                "obs_df46e4794e2e4b07",
+                "obs_5bc67d5047cb2acb"
+              ],
+              "time_start_s": 129.0,
+              "time_end_s": 134.0,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "In the frames from this anchored clip that show the table clearly, the foreground contains a glass table with two bottles on it. Image 2 shows the table plus two bottles, with one bottle on the left and one on the right; Images 3, 4, 5, and 6 also show two beer bottles on the table.",
+              "observation_ids": [
+                "obs_7f6a1c68d7aca405",
+                "obs_94429a49a23902de",
+                "obs_8bcf62465e8380df",
+                "obs_253fb66db356a5cd",
+                "obs_a0526fe55d13fc37",
+                "obs_358659aa4226a3ab",
+                "obs_c73ed3e6519ea110",
+                "obs_52e55c03349d8256",
+                "obs_d29bce1b7f995050"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "The visible objects are identified as beer bottles, but the source analysis explicitly notes uncertainty about whether they are empty. A follow-up visual reading also says the left bottle may have liquid or may just reflect glass color, and the right bottle seems to have liquid or may only appear that way because it is brown glass. So emptiness is not directly established from the frames.",
+              "observation_ids": [
+                "obs_d85e61764f484316",
+                "obs_5071d0742eba2975",
+                "obs_46d60fe6daca825d",
+                "obs_5f8eb9cb2b5edfb4",
+                "obs_e72323c37c6091bd",
+                "obs_9a6bc71e38b381c6",
+                "obs_9642c66f7241fd4d",
+                "obs_098f0fed4d5d91e1",
+                "obs_e568235aef440c40"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "The options map counts to choices as follows: A = 0, B = 1, C = 2, D = 3.",
+              "observation_ids": [
+                "obs_27765d80d68db393"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {}
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.97,
+    "scores": {
+      "logical_coherence": 0.9,
+      "completeness": 0.28,
+      "factual_correctness": 0.9,
+      "reasoning_order": 0.95
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace correctly establishes that two beer bottles are visible on the table during the anchored audio, but it also states that emptiness is not established from the frames. Since the question asks for the number of empty beer bottles and provides only fixed multiple-choice options, the trace does not justify any unique option or an explicit final answer.",
+        "evidence_ids": [
+          "ev_visual_table_bottles",
+          "ev_empty_uncertainty",
+          "ev_option_map"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "ANSWER_ERROR",
+        "message": "The final answer field is blank. Even if the intended conclusion is 'insufficient evidence,' that conclusion is not rendered as the final answer, so the package does not reach a complete answer state aligned with the multiple-choice question.",
+        "evidence_ids": [
+          "ev_option_map"
+        ]
+      }
+    ],
+    "feedback": "The trace is internally consistent but stops at uncertainty: it grounds two bottles on the table while explicitly leaving emptiness unresolved, so it cannot justify any answer choice and does not provide a final answer.",
+    "missing_information": [
+      "Whether each of the two beer bottles on the table is empty at the moment anchored by the quoted audio",
+      "A uniquely justified answer choice, or an explicit resolved statement that the provided evidence is insufficient to select among A-D"
+    ]
+  },
+  "benchmark_export": {
+    "sample_key": "video_13__e6e95b328626",
+    "trace": {
+      "inference_steps": [
+        "The relevant moment is the clip beginning around 129.03s where the Phil's Ammu-Nation-style line is heard, so the matching frames around 129-134s are the right visuals to inspect.",
+        "In the clear table-view frames from that clip, the picture shows two beer bottles on the table, one on the left and one on the right, and this visible two-bottle count is consistent across the inspected frames.",
+        "The frames do not clearly show whether either bottle is empty: the left bottle may contain liquid or may only look that way because of glass color, and the right bottle also may contain liquid or may only appear that way because it is brown glass.",
+        "Because the question asks for the number of empty beer bottles, the supported evidence is insufficient to choose among 0, 1, 2, or 3 empty bottles."
+      ],
+      "evidence": [
+        {
+          "tool_name": "asr",
+          "evidence_text": "The relevant audio clip includes the Phil's Ammu-Nation-style line: \"Come to Phil's Hamlet Nation today\" and \"We got more guns than the law allows,\" spanning about 129.03s to 158.97s. This anchors the time window for selecting matching frames.",
+          "observation_ids": [
+            "obs_b2e9d89eb7448b98",
+            "obs_b191b98d912fed8f"
+          ],
+          "time_start_s": 129.031,
+          "time_end_s": 158.967,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "frame_retriever",
+          "evidence_text": "Frames were retrieved from the anchored clip at 129.00s, 130.00s, 131.00s, 132.00s, 133.00s, and 134.00s.",
+          "observation_ids": [
+            "obs_cdf91975c35f8e4a",
+            "obs_e0130ec777c753f6",
+            "obs_050900e226333aaa",
+            "obs_ff4708481942ff5b",
+            "obs_df46e4794e2e4b07",
+            "obs_5bc67d5047cb2acb"
+          ],
+          "time_start_s": 129.0,
+          "time_end_s": 134.0,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "In the frames from this anchored clip that show the table clearly, the foreground contains a glass table with two bottles on it. Image 2 shows the table plus two bottles, with one bottle on the left and one on the right; Images 3, 4, 5, and 6 also show two beer bottles on the table.",
+          "observation_ids": [
+            "obs_7f6a1c68d7aca405",
+            "obs_94429a49a23902de",
+            "obs_8bcf62465e8380df",
+            "obs_253fb66db356a5cd",
+            "obs_a0526fe55d13fc37",
+            "obs_358659aa4226a3ab",
+            "obs_c73ed3e6519ea110",
+            "obs_52e55c03349d8256",
+            "obs_d29bce1b7f995050"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "The visible objects are identified as beer bottles, but the source analysis explicitly notes uncertainty about whether they are empty. A follow-up visual reading also says the left bottle may have liquid or may just reflect glass color, and the right bottle seems to have liquid or may only appear that way because it is brown glass. So emptiness is not directly established from the frames.",
+          "observation_ids": [
+            "obs_d85e61764f484316",
+            "obs_5071d0742eba2975",
+            "obs_46d60fe6daca825d",
+            "obs_5f8eb9cb2b5edfb4",
+            "obs_e72323c37c6091bd",
+            "obs_9a6bc71e38b381c6",
+            "obs_9642c66f7241fd4d",
+            "obs_098f0fed4d5d91e1",
+            "obs_e568235aef440c40"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "The options map counts to choices as follows: A = 0, B = 1, C = 2, D = 3.",
+          "observation_ids": [
+            "obs_27765d80d68db393"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": true,
+    "cache_dir": "cache/preprocess/135d1fddb16bb2e627d3b2dcc37d7ac97c990228678e17ea311337f1650ea7fd/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/e70580d1fa54",
+    "manifest": {
+      "video_fingerprint": "135d1fddb16bb2e627d3b2dcc37d7ac97c990228678e17ea311337f1650ea7fd",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "summary_format": "dense_interleaved",
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "e70580d1fa54",
+      "summary_format": "dense_interleaved",
+      "include_asr": true,
+      "transcript_segment_count": 5,
+      "segment_count": 3,
+      "summary_status": "available"
+    },
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 60.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_13",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 0.0,
+              "end": 3.0,
+              "visual": "The video begins with a standard ESRB rating warning screen on a black background. The text reads, 'MAY CONTAIN CONTENT INAPPROPRIATE FOR CHILDREN,' with the ESRB logo and a link to their website below. This transitions to the white Rockstar Games 'R' logo appearing in the center of the screen.",
+              "audio": "speech: N/A; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A faint, low electronic hum is audible.",
+              "on_screen_text": "MAY CONTAIN CONTENT INAPPROPRIATE FOR CHILDREN,",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot on the ESRB warning and then the Rockstar Games logo.",
+                "video_background: The background is entirely black.",
+                "storyline: This segment serves as the standard opening for a video game trailer, setting the expectation for mature content and identifying the publisher.",
+                "shooting_style: This is a simple sequence of static shots with a fade transition between them."
+              ]
+            },
+            {
+              "start": 4.0,
+              "end": 8.0,
+              "visual": "A montage of scenes from a tropical town begins. An aerial shot shows a beautiful coastline with turquoise water, palm trees, and modern houses. The scene cuts to a low-angle shot of a weathered, green wooden house on stilts, with a vintage blue pickup truck parked in the gravel yard. A man in a Hawaiian shirt and sunglasses gets out of a modern silver pickup truck, looking around.",
+              "audio": "speech: N/A; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, tropical-style music with a light drum beat and synth melody begins to play.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The sequence uses an aerial wide shot, a low-angle static shot of the house, and a medium shot of the man getting out of his truck.",
+                "video_background: The setting is a sunny, tropical coastal town with clear blue skies, palm trees, and a mix of modern and rustic architecture.",
+                "storyline: This segment establishes the primary setting of the game, contrasting the idyllic tropical paradise with the gritty, rustic lifestyle of its inhabitants.",
+                "shooting_style: This is a montage of establishing shots to set the scene."
+              ]
+            }
+          ],
+          "overall_summary": "The video begins with a standard ESRB rating warning screen on a black background. The text reads, 'MAY CONTAIN CONTENT INAPPROPRIATE FOR CHILDREN,' with the ESRB logo and a link to their website below. This transitions to the white Rockstar Games 'R' logo appearing in the center of the screen.; speech: N/A; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A faint, low electronic hum is audible.; MAY CONTAIN CONTENT INAPPROPRIATE FOR CHILDREN,; attributes: camera_state: The camera is static, holding a centered, medium shot on the ESRB warning and then the Rockstar Games logo., video_background: The background is entirely black., storyline: This segment serves as the standard opening for a video game trailer, setting the expectation for mature content and identifying the publisher., shooting_style: This is a simple sequence of static shots with a fade transition between them. A montage of scenes from a tropical town begins. An aerial shot shows a beautiful coastline with turquoise water, palm trees, and modern houses. The scene cuts to a low-angle shot of a weathered, green wooden house on stilts, with a vintage blue pickup truck parked in the gravel yard. A man in a Hawaiian shirt and sunglasses gets out of a modern silver pickup truck, looking around.; speech: N/A; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, tropical-style music with a light drum beat and synth melody begins to play.; attributes: camera_state: The sequence uses an aerial wide shot, a low-angle static shot of the house, and a medium shot of the man getting out of his truck., video_background: The setting is a sunny, tropical coastal town with clear blue skies, palm trees, and a mix of modern and rustic architecture., storyline: This segment establishes the primary setting of the game, contrasting the idyllic tropical paradise with the gritty, rustic lifestyle of its inhabitants., shooting_style: This is a montage of establishing shots to set the scene.",
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 9.835,
+            "end_s": 33.494,
+            "text": "What you doing up there? I'm just fixing some leaks. Seriously, dude, you got some time on your hands. I got some properties with paying tenants. That's why you came by? Just go get me my checks. See you, Brian. Love you, Jason. Hi, Jason. Hi, Jason.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 42.843,
+            "end_s": 68.51,
+            "text": "I'm here for Lucia Caminos. She's supposed to be getting out. What's your name? Jason Duvall. I've seen you here before. You might have. Hey. Hey.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 60.0,
+        "end": 120.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_13",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 60.0,
+              "end": 64.0,
+              "visual": "A man in a white t-shirt with the words 'let Freedom Reign!' and an eagle graphic walks through a chain-link gate. A woman in a grey t-shirt stands waiting for him, smiling warmly. He approaches her, and they share a tender, romantic moment as he looks at her.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, hopeful musical score plays.",
+              "on_screen_text": "let Freedom Reign!",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera follows the man from behind as he exits the gate, then cuts to a medium shot of the woman, and finally a medium two-shot as they interact.",
+                "video_background: The scene is set at the entrance to a fenced-in area, likely a prison or detention center, with a building in the background. The lighting is warm and golden, suggesting sunrise or sunset.",
+                "storyline: This scene depicts a heartfelt reunion, likely between a man who has just been released from custody and the woman who has been waiting for him, establishing a romantic connection.",
+                "shooting_style: The scene uses a series of cuts to build the emotional moment, focusing on the characters' expressions and their physical proximity."
+              ]
+            },
+            {
+              "start": 65.0,
+              "end": 69.0,
+              "visual": "The Rockstar Games logo appears with a glitchy, distorted effect. The scene cuts to a montage: a couple is intimate on a bed, a woman in a skull mask and black outfit sits in a red-lit room, and a man in a suit is held at gunpoint by a masked figure in a red-lit office.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The music becomes more intense and percussive, with a glitchy sound effect.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static for the logo, then uses quick cuts for the montage scenes. The office scene is shot from a low angle, emphasizing the threat.",
+                "video_background: The scenes include a sunlit bedroom, a dark room with red lighting, and a modern office with multiple computer monitors.",
+                "storyline: This montage rapidly introduces themes of romance, danger, and violence, hinting at the different subplots and conflicts within the game.",
+                "shooting_style: This is a fast-paced montage with a glitch effect on the logo to create a sense of edgy, modern action."
+              ]
+            }
+          ],
+          "overall_summary": "A man in a white t-shirt with the words 'let Freedom Reign!' and an eagle graphic walks through a chain-link gate. A woman in a grey t-shirt stands waiting for him, smiling warmly. He approaches her, and they share a tender, romantic moment as he looks at her.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, hopeful musical score plays.; let Freedom Reign!; attributes: camera_state: The camera follows the man from behind as he exits the gate, then cuts to a medium shot of the woman, and finally a medium two-shot as they interact., video_background: The scene is set at the entrance to a fenced-in area, likely a prison or detention center, with a building in the background. The lighting is warm and golden, suggesting sunrise or sunset., storyline: This scene depicts a heartfelt reunion, likely between a man who has just been released from custody and the woman who has been waiting for him, establishing a romantic connection., shooting_style: The scene uses a series of cuts to build the emotional moment, focusing on the characters' expressions and their physical proximity. The Rockstar Games logo appears with a glitchy, distorted effect. The scene cuts to a montage: a couple is intimate on a bed, a woman in a skull mask and black outfit sits in a red-lit room, and a man in a suit is held at gunpoint by a masked figure in a red-lit office.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The music becomes more intense and percussive, with a glitchy sound effect.; attributes: camera_state: The camera is static for the logo, then uses quick cuts for the montage scenes. The office scene is shot from a low angle, emphasizing the threat., video_background: The scenes include a sunlit bedroom, a dark room with red lighting, and a modern office with multiple computer monitors., storyline: This montage rapidly introduces themes of romance, danger, and violence, hinting at the different subplots and conflicts within the game., shooting_style: This is a fast-paced montage with a glitch effect on the logo to create a sense of edgy, modern action.",
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 71.8,
+            "end_s": 99.34,
+            "text": "Hands above your heads, now! You, stay! The new beginnings. You make the news, isn't it? Trust me, this place is just the start for us. Ring the bells! Shots, baby! The only thing that matters is who you know and what you got. If you're gonna do this, you're doing it right.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 102.074,
+            "end_s": 127.555,
+            "text": "Yo, D, this full effect? They got your name, address, they got everything. Us cops, we gotta protect each other. You and me, girl. We got this. We got it. Say my city, baby. My city, baby.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 120.0,
+        "end": 166.73333333333332,
+        "dense_caption": {
+          "clip": {
+            "video_id": "video_13",
+            "start_s": 120.0,
+            "end_s": 166.73333333333332,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 120.0,
+              "end": 125.0,
+              "visual": "A rapid montage of action scenes: a woman in a black blazer runs across a rainy, neon-lit street; a man in a red shirt is violently thrown from the back of a moving truck; a man with a beard and glasses looks stressed while driving at night; a man in a purple shirt is held from behind by another man in a blue-lit club; a shirtless man carries a pink surfboard down a city sidewalk; a woman in a red bra dances seductively on a stage with a 'SINFUL SUNDAY' banner.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The music becomes more intense and percussive, with sound effects like rain, a body hitting the ground, and a car engine.",
+              "on_screen_text": "SINFUL SUNDAY",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera uses a series of quick, dynamic shots: a tracking shot of the running woman, a chaotic shot of the man being thrown, a close-up on the stressed driver, a medium shot in the club, a wide shot of the man with the surfboard, and a low-angle shot of the dancer.",
+                "video_background: The scenes are set in a rainy, neon-lit city at night, a dark road, a car interior, a crowded nightclub, and a sunny city street.",
+                "storyline: This montage rapidly showcases the game's diverse and chaotic elements: street crime, high-stakes action, intense personal drama, social life, and leisure activities.",
+                "shooting_style: This is a fast-paced montage with quick cuts between disparate scenes to build excitement and show the breadth of the game's content."
+              ]
+            },
+            {
+              "start": 126.0,
+              "end": 129.0,
+              "visual": "A man in a black tank top watches a video of a bodybuilder on a large TV in his living room. The scene cuts to a woman in an orange 'LDC' vest walking through a living room, where a man is passed out on the couch, surrounded by empty beer bottles. She playfully jumps on his back to wake him up.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The music is a mix of the video's audio and a more relaxed, ambient track.",
+              "on_screen_text": "LDC",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The first shot is a static medium shot of the man and the TV. The second is a wide, static shot of the living room, capturing the woman's playful action.",
+                "video_background: The first scene is a dimly lit living room with a large window overlooking a pier. The second is a sunlit, messy living room with a fireplace and plants.",
+                "storyline: This segment contrasts a character's interest in bodybuilding with a scene of domestic chaos and playful intimacy, highlighting different facets of the character's life.",
+                "shooting_style: The segment uses a simple cut to transition between two related but distinct scenes."
+              ]
+            }
+          ],
+          "overall_summary": "A rapid montage of action scenes: a woman in a black blazer runs across a rainy, neon-lit street; a man in a red shirt is violently thrown from the back of a moving truck; a man with a beard and glasses looks stressed while driving at night; a man in a purple shirt is held from behind by another man in a blue-lit club; a shirtless man carries a pink surfboard down a city sidewalk; a woman in a red bra dances seductively on a stage with a 'SINFUL SUNDAY' banner.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The music becomes more intense and percussive, with sound effects like rain, a body hitting the ground, and a car engine.; SINFUL SUNDAY; attributes: camera_state: The camera uses a series of quick, dynamic shots: a tracking shot of the running woman, a chaotic shot of the man being thrown, a close-up on the stressed driver, a medium shot in the club, a wide shot of the man with the surfboard, and a low-angle shot of the dancer., video_background: The scenes are set in a rainy, neon-lit city at night, a dark road, a car interior, a crowded nightclub, and a sunny city street., storyline: This montage rapidly showcases the game's diverse and chaotic elements: street crime, high-stakes action, intense personal drama, social life, and leisure activities., shooting_style: This is a fast-paced montage with quick cuts between disparate scenes to build excitement and show the breadth of the game's content. A man in a black tank top watches a video of a bodybuilder on a large TV in his living room. The scene cuts to a woman in an orange 'LDC' vest walking through a living room, where a man is passed out on the couch, surrounded by empty beer bottles. She playfully jumps on his back to wake him up.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The music is a mix of the video's audio and a more relaxed, ambient track.; LDC; attributes: camera_state: The first shot is a static medium shot of the man and the TV. The second is a wide, static shot of the living room, capturing the woman's playful action., video_background: The first scene is a dimly lit living room with a large window overlooking a pier. The second is a sunlit, messy living room with a fireplace and plants., storyline: This segment contrasts a character's interest in bodybuilding with a scene of domestic chaos and playful intimacy, highlighting different facets of the character's life., shooting_style: The segment uses a simple cut to transition between two related but distinct scenes.",
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 166.73333333333332
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 129.125,
+            "end_s": 158.167,
+            "text": "Come to Phil's Ammu Nation today. We got more guns than the law allows. Hey. Hey, if you got friends, can you hook me up, please? Oh!",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      }
+    ],
+    "summary": "[00:00-00:03] Visual: The video begins with a standard ESRB rating warning screen on a black background. The text reads, 'MAY CONTAIN CONTENT INAPPROPRIATE FOR CHILDREN,' with the ESRB logo and a link to their website below. This transitions to the white Rockstar Games 'R' logo appearing in the center of the screen. | Text: MAY CONTAIN CONTENT INAPPROPRIATE FOR CHILDREN,\n[00:04-00:08] Visual: A montage of scenes from a tropical town begins. An aerial shot shows a beautiful coastline with turquoise water, palm trees, and modern houses. The scene cuts to a low-angle shot of a weathered, green wooden house on stilts, with a vintage blue pickup truck parked in the gravel yard. A man in a Hawaiian shirt and sunglasses gets out of a modern silver pickup truck, looking around.\n[00:10-00:33] Speech: What you doing up there? I'm just fixing some leaks. Seriously, dude, you got some time on your hands. I got some properties with paying tenants. That's why you came by? Just go get me my checks. See you, Brian. Love you, Jason. Hi, Jason. Hi, Jason.\n[00:43-01:09] Speech: I'm here for Lucia Caminos. She's supposed to be getting out. What's your name? Jason Duvall. I've seen you here before. You might have. Hey. Hey.\n[01:00-01:04] Visual: A man in a white t-shirt with the words 'let Freedom Reign!' and an eagle graphic walks through a chain-link gate. A woman in a grey t-shirt stands waiting for him, smiling warmly. He approaches her, and they share a tender, romantic moment as he looks at her. | Text: let Freedom Reign!\n[01:05-01:09] Visual: The Rockstar Games logo appears with a glitchy, distorted effect. The scene cuts to a montage: a couple is intimate on a bed, a woman in a skull mask and black outfit sits in a red-lit room, and a man in a suit is held at gunpoint by a masked figure in a red-lit office.\n[01:12-01:39] Speech: Hands above your heads, now! You, stay! The new beginnings. You make the news, isn't it? Trust me, this place is just the start for us. Ring the bells! Shots, baby! The only thing that matters is who you know and what you got. If you're gonna do this, you're doing it right.\n[01:42-02:08] Speech: Yo, D, this full effect? They got your name, address, they got everything. Us cops, we gotta protect each other. You and me, girl. We got this. We got it. Say my city, baby. My city, baby.\n[02:00-02:05] Visual: A rapid montage of action scenes: a woman in a black blazer runs across a rainy, neon-lit street; a man in a red shirt is violently thrown from the back of a moving truck; a man with a beard and glasses looks stressed while driving at night; a man in a purple shirt is held from behind by another man in a blue-lit club; a shirtless man carries a pink surfboard down a city sidewalk; a woman in a red bra dances seductively on a stage with a 'SINFUL SUNDAY' banner. | Text: SINFUL SUNDAY\n[02:06-02:09] Visual: A man in a black tank top watches a video of a bodybuilder on a large TV in his living room. The scene cuts to a woman in an orange 'LDC' vest walking through a living room, where a man is passed out on the couch, surrounded by empty beer bottles. She playfully jumps on his back to wake him up.\n[02:09-02:38] Speech: Come to Phil's Ammu Nation today. We got more guns than the law allows. Hey. Hey, if you got friends, can you hook me up, please? Oh!",
+    "video_fingerprint": "135d1fddb16bb2e627d3b2dcc37d7ac97c990228678e17ea311337f1650ea7fd"
+  },
+  "rounds_executed": 2,
+  "exported_results_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/results/run_refiner_inputs/20260424T081942Z_78b1c727/video_13"
+}

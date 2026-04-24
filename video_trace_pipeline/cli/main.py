@@ -12,7 +12,7 @@ from ..common import sanitize_path_component, short_hash
 from ..config import load_machine_profile, load_models_config
 from ..diagnostics import dataset_report, model_report, package_report, summarize_status
 from ..orchestration import PipelineRunner
-from ..renderers import export_trace_for_benchmark
+from ..renderers import export_trace_for_benchmark, write_run_debug_bundle
 from ..schemas import TaskSpec, TracePackage
 from ..storage import EvidenceLedger, RunContext, WorkspaceManager
 from ..tool_wrappers.persistent_pool import normalize_persist_tool_name
@@ -391,7 +391,7 @@ def preprocess(
     initial_trace_steps_json: Optional[str] = typer.Option(None, help="Initial trace steps as JSON list or `||`-separated string"),
     inputs_json: Optional[str] = typer.Option(None, help="JSON file containing a list of direct-input samples"),
     input_index: Optional[int] = typer.Option(None, help="Sample index inside `inputs_json`"),
-    clip_duration: float = typer.Option(30.0, help="Dense-caption clip duration in seconds"),
+    clip_duration: Optional[float] = typer.Option(None, help="Dense-caption clip duration in seconds"),
     workspace_root: Optional[str] = typer.Option(None, help="Override workspace root"),
     persist_tool_models: Optional[str] = typer.Option(
         None,
@@ -459,7 +459,7 @@ def run(
     initial_trace_steps_json: Optional[str] = typer.Option(None, help="Initial trace steps as JSON list or `||`-separated string"),
     inputs_json: Optional[str] = typer.Option(None, help="JSON file containing a list of direct-input samples"),
     input_index: Optional[int] = typer.Option(None, help="Sample index inside `inputs_json`"),
-    clip_duration: float = typer.Option(30.0, help="Dense-caption clip duration in seconds"),
+    clip_duration: Optional[float] = typer.Option(None, help="Dense-caption clip duration in seconds"),
     max_rounds: int = typer.Option(2, help="Maximum generation/refinement rounds"),
     initial_trace_path: Optional[str] = typer.Option(None, help="Optional initial trace package JSON"),
     results_name: Optional[str] = typer.Option(None, help="Optional repo-local results directory name"),
@@ -579,6 +579,18 @@ def export(
     output_path = run_path / "results" / "benchmark_export.json"
     output_path.write_text(json.dumps(export_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     console.print("[green]export[/green]", output_path)
+
+
+@app.command("debug-run")
+def debug_run(
+    run_dir: str = typer.Option(..., help="Run directory produced by `vtp run`"),
+    output_dir: Optional[str] = typer.Option(
+        None,
+        help="Optional output directory for the debug bundle. Defaults to <run_dir>/debug",
+    ),
+):
+    report_path = write_run_debug_bundle(run_dir, output_dir=output_dir)
+    console.print("[green]debug-run[/green]", report_path)
 
 
 def main():

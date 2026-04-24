@@ -1,0 +1,78 @@
+{
+  "tool_name": "asr",
+  "ok": true,
+  "data": {
+    "clip": {
+      "video_id": "video",
+      "start_s": 58.0,
+      "end_s": 96.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {}
+    },
+    "text": "You can ask me anything. Were you pregnant with me when you married dad? Um, why would you ask that? Sheldon said so. How would Sheldon know? He did the math. What math? He said the time between my birthday and your wedding day was six months. Um, yeah. That's because you were born premature. I've seen my birth certificate. It said I weighed nine pounds. Yes, that's true. You were a big fat preemie. Let's talk about something else.",
+    "segments": [
+      {
+        "start_s": 58.031,
+        "end_s": 86.533,
+        "text": "You can ask me anything. Were you pregnant with me when you married dad? Um, why would you ask that? Sheldon said so. How would Sheldon know? He did the math. What math? He said the time between my birthday and your wedding day was six months. Um, yeah. That's because you were born premature. I've seen my birth certificate. It said I weighed nine pounds.",
+        "speaker_id": null,
+        "confidence": null
+      },
+      {
+        "start_s": 87.225,
+        "end_s": 95.19,
+        "text": "Yes, that's true. You were a big fat preemie. Let's talk about something else.",
+        "speaker_id": null,
+        "confidence": null
+      }
+    ],
+    "backend": "whisperx_local"
+  },
+  "raw_output_text": "{\"clip\": {\"video_id\": \"video\", \"start_s\": 58.0, \"end_s\": 96.0, \"artifact_id\": null, \"relpath\": null, \"metadata\": {}}, \"text\": \"You can ask me anything. Were you pregnant with me when you married dad? Um, why would you ask that? Sheldon said so. How would Sheldon know? He did the math. What math? He said the time between my birthday and your wedding day was six months. Um, yeah. That's because you were born premature. I've seen my birth certificate. It said I weighed nine pounds. Yes, that's true. You were a big fat preemie. Let's talk about something else.\", \"segments\": [{\"start_s\": 58.031, \"end_s\": 86.533, \"text\": \"You can ask me anything. Were you pregnant with me when you married dad? Um, why would you ask that? Sheldon said so. How would Sheldon know? He did the math. What math? He said the time between my birthday and your wedding day was six months. Um, yeah. That's because you were born premature. I've seen my birth certificate. It said I weighed nine pounds.\", \"speaker_id\": null, \"confidence\": null}, {\"start_s\": 87.225, \"end_s\": 95.19, \"text\": \"Yes, that's true. You were a big fat preemie. Let's talk about something else.\", \"speaker_id\": null, \"confidence\": null}], \"backend\": \"whisperx_local\"}",
+  "artifact_refs": [],
+  "request_hash": "c00db3f81aa160f59a1d25f3",
+  "cache_hit": false,
+  "summary": "You can ask me anything. Were you pregnant with me when you married dad? Um, why would you ask that? Sheldon said so. How would Sheldon know? He did the math. What math? He said the time between my birthday and your wedding day was six months. Um, yeah. That's because you were born premature. I've seen my birth certificate. It said I weighed nine pounds. Yes, that's true. You were a big fat preemie. Let's talk about something else.",
+  "metadata": {
+    "runtime_warning": "WhisperX GPU runtime unavailable on cuda:0 (missing libcudnn_ops_infer.so.8, libcudnn_cnn_infer.so.8, libcudnn_adv_infer.so.8; searched <redacted-path>, <redacted-path>, <redacted-path>). Falling back to CPU int8 ASR.",
+    "timing": {
+      "started_at_utc": "2026-04-24T11:58:50.495894+00:00",
+      "finished_at_utc": "2026-04-24T11:59:57.103735+00:00",
+      "duration_s": 66.6079,
+      "cache_wait_s": 0.0007,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_4bd216c918b59121",
+      "obs_d5809b5f5f747997",
+      "obs_d4fa8647a384f146",
+      "obs_6a23252a33498d9f",
+      "obs_7273ef38aee3e030",
+      "obs_b062076caebe5d22",
+      "obs_159a3006c35ec9cc",
+      "obs_2e2666e990703fdc",
+      "obs_00b27fbb9f7ed941",
+      "obs_569168d532d65f05",
+      "obs_1725cc86637a3f3c",
+      "obs_2d1f59f65989d570",
+      "obs_05ee206e2120d901",
+      "obs_3d70ca0a593e3e52",
+      "obs_c38c01d0f1e382ae",
+      "obs_76f656cd549654b8",
+      "obs_63eb9171a69c6b7a",
+      "obs_0067654796d8571b",
+      "obs_d0638e93ad2db5c2",
+      "obs_1c0e00995eb9181d",
+      "obs_ef64d6d88284b318",
+      "obs_a0e96098895e102e",
+      "obs_849c273acc91012c",
+      "obs_abfcbb2778a8be87",
+      "obs_5d964c2789b0a73f",
+      "obs_60436e1864c9d17c",
+      "obs_114f8a4b51b16861",
+      "obs_7012b2627014ef5b",
+      "obs_e95630d007116ece"
+    ]
+  }
+}

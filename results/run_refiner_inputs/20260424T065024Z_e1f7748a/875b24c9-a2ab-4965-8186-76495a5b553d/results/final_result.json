@@ -1,0 +1,1073 @@
+{
+  "run_dir": "runs/adhoc/875b24c9-a2ab-4965-8186-76495a5b553d__41fa40a586fb/20260424T065024Z_e1f7748a",
+  "trace_package": {
+    "task_key": "875b24c9-a2ab-4965-8186-76495a5b553d__41fa40a586fb",
+    "mode": "generate",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_anchor_intervals",
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "The survey comparison graphic relevant to Store Cleanliness and Value for Dollar is present in two intervals: 158.00s-168.00s and 207.00s-213.00s.",
+        "inference_hint": "Use these intervals only as the temporal anchor for where the relevant charts appear.",
+        "confidence": 1.0,
+        "time_start_s": 158.0,
+        "time_end_s": 213.0,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_e66b0cf48475d7b8",
+          "obs_d7127bbfa9af842e"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_retrieved_frames",
+        "tool_name": "frame_retriever",
+        "evidence_text": "Frames were retrieved from the anchored intervals at 158.00s, 159.00s, 160.00s, 161.00s, 162.00s, 163.00s, 207.00s, 208.00s, 209.00s, 210.00s, 211.00s, and 212.00s.",
+        "inference_hint": "These frames provide the visual basis for selecting the clearest chart views.",
+        "confidence": 0.0,
+        "time_start_s": 158.0,
+        "time_end_s": 212.0,
+        "frame_ts_s": null,
+        "artifact_refs": [
+          {
+            "artifact_id": "95f3d197473ba36717b025c3",
+            "kind": "frame",
+            "relpath": "cache/artifacts/95f3d197473ba36717b025c3/frame_158.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_158.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 2330039
+            }
+          },
+          {
+            "artifact_id": "052ced0d25a5ee5d074434f8",
+            "kind": "frame",
+            "relpath": "cache/artifacts/052ced0d25a5ee5d074434f8/frame_159.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_159.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 871793
+            }
+          },
+          {
+            "artifact_id": "49c717e6d589f84b1e8e09d4",
+            "kind": "frame",
+            "relpath": "cache/artifacts/49c717e6d589f84b1e8e09d4/frame_160.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_160.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1063195
+            }
+          },
+          {
+            "artifact_id": "6f53e365c46b822f4cb64b37",
+            "kind": "frame",
+            "relpath": "cache/artifacts/6f53e365c46b822f4cb64b37/frame_161.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_161.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1182685
+            }
+          },
+          {
+            "artifact_id": "8e1f1b93d94003610fce22dd",
+            "kind": "frame",
+            "relpath": "cache/artifacts/8e1f1b93d94003610fce22dd/frame_162.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_162.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1279750
+            }
+          },
+          {
+            "artifact_id": "3f97896016571a853a716e19",
+            "kind": "frame",
+            "relpath": "cache/artifacts/3f97896016571a853a716e19/frame_163.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_163.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1194712
+            }
+          },
+          {
+            "artifact_id": "5f0d1ff7030c3b72720546e4",
+            "kind": "frame",
+            "relpath": "cache/artifacts/5f0d1ff7030c3b72720546e4/frame_207.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_207.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 1300994
+            }
+          },
+          {
+            "artifact_id": "4f7597d24848d59adef77094",
+            "kind": "frame",
+            "relpath": "cache/artifacts/4f7597d24848d59adef77094/frame_208.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_208.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 995494
+            }
+          },
+          {
+            "artifact_id": "d341f0b45d266e4b24ebb27f",
+            "kind": "frame",
+            "relpath": "cache/artifacts/d341f0b45d266e4b24ebb27f/frame_209.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_209.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 993648
+            }
+          },
+          {
+            "artifact_id": "a8fc6dbf7c585d5bf958d95a",
+            "kind": "frame",
+            "relpath": "cache/artifacts/a8fc6dbf7c585d5bf958d95a/frame_210.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_210.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 984690
+            }
+          },
+          {
+            "artifact_id": "27a396d4b9e3d4c01a6e6c03",
+            "kind": "frame",
+            "relpath": "cache/artifacts/27a396d4b9e3d4c01a6e6c03/frame_211.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_211.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 990757
+            }
+          },
+          {
+            "artifact_id": "61ff6b05086894c20973d956",
+            "kind": "frame",
+            "relpath": "cache/artifacts/61ff6b05086894c20973d956/frame_212.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_212.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 995155
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_e70f49ca026b715e",
+          "obs_a2a975ba86f369d5",
+          "obs_69f5b2ad8c8421d0",
+          "obs_00a29ebf18a8540a",
+          "obs_8a6486e4fddbc4c1",
+          "obs_0a158ee0513e287d",
+          "obs_4ce37afea5eb0b19",
+          "obs_02cb96587cdd03bb",
+          "obs_8715b22c2cadae72",
+          "obs_712d77ecec591c15",
+          "obs_3048fc45afc38f35",
+          "obs_1528e819a37e0478"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_chart_selection_and_reads",
+        "tool_name": "generic_purpose",
+        "evidence_text": "Within the retrieved sequence, the Customer Satisfaction by Store Attribute chart includes Store Cleanliness, with frame 6 identified as the most complete view showing all stores. The Value for Dollar chart appears later, with frame 12 identified as the most complete view showing all stores and specific values. Extracted approximate percentages are: Store Cleanliness — Walmart 25%, Target 65%, Whole Foods 75%, Albertsons 55%; Value for Dollar — Walmart 68%, Target 40%, Whole Foods 10%, Albertsons 23%.",
+        "inference_hint": "Use these approximate chart reads as the decisive evidence for comparing absolute gaps across the four named stores.",
+        "confidence": null,
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_034c61227e35de11",
+          "obs_1cd0873ce7fd1785",
+          "obs_266b624416c7ae5a",
+          "obs_7a312c19bc70eead",
+          "obs_d0311f21e029790d",
+          "obs_69fb1ad52a89dc01",
+          "obs_d9fbbe22ab8ed652",
+          "obs_0036fb45f749a8ae",
+          "obs_41f649d9f048ead6",
+          "obs_81423cb2539e7eea",
+          "obs_1516822ea013c484",
+          "obs_ece912eda59f4689",
+          "obs_41b0edb3fa05995a",
+          "obs_f6603be63ade59f2",
+          "obs_257f037df60b833e",
+          "obs_84cfd2177a71e502",
+          "obs_087415a022be4ccd",
+          "obs_03ea46b1116a13e3"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_computed_gaps",
+        "tool_name": "generic_purpose",
+        "evidence_text": "Using the extracted approximate percentages, the absolute gaps between Store Cleanliness and Value for Dollar are: Walmart 43 points, Target 25 points, Whole Foods 65 points, and Albertsons 32 points.",
+        "inference_hint": "Compare these four gaps directly to identify the largest discrepancy and map it to the closest answer option.",
+        "confidence": null,
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_1dbdcc587c1be7a4",
+          "obs_671d5aa95a2a986f",
+          "obs_7914b0ee3e4e635c",
+          "obs_52882c90fea5102c"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The relevant survey graphic appears in the video during 158.00s-168.00s and again during 207.00s-213.00s, so those intervals anchor where the needed comparison charts are shown.",
+        "supporting_observation_ids": [
+          "obs_e66b0cf48475d7b8",
+          "obs_d7127bbfa9af842e"
+        ],
+        "answer_relevance": "establishes temporal anchor for the visual evidence"
+      },
+      {
+        "step_id": 2,
+        "text": "The retrieved frames cover those anchored intervals, and the clearest complete views are identified as frame 6 for the Customer Satisfaction by Store Attribute chart and frame 12 for the Value for Dollar chart, each showing all stores needed for comparison.",
+        "supporting_observation_ids": [
+          "obs_e70f49ca026b715e",
+          "obs_a2a975ba86f369d5",
+          "obs_69f5b2ad8c8421d0",
+          "obs_00a29ebf18a8540a",
+          "obs_8a6486e4fddbc4c1",
+          "obs_0a158ee0513e287d",
+          "obs_4ce37afea5eb0b19",
+          "obs_02cb96587cdd03bb",
+          "obs_8715b22c2cadae72",
+          "obs_712d77ecec591c15",
+          "obs_3048fc45afc38f35",
+          "obs_1528e819a37e0478",
+          "obs_266b624416c7ae5a",
+          "obs_7a312c19bc70eead",
+          "obs_d0311f21e029790d",
+          "obs_d9fbbe22ab8ed652",
+          "obs_0036fb45f749a8ae",
+          "obs_41f649d9f048ead6",
+          "obs_81423cb2539e7eea"
+        ],
+        "answer_relevance": "establishes which chart views support the numeric reads"
+      },
+      {
+        "step_id": 3,
+        "text": "From those chart reads, the approximate pairs are Walmart 25% vs 68%, Target 65% vs 40%, Whole Foods 75% vs 10%, and Albertsons 55% vs 23%, giving absolute gaps of about 43, 25, 65, and 32 percentage points respectively.",
+        "supporting_observation_ids": [
+          "obs_1516822ea013c484",
+          "obs_ece912eda59f4689",
+          "obs_41b0edb3fa05995a",
+          "obs_f6603be63ade59f2",
+          "obs_257f037df60b833e",
+          "obs_84cfd2177a71e502",
+          "obs_087415a022be4ccd",
+          "obs_03ea46b1116a13e3",
+          "obs_1dbdcc587c1be7a4",
+          "obs_671d5aa95a2a986f",
+          "obs_7914b0ee3e4e635c",
+          "obs_52882c90fea5102c"
+        ],
+        "answer_relevance": "computes the discrepancies for all four candidate stores"
+      },
+      {
+        "step_id": 4,
+        "text": "The largest verified gap is Whole Foods at about 65 percentage points, which matches the Whole Foods 65% option.",
+        "supporting_observation_ids": [
+          "obs_7914b0ee3e4e635c",
+          "obs_1dbdcc587c1be7a4",
+          "obs_671d5aa95a2a986f",
+          "obs_52882c90fea5102c"
+        ],
+        "answer_relevance": "selects the best-supported answer choice"
+      }
+    ],
+    "final_answer": "B. Whole Foods, 65%",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "875b24c9-a2ab-4965-8186-76495a5b553d__41fa40a586fb",
+        "trace": {
+          "inference_steps": [
+            "The relevant survey graphic appears in the video during 158.00s-168.00s and again during 207.00s-213.00s, so those intervals anchor where the needed comparison charts are shown.",
+            "The retrieved frames cover those anchored intervals, and the clearest complete views are identified as frame 6 for the Customer Satisfaction by Store Attribute chart and frame 12 for the Value for Dollar chart, each showing all stores needed for comparison.",
+            "From those chart reads, the approximate pairs are Walmart 25% vs 68%, Target 65% vs 40%, Whole Foods 75% vs 10%, and Albertsons 55% vs 23%, giving absolute gaps of about 43, 25, 65, and 32 percentage points respectively.",
+            "The largest verified gap is Whole Foods at about 65 percentage points, which matches the Whole Foods 65% option."
+          ],
+          "evidence": [
+            {
+              "tool_name": "visual_temporal_grounder",
+              "evidence_text": "The survey comparison graphic relevant to Store Cleanliness and Value for Dollar is present in two intervals: 158.00s-168.00s and 207.00s-213.00s.",
+              "observation_ids": [
+                "obs_e66b0cf48475d7b8",
+                "obs_d7127bbfa9af842e"
+              ],
+              "time_start_s": 158.0,
+              "time_end_s": 213.0,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "frame_retriever",
+              "evidence_text": "Frames were retrieved from the anchored intervals at 158.00s, 159.00s, 160.00s, 161.00s, 162.00s, 163.00s, 207.00s, 208.00s, 209.00s, 210.00s, 211.00s, and 212.00s.",
+              "observation_ids": [
+                "obs_e70f49ca026b715e",
+                "obs_a2a975ba86f369d5",
+                "obs_69f5b2ad8c8421d0",
+                "obs_00a29ebf18a8540a",
+                "obs_8a6486e4fddbc4c1",
+                "obs_0a158ee0513e287d",
+                "obs_4ce37afea5eb0b19",
+                "obs_02cb96587cdd03bb",
+                "obs_8715b22c2cadae72",
+                "obs_712d77ecec591c15",
+                "obs_3048fc45afc38f35",
+                "obs_1528e819a37e0478"
+              ],
+              "time_start_s": 158.0,
+              "time_end_s": 212.0,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "Within the retrieved sequence, the Customer Satisfaction by Store Attribute chart includes Store Cleanliness, with frame 6 identified as the most complete view showing all stores. The Value for Dollar chart appears later, with frame 12 identified as the most complete view showing all stores and specific values. Extracted approximate percentages are: Store Cleanliness — Walmart 25%, Target 65%, Whole Foods 75%, Albertsons 55%; Value for Dollar — Walmart 68%, Target 40%, Whole Foods 10%, Albertsons 23%.",
+              "observation_ids": [
+                "obs_034c61227e35de11",
+                "obs_1cd0873ce7fd1785",
+                "obs_266b624416c7ae5a",
+                "obs_7a312c19bc70eead",
+                "obs_d0311f21e029790d",
+                "obs_69fb1ad52a89dc01",
+                "obs_d9fbbe22ab8ed652",
+                "obs_0036fb45f749a8ae",
+                "obs_41f649d9f048ead6",
+                "obs_81423cb2539e7eea",
+                "obs_1516822ea013c484",
+                "obs_ece912eda59f4689",
+                "obs_41b0edb3fa05995a",
+                "obs_f6603be63ade59f2",
+                "obs_257f037df60b833e",
+                "obs_84cfd2177a71e502",
+                "obs_087415a022be4ccd",
+                "obs_03ea46b1116a13e3"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "Using the extracted approximate percentages, the absolute gaps between Store Cleanliness and Value for Dollar are: Walmart 43 points, Target 25 points, Whole Foods 65 points, and Albertsons 32 points.",
+              "observation_ids": [
+                "obs_1dbdcc587c1be7a4",
+                "obs_671d5aa95a2a986f",
+                "obs_7914b0ee3e4e635c",
+                "obs_52882c90fea5102c"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null
+            }
+          ]
+        },
+        "answer": "B. Whole Foods, 65%"
+      }
+    },
+    "metadata": {}
+  },
+  "audit_report": {
+    "verdict": "PASS",
+    "confidence": 0.97,
+    "scores": {
+      "logical_coherence": 0.96,
+      "completeness": 0.95,
+      "factual_correctness": 0.94,
+      "reasoning_order": 0.97
+    },
+    "findings": [],
+    "feedback": "The trace is aligned with the question, uses textually provided chart reads for all four stores, computes the absolute differences correctly, and selects the matching option uniquely.",
+    "missing_information": []
+  },
+  "benchmark_export": {
+    "sample_key": "875b24c9-a2ab-4965-8186-76495a5b553d__41fa40a586fb",
+    "trace": {
+      "inference_steps": [
+        "The relevant survey graphic appears in the video during 158.00s-168.00s and again during 207.00s-213.00s, so those intervals anchor where the needed comparison charts are shown.",
+        "The retrieved frames cover those anchored intervals, and the clearest complete views are identified as frame 6 for the Customer Satisfaction by Store Attribute chart and frame 12 for the Value for Dollar chart, each showing all stores needed for comparison.",
+        "From those chart reads, the approximate pairs are Walmart 25% vs 68%, Target 65% vs 40%, Whole Foods 75% vs 10%, and Albertsons 55% vs 23%, giving absolute gaps of about 43, 25, 65, and 32 percentage points respectively.",
+        "The largest verified gap is Whole Foods at about 65 percentage points, which matches the Whole Foods 65% option."
+      ],
+      "evidence": [
+        {
+          "tool_name": "visual_temporal_grounder",
+          "evidence_text": "The survey comparison graphic relevant to Store Cleanliness and Value for Dollar is present in two intervals: 158.00s-168.00s and 207.00s-213.00s.",
+          "observation_ids": [
+            "obs_e66b0cf48475d7b8",
+            "obs_d7127bbfa9af842e"
+          ],
+          "time_start_s": 158.0,
+          "time_end_s": 213.0,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "frame_retriever",
+          "evidence_text": "Frames were retrieved from the anchored intervals at 158.00s, 159.00s, 160.00s, 161.00s, 162.00s, 163.00s, 207.00s, 208.00s, 209.00s, 210.00s, 211.00s, and 212.00s.",
+          "observation_ids": [
+            "obs_e70f49ca026b715e",
+            "obs_a2a975ba86f369d5",
+            "obs_69f5b2ad8c8421d0",
+            "obs_00a29ebf18a8540a",
+            "obs_8a6486e4fddbc4c1",
+            "obs_0a158ee0513e287d",
+            "obs_4ce37afea5eb0b19",
+            "obs_02cb96587cdd03bb",
+            "obs_8715b22c2cadae72",
+            "obs_712d77ecec591c15",
+            "obs_3048fc45afc38f35",
+            "obs_1528e819a37e0478"
+          ],
+          "time_start_s": 158.0,
+          "time_end_s": 212.0,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "Within the retrieved sequence, the Customer Satisfaction by Store Attribute chart includes Store Cleanliness, with frame 6 identified as the most complete view showing all stores. The Value for Dollar chart appears later, with frame 12 identified as the most complete view showing all stores and specific values. Extracted approximate percentages are: Store Cleanliness — Walmart 25%, Target 65%, Whole Foods 75%, Albertsons 55%; Value for Dollar — Walmart 68%, Target 40%, Whole Foods 10%, Albertsons 23%.",
+          "observation_ids": [
+            "obs_034c61227e35de11",
+            "obs_1cd0873ce7fd1785",
+            "obs_266b624416c7ae5a",
+            "obs_7a312c19bc70eead",
+            "obs_d0311f21e029790d",
+            "obs_69fb1ad52a89dc01",
+            "obs_d9fbbe22ab8ed652",
+            "obs_0036fb45f749a8ae",
+            "obs_41f649d9f048ead6",
+            "obs_81423cb2539e7eea",
+            "obs_1516822ea013c484",
+            "obs_ece912eda59f4689",
+            "obs_41b0edb3fa05995a",
+            "obs_f6603be63ade59f2",
+            "obs_257f037df60b833e",
+            "obs_84cfd2177a71e502",
+            "obs_087415a022be4ccd",
+            "obs_03ea46b1116a13e3"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "Using the extracted approximate percentages, the absolute gaps between Store Cleanliness and Value for Dollar are: Walmart 43 points, Target 25 points, Whole Foods 65 points, and Albertsons 32 points.",
+          "observation_ids": [
+            "obs_1dbdcc587c1be7a4",
+            "obs_671d5aa95a2a986f",
+            "obs_7914b0ee3e4e635c",
+            "obs_52882c90fea5102c"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null
+        }
+      ]
+    },
+    "answer": "B. Whole Foods, 65%"
+  },
+  "preprocess": {
+    "cache_hit": true,
+    "cache_dir": "cache/preprocess/486915edd4b899ffe769e999a5ec516d15e843e6b08acf259f8e5a7518276fdd/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/e70580d1fa54",
+    "manifest": {
+      "video_fingerprint": "486915edd4b899ffe769e999a5ec516d15e843e6b08acf259f8e5a7518276fdd",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "summary_format": "dense_interleaved",
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "e70580d1fa54",
+      "summary_format": "dense_interleaved",
+      "include_asr": true,
+      "transcript_segment_count": 16,
+      "segment_count": 7,
+      "summary_status": "available"
+    },
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 60.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "875b24c9-a2ab-4965-8186-76495a5b553d",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 0.0,
+              "end": 5.0,
+              "visual": "A hand holds a 2-liter bottle of whole milk against a white background. Animated price tags pop up, showing the milk costs $2.18. The scene then expands to show a loaf of H-E-B Classic White Bread, a carton of 12 eggs, and the milk, with their respective prices: $1.29 for the bread and $1.87 for the eggs.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, light electronic music begins to play.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static and positioned at a high angle, looking down at the products as they are presented.",
+                "video_background: The background is a clean, white surface with a subtle texture.",
+                "storyline: This segment introduces the core product line of Aldi (milk, bread, eggs) and immediately establishes their low price point by displaying the prices.",
+                "shooting_style: This is a product shot with animated graphic overlays to convey information."
+              ]
+            },
+            {
+              "start": 6.0,
+              "end": 10.0,
+              "visual": "A bar chart titled 'FASTEST GROWING GROCERS IN 2022' is shown, with ALDI at the top with 87 new stores. The scene cuts to an exterior shot of a modern ALDI store. Inside, a hand pushes a shopping cart down an aisle, and another shot shows a full shopping cart filled with groceries, including a pineapple and various packaged goods.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat electronic music continues.",
+              "on_screen_text": "FASTEST GROWING GROCERS IN 2022",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static for the bar chart, then shows a wide shot of the store's exterior, followed by a tracking shot of a shopping cart and a static shot of a full cart.",
+                "video_background: The background includes a white screen, the exterior of a modern commercial building, and the interior aisles of an ALDI store.",
+                "storyline: This segment establishes ALDI's success and growth, visually connecting the low prices to the full shopping experience inside a store.",
+                "shooting_style: This is a montage combining a data visualization with live-action footage."
+              ]
+            }
+          ],
+          "overall_summary": "A hand holds a 2-liter bottle of whole milk against a white background. Animated price tags pop up, showing the milk costs $2.18. The scene then expands to show a loaf of H-E-B Classic White Bread, a carton of 12 eggs, and the milk, with their respective prices: $1.29 for the bread and $1.87 for the eggs.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, light electronic music begins to play.; attributes: camera_state: The camera is static and positioned at a high angle, looking down at the products as they are presented., video_background: The background is a clean, white surface with a subtle texture., storyline: This segment introduces the core product line of Aldi (milk, bread, eggs) and immediately establishes their low price point by displaying the prices., shooting_style: This is a product shot with animated graphic overlays to convey information. A bar chart titled 'FASTEST GROWING GROCERS IN 2022' is shown, with ALDI at the top with 87 new stores. The scene cuts to an exterior shot of a modern ALDI store. Inside, a hand pushes a shopping cart down an aisle, and another shot shows a full shopping cart filled with groceries, including a pineapple and various packaged goods.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat electronic music continues.; FASTEST GROWING GROCERS IN 2022; attributes: camera_state: The camera is static for the bar chart, then shows a wide shot of the store's exterior, followed by a tracking shot of a shopping cart and a static shot of a full cart., video_background: The background includes a white screen, the exterior of a modern commercial building, and the interior aisles of an ALDI store., storyline: This segment establishes ALDI's success and growth, visually connecting the low prices to the full shopping experience inside a store., shooting_style: This is a montage combining a data visualization with live-action footage.",
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 0.031,
+            "end_s": 29.647,
+            "text": "This half-gallon of whole milk from Aldi costs $2.18. Eggs? $1.87. Bread? $1.29. Aldi is the fastest-growing grocer by store count in the country, and its no-frills approach has also made it one of the cheapest. For the past decade, it's been growing at a rate of about 100 stores per year. And when an economic downturn hits, it thrives. It's about simplicity, and it's about efficiency, and it's about a consistent experience all the time.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 29.647,
+            "end_s": 43.298,
+            "text": "This is the economics of Aldi. So how does the company keep its prices so low? Take its store setup. You walk in and the moment you step foot in our store, you can see all four walls.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 43.501,
+            "end_s": 72.796,
+            "text": "Aldi's are typically around 12,000 square feet, about the same as a Trader Joe's and much smaller than the average supermarket. Operating a smaller space saves money when buying the property, on the lease and on utilities. The layout at Aldi is as much designed for our operational efficiency as anything. And so being very specific about the amount of footsteps it takes to service our store and a very limited store size allows us to operate a very efficient operation.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 60.0,
+        "end": 120.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "875b24c9-a2ab-4965-8186-76495a5b553d",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 60.0,
+              "end": 66.0,
+              "visual": "A bald man in a navy blue zip-up jacket with an Aldi logo speaks directly to the camera. He is standing in the produce section of an Aldi grocery store, with fresh fruits and vegetables like bananas and oranges visible behind him. He gestures with his hands as he explains a concept.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, uplifting background music begins to play.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium close-up, focused on the man from the chest up. The shot is static.",
+                "video_background: The background is the interior of an Aldi grocery store, specifically the produce section. Shelves are stocked with fresh fruits and vegetables, and the lighting is bright and clean.",
+                "storyline: The video begins with an interview-style shot of an Aldi representative, likely the CEO, who is explaining the company's business model or philosophy to the audience.",
+                "shooting_style: This is a standard interview-style shot, establishing the speaker and the context of the video."
+              ]
+            },
+            {
+              "start": 67.0,
+              "end": 72.0,
+              "visual": "A montage of scenes inside an Aldi store is shown. A woman with blonde hair in a ponytail pushes a shopping cart down an aisle. The camera then shows a wide view of the produce section, followed by a shot of the refrigerated meat aisle with various cuts of meat on display. The final shot is a close-up of a frozen food section in a freezer.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, positive instrumental music continues.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The sequence uses multiple camera angles: a tracking shot from behind the woman, a static wide shot of the produce, a panning shot across the meat aisle, and a static close-up of the freezer.",
+                "video_background: The scenes showcase different sections of a modern Aldi supermarket, emphasizing the variety of products available from fresh produce to frozen meals.",
+                "storyline: This montage establishes the visual identity and product range of the Aldi store, highlighting the key departments a customer would encounter.",
+                "shooting_style: This is a montage sequence, cutting between different scenes to give a broad overview of the store's interior."
+              ]
+            }
+          ],
+          "overall_summary": "A bald man in a navy blue zip-up jacket with an Aldi logo speaks directly to the camera. He is standing in the produce section of an Aldi grocery store, with fresh fruits and vegetables like bananas and oranges visible behind him. He gestures with his hands as he explains a concept.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, uplifting background music begins to play.; attributes: camera_state: The camera is at a medium close-up, focused on the man from the chest up. The shot is static., video_background: The background is the interior of an Aldi grocery store, specifically the produce section. Shelves are stocked with fresh fruits and vegetables, and the lighting is bright and clean., storyline: The video begins with an interview-style shot of an Aldi representative, likely the CEO, who is explaining the company's business model or philosophy to the audience., shooting_style: This is a standard interview-style shot, establishing the speaker and the context of the video. A montage of scenes inside an Aldi store is shown. A woman with blonde hair in a ponytail pushes a shopping cart down an aisle. The camera then shows a wide view of the produce section, followed by a shot of the refrigerated meat aisle with various cuts of meat on display. The final shot is a close-up of a frozen food section in a freezer.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, positive instrumental music continues.; attributes: camera_state: The sequence uses multiple camera angles: a tracking shot from behind the woman, a static wide shot of the produce, a panning shot across the meat aisle, and a static close-up of the freezer., video_background: The scenes showcase different sections of a modern Aldi supermarket, emphasizing the variety of products available from fresh produce to frozen meals., storyline: This montage establishes the visual identity and product range of the Aldi store, highlighting the key departments a customer would encounter., shooting_style: This is a montage sequence, cutting between different scenes to give a broad overview of the store's interior.",
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 72.796,
+            "end_s": 94.21,
+            "text": "And that creates a lot of value. To further its efficiency, Aldi doesn't have extra services like a customer help desk, a fresh bakery or butcher. And it stocks significantly fewer products. Supermarkets typically carry around 31,000 products. Trader Joe's has about 4,000, but Aldi stocks about 1,600.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 94.21,
+            "end_s": 117.346,
+            "text": "Often, there are just three to five employees on the sales floor, so having fewer items and leaving them in the boxes they were delivered in means employees spend less time stocking shelves. These cost-cutting strategies are critical to Aldi's profit margin, and they're why the company is able to offer items that are cheaper than the national average. But they also serve another purpose.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 120.0,
+        "end": 180.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "875b24c9-a2ab-4965-8186-76495a5b553d",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 120.0,
+              "end": 121.0,
+              "visual": "A woman in a green shirt pushes a shopping cart down an aisle in an Aldi grocery store. In the background, a large digital sign displays a red advertisement with the text, 'They say you can't buy happiness... Not true. THESE LOW PRICES MAKE US crazy happy!' Shelves stocked with various food products are visible behind the sign.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient store sounds.",
+              "on_screen_text": "They say you can",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium distance, panning to the left to follow the woman as she walks past the advertisement.",
+                "video_background: The setting is a brightly lit grocery store aisle, with refrigerated displays and shelves of packaged goods. The store appears clean and organized.",
+                "storyline: This opening shot establishes the setting and introduces the central theme of the video: the relationship between low prices and consumer happiness, specifically featuring the Aldi brand.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start": 122.0,
+              "end": 126.0,
+              "visual": "An animated graphic appears against a white background. A thought bubble contains the text 'COMPENSATORY INFERENCES'. To the left, a box of 'Millville Crispy Oats' cereal is shown. Animated thought bubbles pop up around it, one with a price tag showing '???' and another with the question 'Low price = Low quality?'",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, upbeat electronic music track begins, with popping sound effects as the thought bubbles appear.",
+              "on_screen_text": "COMPENSATORY INFERENCES | Millville Crispy Oats | Low price = Low quality?",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the animated graphics.",
+                "video_background: The background is a clean, white, studio-like setting.",
+                "storyline: This segment introduces the core psychological concept of 'compensatory inferences,' explaining how consumers might associate low prices with low quality, a common marketing challenge for discount stores.",
+                "shooting_style: This is a motion graphics segment used for educational and conceptual illustration."
+              ]
+            }
+          ],
+          "overall_summary": "A woman in a green shirt pushes a shopping cart down an aisle in an Aldi grocery store. In the background, a large digital sign displays a red advertisement with the text, 'They say you can't buy happiness... Not true. THESE LOW PRICES MAKE US crazy happy!' Shelves stocked with various food products are visible behind the sign.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient store sounds.; They say you can; attributes: camera_state: The camera is at a medium distance, panning to the left to follow the woman as she walks past the advertisement., video_background: The setting is a brightly lit grocery store aisle, with refrigerated displays and shelves of packaged goods. The store appears clean and organized., storyline: This opening shot establishes the setting and introduces the central theme of the video: the relationship between low prices and consumer happiness, specifically featuring the Aldi brand., shooting_style: This is a standard establishing shot. An animated graphic appears against a white background. A thought bubble contains the text 'COMPENSATORY INFERENCES'. To the left, a box of 'Millville Crispy Oats' cereal is shown. Animated thought bubbles pop up around it, one with a price tag showing '???' and another with the question 'Low price = Low quality?'; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, upbeat electronic music track begins, with popping sound effects as the thought bubbles appear.; COMPENSATORY INFERENCES | Millville Crispy Oats | Low price = Low quality?; attributes: camera_state: The camera is static, holding a wide shot of the animated graphics., video_background: The background is a clean, white, studio-like setting., storyline: This segment introduces the core psychological concept of 'compensatory inferences,' explaining how consumers might associate low prices with low quality, a common marketing challenge for discount stores., shooting_style: This is a motion graphics segment used for educational and conceptual illustration.",
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 117.346,
+            "end_s": 133.951,
+            "text": "they help maintain Aldi's image as a discount store. Customers make compensatory inferences. Basically, marketing experts say when people see an item's price, they quickly make assumptions about the product. If it's cheap, they may assume it's lower quality.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 133.951,
+            "end_s": 158.673,
+            "text": "Which is why Aldi's no-frills strategy is so effective. From the moment customers put quarters in their carts and walk into the store, they can see all the ways Aldi reduces costs. Marketing experts say these tactics all signal to the customer that milk, eggs, and bread are cheaper at Aldi because of its efficiency rather than its quality. Though the results of its cost-cutting strategies aren't always popular with customers.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 158.673,
+            "end_s": 187.512,
+            "text": "In a survey of roughly 6,500 people, Aldi scored on par with or slightly lower than many of its peers in categories like store cleanliness and item availability. But there's another key tactic grocers use to aid their low-cost images, known value items. These are staple household products whose prices people often remember. As Aldi has expanded across the country, other grocers have reduced their prices in response, particularly on these types of items.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 180.0,
+        "end": 240.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "875b24c9-a2ab-4965-8186-76495a5b553d",
+            "start_s": 180.0,
+            "end_s": 240.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 180.0,
+              "end": 184.0,
+              "visual": "A montage shows a woman in a green shirt and gloves stocking a refrigerated shelf in a grocery store, followed by a shot of a Wall Street Journal article titled 'Aldi, Lidl Cut Into U.S. Grocers' Turf.' Text overlays explain that U.S. grocers are lowering prices on staples like milk and eggs in response to the German discounters.",
+              "audio": "speech: In response, U.S. grocers are lowering prices on staples such as milk and eggs...; acoustics: 1) Tone of speech: N/A (text only). 2) Background sounds or music: Upbeat, slightly tense electronic music.",
+              "on_screen_text": "Aldi, Lidl Cut Into U.S. Grocers",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The first shot is a medium close-up of the woman. The second is a static shot of the article with a zoom-in on the highlighted text.",
+                "video_background: The first scene is a brightly lit grocery store aisle with refrigerated products. The second is a digital screen capture of a Wall Street Journal article.",
+                "storyline: This segment introduces the central theme: the arrival of German discounters (like Aldi and Lidl) is putting pressure on U.S. grocers to lower their prices.",
+                "shooting_style: This is a montage combining B-roll footage with a digital graphic overlay to convey information."
+              ]
+            },
+            {
+              "start": 185.0,
+              "end": 189.0,
+              "visual": "A woman with long dark hair, identified as WSJ reporter Jaewon Kang, sits in a modern office. She wears a beige cable-knit sweater and speaks directly to the camera, explaining the situation.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The background music continues.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A medium shot, framed from the waist up, with the camera remaining static.",
+                "video_background: The background is a bright, modern office space with large windows and white desks and chairs.",
+                "storyline: The reporter is introduced to provide expert context and detail on the story about the German discounters' impact on U.S. grocery prices.",
+                "shooting_style: This is a standard interview-style shot."
+              ]
+            }
+          ],
+          "overall_summary": "A montage shows a woman in a green shirt and gloves stocking a refrigerated shelf in a grocery store, followed by a shot of a Wall Street Journal article titled 'Aldi, Lidl Cut Into U.S. Grocers' Turf.' Text overlays explain that U.S. grocers are lowering prices on staples like milk and eggs in response to the German discounters.; speech: In response, U.S. grocers are lowering prices on staples such as milk and eggs...; acoustics: 1) Tone of speech: N/A (text only). 2) Background sounds or music: Upbeat, slightly tense electronic music.; Aldi, Lidl Cut Into U.S. Grocers; attributes: camera_state: The first shot is a medium close-up of the woman. The second is a static shot of the article with a zoom-in on the highlighted text., video_background: The first scene is a brightly lit grocery store aisle with refrigerated products. The second is a digital screen capture of a Wall Street Journal article., storyline: This segment introduces the central theme: the arrival of German discounters (like Aldi and Lidl) is putting pressure on U.S. grocers to lower their prices., shooting_style: This is a montage combining B-roll footage with a digital graphic overlay to convey information. A woman with long dark hair, identified as WSJ reporter Jaewon Kang, sits in a modern office. She wears a beige cable-knit sweater and speaks directly to the camera, explaining the situation.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The background music continues.; attributes: camera_state: A medium shot, framed from the waist up, with the camera remaining static., video_background: The background is a bright, modern office space with large windows and white desks and chairs., storyline: The reporter is introduced to provide expert context and detail on the story about the German discounters' impact on U.S. grocery prices., shooting_style: This is a standard interview-style shot.",
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 187.613,
+            "end_s": 199.595,
+            "text": "When Aldi comes in, it prompts other retailers to look at their prices again and kind of, you know, surgically examine how to adjust what they sell and for how much.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 199.915,
+            "end_s": 224.452,
+            "text": "That's because when people see lower prices for staple goods, they infer that the business offers low prices all around. And when it comes to value for dollar, Aldi ranked highest in the customer survey at 96%. But stores can only compete on price so much without hurting their profit margins. So what does Aldi use other than price point to draw on customers? It's private label items.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 224.452,
+            "end_s": 244.212,
+            "text": "90% of Aldi's stock is private label. Like its other strategies, this reduces costs for the company. We take all of our buying power and we put it into the seven most popular or common salad dressings that a customer might buy. That allows us to deal directly with manufacturers and make sure that we get the best cost price.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 240.0,
+        "end": 300.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "875b24c9-a2ab-4965-8186-76495a5b553d",
+            "start_s": 240.0,
+            "end_s": 300.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 240.0,
+              "end": 242.0,
+              "visual": "A bald man in a navy blue zip-up sweater with an Aldi logo sits in an interview. He is speaking, with his mouth slightly open. The background is a brightly lit Aldi grocery store aisle, with fresh produce like bananas and oranges visible behind him. The WSJ logo is in the top right corner.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient music begins to play.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A medium shot, framed from the waist up, focused on the man. The camera is static.",
+                "video_background: The setting is an Aldi grocery store, specifically in the produce section. The background is slightly out of focus, showing shelves of fruits and vegetables and the store's lighting.",
+                "storyline: The video introduces an expert or company representative from Aldi, setting the context for a discussion about the grocery store.",
+                "shooting_style: This is a standard interview shot."
+              ]
+            },
+            {
+              "start": 243.0,
+              "end": 246.0,
+              "visual": "An exterior shot shows a modern Trader Joe's store with a stone facade and a large red sign. A few people are walking in the parking lot, and a white SUV drives past. The sky is partly cloudy.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, light instrumental music continues.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A wide, static shot of the storefront from across the parking lot.",
+                "video_background: The scene is a sunny day outside a Trader Joe's. The parking lot has yellow painted lines, and there are trees in the background.",
+                "storyline: This shot introduces the main competitor, Trader Joe's, visually contrasting it with the Aldi store shown earlier.",
+                "shooting_style: This is an establishing shot of a competitor."
+              ]
+            },
+            {
+              "start": 247.0,
+              "end": 248.0,
+              "visual": "A screen recording of the Trader Joe's website is shown. The cursor highlights the 'Ube Mochi Pancake & Waffle Mix,' which is listed as 'LIMITED.' The price is $3.99. The page then quickly scrolls down to the 'Butternut Squash Mac & Cheese' product, which is marked 'Not available.'",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The light instrumental music continues.",
+              "on_screen_text": "s website is shown. The cursor highlights the | which is listed as | The price is $3.99. The page then quickly scrolls down to the | product, which is marked",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A static, full-screen shot of a computer monitor, with a digital zoom and scroll effect.",
+                "video_background: The background is a digital interface, showing the Trader Joe's website with a light green border.",
+                "storyline: This segment provides a specific example of a limited-edition, trendy product offered by Trader Joe's, highlighting its strategy of releasing unique items.",
+                "shooting_style: This is a screen recording with animated highlights and scrolling."
+              ]
+            }
+          ],
+          "overall_summary": "A bald man in a navy blue zip-up sweater with an Aldi logo sits in an interview. He is speaking, with his mouth slightly open. The background is a brightly lit Aldi grocery store aisle, with fresh produce like bananas and oranges visible behind him. The WSJ logo is in the top right corner.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient music begins to play.; attributes: camera_state: A medium shot, framed from the waist up, focused on the man. The camera is static., video_background: The setting is an Aldi grocery store, specifically in the produce section. The background is slightly out of focus, showing shelves of fruits and vegetables and the store's lighting., storyline: The video introduces an expert or company representative from Aldi, setting the context for a discussion about the grocery store., shooting_style: This is a standard interview shot. An exterior shot shows a modern Trader Joe's store with a stone facade and a large red sign. A few people are walking in the parking lot, and a white SUV drives past. The sky is partly cloudy.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, light instrumental music continues.; attributes: camera_state: A wide, static shot of the storefront from across the parking lot., video_background: The scene is a sunny day outside a Trader Joe's. The parking lot has yellow painted lines, and there are trees in the background., storyline: This shot introduces the main competitor, Trader Joe's, visually contrasting it with the Aldi store shown earlier., shooting_style: This is an establishing shot of a competitor. A screen recording of the Trader Joe's website is shown. The cursor highlights the 'Ube Mochi Pancake & Waffle Mix,' which is listed as 'LIMITED.' The price is $3.99. The page then quickly scrolls down to the 'Butternut Squash Mac & Cheese' product, which is marked 'Not available.'; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The light instrumental music continues.; s website is shown. The cursor highlights the | which is listed as | The price is $3.99. The page then quickly scrolls down to the | product, which is marked; attributes: camera_state: A static, full-screen shot of a computer monitor, with a digital zoom and scroll effect., video_background: The background is a digital interface, showing the Trader Joe's website with a light green border., storyline: This segment provides a specific example of a limited-edition, trendy product offered by Trader Joe's, highlighting its strategy of releasing unique items., shooting_style: This is a screen recording with animated highlights and scrolling.",
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 244.33,
+            "end_s": 273.018,
+            "text": "Analysts say that Trader Joe's uses private label items to differ from competitors by creating items that customers can only find there, like its ube mochi pancake mix and butternut squash mac and cheese. But at Aldi, you'll find private label items that look quite similar to the most well-known national brands. Instead of wheat thins, Aldi has thin wheat. According to analysts, this is because Aldi wants customers to think they're essentially getting the same product, but at a significant discount.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 273.271,
+            "end_s": 300.811,
+            "text": "There was a time when the perception was, you know, they're the generic brand and, you know, they're just cheaper but not as good as the national brands. And those days are over. As consumers felt the lasting impacts of inflation, sales of store brand products increased. From 2018 to 2022, there was a 34% increase in industry-wide private label sales, totaling more than $57 billion.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 300.0,
+        "end": 360.0,
+        "dense_caption": {
+          "clip": {
+            "video_id": "875b24c9-a2ab-4965-8186-76495a5b553d",
+            "start_s": 300.0,
+            "end_s": 360.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 300.0,
+              "end": 301.0,
+              "visual": "A shot of a brightly lit grocery store aisle is shown, with shelves stocked with various brands of organic and non-organic products. A large white text overlay reads, '$57 BILLION'. Below it, a smaller source credit reads, 'SOURCE: CIRCANA'.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic music track begins to play.",
+              "on_screen_text": "$57 BILLION | SOURCE: CIRCANA",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static, holding a medium shot of the store aisle.",
+                "video_background: The background is a typical grocery store aisle, with colorful product packaging creating a vibrant but slightly blurred backdrop.",
+                "storyline: This opening shot immediately establishes the topic of the video: a significant financial figure related to the grocery industry.",
+                "shooting_style: This is a static shot with a text overlay to present a key statistic."
+              ]
+            },
+            {
+              "start": 302.0,
+              "end": 304.0,
+              "visual": "A bald man in a navy blue zip-up jacket with an 'ALDI' logo speaks directly to the camera. He is seated in a grocery store, with a brightly lit produce section visible behind him. He gestures with his hands as he talks.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.",
+              "on_screen_text": "ALDI",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at eye level, framed in a medium shot from the waist up, focusing on the man.",
+                "video_background: The setting is an Aldi grocery store, specifically the produce section, which is filled with fresh fruits and vegetables. The lighting is bright and clean.",
+                "storyline: An Aldi representative is introduced, providing an official perspective on the company's operations and strategy.",
+                "shooting_style: This is a standard interview-style shot, intercut with other footage."
+              ]
+            },
+            {
+              "start": 304.0,
+              "end": 305.0,
+              "visual": "A customer, a woman with her hair in a bun, walks down an aisle in an Aldi store. She is carrying a plaid shirt and a tote bag. In the background, another customer is visible near the self-checkout area, which has a sign that reads 'Self Checkout Card Payment Only'.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient music continues.",
+              "on_screen_text": "Self Checkout Card Payment Only",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static, positioned at the end of the aisle, looking towards the self-checkout area.",
+                "video_background: The scene is an Aldi store aisle, with shelves of products on the left and the checkout area visible in the distance. A large window is seen behind the checkout counter.",
+                "storyline: This shot provides a glimpse of the typical customer experience and store layout at an Aldi.",
+                "shooting_style: This is a static, observational shot of a customer in the store."
+              ]
+            }
+          ],
+          "overall_summary": "A shot of a brightly lit grocery store aisle is shown, with shelves stocked with various brands of organic and non-organic products. A large white text overlay reads, '$57 BILLION'. Below it, a smaller source credit reads, 'SOURCE: CIRCANA'.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic music track begins to play.; $57 BILLION | SOURCE: CIRCANA; attributes: camera_state: The camera is static, holding a medium shot of the store aisle., video_background: The background is a typical grocery store aisle, with colorful product packaging creating a vibrant but slightly blurred backdrop., storyline: This opening shot immediately establishes the topic of the video: a significant financial figure related to the grocery industry., shooting_style: This is a static shot with a text overlay to present a key statistic. A bald man in a navy blue zip-up jacket with an 'ALDI' logo speaks directly to the camera. He is seated in a grocery store, with a brightly lit produce section visible behind him. He gestures with his hands as he talks.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.; ALDI; attributes: camera_state: The camera is at eye level, framed in a medium shot from the waist up, focusing on the man., video_background: The setting is an Aldi grocery store, specifically the produce section, which is filled with fresh fruits and vegetables. The lighting is bright and clean., storyline: An Aldi representative is introduced, providing an official perspective on the company's operations and strategy., shooting_style: This is a standard interview-style shot, intercut with other footage. A customer, a woman with her hair in a bun, walks down an aisle in an Aldi store. She is carrying a plaid shirt and a tote bag. In the background, another customer is visible near the self-checkout area, which has a sign that reads 'Self Checkout Card Payment Only'.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient music continues.; Self Checkout Card Payment Only; attributes: camera_state: The camera is static, positioned at the end of the aisle, looking towards the self-checkout area., video_background: The scene is an Aldi store aisle, with shelves of products on the left and the checkout area visible in the distance. A large window is seen behind the checkout counter., storyline: This shot provides a glimpse of the typical customer experience and store layout at an Aldi., shooting_style: This is a static, observational shot of a customer in the store.",
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 360.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 301.115,
+            "end_s": 306.734,
+            "text": "While some other grocers might have private label offerings, this is the existence of what we do.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 306.852,
+            "end_s": 333.16,
+            "text": "Aldi has thrived during recessions. The 2008 financial crisis sparked its growth and decision to add around 100 new stores per year. What was really interesting is we never lost any of those customers. And as the economy improved and we had a really long run of economic improvement, Aldi grew throughout that entire period of time. And now, as inflation drains Americans' wallets, Aldi continues to grow.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 333.397,
+            "end_s": 357.19,
+            "text": "In the beginning, that was sort of their target audience, people who wanted bargains and wanted to buy food for low prices. But in recent years, I think they've really expanded that audience to also go after people who want convenient shopping, who want the necessities and want to be in and out of stores.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 360.0,
+        "end": 362.82079166666665,
+        "dense_caption": {
+          "clip": {
+            "video_id": "875b24c9-a2ab-4965-8186-76495a5b553d",
+            "start_s": 360.0,
+            "end_s": 362.82079166666665,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          },
+          "captions": [
+            {
+              "start": 360.0,
+              "end": 361.0,
+              "visual": "The video begins with a black screen. The white, serif-font letters 'W', 'S', and 'J' fade into view, forming the logo of The Wall Street Journal.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.",
+              "on_screen_text": ", and",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, wide shot of the logo.",
+                "video_background: The background is a solid, deep black.",
+                "storyline: This segment serves as the production company's branding intro, identifying the publisher of the video.",
+                "shooting_style: This is a simple logo reveal with a fade-in transition."
+              ]
+            },
+            {
+              "start": 362.0,
+              "end": 362.0,
+              "visual": "The 'W', 'S', and 'J' letters fade out, returning the screen to a solid black background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.",
+              "on_screen_text": ", and",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera remains static and centered.",
+                "video_background: The background is a solid, deep black.",
+                "storyline: This is a brief transitional moment, clearing the screen before the main content begins.",
+                "shooting_style: This is a simple fade-out transition."
+              ]
+            }
+          ],
+          "overall_summary": "The video begins with a black screen. The white, serif-font letters 'W', 'S', and 'J' fade into view, forming the logo of The Wall Street Journal.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.; , and; attributes: camera_state: The camera is static, holding a centered, wide shot of the logo., video_background: The background is a solid, deep black., storyline: This segment serves as the production company's branding intro, identifying the publisher of the video., shooting_style: This is a simple logo reveal with a fade-in transition. The 'W', 'S', and 'J' letters fade out, returning the screen to a solid black background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.; , and; attributes: camera_state: The camera remains static and centered., video_background: The background is a solid, deep black., storyline: This is a brief transitional moment, clearing the screen before the main content begins., shooting_style: This is a simple fade-out transition.",
+          "captioned_range": {
+            "start_s": 360.0,
+            "end_s": 362.82079166666665
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": []
+      }
+    ],
+    "summary": "[00:00-00:05] Visual: A hand holds a 2-liter bottle of whole milk against a white background. Animated price tags pop up, showing the milk costs $2.18. The scene then expands to show a loaf of H-E-B Classic White Bread, a carton of 12 eggs, and the milk, with their respective prices: $1.29 for the bread and $1.87 for the eggs.\n[00:00-00:30] Speech: This half-gallon of whole milk from Aldi costs $2.18. Eggs? $1.87. Bread? $1.29. Aldi is the fastest-growing grocer by store count in the country, and its no-frills approach has also made it one of the cheapest. For the past decade, it's been growing at a rate of about 100 stores per year. And when an economic downturn hits, it thrives. It's about simplicity, and it's about efficiency, and it's about a consistent experience all the time.\n[00:06-00:10] Visual: A bar chart titled 'FASTEST GROWING GROCERS IN 2022' is shown, with ALDI at the top with 87 new stores. The scene cuts to an exterior shot of a modern ALDI store. Inside, a hand pushes a shopping cart down an aisle, and another shot shows a full shopping cart filled with groceries, including a pineapple and various packaged goods. | Text: FASTEST GROWING GROCERS IN 2022\n[00:30-00:43] Speech: This is the economics of Aldi. So how does the company keep its prices so low? Take its store setup. You walk in and the moment you step foot in our store, you can see all four walls.\n[00:44-01:13] Speech: Aldi's are typically around 12,000 square feet, about the same as a Trader Joe's and much smaller than the average supermarket. Operating a smaller space saves money when buying the property, on the lease and on utilities. The layout at Aldi is as much designed for our operational efficiency as anything. And so being very specific about the amount of footsteps it takes to service our store and a very limited store size allows us to operate a very efficient operation.\n[01:00-01:06] Visual: A bald man in a navy blue zip-up jacket with an Aldi logo speaks directly to the camera. He is standing in the produce section of an Aldi grocery store, with fresh fruits and vegetables like bananas and oranges visible behind him. He gestures with his hands as he explains a concept.\n[01:07-01:12] Visual: A montage of scenes inside an Aldi store is shown. A woman with blonde hair in a ponytail pushes a shopping cart down an aisle. The camera then shows a wide view of the produce section, followed by a shot of the refrigerated meat aisle with various cuts of meat on display. The final shot is a close-up of a frozen food section in a freezer.\n[01:13-01:34] Speech: And that creates a lot of value. To further its efficiency, Aldi doesn't have extra services like a customer help desk, a fresh bakery or butcher. And it stocks significantly fewer products. Supermarkets typically carry around 31,000 products. Trader Joe's has about 4,000, but Aldi stocks about 1,600.\n[01:34-01:57] Speech: Often, there are just three to five employees on the sales floor, so having fewer items and leaving them in the boxes they were delivered in means employees spend less time stocking shelves. These cost-cutting strategies are critical to Aldi's profit margin, and they're why the company is able to offer items that are cheaper than the national average. But they also serve another purpose.\n[01:57-02:14] Speech: they help maintain Aldi's image as a discount store. Customers make compensatory inferences. Basically, marketing experts say when people see an item's price, they quickly make assumptions about the product. If it's cheap, they may assume it's lower quality.\n[02:00-02:01] Visual: A woman in a green shirt pushes a shopping cart down an aisle in an Aldi grocery store. In the background, a large digital sign displays a red advertisement with the text, 'They say you can't buy happiness... Not true. THESE LOW PRICES MAKE US crazy happy!' Shelves stocked with various food products are visible behind the sign. | Text: They say you can\n[02:02-02:06] Visual: An animated graphic appears against a white background. A thought bubble contains the text 'COMPENSATORY INFERENCES'. To the left, a box of 'Millville Crispy Oats' cereal is shown. Animated thought bubbles pop up around it, one with a price tag showing '???' and another with the question 'Low price = Low quality?' | Text: COMPENSATORY INFERENCES | Millville Crispy Oats | Low price = Low quality?\n[02:14-02:39] Speech: Which is why Aldi's no-frills strategy is so effective. From the moment customers put quarters in their carts and walk into the store, they can see all the ways Aldi reduces costs. Marketing experts say these tactics all signal to the customer that milk, eggs, and bread are cheaper at Aldi because of its efficiency rather than its quality. Though the results of its cost-cutting strategies aren't always popular with customers.\n[02:39-03:08] Speech: In a survey of roughly 6,500 people, Aldi scored on par with or slightly lower than many of its peers in categories like store cleanliness and item availability. But there's another key tactic grocers use to aid their low-cost images, known value items. These are staple household products whose prices people often remember. As Aldi has expanded across the country, other grocers have reduced their prices in response, particularly on these types of items.\n[03:00-03:04] Visual: A montage shows a woman in a green shirt and gloves stocking a refrigerated shelf in a grocery store, followed by a shot of a Wall Street Journal article titled 'Aldi, Lidl Cut Into U.S. Grocers' Turf.' Text overlays explain that U.S. grocers are lowering prices on staples like milk and eggs in response to the German discounters. | Text: Aldi, Lidl Cut Into U.S. Grocers\n[03:05-03:09] Visual: A woman with long dark hair, identified as WSJ reporter Jaewon Kang, sits in a modern office. She wears a beige cable-knit sweater and speaks directly to the camera, explaining the situation.\n[03:08-03:20] Speech: When Aldi comes in, it prompts other retailers to look at their prices again and kind of, you know, surgically examine how to adjust what they sell and for how much.\n[03:20-03:44] Speech: That's because when people see lower prices for staple goods, they infer that the business offers low prices all around. And when it comes to value for dollar, Aldi ranked highest in the customer survey at 96%. But stores can only compete on price so much without hurting their profit margins. So what does Aldi use other than price point to draw on customers? It's private label items.\n[03:44-04:04] Speech: 90% of Aldi's stock is private label. Like its other strategies, this reduces costs for the company. We take all of our buying power and we put it into the seven most popular or common salad dressings that a customer might buy. That allows us to deal directly with manufacturers and make sure that we get the best cost price.\n[04:00-04:02] Visual: A bald man in a navy blue zip-up sweater with an Aldi logo sits in an interview. He is speaking, with his mouth slightly open. The background is a brightly lit Aldi grocery store aisle, with fresh produce like bananas and oranges visible behind him. The WSJ logo is in the top right corner.\n[04:03-04:06] Visual: An exterior shot shows a modern Trader Joe's store with a stone facade and a large red sign. A few people are walking in the parking lot, and a white SUV drives past. The sky is partly cloudy.\n[04:04-04:33] Speech: Analysts say that Trader Joe's uses private label items to differ from competitors by creating items that customers can only find there, like its ube mochi pancake mix and butternut squash mac and cheese. But at Aldi, you'll find private label items that look quite similar to the most well-known national brands. Instead of wheat thins, Aldi has thin wheat. According to analysts, this is because Aldi wants customers to think they're essentially getting the same product, but at a significant discount.\n[04:07-04:08] Visual: A screen recording of the Trader Joe's website is shown. The cursor highlights the 'Ube Mochi Pancake & Waffle Mix,' which is listed as 'LIMITED.' The price is $3.99. The page then quickly scrolls down to the 'Butternut Squash Mac & Cheese' product, which is marked 'Not available.' | Text: s website is shown. The cursor highlights the | which is listed as | The price is $3.99. The page then quickly scrolls down to the | product, which is marked\n[04:33-05:01] Speech: There was a time when the perception was, you know, they're the generic brand and, you know, they're just cheaper but not as good as the national brands. And those days are over. As consumers felt the lasting impacts of inflation, sales of store brand products increased. From 2018 to 2022, there was a 34% increase in industry-wide private label sales, totaling more than $57 billion.\n[05:00-05:01] Visual: A shot of a brightly lit grocery store aisle is shown, with shelves stocked with various brands of organic and non-organic products. A large white text overlay reads, '$57 BILLION'. Below it, a smaller source credit reads, 'SOURCE: CIRCANA'. | Text: $57 BILLION | SOURCE: CIRCANA\n[05:01-05:07] Speech: While some other grocers might have private label offerings, this is the existence of what we do.\n[05:02-05:04] Visual: A bald man in a navy blue zip-up jacket with an 'ALDI' logo speaks directly to the camera. He is seated in a grocery store, with a brightly lit produce section visible behind him. He gestures with his hands as he talks.\n[05:04-05:05] Visual: A customer, a woman with her hair in a bun, walks down an aisle in an Aldi store. She is carrying a plaid shirt and a tote bag. In the background, another customer is visible near the self-checkout area, which has a sign that reads 'Self Checkout Card Payment Only'. | Text: Self Checkout Card Payment Only\n[05:07-05:33] Speech: Aldi has thrived during recessions. The 2008 financial crisis sparked its growth and decision to add around 100 new stores per year. What was really interesting is we never lost any of those customers. And as the economy improved and we had a really long run of economic improvement, Aldi grew throughout that entire period of time. And now, as inflation drains Americans' wallets, Aldi continues to grow.\n[05:33-05:57] Speech: In the beginning, that was sort of their target audience, people who wanted bargains and wanted to buy food for low prices. But in recent years, I think they've really expanded that audience to also go after people who want convenient shopping, who want the necessities and want to be in and out of stores.\n[06:00-06:01] Visual: The video begins with a black screen. The white, serif-font letters 'W', 'S', and 'J' fade into view, forming the logo of The Wall Street Journal.\n[06:02-06:02] Visual: The 'W', 'S', and 'J' letters fade out, returning the screen to a solid black background.",
+    "video_fingerprint": "486915edd4b899ffe769e999a5ec516d15e843e6b08acf259f8e5a7518276fdd"
+  },
+  "rounds_executed": 1,
+  "exported_results_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/results/run_refiner_inputs/20260424T065024Z_e1f7748a/875b24c9-a2ab-4965-8186-76495a5b553d"
+}

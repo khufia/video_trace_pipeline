@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "group on the water park stage voting by raising hands about pushing the body down the slide, including the woman in a red hoodie raising her hand",
+    "clips": [
+      {
+        "video_id": "video_15",
+        "start_s": 35.0,
+        "end_s": 38.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "video_15",
+        "start_s": 104.0,
+        "end_s": 108.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "video_15",
+        "start_s": 125.0,
+        "end_s": 128.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 287.6874,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 35.00s-38.00s, 104.00s-108.00s, 125.00s-128.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 5,
+      "candidate_windows": 5,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"group on the water park stage voting by raising hands about pushing the body down the slide, including the woman in a red hoodie raising her hand\", \"clips\": [{\"video_id\": \"video_15\", \"start_s\": 35.0, \"end_s\": 38.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"video_15\", \"start_s\": 104.0, \"end_s\": 108.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"video_15\", \"start_s\": 125.0, \"end_s\": 128.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 287.6874, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 35.00s-38.00s, 104.00s-108.00s, 125.00s-128.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 5, \"candidate_windows\": 5, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "f08bb7561bf417765de7f5b3",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 35.00s-38.00s, 104.00s-108.00s, 125.00s-128.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 5,
+      "candidate_windows": 5,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 1.0,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-24T11:10:26.221760+00:00",
+      "finished_at_utc": "2026-04-24T11:11:35.965557+00:00",
+      "duration_s": 69.7438,
+      "cache_wait_s": 0.0007,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_61a3ad91db94ce80",
+      "obs_b87b8f71dd252682",
+      "obs_b7329e9873cd731f"
+    ]
+  }
+}

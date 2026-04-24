@@ -1,0 +1,33 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "video_436__1abde050646c",
+  "run_id": "20260424T101806Z_0bc22f96",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "video_436__1abde050646c",
+    "question": "How many different sounds appear when using the red sauce?",
+    "options": [
+      "A. 2",
+      "B. 3",
+      "C. 4",
+      "D. 5"
+    ],
+    "video_id": "video_436",
+    "question_id": null,
+    "gold_answer": "3",
+    "initial_trace_steps": [
+      "This indicates the position of red sauce. At 0:11, red sauce appears in the video.",
+      "This is the first sound. At 0:11 in the video, the traditional tomato ketchup bottle, fart-like.",
+      "This is the second sound. At 0:58 in the video,Heinz Relax ketchup, a relaxing sigh.",
+      "This is the third sound. At 1:23 in the video, glass bottle of tomato ketchup, 'uh uh uh' sounds.",
+      "Final answer: 3."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "cache/preprocess/f9ece26f11a131e309e66ed8640d2b23adefc54699c31439a9d5965537362b60/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/e70580d1fa54",
+  "clip_duration_s": 60.0,
+  "results_name": "run_refiner_inputs"
+}

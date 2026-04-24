@@ -4,12 +4,14 @@ import json
 import os
 import shlex
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Type
 
 from ..common import extract_json_object, has_meaningful_text, hash_payload, is_low_signal_text, sanitize_for_persistence
 from ..model_cache import describe_model_resolution
-from ..runtime_devices import resolve_device_label
+from ..runtime_devices import describe_device_mapping, resolve_device_label
+from ..tool_wrappers.local_multimodal import TimeChatCaptionerRunner
 from ..tool_wrappers.timechat_dense_caption_runner import execute_payload as execute_dense_caption_payload
 from ..tool_wrappers.qwen35vl_runner import execute_payload as execute_generic_purpose_payload
 from ..tool_wrappers.spatial_grounder_runner import execute_payload as execute_spatial_grounder_payload
@@ -65,32 +67,6 @@ def _confidence_metadata(values: List[Any], *, kind: str) -> Dict[str, Any]:
     }
 
 
-def _dense_caption_summary_text(payload: Dict[str, Any]) -> str:
-    if not isinstance(payload, dict):
-        return ""
-    overall_summary = str(payload.get("overall_summary") or "").strip()
-    if has_meaningful_text(overall_summary):
-        return overall_summary
-    captions = list(payload.get("captions") or [])
-    segments = []
-    for item in captions:
-        if not isinstance(item, dict):
-            continue
-        parts = []
-        for key in ("visual", "audio", "on_screen_text"):
-            value = str(item.get(key) or "").strip()
-            if has_meaningful_text(value):
-                parts.append(value)
-        for key in ("actions", "objects", "attributes"):
-            values = [str(value).strip() for value in list(item.get(key) or []) if str(value).strip()]
-            if values:
-                parts.append("%s: %s" % (key, ", ".join(values)))
-        combined = "; ".join(parts).strip()
-        if combined:
-            segments.append(combined)
-    return " ".join(segments).strip()
-
-
 class JsonProcessMixin(object):
     def __init__(self, model_name: str, extra: Optional[Dict[str, Any]] = None):
         self.model_name = str(model_name or "").strip()
@@ -101,11 +77,20 @@ class JsonProcessMixin(object):
         if not command:
             raise RuntimeError("No process command configured for tool %s" % getattr(self, "name", "<unknown>"))
         if isinstance(command, str):
-            return shlex.split(command)
-        return [str(item) for item in list(command)]
+            command = shlex.split(command)
+        else:
+            command = [str(item) for item in list(command)]
+        if not command:
+            raise RuntimeError("Empty process command configured for tool %s" % getattr(self, "name", "<unknown>"))
+        executable = str(command[0] or "").strip()
+        executable_name = Path(executable).name.lower()
+        if executable and "/" not in executable and "\\" not in executable and executable_name.startswith("python"):
+            command[0] = sys.executable
+        return command
 
     def _runtime_payload(self, context) -> Dict[str, Any]:
         device = resolve_device_label(context.workspace.profile.gpu_assignments.get(self.name))
+        device_mapping = describe_device_mapping(device)
         model_resolution = describe_model_resolution(
             self.model_name,
             hf_cache=context.workspace.profile.hf_cache,
@@ -114,6 +99,7 @@ class JsonProcessMixin(object):
             "backend": self.extra.get("backend_name") or getattr(self, "name", ""),
             "model_name": self.model_name,
             "device": device,
+            "device_mapping": device_mapping,
             "hf_cache": context.workspace.profile.hf_cache,
             "resolved_model_path": model_resolution.get("resolved_path"),
             "model_resolution_status": model_resolution.get("status"),
@@ -222,6 +208,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
 
     def _runtime_payload_for_profile(self, profile) -> Dict[str, Any]:
         device = resolve_device_label(profile.gpu_assignments.get(self.name))
+        device_mapping = describe_device_mapping(device)
         model_resolution = describe_model_resolution(
             self.model_name,
             hf_cache=profile.hf_cache,
@@ -230,6 +217,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
             "backend": self.extra.get("backend_name") or getattr(self, "name", ""),
             "model_name": self.model_name,
             "device": device,
+            "device_mapping": device_mapping,
             "hf_cache": profile.hf_cache,
             "resolved_model_path": model_resolution.get("resolved_path"),
             "model_resolution_status": model_resolution.get("status"),
@@ -723,9 +711,7 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
     def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
         return self._timechat_persistent_preload_spec(profile)
 
-    def _execute_single(self, request, context):
-        payload, raw = self._run_json(context, request.dict())
-        parsed = self._parse_output(payload)
+    def _build_tool_result(self, request, parsed, raw: str, context) -> ToolResult:
         artifact_refs = []
         sampled_frames = []
         for item in parsed.sampled_frames or []:
@@ -757,6 +743,22 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
             summary=parsed.overall_summary[:2000],
             metadata={"backend": parsed.backend or self.model_name},
         )
+
+    def _execute_single(self, request, context):
+        payload, raw = self._run_json(context, request.dict())
+        parsed = self._parse_output(payload)
+        return self._build_tool_result(request, parsed, raw, context)
+
+    def _preprocess_payload(self, request, context, preprocess_settings: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        payload = self._request_envelope(context, request.dict())
+        runtime = dict(payload.get("runtime") or {})
+        extra = dict(runtime.get("extra") or {})
+        for key in ("sample_frames", "fps", "max_frames", "use_audio_in_video", "collect_sampled_frames", "max_new_tokens"):
+            if preprocess_settings is not None and key in preprocess_settings:
+                extra[key] = preprocess_settings[key]
+        runtime["extra"] = extra
+        payload["runtime"] = runtime
+        return payload
 
     def execute(self, request, context):
         clips = list(getattr(request, "clips", []) or [])
@@ -815,73 +817,77 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
             )
         return self._execute_single(request, context)
 
-    def build_segment_cache(self, task, clip_duration_s: float, context):
+    def build_segment_cache(self, task, clip_duration_s: float, context, preprocess_settings: Optional[Dict[str, Any]] = None):
+        settings = dict(preprocess_settings or {})
+        effective_clip_duration_s = max(1.0, float(settings.get("clip_duration_s") or clip_duration_s or 1.0))
+        runtime = self._runtime_payload(context)
+        generation = resolve_generation_controls(runtime)
+        model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
+        device_label = resolved_device_label(runtime)
+        attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
+        use_audio_in_video = bool(settings.get("use_audio_in_video", (runtime.get("extra") or {}).get("use_audio_in_video", True)))
+        runner = None
+        owns_runner = False
+        if self.model_pool is not None:
+            runner = self.model_pool.acquire_timechat_runner(
+                tool_name=self.name,
+                model_path=model_path,
+                device_label=device_label,
+                generate_do_sample=bool(generation.get("do_sample")),
+                generate_temperature=generation.get("temperature"),
+                use_audio_in_video=use_audio_in_video,
+                attn_implementation=attn_implementation,
+            )
+        if runner is None:
+            runner = TimeChatCaptionerRunner(
+                model_path=model_path,
+                device_label=device_label,
+                generate_do_sample=bool(generation.get("do_sample")),
+                generate_temperature=generation.get("temperature"),
+                use_audio_in_video=use_audio_in_video,
+                attn_implementation=attn_implementation,
+            )
+            owns_runner = True
         duration = get_video_duration(task.video_path)
         segments = []
         start = 0.0
-        while start < duration:
-            end = min(duration, start + float(clip_duration_s))
-            request = self.request_model.parse_obj(
-                {
-                    "tool_name": self.name,
-                    "clip": {
-                        "video_id": task.video_id or task.sample_key,
-                        "start_s": start,
-                        "end_s": end,
-                    },
-                    "granularity": "segment",
-                    "focus_query": "",
-                }
-            )
-            result = self.execute(request, context)
-            segments.append(
-                {
-                    "start": float(start),
-                    "end": float(end),
-                    "dense_caption": result.data,
-                    "caption_summary": _dense_caption_summary_text(result.data),
-                }
-            )
-            if end <= start:
-                break
-            start = end
-        summary = " ".join(
-            item.get("caption_summary", "")
-            for item in segments
-            if has_meaningful_text(item.get("caption_summary", ""))
-        ).strip()
-        summary_agent = None
-        if getattr(context, "models_config", None) is not None:
-            for agent_name in ("planner", "trace_synthesizer", "trace_auditor", "atomicizer"):
-                candidate = context.models_config.agents.get(agent_name)
-                if candidate is not None and str(candidate.model or "").strip():
-                    summary_agent = candidate
-                    break
-        if context.llm_client is not None and segments and has_meaningful_text(summary) and summary_agent is not None:
-            prompt = "\n".join(
-                [
-                    "Summarize the full video from the segment summaries below.",
-                    "Mention the main setting, entities, and event progression.",
-                    "Return plain text only.",
-                    "",
-                    "\n".join(
-                        "%0.1fs-%0.1fs: %s" % (item["start"], item["end"], item.get("caption_summary", ""))
-                        for item in segments
-                    ),
-                ]
-            )
-            try:
-                summary = context.llm_client.complete_text(
-                    endpoint_name=summary_agent.endpoint or "default",
-                    model_name=summary_agent.model,
-                    system_prompt="You summarize videos from segment summaries.",
-                    user_prompt=prompt,
-                    temperature=float(summary_agent.temperature or 0.0),
-                    max_tokens=1200,
+        try:
+            while start < duration:
+                end = min(duration, start + effective_clip_duration_s)
+                request = self.request_model.parse_obj(
+                    {
+                        "tool_name": self.name,
+                        "clip": {
+                            "video_id": task.video_id or task.sample_key,
+                            "start_s": start,
+                            "end_s": end,
+                        },
+                        "granularity": "segment",
+                        "focus_query": "",
+                    }
                 )
-            except Exception:
-                pass
-        return {"segments": segments, "summary": summary}
+                payload = self._preprocess_payload(request, context, preprocess_settings=settings)
+                result_payload = execute_dense_caption_payload(payload, runner=runner)
+                result = self._build_tool_result(
+                    request,
+                    self._parse_output(result_payload),
+                    json.dumps(result_payload, ensure_ascii=False),
+                    context,
+                )
+                segments.append(
+                    {
+                        "start": float(start),
+                        "end": float(end),
+                        "dense_caption": result.data,
+                    }
+                )
+                if end <= start:
+                    break
+                start = end
+        finally:
+            if owns_runner and runner is not None:
+                runner.close()
+        return {"segments": segments, "summary": ""}
 
 
 class OCRProcessAdapter(BaseProcessToolAdapter):

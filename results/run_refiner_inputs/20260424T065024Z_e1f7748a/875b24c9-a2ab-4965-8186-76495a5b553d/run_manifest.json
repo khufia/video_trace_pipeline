@@ -1,0 +1,39 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "875b24c9-a2ab-4965-8186-76495a5b553d__41fa40a586fb",
+  "run_id": "20260424T065024Z_e1f7748a",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "875b24c9-a2ab-4965-8186-76495a5b553d__41fa40a586fb",
+    "question": "Among Walmart, Target, Whole Foods, and Albertsons, which store shows the highest discrepancy between customer-rated Store Cleanliness and Value for Dollar, and what is the approximate magnitude of that difference in percentage points?",
+    "options": [
+      "A. Whole Foods, 40%",
+      "B. Whole Foods, 65%",
+      "C. Walmart, 68%",
+      "D. Whole Foods, 69%",
+      "E. Walmart, 48%"
+    ],
+    "video_id": "875b24c9-a2ab-4965-8186-76495a5b553d",
+    "question_id": null,
+    "gold_answer": "B",
+    "initial_trace_steps": [
+      "The video investigates why Aldi is considered one of the top value-for-money grocery stores in the U.S. It analyzes Aldi's efficiency-focused design, limited product selection, private label use, and minimalist approach that contribute to high perceived value among customers.",
+      "Around the midpoint of the video (~2:30), the focus shifts from Aldis internal strategies to consumer sentiment, emphasizing how customers perceive 'value for dollar' and introducing survey-based satisfaction data.",
+      "Two key charts are shown: the first at ~2:45 compares customer satisfaction across grocery chains on 'Store Cleanliness' and 'Availability of Items'; the second at ~3:32 shows Value-for-Dollar ratings from a customer survey.",
+      "In Chart 1, Whole Foods' store cleanliness score is 80%.",
+      "In Chart 1, Walmart's store cleanliness score is estimated at 30%, based on it falling between the 20% and 40% gridlines.",
+      "In Chart 2, Whole Foods' value-for-dollar rating is estimated at 15%, based on it appearing between the 0% and 20% marks.",
+      "In Chart 2, Walmarts value-for-dollar rating is estimated at 70%, falling between the 60% and 80% range.",
+      "Calculating the discrepancy between cleanliness and value-for-dollar for each store:",
+      "Whole Foods: |80 - 15| = 65%; Walmart: |30 - 70| = 40%.",
+      "Final answer: Whole Foods has the highest discrepancy between cleanliness and perceived value-for-dollar, at 65%."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "cache/preprocess/486915edd4b899ffe769e999a5ec516d15e843e6b08acf259f8e5a7518276fdd/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/e70580d1fa54",
+  "clip_duration_s": 60.0,
+  "results_name": "run_refiner_inputs"
+}

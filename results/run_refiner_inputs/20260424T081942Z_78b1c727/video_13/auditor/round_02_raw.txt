@@ -1,0 +1,35 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.97,
+  "scores": {
+    "logical_coherence": 0.9,
+    "completeness": 0.28,
+    "factual_correctness": 0.9,
+    "reasoning_order": 0.95
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The trace correctly establishes that two beer bottles are visible on the table during the anchored audio, but it also states that emptiness is not established from the frames. Since the question asks for the number of empty beer bottles and provides only fixed multiple-choice options, the trace does not justify any unique option or an explicit final answer.",
+      "evidence_ids": [
+        "ev_visual_table_bottles",
+        "ev_empty_uncertainty",
+        "ev_option_map"
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "ANSWER_ERROR",
+      "message": "The final answer field is blank. Even if the intended conclusion is 'insufficient evidence,' that conclusion is not rendered as the final answer, so the package does not reach a complete answer state aligned with the multiple-choice question.",
+      "evidence_ids": [
+        "ev_option_map"
+      ]
+    }
+  ],
+  "feedback": "The trace is internally consistent but stops at uncertainty: it grounds two bottles on the table while explicitly leaving emptiness unresolved, so it cannot justify any answer choice and does not provide a final answer.",
+  "missing_information": [
+    "Whether each of the two beer bottles on the table is empty at the moment anchored by the quoted audio",
+    "A uniquely justified answer choice, or an explicit resolved statement that the provided evidence is insufficient to select among A-D"
+  ]
+}

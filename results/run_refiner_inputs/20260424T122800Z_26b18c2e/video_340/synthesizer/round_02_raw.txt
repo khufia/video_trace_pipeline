@@ -1,0 +1,193 @@
+{
+  "task_key": "video_340__65ca4d212fa0",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_77766aa9",
+      "tool_name": "audio_temporal_grounder",
+      "evidence_text": "A broader candidate interval for the loud metallic bang was localized to 11.10s-23.54s.",
+      "inference_hint": "Keep as coarse context only; do not treat all frames in this span as equally representative of the bang moment.",
+      "confidence": null,
+      "time_start_s": 11.1,
+      "time_end_s": 23.544,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_7c75ce50c4ff0f23"
+      ],
+      "metadata": {
+        "request_hash": "77766aa943d1fffb199410ab",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_01_06013b3b",
+      "tool_name": "audio_temporal_grounder",
+      "evidence_text": "A tighter localization for a single loud metallic bang or clang places it at 11.50s-12.50s.",
+      "inference_hint": "Use visuals nearest this narrowed interval to judge the man's action at the bang moment.",
+      "confidence": null,
+      "time_start_s": 11.5,
+      "time_end_s": 12.5,
+      "frame_ts_s": null,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_d617028b5c4b0dc9"
+      ],
+      "metadata": {
+        "request_hash": "06013b3bb0c98c569dd9ac57",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_f51812a3",
+      "tool_name": "frame_retriever",
+      "evidence_text": "A frame was retrieved at 12.00s, which lies inside the tightened 11.50s-12.50s bang interval and is the closest available retrieved frame to the bang moment in the provided evidence.",
+      "inference_hint": "Base the posture judgment on this bang-anchored frame rather than on later unrelated frames.",
+      "confidence": 0.5197,
+      "time_start_s": 12.0,
+      "time_end_s": 12.0,
+      "frame_ts_s": 12.0,
+      "artifact_refs": [
+        {
+          "artifact_id": "f5da5cf471b5bfd302b3d5a8",
+          "kind": "frame",
+          "relpath": "cache/artifacts/f5da5cf471b5bfd302b3d5a8/frame_12.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_12.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 1480849
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_290f8f0bf18bd60d",
+        "obs_d617028b5c4b0dc9"
+      ],
+      "metadata": {
+        "request_hash": "f51812a3643dcd654690586b",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_03_a62f5296",
+      "tool_name": "generic_purpose",
+      "evidence_text": "In the 12.00s frame, the view is out of the ship's bridge windows toward the sea and deck. No person is clearly visible in the foreground or mid-ground in a way that allows posture to be seen, and no person is seen on the bridge itself in this specific frame.",
+      "inference_hint": "This bang-anchored frame does not visually verify any of the four posture/action options.",
+      "confidence": null,
+      "time_start_s": 12.0,
+      "time_end_s": 12.0,
+      "frame_ts_s": 12.0,
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_966f0912c699c2d8",
+        "obs_844ce88ffa54a164",
+        "obs_91b81d879c9271bc",
+        "obs_ef8d6b4d2b961cd8",
+        "obs_f2f829a96cae9158"
+      ],
+      "metadata": {
+        "request_hash": "a62f5296a23d3c207b6469b1",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The broad bang interval is 11.10s-23.54s, but the tighter grounding places the single metallic bang at 11.50s-12.50s.",
+      "supporting_observation_ids": [
+        "obs_7c75ce50c4ff0f23",
+        "obs_d617028b5c4b0dc9"
+      ],
+      "answer_relevance": "critical"
+    },
+    {
+      "step_id": 2,
+      "text": "The retrieved frame at 12.00s falls inside that tightened bang window and is the closest available frame to the bang in the provided evidence; in that frame, no man is clearly visible well enough to read his posture or action.",
+      "supporting_observation_ids": [
+        "obs_290f8f0bf18bd60d",
+        "obs_d617028b5c4b0dc9",
+        "obs_ef8d6b4d2b961cd8",
+        "obs_f2f829a96cae9158"
+      ],
+      "answer_relevance": "critical"
+    },
+    {
+      "step_id": 3,
+      "text": "Because the bang-anchored frame does not show the man clearly enough to determine whether he is walking, drinking, leaning, or standing, none of the four options is verified.",
+      "supporting_observation_ids": [
+        "obs_ef8d6b4d2b961cd8",
+        "obs_f2f829a96cae9158"
+      ],
+      "answer_relevance": "critical"
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "video_340__65ca4d212fa0",
+      "trace": {
+        "inference_steps": [
+          "The broad bang interval is 11.10s-23.54s, but the tighter grounding places the single metallic bang at 11.50s-12.50s.",
+          "The retrieved frame at 12.00s falls inside that tightened bang window and is the closest available frame to the bang in the provided evidence; in that frame, no man is clearly visible well enough to read his posture or action.",
+          "Because the bang-anchored frame does not show the man clearly enough to determine whether he is walking, drinking, leaning, or standing, none of the four options is verified."
+        ],
+        "evidence": [
+          {
+            "tool_name": "audio_temporal_grounder",
+            "evidence_text": "A broader candidate interval for the loud metallic bang was localized to 11.10s-23.54s.",
+            "observation_ids": [
+              "obs_7c75ce50c4ff0f23"
+            ],
+            "time_start_s": 11.1,
+            "time_end_s": 23.544,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "audio_temporal_grounder",
+            "evidence_text": "A tighter localization for a single loud metallic bang or clang places it at 11.50s-12.50s.",
+            "observation_ids": [
+              "obs_d617028b5c4b0dc9"
+            ],
+            "time_start_s": 11.5,
+            "time_end_s": 12.5,
+            "frame_ts_s": null
+          },
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "A frame was retrieved at 12.00s, which lies inside the tightened 11.50s-12.50s bang interval and is the closest available retrieved frame to the bang moment in the provided evidence.",
+            "observation_ids": [
+              "obs_290f8f0bf18bd60d",
+              "obs_d617028b5c4b0dc9"
+            ],
+            "time_start_s": 12.0,
+            "time_end_s": 12.0,
+            "frame_ts_s": 12.0
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "In the 12.00s frame, the view is out of the ship's bridge windows toward the sea and deck. No person is clearly visible in the foreground or mid-ground in a way that allows posture to be seen, and no person is seen on the bridge itself in this specific frame.",
+            "observation_ids": [
+              "obs_966f0912c699c2d8",
+              "obs_844ce88ffa54a164",
+              "obs_91b81d879c9271bc",
+              "obs_ef8d6b4d2b961cd8",
+              "obs_f2f829a96cae9158"
+            ],
+            "time_start_s": 12.0,
+            "time_end_s": 12.0,
+            "frame_ts_s": 12.0
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved_due_to_no_visible_man_in_bang_anchored_frame",
+    "residual_uncertainty": "The bang is more tightly anchored to 11.50s-12.50s, and the nearest available frame at 12.00s does not show the man clearly enough to distinguish walking, drinking, leaning, or standing."
+  }
+}

@@ -10,6 +10,10 @@ safetensors==0.7.0
 sentencepiece==0.2.1
 Pillow==11.3.0
 opencv-python-headless==4.13.0.92
+# Baseline OCR runtime. This enables CPU execution by default; replace it with
+# a matching `paddlepaddle-gpu` build if you want PaddleOCR on GPU.
+paddlepaddle==3.2.2
+paddleocr==3.5.0
 av==17.0.1
 decord==0.6.0
 imageio-ffmpeg==0.6.0

@@ -132,7 +132,10 @@ General principles:
   global summary and no narrower localization strategy is available.
 - Prefer tools that directly match the evidence type:
   OCR for visible text, ASR for speech, spatial grounding for object/location
-  claims, audio temporal grounding for distinctive non-speech sounds.
+  claims, audio temporal grounding for distinctive non-speech sounds, and
+  `generic_purpose` for grounded chart/table/diagram/screen interpretation
+  when the missing issue is the structured visual relationship rather than the
+  raw text itself.
 - Use `dense_captioner` only when the missing evidence is about open-ended
   visual or audio events, scene evolution, or action context within a bounded clip.
 - Do not use `dense_captioner` just to locate a single text string, object,
@@ -352,7 +355,7 @@ Guidance:
   clip rather than treating a caption span as a point timestamp
 
 F) `ocr`
-Use it for visible text, numbers, labels, subtitles, scoreboards, headers, and signs.
+Use it when explicit text must be read or detected from a grounded frame or region.
 
 Guidance:
 - prefer passing the aligned frame bundle from `frame_retriever`
@@ -363,9 +366,12 @@ Guidance:
 - if the question depends on first, second, earliest, or latest occurrence of a
   text item, do not rely on one semantic text query alone; localize or compare
   candidate clips first
-- for structured visuals, use OCR for text labels and numbers; if a relation or
-  comparison is still missing, pair OCR with a later `generic_purpose` step on
-  the same grounded frames or text
+- do not use OCR by itself as the main tool for chart, table, dashboard,
+  diagram, or other complex frame interpretation; use it only for the explicit
+  text or number reading part
+- if the missing issue is a relation, comparison, trend, ranking, mapping, or
+  other structured-frame interpretation, use `generic_purpose` on the grounded
+  frame bundle and pass OCR text only when that explicit text is actually needed
 
 G) `spatial_grounder`
 Use it when the trace references a specific object, laterality, contact point,
@@ -380,13 +386,16 @@ Guidance:
 - do not ask for a broad object description and then infer the finer relation later
 
 H) `generic_purpose`
-Use it only when no narrower tool fits or when combining already grounded clips,
-frames, transcripts, OCR text, or other text contexts into a targeted extraction.
+Use it for targeted multimodal analysis after the right evidence is grounded,
+especially for complex frame understanding that is not just raw text reading.
 
 Good uses:
 - answer a specific relation or comparison after the correct frames or text are already grounded
 - reconcile OCR text, ASR transcript, and bounded visual context into one answer-critical fact
-- reason over grounded structured-visual evidence after OCR has already surfaced the labels or values
+- analyze grounded charts, tables, dashboards, diagrams, scoreboards, or other
+  complex structured visuals once the correct frame or frame bundle is known
+- reason over grounded structured-visual evidence, with OCR text included only
+  when explicit labels or values need to be read exactly
 
 Bad uses:
 - asking for the final answer before the decisive evidence is grounded
@@ -400,8 +409,11 @@ Guidance:
   the whole problem end-to-end
 - prefer `generic_purpose` after OCR, ASR, spatial grounding, or frame
   retrieval, not before
+- if the frame contains a chart, table, dashboard, diagram, or other complex
+  structure, prefer `generic_purpose` for the frame analysis itself
 - if it is used on structured visual evidence, first ground the correct frame or
-  frames and, when useful, pass OCR text alongside them
+  frames and, when useful, pass OCR text alongside them rather than asking OCR
+  alone to solve the full structured-visual question
 - if a `generic_purpose` output proposes a broad final answer while a missing
   primitive is still ungrounded, the trace-writing agent should not trust that
   conclusion automatically
@@ -432,6 +444,10 @@ Guidance:
   narrower tool can localize the needed evidence more directly.
 - If the missing issue is visible text, labels, titles, numbers, or headers,
   a common pattern is `visual_temporal_grounder -> frame_retriever -> ocr`.
+- If the missing issue is chart meaning, table structure, dashboard state,
+  diagram interpretation, or another complex frame-level visual relationship, a
+  common pattern is `visual_temporal_grounder -> frame_retriever -> generic_purpose`,
+  optionally with OCR only for explicit text reading.
 - If the missing issue is speech, prefer `asr`. If it is a distinctive
   non-speech audio event, prefer `audio_temporal_grounder`.
 - If the evidence gap is about finding the first, second, earliest, or latest
@@ -605,7 +621,7 @@ def build_planner_prompt(
                 summary_text,
                 "",
                 "VIDEO_CAPTION_SUMMARY_NOTE:",
-                "Use this as planning context only. It is not fine-grained final evidence.",
+                "Use this as dense chronological planning context only. It is not final evidence by itself.",
                 "",
             ]
         )
