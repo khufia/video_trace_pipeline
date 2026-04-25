@@ -290,6 +290,8 @@ def execute_payload(
         "Use timestamps as relative seconds inside the provided clip, starting at 0.0.\n"
         "Keep captions chronological and cover the important visible changes in the clip.\n"
         "Prioritize visible entities, actions, on-screen text, charts, quantities, labels, and event progression.\n"
+        "When audio is available, use the audio field for distinctive non-speech sounds, music changes, crowd reactions, impacts, alarms, engines, or other audible events.\n"
+        "Do not use the audio field for verbatim dialogue transcription unless a short spoken cue is itself the important event.\n"
         "Do not spend space on generic camera, background, or shooting-style narration unless it materially affects what happens.\n"
         "Use one atomic item per action/object/attribute entry.\n"
         "If a field is unavailable, use an empty string or an empty list.\n\n"

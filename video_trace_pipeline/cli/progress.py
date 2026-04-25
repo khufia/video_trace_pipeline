@@ -19,10 +19,67 @@ def _format_scores(scores: Dict[str, Any]) -> str:
     for key in sorted(scores):
         value = scores.get(key)
         if isinstance(value, (int, float)):
-            parts.append("%s=%0.2f" % (key, float(value)))
+            numeric = float(value)
+            if numeric.is_integer():
+                parts.append("%s=%d" % (key, int(numeric)))
+            else:
+                parts.append("%s=%0.2f" % (key, numeric))
         else:
             parts.append("%s=%s" % (key, value))
     return ", ".join(parts)
+
+
+def _format_seconds(value: Any) -> str:
+    text = "%.3f" % float(value)
+    text = text.rstrip("0").rstrip(".")
+    return "%ss" % text
+
+
+def _render_temporal_anchor(item: Dict[str, Any]) -> str:
+    start_s = item.get("time_start_s")
+    end_s = item.get("time_end_s")
+    frame_ts_s = item.get("frame_ts_s")
+    if start_s is not None or end_s is not None:
+        if start_s is None:
+            start_s = end_s
+        if end_s is None:
+            end_s = start_s
+        if float(start_s) == float(end_s):
+            return _format_seconds(start_s)
+        return "%s to %s" % (_format_seconds(start_s), _format_seconds(end_s))
+    if frame_ts_s is not None:
+        return _format_seconds(frame_ts_s)
+    return ""
+
+
+def _inference_time_anchor(step_payload: Dict[str, Any], evidence_entries: List[Dict[str, Any]]) -> str:
+    supporting_ids = {
+        str(item).strip()
+        for item in list(step_payload.get("supporting_observation_ids") or [])
+        if str(item).strip()
+    }
+    if not supporting_ids:
+        return ""
+    anchors = []
+    seen = set()
+    for item in list(evidence_entries or []):
+        observation_ids = {
+            str(observation_id).strip()
+            for observation_id in list(item.get("observation_ids") or [])
+            if str(observation_id).strip()
+        }
+        if not supporting_ids.intersection(observation_ids):
+            continue
+        anchor = _render_temporal_anchor(dict(item or {}))
+        if not anchor or anchor in seen:
+            continue
+        seen.add(anchor)
+        anchors.append(anchor)
+    if not anchors:
+        return ""
+    if len(anchors) == 1:
+        return anchors[0]
+    return "%s | %s" % (anchors[0], anchors[1])
 
 
 def _format_confidence(result_payload: Dict[str, Any]) -> str:
@@ -268,15 +325,19 @@ class LiveRunReporter(object):
     def on_trace(self, *, round_index: int, trace_payload: Dict[str, Any], trace_dir: Optional[str] = None):
         self.console.print("")
         self.console.print("[bold]Trace[/bold]")
+        evidence_entries = [dict(item or {}) for item in list(trace_payload.get("evidence_entries") or []) if isinstance(item, dict)]
         for item in list(trace_payload.get("inference_steps") or [])[:8]:
             if not isinstance(item, dict):
                 continue
+            anchor = _inference_time_anchor(item, evidence_entries)
+            line = "%s. %s" % (
+                item.get("step_id"),
+                _short_text(item.get("text") or "", limit=220),
+            )
+            if anchor:
+                line = "%s [%s]" % (line, anchor)
             self.console.print(
-                "  %s. %s"
-                % (
-                    item.get("step_id"),
-                    _short_text(item.get("text") or "", limit=220),
-                )
+                "  %s" % line
             )
         if trace_payload.get("final_answer") not in (None, ""):
             self.console.print("final_answer: %s" % _short_text(trace_payload.get("final_answer") or "", limit=220))

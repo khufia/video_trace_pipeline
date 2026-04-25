@@ -60,6 +60,40 @@ class FakeLowSignalDenseCaptionBackend(object):
         }
 
 
+class FakeIdentityAudioDenseCaptionBackend(object):
+    def __init__(self):
+        self.calls = 0
+
+    def build_dense_caption_cache(self, task, clip_duration_s):
+        del task
+        self.calls += 1
+        return {
+            "segments": [
+                {
+                    "start": 0.0,
+                    "end": float(clip_duration_s),
+                    "dense_caption": {
+                        "overall_summary": "Phil enters the shop.",
+                        "captions": [
+                            {
+                                "start": 0.0,
+                                "end": min(float(clip_duration_s), 12.0),
+                                "visual": "Phil walks into the store and waves at the clerk.",
+                                "audio": "A metallic bang echoes near the doorway.",
+                                "on_screen_text": "",
+                                "actions": ["walks into the store"],
+                                "objects": ["man", "doorway"],
+                                "attributes": [],
+                            }
+                        ],
+                        "sampled_frames": [],
+                    },
+                }
+            ],
+            "summary": "",
+        }
+
+
 class FakeToolRegistry(object):
     def __init__(self, backend, transcript_segments=None):
         self.backend = backend
@@ -192,6 +226,36 @@ def test_preprocess_cache_merges_asr_once_and_records_dense_summary_metadata(tmp
     assert result["manifest"]["include_asr"] is True
     assert result["manifest"]["transcript_segment_count"] == 1
     assert "[00:04-00:08] Speech: The narrator points out the low prices." in result["summary"]
+
+
+def test_preprocess_cache_exposes_identity_and_non_speech_audio_memory(tmp_path):
+    video = tmp_path / "video.mp4"
+    video.write_bytes(b"video-bytes")
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    runtime = FakeIdentityAudioDenseCaptionBackend()
+    registry = FakeToolRegistry(
+        runtime,
+        transcript_segments=[{"start_s": 1.0, "end_s": 3.0, "text": "Phil tells Sarah to wait."}],
+    )
+    preprocessor = DenseCaptionPreprocessor(workspace, registry, _models_config())
+    task = TaskSpec(
+        benchmark="omnivideobench",
+        sample_key="sample1",
+        question="Who appears after the bang?",
+        options=[],
+        video_path=str(video),
+    )
+
+    result = preprocessor.get_or_build(task, clip_duration_s=30.0)
+
+    assert "Audio: A metallic bang echoes near the doorway." in result["summary"]
+    identity_labels = [item["label"] for item in result["planner_context"]["identity_memory"]]
+    assert "Phil" in identity_labels
+    audio_labels = [item["label"] for item in result["planner_context"]["audio_event_memory"]]
+    assert "A metallic bang echoes near the doorway." in audio_labels
+    assert result["manifest"]["identity_memory_count"] >= 1
+    assert result["manifest"]["audio_event_memory_count"] >= 1
 
 
 def test_preprocess_cache_rebuilds_blank_summary_bundle(tmp_path):

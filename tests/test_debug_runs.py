@@ -43,7 +43,15 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
             "task_key": "sample1",
             "mode": "generate",
             "evidence_entries": [],
-            "inference_steps": [{"step_id": 1, "text": "The figure has three squares.", "supporting_observation_ids": []}],
+            "inference_steps": [
+                {
+                    "step_id": 1,
+                    "text": "The figure has three squares.",
+                    "supporting_observation_ids": [],
+                    "time_start_s": 12.0,
+                    "time_end_s": 15.0,
+                }
+            ],
             "final_answer": "",
             "benchmark_renderings": {},
             "metadata": {},
@@ -81,7 +89,15 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
             "task_key": "sample1",
             "mode": "generate",
             "evidence_entries": [],
-            "inference_steps": [{"step_id": 1, "text": "The figure has three squares.", "supporting_observation_ids": []}],
+            "inference_steps": [
+                {
+                    "step_id": 1,
+                    "text": "The figure has three squares.",
+                    "supporting_observation_ids": [],
+                    "time_start_s": 12.0,
+                    "time_end_s": 15.0,
+                }
+            ],
             "final_answer": "",
             "benchmark_renderings": {},
             "metadata": {},
@@ -127,6 +143,7 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
     payload = build_run_debug_payload(run_dir)
     assert payload["result"]["latest_audit_verdict"] == "FAIL"
     assert payload["tool_steps"][0]["tool_name"] == "generic_purpose"
+    assert payload["rounds"][0]["trace_inference_steps"][0]["time_start_s"] == 12.0
 
     report_path = write_run_debug_bundle(run_dir)
 
@@ -146,6 +163,7 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
     root_readme = (run_dir / "README.md").read_text(encoding="utf-8")
     assert "Run Overview" in root_readme
     assert "results/final_result_readable.md" in root_readme
+    assert "[12s to 15s]" in root_readme
     assert (run_dir / "planner" / "round_01_summary.md").exists()
     assert (run_dir / "synthesizer" / "round_01_trace_readable.md").exists()
     assert (run_dir / "auditor" / "round_01_report_readable.md").exists()

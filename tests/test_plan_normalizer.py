@@ -153,6 +153,14 @@ def test_plan_normalizer_promotes_time_hint_bindings_to_time_hints():
         use_summary=True,
         steps=[
             PlanStep(
+                step_id=7,
+                tool_name="generic_purpose",
+                purpose="Produce candidate time hints.",
+                arguments={"query": "Find the likely chart moment."},
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
                 step_id=1,
                 tool_name="frame_retriever",
                 purpose="Use candidate time windows.",
@@ -168,4 +176,66 @@ def test_plan_normalizer_promotes_time_hint_bindings_to_time_hints():
 
     normalized = normalizer.normalize(_task(), plan)
 
-    assert normalized.steps[0].input_refs[0].target_field == "time_hints"
+    assert [step.tool_name for step in normalized.steps] == ["generic_purpose", "frame_retriever"]
+    assert normalized.steps[1].input_refs[0].target_field == "time_hints"
+
+
+def test_plan_normalizer_infers_dependencies_from_input_refs_and_reorders_steps():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Infer dependencies from input refs.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=10,
+                tool_name="generic_purpose",
+                purpose="Answer from frames.",
+                arguments={"query": "Answer."},
+                input_refs=[
+                    {"target_field": "frames", "source": {"step_id": 20, "field_path": "frames"}},
+                ],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=20,
+                tool_name="frame_retriever",
+                purpose="Find frames.",
+                arguments={"query": "Best frame.", "num_frames": 2},
+                input_refs=[],
+                depends_on=[],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    normalized = normalizer.normalize(_task(), plan)
+
+    assert [step.tool_name for step in normalized.steps] == ["frame_retriever", "generic_purpose"]
+    assert normalized.steps[1].depends_on == [1]
+    assert normalized.steps[1].input_refs[0].source.step_id == 1
+
+
+def test_plan_normalizer_rejects_context_free_generic_reuse_followup():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Reject detached reuse followups.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="generic_purpose",
+                purpose="Inspect the previously retrieved frames and answer the question.",
+                arguments={"query": "Use the previously retrieved frames to decide the answer."},
+                input_refs=[],
+                depends_on=[],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    try:
+        normalizer.normalize(_task(), plan)
+    except ValueError as exc:
+        assert "context-free generic_purpose reuse follow-up" in str(exc)
+    else:
+        raise AssertionError("Expected plan normalization to reject detached generic reuse follow-up.")

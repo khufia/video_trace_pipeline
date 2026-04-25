@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from video_trace_pipeline.common import sanitize_for_persistence
-from video_trace_pipeline.schemas import AtomicObservation, EvidenceEntry, MachineProfile, TaskSpec
+from video_trace_pipeline.schemas import ArtifactRef, AtomicObservation, EvidenceEntry, MachineProfile, TaskSpec
 from video_trace_pipeline.storage import EvidenceLedger, WorkspaceManager
 
 
@@ -111,3 +111,58 @@ def test_evidence_ledger_persists_sqlite_index(tmp_path):
     retrieved = ledger.retrieve(query_terms=["hello"], subject="speaker_1")
     assert len(retrieved) == 1
     assert retrieved[0]["observation_id"] == "obs_demo"
+
+
+def test_evidence_ledger_lookup_records_resolves_evidence_and_observation_ids(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="What is shown?",
+        options=[],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video")
+    run = workspace.create_run(task)
+    ledger = EvidenceLedger(run)
+
+    entry = EvidenceEntry(
+        evidence_id="ev_01_demo",
+        tool_name="asr",
+        evidence_text='speaker_1 said "hello"',
+        artifact_refs=[
+            ArtifactRef(
+                artifact_id="art_01",
+                kind="frame",
+                relpath="cache/artifacts/demo/frame.png",
+                metadata={"timestamp_s": 1.5, "video_id": "sample1"},
+            )
+        ],
+        observation_ids=["obs_demo"],
+        time_start_s=1.0,
+        time_end_s=2.0,
+    )
+    observation = AtomicObservation(
+        observation_id="obs_demo",
+        subject="speaker_1",
+        subject_type="speaker",
+        predicate="said",
+        object_text="hello",
+        object_type="utterance",
+        source_tool="asr",
+        atomic_text='speaker_1 said "hello" from 1.00s to 2.00s.',
+        time_start_s=1.0,
+        time_end_s=2.0,
+    )
+    ledger.append(entry, [observation])
+
+    by_evidence = ledger.lookup_records(["ev_01_demo"])
+    assert by_evidence[0]["evidence_id"] == "ev_01_demo"
+    assert by_evidence[0]["atomic_text"] == 'speaker_1 said "hello"'
+    assert by_evidence[0]["artifact_refs"][0]["relpath"] == "cache/artifacts/demo/frame.png"
+    assert any(item.get("observation_id") == "obs_demo" for item in by_evidence)
+
+    by_observation = ledger.lookup_records(["obs_demo"])
+    assert len(by_observation) == 1
+    assert by_observation[0]["observation_id"] == "obs_demo"

@@ -1,7 +1,7 @@
 import pytest
 
 from video_trace_pipeline.common import traverse_path
-from video_trace_pipeline.schemas import ASRRequest, ClipRef, ExecutionPlan, FrameRetrieverRequest, OCRRequest, TracePackage
+from video_trace_pipeline.schemas import ASRRequest, AuditReport, ClipRef, ExecutionPlan, FrameRetrieverRequest, OCRRequest, TracePackage
 from video_trace_pipeline.tools.base import ToolAdapter
 
 
@@ -165,3 +165,22 @@ def test_traverse_path_matches_labeled_list_items():
     region = traverse_path(payload, "regions.puzzle")
 
     assert region["label"] == "puzzle region"
+
+
+def test_audit_report_normalizes_scores_to_integer_band():
+    report = AuditReport.parse_obj(
+        {
+            "verdict": "FAIL",
+            "scores": {
+                "logical_coherence": 0.18,
+                "completeness": 5.7,
+                "factual_correctness": "2.2",
+            },
+        }
+    )
+
+    assert report.scores == {
+        "logical_coherence": 1,
+        "completeness": 5,
+        "factual_correctness": 2,
+    }

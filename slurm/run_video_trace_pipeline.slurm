@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=video_trace_pipeline
-#SBATCH --output=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%j.out
-#SBATCH --error=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%j.err
+#SBATCH --output=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%A_%a.out
+#SBATCH --error=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%A_%a.err
 #SBATCH --time=12:00:00
 #SBATCH --partition=gamma
 #SBATCH --account=gamma
@@ -22,12 +22,13 @@ PROFILE="${PROFILE:-$REPO_ROOT/configs/machine.nexus.yaml}"
 MODELS="${MODELS:-$REPO_ROOT/configs/models.yaml}"
 WORKSPACE_ROOT="${WORKSPACE_ROOT:-$REPO_ROOT/workspace}"
 
-MODE="${MODE:-refine}"
+MODE="${MODE:-generate}"
 INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
-INPUT_INDEX="${INPUT_INDEX:-2}"
+# Accept a single index or a comma/space-separated list, e.g. INPUT_INDEX="6 7 8" or "6,7,8".
+INPUT_INDEX="${INPUT_INDEX:-0 1 2 3 4 5 6 7 8 9}"
 RESULTS_NAME="${RESULTS_NAME:-rur_refiner_inputs}"
 CLIP_DURATION="${CLIP_DURATION:-30}"
-MAX_ROUNDS="${MAX_ROUNDS:-2}"
+MAX_ROUNDS="${MAX_ROUNDS:-3}"
 INITIAL_TRACE_PATH="${INITIAL_TRACE_PATH:-}"
 
 PREPROCESS_FIRST="${PREPROCESS_FIRST:-0}"
@@ -123,38 +124,53 @@ if [[ "$CHECK_ENV_ONLY" == "1" ]]; then
   exit 0
 fi
 
-COMMON_ARGS=(
-  --profile "$PROFILE"
-  --models "$MODELS"
-  --workspace-root "$WORKSPACE_ROOT"
-  --clip-duration "$CLIP_DURATION"
-  --inputs-json "$INPUTS_JSON"
-  --input-index "$INPUT_INDEX"
-)
+INPUT_INDEX_LIST="${INPUT_INDEX//,/ }"
+declare -a INPUT_INDEX_VALUES=()
+for input_index in $INPUT_INDEX_LIST; do
+  INPUT_INDEX_VALUES+=("$input_index")
+done
 
-if [[ -n "$PERSIST_TOOL_MODELS" ]]; then
-  COMMON_ARGS+=(--persist-tool-models "$PERSIST_TOOL_MODELS")
-fi
-if [[ "$PRELOAD_PERSISTED_MODELS" == "1" ]]; then
-  COMMON_ARGS+=(--preload-persisted-models)
+if [[ "${#INPUT_INDEX_VALUES[@]}" -eq 0 ]]; then
+  echo "ERROR: INPUT_INDEX is empty. Set it to a single index or a comma/space-separated list." >&2
+  exit 1
 fi
 
-if [[ "$PREPROCESS_FIRST" == "1" ]]; then
-  python -m video_trace_pipeline.cli.main preprocess "${COMMON_ARGS[@]}"
-fi
+for input_index in "${INPUT_INDEX_VALUES[@]}"; do
+  echo "INFO: running input_index=$input_index"
 
-RUN_ARGS=(
-  "${COMMON_ARGS[@]}"
-  --mode "$MODE"
-  --max-rounds "$MAX_ROUNDS"
-  --results-name "$RESULTS_NAME"
-)
+  COMMON_ARGS=(
+    --profile "$PROFILE"
+    --models "$MODELS"
+    --workspace-root "$WORKSPACE_ROOT"
+    --clip-duration "$CLIP_DURATION"
+    --inputs-json "$INPUTS_JSON"
+    --input-index "$input_index"
+  )
 
-if [[ -n "$INITIAL_TRACE_PATH" ]]; then
-  RUN_ARGS+=(--initial-trace-path "$INITIAL_TRACE_PATH")
-fi
-if [[ "$SHOW_PROGRESS" != "1" ]]; then
-  RUN_ARGS+=(--no-show-progress)
-fi
+  if [[ -n "$PERSIST_TOOL_MODELS" ]]; then
+    COMMON_ARGS+=(--persist-tool-models "$PERSIST_TOOL_MODELS")
+  fi
+  if [[ "$PRELOAD_PERSISTED_MODELS" == "1" ]]; then
+    COMMON_ARGS+=(--preload-persisted-models)
+  fi
 
-python -m video_trace_pipeline.cli.main run "${RUN_ARGS[@]}"
+  if [[ "$PREPROCESS_FIRST" == "1" ]]; then
+    python -m video_trace_pipeline.cli.main preprocess "${COMMON_ARGS[@]}"
+  fi
+
+  RUN_ARGS=(
+    "${COMMON_ARGS[@]}"
+    --mode "$MODE"
+    --max-rounds "$MAX_ROUNDS"
+    --results-name "$RESULTS_NAME"
+  )
+
+  if [[ -n "$INITIAL_TRACE_PATH" ]]; then
+    RUN_ARGS+=(--initial-trace-path "$INITIAL_TRACE_PATH")
+  fi
+  if [[ "$SHOW_PROGRESS" != "1" ]]; then
+    RUN_ARGS+=(--no-show-progress)
+  fi
+
+  python -m video_trace_pipeline.cli.main run "${RUN_ARGS[@]}"
+done

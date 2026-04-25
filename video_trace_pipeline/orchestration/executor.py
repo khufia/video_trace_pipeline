@@ -254,6 +254,36 @@ _LIST_ARGUMENT_FIELDS = frozenset(
     }
 )
 
+_GENERIC_PURPOSE_CONTEXT_FIELDS = frozenset(
+    {
+        "clip",
+        "clips",
+        "frame",
+        "frames",
+        "transcript",
+        "transcripts",
+        "text_contexts",
+        "evidence_ids",
+    }
+)
+
+_GENERIC_PURPOSE_REUSE_HINTS = (
+    "already grounded",
+    "earlier clip",
+    "earlier frame",
+    "grounded frame",
+    "grounded frames",
+    "previous frame",
+    "previous frames",
+    "previously grounded",
+    "previously retrieved",
+    "prior evidence",
+    "provided evidence",
+    "retrieved frame",
+    "retrieved frames",
+    "supplied evidence",
+)
+
 
 def _coerce_dependency_list_value(value: Any) -> List[Any]:
     if value is None:
@@ -261,6 +291,27 @@ def _coerce_dependency_list_value(value: Any) -> List[Any]:
     if isinstance(value, list):
         return list(value)
     return [value]
+
+
+def _argument_value_present(value: Any) -> bool:
+    if value is None:
+        return False
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, (list, tuple, dict, set)):
+        return bool(value)
+    return True
+
+
+def _has_generic_purpose_context(payload: Dict[str, Any]) -> bool:
+    return any(_argument_value_present(payload.get(field_name)) for field_name in _GENERIC_PURPOSE_CONTEXT_FIELDS)
+
+
+def _looks_like_reuse_followup(step) -> bool:
+    purpose = str(getattr(step, "purpose", "") or "").strip().lower()
+    query = str((getattr(step, "arguments", {}) or {}).get("query") or "").strip().lower()
+    haystack = " ".join(part for part in (purpose, query) if part)
+    return any(hint in haystack for hint in _GENERIC_PURPOSE_REUSE_HINTS)
 
 
 def _merge_dependency_values(existing: Any, new_value: Any, target_field: str) -> Any:
@@ -308,13 +359,33 @@ class PlanExecutor(object):
     def _autofill_dependency_inputs(self, step, adapter, resolved_arguments: Dict[str, Any], step_outputs: Dict[int, Dict[str, Any]]):
         payload = dict(resolved_arguments or {})
         model_fields = set(request_model_field_names(getattr(adapter, "request_model", None)))
-        candidate_fields = [name for name in ("clip", "frame", "region", "transcript") if name in model_fields]
+        candidate_fields = [
+            name
+            for name in (
+                "clip",
+                "clips",
+                "frame",
+                "frames",
+                "region",
+                "regions",
+                "transcript",
+                "transcripts",
+                "text_contexts",
+                "evidence_ids",
+            )
+            if name in model_fields
+        ]
         for field_name in candidate_fields:
-            if payload.get(field_name) is not None:
+            if _argument_value_present(payload.get(field_name)):
                 continue
             for dependency_id in reversed(list(step.depends_on or [])):
                 source_obj = step_outputs.get(dependency_id) or {}
                 value = source_obj.get(field_name)
+                if field_name in _LIST_ARGUMENT_FIELDS:
+                    if not _coerce_dependency_list_value(value):
+                        continue
+                    payload[field_name] = value
+                    break
                 if value is not None:
                     payload[field_name] = value
                     break
@@ -325,6 +396,28 @@ class PlanExecutor(object):
             and not payload.get("clips")
         ):
             payload["clip"] = "full_video"
+        return payload
+
+    def _seed_reuse_context(self, step, resolved_arguments: Dict[str, Any], evidence_ledger: EvidenceLedger) -> Dict[str, Any]:
+        payload = dict(resolved_arguments or {})
+        if str(getattr(step, "tool_name", "") or "").strip() != "generic_purpose":
+            return payload
+        if _has_generic_purpose_context(payload):
+            return payload
+        if not _looks_like_reuse_followup(step):
+            return payload
+        recent_evidence_ids: List[str] = []
+        seen = set()
+        for entry in reversed(list(evidence_ledger.entries() or [])):
+            evidence_id = str(entry.get("evidence_id") or "").strip()
+            if not evidence_id or evidence_id in seen:
+                continue
+            seen.add(evidence_id)
+            recent_evidence_ids.append(evidence_id)
+            if len(recent_evidence_ids) >= 6:
+                break
+        if recent_evidence_ids:
+            payload["evidence_ids"] = list(reversed(recent_evidence_ids))
         return payload
 
     def _load_cached_tool_result(self, cached: Dict[str, Any] | None, step_id: int, tool_name: str):
@@ -361,6 +454,7 @@ class PlanExecutor(object):
             resolved_arguments = self._resolve_arguments(step, step_outputs)
             adapter = self.tool_registry.get_adapter(step.tool_name)
             resolved_arguments = self._autofill_dependency_inputs(step, adapter, resolved_arguments, step_outputs)
+            resolved_arguments = self._seed_reuse_context(step, resolved_arguments, evidence_ledger)
             resolved_arguments = hydrate_arguments_with_task_context(resolved_arguments, execution_context.task)
             try:
                 request = adapter.parse_request(resolved_arguments)
@@ -454,6 +548,7 @@ class PlanExecutor(object):
                 tool_name=step.tool_name,
                 evidence_text=tool_result.summary or tool_result.raw_output_text or "",
                 confidence=tool_result.metadata.get("confidence") if isinstance(tool_result.metadata, dict) else None,
+                status="provisional",
                 **evidence_temporal_bounds(observations),
                 artifact_refs=tool_result.artifact_refs,
                 observation_ids=[item.observation_id for item in observations],

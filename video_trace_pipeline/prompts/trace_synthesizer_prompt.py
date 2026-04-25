@@ -35,6 +35,9 @@ Use that split carefully:
   regions, uncertainty, and confidence in `evidence_entries`.
 - Keep `inference_steps` tool-free. They should not mention tool names, APIs,
   prompts, hidden execution history, or pipeline bookkeeping.
+- `inference_steps` may include concise temporal anchors such as
+  `time_start_s`, `time_end_s`, or `frame_ts_s` when those anchors are
+  directly supported by the cited observations.
 - Every answer-critical inference step must cite `supporting_observation_ids`.
 - The combination of `evidence_entries` plus `inference_steps` should be enough
   for an auditor to see both what was grounded and how the answer was derived.
@@ -126,6 +129,9 @@ When refining:
 - Preserve uncertainty when the evidence is partial, approximate, or ambiguous.
 - If multiple answer choices remain compatible, or an answer-critical premise
   is still unresolved, leave `final_answer` empty.
+- For benchmark multiple-choice tasks, do not replace an unresolved state with
+  free-form text like "ambiguous/non-unique"; keep `final_answer` empty unless
+  the QUESTION itself explicitly asks whether the result is ambiguous.
 - Do not force a "closest option" answer unless the evidence actually justifies that approximation.
 - If different candidate occurrences support different answers and the conflict
   is not resolved, keep the answer unresolved.
@@ -171,7 +177,9 @@ def build_synthesizer_prompt(
         "",
         "TRACE_WRITING_REQUIREMENTS:",
         "- Keep provenance, timestamps, frame ids, OCR text, transcript snippets, regions, and confidence in `evidence_entries`.",
+        "- Use `status: provisional` for newly synthesized evidence entries unless an entry truly needs `superseded`; do not invent other status labels such as `grounded`.",
         "- Keep `inference_steps` tool-free, self-contained, and answer-facing.",
+        "- Include concise step-level timestamps when the cited observations establish a clear time range or frame moment.",
         "- Use `supporting_observation_ids` to bind every inference step to evidence.",
         "- Preserve valid prior reasoning and patch only what the new evidence changes.",
         "- Leave `final_answer` empty if the evidence still does not identify one supported answer.",
@@ -205,8 +213,8 @@ def build_synthesizer_prompt(
             "TracePackage schema reminder:",
             "- task_key: string",
             "- mode: string",
-            "- evidence_entries: list[{evidence_id, tool_name, evidence_text, inference_hint?, confidence?, time_start_s?, time_end_s?, frame_ts_s?, artifact_refs, observation_ids, metadata}]",
-            "- inference_steps: list[{step_id, text, supporting_observation_ids, answer_relevance}]",
+            "- evidence_entries: list[{evidence_id, tool_name, evidence_text, inference_hint?, confidence?, status? (only provisional|validated|superseded; default provisional), time_start_s?, time_end_s?, frame_ts_s?, artifact_refs, observation_ids, metadata}]",
+            "- inference_steps: list[{step_id, text, supporting_observation_ids, answer_relevance, time_start_s?, time_end_s?, frame_ts_s?}]",
             "- final_answer: string",
             "- benchmark_renderings: object",
             "- metadata: object",

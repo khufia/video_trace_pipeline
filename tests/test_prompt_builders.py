@@ -34,6 +34,11 @@ def test_build_planner_prompt_formats_diagnosis_for_original_style_planning():
         summary_text="A person shows several charts on screen.",
         compact_rounds=[],
         retrieved_observations=[],
+        current_trace_cues=["quoted cue from prior trace", "metallic bang near the doorway"],
+        preprocess_planning_memory={
+            "identity_memory": [{"label": "Phil", "kind": "named_anchor", "time_ranges": [{"start_s": 12.0, "end_s": 15.0}]}],
+            "audio_event_memory": [{"label": "metallic bang", "time_ranges": [{"start_s": 14.0, "end_s": 15.0}]}],
+        },
         audit_feedback={
             "feedback": "  Need the exact chart label and value.  ",
             "scores": {"logical_coherence": 2.0, "completeness": 1.0},
@@ -67,6 +72,10 @@ def test_build_planner_prompt_formats_diagnosis_for_original_style_planning():
     assert prompt.index('"severity": "HIGH"') < prompt.index('"severity": "LOW"')
     assert prompt.index('"ev_a"') < prompt.index('"ev_b"')
     assert "Use `missing_information` inside DIAGNOSIS as the canonical ordered repair-target list" in prompt
+    assert "CURRENT_TRACE_CUES:" in prompt
+    assert '"metallic bang near the doorway"' in prompt
+    assert "PREPROCESS_PLANNING_MEMORY:" in prompt
+    assert '"label": "Phil"' in prompt
     assert "VIDEO_CAPTION_SUMMARY:" in prompt
 
 
@@ -78,6 +87,18 @@ def test_planner_system_prompt_uses_original_style_repair_decomposition():
     assert "Use it when explicit text must be read or detected from a grounded frame or region." in PLANNER_SYSTEM_PROMPT
     assert "prefer `generic_purpose` for the frame analysis itself" in PLANNER_SYSTEM_PROMPT
     assert "common pattern is `visual_temporal_grounder -> frame_retriever -> generic_purpose`" in PLANNER_SYSTEM_PROMPT
+    assert "Never use `0`, `retrieved_observations`, prior rounds, audit objects, or any other pseudo-source as a step id." in PLANNER_SYSTEM_PROMPT
+    assert "cross-clip identity anchors and non-speech audio cues" in PLANNER_SYSTEM_PROMPT
+    assert "Do not rely on wording like \"previously retrieved frames\"" in PLANNER_SYSTEM_PROMPT
+    assert "do not anchor on a shorter token nested inside a longer repeated phrase" in PLANNER_SYSTEM_PROMPT
+    assert "localize the grounded sound or event itself" in PLANNER_SYSTEM_PROMPT
+    assert "answer-option" in PLANNER_SYSTEM_PROMPT
+    assert "do not split near-synonyms" in PLANNER_SYSTEM_PROMPT
+    assert "a visible bottle, door, or switch does not by itself" in PLANNER_SYSTEM_PROMPT
+    assert "prove empty/full/open/closed/on/off" in PLANNER_SYSTEM_PROMPT
+    assert "Validate the earliest supported moment first" in PLANNER_SYSTEM_PROMPT
+    assert "Do not let diagnosis wording silently redefine the task." in PLANNER_SYSTEM_PROMPT
+    assert 'emit free-form "ambiguous/non-unique" wording' in PLANNER_SYSTEM_PROMPT
 
 
 def test_build_auditor_prompt_mentions_atomic_missing_information_contract():
@@ -89,6 +110,11 @@ def test_build_auditor_prompt_mentions_atomic_missing_information_contract():
 
     assert "ordered, deduplicated, tool-agnostic list of atomic unresolved answer-critical needs" in prompt
     assert "`missing_information` is the planner-facing canonical gap list." in AUDITOR_SYSTEM_PROMPT
+    assert "object presence but not an answer-critical state" in AUDITOR_SYSTEM_PROMPT
+    assert "Near-synonymous sound labels or repeated phases of the same action" in AUDITOR_SYSTEM_PROMPT
+    assert 'free-form non-option answer such' in AUDITOR_SYSTEM_PROMPT
+    assert 'Do not ask the planner to' in AUDITOR_SYSTEM_PROMPT
+    assert '"declare ambiguity"' in AUDITOR_SYSTEM_PROMPT
 
 
 def test_render_tool_catalog_includes_output_fields():
@@ -143,3 +169,4 @@ def test_synthesizer_system_prompt_is_closer_to_original_refiner_discipline():
     assert "SURGICAL EDITS, NOT REWRITES." in SYNTHESIZER_SYSTEM_PROMPT
     assert "This pipeline splits evidence from reasoning:" in SYNTHESIZER_SYSTEM_PROMPT
     assert "The final `TracePackage` must stand on its own." in SYNTHESIZER_SYSTEM_PROMPT
+    assert 'free-form text like "ambiguous/non-unique"' in SYNTHESIZER_SYSTEM_PROMPT

@@ -21,6 +21,75 @@ def test_generic_purpose_prompt_includes_task_question_and_options():
     assert "- A. Safety is important." in prompt
     assert "- B. No door." in prompt
     assert "numeric score from 0.0 to 1.0" in prompt
+    assert "Do not rely on scene priors" in prompt
+    assert "answer indeterminate instead of guessing" in prompt
+    assert "visible object presence alone does not prove that state" in prompt
+    assert "collapse near-synonymous labels" in prompt
+    assert "best matches the directly grounded phenomenon" in prompt
+    assert "identify the earliest validated candidate first" in prompt
+    assert "compare full surface forms" in prompt
+
+
+def test_generic_purpose_uses_image_artifacts_from_evidence_records(tmp_path, monkeypatch):
+    workspace_root = tmp_path / "workspace"
+    artifact_path = workspace_root / "cache" / "artifacts" / "demo" / "frame.png"
+    artifact_path.parent.mkdir(parents=True, exist_ok=True)
+    artifact_path.write_bytes(b"fake image")
+    captured = {}
+
+    class FakeRunner(object):
+        def __init__(self, **kwargs):
+            captured["runner_kwargs"] = dict(kwargs)
+
+        def generate(self, messages, max_new_tokens):
+            captured["messages"] = messages
+            captured["max_new_tokens"] = max_new_tokens
+            return '{"answer":"A","supporting_points":[],"confidence":0.7,"analysis":"ok"}'
+
+        def close(self):
+            return None
+
+    monkeypatch.setattr(qwen35vl_runner, "QwenStyleRunner", FakeRunner)
+    monkeypatch.setattr(qwen35vl_runner, "resolve_model_path", lambda *args, **kwargs: "/tmp/fake-model")
+
+    result = qwen35vl_runner.execute_payload(
+        {
+            "request": {
+                "tool_name": "generic_purpose",
+                "query": "Inspect the previously retrieved frames.",
+            },
+            "task": {
+                "question": "What is visible?",
+                "options": [],
+            },
+            "runtime": {
+                "model_name": "Qwen/Qwen3.5-9B",
+                "workspace_root": str(workspace_root),
+                "extra": {},
+            },
+            "evidence_records": [
+                {
+                    "evidence_id": "ev_01_demo",
+                    "artifact_refs": [
+                        {
+                            "artifact_id": "art_01",
+                            "kind": "frame",
+                            "relpath": "cache/artifacts/demo/frame.png",
+                            "metadata": {
+                                "source_path": str(artifact_path),
+                                "timestamp_s": 12.0,
+                                "video_id": "sample1",
+                            },
+                        }
+                    ],
+                }
+            ],
+        }
+    )
+
+    assert result["answer"] == "A"
+    assert captured["messages"][0]["content"][0]["type"] == "image"
+    assert captured["messages"][0]["content"][0]["image"] == str(artifact_path.resolve())
 
 
 def test_generic_purpose_adapter_omits_low_signal_output(monkeypatch):

@@ -460,7 +460,7 @@ def run(
     inputs_json: Optional[str] = typer.Option(None, help="JSON file containing a list of direct-input samples"),
     input_index: Optional[int] = typer.Option(None, help="Sample index inside `inputs_json`"),
     clip_duration: Optional[float] = typer.Option(None, help="Dense-caption clip duration in seconds"),
-    max_rounds: int = typer.Option(2, help="Maximum generation/refinement rounds"),
+    max_rounds: int = typer.Option(3, help="Maximum generation/refinement rounds"),
     initial_trace_path: Optional[str] = typer.Option(None, help="Optional initial trace package JSON"),
     results_name: Optional[str] = typer.Option(None, help="Optional repo-local results directory name"),
     workspace_root: Optional[str] = typer.Option(None, help="Override workspace root"),

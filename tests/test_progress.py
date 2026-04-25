@@ -168,3 +168,52 @@ def test_progress_prints_frame_cache_and_request_file(tmp_path):
     assert "request_full_file: %s" % (tmp_path / "request_full.json") in rendered
     assert "runtime_file: %s" % (tmp_path / "runtime.json") in rendered
     assert "model: Qwen/Qwen3-VL-Embedding-8B -> /tmp/qwen3-vl-embedding" in rendered
+
+
+def test_progress_trace_prints_inference_time_anchors():
+    console = Console(record=True, width=180)
+    reporter = LiveRunReporter(console)
+
+    reporter.on_trace(
+        round_index=1,
+        trace_payload={
+            "inference_steps": [
+                {
+                    "step_id": 1,
+                    "text": "The repeated place name is Alaska Airlines.",
+                    "supporting_observation_ids": ["obs_1"],
+                }
+            ],
+            "evidence_entries": [
+                {
+                    "evidence_id": "ev_1",
+                    "time_start_s": 2.377,
+                    "time_end_s": 41.847,
+                    "observation_ids": ["obs_1"],
+                }
+            ],
+            "final_answer": "C",
+        },
+    )
+
+    rendered = console.export_text()
+    assert "1. The repeated place name is Alaska Airlines. [2.377s to 41.847s]" in rendered
+
+
+def test_progress_formats_integer_audit_scores_without_decimals():
+    console = Console(record=True, width=160)
+    reporter = LiveRunReporter(console)
+
+    reporter.on_initial_audit(
+        {
+            "verdict": "FAIL",
+            "scores": {
+                "logical_coherence": 1,
+                "completeness": 3,
+            },
+            "feedback": "Need more grounding.",
+        }
+    )
+
+    rendered = console.export_text()
+    assert "scores=completeness=3, logical_coherence=1" in rendered

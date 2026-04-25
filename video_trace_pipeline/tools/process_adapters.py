@@ -341,6 +341,70 @@ def _join_text_blocks(items: List[str]) -> str:
     return "\n\n".join(cleaned)
 
 
+def _frame_rank_sort_key(frame: Dict[str, Any]) -> tuple:
+    metadata = dict(frame.get("metadata") or {})
+    temporal_score = metadata.get("temporal_score")
+    relevance_score = metadata.get("relevance_score")
+    score = temporal_score if temporal_score is not None else relevance_score
+    try:
+        numeric_score = float(score)
+    except Exception:
+        numeric_score = 0.0
+    anchor_distance = metadata.get("anchor_distance_s")
+    try:
+        numeric_anchor_distance = float(anchor_distance)
+    except Exception:
+        numeric_anchor_distance = float("inf")
+    try:
+        timestamp_s = float(frame.get("timestamp_s") or 0.0)
+    except Exception:
+        timestamp_s = 0.0
+    return (-numeric_score, numeric_anchor_distance, timestamp_s)
+
+
+def _select_multi_clip_frames(frame_groups: List[Dict[str, Any]], total_limit: int) -> List[Dict[str, Any]]:
+    if total_limit <= 0:
+        return []
+    selected: List[Dict[str, Any]] = []
+    seen = set()
+
+    def _frame_key(frame: Dict[str, Any]) -> tuple:
+        return (
+            str(frame.get("artifact_id") or "").strip(),
+            str(frame.get("relpath") or "").strip(),
+            float(frame.get("timestamp_s") or 0.0),
+        )
+
+    ordered_groups = sorted(
+        list(frame_groups or []),
+        key=lambda item: _frame_rank_sort_key((item.get("frames") or [{}])[0]) if list(item.get("frames") or []) else (0.0, float("inf"), 0.0),
+    )
+    for group in ordered_groups:
+        frames = sorted(list(group.get("frames") or []), key=_frame_rank_sort_key)
+        if not frames:
+            continue
+        key = _frame_key(frames[0])
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(frames[0])
+        if len(selected) >= total_limit:
+            return selected
+
+    merged_frames = []
+    for group in list(frame_groups or []):
+        merged_frames.extend(list(group.get("frames") or []))
+    for frame in sorted(merged_frames, key=_frame_rank_sort_key):
+        key = _frame_key(frame)
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(frame)
+        if len(selected) >= total_limit:
+            break
+    return selected
+
+
 class VisualTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
     request_model = VisualTemporalGrounderRequest
     output_model = VisualTemporalGrounderOutput
@@ -601,6 +665,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                                 "clip": clip.dict() if hasattr(clip, "dict") else clip,
                                 "query": request.query,
                                 "num_frames": request.num_frames,
+                                "time_hints": time_hints,
                             }
                         )
                     )
@@ -670,10 +735,11 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                 cache_metadata["bounded_frame_count"] = sum(bounded_frame_counts)
             if embedding_cache_ready:
                 cache_metadata["embedding_cache_ready"] = all(embedding_cache_ready)
+            selected_frames = _select_multi_clip_frames(frame_groups, max(1, int(request.num_frames or 1)))
             merged_data = {
                 "query": request.query,
                 "clips": [item.clip.dict() for item in subrequests if getattr(item, "clip", None) is not None],
-                "frames": merged_frames,
+                "frames": selected_frames,
                 "frame_groups": frame_groups,
                 "cache_groups": cache_groups,
                 "cache_metadata": cache_metadata,
@@ -687,12 +753,12 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                 raw_output_text=_join_text_blocks(raw_blocks),
                 artifact_refs=_dedupe_artifact_refs(artifact_refs),
                 request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
-                summary="Retrieved %d frame(s) across %d input clip(s)." % (len(merged_frames), len(frame_groups)),
+                summary="Retrieved %d frame(s) across %d input clip(s)." % (len(selected_frames), len(frame_groups)),
                 metadata={
                     "backend": self.model_name,
                     "group_count": len(frame_groups),
                     **_confidence_metadata(
-                        [frame.get("metadata", {}).get("relevance_score") for frame in merged_frames],
+                        [frame.get("metadata", {}).get("relevance_score") for frame in selected_frames],
                         kind="frame_relevance",
                     ),
                     **cache_metadata,

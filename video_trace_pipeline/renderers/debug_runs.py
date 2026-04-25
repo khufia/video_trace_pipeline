@@ -54,6 +54,26 @@ def _format_clip_range(item: Dict[str, Any]) -> str:
     return "%s-%s" % (_format_seconds(start_s), _format_seconds(end_s))
 
 
+def _render_temporal_anchor(item: Dict[str, Any]) -> str:
+    start_s = item.get("time_start_s")
+    end_s = item.get("time_end_s")
+    frame_ts_s = item.get("frame_ts_s")
+    if start_s is not None or end_s is not None:
+        if start_s is None:
+            start_s = end_s
+        if end_s is None:
+            end_s = start_s
+        try:
+            if float(start_s) == float(end_s):
+                return _format_seconds(start_s)
+        except Exception:
+            pass
+        return "%s to %s" % (_format_seconds(start_s), _format_seconds(end_s))
+    if frame_ts_s is not None:
+        return _format_seconds(frame_ts_s)
+    return ""
+
+
 def _summarize_clips(clips: Iterable[Dict[str, Any]], limit: int = 4) -> str:
     rendered = [_format_clip_range(item) for item in list(clips or []) if _format_clip_range(item)]
     if not rendered:
@@ -183,6 +203,9 @@ def _collect_round(run_path: Path, round_index: int) -> Dict[str, Any]:
             {
                 "step_id": item.get("step_id"),
                 "text": str(item.get("text") or "").strip(),
+                "time_start_s": item.get("time_start_s"),
+                "time_end_s": item.get("time_end_s"),
+                "frame_ts_s": item.get("frame_ts_s"),
             }
         )
 
@@ -440,7 +463,11 @@ def render_run_debug_markdown(
         if round_payload.get("trace_inference_steps"):
             lines.append("- Inference Steps:")
             for item in round_payload.get("trace_inference_steps") or []:
-                lines.append("  - %s. %s" % (item.get("step_id"), item.get("text")))
+                line = "%s. %s" % (item.get("step_id"), item.get("text"))
+                temporal_anchor = _render_temporal_anchor(item)
+                if temporal_anchor:
+                    line = "%s [%s]" % (line, temporal_anchor)
+                lines.append("  - %s" % line)
         lines.append(
             "- Audit: verdict=%s, confidence=%s"
             % (round_payload.get("audit_verdict") or "", round_payload.get("audit_confidence"))

@@ -1,5 +1,8 @@
+import pytest
+from types import SimpleNamespace
+
 from video_trace_pipeline.agents.planner import PlannerAgent
-from video_trace_pipeline.orchestration.pipeline import PipelineRunner
+from video_trace_pipeline.orchestration.pipeline import PipelineRunner, _compact_round_summary
 from video_trace_pipeline.schemas import (
     AgentConfig,
     AuditReport,
@@ -19,20 +22,29 @@ class FakePreprocessor(object):
         return {"clip_duration_s": float(clip_duration_s or 60.0)}
 
     def get_or_build(self, task, clip_duration_s):
+        del task, clip_duration_s
         return {
             "cache_hit": False,
             "cache_dir": "cache/preprocess/fake",
             "manifest": {},
             "segments": [],
             "summary": "A short summary.",
+            "planner_context": {
+                "identity_memory": [{"label": "Phil", "kind": "named_anchor"}],
+                "audio_event_memory": [{"label": "metallic bang"}],
+            },
             "video_fingerprint": "vid123",
         }
 
 
 class FakePlanner(object):
+    def __init__(self):
+        self.calls = []
+
     def plan(self, **kwargs):
         from video_trace_pipeline.schemas import ExecutionPlan
 
+        self.calls.append(dict(kwargs))
         return "{}", ExecutionPlan(strategy="No tools needed.", use_summary=True, steps=[], refinement_instructions="")
 
 
@@ -227,6 +239,7 @@ def test_planner_agent_uses_prompt_based_request():
         summary_text="summary",
         compact_rounds=[],
         retrieved_observations=[],
+        current_trace_cues=[],
         audit_feedback={"feedback": "Need direct readings of the values."},
         tool_catalog=tool_catalog,
     )
@@ -237,7 +250,33 @@ def test_planner_agent_uses_prompt_based_request():
     assert "AVAILABLE_TOOLS:" in llm_client.calls[0]["user_prompt"]
 
 
-def test_planner_agent_repairs_zero_based_input_refs_before_validation():
+def test_pipeline_passes_preprocess_planning_memory_to_planner(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    runner = PipelineRunner(profile, _models_config())
+    runner.workspace.package_results_root = tmp_path / "repo_results"
+    runner.workspace.package_results_root.mkdir(parents=True, exist_ok=True)
+    runner.preprocessor = FakePreprocessor()
+    runner.planner = FakePlanner()
+    runner.executor = FakeExecutor()
+    runner.synthesizer = FakeSynthesizer()
+    runner.auditor = FakeAuditor()
+    task = TaskSpec(
+        benchmark="omnivideobench",
+        sample_key="sample1",
+        question="What is the answer?",
+        options=["A", "B"],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video")
+
+    runner.run_task(task, mode="generate", max_rounds=1, clip_duration_s=30.0)
+
+    assert runner.planner.calls
+    assert runner.planner.calls[0]["preprocess_planning_memory"]["identity_memory"][0]["label"] == "Phil"
+    assert runner.planner.calls[0]["preprocess_planning_memory"]["audio_event_memory"][0]["label"] == "metallic bang"
+
+
+def test_planner_agent_repairs_zero_based_plan_before_validation():
     class FakeLLMClientWithZeroBasedRef(object):
         def complete_json(self, **kwargs):
             del kwargs
@@ -247,7 +286,7 @@ def test_planner_agent_repairs_zero_based_input_refs_before_validation():
                     "use_summary": True,
                     "steps": [
                         {
-                            "step_id": 1,
+                            "step_id": 0,
                             "tool_name": "visual_temporal_grounder",
                             "purpose": "Find the right clip.",
                             "arguments": {"query": "Find the chart."},
@@ -255,7 +294,7 @@ def test_planner_agent_repairs_zero_based_input_refs_before_validation():
                             "depends_on": [],
                         },
                         {
-                            "step_id": 2,
+                            "step_id": 1,
                             "tool_name": "frame_retriever",
                             "purpose": "Grab a frame.",
                             "arguments": {"query": "Best frame."},
@@ -288,6 +327,7 @@ def test_planner_agent_repairs_zero_based_input_refs_before_validation():
         summary_text="summary",
         compact_rounds=[],
         retrieved_observations=[],
+        current_trace_cues=[],
         audit_feedback=None,
         tool_catalog={},
     )
@@ -295,6 +335,62 @@ def test_planner_agent_repairs_zero_based_input_refs_before_validation():
     assert raw == "{}"
     assert plan.steps[1].input_refs[0].source.step_id == 1
     assert plan.steps[1].depends_on == [1]
+
+
+def test_planner_agent_rejects_pseudo_step_input_refs():
+    class FakeLLMClientWithPseudoRef(object):
+        def complete_json(self, **kwargs):
+            del kwargs
+            return (
+                {
+                    "strategy": "Plan from prompt.",
+                    "use_summary": True,
+                    "steps": [
+                        {
+                            "step_id": 1,
+                            "tool_name": "frame_retriever",
+                            "purpose": "Grab a frame.",
+                            "arguments": {"query": "Best frame."},
+                            "input_refs": [
+                                {
+                                    "target_field": "clips",
+                                    "source": {
+                                        "step_id": 0,
+                                        "field_path": "retrieved_observations.obs_123",
+                                    },
+                                }
+                            ],
+                            "depends_on": [],
+                        },
+                    ],
+                    "refinement_instructions": "",
+                },
+                "{}",
+            )
+
+    planner = PlannerAgent(
+        llm_client=FakeLLMClientWithPseudoRef(),
+        agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
+    )
+    task = TaskSpec(
+        benchmark="omnivideobench",
+        sample_key="sample1",
+        question="Among the shown charts, which option has the largest percentage difference?",
+        options=["A. 10%", "B. 25%", "C. 40%"],
+        video_path="video.mp4",
+    )
+
+    with pytest.raises(ValueError, match="references must target steps in the same plan"):
+        planner.plan(
+            task=task,
+            mode="refine",
+            summary_text="summary",
+            compact_rounds=[],
+            retrieved_observations=[],
+            current_trace_cues=[],
+            audit_feedback=None,
+            tool_catalog={},
+        )
 
 
 def test_pipeline_evidence_summary_is_stable_across_runs(tmp_path):
@@ -316,3 +412,40 @@ def test_pipeline_evidence_summary_is_stable_across_runs(tmp_path):
 
     assert "database_path" not in summary_a
     assert summary_a == summary_b
+
+
+def test_compact_round_summary_keeps_step_level_request_and_result_context():
+    plan = SimpleNamespace(
+        strategy="Reuse prior anchor.",
+        use_summary=True,
+        refinement_instructions="Keep the earlier named anchor and only repair the later anonymous clip.",
+    )
+    execution_records = [
+        {
+            "step_id": 2,
+            "tool_name": "generic_purpose",
+            "purpose": "Compare the anonymous later clip to the earlier named clip.",
+            "request": {
+                "query": "Compare whether the unnamed man matches Phil from the earlier clip.",
+                "clips": [
+                    {"video_id": "video-1", "start_s": 10.0, "end_s": 14.0},
+                    {"video_id": "video-1", "start_s": 22.0, "end_s": 26.0},
+                ],
+                "evidence_ids": ["ev_01_demo"],
+            },
+            "result": {
+                "summary": "The later clip shows the same jacket and cashier counter as the earlier Phil clip.",
+                "data": {"clips": [{"video_id": "video-1", "start_s": 22.0, "end_s": 26.0}]},
+            },
+            "evidence_entry": {"evidence_id": "ev_02_demo", "time_start_s": 22.0, "time_end_s": 26.0},
+            "observations": [{"observation_id": "obs_1"}, {"observation_id": "obs_2"}],
+        }
+    ]
+    audit = AuditReport(verdict="FAIL", confidence=0.5, scores={"completeness": 2}, findings=[], feedback="Need the exact identity.", missing_information=["exact identity"])
+
+    summary = _compact_round_summary(2, plan, execution_records, audit)
+
+    assert summary["step_summaries"][0]["request"]["evidence_ids"] == ["ev_01_demo"]
+    assert summary["step_summaries"][0]["result"]["time_start_s"] == 22.0
+    assert summary["step_summaries"][0]["result"]["evidence_id"] == "ev_02_demo"
+    assert summary["step_summaries"][0]["result"]["observation_count"] == 2

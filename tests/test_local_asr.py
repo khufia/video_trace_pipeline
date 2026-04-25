@@ -201,3 +201,41 @@ def test_transcribe_with_whisperx_returns_empty_segments_for_empty_wav(tmp_path,
     assert runtime_warning is None
     assert result == {"segments": [], "language": None}
     assert calls == []
+
+
+def test_local_asr_summary_includes_closest_quoted_phrase_match(monkeypatch):
+    adapter = local_asr.LocalASRAdapter(name="asr", extra={})
+    request = ASRRequest(
+        tool_name="asr",
+        clip=ClipRef(video_id="video-1", start_s=0.0, end_s=2.0),
+        speaker_attribution=False,
+    )
+    context = types.SimpleNamespace(
+        task=types.SimpleNamespace(
+            question="When the sound 'come to bill's ammunition' appears, what is on the table?",
+            video_path="/tmp/video.mp4",
+        ),
+        workspace=types.SimpleNamespace(profile=types.SimpleNamespace(ffmpeg_bin=None, gpu_assignments={})),
+    )
+
+    monkeypatch.setattr(local_asr, "normalize_clip_bounds", lambda video_path, start_s, end_s: (start_s, end_s))
+    monkeypatch.setattr(local_asr, "extract_audio_clip", lambda *args, **kwargs: "/tmp/audio.wav")
+    monkeypatch.setattr(local_asr, "cleanup_temp_path", lambda path: None)
+    monkeypatch.setattr(
+        local_asr,
+        "_transcribe_with_whisperx",
+        lambda *args, **kwargs: (
+            {
+                "segments": [
+                    {"start": 0.0, "end": 1.0, "text": "Come to Phil's Heavy Nation today."},
+                ]
+            },
+            None,
+        ),
+    )
+
+    result = adapter.execute(request, context)
+
+    assert result.ok is True
+    assert "Closest ASR match for quoted phrase" in result.summary
+    assert result.data["phrase_matches"][0]["phrase"] == "come to bill's ammunition"

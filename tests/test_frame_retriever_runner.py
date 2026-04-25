@@ -92,6 +92,38 @@ def test_frame_retriever_runner_reports_cache_metadata(monkeypatch):
     assert emitted["cache_metadata"]["bounded_frame_count"] == 2
 
 
+def test_frame_retriever_runner_uses_time_hints_without_query(monkeypatch):
+    emitted = {}
+    fake_harness = _FakeHarness()
+
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "load_request",
+        lambda: {
+            "request": {
+                "clip": {"start_s": 159.0, "end_s": 168.0},
+                "time_hints": ["start of the localized utterance"],
+                "num_frames": 1,
+            },
+            "task": {},
+            "runtime": {},
+        },
+    )
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "_reference_harness_cls",
+        lambda: (lambda *args, **kwargs: fake_harness),
+    )
+    monkeypatch.setattr(frame_retriever_runner, "emit_json", lambda payload: emitted.update(payload))
+    monkeypatch.setattr(frame_retriever_runner, "resolved_device_label", lambda runtime: "cpu")
+
+    frame_retriever_runner.main()
+
+    assert emitted["cache_metadata"]["time_hints_applied"] is True
+    assert emitted["frames"][0]["timestamp_s"] == 159.0
+    assert emitted["rationale"] == "Frames were selected near the requested clip-local time hints."
+
+
 def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 
@@ -142,6 +174,51 @@ def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
     assert result.data["cache_metadata"]["embedding_cache_ready"] is True
     assert len(result.data["cache_groups"]) == 2
     assert result.metadata["dense_frame_cache_hit"] is True
+
+
+def test_frame_retriever_process_adapter_globally_reranks_multi_clip_frames(monkeypatch):
+    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
+
+    def _fake_execute_single(request, context):
+        clip = request.clip.dict()
+        start_s = float(clip["start_s"])
+        if start_s < 100.0:
+            frames = [
+                {"video_id": "video-1", "timestamp_s": 12.0, "metadata": {"relevance_score": 0.95}},
+                {"video_id": "video-1", "timestamp_s": 13.0, "metadata": {"relevance_score": 0.40}},
+            ]
+        else:
+            frames = [
+                {"video_id": "video-1", "timestamp_s": 112.0, "metadata": {"relevance_score": 0.80}},
+                {"video_id": "video-1", "timestamp_s": 113.0, "metadata": {"relevance_score": 0.10}},
+            ]
+        return ToolResult(
+            tool_name="frame_retriever",
+            ok=True,
+            data={
+                "frames": frames,
+                "cache_metadata": {},
+                "rationale": "clip-specific rationale",
+            },
+            summary="Retrieved %d frame(s)." % len(frames),
+        )
+
+    monkeypatch.setattr(adapter, "_execute_single", _fake_execute_single)
+    request = adapter.request_model.parse_obj(
+        {
+            "tool_name": "frame_retriever",
+            "query": "best chart frame",
+            "num_frames": 2,
+            "clips": [
+                {"video_id": "video-1", "start_s": 10.0, "end_s": 20.0},
+                {"video_id": "video-1", "start_s": 110.0, "end_s": 120.0},
+            ],
+        }
+    )
+
+    result = adapter.execute(request, context=None)
+
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 112.0]
 
 
 def test_reference_adapter_installs_check_model_inputs_compat(monkeypatch):

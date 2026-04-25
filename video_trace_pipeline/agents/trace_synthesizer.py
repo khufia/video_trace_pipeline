@@ -12,6 +12,78 @@ def _nonempty_text(value: Any) -> Optional[str]:
     return text or None
 
 
+def _coerce_float(value: Any) -> Optional[float]:
+    try:
+        return float(value)
+    except Exception:
+        return None
+
+
+def _normalize_evidence_status(value: Any) -> str:
+    normalized = str(value or "").strip().lower()
+    if normalized in {"validated", "provisional", "superseded"}:
+        return normalized
+    if normalized in {
+        "grounded",
+        "supported",
+        "supporting",
+        "confirmed",
+        "corroborated",
+        "consistent",
+        "relevant",
+        "usable",
+        "valid",
+    }:
+        return "provisional"
+    if normalized in {
+        "discarded",
+        "obsolete",
+        "overridden",
+        "replaced",
+        "stale",
+        "contradicted",
+        "invalidated",
+    }:
+        return "superseded"
+    return "provisional"
+
+
+def _temporal_anchor_from_observation_ids(
+    observation_ids: Iterable[Any],
+    observation_by_id: Dict[str, Dict[str, Any]],
+) -> Dict[str, Any]:
+    time_starts = []
+    time_ends = []
+    frame_timestamps = []
+    for raw_observation_id in list(observation_ids or []):
+        observation_id = _nonempty_text(raw_observation_id)
+        if observation_id is None:
+            continue
+        observation = observation_by_id.get(observation_id)
+        if not isinstance(observation, dict):
+            continue
+        start_s = _coerce_float(observation.get("time_start_s"))
+        end_s = _coerce_float(observation.get("time_end_s"))
+        frame_ts_s = _coerce_float(observation.get("frame_ts_s"))
+        if start_s is not None:
+            time_starts.append(start_s)
+        if end_s is not None:
+            time_ends.append(end_s)
+        elif start_s is not None:
+            time_ends.append(start_s)
+        if frame_ts_s is not None:
+            frame_timestamps.append(frame_ts_s)
+
+    payload: Dict[str, Any] = {}
+    if time_starts or time_ends:
+        payload["time_start_s"] = round(min(time_starts or time_ends), 3)
+        payload["time_end_s"] = round(max(time_ends or time_starts), 3)
+    unique_frames = sorted({round(value, 3) for value in frame_timestamps})
+    if len(unique_frames) == 1:
+        payload["frame_ts_s"] = unique_frames[0]
+    return payload
+
+
 def _repair_trace_package_payload(
     payload: Dict[str, Any],
     *,
@@ -36,6 +108,7 @@ def _repair_trace_package_payload(
             evidence_by_id[evidence_id] = dict(source)
 
     tool_by_observation_id: Dict[str, str] = {}
+    observation_by_id: Dict[str, Dict[str, Any]] = {}
     for item in list(observations or []):
         if not isinstance(item, dict):
             continue
@@ -43,6 +116,8 @@ def _repair_trace_package_payload(
         source_tool = _nonempty_text(item.get("source_tool"))
         if observation_id and source_tool:
             tool_by_observation_id[observation_id] = source_tool
+        if observation_id:
+            observation_by_id[observation_id] = dict(item)
 
     repaired_entries = []
     for item in list(repaired.get("evidence_entries") or []):
@@ -50,6 +125,7 @@ def _repair_trace_package_payload(
             repaired_entries.append(item)
             continue
         fixed = dict(item)
+        fixed["status"] = _normalize_evidence_status(fixed.get("status"))
         tool_name = _nonempty_text(fixed.get("tool_name"))
         if tool_name is None:
             evidence_id = _nonempty_text(fixed.get("evidence_id"))
@@ -71,6 +147,22 @@ def _repair_trace_package_payload(
             fixed["tool_name"] = tool_name
         repaired_entries.append(fixed)
     repaired["evidence_entries"] = repaired_entries
+
+    repaired_steps = []
+    for item in list(repaired.get("inference_steps") or []):
+        if not isinstance(item, dict):
+            repaired_steps.append(item)
+            continue
+        fixed = dict(item)
+        temporal_anchor = _temporal_anchor_from_observation_ids(
+            fixed.get("supporting_observation_ids") or [],
+            observation_by_id,
+        )
+        for key, value in temporal_anchor.items():
+            if fixed.get(key) is None and value is not None:
+                fixed[key] = value
+        repaired_steps.append(fixed)
+    repaired["inference_steps"] = repaired_steps
     return repaired
 
 

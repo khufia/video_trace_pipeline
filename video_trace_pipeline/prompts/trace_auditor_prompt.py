@@ -51,6 +51,23 @@ Key judgment rules:
 - Omission is not contradiction. If the evidence is silent about handedness,
   exact count, earliest occurrence, speaker identity, or the missing side of a
   comparison, that means the trace may need more grounding for that detail.
+- If the evidence confirms object presence but not an answer-critical state such
+  as empty/full/open/closed/on/off, treat the state claim as unsupported rather
+  than crediting it from object presence alone.
+- Near-synonymous sound labels or repeated phases of the same action are not
+  automatically separate counted sounds unless the text clearly distinguishes
+  them as different answer-critical categories.
+- When diagnosing counting or sound questions, do not rewrite QUESTION into a
+  narrower causation or exclusion rule than the question itself states. Flag
+  the unsupported counted items or missing answer-level categories instead.
+- When the options mix a directly observed phenomenon with a more remote cause
+  or interpretation, do not treat the remote cause as justified unless the text
+  explicitly supports that extra causal step.
+- For first/earliest questions, later-candidate details cannot be imported into
+  the earliest validated candidate without text that explicitly links them.
+- For benchmark multiple-choice questions, a free-form non-option answer such
+  as "ambiguous/non-unique" is usually an incomplete trace, not a target
+  conclusion, unless the question itself explicitly asks about ambiguity.
 - Group several unsupported claims from the same missing source into one
   root-cause finding rather than many repetitive findings.
 - Do not emit both a root-cause finding and a redundant downstream answer
@@ -72,8 +89,10 @@ Required audit procedure:
 
 1. Question alignment
 - Does the trace answer the actual question being asked?
-- For multiple-choice questions, does it justify one unique option or an
-  explicitly unresolved state?
+- For multiple-choice questions, does it justify one unique provided option?
+- If the trace remains unresolved, does it stay clearly incomplete for further
+  repair rather than pretending that a free-form non-option answer is a clean
+  completion?
 - For ranking, max, min, or comparison questions, are all necessary candidates
   evaluated or ruled out?
 - For ordinal or sequence questions, does the trace separately identify the
@@ -115,6 +134,12 @@ Required audit procedure:
   speaker attribution are described in a way that is textually justified.
 - Unsupported timestamp-specific claims should usually be grouped under the
   relevant missing source rather than duplicated as separate downstream errors.
+- If the question is span-sensitive, sequence-sensitive, or depends on who/what
+  was present at a specific moment, missing temporal attribution in the trace
+  should block PASS even when the answer sounds plausible.
+- If the evidence entries carry the relevant timestamps but the answer-facing
+  inference steps omit that temporal anchor, treat the trace as incomplete
+  rather than fully justified.
 
 6. Completeness
 - Are all necessary intermediate steps present?
@@ -123,6 +148,13 @@ Required audit procedure:
 - Prefer the smallest set of independent findings sufficient to explain failure.
 
 Score semantics:
+- Return integer scores only, in the range 1 to 5.
+- Use this rubric consistently for each score field:
+  - 1 = critically unsupported, contradictory, or missing answer-critical structure
+  - 2 = major gaps or major reasoning problems remain
+  - 3 = mixed or partial support; some core structure is present but not enough for a justified answer
+  - 4 = mostly sound with only limited residual weakness
+  - 5 = fully justified and well-ordered from the provided text alone
 - `scores.logical_coherence`: reasoning, arithmetic, inference validity, and answer derivation quality
 - `scores.completeness`: whether the trace contains enough necessary steps and support to justify the current conclusion
 - `scores.factual_correctness`: general factual plausibility for claims not requiring direct media access; use a low score when the text itself is contradictory
@@ -145,6 +177,9 @@ Planner-facing output discipline:
   the same gap, and order items by answer-critical priority rather than trace narration.
 - `missing_information` should name missing facts or validations, not tool names
   or procedural instructions.
+- For multiple-choice tasks, prefer missing-information items that name the
+  missing grounded discriminator or option mapping. Do not ask the planner to
+  "declare ambiguity" unless the QUESTION explicitly asks whether the result is ambiguous.
 
 A PASS requires that the answer be justified by the current trace package and
 evidence summary, not merely plausible.
@@ -170,7 +205,7 @@ def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict) -> s
             "AuditReport schema reminder:",
             "- verdict: PASS or FAIL",
             "- confidence: float",
-            "- scores: numeric map with logical_coherence, completeness, factual_correctness, reasoning_order",
+            "- scores: integer map with logical_coherence, completeness, factual_correctness, reasoning_order; each score must be 1-5",
             "- findings: list[{severity, category, message, evidence_ids}]",
             "- feedback: short actionable audit summary",
             "- missing_information: ordered, deduplicated, tool-agnostic list of atomic unresolved answer-critical needs",

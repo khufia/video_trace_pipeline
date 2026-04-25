@@ -20,9 +20,11 @@ available tools into a dependency-aware `ExecutionPlan`.
 
 You may use:
 - the question and options
-- compact summaries of prior rounds
+- compact summaries of prior rounds, including step-level requests and result anchors
 - retrieved atomic observations from the structured evidence database
+- a compact cue list from the current trace, treated only as unverified hypothesis memory
 - the whole-video dense-caption summary when supplied
+- preprocess planning memory, such as cross-clip identity anchors and non-speech audio cues, plus dialogue-claim clusters and multimodal timeline anchors
 - the latest audit feedback / diagnosis
 - the typed tool catalog
 
@@ -35,6 +37,7 @@ Important operating mode:
 - Consult `AVAILABLE_TOOLS` for canonical argument names, top-level output fields, and the dynamically rendered request/output schemas.
 - Use only canonical argument names listed for each tool in `AVAILABLE_TOOLS`.
 - Use dependency-aware plans. If a downstream tool needs a clip, frame, region, transcript, or text context from an earlier step, wire it through `depends_on` and `input_refs`.
+- `input_refs` and `depends_on` may only refer to steps inside the current plan. Never use `0`, `retrieved_observations`, prior rounds, audit objects, or any other pseudo-source as a step id.
 - `frame_retriever` must remain clip-bounded. Never plan a broad full-video frame search.
 - `spatial_grounder` requires a frame.
 - Return JSON only matching the `ExecutionPlan` schema.
@@ -53,6 +56,15 @@ You will receive:
   or phases appear, and whether the question is likely asking about one local
   moment or a wider pattern across the video.
   IMPORTANT: this summary is planning context, not final fine-grained evidence.
+- `PREPROCESS_PLANNING_MEMORY` (optional)
+  This may contain whole-video planning-only memory derived from preprocess,
+  including cross-clip identity anchors, non-speech audio event cues,
+  dialogue-claim clusters, and multimodal timeline anchors.
+  Treat it as hypothesis memory or retrieval guidance, not as final evidence.
+- `CURRENT_TRACE_CUES` (optional)
+  These are preserved from the current trace as hypothesis memory only.
+  They may contain useful quoted text, sound descriptions, candidate entities,
+  or local time anchors, but they are NOT verified evidence.
 - `PREVIOUS_ITERATIONS_SUMMARY` (optional)
 - `RETRIEVED_ATOMIC_OBSERVATIONS` (optional)
 - `AVAILABLE_TOOLS`
@@ -86,6 +98,15 @@ Before proposing tool calls, do this decomposition mentally:
   it is present.
 - Treat auditor recommendations as hints about what is missing, not as a script
   to follow blindly.
+- Do not let diagnosis wording silently redefine the task. Repair the missing
+  grounded discriminator for the original QUESTION rather than inventing a
+  stricter exclusion rule, causation test, or counting ontology unless the
+  QUESTION itself explicitly requires that narrower rule.
+- If a diagnosis mentions ambiguity, non-unique options, incidental audio, or
+  weak causation, treat that as a sign the current evidence is incomplete,
+  mislocalized, or overly inferential. Plan to repair the missing grounding
+  instead of instructing downstream reasoning to finalize a free-form
+  "ambiguous/non-unique" answer or a narrower counting rule by default.
 - Classify the failure mode explicitly before planning:
   1. missing field in the correct state
   2. wrong entity, metric, label, phase, or occurrence
@@ -146,12 +167,31 @@ General principles:
 - Use `VIDEO_CAPTION_SUMMARY` to avoid blind broad searches when the high-level
   context already suggests the relevant scene, subject, or phase, but do not
   treat that summary as sufficient grounding for fine detail.
+- If `PREPROCESS_PLANNING_MEMORY.identity_memory` contains a named or text-anchored
+  identity from one clip and the unresolved question concerns a later anonymous
+  clip, preserve that anchor as a continuity hypothesis. Prefer compare-and-reuse
+  plans over rediscovering the name from scratch.
+- If `PREPROCESS_PLANNING_MEMORY.audio_event_memory` contains a distinctive
+  non-speech cue relevant to the unresolved question, use it to seed
+  `audio_temporal_grounder` or clip-bounded follow-ups instead of launching a
+  blind search.
+- If `PREPROCESS_PLANNING_MEMORY.dialogue_claim_memory` shows the same claim
+  cluster with both supporting and conflicting mentions, plan an explicit
+  contradiction-resolution branch before concluding that the claim is settled.
+- If `PREPROCESS_PLANNING_MEMORY.timeline_alignment_memory` links a dialogue
+  cue, identity anchor, and visual phase around the same interval, use that
+  aligned window to choose the next bounded retrieval branch instead of
+  guessing from one modality alone.
 - If a previous iteration already produced partial evidence, prefer a narrower
   follow-up over restarting with a broader scan.
 - Plan around answer-critical gaps, not around tool names.
 - Do not let `PREVIOUS_ITERATIONS_SUMMARY` silently lock the plan onto an old
   anchor. Use history to see what was already grounded, what was only partially
   grounded, and what failed.
+- Use `CURRENT_TRACE_CUES` as a search-memory aid when it contains potentially
+  useful hypotheses such as misheard quoted phrases, sound descriptions,
+  candidate labels, or candidate timestamps, but never treat those cues as
+  grounded facts unless they are also supported elsewhere in the prompt.
 
 ━━━━━━━━ Question-To-Plan Decomposition ━━━━━━━━
 Use this reasoning pattern implicitly before producing the JSON:
@@ -271,6 +311,19 @@ A good tool query should:
 the resolved ordinal conclusion or answer-option wording. Determine first,
 second, earliest, or latest downstream by comparing candidate times.
 
+13. When the unknown is a state, do not bake the answer into the retrieval query.
+- if the missing issue is empty vs full, open vs closed, on vs off, broken vs
+  intact, or another uncertain state, query for the object and scene first
+  rather than assuming the state is already known
+- avoid retrieval wording like "empty bottle" when emptiness itself is the
+  unresolved field
+
+14. For repeated-wording questions, prefer the full repeated surface form.
+- do not anchor on a shorter token nested inside a longer repeated phrase or
+  name unless the question explicitly asks for substring matching
+- if the query asks for exact wording or text between occurrences, plan around
+  exact phrase spans first and let paraphrase matching happen only downstream
+
 ━━━━━━━━ Tool-Specific Guidance ━━━━━━━━
 
 A) `visual_temporal_grounder`
@@ -328,8 +381,12 @@ Guidance:
 - only reference a specific ASR segment when the clip is already narrow enough
   or prior evidence semantically identifies the right utterance
 - if a downstream `generic_purpose` step needs transcript evidence, prefer
-  passing `transcripts` when available, or `text_contexts` from ASR output,
-  rather than paraphrasing the transcript yourself
+  passing `transcripts` when available rather than flattening ASR into
+  `text_contexts`
+- only fall back to transcript-derived `text_contexts` when a structured
+  transcript object is genuinely unavailable
+- for dialogue-truth questions, search for later corrections, negations,
+  admissions, or contradiction cues before treating one utterance as decisive
 
 D) `audio_temporal_grounder`
 Use it for distinctive non-speech sounds or bounded sound-event localization.
@@ -339,7 +396,14 @@ Guidance:
 - use targeted-search mode for one named sound or event
 - do not ask it to solve a whole-video open-ended audio question if the
   relevant moment can be localized first by other evidence
+- localize the grounded sound or event itself, not a bundle of answer-option
+  causes, interpretations, or downstream labels
+- if the answer choices describe candidate causes or inferred outcomes, keep
+  those out of the localization query and classify the grounded sound later
 - when the answer is about speech, use `asr` instead
+- if retrieved observations already expose relevant `evidence_id` values and a
+  downstream `generic_purpose` step should reuse that grounded context, pass
+  those ids via `evidence_ids` instead of paraphrasing the prior evidence
 
 E) `dense_captioner`
 Use it to describe what happens over a bounded clip, not to pretend a span-level
@@ -409,6 +473,17 @@ Guidance:
   the whole problem end-to-end
 - prefer `generic_purpose` after OCR, ASR, spatial grounding, or frame
   retrieval, not before
+- for state-based counts such as empty/full/open/closed object questions, ask it
+  to verify the queried state for each candidate object rather than assuming
+  that visible object presence already satisfies the state
+- for sound-count questions, ask for normalized answer-level sound categories;
+  do not split near-synonyms or repeated phases of the same action into
+  separate counts unless the evidence clearly distinguishes them
+- for first/earliest questions, once the earliest candidate is validated, pass
+  only that candidate's evidence downstream rather than mixing later-candidate
+  details into the same final comparison
+- for cause-vs-event option sets, ask which grounded phenomenon best matches
+  the options, not which broader hidden cause sounds most plausible
 - if the frame contains a chart, table, dashboard, diagram, or other complex
   structure, prefer `generic_purpose` for the frame analysis itself
 - if it is used on structured visual evidence, first ground the correct frame or
@@ -423,6 +498,12 @@ Guidance:
 - Use `DIAGNOSIS.missing_information` as the canonical repair-target list when it is present.
 - Order matters: if tool B needs output from tool A, set `depends_on` and `input_refs` correctly.
 - Use `input_refs`, not invented placeholder syntax.
+- `input_refs` and `depends_on` may only point to steps in this plan; never use `0`, `retrieved_observations`, previous rounds, or any non-step placeholder.
+- If a refinement follow-up is supposed to reuse previously grounded frames,
+  clips, transcripts, or evidence from earlier rounds, pass that context
+  explicitly via `frames`, `clips`, `transcripts`, `text_contexts`, or
+  `evidence_ids`. Do not rely on wording like "previously retrieved frames"
+  unless those inputs are actually attached to the request.
 - Valid examples:
   - `{"target_field": "clips", "source": {"step_id": 1, "field_path": "clips"}}`
   - `{"target_field": "frames", "source": {"step_id": 2, "field_path": "frames"}}`
@@ -454,10 +535,22 @@ Guidance:
   occurrence of text, an object, a chart, or another localized visual item,
   prefer temporal localization plus bounded frame retrieval over a broad
   `dense_captioner` call.
+- If the question counts objects in a queried state, separate object retrieval
+  from state verification; a visible bottle, door, or switch does not by itself
+  prove empty/full/open/closed/on/off.
+- For sound-count questions, do not let caption vocabulary alone define the
+  count. Normalize repeated or near-synonymous descriptions to answer-level
+  sound categories before mapping to an option.
+- For counting or sound questions, do not narrow the task to "count only
+  directly caused sounds", "exclude incidental audio", or any other stricter
+  criterion unless the QUESTION itself states that criterion or the evidence
+  explicitly establishes that only such items are relevant.
 - If a previous `frame_retriever` call returned a tight cluster from one moment
   but did not resolve the temporal question, do not retry with a near-synonym
   of the same query. Change the retrieval strategy, inspect alternate candidate
   clips, or sharpen the missing-field query.
+- If a temporal grounder returns multiple plausible candidate clips, validate
+  each candidate separately before merging evidence across them.
 - If a prior clip or frame bundle kept yielding the wrong metric, label, phase,
   entity, or comparison target, do NOT spend additional calls inside that same
   anchor by default. Inspect alternate candidate clips or launch a new
@@ -465,6 +558,10 @@ Guidance:
 - If an earlier candidate clip is ruled out for an ordinal question, do not
   stop there. Continue to the next unresolved candidate clip until one is
   validated or the remaining uncertainty is explicitly bounded.
+- For first/earliest questions, do not send several candidate moments into one
+  final attribute-comparison step unless the step is explicitly choosing among
+  them. Validate the earliest supported moment first, then characterize that
+  validated moment only.
 - Do not infer a final multiple-choice answer from partial structured evidence
   by testing which option sounds plausible. If one answer-critical field is
   still ungrounded, gather that missing field directly or keep the trace incomplete.
@@ -505,6 +602,12 @@ In `refinement_instructions`, tell the TraceSynthesizer exactly how to use the t
   contradicts the original answer
 - whether closest-option mapping needs to be explained when a verified value is
   approximate or does not exactly match an answer choice
+- do not restate diagnosis wording as new task semantics; preserve the original
+  question scope and counting criteria unless the question itself says otherwise
+- for benchmark multiple-choice tasks, aim to justify one provided option or
+  leave the trace incomplete for another repair round; do not instruct the
+  TraceSynthesizer to emit free-form "ambiguous/non-unique" wording unless the
+  QUESTION explicitly asks whether the result is ambiguous
 """
 
 
@@ -600,8 +703,15 @@ def build_planner_prompt(
     retrieved_observations: List[dict],
     audit_feedback: Optional[dict],
     tool_catalog: Dict[str, Dict[str, object]],
+    current_trace_cues: Optional[List[str]] = None,
+    preprocess_planning_memory: Optional[Dict[str, object]] = None,
 ) -> str:
     normalized_audit_feedback = _canonicalize_audit_feedback(audit_feedback)
+    normalized_preprocess_memory = {
+        key: value
+        for key, value in dict(preprocess_planning_memory or {}).items()
+        if value not in (None, "", [], {})
+    }
     parts = [
         "MODE: %s" % mode,
         "",
@@ -625,6 +735,17 @@ def build_planner_prompt(
                 "",
             ]
         )
+    if normalized_preprocess_memory:
+        parts.extend(
+            [
+                "PREPROCESS_PLANNING_MEMORY:",
+                pretty_json(normalized_preprocess_memory),
+                "",
+                "PREPROCESS_PLANNING_MEMORY_USAGE_NOTE:",
+                "Use this as planning-only continuity memory. It can preserve useful cross-clip names, sound cues, dialogue-claim contradictions, or multimodal time anchors, but it does not by itself ground the final answer.",
+                "",
+            ]
+        )
     if compact_rounds:
         parts.extend(
             [
@@ -632,7 +753,18 @@ def build_planner_prompt(
                 pretty_json(compact_rounds),
                 "",
                 "PREVIOUS_ITERATIONS_USAGE_NOTE:",
-                "Use these to preserve supported anchors, avoid repeating failed branches, and justify re-localization when the prior anchor was wrong.",
+                "Use these to preserve supported anchors, inspect prior step-level requests and result timestamps, avoid repeating failed branches, and justify re-localization when the prior anchor was wrong.",
+                "",
+            ]
+        )
+    if current_trace_cues:
+        parts.extend(
+            [
+                "CURRENT_TRACE_CUES:",
+                pretty_json([str(item).strip() for item in list(current_trace_cues or []) if str(item).strip()]),
+                "",
+                "CURRENT_TRACE_CUES_USAGE_NOTE:",
+                "Use these as unverified hypotheses or search terms only. Preserve a useful cue when it helps re-localize evidence, but do not treat it as already grounded.",
                 "",
             ]
         )
@@ -643,7 +775,7 @@ def build_planner_prompt(
                 pretty_json(retrieved_observations),
                 "",
                 "RETRIEVED_OBSERVATIONS_USAGE_NOTE:",
-                "Prefer repairing the trace from these observations before asking for broader new evidence. Do not plan to rediscover a fact that is already grounded here unless the diagnosis says the anchor is wrong or incomplete for the asked detail.",
+                "Prefer repairing the trace from these observations before asking for broader new evidence. Do not plan to rediscover a fact that is already grounded here unless the diagnosis says the anchor is wrong or incomplete for the asked detail. If an observation carries `evidence_status`, prefer `validated` observations first and treat `provisional` reuse as something to re-check rather than assume.",
                 "",
             ]
         )
@@ -665,8 +797,11 @@ def build_planner_prompt(
             "- steps: list of {step_id, tool_name, purpose, arguments, input_refs, depends_on}",
             "- refinement_instructions: precise guidance for the trace-writing agent",
             "- step_id values must be integers",
+            "- number steps from 1 upward",
             "- input_refs use {target_field, source: {step_id, field_path}}",
+            "- input_refs may only reference earlier steps in this same plan",
             "- depends_on values must refer to earlier integer step ids",
+            "- never use 0, retrieved_observations, previous rounds, or other pseudo-sources as step ids",
             "",
             "Return JSON only.",
         ]

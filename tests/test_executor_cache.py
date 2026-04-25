@@ -2,7 +2,9 @@ from video_trace_pipeline.orchestration.executor import PlanExecutor, augment_de
 from video_trace_pipeline.schemas import (
     AgentConfig,
     ASRRequest,
+    EvidenceEntry,
     ExecutionPlan,
+    GenericPurposeRequest,
     FrameRef,
     FrameRetrieverRequest,
     MachineProfile,
@@ -175,6 +177,34 @@ class FailingASRAdapter(ToolAdapter):
         )
 
 
+class FakeGenericPurposeAdapter(ToolAdapter):
+    name = "generic_purpose"
+    request_model = GenericPurposeRequest
+
+    def __init__(self):
+        self.calls = 0
+        self.last_request = None
+
+    def parse_request(self, arguments):
+        request = super().parse_request(arguments)
+        self.last_request = request
+        return request
+
+    def execute(self, request, context):
+        self.calls += 1
+        return ToolResult(
+            tool_name="generic_purpose",
+            ok=True,
+            data={
+                "answer": "A",
+                "frames": [item.dict() for item in list(request.frames or [])],
+                "evidence_ids": list(request.evidence_ids or []),
+                "text_contexts": list(request.text_contexts or []),
+            },
+            summary="Generic reasoning succeeded.",
+        )
+
+
 class MultiClipTemporalAdapter(object):
     request_model = VisualTemporalGrounderRequest
 
@@ -228,6 +258,10 @@ def _models_config():
                 prompt_version="tool_v1",
             ),
             "asr": ToolConfig(
+                enabled=True,
+                prompt_version="tool_v1",
+            ),
+            "generic_purpose": ToolConfig(
                 enabled=True,
                 prompt_version="tool_v1",
             ),
@@ -881,3 +915,141 @@ def test_resolve_arguments_wraps_single_scalar_binding_for_plural_target(tmp_pat
     resolved_text = executor._resolve_arguments(text_step, text_outputs)
 
     assert resolved_text["text_contexts"] == ["line one"]
+
+
+def test_executor_autofills_frame_bundle_into_generic_purpose_from_dependency(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    frame_adapter = FakeFrameRetrieverAdapter()
+    generic_adapter = FakeGenericPurposeAdapter()
+    executor = PlanExecutor(
+        tool_registry=FakeRegistry(
+            {
+                "frame_retriever": frame_adapter,
+                "generic_purpose": generic_adapter,
+            }
+        ),
+        evidence_cache=SharedEvidenceCache(workspace),
+        extractor=ObservationExtractor(),
+        models_config=_models_config(),
+    )
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="What is visible in the retrieved frame bundle?",
+        options=[],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video-bytes")
+    run = workspace.create_run(task)
+    ledger = EvidenceLedger(run)
+    context = ToolExecutionContext(
+        workspace=workspace,
+        run=run,
+        task=task,
+        models_config=_models_config(),
+        preprocess_bundle={"segments": []},
+    )
+    plan = ExecutionPlan(
+        strategy="Retrieve frames and inspect them.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="frame_retriever",
+                purpose="Get the relevant frame bundle.",
+                arguments={
+                    "tool_name": "frame_retriever",
+                    "query": "living room table",
+                    "clip": {"video_id": "sample1", "start_s": 0.0, "end_s": 5.0},
+                },
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="generic_purpose",
+                purpose="Inspect the retrieved frames.",
+                arguments={"tool_name": "generic_purpose", "query": "Inspect the retrieved frames."},
+                input_refs=[],
+                depends_on=[1],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    executor.execute_plan(plan, context, ledger, video_fingerprint="genericframes123")
+
+    assert generic_adapter.calls == 1
+    assert len(generic_adapter.last_request.frames) == 1
+    assert generic_adapter.last_request.frames[0].timestamp_s == 2.5
+
+
+def test_executor_seeds_recent_evidence_ids_for_context_free_reuse_followup(tmp_path):
+    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
+    workspace = WorkspaceManager(profile)
+    generic_adapter = FakeGenericPurposeAdapter()
+    executor = PlanExecutor(
+        tool_registry=FakeRegistry({"generic_purpose": generic_adapter}),
+        evidence_cache=SharedEvidenceCache(workspace),
+        extractor=ObservationExtractor(),
+        models_config=_models_config(),
+    )
+    task = TaskSpec(
+        benchmark="videomathqa",
+        sample_key="sample1",
+        question="How many bottles are clearly empty?",
+        options=["A", "B", "C"],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    (tmp_path / "video.mp4").write_bytes(b"video-bytes")
+    run = workspace.create_run(task)
+    ledger = EvidenceLedger(run)
+    ledger.append(
+        EvidenceEntry(
+            evidence_id="ev_01_demo",
+            tool_name="frame_retriever",
+            evidence_text="Retrieved living-room coffee-table frames.",
+            observation_ids=[],
+        ),
+        [],
+    )
+    ledger.append(
+        EvidenceEntry(
+            evidence_id="ev_02_demo",
+            tool_name="asr",
+            evidence_text='Speaker says "Come to Phil\'s MU Nation today."',
+            observation_ids=[],
+        ),
+        [],
+    )
+    context = ToolExecutionContext(
+        workspace=workspace,
+        run=run,
+        task=task,
+        models_config=_models_config(),
+        preprocess_bundle={"segments": []},
+    )
+    plan = ExecutionPlan(
+        strategy="Reuse prior grounded evidence.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="generic_purpose",
+                purpose="Determine, from the previously retrieved living-room frames, how many bottles are actually empty.",
+                arguments={
+                    "tool_name": "generic_purpose",
+                    "query": "Inspect the retrieved frames from the earlier living-room scene and decide how many bottles are actually empty.",
+                },
+                input_refs=[],
+                depends_on=[],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    executor.execute_plan(plan, context, ledger, video_fingerprint="reusefollowup123")
+
+    assert generic_adapter.calls == 1
+    assert generic_adapter.last_request.evidence_ids == ["ev_01_demo", "ev_02_demo"]

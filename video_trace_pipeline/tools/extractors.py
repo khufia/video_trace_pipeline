@@ -86,6 +86,7 @@ class ObservationExtractor(object):
             tool_name=tool_result.tool_name,
             evidence_text=tool_result.summary or tool_result.raw_output_text or "",
             confidence=tool_result.metadata.get("confidence") if isinstance(tool_result.metadata, dict) else None,
+            status="provisional",
             **evidence_temporal_bounds(observations),
             artifact_refs=tool_result.artifact_refs,
             observation_ids=observation_ids,

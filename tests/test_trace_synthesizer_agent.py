@@ -1,6 +1,10 @@
 import json
 
-from video_trace_pipeline.agents.trace_synthesizer import TraceSynthesizerAgent, _repair_trace_package_payload
+from video_trace_pipeline.agents.trace_synthesizer import (
+    TraceSynthesizerAgent,
+    _normalize_evidence_status,
+    _repair_trace_package_payload,
+)
 from video_trace_pipeline.schemas import AgentConfig, TaskSpec
 
 
@@ -99,3 +103,55 @@ def test_trace_synthesizer_repairs_missing_tool_name_from_observations():
     assert parsed.evidence_entries[0].tool_name == "asr"
     assert client.calls
     assert client.calls[0]["response_format"] == {"type": "json_object"}
+
+
+def test_normalize_evidence_status_maps_model_friendly_labels():
+    assert _normalize_evidence_status("grounded") == "provisional"
+    assert _normalize_evidence_status("supported") == "provisional"
+    assert _normalize_evidence_status("obsolete") == "superseded"
+    assert _normalize_evidence_status("validated") == "validated"
+    assert _normalize_evidence_status("") == "provisional"
+
+
+def test_repair_trace_package_payload_normalizes_grounded_status_from_cached_response():
+    payload = {
+        "task_key": "sample1",
+        "mode": "generate",
+        "evidence_entries": [
+            {
+                "evidence_id": "ev_syn_01",
+                "tool_name": "asr",
+                "evidence_text": "Example grounded evidence.",
+                "status": "grounded",
+                "observation_ids": ["obs_1"],
+            },
+            {
+                "evidence_id": "ev_syn_02",
+                "tool_name": "generic_purpose",
+                "evidence_text": "Example supported evidence.",
+                "status": "supported",
+                "observation_ids": ["obs_2"],
+            },
+            {
+                "evidence_id": "ev_syn_03",
+                "tool_name": "ocr",
+                "evidence_text": "Example obsolete evidence.",
+                "status": "obsolete",
+                "observation_ids": ["obs_3"],
+            },
+        ],
+        "inference_steps": [],
+        "final_answer": "",
+        "benchmark_renderings": {},
+        "metadata": {},
+    }
+
+    repaired = _repair_trace_package_payload(
+        payload,
+        evidence_entries=[],
+        observations=[],
+        current_trace=None,
+    )
+
+    statuses = [item.get("status") for item in repaired["evidence_entries"]]
+    assert statuses == ["provisional", "provisional", "superseded"]

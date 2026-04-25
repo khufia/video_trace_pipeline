@@ -28,7 +28,14 @@ def _render_temporal_anchor(item: dict) -> str:
 
 def export_trace_for_benchmark(benchmark: str, task, trace_package: dict) -> Dict[str, object]:
     benchmark_key = str(benchmark or "").strip().lower()
-    inference_steps = [item.get("text", "") for item in trace_package.get("inference_steps") or []]
+    inference_steps = []
+    for item in trace_package.get("inference_steps") or []:
+        text = str(item.get("text", "") or "").strip()
+        temporal_anchor = _render_temporal_anchor(item)
+        if temporal_anchor:
+            inference_steps.append("[%s] %s" % (temporal_anchor, text))
+        else:
+            inference_steps.append(text)
     evidence_entries = trace_package.get("evidence_entries") or []
     final_answer = trace_package.get("final_answer", "")
     if benchmark_key == "videomathqa":
@@ -82,7 +89,11 @@ def render_trace_markdown(trace_package: dict) -> str:
     lines.append("## Inference")
     lines.append("")
     for step in trace_package.get("inference_steps") or []:
-        lines.append("%s. %s" % (step.get("step_id"), step.get("text", "")))
+        line = "%s. %s" % (step.get("step_id"), step.get("text", ""))
+        temporal_anchor = _render_temporal_anchor(step)
+        if temporal_anchor:
+            line = "%s [%s]" % (line, temporal_anchor)
+        lines.append(line)
     lines.append("")
     lines.append("## Evidence")
     lines.append("")
@@ -90,6 +101,8 @@ def render_trace_markdown(trace_package: dict) -> str:
         lines.append("### %s" % item.get("evidence_id", "evidence"))
         lines.append("")
         lines.append("- Tool: %s" % item.get("tool_name", ""))
+        if item.get("status"):
+            lines.append("- Status: %s" % item.get("status"))
         temporal_anchor = _render_temporal_anchor(item)
         if temporal_anchor:
             lines.append("- Time: %s" % temporal_anchor)

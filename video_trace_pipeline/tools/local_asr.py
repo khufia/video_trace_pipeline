@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import contextlib
+import difflib
 import importlib
 import json
 import os
@@ -19,6 +20,64 @@ from .media import cleanup_temp_path, extract_audio_clip, get_video_duration, no
 def _join_text_blocks(items: List[str]) -> str:
     cleaned = [str(item or "").strip() for item in list(items or []) if str(item or "").strip()]
     return "\n\n".join(cleaned)
+
+
+def _normalize_phrase_text(text: str) -> str:
+    cleaned = str(text or "").strip().lower()
+    cleaned = "".join(ch if ch.isalnum() or ch.isspace() else " " for ch in cleaned)
+    return " ".join(cleaned.split())
+
+
+def _quoted_task_phrases(question: str) -> List[str]:
+    phrases: List[str] = []
+    for pattern in (r'"([^"\n]{3,})"', r"'([^'\n]{3,})'"):
+        for match in re.findall(pattern, str(question or "")):
+            text = str(match or "").strip()
+            if text:
+                phrases.append(text)
+    ordered: List[str] = []
+    seen = set()
+    for phrase in phrases:
+        normalized = _normalize_phrase_text(phrase)
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        ordered.append(phrase)
+    return ordered
+
+
+def _phrase_matches(question: str, transcript_text: str, segments: List[Dict[str, object]]) -> List[Dict[str, object]]:
+    phrases = _quoted_task_phrases(question)
+    if not phrases:
+        return []
+    candidates = [str(transcript_text or "").strip()]
+    candidates.extend(str(item.get("text") or "").strip() for item in list(segments or []))
+    candidates = [item for item in candidates if item]
+    if not candidates:
+        return []
+
+    matches: List[Dict[str, object]] = []
+    for phrase in phrases:
+        normalized_phrase = _normalize_phrase_text(phrase)
+        best_candidate = ""
+        best_score = 0.0
+        for candidate in candidates:
+            normalized_candidate = _normalize_phrase_text(candidate)
+            if not normalized_candidate:
+                continue
+            score = difflib.SequenceMatcher(None, normalized_phrase, normalized_candidate).ratio()
+            if score > best_score:
+                best_score = score
+                best_candidate = candidate
+        if best_candidate:
+            matches.append(
+                {
+                    "phrase": phrase,
+                    "matched_text": best_candidate,
+                    "similarity": round(float(best_score), 4),
+                }
+            )
+    return matches
 
 
 def _missing_audio_error(error_text: str) -> bool:
@@ -313,6 +372,7 @@ class LocalASRAdapter(ToolAdapter):
                     }
                 )
             text = " ".join(segment["text"] for segment in segments).strip()
+            phrase_matches = _phrase_matches(getattr(context.task, "question", ""), text, segments)
             data = ASROutput.model_validate(
                 {
                     "clip": clip.model_dump(),
@@ -321,6 +381,21 @@ class LocalASRAdapter(ToolAdapter):
                     "backend": "whisperx_local",
                 }
             ).model_dump()
+            if phrase_matches:
+                data["phrase_matches"] = phrase_matches
+                best_match = dict(phrase_matches[0])
+                data["phrase_match_summary"] = (
+                    'Closest ASR match for quoted phrase "%s" is "%s" (similarity=%0.2f).'
+                    % (
+                        str(best_match.get("phrase") or ""),
+                        str(best_match.get("matched_text") or ""),
+                        float(best_match.get("similarity") or 0.0),
+                    )
+                )
+            summary_prefix = str(data.get("phrase_match_summary") or "").strip()
+            summary_text = text or "No speech detected."
+            if summary_prefix:
+                summary_text = "%s %s" % (summary_prefix, summary_text)
             return ToolResult(
                 tool_name=self.name,
                 ok=True,
@@ -328,7 +403,7 @@ class LocalASRAdapter(ToolAdapter):
                 raw_output_text=json.dumps(data, ensure_ascii=False),
                 artifact_refs=[],
                 request_hash=hash_payload({"tool": self.name, "clip": clip.model_dump()}),
-                summary=(text or "No speech detected.")[:2000],
+                summary=summary_text[:2000],
                 metadata={"runtime_warning": runtime_warning} if runtime_warning else {},
             )
         finally:
