@@ -144,6 +144,8 @@ def test_planner_system_prompt_uses_original_style_repair_decomposition():
     assert "If you want `generic_purpose` to reason over previously retrieved observations" in PLANNER_SYSTEM_PROMPT
     assert "Use only literal reusable `evidence_ids`" in PLANNER_SYSTEM_PROMPT
     assert "`generic_purpose` cannot be the first step unless" in PLANNER_SYSTEM_PROMPT
+    assert "frames[0].clip" in PLANNER_SYSTEM_PROMPT
+    assert "regions[0].frame.clip" in PLANNER_SYSTEM_PROMPT
     assert "If the question asks for a total across repeated occurrences" in PLANNER_SYSTEM_PROMPT
     assert "match the semantic target of the option" in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" in PLANNER_SYSTEM_PROMPT

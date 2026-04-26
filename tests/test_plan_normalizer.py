@@ -349,8 +349,52 @@ def test_plan_normalizer_rejects_non_structural_media_input_ref_bindings():
         refinement_instructions="",
     )
 
-    with pytest.raises(ValueError, match="must bind frames via frames -> frames"):
+    with pytest.raises(ValueError, match="must bind frames via a structural frames path"):
         normalizer.normalize(_task(), plan)
+
+
+def test_plan_normalizer_allows_structural_indexed_and_derived_media_bindings():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Allow structurally-derived media wiring.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="visual_temporal_grounder",
+                purpose="Find matching clips.",
+                arguments={"query": "Locate the relevant moment.", "top_k": 2},
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="frame_retriever",
+                purpose="Retrieve a representative frame from the first grounded clip.",
+                arguments={"query": "Representative frame.", "num_frames": 1},
+                input_refs=[
+                    {"target_field": "clips", "source": {"step_id": 1, "field_path": "clips[0]"}},
+                ],
+                depends_on=[1],
+            ),
+            PlanStep(
+                step_id=3,
+                tool_name="asr",
+                purpose="Transcribe the source clip for the retrieved frame.",
+                arguments={"speaker_attribution": True},
+                input_refs=[
+                    {"target_field": "clips", "source": {"step_id": 2, "field_path": "frames[0].clip"}},
+                ],
+                depends_on=[2],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    normalized = normalizer.normalize(_task(), plan)
+
+    assert normalized.steps[1].input_refs[0].source.field_path == "clips[0]"
+    assert normalized.steps[2].input_refs[0].source.field_path == "frames[0].clip"
 
 
 def test_plan_normalizer_rejects_non_textual_text_context_bindings():

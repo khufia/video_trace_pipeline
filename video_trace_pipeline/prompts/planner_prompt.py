@@ -88,7 +88,7 @@ Planning rules:
 - `input_refs` and `depends_on` may only refer to earlier steps in the current plan.
 - Never use `0`, previous rounds, retrieved observations, or other pseudo-sources as step ids.
 - If a downstream tool needs prior outputs, wire them explicitly with `input_refs`.
-- `input_refs` are structural, not semantic: bind `clips -> clips`, `frames -> frames`, `regions -> regions`, `transcripts -> transcripts`, and bind `text_contexts` only from textual outputs such as `text`, `summary`, `overall_summary`, `analysis`, or `answer`.
+- `input_refs` are structural, not semantic: pass media through real structured fields such as `clips`, `clips[0]`, `frames`, `frames[0].clip`, `regions[0].frame`, `regions[0].frame.clip`, and `transcripts`; bind `text_contexts` only from textual outputs such as `text`, `summary`, `overall_summary`, `analysis`, or `answer`.
 - Do not bind current-plan outputs into `evidence_ids`; current plan steps do not emit bindable evidence ids for later request wiring.
 - If you want `generic_purpose` to reason over previously retrieved observations instead of new tool outputs, pass the actual prior `evidence_ids` that appear in `RETRIEVED_ATOMIC_OBSERVATIONS`.
 - Use only literal reusable `evidence_ids` that are present in `RETRIEVED_ATOMIC_OBSERVATIONS`; do not invent ids from diagnosis shorthand, trace prose, or placeholder labels.

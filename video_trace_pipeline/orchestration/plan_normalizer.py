@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Any, Dict, List, Tuple
 
 from ..common import stable_json_dumps
@@ -31,6 +32,29 @@ _STRUCTURAL_INPUT_REF_FIELDS = {
     "frames",
     "regions",
     "transcripts",
+}
+
+_STRUCTURAL_INPUT_REF_PATTERNS = {
+    "clips": (
+        "clips",
+        "clips[]",
+        "frames[].clip",
+        "regions[].frame.clip",
+        "transcripts[].clip",
+    ),
+    "frames": (
+        "frames",
+        "frames[]",
+        "regions[].frame",
+    ),
+    "regions": (
+        "regions",
+        "regions[]",
+    ),
+    "transcripts": (
+        "transcripts",
+        "transcripts[]",
+    ),
 }
 
 _TEXT_CONTEXT_SOURCE_FIELDS = frozenset(
@@ -93,6 +117,25 @@ def _merge_field_value(field_name: str, current: Any, new_value: Any) -> Any:
     return current
 
 
+def _matches_structural_pattern(field_path: str, pattern: str) -> bool:
+    normalized_path = str(field_path or "").strip()
+    normalized_pattern = str(pattern or "").strip()
+    if not normalized_path or not normalized_pattern:
+        return False
+    if normalized_path == normalized_pattern:
+        return True
+    regex = "^%s$" % r"\.".join(
+        r"%s(?:\[\d+\]|\.\d+)" % re.escape(token[:-2]) if token.endswith("[]") else re.escape(token)
+        for token in normalized_pattern.split(".")
+    )
+    return re.fullmatch(regex, normalized_path) is not None
+
+
+def _is_allowed_structural_input_ref(target_field: str, field_path: str) -> bool:
+    allowed_patterns = _STRUCTURAL_INPUT_REF_PATTERNS.get(str(target_field or "").strip(), ())
+    return any(_matches_structural_pattern(field_path, pattern) for pattern in allowed_patterns)
+
+
 def _binding_signature(binding: ArgumentBinding) -> Tuple[str, int, str]:
     return (
         str(binding.target_field or "").strip(),
@@ -137,10 +180,17 @@ class ExecutionPlanNormalizer(object):
                 "pass frames, clips, transcripts, or text_contexts instead."
                 % step_id
             )
-        if target_field in _STRUCTURAL_INPUT_REF_FIELDS and field_path != target_field:
+        if target_field in _STRUCTURAL_INPUT_REF_FIELDS and not _is_allowed_structural_input_ref(target_field, field_path):
             raise ValueError(
-                "Plan step %s must bind %s via %s -> %s, not %s -> %s."
-                % (step_id, target_field, target_field, target_field, field_path or "<empty>", target_field)
+                "Plan step %s must bind %s via a structural %s path (%s), not %s -> %s."
+                % (
+                    step_id,
+                    target_field,
+                    target_field,
+                    ", ".join(_STRUCTURAL_INPUT_REF_PATTERNS.get(target_field, (target_field,))),
+                    field_path or "<empty>",
+                    target_field,
+                )
             )
         if target_field == "text_contexts" and field_path not in _TEXT_CONTEXT_SOURCE_FIELDS:
             raise ValueError(
