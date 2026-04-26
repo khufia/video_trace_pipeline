@@ -3,6 +3,7 @@ from __future__ import annotations
 import contextlib
 import gc
 import json
+import math
 import os
 import re
 import shutil
@@ -24,6 +25,19 @@ _INTERVAL_RE = re.compile(
     r"(?P<start>-?\d+(?:\.\d+)?)\s*(?:s|sec|secs|seconds)?\s*(?:-|to|until|through)\s*"
     r"(?P<end>-?\d+(?:\.\d+)?)\s*(?:s|sec|secs|seconds)?",
     re.IGNORECASE,
+)
+
+_COMMON_BBOX_CANVASES: Tuple[Tuple[int, int], ...] = (
+    (640, 360),
+    (854, 480),
+    (960, 540),
+    (1024, 576),
+    (1280, 720),
+    (1366, 768),
+    (1600, 900),
+    (1920, 1080),
+    (2560, 1440),
+    (3840, 2160),
 )
 
 
@@ -400,19 +414,115 @@ def merge_intervals(
     return merged
 
 
+def normalize_xyxy_bbox(bbox: Optional[Sequence[float]]) -> Optional[Tuple[float, float, float, float]]:
+    if not bbox or len(bbox) < 4:
+        return None
+    try:
+        coords = [float(bbox[index]) for index in range(4)]
+    except Exception:
+        return None
+    if not all(math.isfinite(value) for value in coords):
+        return None
+    left, right = sorted((coords[0], coords[2]))
+    top, bottom = sorted((coords[1], coords[3]))
+    return left, top, right, bottom
+
+
+def _scaled_bbox_candidates(
+    bbox: Tuple[float, float, float, float],
+    *,
+    width: int,
+    height: int,
+) -> List[Tuple[float, float, float, float]]:
+    if width <= 0 or height <= 0:
+        return []
+    if bbox[0] < 0.0 or bbox[1] < 0.0:
+        return []
+    max_ratio = max(
+        float(bbox[2]) / float(width),
+        float(bbox[3]) / float(height),
+    )
+    if max_ratio < 1.2:
+        return []
+    aspect_ratio = float(width) / float(height)
+    candidates: List[Tuple[float, Tuple[float, float, float, float]]] = []
+    for canvas_width, canvas_height in _COMMON_BBOX_CANVASES:
+        if canvas_width < width or canvas_height < height:
+            continue
+        scale_x = float(canvas_width) / float(width)
+        scale_y = float(canvas_height) / float(height)
+        if abs(scale_x - scale_y) > 0.05:
+            continue
+        if abs((float(canvas_width) / float(canvas_height)) - aspect_ratio) > 0.05:
+            continue
+        if bbox[2] > float(canvas_width) or bbox[3] > float(canvas_height):
+            continue
+        scale = (scale_x + scale_y) / 2.0
+        if scale <= 1.0:
+            continue
+        candidates.append((scale, tuple(value / scale for value in bbox)))
+    candidates.sort(key=lambda item: item[0])
+    return [scaled_bbox for _, scaled_bbox in candidates]
+
+
+def fit_bbox_to_image(
+    bbox: Optional[Sequence[float]],
+    *,
+    image_size: Tuple[int, int],
+    allow_scaled_canvas: bool = False,
+) -> Optional[List[float]]:
+    normalized = normalize_xyxy_bbox(bbox)
+    if normalized is None:
+        return None
+    width = max(0, int(image_size[0]))
+    height = max(0, int(image_size[1]))
+    if width <= 0 or height <= 0:
+        return [float(value) for value in normalized]
+
+    candidates = [normalized]
+    if allow_scaled_canvas:
+        candidates.extend(_scaled_bbox_candidates(normalized, width=width, height=height))
+
+    for candidate in candidates:
+        x1, y1, x2, y2 = candidate
+        if x1 >= 0.0 and y1 >= 0.0 and x2 <= float(width) and y2 <= float(height):
+            return [float(x1), float(y1), float(x2), float(y2)]
+
+    x1, y1, x2, y2 = candidates[0]
+    return [
+        max(0.0, min(float(width), float(x1))),
+        max(0.0, min(float(height), float(y1))),
+        max(0.0, min(float(width), float(x2))),
+        max(0.0, min(float(height), float(y2))),
+    ]
+
+
 def crop_region(frame_path: str, bbox: Optional[Sequence[float]], out_path: Path) -> str:
     if not bbox:
         return str(Path(frame_path).resolve())
-    image = Image.open(frame_path).convert("RGB")
-    x1, y1, x2, y2 = [int(round(float(value))) for value in bbox[:4]]
-    x1 = max(0, min(image.width, x1))
-    x2 = max(x1, min(image.width, x2))
-    y1 = max(0, min(image.height, y1))
-    y2 = max(y1, min(image.height, y2))
-    cropped = image.crop((x1, y1, x2, y2))
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    cropped.save(out_path)
-    return str(out_path.resolve())
+    with Image.open(frame_path) as image:
+        image = image.convert("RGB")
+        fitted_bbox = fit_bbox_to_image(
+            bbox,
+            image_size=image.size,
+            allow_scaled_canvas=True,
+        )
+        if fitted_bbox is None:
+            return str(Path(frame_path).resolve())
+        x1_f, y1_f, x2_f, y2_f = fitted_bbox
+        x1 = max(0, min(image.width, int(math.floor(x1_f))))
+        y1 = max(0, min(image.height, int(math.floor(y1_f))))
+        x2 = max(0, min(image.width, int(math.ceil(x2_f))))
+        y2 = max(0, min(image.height, int(math.ceil(y2_f))))
+        if x2 <= x1 or y2 <= y1:
+            # An OCR region that is fully outside the frame should behave like "no text"
+            # rather than crashing or scanning the entire image.
+            Image.new("RGB", (1, 1), color="white").save(out_path)
+            return str(out_path.resolve())
+        cropped = image.crop((x1, y1, x2, y2))
+        cropped.save(out_path)
+        return str(out_path.resolve())
 
 
 def cleanup_torch() -> None:

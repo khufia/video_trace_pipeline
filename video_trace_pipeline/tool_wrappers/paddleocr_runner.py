@@ -8,7 +8,14 @@ from typing import Any, Dict, List
 from PIL import Image
 
 from .protocol import emit_json, fail_runtime, load_request
-from .shared import crop_region, ensure_frame_for_request, resolved_device_label, scratch_dir, workspace_root_from_runtime
+from .shared import (
+    absolute_frame_path,
+    crop_region,
+    ensure_frame_for_request,
+    resolved_device_label,
+    scratch_dir,
+    workspace_root_from_runtime,
+)
 
 
 def _normalize_bbox(raw_bbox: Any) -> List[float] | None:
@@ -192,15 +199,20 @@ def _extract_request_items(request: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 
 def _prepare_single_request(request: Dict[str, Any], task: Dict[str, Any], runtime: Dict[str, Any], frame_out_dir: Path):
-    frame_path, timestamp_s = ensure_frame_for_request(
-        request,
-        task,
-        runtime,
-        out_dir=frame_out_dir,
-        prefix="ocr_frame",
-    )
-    source_frame_path = str(Path(frame_path).resolve())
     region = dict((request.get("regions") or [{}])[0] or {})
+    region_frame = dict(region.get("frame") or {}) if region else {}
+    frame_path = absolute_frame_path(region_frame, runtime)
+    if frame_path:
+        timestamp_s = float(region_frame.get("timestamp_s") or region_frame.get("timestamp") or 0.0)
+    else:
+        frame_path, timestamp_s = ensure_frame_for_request(
+            request,
+            task,
+            runtime,
+            out_dir=frame_out_dir,
+            prefix="ocr_frame",
+        )
+    source_frame_path = str(Path(frame_path).resolve())
     if region:
         frame_path = crop_region(
             frame_path,

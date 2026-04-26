@@ -8,8 +8,7 @@ VENV_PATH="${VENV_PATH:-/nfs-stor/ghazi.ahmad/.conda/envs/video-trace-pipeline}"
 PYTHON_BIN="$VENV_PATH/bin/python"
 MACHINE_PROFILE_PATH="${MACHINE_PROFILE_PATH:-$REPO_ROOT/configs/machine.example-2gpu.yaml}"
 MODELS_CONFIG_PATH="${MODELS_CONFIG_PATH:-$REPO_ROOT/configs/models.yaml}"
-INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
-RESULTS_NAME="${RESULTS_NAME:-run_refiner_inputs}"
+INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_minerva_random50.json}"
 PERSIST_TOOL_MODELS="${PERSIST_TOOL_MODELS:-visual_temporal_grounder}"
 
 : "${OPENAI_API_KEY:?Set OPENAI_API_KEY before running this script.}"
@@ -33,7 +32,7 @@ print(len(payload))
 PY
 )"
 
-for ((input_index = 10; input_index < SAMPLE_COUNT; input_index++)); do
+for ((input_index = 0; input_index < SAMPLE_COUNT; input_index++)); do
   echo "[$((input_index + 1))/$SAMPLE_COUNT] running input_index=$input_index"
   "$PYTHON_BIN" -m video_trace_pipeline.cli.main run \
     --profile "$MACHINE_PROFILE_PATH" \
@@ -44,6 +43,5 @@ for ((input_index = 10; input_index < SAMPLE_COUNT; input_index++)); do
     --input-index "$input_index" \
     --persist-tool-models "$PERSIST_TOOL_MODELS" \
     --preload-persisted-models \
-    --results-name "$RESULTS_NAME" \
     --mode generate
 done

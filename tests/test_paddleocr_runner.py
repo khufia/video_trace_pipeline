@@ -1,6 +1,8 @@
 import sys
 from types import SimpleNamespace
 
+from PIL import Image
+
 from video_trace_pipeline.tool_wrappers import paddleocr_runner
 
 
@@ -117,3 +119,38 @@ def test_create_paddleocr_engine_fails_when_gpu_is_required_but_unavailable(monk
         raise AssertionError("Expected create_paddleocr_engine() to fail when GPU is required but unavailable.")
 
     assert captured["extra"]["hint"] == "Install a GPU-enabled `paddlepaddle-gpu` runtime in this environment."
+
+
+def test_prepare_single_request_uses_region_frame_source(monkeypatch, tmp_path):
+    frame_path = tmp_path / "frame.png"
+    Image.new("RGB", (640, 360), color="white").save(frame_path)
+
+    def _unexpected_ensure_frame(*args, **kwargs):
+        raise AssertionError("ensure_frame_for_request should not run when region.frame already resolves.")
+
+    monkeypatch.setattr(paddleocr_runner, "ensure_frame_for_request", _unexpected_ensure_frame)
+
+    prepared_frame_path, source_frame_path, timestamp_s, query = paddleocr_runner._prepare_single_request(
+        {
+            "query": "read scoreboard",
+            "regions": [
+                {
+                    "bbox": [207.0, 906.0, 795.0, 977.0],
+                    "frame": {
+                        "video_id": "video-1",
+                        "timestamp_s": 127.0,
+                        "metadata": {"source_path": str(frame_path)},
+                    },
+                }
+            ],
+        },
+        task={},
+        runtime={"workspace_root": str(tmp_path), "extra": {"max_longest_dim": 1600}},
+        frame_out_dir=tmp_path,
+    )
+
+    assert source_frame_path == str(frame_path.resolve())
+    assert timestamp_s == 127.0
+    assert query == "read scoreboard"
+    with Image.open(prepared_frame_path) as cropped:
+        assert cropped.size == (196, 24)
