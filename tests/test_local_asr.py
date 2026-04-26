@@ -124,7 +124,7 @@ def test_local_asr_failure_summary_does_not_expose_loader_error_text(monkeypatch
     adapter = local_asr.LocalASRAdapter(name="asr", extra={})
     request = ASRRequest(
         tool_name="asr",
-        clip=ClipRef(video_id="video-1", start_s=0.0, end_s=2.0),
+        clips=[ClipRef(video_id="video-1", start_s=0.0, end_s=2.0)],
         speaker_attribution=False,
     )
     context = types.SimpleNamespace(
@@ -207,7 +207,7 @@ def test_local_asr_summary_includes_closest_quoted_phrase_match(monkeypatch):
     adapter = local_asr.LocalASRAdapter(name="asr", extra={})
     request = ASRRequest(
         tool_name="asr",
-        clip=ClipRef(video_id="video-1", start_s=0.0, end_s=2.0),
+        clips=[ClipRef(video_id="video-1", start_s=0.0, end_s=2.0)],
         speaker_attribution=False,
     )
     context = types.SimpleNamespace(
@@ -239,3 +239,32 @@ def test_local_asr_summary_includes_closest_quoted_phrase_match(monkeypatch):
     assert result.ok is True
     assert "Closest ASR match for quoted phrase" in result.summary
     assert result.data["phrase_matches"][0]["phrase"] == "come to bill's ammunition"
+
+
+def test_local_asr_returns_empty_success_when_clip_collapses_after_bounds_normalization(monkeypatch):
+    adapter = local_asr.LocalASRAdapter(name="asr", extra={})
+    request = ASRRequest(
+        tool_name="asr",
+        clips=[ClipRef(video_id="video-1", start_s=70.0, end_s=74.0)],
+        speaker_attribution=False,
+    )
+    context = types.SimpleNamespace(
+        task=types.SimpleNamespace(video_path="/tmp/video.mp4"),
+        workspace=types.SimpleNamespace(profile=types.SimpleNamespace(ffmpeg_bin=None, gpu_assignments={})),
+    )
+
+    monkeypatch.setattr(local_asr, "normalize_clip_bounds", lambda video_path, start_s, end_s: (70.0, 70.0))
+    monkeypatch.setattr(
+        local_asr,
+        "extract_audio_clip",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("extract_audio_clip should not be called")),
+    )
+
+    result = adapter.execute(request, context)
+
+    assert result.ok is True
+    assert result.data["text"] == ""
+    assert result.data["segments"] == []
+    assert len(result.data["transcripts"]) == 1
+    assert result.metadata["warning"] == "clip_collapsed_after_bounds_normalization"
+    assert "no positive duration" in result.summary.lower()

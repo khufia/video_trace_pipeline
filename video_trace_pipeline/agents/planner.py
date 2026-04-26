@@ -1,7 +1,49 @@
 from __future__ import annotations
 
+from typing import Any, Dict, List
+
 from ..prompts.planner_prompt import PLANNER_SYSTEM_PROMPT, build_planner_prompt
-from ..schemas import ExecutionPlan
+from ..schemas import ArgumentBinding, ExecutionPlan
+from ..schemas.plans import _normalize_step_id
+
+
+def _sanitize_input_refs(raw_step: Dict[str, Any]) -> List[Dict[str, Any]]:
+    sanitized: List[Dict[str, Any]] = []
+    for item in list(raw_step.get("input_refs") or []):
+        if not isinstance(item, dict):
+            continue
+        try:
+            binding = ArgumentBinding.model_validate(item)
+        except Exception:
+            continue
+        sanitized.append(binding.model_dump())
+    return sanitized
+
+
+def _sanitize_depends_on(raw_step: Dict[str, Any]) -> List[int]:
+    sanitized: List[int] = []
+    for value in list(raw_step.get("depends_on") or []):
+        try:
+            sanitized.append(_normalize_step_id(value))
+        except Exception:
+            continue
+    return sanitized
+
+
+def _sanitize_execution_plan_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    normalized = dict(payload or {})
+    normalized_steps: List[Dict[str, Any]] = []
+    for raw_step in list(normalized.get("steps") or []):
+        if not isinstance(raw_step, dict):
+            continue
+        step_payload = dict(raw_step)
+        if "input_refs" in step_payload:
+            step_payload["input_refs"] = _sanitize_input_refs(step_payload)
+        if "depends_on" in step_payload:
+            step_payload["depends_on"] = _sanitize_depends_on(step_payload)
+        normalized_steps.append(step_payload)
+    normalized["steps"] = normalized_steps
+    return normalized
 
 
 class PlannerAgent(object):
@@ -40,7 +82,8 @@ class PlannerAgent(object):
         }
 
     def complete_request(self, request):
-        parsed, raw = self.llm_client.complete_json(response_model=ExecutionPlan, **dict(request or {}))
+        payload, raw = self.llm_client.complete_json(response_model=dict, **dict(request or {}))
+        parsed = ExecutionPlan.model_validate(_sanitize_execution_plan_payload(payload))
         return raw, parsed
 
     def plan(

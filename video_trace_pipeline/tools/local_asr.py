@@ -28,13 +28,33 @@ def _normalize_phrase_text(text: str) -> str:
     return " ".join(cleaned.split())
 
 
+def _extract_quoted_spans(text: str, quote_char: str) -> List[str]:
+    spans: List[str] = []
+    source = str(text or "")
+    start_index: Optional[int] = None
+    for index, char in enumerate(source):
+        if char != quote_char:
+            continue
+        if start_index is None:
+            start_index = index + 1
+            continue
+        next_char = source[index + 1] if index + 1 < len(source) else ""
+        if next_char.isalnum():
+            continue
+        candidate = source[start_index:index].strip()
+        if len(candidate) >= 3:
+            spans.append(candidate)
+        start_index = None
+    return spans
+
+
 def _quoted_task_phrases(question: str) -> List[str]:
     phrases: List[str] = []
-    for pattern in (r'"([^"\n]{3,})"', r"'([^'\n]{3,})'"):
-        for match in re.findall(pattern, str(question or "")):
-            text = str(match or "").strip()
-            if text:
-                phrases.append(text)
+    for match in re.findall(r'"([^"\n]{3,})"', str(question or "")):
+        text = str(match or "").strip()
+        if text:
+            phrases.append(text)
+    phrases.extend(_extract_quoted_spans(question, "'"))
     ordered: List[str] = []
     seen = set()
     for phrase in phrases:
@@ -313,12 +333,69 @@ class LocalASRAdapter(ToolAdapter):
         self.name = name
         self.extra = dict(extra or {})
 
+    def _build_transcript_payload(self, clip_payload, text, segments, backend, extra_metadata=None):
+        metadata = {"backend": backend or "whisperx_local"}
+        metadata.update(dict(extra_metadata or {}))
+        return {
+            "transcript_id": "tx_%s"
+            % hash_payload(
+                {
+                    "clip": clip_payload,
+                    "text": str(text or "").strip(),
+                    "segments": list(segments or []),
+                    "backend": backend or "whisperx_local",
+                    "metadata": metadata,
+                },
+                12,
+            ),
+            "clip": clip_payload,
+            "text": str(text or "").strip(),
+            "segments": list(segments or []),
+            "metadata": metadata,
+        }
+
+    def _empty_success_result(self, clip_payload, summary, *, metadata=None):
+        transcript_payload = self._build_transcript_payload(
+            clip_payload,
+            "",
+            [],
+            "whisperx_local",
+            extra_metadata=metadata,
+        )
+        data = {
+            "clips": [clip_payload],
+            "text": "",
+            "segments": [],
+            "transcripts": [transcript_payload],
+            "backend": "whisperx_local",
+        }
+        return ToolResult(
+            tool_name=self.name,
+            ok=True,
+            data=data,
+            raw_output_text=json.dumps(data, ensure_ascii=False),
+            artifact_refs=[],
+            request_hash=hash_payload({"tool": self.name, "clip": clip_payload}),
+            summary=str(summary or "").strip() or "No speech detected.",
+            metadata=dict(metadata or {}),
+        )
+
     def _execute_single(self, request, context):
         clip = request.clips[0] if getattr(request, "clips", None) else None
         if clip is None:
             raise ValueError("ASR requires at least one clip")
         clip_payload = clip.model_dump()
         start_s, end_s = normalize_clip_bounds(context.task.video_path, clip.start_s, clip.end_s)
+        if end_s <= start_s:
+            return self._empty_success_result(
+                clip_payload,
+                "ASR skipped because the grounded clip has no positive duration after bounds normalization.",
+                metadata={
+                    "warning": "clip_collapsed_after_bounds_normalization",
+                    "normalized_start_s": float(start_s),
+                    "normalized_end_s": float(end_s),
+                },
+            )
         audio_path = None
         try:
             audio_path = extract_audio_clip(
@@ -390,20 +467,12 @@ class LocalASRAdapter(ToolAdapter):
                 }
             )
             transcript_payload = {
-                "transcript_id": "tx_%s"
-                % hash_payload(
-                    {
-                        "clip": clip_payload,
-                        "text": validated_output.text,
-                        "segments": [item.model_dump() for item in list(validated_output.segments or [])],
-                        "backend": validated_output.backend,
-                    },
-                    12,
-                ),
-                "clip": clip_payload,
-                "text": validated_output.text,
-                "segments": [item.model_dump() for item in list(validated_output.segments or [])],
-                "metadata": {"backend": validated_output.backend or "whisperx_local"},
+                **self._build_transcript_payload(
+                    clip_payload,
+                    validated_output.text,
+                    [item.model_dump() for item in list(validated_output.segments or [])],
+                    validated_output.backend,
+                )
             }
             data = {
                 "clips": [clip_payload],

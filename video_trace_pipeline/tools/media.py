@@ -85,17 +85,22 @@ def midpoint_frame(video_path: str, start_s: float, end_s: float, out_dir: str, 
 
 
 def extract_audio_clip(video_path: str, ffmpeg_bin: str, start_s: float, end_s: float) -> str:
+    start = max(0.0, float(start_s or 0.0))
+    end = max(start, float(end_s or start))
+    duration = max(0.0, end - start)
+    if duration <= 0.0:
+        raise ValueError("audio clip duration must be positive")
     tmp_dir = tempfile.mkdtemp(prefix="vtp_audio_")
     audio_path = str(Path(tmp_dir) / "clip.wav")
     cmd = [
         str(ffmpeg_bin),
         "-y",
         "-ss",
-        "%.3f" % float(start_s),
-        "-to",
-        "%.3f" % float(end_s),
+        "%.3f" % start,
         "-i",
         str(video_path),
+        "-t",
+        "%.3f" % duration,
         "-ac",
         "1",
         "-ar",

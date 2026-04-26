@@ -128,7 +128,12 @@ class FakeLLMClient(object):
     def complete_json(self, **kwargs):
         self.calls.append(kwargs)
         return (
-            ExecutionPlan(strategy="Plan from prompt.", use_summary=True, steps=[], refinement_instructions=""),
+            {
+                "strategy": "Plan from prompt.",
+                "use_summary": True,
+                "steps": [],
+                "refinement_instructions": "",
+            },
             "{}",
         )
 
@@ -279,7 +284,7 @@ def test_planner_agent_uses_prompt_based_request():
     assert raw == "{}"
     assert plan.strategy == "Plan from prompt."
     assert llm_client.calls
-    assert llm_client.calls[0]["response_model"] is ExecutionPlan
+    assert llm_client.calls[0]["response_model"] is dict
     assert llm_client.calls[0]["system_prompt"].startswith("You are the Planner")
     assert "AVAILABLE_TOOLS:" in llm_client.calls[0]["user_prompt"]
 
@@ -370,25 +375,25 @@ def test_pipeline_passes_round_local_synthesis_context(tmp_path):
 def test_planner_agent_surfaces_invalid_plan_schema():
     class FakeLLMClientWithInvalidPlan(object):
         def complete_json(self, **kwargs):
-            response_model = kwargs["response_model"]
-            payload = {
-                "strategy": "Plan from prompt.",
-                "use_summary": True,
-                "steps": [
-                    {
-                        "step_id": 0,
+            assert kwargs["response_model"] is dict
+            return (
+                {
+                    "strategy": "Plan from prompt.",
+                    "use_summary": True,
+                    "steps": [
+                        {
+                            "step_id": 0,
                         "tool_name": "visual_temporal_grounder",
                         "purpose": "Find the right clip.",
                         "arguments": {"query": "Find the chart."},
                         "input_refs": [],
                         "depends_on": [],
-                    }
-                ],
-                "refinement_instructions": "",
-            }
-            if hasattr(response_model, "model_validate"):
-                return response_model.model_validate(payload), "{}"
-            return response_model.parse_obj(payload), "{}"
+                        }
+                    ],
+                    "refinement_instructions": "",
+                },
+                "{}",
+            )
 
     planner = PlannerAgent(
         llm_client=FakeLLMClientWithInvalidPlan(),
@@ -412,6 +417,60 @@ def test_planner_agent_surfaces_invalid_plan_schema():
             audit_feedback=None,
             tool_catalog={},
         )
+
+
+def test_planner_agent_drops_empty_placeholder_input_refs_before_validation():
+    class FakeLLMClientWithPlaceholderRef(object):
+        def complete_json(self, **kwargs):
+            assert kwargs["response_model"] is dict
+            return (
+                {
+                    "strategy": "Plan from prompt.",
+                    "use_summary": True,
+                    "steps": [
+                        {
+                            "step_id": 1,
+                            "tool_name": "frame_retriever",
+                            "purpose": "Retrieve the decisive frame.",
+                            "arguments": {"query": "best frame", "clips": []},
+                            "input_refs": [
+                                {
+                                    "target_field": "clips",
+                                    "source": {"step_id": 0, "field_path": ""},
+                                }
+                            ],
+                            "depends_on": [],
+                        }
+                    ],
+                    "refinement_instructions": "Use the frame to answer the question.",
+                },
+                "{}",
+            )
+
+    planner = PlannerAgent(
+        llm_client=FakeLLMClientWithPlaceholderRef(),
+        agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
+    )
+    task = TaskSpec(
+        benchmark="omnivideobench",
+        sample_key="sample1",
+        question="What is visible?",
+        options=["A", "B"],
+        video_path="video.mp4",
+    )
+
+    _, plan = planner.plan(
+        task=task,
+        mode="generate",
+        planner_segments=[{"start_s": 0.0, "end_s": 12.0}],
+        compact_rounds=[],
+        retrieved_observations=[],
+        audit_feedback=None,
+        tool_catalog={"frame_retriever": {"request_fields": ["query", "clips"]}},
+    )
+
+    assert plan.steps[0].step_id == 1
+    assert plan.steps[0].input_refs == []
 
 
 def test_pipeline_evidence_summary_is_stable_across_runs(tmp_path):
