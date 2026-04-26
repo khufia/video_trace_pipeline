@@ -6,6 +6,7 @@ from typing import Any, Dict, Iterable, List, Optional
 
 from ..common import hash_payload
 from ..schemas import AtomicObservation, EvidenceEntry, ToolResult
+from ..temporal import temporal_payload_from_records
 
 
 def _sentence_chunks(text: str) -> List[str]:
@@ -42,33 +43,8 @@ def _atomic_chunks(text: str) -> List[str]:
     return deduped
 
 
-def evidence_temporal_bounds(observations: List[AtomicObservation]) -> Dict[str, float]:
-    time_starts: List[float] = []
-    time_ends: List[float] = []
-    frame_timestamps: List[float] = []
-    for item in list(observations or []):
-        if item.time_start_s is not None:
-            start_s = float(item.time_start_s)
-            end_s = float(item.time_end_s if item.time_end_s is not None else item.time_start_s)
-            time_starts.append(start_s)
-            time_ends.append(end_s)
-        elif item.time_end_s is not None:
-            time_ends.append(float(item.time_end_s))
-        if item.frame_ts_s is not None:
-            frame_timestamps.append(float(item.frame_ts_s))
-
-    payload: Dict[str, float] = {}
-    if time_starts or time_ends:
-        payload["time_start_s"] = round(min(time_starts or time_ends), 3)
-        payload["time_end_s"] = round(max(time_ends or time_starts), 3)
-    elif frame_timestamps:
-        payload["time_start_s"] = round(min(frame_timestamps), 3)
-        payload["time_end_s"] = round(max(frame_timestamps), 3)
-
-    rounded_frames = sorted({round(value, 3) for value in frame_timestamps})
-    if len(rounded_frames) == 1:
-        payload["frame_ts_s"] = rounded_frames[0]
-    return payload
+def evidence_temporal_bounds(observations: List[AtomicObservation]) -> Dict[str, Any]:
+    return temporal_payload_from_records(observations)
 
 
 class ObservationExtractor(object):
@@ -525,10 +501,8 @@ class ObservationExtractor(object):
         groundings = list(data.get("groundings") or [])
         if groundings:
             for grounding in groundings:
-                frame = dict(grounding.get("frame") or {})
-                frame_ts = grounding.get("timestamp")
-                if frame_ts is None:
-                    frame_ts = frame.get("timestamp_s") or frame.get("timestamp")
+                frame = dict((list(grounding.get("frames") or []) or [{}])[0] or {})
+                frame_ts = frame.get("timestamp_s") or frame.get("timestamp")
                 for detection in grounding.get("detections") or []:
                     label = str(detection.get("label") or detection.get("name") or "entity").strip()
                     bbox = detection.get("bbox") or detection.get("box")
@@ -550,6 +524,10 @@ class ObservationExtractor(object):
                     )
             return items
         detections = data.get("detections") or []
+        frame = dict((list(data.get("frames") or []) or [{}])[0] or {})
+        frame_ts = data.get("timestamp_s") or data.get("timestamp")
+        if frame_ts is None:
+            frame_ts = frame.get("timestamp_s") or frame.get("timestamp")
         for detection in detections:
             label = str(detection.get("label") or detection.get("name") or "entity").strip()
             bbox = detection.get("bbox") or detection.get("box")
@@ -564,7 +542,7 @@ class ObservationExtractor(object):
                     object_type="bbox",
                     atomic_text="%s is located at %s in the frame." % (label, bbox),
                     bbox=bbox,
-                    frame_ts_s=data.get("timestamp_s") or data.get("timestamp"),
+                    frame_ts_s=frame_ts,
                     confidence=float(confidence) if confidence is not None else None,
                     source_artifact_refs=artifact_ids,
                 )

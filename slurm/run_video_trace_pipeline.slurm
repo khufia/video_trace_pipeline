@@ -25,8 +25,8 @@ WORKSPACE_ROOT="${WORKSPACE_ROOT:-$REPO_ROOT/workspace}"
 MODE="${MODE:-generate}"
 INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
 # Accept a single index or a comma/space-separated list, e.g. INPUT_INDEX="6 7 8" or "6,7,8".
-INPUT_INDEX="${INPUT_INDEX:-0 1 2 3 4 5 6 7 8 9}"
-RESULTS_NAME="${RESULTS_NAME:-rur_refiner_inputs}"
+# INPUT_INDEX="${INPUT_INDEX:-0 1 2 3 4 5 6 7 8 9}"
+INPUT_INDEX="${INPUT_INDEX:-0}"
 CLIP_DURATION="${CLIP_DURATION:-30}"
 MAX_ROUNDS="${MAX_ROUNDS:-3}"
 INITIAL_TRACE_PATH="${INITIAL_TRACE_PATH:-}"
@@ -162,7 +162,6 @@ for input_index in "${INPUT_INDEX_VALUES[@]}"; do
     "${COMMON_ARGS[@]}"
     --mode "$MODE"
     --max-rounds "$MAX_ROUNDS"
-    --results-name "$RESULTS_NAME"
   )
 
   if [[ -n "$INITIAL_TRACE_PATH" ]]; then

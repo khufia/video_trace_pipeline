@@ -108,9 +108,6 @@ def _resolve_ffmpeg_binary() -> str:
 
 
 def _request_clip(request: Dict[str, Any], task: Dict[str, Any]) -> Dict[str, Any]:
-    clip = dict(request.get("clip") or {})
-    if clip:
-        return clip
     clips = list(request.get("clips") or [])
     if clips:
         return dict(clips[0] or {})

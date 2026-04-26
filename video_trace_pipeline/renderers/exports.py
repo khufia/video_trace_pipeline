@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Dict, List
 
+from ..temporal import render_temporal_anchor
+
 
 def _format_seconds(value) -> str:
     text = "%.3f" % float(value)
@@ -9,29 +11,12 @@ def _format_seconds(value) -> str:
     return "%ss" % text
 
 
-def _render_temporal_anchor(item: dict) -> str:
-    start_s = item.get("time_start_s")
-    end_s = item.get("time_end_s")
-    frame_ts_s = item.get("frame_ts_s")
-    if start_s is not None or end_s is not None:
-        if start_s is None:
-            start_s = end_s
-        if end_s is None:
-            end_s = start_s
-        if float(start_s) == float(end_s):
-            return _format_seconds(start_s)
-        return "%s to %s" % (_format_seconds(start_s), _format_seconds(end_s))
-    if frame_ts_s is not None:
-        return _format_seconds(frame_ts_s)
-    return ""
-
-
 def export_trace_for_benchmark(benchmark: str, task, trace_package: dict) -> Dict[str, object]:
     benchmark_key = str(benchmark or "").strip().lower()
     inference_steps = []
     for item in trace_package.get("inference_steps") or []:
         text = str(item.get("text", "") or "").strip()
-        temporal_anchor = _render_temporal_anchor(item)
+        temporal_anchor = render_temporal_anchor(item)
         if temporal_anchor:
             inference_steps.append("[%s] %s" % (temporal_anchor, text))
         else:
@@ -72,6 +57,7 @@ def export_trace_for_benchmark(benchmark: str, task, trace_package: dict) -> Dic
                     "time_start_s": item.get("time_start_s"),
                     "time_end_s": item.get("time_end_s"),
                     "frame_ts_s": item.get("frame_ts_s"),
+                    "time_intervals": list(item.get("time_intervals") or []),
                 }
                 for item in evidence_entries
             ],
@@ -90,7 +76,7 @@ def render_trace_markdown(trace_package: dict) -> str:
     lines.append("")
     for step in trace_package.get("inference_steps") or []:
         line = "%s. %s" % (step.get("step_id"), step.get("text", ""))
-        temporal_anchor = _render_temporal_anchor(step)
+        temporal_anchor = render_temporal_anchor(step)
         if temporal_anchor:
             line = "%s [%s]" % (line, temporal_anchor)
         lines.append(line)
@@ -100,10 +86,9 @@ def render_trace_markdown(trace_package: dict) -> str:
     for item in trace_package.get("evidence_entries") or []:
         lines.append("### %s" % item.get("evidence_id", "evidence"))
         lines.append("")
-        lines.append("- Tool: %s" % item.get("tool_name", ""))
         if item.get("status"):
             lines.append("- Status: %s" % item.get("status"))
-        temporal_anchor = _render_temporal_anchor(item)
+        temporal_anchor = render_temporal_anchor(item)
         if temporal_anchor:
             lines.append("- Time: %s" % temporal_anchor)
         lines.append("- Text: %s" % item.get("evidence_text", ""))

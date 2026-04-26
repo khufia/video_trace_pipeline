@@ -1,21 +1,24 @@
 import json
 
-from video_trace_pipeline.agents.trace_synthesizer import (
-    TraceSynthesizerAgent,
-    _normalize_evidence_status,
-    _repair_trace_package_payload,
-)
-from video_trace_pipeline.schemas import AgentConfig, TaskSpec
+import pytest
+
+from video_trace_pipeline.agents.trace_synthesizer import TraceSynthesizerAgent
+from video_trace_pipeline.schemas import AgentConfig, TaskSpec, TracePackage
 
 
 class FakeLLMClient(object):
     def __init__(self, payload):
-        self.payload = dict(payload)
+        self.payload = payload
         self.calls = []
 
-    def complete_text(self, **kwargs):
+    def complete_json(self, **kwargs):
         self.calls.append(dict(kwargs))
-        return json.dumps(self.payload)
+        response_model = kwargs["response_model"]
+        if hasattr(response_model, "model_validate"):
+            parsed = response_model.model_validate(self.payload)
+        else:
+            parsed = response_model.parse_obj(self.payload)
+        return parsed, json.dumps(self.payload)
 
 
 def _task():
@@ -28,58 +31,34 @@ def _task():
     )
 
 
-def test_repair_trace_package_payload_backfills_tool_name_from_evidence_entries():
+def test_trace_synthesizer_uses_tracepackage_response_model():
     payload = {
         "task_key": "sample1",
         "mode": "generate",
         "evidence_entries": [
             {
                 "evidence_id": "ev_1",
-                "evidence_text": "OCR reads 42 on the sign.",
-                "observation_ids": ["obs_1"],
-            }
-        ],
-        "inference_steps": [],
-        "final_answer": "",
-        "benchmark_renderings": {},
-        "metadata": {},
-    }
-
-    repaired = _repair_trace_package_payload(
-        payload,
-        evidence_entries=[
-            {
-                "evidence_id": "ev_1",
                 "tool_name": "ocr",
                 "evidence_text": "OCR reads 42 on the sign.",
+                "status": "validated",
                 "observation_ids": ["obs_1"],
+                "time_intervals": [{"start_s": 1.0, "end_s": 2.0}],
             }
         ],
-        observations=[],
-        current_trace=None,
-    )
-
-    assert repaired["evidence_entries"][0]["tool_name"] == "ocr"
-
-
-def test_trace_synthesizer_repairs_missing_tool_name_from_observations():
-    client = FakeLLMClient(
-        {
-            "task_key": "sample1",
-            "mode": "generate",
-            "evidence_entries": [
-                {
-                    "evidence_id": "ev_1",
-                    "evidence_text": "A person says hello.",
-                    "observation_ids": ["obs_1"],
-                }
-            ],
-            "inference_steps": [],
-            "final_answer": "",
-            "benchmark_renderings": {},
-            "metadata": {},
-        }
-    )
+        "inference_steps": [
+            {
+                "step_id": 1,
+                "text": "The sign reads 42.",
+                "supporting_observation_ids": ["obs_1"],
+                "answer_relevance": "high",
+                "time_intervals": [{"start_s": 1.0, "end_s": 2.0}],
+            }
+        ],
+        "final_answer": "A",
+        "benchmark_renderings": {},
+        "metadata": {"round": 1},
+    }
+    client = FakeLLMClient(payload)
     agent = TraceSynthesizerAgent(
         llm_client=client,
         agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
@@ -88,70 +67,52 @@ def test_trace_synthesizer_repairs_missing_tool_name_from_observations():
     raw, parsed = agent.synthesize(
         task=_task(),
         mode="generate",
-        evidence_entries=[],
-        observations=[
-            {
-                "observation_id": "obs_1",
-                "source_tool": "asr",
-            }
-        ],
+        round_evidence_entries=[],
+        round_observations=[],
         current_trace=None,
         refinement_instructions="",
     )
 
-    assert raw
-    assert parsed.evidence_entries[0].tool_name == "asr"
+    assert raw == json.dumps(payload)
+    assert isinstance(parsed, TracePackage)
+    assert parsed.evidence_entries[0].tool_name == "ocr"
+    assert parsed.evidence_entries[0].status == "validated"
+    assert parsed.evidence_entries[0].time_intervals[0].start_s == 1.0
+    assert parsed.inference_steps[0].time_intervals[0].end_s == 2.0
     assert client.calls
-    assert client.calls[0]["response_format"] == {"type": "json_object"}
+    assert client.calls[0]["response_model"] is TracePackage
 
 
-def test_normalize_evidence_status_maps_model_friendly_labels():
-    assert _normalize_evidence_status("grounded") == "provisional"
-    assert _normalize_evidence_status("supported") == "provisional"
-    assert _normalize_evidence_status("obsolete") == "superseded"
-    assert _normalize_evidence_status("validated") == "validated"
-    assert _normalize_evidence_status("") == "provisional"
-
-
-def test_repair_trace_package_payload_normalizes_grounded_status_from_cached_response():
+def test_trace_synthesizer_rejects_noncanonical_trace_payloads():
     payload = {
         "task_key": "sample1",
         "mode": "generate",
         "evidence_entries": [
             {
-                "evidence_id": "ev_syn_01",
+                "evidence_id": "ev_1",
                 "tool_name": "asr",
-                "evidence_text": "Example grounded evidence.",
+                "evidence_text": "A person says hello.",
                 "status": "grounded",
                 "observation_ids": ["obs_1"],
-            },
-            {
-                "evidence_id": "ev_syn_02",
-                "tool_name": "generic_purpose",
-                "evidence_text": "Example supported evidence.",
-                "status": "supported",
-                "observation_ids": ["obs_2"],
-            },
-            {
-                "evidence_id": "ev_syn_03",
-                "tool_name": "ocr",
-                "evidence_text": "Example obsolete evidence.",
-                "status": "obsolete",
-                "observation_ids": ["obs_3"],
-            },
+            }
         ],
         "inference_steps": [],
         "final_answer": "",
         "benchmark_renderings": {},
         "metadata": {},
     }
-
-    repaired = _repair_trace_package_payload(
-        payload,
-        evidence_entries=[],
-        observations=[],
-        current_trace=None,
+    client = FakeLLMClient(payload)
+    agent = TraceSynthesizerAgent(
+        llm_client=client,
+        agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
     )
 
-    statuses = [item.get("status") for item in repaired["evidence_entries"]]
-    assert statuses == ["provisional", "provisional", "superseded"]
+    with pytest.raises(Exception, match="status must be validated, provisional, or superseded"):
+        agent.synthesize(
+            task=_task(),
+            mode="generate",
+            round_evidence_entries=[],
+            round_observations=[],
+            current_trace=None,
+            refinement_instructions="",
+        )

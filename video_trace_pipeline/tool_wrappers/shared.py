@@ -176,7 +176,7 @@ def resolve_aux_model_path(runtime: Dict[str, Any], field_name: str, allow_downl
 
 
 def payload_clip(request: Dict[str, Any], task: Dict[str, Any]) -> Dict[str, Any]:
-    clip = dict(request.get("clip") or {})
+    clip = dict((list(request.get("clips") or []) or [{}])[0] or {})
     if clip:
         return clip
     return {
@@ -217,7 +217,7 @@ def ensure_frame_for_request(
     out_dir: Path,
     prefix: str,
 ) -> Tuple[str, float]:
-    frame_payload = dict(request.get("frame") or {})
+    frame_payload = dict((list(request.get("frames") or []) or [{}])[0] or {})
     frame_path = absolute_frame_path(frame_payload, runtime)
     if frame_path:
         timestamp_s = float(frame_payload.get("timestamp_s") or frame_payload.get("timestamp") or 0.0)

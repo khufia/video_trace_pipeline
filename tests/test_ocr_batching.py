@@ -24,7 +24,7 @@ def test_paddleocr_runner_reuses_one_engine_for_multi_frame_requests(monkeypatch
 
     def _fake_ensure_frame_for_request(request, task, runtime, *, out_dir, prefix):
         del task, runtime, out_dir, prefix
-        frame = dict(request.get("frame") or {})
+        frame = dict((request.get("frames") or [{}])[0] or {})
         timestamp = float(frame.get("timestamp_s") or 0.0)
         return str(tmp_path / ("frame_%0.2f.png" % timestamp)), timestamp
 

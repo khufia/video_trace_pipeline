@@ -2,7 +2,7 @@ from video_trace_pipeline.orchestration.preprocess import DenseCaptionPreprocess
 from video_trace_pipeline.schemas import AgentConfig, MachineProfile, ModelsConfig, TaskSpec, ToolConfig
 from video_trace_pipeline.storage import WorkspaceManager
 from video_trace_pipeline.tools.specs import tool_implementation
-from video_trace_pipeline.common import hash_payload, write_json, write_text
+from video_trace_pipeline.common import hash_payload, write_json
 
 
 class FakeDenseCaptionBackend(object):
@@ -80,7 +80,7 @@ class FakeIdentityAudioDenseCaptionBackend(object):
                                 "end": min(float(clip_duration_s), 12.0),
                                 "visual": "Phil walks into the store and waves at the clerk.",
                                 "audio": "A metallic bang echoes near the doorway.",
-                                "on_screen_text": "",
+                                "on_screen_text": "PHIL",
                                 "actions": ["walks into the store"],
                                 "objects": ["man", "doorway"],
                                 "attributes": [],
@@ -159,8 +159,8 @@ def test_preprocess_cache_reuses_same_signature(tmp_path):
     assert second["cache_hit"] is True
     assert third["cache_hit"] is False
     assert runtime.calls == 2
-    assert "Visual: A shopper pushes a cart past a low-price display." in first["summary"]
-    assert "Speech: The narrator mentions a price drop." in first["summary"]
+    assert first["planner_segments"][0]["dense_caption_spans"][0]["visual"] == "A shopper pushes a cart past a low-price display."
+    assert first["planner_segments"][0]["transcript_spans"][0]["text"] == "The narrator mentions a price drop."
 
 
 def test_preprocess_cache_signature_changes_when_preprocess_settings_change(tmp_path):
@@ -197,7 +197,7 @@ def test_preprocess_cache_signature_changes_when_preprocess_settings_change(tmp_
     assert runtime.calls == 2
 
 
-def test_preprocess_cache_merges_asr_once_and_records_dense_summary_metadata(tmp_path):
+def test_preprocess_cache_merges_asr_once_and_records_planner_segment_metadata(tmp_path):
     video = tmp_path / "video.mp4"
     video.write_bytes(b"video-bytes")
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
@@ -222,10 +222,14 @@ def test_preprocess_cache_merges_asr_once_and_records_dense_summary_metadata(tmp
     assert result["segments"][0]["transcript_segments"] == [
         {"start_s": 4.0, "end_s": 8.0, "text": "The narrator points out the low prices."}
     ]
-    assert result["manifest"]["summary_format"] == "dense_interleaved"
+    assert "summary_format" not in result["manifest"]
     assert result["manifest"]["include_asr"] is True
+    assert result["manifest"]["planner_segment_count"] == 1
+    assert result["manifest"]["dense_caption_span_count"] == 1
     assert result["manifest"]["transcript_segment_count"] == 1
-    assert "[00:04-00:08] Speech: The narrator points out the low prices." in result["summary"]
+    assert result["planner_segments"][0]["transcript_spans"] == [
+        {"start_s": 4.0, "end_s": 8.0, "text": "The narrator points out the low prices."}
+    ]
 
 
 def test_preprocess_cache_exposes_identity_and_non_speech_audio_memory(tmp_path):
@@ -236,7 +240,7 @@ def test_preprocess_cache_exposes_identity_and_non_speech_audio_memory(tmp_path)
     runtime = FakeIdentityAudioDenseCaptionBackend()
     registry = FakeToolRegistry(
         runtime,
-        transcript_segments=[{"start_s": 1.0, "end_s": 3.0, "text": "Phil tells Sarah to wait."}],
+        transcript_segments=[{"start_s": 1.0, "end_s": 3.0, "speaker_id": "Phil", "text": "Please wait here."}],
     )
     preprocessor = DenseCaptionPreprocessor(workspace, registry, _models_config())
     task = TaskSpec(
@@ -249,16 +253,21 @@ def test_preprocess_cache_exposes_identity_and_non_speech_audio_memory(tmp_path)
 
     result = preprocessor.get_or_build(task, clip_duration_s=30.0)
 
-    assert "Audio: A metallic bang echoes near the doorway." in result["summary"]
+    assert result["planner_segments"][0]["dense_caption_spans"][0]["audio"] == ["A metallic bang echoes near the doorway."]
     identity_labels = [item["label"] for item in result["planner_context"]["identity_memory"]]
     assert "Phil" in identity_labels
+    assert "PHIL" in identity_labels
     audio_labels = [item["label"] for item in result["planner_context"]["audio_event_memory"]]
     assert "A metallic bang echoes near the doorway." in audio_labels
     assert result["manifest"]["identity_memory_count"] >= 1
     assert result["manifest"]["audio_event_memory_count"] >= 1
+    assert "dialogue_claim_memory" not in result["planner_context"]
+    assert "timeline_alignment_memory" not in result["planner_context"]
+    assert "dialogue_claim_memory_count" not in result["manifest"]
+    assert "timeline_alignment_memory_count" not in result["manifest"]
 
 
-def test_preprocess_cache_rebuilds_blank_summary_bundle(tmp_path):
+def test_preprocess_cache_rebuilds_legacy_bundle_missing_planner_json(tmp_path):
     video = tmp_path / "video.mp4"
     video.write_bytes(b"video-bytes")
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
@@ -306,18 +315,19 @@ def test_preprocess_cache_rebuilds_blank_summary_bundle(tmp_path):
             }
         ],
     )
-    write_text(cache_dir / "summary.txt", "")
-
     first = preprocessor.get_or_build(task, clip_duration_s=30.0)
     second = preprocessor.get_or_build(task, clip_duration_s=30.0)
 
     assert first["cache_hit"] is False
-    assert "Visual: A shopper pushes a cart past a low-price display." in first["summary"]
+    assert first["planner_segments"][0]["dense_caption_spans"][0]["visual"] == "A shopper pushes a cart past a low-price display."
     assert second["cache_hit"] is True
-    assert "Speech: The narrator mentions a price drop." in second["summary"]
+    assert second["planner_segments"][0]["transcript_spans"][0]["text"] == "The narrator mentions a price drop."
     assert second["manifest"]["preprocess_signature"] == preprocess_signature
     assert runtime.calls == 1
     assert registry.asr_calls == 1
+    assert not (cache_dir / "summary.txt").exists()
+    assert (cache_dir / "planner_segments.json").exists()
+    assert (cache_dir / "planner_context.json").exists()
 
 
 def test_preprocess_cache_keeps_unavailable_low_signal_bundle_without_rebuild(tmp_path):
@@ -339,9 +349,9 @@ def test_preprocess_cache_keeps_unavailable_low_signal_bundle_without_rebuild(tm
     second = preprocessor.get_or_build(task, clip_duration_s=30.0)
 
     assert first["cache_hit"] is False
-    assert first["summary"] == ""
-    assert first["manifest"]["summary_status"] == "unavailable_low_signal"
+    assert first["planner_segments"] == [{"start_s": 0.0, "end_s": 30.0}]
+    assert "summary_status" not in first["manifest"]
     assert second["cache_hit"] is True
-    assert second["summary"] == ""
-    assert second["manifest"]["summary_status"] == "unavailable_low_signal"
+    assert second["planner_segments"] == [{"start_s": 0.0, "end_s": 30.0}]
+    assert "summary_status" not in second["manifest"]
     assert runtime.calls == 1

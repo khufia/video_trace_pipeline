@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, model_validator, validator
 
 from .artifacts import ClipRef
 
@@ -151,10 +151,16 @@ class ASRSegmentOutput(BaseModel):
 
 
 class ASROutput(BaseModel):
-    clip: ClipRef
+    clips: List[ClipRef] = Field(default_factory=list)
     text: str = ""
     segments: List[ASRSegmentOutput] = Field(default_factory=list)
     backend: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _require_clips(self):
+        if self.clips:
+            return self
+        raise ValueError("asr output requires at least one clip")
 
 
 class DenseCaptionSpan(BaseModel):
@@ -177,12 +183,18 @@ class DenseCaptionSpan(BaseModel):
 
 
 class DenseCaptionOutput(BaseModel):
-    clip: ClipRef
+    clips: List[ClipRef] = Field(default_factory=list)
     captioned_range: TimeRange
     captions: List[DenseCaptionSpan] = Field(default_factory=list)
     overall_summary: str = ""
     sampled_frames: List[Dict[str, Any]] = Field(default_factory=list)
     backend: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _require_clips(self):
+        if self.clips:
+            return self
+        raise ValueError("dense_captioner output requires at least one clip")
 
 
 class OCRLineOutput(BaseModel):

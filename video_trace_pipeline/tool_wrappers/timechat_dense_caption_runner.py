@@ -247,9 +247,9 @@ def execute_payload(
     task = dict(payload.get("task") or {})
     runtime = dict(payload.get("runtime") or {})
 
-    clip = dict(request.get("clip") or {})
+    clip = dict((list(request.get("clips") or []) or [{}])[0] or {})
     if not clip:
-        fail_runtime("dense_captioner requires request.clip")
+        fail_runtime("dense_captioner requires request.clips[0]")
 
     video_path = str(task.get("video_path") or "").strip()
     if not video_path:
@@ -373,7 +373,7 @@ def execute_payload(
         ]
 
     return {
-        "clip": clip,
+        "clips": [clip],
         "captioned_range": {"start_s": start_s, "end_s": end_s},
         "captions": normalized_captions,
         "overall_summary": overall_summary,

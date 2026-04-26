@@ -58,12 +58,12 @@ def test_dense_caption_preprocess_reuses_single_runner_and_preserves_bundle_shap
 
     def _fake_execute_payload(payload, *, runner_pool=None, runner=None):
         del runner_pool
-        clip = dict(payload.get("request") or {}).get("clip") or {}
+        clip = (dict(payload.get("request") or {}).get("clips") or [{}])[0] or {}
         start_s = float(clip.get("start_s") or 0.0)
         end_s = float(clip.get("end_s") or start_s)
         runner_events["runner_ids"].append(id(runner))
         return {
-            "clip": clip,
+            "clips": [clip],
             "captioned_range": {"start_s": start_s, "end_s": end_s},
             "captions": [
                 {
@@ -112,7 +112,7 @@ def test_dense_caption_preprocess_reuses_single_runner_and_preserves_bundle_shap
     assert runner_events["close_count"] == 1
     assert len(set(runner_events["runner_ids"])) == 1
     first_dense_caption = result["segments"][0]["dense_caption"]
-    assert first_dense_caption["clip"]["start_s"] == 0.0
+    assert first_dense_caption["clips"][0]["start_s"] == 0.0
     assert "captions" in first_dense_caption
     assert "overall_summary" in first_dense_caption
     assert "sampled_frames" in first_dense_caption
@@ -146,11 +146,11 @@ def test_dense_caption_preprocess_passes_visual_first_runtime_settings(tmp_path,
     def _fake_execute_payload(payload, *, runner_pool=None, runner=None):
         del runner_pool, runner
         captured_payloads.append(dict(payload))
-        clip = dict(payload.get("request") or {}).get("clip") or {}
+        clip = (dict(payload.get("request") or {}).get("clips") or [{}])[0] or {}
         start_s = float(clip.get("start_s") or 0.0)
         end_s = float(clip.get("end_s") or start_s)
         return {
-            "clip": clip,
+            "clips": [clip],
             "captioned_range": {"start_s": start_s, "end_s": end_s},
             "captions": [],
             "overall_summary": "segment %.0f-%.0f" % (start_s, end_s),

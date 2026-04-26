@@ -50,6 +50,52 @@ class AtomicObservation(BaseModel):
         return [float(item) for item in value]
 
 
+def _normalize_time_interval_list(value):
+    if value is None:
+        return []
+    items = value if isinstance(value, list) else [value]
+    normalized = []
+    seen = set()
+    for item in items:
+        if isinstance(item, dict):
+            start_s = item.get("start_s")
+            end_s = item.get("end_s")
+        else:
+            start_s = getattr(item, "start_s", None)
+            end_s = getattr(item, "end_s", None)
+        try:
+            start_s = float(start_s if start_s is not None else end_s)
+            end_s = float(end_s if end_s is not None else start_s)
+        except Exception:
+            continue
+        start_s = round(start_s, 3)
+        end_s = round(end_s, 3)
+        if end_s < start_s:
+            start_s, end_s = end_s, start_s
+        signature = (start_s, end_s)
+        if signature in seen:
+            continue
+        seen.add(signature)
+        normalized.append({"start_s": start_s, "end_s": end_s})
+    return normalized
+
+
+class TimeInterval(BaseModel):
+    start_s: float
+    end_s: float
+
+    @validator("start_s", "end_s", pre=True)
+    def _coerce_float(cls, value):  # noqa: N805
+        return float(value)
+
+    @validator("end_s")
+    def _validate_end_s(cls, value, values):  # noqa: N805
+        start_s = values.get("start_s")
+        if start_s is not None and float(value) < float(start_s):
+            raise ValueError("end_s must be greater than or equal to start_s")
+        return value
+
+
 class EvidenceEntry(BaseModel):
     evidence_id: str
     tool_name: str
@@ -60,6 +106,7 @@ class EvidenceEntry(BaseModel):
     time_start_s: Optional[float] = None
     time_end_s: Optional[float] = None
     frame_ts_s: Optional[float] = None
+    time_intervals: List[TimeInterval] = Field(default_factory=list)
     artifact_refs: List[ArtifactRef] = Field(default_factory=list)
     observation_ids: List[str] = Field(default_factory=list)
     metadata: Dict[str, Any] = Field(default_factory=dict)
@@ -71,6 +118,10 @@ class EvidenceEntry(BaseModel):
             raise ValueError("status must be validated, provisional, or superseded")
         return normalized
 
+    @validator("time_intervals", pre=True)
+    def _normalize_time_intervals(cls, value):  # noqa: N805
+        return _normalize_time_interval_list(value)
+
 
 class InferenceStep(BaseModel):
     step_id: int
@@ -80,6 +131,7 @@ class InferenceStep(BaseModel):
     time_start_s: Optional[float] = None
     time_end_s: Optional[float] = None
     frame_ts_s: Optional[float] = None
+    time_intervals: List[TimeInterval] = Field(default_factory=list)
 
     @validator("step_id", pre=True)
     def _coerce_step_id(cls, value):
@@ -115,6 +167,10 @@ class InferenceStep(BaseModel):
         if not value:
             raise ValueError("text must be non-empty")
         return value
+
+    @validator("time_intervals", pre=True)
+    def _normalize_time_intervals(cls, value):  # noqa: N805
+        return _normalize_time_interval_list(value)
 
 
 class TracePackage(BaseModel):

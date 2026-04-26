@@ -6,10 +6,10 @@ def test_parse_options_supports_json_and_delimited_text():
     assert _parse_options("A || B || C") == ["A", "B", "C"]
 
 
-def test_parse_tool_names_supports_aliases_and_dedupes():
-    assert _parse_tool_names('["temporal_grounder", "generic", "generic_purpose"]') == [
-        "visual_temporal_grounder",
+def test_parse_tool_names_requires_canonical_names_and_dedupes():
+    assert _parse_tool_names('["generic_purpose", "generic_purpose", "spatial_grounder"]') == [
         "generic_purpose",
+        "spatial_grounder",
     ]
 
 

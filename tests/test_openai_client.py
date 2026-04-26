@@ -60,7 +60,7 @@ def test_complete_json_requests_json_object_response_format(tmp_path):
     assert fake_completions.calls[0]["response_format"] == {"type": "json_object"}
 
 
-def test_complete_json_reuses_cached_response(tmp_path):
+def test_complete_json_does_not_persist_or_reuse_agent_response_cache(tmp_path):
     fake_completions = _FakeChatCompletions('{"strategy": "focus on OCR"}')
     profile = MachineProfile(
         workspace_root=str(tmp_path / "workspace"),
@@ -90,4 +90,4 @@ def test_complete_json_reuses_cached_response(tmp_path):
     assert first.strategy == "focus on OCR"
     assert second.strategy == "focus on OCR"
     assert first_raw == second_raw == '{"strategy": "focus on OCR"}'
-    assert len(fake_completions.calls) == 1
+    assert len(fake_completions.calls) == 2

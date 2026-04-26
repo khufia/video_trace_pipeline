@@ -181,13 +181,13 @@ def _extract_request_items(request: Dict[str, Any]) -> List[Dict[str, Any]]:
     query = str(request.get("query") or "").strip() or None
     regions = list(request.get("regions") or [])
     if regions:
-        return [{"tool_name": "ocr", "query": query, "region": item} for item in regions]
+        return [{"tool_name": "ocr", "query": query, "regions": [item]} for item in regions]
     frames = list(request.get("frames") or [])
     if frames:
-        return [{"tool_name": "ocr", "query": query, "frame": item} for item in frames]
+        return [{"tool_name": "ocr", "query": query, "frames": [item]} for item in frames]
     clips = list(request.get("clips") or [])
     if clips:
-        return [{"tool_name": "ocr", "query": query, "clip": item} for item in clips]
+        return [{"tool_name": "ocr", "query": query, "clips": [item]} for item in clips]
     return [dict(request or {})]
 
 
@@ -200,7 +200,7 @@ def _prepare_single_request(request: Dict[str, Any], task: Dict[str, Any], runti
         prefix="ocr_frame",
     )
     source_frame_path = str(Path(frame_path).resolve())
-    region = dict(request.get("region") or {})
+    region = dict((request.get("regions") or [{}])[0] or {})
     if region:
         frame_path = crop_region(
             frame_path,

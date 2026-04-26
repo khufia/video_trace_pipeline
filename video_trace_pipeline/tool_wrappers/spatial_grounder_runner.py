@@ -64,10 +64,10 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     if not query:
         fail_runtime("spatial_grounder requires a non-empty query")
 
-    frame_payload = dict(request.get("frame") or {})
+    frame_payload = dict((list(request.get("frames") or []) or [{}])[0] or {})
     frame_path = absolute_frame_path(frame_payload, runtime)
     if not frame_path:
-        fail_runtime("spatial_grounder requires a resolved frame path")
+        fail_runtime("spatial_grounder requires a resolved frames[0] path")
 
     model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
     device_label = resolved_device_label(runtime)

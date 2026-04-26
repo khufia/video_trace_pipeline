@@ -4,6 +4,7 @@ import json
 from typing import TYPE_CHECKING, Any, Dict, List
 
 from ..common import extract_json_object
+from ..temporal import render_temporal_anchor
 from .local_multimodal import QwenStyleRunner, make_qwen_image_messages
 from .protocol import emit_json, fail_runtime, load_request
 from .shared import (
@@ -37,23 +38,6 @@ def _format_time_range(start_s: Any, end_s: Any) -> str:
     return "[%s-%s]" % (_format_seconds(start_s), _format_seconds(end_s))
 
 
-def _format_temporal_anchor(record: Dict[str, Any]) -> str:
-    start_s = record.get("time_start_s")
-    end_s = record.get("time_end_s")
-    frame_ts_s = record.get("frame_ts_s")
-    if start_s is not None or end_s is not None:
-        if start_s is None:
-            start_s = end_s
-        if end_s is None:
-            end_s = start_s
-        if float(start_s) == float(end_s):
-            return _format_seconds(start_s)
-        return "%s to %s" % (_format_seconds(start_s), _format_seconds(end_s))
-    if frame_ts_s is not None:
-        return _format_seconds(frame_ts_s)
-    return ""
-
-
 def _evidence_line(record: Dict[str, Any]) -> str:
     text = str(
         record.get("atomic_text")
@@ -67,7 +51,7 @@ def _evidence_line(record: Dict[str, Any]) -> str:
     evidence_id = str(record.get("evidence_id") or "").strip()
     if evidence_id:
         parts.append(evidence_id)
-    temporal_anchor = _format_temporal_anchor(record)
+    temporal_anchor = render_temporal_anchor(record)
     if temporal_anchor:
         parts.append(temporal_anchor)
     if not parts:
@@ -190,12 +174,15 @@ def _build_prompt(
     parts = [
         "Answer the query using only the supplied evidence and any sampled media.",
         "Do not rely on scene priors, world knowledge, or what usually happens in similar videos.",
+        "Treat the request/query wording as instructions, not as evidence that the queried description is true.",
         "If a queried state such as empty/full/open/closed is not directly visible or stated, answer indeterminate instead of guessing.",
         "If a question counts objects in a queried state, verify the state of each counted object; visible object presence alone does not prove that state.",
         "For sound-count questions, collapse near-synonymous labels or repeated phases of the same action into one counted sound unless the evidence explicitly distinguishes separate answer-critical sounds.",
+        "For sound-count questions, do not count background chatter, music texture, silverware, or other ambient layers as separate answer-level sounds unless the question explicitly asks for them.",
         "For cause-or-inference multiple-choice questions, prefer the option that best matches the directly grounded phenomenon; do not swap in a more remote presumed cause unless the evidence explicitly supports that causal step.",
         "For earliest/first questions with multiple candidate moments, identify the earliest validated candidate first and analyze only that candidate's downstream attribute; do not mix later-candidate details into the earliest event.",
         "For repeated-text, quoted-span, or mentioned-in-text tasks, compare full surface forms and exact span boundaries before considering substrings or paraphrases.",
+        "If the grounded evidence still leaves multiple answer options compatible, answer indeterminate instead of forcing a best guess.",
         "Return JSON only with keys: answer, supporting_points, confidence, analysis.",
         "Set confidence to a numeric score from 0.0 to 1.0, not a label like High, Medium, or Low.",
         "Do not mention hidden tools or APIs.",
@@ -252,8 +239,6 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     frame_payloads = []
     if isinstance(request.get("frames"), list) and request.get("frames"):
         frame_payloads.extend([dict(item or {}) for item in request.get("frames") or [] if isinstance(item, dict)])
-    elif request.get("frame"):
-        frame_payloads.append(dict(request.get("frame") or {}))
     if not frame_payloads and evidence_records:
         frame_payloads.extend(_evidence_frame_payloads(evidence_records))
     for frame_payload in frame_payloads:
@@ -264,12 +249,10 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     clip_payloads = []
     if isinstance(request.get("clips"), list) and request.get("clips"):
         clip_payloads.extend([dict(item or {}) for item in request.get("clips") or [] if isinstance(item, dict)])
-    elif request.get("clip"):
-        clip_payloads.append(dict(request.get("clip") or {}))
     if not image_paths and clip_payloads:
         for clip_index, clip_payload in enumerate(clip_payloads, start=1):
             sampled = sample_request_frames(
-                {"clip": clip_payload},
+                {"clips": [clip_payload]},
                 task,
                 out_dir=prompt_dir,
                 prefix="generic_%02d" % clip_index,
@@ -283,8 +266,6 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     transcript_payloads = []
     if isinstance(request.get("transcripts"), list) and request.get("transcripts"):
         transcript_payloads.extend([dict(item or {}) for item in request.get("transcripts") or [] if isinstance(item, dict)])
-    elif request.get("transcript"):
-        transcript_payloads.append(dict(request.get("transcript") or {}))
     transcript_text = _render_transcript_payloads(transcript_payloads)
     evidence_lines = [
         _evidence_line(item)

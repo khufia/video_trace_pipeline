@@ -12,36 +12,35 @@ from ..common import (
     guess_media_type,
     hash_payload,
     make_run_id,
-    read_json,
     relative_to_root,
     sanitize_path_component,
-    short_hash,
     write_json,
 )
 from ..schemas import ArtifactRef, MachineProfile, TaskSpec
 
 
 class RunContext(object):
-    def __init__(self, workspace_root: Path, benchmark: str, sample_key: str, run_id: str):
+    def __init__(self, workspace_root: Path, video_id: str, run_id: str):
         self.workspace_root = workspace_root
-        self.benchmark = benchmark
-        self.sample_key = sample_key
+        self.video_id = video_id
         self.run_id = run_id
-        self.run_dir = ensure_dir(
-            workspace_root / "runs" / sanitize_path_component(benchmark) / sanitize_path_component(sample_key) / run_id
-        )
-        self.planner_dir = ensure_dir(self.run_dir / "planner")
-        self.synthesizer_dir = ensure_dir(self.run_dir / "synthesizer")
-        self.auditor_dir = ensure_dir(self.run_dir / "auditor")
-        self.tools_dir = ensure_dir(self.run_dir / "tools")
+        self.run_dir = ensure_dir(workspace_root / "runs" / sanitize_path_component(video_id) / run_id)
         self.evidence_dir = ensure_dir(self.run_dir / "evidence")
-        self.trace_dir = ensure_dir(self.run_dir / "trace")
-        self.results_dir = ensure_dir(self.run_dir / "results")
+        self.debug_dir = ensure_dir(self.run_dir / "debug")
         self.manifest_path = self.run_dir / "run_manifest.json"
-        self.snapshot_path = self.run_dir / "runtime_snapshot.yaml"
+        self.snapshot_path = self.run_dir / "runtime_snapshot.json"
+        self.trace_package_path = self.run_dir / "trace_package.json"
+        self.benchmark_export_path = self.run_dir / "benchmark_export.json"
+        self.final_result_path = self.run_dir / "final_result.json"
 
-    def tool_step_dir(self, step_id: int, tool_name: str) -> Path:
-        return ensure_dir(self.tools_dir / ("%02d_%s" % (int(step_id), sanitize_path_component(tool_name))))
+    def round_dir(self, round_index: int) -> Path:
+        return ensure_dir(self.run_dir / ("round_%02d" % int(round_index)))
+
+    def tool_step_dir(self, step_id: int, tool_name: str, round_index: Optional[int] = None) -> Path:
+        effective_round = 1 if round_index is None else int(round_index)
+        return ensure_dir(
+            self.round_dir(effective_round) / "tools" / ("%02d_%s" % (int(step_id), sanitize_path_component(tool_name)))
+        )
 
 
 class WorkspaceManager(object):
@@ -50,7 +49,6 @@ class WorkspaceManager(object):
         self.repo_root = Path(__file__).resolve().parents[2]
         self.workspace_root = ensure_dir(Path(profile.workspace_root).expanduser().resolve())
         self.package_root = Path(__file__).resolve().parents[1]
-        self.package_results_root = ensure_dir(self.workspace_root / "results")
         cache_root_value = str(profile.cache_root or "").strip()
         self.cache_root = ensure_dir(
             Path(cache_root_value).expanduser().resolve() if cache_root_value else (self.workspace_root / "cache")
@@ -62,7 +60,8 @@ class WorkspaceManager(object):
 
     def create_run(self, task: TaskSpec) -> RunContext:
         run_id = make_run_id()
-        return RunContext(self.workspace_root, task.benchmark, task.sample_key, run_id)
+        resolved_video_id = sanitize_path_component(str(task.video_id or task.sample_key or "video"))
+        return RunContext(self.workspace_root, resolved_video_id, run_id)
 
     def video_fingerprint(self, video_path: str) -> str:
         return fingerprint_file(video_path)
@@ -152,20 +151,3 @@ class WorkspaceManager(object):
             except Exception:
                 continue
         return str(resolved)
-
-    def export_run_target(self, run: RunContext, task: TaskSpec, results_name: Optional[str]) -> Optional[Path]:
-        export_name = sanitize_path_component(str(results_name or "").strip())
-        if not export_name:
-            return None
-        video_id = sanitize_path_component(str(task.video_id or task.sample_key or "video"))
-        return self.package_results_root / export_name / sanitize_path_component(run.run_id) / video_id
-
-    def export_run_bundle(self, run: RunContext, task: TaskSpec, results_name: Optional[str]) -> Optional[Path]:
-        target = self.export_run_target(run, task, results_name)
-        if target is None:
-            return None
-        ensure_dir(target.parent)
-        if target.exists():
-            shutil.rmtree(target)
-        shutil.copytree(run.run_dir, target)
-        return target

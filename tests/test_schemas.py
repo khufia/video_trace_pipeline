@@ -17,8 +17,8 @@ class DummyOCRAdapter(ToolAdapter):
 
 def test_frame_retriever_accepts_clip():
     clip = ClipRef(video_id="video1", start_s=0.0, end_s=5.0)
-    request = FrameRetrieverRequest(tool_name="frame_retriever", clip=clip, query="scoreboard", num_frames=2)
-    assert request.clip.start_s == 0.0
+    request = FrameRetrieverRequest(tool_name="frame_retriever", clips=[clip], query="scoreboard", num_frames=2)
+    assert request.clips[0].start_s == 0.0
     assert request.num_frames == 2
 
 
@@ -26,11 +26,11 @@ def test_frame_retriever_accepts_time_hint_without_clip():
     request = FrameRetrieverRequest(
         tool_name="frame_retriever",
         query="scoreboard",
-        time_hint="last 20% of the video",
+        time_hints=["last 20% of the video"],
         num_frames=2,
     )
-    assert request.clip is None
-    assert request.time_hint == "last 20% of the video"
+    assert request.clips == []
+    assert request.time_hints == ["last 20% of the video"]
 
 
 def test_frame_retriever_requires_clip_or_time_hint():
@@ -38,24 +38,19 @@ def test_frame_retriever_requires_clip_or_time_hint():
         FrameRetrieverRequest(tool_name="frame_retriever", query="scoreboard")
 
 
-def test_tool_adapter_normalizes_frame_retriever_clip_list_and_top_k():
+def test_tool_adapter_rejects_noncanonical_frame_retriever_aliases():
     adapter = DummyFrameRetrieverAdapter()
 
-    request = adapter.parse_request(
-        {
-            "clip": [
-                {"video_id": "video1", "start_s": 10.0, "end_s": 15.0},
-                {"video_id": "video1", "start_s": 20.0, "end_s": 25.0},
-            ],
-            "top_k": 3,
-        }
-    )
-
-    assert request.clip is None
-    assert len(request.clips) == 2
-    assert request.clips[0].start_s == 10.0
-    assert request.clips[1].end_s == 25.0
-    assert request.num_frames == 3
+    with pytest.raises(ValueError, match="Unexpected request field"):
+        adapter.parse_request(
+            {
+                "clip": [
+                    {"video_id": "video1", "start_s": 10.0, "end_s": 15.0},
+                    {"video_id": "video1", "start_s": 20.0, "end_s": 25.0},
+                ],
+                "top_k": 3,
+            }
+        )
 
 
 def test_asr_request_accepts_multiple_clips():
@@ -67,7 +62,6 @@ def test_asr_request_accepts_multiple_clips():
         ],
     )
 
-    assert request.clip is None
     assert len(request.clips) == 2
 
 
@@ -77,7 +71,7 @@ def test_ocr_request_prefers_specific_frame_inputs_over_clip_context():
     request = adapter.parse_request(
         {
             "query": "read the chart values",
-            "clip": {"video_id": "video1", "start_s": 0.0, "end_s": 5.0},
+            "clips": [{"video_id": "video1", "start_s": 0.0, "end_s": 5.0}],
             "frames": [
                 {
                     "video_id": "video1",
@@ -89,9 +83,7 @@ def test_ocr_request_prefers_specific_frame_inputs_over_clip_context():
         }
     )
 
-    assert request.frame is not None
     assert request.frames[0].timestamp_s == 2.5
-    assert request.clip is None
     assert request.clips == []
 
 
@@ -118,7 +110,7 @@ def test_execution_plan_normalizes_string_step_ids():
                 "tool_name": "frame_retriever",
                 "purpose": "Pick a representative frame from the grounded clip.",
                 "arguments": {"query": "raised hand"},
-                "input_refs": [{"target_field": "clip", "source": {"step_id": "step_1", "field_path": "clips.0"}}],
+                "input_refs": [{"target_field": "clips", "source": {"step_id": "step_1", "field_path": "clips.0"}}],
                 "depends_on": ["step_1"],
             },
         ],

@@ -1,5 +1,16 @@
+import pytest
+
 from video_trace_pipeline.orchestration.plan_normalizer import ExecutionPlanNormalizer
-from video_trace_pipeline.schemas import ExecutionPlan, FrameRetrieverRequest, GenericPurposeRequest, OCRRequest, PlanStep, TaskSpec, VisualTemporalGrounderRequest
+from video_trace_pipeline.schemas import (
+    ASRRequest,
+    ExecutionPlan,
+    FrameRetrieverRequest,
+    GenericPurposeRequest,
+    OCRRequest,
+    PlanStep,
+    TaskSpec,
+    VisualTemporalGrounderRequest,
+)
 
 
 class _Adapter(object):
@@ -14,6 +25,7 @@ class _Registry(object):
             "frame_retriever": _Adapter(FrameRetrieverRequest),
             "ocr": _Adapter(OCRRequest),
             "generic_purpose": _Adapter(GenericPurposeRequest),
+            "asr": _Adapter(ASRRequest),
         }
 
     def get_adapter(self, tool_name):
@@ -50,9 +62,9 @@ def test_plan_normalizer_orders_steps_topologically_and_remaps_dependencies():
                 step_id=2,
                 tool_name="frame_retriever",
                 purpose=" Grab readable frames. ",
-                arguments={"k": 2, "prompt": "Best chart frame."},
+                arguments={"num_frames": 2, "query": "Best chart frame."},
                 input_refs=[
-                    {"target_field": "clip", "source": {"step_id": 1, "field_path": "clips"}},
+                    {"target_field": "clips", "source": {"step_id": 1, "field_path": "clips"}},
                 ],
                 depends_on=[1],
             ),
@@ -60,7 +72,7 @@ def test_plan_normalizer_orders_steps_topologically_and_remaps_dependencies():
                 step_id=3,
                 tool_name="ocr",
                 purpose=" Read the chart. ",
-                arguments={"prompt": "Extract chart text."},
+                arguments={"query": "Extract chart text."},
                 input_refs=[
                     {"target_field": "frames", "source": {"step_id": 2, "field_path": "frames"}},
                 ],
@@ -96,10 +108,10 @@ def test_plan_normalizer_orders_steps_topologically_and_remaps_dependencies():
     assert normalized.steps[3].input_refs[0].source.step_id == 3
 
 
-def test_plan_normalizer_maps_aliases_and_coerces_plural_fields_to_lists():
+def test_plan_normalizer_rejects_noncanonical_argument_aliases():
     normalizer = ExecutionPlanNormalizer(_Registry())
     plan = ExecutionPlan(
-        strategy="Normalize aliases.",
+        strategy="Reject aliases.",
         use_summary=True,
         steps=[
             PlanStep(
@@ -114,15 +126,18 @@ def test_plan_normalizer_maps_aliases_and_coerces_plural_fields_to_lists():
         refinement_instructions="",
     )
 
-    normalized = normalizer.normalize(_task(), plan)
+    try:
+        normalizer.normalize(_task(), plan)
+    except ValueError as exc:
+        assert "unexpected argument" in str(exc)
+    else:
+        raise AssertionError("Expected plan normalization to reject argument aliases.")
 
-    assert normalized.steps[0].arguments == {"query": "Answer.", "text_contexts": ["line 1", "line 2"]}
 
-
-def test_plan_normalizer_preserves_additional_plural_aliases():
+def test_plan_normalizer_rejects_noncanonical_plural_aliases():
     normalizer = ExecutionPlanNormalizer(_Registry())
     plan = ExecutionPlan(
-        strategy="Normalize generic-purpose aliases.",
+        strategy="Reject generic-purpose aliases.",
         use_summary=True,
         steps=[
             PlanStep(
@@ -137,19 +152,18 @@ def test_plan_normalizer_preserves_additional_plural_aliases():
         refinement_instructions="",
     )
 
-    normalized = normalizer.normalize(_task(), plan)
+    try:
+        normalizer.normalize(_task(), plan)
+    except ValueError as exc:
+        assert "unexpected argument" in str(exc)
+    else:
+        raise AssertionError("Expected plan normalization to reject plural aliases.")
 
-    assert normalized.steps[0].arguments == {
-        "evidence_ids": ["ev_1"],
-        "query": "Answer.",
-        "text_contexts": ["line 1"],
-    }
 
-
-def test_plan_normalizer_promotes_time_hint_bindings_to_time_hints():
+def test_plan_normalizer_rejects_noncanonical_input_ref_target_fields():
     normalizer = ExecutionPlanNormalizer(_Registry())
     plan = ExecutionPlan(
-        strategy="Normalize frame retriever bindings.",
+        strategy="Reject non-canonical input_ref fields.",
         use_summary=True,
         steps=[
             PlanStep(
@@ -174,10 +188,8 @@ def test_plan_normalizer_promotes_time_hint_bindings_to_time_hints():
         refinement_instructions="",
     )
 
-    normalized = normalizer.normalize(_task(), plan)
-
-    assert [step.tool_name for step in normalized.steps] == ["generic_purpose", "frame_retriever"]
-    assert normalized.steps[1].input_refs[0].target_field == "time_hints"
+    with pytest.raises(ValueError, match="unexpected input_ref target_field"):
+        normalizer.normalize(_task(), plan)
 
 
 def test_plan_normalizer_infers_dependencies_from_input_refs_and_reorders_steps():
@@ -215,17 +227,17 @@ def test_plan_normalizer_infers_dependencies_from_input_refs_and_reorders_steps(
     assert normalized.steps[1].input_refs[0].source.step_id == 1
 
 
-def test_plan_normalizer_rejects_context_free_generic_reuse_followup():
+def test_plan_normalizer_rejects_context_free_generic_purpose_step():
     normalizer = ExecutionPlanNormalizer(_Registry())
     plan = ExecutionPlan(
-        strategy="Reject detached reuse followups.",
+        strategy="Reject detached generic-purpose steps.",
         use_summary=True,
         steps=[
             PlanStep(
                 step_id=1,
                 tool_name="generic_purpose",
-                purpose="Inspect the previously retrieved frames and answer the question.",
-                arguments={"query": "Use the previously retrieved frames to decide the answer."},
+                purpose="Inspect the chart and answer the question.",
+                arguments={"query": "Determine the answer from the chart."},
                 input_refs=[],
                 depends_on=[],
             ),
@@ -236,6 +248,152 @@ def test_plan_normalizer_rejects_context_free_generic_reuse_followup():
     try:
         normalizer.normalize(_task(), plan)
     except ValueError as exc:
-        assert "context-free generic_purpose reuse follow-up" in str(exc)
+        assert "context-free generic_purpose request" in str(exc)
     else:
-        raise AssertionError("Expected plan normalization to reject detached generic reuse follow-up.")
+        raise AssertionError("Expected plan normalization to reject detached generic-purpose requests.")
+
+
+def test_plan_normalizer_rejects_asr_text_binding_into_generic_purpose():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Use ASR output structurally.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="asr",
+                purpose="Transcribe the spoken dialogue.",
+                arguments={"clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 30.0}]},
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="generic_purpose",
+                purpose="Answer from the transcript.",
+                arguments={"query": "Use the transcript to answer."},
+                input_refs=[
+                    {"target_field": "text_contexts", "source": {"step_id": 1, "field_path": "text"}},
+                ],
+                depends_on=[1],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    try:
+        normalizer.normalize(_task(), plan)
+    except ValueError as exc:
+        assert "must bind ASR output to generic_purpose via transcripts -> transcripts" in str(exc)
+    else:
+        raise AssertionError("Expected plan normalization to reject ASR text -> text_contexts binding.")
+
+
+def test_plan_normalizer_keeps_retrieval_query_verbatim():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    task = TaskSpec(
+        benchmark="adhoc",
+        sample_key="sample1",
+        question="Which scene is relevant to the question?",
+        options=["Styled like Einstein", "Wearing a helmet"],
+        video_path="video.mp4",
+    )
+    plan = ExecutionPlan(
+        strategy="Avoid answer-option leakage.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="visual_temporal_grounder",
+                purpose="Locate the relevant moment.",
+                arguments={"query": "Locate the relevant man styled like Einstein in the scene."},
+                input_refs=[],
+                depends_on=[],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    normalized = normalizer.normalize(task, plan)
+
+    assert normalized.steps[0].arguments["query"] == "Locate the relevant man styled like Einstein in the scene."
+
+
+def test_plan_normalizer_keeps_asr_windows_verbatim_even_with_preprocess_memory():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    task = TaskSpec(
+        benchmark="adhoc",
+        sample_key="sample1",
+        question="Was the brother a premature baby?",
+        options=["yes", "no"],
+        video_path="video.mp4",
+    )
+    plan = ExecutionPlan(
+        strategy="Ground the answer from audio and speech.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="visual_temporal_grounder",
+                purpose="Find the relevant crash-like sound.",
+                arguments={"query": "repeated crashing or banging sounds from waves hitting a ship hull or bow"},
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="asr",
+                purpose="Read the nearby dialogue.",
+                arguments={"clips": [{"video_id": "sample1", "start_s": 59.0, "end_s": 116.5}]},
+                input_refs=[],
+                depends_on=[],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    normalized = normalizer.normalize(
+        task,
+        plan,
+        preprocess_planning_memory={
+            "identity_memory": [{"label": "Mary", "kind": "speaker_id"}],
+            "audio_event_memory": [{"label": "crashing or banging sounds"}],
+        },
+    )
+
+    steps_by_tool = {step.tool_name: step for step in normalized.steps}
+
+    assert steps_by_tool["visual_temporal_grounder"].arguments["query"] == (
+        "repeated crashing or banging sounds from waves hitting a ship hull or bow"
+    )
+    assert steps_by_tool["asr"].arguments["clips"][0]["start_s"] == 59.0
+    assert steps_by_tool["asr"].arguments["clips"][0]["end_s"] == 116.5
+
+
+def test_plan_normalizer_rejects_transcript_payloads_inside_text_contexts():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Reject transcript payload aliases.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="generic_purpose",
+                purpose="Answer from the transcript.",
+                arguments={
+                    "query": "Use transcript evidence.",
+                    "text_contexts": [{"clip": {"video_id": "sample1", "start_s": 0.0, "end_s": 5.0}, "text": "hello"}],
+                },
+                input_refs=[],
+                depends_on=[],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    try:
+        normalizer.normalize(_task(), plan)
+    except ValueError as exc:
+        assert "transcript payloads via text_contexts" in str(exc)
+    else:
+        raise AssertionError("Expected plan normalization to reject transcript payloads in text_contexts.")

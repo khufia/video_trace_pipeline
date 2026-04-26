@@ -108,14 +108,14 @@ def test_visual_temporal_grounder_prefilter_is_disabled_in_code():
     assert metadata["reason"] == "prefilter_disabled_in_code"
 
 
-def test_progress_distinguishes_summary_context_from_plan_use_summary():
+def test_progress_reports_preprocess_context_without_summary_flag():
     console = Console(record=True, width=160)
     reporter = LiveRunReporter(console)
 
     reporter.on_round_start(
         round_index=1,
         planning_mode="refine",
-        use_summary=True,
+        preprocess_context=True,
         retrieved_count=0,
     )
     reporter.on_planner(
@@ -129,14 +129,14 @@ def test_progress_distinguishes_summary_context_from_plan_use_summary():
     )
 
     rendered = console.export_text()
-    assert "summary_context=True" in rendered
-    assert "plan_use_summary: False" in rendered
+    assert "preprocess_context=True" in rendered
+    assert "plan_use_summary" not in rendered
 
 
 def test_progress_prints_frame_cache_and_request_file(tmp_path):
     console = Console(record=True, width=180)
     reporter = LiveRunReporter(console)
-    (tmp_path / "request_full.json").write_text("{\"tool_name\": \"frame_retriever\"}\n", encoding="utf-8")
+    (tmp_path / "request.json").write_text("{\"tool_name\": \"frame_retriever\"}\n", encoding="utf-8")
     (tmp_path / "runtime.json").write_text(
         "{\"model_name\": \"Qwen/Qwen3-VL-Embedding-8B\", \"resolved_model_path\": \"/tmp/qwen3-vl-embedding\"}\n",
         encoding="utf-8",
@@ -165,7 +165,7 @@ def test_progress_prints_frame_cache_and_request_file(tmp_path):
     assert "result_cache_hit=False" in rendered
     assert "frame_cache: dense_frames=362 | bounded_frames=10 | frame_cache_hit=True | embedding_cache_ready=True" in rendered
     assert "request_file: %s" % (tmp_path / "request.json") in rendered
-    assert "request_full_file: %s" % (tmp_path / "request_full.json") in rendered
+    assert "request_file: %s" % (tmp_path / "request.json") in rendered
     assert "runtime_file: %s" % (tmp_path / "runtime.json") in rendered
     assert "model: Qwen/Qwen3-VL-Embedding-8B -> /tmp/qwen3-vl-embedding" in rendered
 
@@ -198,6 +198,45 @@ def test_progress_trace_prints_inference_time_anchors():
 
     rendered = console.export_text()
     assert "1. The repeated place name is Alaska Airlines. [2.377s to 41.847s]" in rendered
+
+
+def test_progress_trace_prints_full_text_and_evidence_entries():
+    console = Console(record=True, width=220)
+    reporter = LiveRunReporter(console)
+    long_text = (
+        "Scrubby did produce writing marks rather than merely moving around because the visuals show "
+        "a blue line being drawn and the robot writing an H or part of it, while the overlay says it did write poorly."
+    )
+
+    reporter.on_trace(
+        round_index=1,
+        trace_payload={
+            "inference_steps": [
+                {
+                    "step_id": 1,
+                    "text": long_text,
+                    "supporting_observation_ids": ["obs_1"],
+                }
+            ],
+            "evidence_entries": [
+                {
+                    "evidence_id": "ev_1",
+                    "evidence_text": "The transcript explicitly says, \"So we swapped the eraser for a pen, and it did write poorly.\"",
+                    "time_start_s": 58.0,
+                    "time_end_s": 64.0,
+                    "observation_ids": ["obs_1"],
+                }
+            ],
+            "final_answer": "A. The handwriting is very poor.",
+        },
+    )
+
+    rendered = console.export_text()
+    assert long_text in rendered
+    assert "..." not in rendered
+    assert "evidence:" in rendered
+    assert 'ev_1 [58s to 64s]: The transcript explicitly says, "So we swapped the eraser for a pen, and it did write poorly."' in rendered
+    assert "final_answer: A. The handwriting is very poor." in rendered
 
 
 def test_progress_formats_integer_audit_scores_without_decimals():

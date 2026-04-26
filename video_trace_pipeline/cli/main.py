@@ -8,14 +8,13 @@ import typer
 from rich.console import Console
 
 from ..benchmarks import get_benchmark_adapter
-from ..common import sanitize_path_component, short_hash
+from ..common import sanitize_path_component, short_hash, write_json
 from ..config import load_machine_profile, load_models_config
 from ..diagnostics import dataset_report, model_report, package_report, summarize_status
 from ..orchestration import PipelineRunner
 from ..renderers import export_trace_for_benchmark, write_run_debug_bundle
 from ..schemas import TaskSpec, TracePackage
-from ..storage import EvidenceLedger, RunContext, WorkspaceManager
-from ..tool_wrappers.persistent_pool import normalize_persist_tool_name
+from ..storage import EvidenceLedger, RunContext
 from .progress import LiveRunReporter
 
 app = typer.Typer(help="Video Trace Pipeline CLI")
@@ -96,7 +95,7 @@ def _parse_tool_names(tool_names_text: Optional[str]) -> List[str]:
     normalized = []
     seen = set()
     for item in values:
-        name = normalize_persist_tool_name(item)
+        name = str(item or "").strip()
         if not name or name in seen:
             continue
         seen.add(name)
@@ -462,7 +461,6 @@ def run(
     clip_duration: Optional[float] = typer.Option(None, help="Dense-caption clip duration in seconds"),
     max_rounds: int = typer.Option(3, help="Maximum generation/refinement rounds"),
     initial_trace_path: Optional[str] = typer.Option(None, help="Optional initial trace package JSON"),
-    results_name: Optional[str] = typer.Option(None, help="Optional repo-local results directory name"),
     workspace_root: Optional[str] = typer.Option(None, help="Override workspace root"),
     persist_tool_models: Optional[str] = typer.Option(
         None,
@@ -508,20 +506,9 @@ def run(
                 max_rounds=max_rounds,
                 clip_duration_s=clip_duration,
                 initial_trace_path=initial_trace_path,
-                results_name=results_name,
                 progress_reporter=progress_reporter,
             )
-            if result.get("exported_results_dir"):
-                console.print(
-                    "[green]run[/green]",
-                    task.sample_key,
-                    "->",
-                    result["run_dir"],
-                    "exported=",
-                    result["exported_results_dir"],
-                )
-            else:
-                console.print("[green]run[/green]", task.sample_key, "->", result["run_dir"])
+            console.print("[green]run[/green]", task.sample_key, "->", result["run_dir"])
     finally:
         runner.close()
 
@@ -537,15 +524,14 @@ def audit(
     try:
         run_path = Path(run_dir).expanduser().resolve()
         manifest = _read_json(run_path / "run_manifest.json")
-        trace_package = _read_json(run_path / "trace" / "trace_package.json")
+        trace_package = _read_json(run_path / "trace_package.json")
         task_payload = manifest["task"]
         task_payload["video_path"] = task_payload.get("video_path") or "<redacted>"
         task = TaskSpec.parse_obj(task_payload)
         evidence_ledger = EvidenceLedger(
             RunContext(
-                workspace_root=run_path.parents[3],
-                benchmark=manifest["benchmark"],
-                sample_key=manifest["sample_key"],
+                workspace_root=run_path.parents[2],
+                video_id=manifest.get("video_id") or task_payload.get("video_id") or manifest["sample_key"],
                 run_id=manifest["run_id"],
             )
         )
@@ -554,12 +540,10 @@ def audit(
             "observation_count": len(evidence_ledger.observations()),
             "recent_observations": evidence_ledger.observations()[-20:],
         }
-        raw, report = runner.auditor.audit(task, trace_package, evidence_summary)
-        (run_path / "auditor" / "manual_audit_raw.txt").write_text(raw, encoding="utf-8")
-        (run_path / "auditor" / "manual_audit_report.json").write_text(
-            json.dumps(report.dict(), ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
-        )
+        request = runner.auditor.build_request(task, trace_package, evidence_summary)
+        write_json(run_path / "manual_audit_request.json", request)
+        _, report = runner.auditor.complete_request(request)
+        write_json(run_path / "manual_audit_report.json", report.dict())
         console.print("[green]audit[/green]", run_path)
     finally:
         runner.close()
@@ -571,12 +555,12 @@ def export(
 ):
     run_path = Path(run_dir).expanduser().resolve()
     manifest = _read_json(run_path / "run_manifest.json")
-    trace_package = _read_json(run_path / "trace" / "trace_package.json")
+    trace_package = _read_json(run_path / "trace_package.json")
     task_payload = manifest["task"]
     task_payload["video_path"] = task_payload.get("video_path") or "<redacted>"
     task = TaskSpec.parse_obj(task_payload)
     export_payload = export_trace_for_benchmark(manifest["benchmark"], task, trace_package)
-    output_path = run_path / "results" / "benchmark_export.json"
+    output_path = run_path / "benchmark_export.json"
     output_path.write_text(json.dumps(export_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     console.print("[green]export[/green]", output_path)
 

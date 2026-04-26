@@ -67,7 +67,7 @@ def test_frame_retriever_runner_reports_cache_metadata(monkeypatch):
         lambda: {
             "request": {
                 "query": "best frame",
-                "clip": {"start_s": 159.0, "end_s": 168.0},
+                "clips": [{"start_s": 159.0, "end_s": 168.0}],
                 "num_frames": 1,
             },
             "task": {},
@@ -101,7 +101,7 @@ def test_frame_retriever_runner_uses_time_hints_without_query(monkeypatch):
         "load_request",
         lambda: {
             "request": {
-                "clip": {"start_s": 159.0, "end_s": 168.0},
+                "clips": [{"start_s": 159.0, "end_s": 168.0}],
                 "time_hints": ["start of the localized utterance"],
                 "num_frames": 1,
             },
@@ -128,7 +128,7 @@ def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 
     def _fake_execute_single(request, context):
-        clip = request.clip.dict()
+        clip = request.clips[0].dict()
         start_s = float(clip["start_s"])
         bounded_count = 10 if start_s < 100.0 else 8
         return ToolResult(
@@ -180,7 +180,7 @@ def test_frame_retriever_process_adapter_globally_reranks_multi_clip_frames(monk
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 
     def _fake_execute_single(request, context):
-        clip = request.clip.dict()
+        clip = request.clips[0].dict()
         start_s = float(clip["start_s"])
         if start_s < 100.0:
             frames = [
@@ -384,7 +384,7 @@ def test_frame_retriever_process_adapter_runs_persisted_payload_without_releasin
     )
 
     payload = {
-        "request": {"tool_name": "frame_retriever", "query": "chart", "clip": {"start_s": 1.0, "end_s": 2.0}},
+        "request": {"tool_name": "frame_retriever", "query": "chart", "clips": [{"start_s": 1.0, "end_s": 2.0}]},
         "task": {"video_id": "video-1", "video_path": "/tmp/video.mp4"},
         "runtime": {"model_name": "Qwen/Qwen3-VL-Embedding-8B"},
     }

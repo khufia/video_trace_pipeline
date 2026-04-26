@@ -15,7 +15,7 @@ TOOL_PURPOSES = {
     "asr": "Transcribe speech in a clip, ideally with timestamps and speaker attribution.",
     "dense_captioner": "Summarize a bounded clip with dense visual/audio descriptions and on-screen text hints.",
     "ocr": "Read visible text or numbers from a frame or localized region.",
-    "spatial_grounder": "Locate an object, entity, chart region, or visual target in a frame.",
+    "spatial_grounder": "Localize the answer-critical object, person, mark, or region inside already retrieved frame(s), especially when multiple same-type candidates appear.",
     "generic_purpose": "Perform targeted multimodal extraction or evidence-conditioned reasoning when no narrower tool fits.",
 }
 

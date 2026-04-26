@@ -1,24 +1,21 @@
 import json
 
-from video_trace_pipeline.common import append_jsonl, ensure_dir, write_json, write_text
+from video_trace_pipeline.common import append_jsonl, ensure_dir, write_json
 from video_trace_pipeline.renderers import build_run_debug_payload, write_run_debug_bundle
 
 
-def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
-    run_dir = tmp_path / "runs" / "videomathqa" / "sample1" / "20260423T000000Z_test"
-    ensure_dir(run_dir / "planner")
-    ensure_dir(run_dir / "synthesizer")
-    ensure_dir(run_dir / "auditor")
-    ensure_dir(run_dir / "tools" / "01_generic_purpose")
+def test_write_run_debug_bundle_writes_json_only_payloads(tmp_path):
+    run_dir = tmp_path / "runs" / "video1" / "20260423T000000Z_test"
+    ensure_dir(run_dir / "round_01" / "tools" / "01_generic_purpose")
     ensure_dir(run_dir / "evidence")
-    ensure_dir(run_dir / "trace")
-    ensure_dir(run_dir / "results")
+    ensure_dir(run_dir / "debug")
 
     write_json(
         run_dir / "run_manifest.json",
         {
             "benchmark": "videomathqa",
             "sample_key": "sample1",
+            "video_id": "video1",
             "run_id": "20260423T000000Z_test",
             "mode": "generate",
             "task": {
@@ -31,14 +28,14 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
         },
     )
     write_json(
-        run_dir / "results" / "final_result.json",
+        run_dir / "final_result.json",
         {
             "audit_report": {"verdict": "FAIL", "feedback": "Need a grounded whole-figure count."},
             "rounds_executed": 1,
         },
     )
     write_json(
-        run_dir / "trace" / "trace_package.json",
+        run_dir / "trace_package.json",
         {
             "task_key": "sample1",
             "mode": "generate",
@@ -57,8 +54,6 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
             "metadata": {},
         },
     )
-    write_text(run_dir / "trace" / "trace_readable.md", "# Trace\n")
-    write_text(run_dir / "evidence" / "evidence_readable.md", "# Evidence\n")
     append_jsonl(
         run_dir / "evidence" / "evidence_index.jsonl",
         [{"evidence_id": "ev_1", "tool_name": "generic_purpose", "evidence_text": "Three squares.", "observation_ids": []}],
@@ -68,7 +63,11 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
         [{"observation_id": "obs_1", "source_tool": "generic_purpose", "subject": "figure", "predicate": "shows"}],
     )
     write_json(
-        run_dir / "planner" / "round_01_plan.json",
+        run_dir / "round_01" / "planner_request.json",
+        {"system_prompt": "planner", "user_prompt": "plan the task"},
+    )
+    write_json(
+        run_dir / "round_01" / "planner_plan.json",
         {
             "strategy": "Inspect the final figure.",
             "steps": [
@@ -82,9 +81,12 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
             "refinement_instructions": "",
         },
     )
-    write_text(run_dir / "planner" / "round_01_raw.txt", "planner raw")
     write_json(
-        run_dir / "synthesizer" / "round_01_trace_package.json",
+        run_dir / "round_01" / "synthesizer_request.json",
+        {"system_prompt": "synth", "user_prompt": "write the trace"},
+    )
+    write_json(
+        run_dir / "round_01" / "synthesizer_trace_package.json",
         {
             "task_key": "sample1",
             "mode": "generate",
@@ -103,9 +105,12 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
             "metadata": {},
         },
     )
-    write_text(run_dir / "synthesizer" / "round_01_raw.txt", "trace raw")
     write_json(
-        run_dir / "auditor" / "round_01_report.json",
+        run_dir / "round_01" / "auditor_request.json",
+        {"system_prompt": "audit", "user_prompt": "audit the trace"},
+    )
+    write_json(
+        run_dir / "round_01" / "auditor_report.json",
         {
             "verdict": "FAIL",
             "confidence": 0.9,
@@ -121,13 +126,12 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
             ],
         },
     )
-    write_text(run_dir / "auditor" / "round_01_raw.txt", "audit raw")
     write_json(
-        run_dir / "tools" / "01_generic_purpose" / "request_full.json",
+        run_dir / "round_01" / "tools" / "01_generic_purpose" / "request.json",
         {"tool_name": "generic_purpose", "query": "count triangles", "frames": [{"timestamp_s": 99.0}]},
     )
     write_json(
-        run_dir / "tools" / "01_generic_purpose" / "result.json",
+        run_dir / "round_01" / "tools" / "01_generic_purpose" / "result.json",
         {
             "tool_name": "generic_purpose",
             "ok": True,
@@ -136,41 +140,22 @@ def test_write_run_debug_bundle_creates_readable_report_and_csv(tmp_path):
             "metadata": {"observation_ids": ["obs_1"]},
         },
     )
-    write_json(run_dir / "tools" / "01_generic_purpose" / "timing.json", {"execution_mode": "executed", "duration_s": 3.5})
-    write_text(run_dir / "tools" / "01_generic_purpose" / "summary.md", "The model counted the single-square case only.")
-    write_json(run_dir / "tools" / "01_generic_purpose" / "artifact_refs.json", {"artifact_refs": []})
+    write_json(run_dir / "round_01" / "tools" / "01_generic_purpose" / "timing.json", {"execution_mode": "executed", "duration_s": 3.5})
+    write_json(run_dir / "round_01" / "tools" / "01_generic_purpose" / "runtime.json", {"model_name": "gpt-5.4"})
+    write_json(run_dir / "round_01" / "tools" / "01_generic_purpose" / "artifact_refs.json", [])
+    write_json(run_dir / "round_01" / "tools" / "01_generic_purpose" / "observations.json", [{"observation_id": "obs_1"}])
 
     payload = build_run_debug_payload(run_dir)
     assert payload["result"]["latest_audit_verdict"] == "FAIL"
     assert payload["tool_steps"][0]["tool_name"] == "generic_purpose"
     assert payload["rounds"][0]["trace_inference_steps"][0]["time_start_s"] == 12.0
 
-    report_path = write_run_debug_bundle(run_dir)
+    overview_path = write_run_debug_bundle(run_dir)
 
-    assert report_path.exists()
-    report_text = report_path.read_text(encoding="utf-8")
-    assert "Run Debug Report" in report_text
-    assert "How many triangles are shown?" in report_text
-    assert "Round 01" in report_text
-    assert "generic_purpose" in report_text
-    assert "plan summary" in report_text
-    assert "audit readable" in report_text
-
-    csv_text = (run_dir / "debug" / "tool_steps.csv").read_text(encoding="utf-8")
-    assert "tool_dir,tool_name,ok,cache_hit" in csv_text
-    assert "01_generic_purpose,generic_purpose,True,False" in csv_text
-
-    root_readme = (run_dir / "README.md").read_text(encoding="utf-8")
-    assert "Run Overview" in root_readme
-    assert "results/final_result_readable.md" in root_readme
-    assert "[12s to 15s]" in root_readme
-    assert (run_dir / "planner" / "round_01_summary.md").exists()
-    assert (run_dir / "synthesizer" / "round_01_trace_readable.md").exists()
-    assert (run_dir / "auditor" / "round_01_report_readable.md").exists()
-    assert (run_dir / "results" / "final_result_readable.md").exists()
-    assert "The answer only covers a partial case." in (run_dir / "auditor" / "round_01_report_readable.md").read_text(
-        encoding="utf-8"
-    )
-
-    overview = json.loads((run_dir / "debug" / "overview.json").read_text(encoding="utf-8"))
+    assert overview_path.exists()
+    overview = json.loads(overview_path.read_text(encoding="utf-8"))
     assert overview["evidence_summary"]["evidence_entry_count"] == 1
+    assert overview["rounds"][0]["planner_plan_path"] == "round_01/planner_plan.json"
+    assert overview["tool_steps"][0]["request_path"] == "round_01/tools/01_generic_purpose/request.json"
+    assert (run_dir / "debug" / "tool_steps.json").exists()
+    assert (run_dir / "debug" / "rounds.json").exists()

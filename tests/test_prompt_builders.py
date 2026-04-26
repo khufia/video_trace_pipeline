@@ -4,6 +4,7 @@ from video_trace_pipeline.prompts import (
     SYNTHESIZER_SYSTEM_PROMPT,
     build_auditor_prompt,
     build_planner_prompt,
+    build_synthesizer_prompt,
     render_tool_catalog,
 )
 from video_trace_pipeline.schemas import (
@@ -31,12 +32,31 @@ def test_build_planner_prompt_formats_diagnosis_for_original_style_planning():
     prompt = build_planner_prompt(
         task=_task(),
         mode="refine",
-        summary_text="A person shows several charts on screen.",
+        planner_segments=[
+            {
+                "start_s": 0.0,
+                "end_s": 12.0,
+                "dense_caption_spans": [
+                    {
+                        "start_s": 2.0,
+                        "end_s": 10.0,
+                        "visual": "A person shows several charts on screen.",
+                        "on_screen_text": ["Sales", "Growth"],
+                    }
+                ],
+                "transcript_spans": [
+                    {
+                        "start_s": 4.0,
+                        "end_s": 6.0,
+                        "text": "This slide compares the latest numbers.",
+                    }
+                ],
+            }
+        ],
         compact_rounds=[],
         retrieved_observations=[],
-        current_trace_cues=["quoted cue from prior trace", "metallic bang near the doorway"],
         preprocess_planning_memory={
-            "identity_memory": [{"label": "Phil", "kind": "named_anchor", "time_ranges": [{"start_s": 12.0, "end_s": 15.0}]}],
+            "identity_memory": [{"label": "Phil", "kind": "speaker_id", "time_ranges": [{"start_s": 12.0, "end_s": 15.0}]}],
             "audio_event_memory": [{"label": "metallic bang", "time_ranges": [{"start_s": 14.0, "end_s": 15.0}]}],
         },
         audit_feedback={
@@ -71,34 +91,29 @@ def test_build_planner_prompt_formats_diagnosis_for_original_style_planning():
     assert prompt.index('"winning series value"') < prompt.index('"exact chart label"')
     assert prompt.index('"severity": "HIGH"') < prompt.index('"severity": "LOW"')
     assert prompt.index('"ev_a"') < prompt.index('"ev_b"')
-    assert "Use `missing_information` inside DIAGNOSIS as the canonical ordered repair-target list" in prompt
-    assert "CURRENT_TRACE_CUES:" in prompt
-    assert '"metallic bang near the doorway"' in prompt
     assert "PREPROCESS_PLANNING_MEMORY:" in prompt
     assert '"label": "Phil"' in prompt
-    assert "VIDEO_CAPTION_SUMMARY:" in prompt
+    assert "PREPROCESS_SEGMENTS:" in prompt
+    assert "VIDEO_CAPTION_SUMMARY:" not in prompt
+    assert "exact-anchor continuity memory only" in prompt
+    assert "CURRENT_TRACE_CUES:" not in prompt
+    assert "- use_summary: boolean" not in prompt
+    assert "they are not automatically complete support" in prompt
 
 
 def test_planner_system_prompt_uses_original_style_repair_decomposition():
-    assert "Read DIAGNOSIS as a repair specification, not just a warning." in PLANNER_SYSTEM_PROMPT
-    assert "Create the fewest tool calls that directly resolve the diagnosed evidence gaps." in PLANNER_SYSTEM_PROMPT
-    assert "For identical prompt inputs" not in PLANNER_SYSTEM_PROMPT
-    assert "Consult `AVAILABLE_TOOLS` for canonical argument names, top-level output fields, and the dynamically rendered request/output schemas." in PLANNER_SYSTEM_PROMPT
-    assert "Use it when explicit text must be read or detected from a grounded frame or region." in PLANNER_SYSTEM_PROMPT
-    assert "prefer `generic_purpose` for the frame analysis itself" in PLANNER_SYSTEM_PROMPT
-    assert "common pattern is `visual_temporal_grounder -> frame_retriever -> generic_purpose`" in PLANNER_SYSTEM_PROMPT
-    assert "Never use `0`, `retrieved_observations`, prior rounds, audit objects, or any other pseudo-source as a step id." in PLANNER_SYSTEM_PROMPT
-    assert "cross-clip identity anchors and non-speech audio cues" in PLANNER_SYSTEM_PROMPT
-    assert "Do not rely on wording like \"previously retrieved frames\"" in PLANNER_SYSTEM_PROMPT
-    assert "do not anchor on a shorter token nested inside a longer repeated phrase" in PLANNER_SYSTEM_PROMPT
-    assert "localize the grounded sound or event itself" in PLANNER_SYSTEM_PROMPT
-    assert "answer-option" in PLANNER_SYSTEM_PROMPT
-    assert "do not split near-synonyms" in PLANNER_SYSTEM_PROMPT
-    assert "a visible bottle, door, or switch does not by itself" in PLANNER_SYSTEM_PROMPT
-    assert "prove empty/full/open/closed/on/off" in PLANNER_SYSTEM_PROMPT
-    assert "Validate the earliest supported moment first" in PLANNER_SYSTEM_PROMPT
-    assert "Do not let diagnosis wording silently redefine the task." in PLANNER_SYSTEM_PROMPT
-    assert 'emit free-form "ambiguous/non-unique" wording' in PLANNER_SYSTEM_PROMPT
+    assert "Your job is NOT to answer the question and NOT to rewrite the trace." in PLANNER_SYSTEM_PROMPT
+    assert "Use `DIAGNOSIS.missing_information` as the canonical ordered gap list when it is present." in PLANNER_SYSTEM_PROMPT
+    assert "There is no alias repair or post-processing." in PLANNER_SYSTEM_PROMPT
+    assert "visual_temporal_grounder -> frame_retriever -> spatial_grounder" in PLANNER_SYSTEM_PROMPT
+    assert "visual_temporal_grounder -> frame_retriever -> spatial_grounder -> ocr" in PLANNER_SYSTEM_PROMPT
+    assert "visual_temporal_grounder -> frame_retriever -> generic_purpose" in PLANNER_SYSTEM_PROMPT
+    assert "pass `transcripts`, not flattened `text_contexts`" in PLANNER_SYSTEM_PROMPT
+    assert "PREPROCESS_PLANNING_MEMORY" in PLANNER_SYSTEM_PROMPT
+    assert "CURRENT_TRACE_CUES" not in PLANNER_SYSTEM_PROMPT
+    assert "dialogue_claim_memory" not in PLANNER_SYSTEM_PROMPT
+    assert "timeline_alignment_memory" not in PLANNER_SYSTEM_PROMPT
+    assert "use_summary" not in PLANNER_SYSTEM_PROMPT
 
 
 def test_build_auditor_prompt_mentions_atomic_missing_information_contract():
@@ -167,6 +182,31 @@ def test_tool_registry_catalog_exposes_request_and_output_fields():
 
 def test_synthesizer_system_prompt_is_closer_to_original_refiner_discipline():
     assert "SURGICAL EDITS, NOT REWRITES." in SYNTHESIZER_SYSTEM_PROMPT
-    assert "This pipeline splits evidence from reasoning:" in SYNTHESIZER_SYSTEM_PROMPT
-    assert "The final `TracePackage` must stand on its own." in SYNTHESIZER_SYSTEM_PROMPT
     assert 'free-form text like "ambiguous/non-unique"' in SYNTHESIZER_SYSTEM_PROMPT
+
+
+def test_synthesizer_prompt_is_round_local_and_audit_directed():
+    prompt = build_synthesizer_prompt(
+        task=_task(),
+        mode="refine",
+        round_evidence_entries=[{"evidence_id": "ev_1", "tool_name": "ocr"}],
+        round_observations=[{"observation_id": "obs_1", "subject": "chart"}],
+        current_trace={"final_answer": "A"},
+        refinement_instructions="Replace the unsupported label claim.",
+        audit_feedback={"missing_information": ["exact chart label"]},
+    )
+
+    assert "PRIOR_AUDIT_DIAGNOSIS:" in prompt
+    assert "ROUND_EVIDENCE_ENTRIES:" in prompt
+    assert "ROUND_ATOMIC_OBSERVATIONS:" in prompt
+    assert "TRACE_WRITING_REQUIREMENTS:" not in prompt
+
+
+def test_prompt_size_metrics_stay_bounded():
+    planner_words = len(PLANNER_SYSTEM_PROMPT.split())
+    synthesizer_words = len(SYNTHESIZER_SYSTEM_PROMPT.split())
+    auditor_words = len(AUDITOR_SYSTEM_PROMPT.split())
+
+    assert planner_words < 2600
+    assert synthesizer_words < 900
+    assert auditor_words < 1700

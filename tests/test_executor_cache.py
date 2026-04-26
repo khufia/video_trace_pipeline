@@ -1,3 +1,5 @@
+import pytest
+
 from video_trace_pipeline.orchestration.executor import PlanExecutor, augment_dependency_output, hydrate_arguments_with_task_context
 from video_trace_pipeline.schemas import (
     AgentConfig,
@@ -70,13 +72,13 @@ class FakeFrameRetrieverAdapter(ToolAdapter):
 
     def parse_request(self, arguments):
         request = super().parse_request(arguments)
-        self.last_clips = list(request.clips or ([request.clip] if request.clip is not None else []))
-        self.last_clip = request.clip or (self.last_clips[0] if self.last_clips else None)
+        self.last_clips = list(request.clips or [])
+        self.last_clip = self.last_clips[0] if self.last_clips else None
         return request
 
     def execute(self, request, context):
         self.calls += 1
-        clips = list(request.clips or ([request.clip] if request.clip is not None else []))
+        clips = list(request.clips or [])
         frames = []
         for index, clip in enumerate(clips or [None]):
             frame = FrameRef(
@@ -105,13 +107,14 @@ class FakeSpatialGrounderAdapter(object):
 
     def parse_request(self, arguments):
         request = self.request_model.parse_obj(arguments)
-        self.last_frame = request.frame
+        self.last_frame = request.frames[0]
         return request
 
     def execute(self, request, context):
         self.calls += 1
+        frame = request.frames[0]
         region = {
-            "frame": request.frame.dict(),
+            "frame": frame.dict(),
             "bbox": [10.0, 20.0, 30.0, 40.0],
             "label": "target",
             "metadata": {"confidence": 0.9},
@@ -120,10 +123,9 @@ class FakeSpatialGrounderAdapter(object):
             tool_name="spatial_grounder",
             ok=True,
             data={
-                "frame": request.frame.dict(),
+                "frames": [frame.dict()],
                 "detections": [{"label": "target", "bbox": [10.0, 20.0, 30.0, 40.0], "confidence": 0.9}],
                 "regions": [region],
-                "region": region,
                 "spatial_description": "Target localized.",
             },
             summary="Spatial grounding succeeded.",
@@ -145,14 +147,23 @@ class FakeASRAdapter(ToolAdapter):
 
     def execute(self, request, context):
         self.calls += 1
-        clip = request.clip
+        clip = request.clips[0]
         return ToolResult(
             tool_name="asr",
             ok=True,
             data={
-                "clip": clip.dict(),
+                "clips": [clip.dict()],
                 "text": "hello world",
                 "segments": [],
+                "transcripts": [
+                    {
+                        "transcript_id": "tx_fake",
+                        "clip": clip.dict(),
+                        "text": "hello world",
+                        "segments": [],
+                        "metadata": {"backend": "fake_asr"},
+                    }
+                ],
                 "backend": "fake_asr",
             },
             summary="ASR succeeded.",
@@ -372,11 +383,11 @@ def test_executor_writes_runtime_file_for_process_style_adapters(tmp_path):
     executor.execute_plan(plan, context, ledger, video_fingerprint="abc123")
 
     runtime_file = run.tool_step_dir(1, "visual_temporal_grounder") / "runtime.json"
-    request_full_file = run.tool_step_dir(1, "visual_temporal_grounder") / "request_full.json"
+    request_file = run.tool_step_dir(1, "visual_temporal_grounder") / "request.json"
     result_file = run.tool_step_dir(1, "visual_temporal_grounder") / "result.json"
     timing_file = run.tool_step_dir(1, "visual_temporal_grounder") / "timing.json"
-    assert request_full_file.exists()
-    assert '"query": "goal"' in request_full_file.read_text(encoding="utf-8")
+    assert request_file.exists()
+    assert '"query": "goal"' in request_file.read_text(encoding="utf-8")
     assert runtime_file.exists()
     assert '"resolved_model_path": "/tmp/timelens-model"' in runtime_file.read_text(encoding="utf-8")
     assert result_file.exists()
@@ -385,7 +396,7 @@ def test_executor_writes_runtime_file_for_process_style_adapters(tmp_path):
     assert '"execution_mode": "executed"' in timing_file.read_text(encoding="utf-8")
 
 
-def test_executor_resolves_clip_alias_and_numeric_path(tmp_path):
+def test_executor_resolves_explicit_clip_paths(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     workspace = WorkspaceManager(profile)
     temporal_adapter = FakeAdapter()
@@ -419,33 +430,6 @@ def test_executor_resolves_clip_alias_and_numeric_path(tmp_path):
         preprocess_bundle={"segments": []},
     )
 
-    alias_plan = ExecutionPlan(
-        strategy="Ground then retrieve a frame.",
-        use_summary=True,
-        steps=[
-            PlanStep(
-                step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find the relevant segment.",
-                arguments={"tool_name": "visual_temporal_grounder", "query": "goal"},
-                input_refs=[],
-                depends_on=[],
-            ),
-            PlanStep(
-                step_id=2,
-                tool_name="frame_retriever",
-                purpose="Get a frame from the first clip.",
-                arguments={"tool_name": "frame_retriever", "query": "goal"},
-                input_refs=[{"target_field": "clip", "source": {"step_id": 1, "field_path": "clip"}}],
-                depends_on=[1],
-            ),
-        ],
-        refinement_instructions="",
-    )
-    executor.execute_plan(alias_plan, context, ledger, video_fingerprint="abc123")
-    assert frame_adapter.last_clip.start_s == 0.0
-    assert frame_adapter.last_clip.end_s == 5.0
-
     numeric_plan = ExecutionPlan(
         strategy="Ground then retrieve a frame.",
         use_summary=True,
@@ -463,7 +447,7 @@ def test_executor_resolves_clip_alias_and_numeric_path(tmp_path):
                 tool_name="frame_retriever",
                 purpose="Get a frame from the first clip.",
                 arguments={"tool_name": "frame_retriever", "query": "goal"},
-                input_refs=[{"target_field": "clip", "source": {"step_id": 1, "field_path": "clips.0"}}],
+                input_refs=[{"target_field": "clips", "source": {"step_id": 1, "field_path": "clips.0"}}],
                 depends_on=[1],
             ),
         ],
@@ -490,7 +474,7 @@ def test_executor_resolves_clip_alias_and_numeric_path(tmp_path):
                 tool_name="frame_retriever",
                 purpose="Get a frame from the first planner-selected segment.",
                 arguments={"tool_name": "frame_retriever", "query": "goal"},
-                input_refs=[{"target_field": "clip", "source": {"step_id": 1, "field_path": "segments[0]"}}],
+                input_refs=[{"target_field": "clips", "source": {"step_id": 1, "field_path": "clips[0]"}}],
                 depends_on=[1],
             ),
         ],
@@ -501,7 +485,7 @@ def test_executor_resolves_clip_alias_and_numeric_path(tmp_path):
     assert frame_adapter.last_clip.end_s == 5.0
 
 
-def test_executor_autofills_frame_from_dependency(tmp_path):
+def test_executor_passes_explicit_frames_into_spatial_grounder(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     workspace = WorkspaceManager(profile)
     temporal_adapter = FakeAdapter()
@@ -553,7 +537,7 @@ def test_executor_autofills_frame_from_dependency(tmp_path):
                 tool_name="frame_retriever",
                 purpose="Get a representative frame.",
                 arguments={"tool_name": "frame_retriever", "query": "highlighted object"},
-                input_refs=[{"target_field": "clip", "source": {"step_id": 1, "field_path": "clip"}}],
+                input_refs=[{"target_field": "clips", "source": {"step_id": 1, "field_path": "clips"}}],
                 depends_on=[1],
             ),
             PlanStep(
@@ -561,7 +545,7 @@ def test_executor_autofills_frame_from_dependency(tmp_path):
                 tool_name="spatial_grounder",
                 purpose="Localize the object in the retrieved frame.",
                 arguments={"tool_name": "spatial_grounder", "query": "Locate the highlighted object"},
-                input_refs=[],
+                input_refs=[{"target_field": "frames", "source": {"step_id": 2, "field_path": "frames"}}],
                 depends_on=[2],
             ),
         ],
@@ -622,8 +606,8 @@ def test_executor_passes_clip_lists_into_frame_retriever(tmp_path):
                 step_id=2,
                 tool_name="frame_retriever",
                 purpose="Retrieve a representative frame from each matched clip.",
-                arguments={"tool_name": "frame_retriever", "query": "goal", "top_k": 2},
-                input_refs=[{"target_field": "clip", "source": {"step_id": 1, "field_path": "clips"}}],
+                arguments={"tool_name": "frame_retriever", "query": "goal", "num_frames": 2},
+                input_refs=[{"target_field": "clips", "source": {"step_id": 1, "field_path": "clips"}}],
                 depends_on=[1],
             ),
         ],
@@ -647,50 +631,15 @@ def test_hydrate_arguments_with_task_context_fills_clip_shape():
         video_path="/tmp/video.mp4",
     )
 
-    hydrated = hydrate_arguments_with_task_context({"clip": {"time_start_s": 0.0, "time_end_s": 5.0}}, task)
-
-    assert hydrated["clip"]["video_id"] == "sample1"
-    assert hydrated["clip"]["start_s"] == 0.0
-    assert hydrated["clip"]["end_s"] == 5.0
-
-
-def test_hydrate_arguments_with_task_context_expands_full_video_clip_shorthand():
-    task = TaskSpec(
-        benchmark="videomathqa",
-        sample_key="sample1",
-        question="What text is visible?",
-        options=[],
-        video_path="/tmp/video.mp4",
-        metadata={"video_duration": 12.5},
-    )
-
-    hydrated = hydrate_arguments_with_task_context({"clip": "full_video", "query": "scoreboard"}, task)
-
-    assert hydrated["clip"]["video_id"] == "sample1"
-    assert hydrated["clip"]["start_s"] == 0.0
-    assert hydrated["clip"]["end_s"] == 12.5
-    assert hydrated["query"] == "scoreboard"
-
-
-def test_hydrate_arguments_with_task_context_expands_full_video_clip_list_shorthand():
-    task = TaskSpec(
-        benchmark="videomathqa",
-        sample_key="sample1",
-        question="What text is visible?",
-        options=[],
-        video_path="/tmp/video.mp4",
-        metadata={"video_duration_s": 12.5},
-    )
-
-    hydrated = hydrate_arguments_with_task_context({"clips": ["full_video"]}, task)
+    hydrated = hydrate_arguments_with_task_context({"clips": [{"time_start_s": 0.0, "time_end_s": 5.0}]}, task)
 
     assert len(hydrated["clips"]) == 1
     assert hydrated["clips"][0]["video_id"] == "sample1"
     assert hydrated["clips"][0]["start_s"] == 0.0
-    assert hydrated["clips"][0]["end_s"] == 12.5
+    assert hydrated["clips"][0]["end_s"] == 5.0
 
 
-def test_executor_defaults_asr_to_full_video_when_clip_is_missing(tmp_path):
+def test_executor_requires_explicit_asr_clips(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     workspace = WorkspaceManager(profile)
     adapter = FakeASRAdapter()
@@ -706,7 +655,6 @@ def test_executor_defaults_asr_to_full_video_when_clip_is_missing(tmp_path):
         question="What is said?",
         options=[],
         video_path=str(tmp_path / "video.mp4"),
-        metadata={"video_duration_s": 12.5},
     )
     (tmp_path / "video.mp4").write_bytes(b"video-bytes")
     run = workspace.create_run(task)
@@ -734,14 +682,10 @@ def test_executor_defaults_asr_to_full_video_when_clip_is_missing(tmp_path):
         refinement_instructions="",
     )
 
-    executor.execute_plan(plan, context, ledger, video_fingerprint="asrfullvideo123")
+    with pytest.raises(ValueError, match="asr requires at least one clip"):
+        executor.execute_plan(plan, context, ledger, video_fingerprint="asrfullvideo123")
 
-    assert adapter.calls == 1
-    assert adapter.last_request is not None
-    assert adapter.last_request.clip is not None
-    assert adapter.last_request.clip.video_id == "sample1"
-    assert adapter.last_request.clip.start_s == 0.0
-    assert adapter.last_request.clip.end_s == 12.5
+    assert adapter.calls == 0
 
 
 def test_executor_does_not_reuse_failed_cached_results(tmp_path):
@@ -771,7 +715,10 @@ def test_executor_does_not_reuse_failed_cached_results(tmp_path):
                 step_id=1,
                 tool_name="asr",
                 purpose="Transcribe the speech in the video.",
-                arguments={"speaker_attribution": False},
+                arguments={
+                    "speaker_attribution": False,
+                    "clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 12.5}],
+                },
                 input_refs=[],
                 depends_on=[],
             )
@@ -818,18 +765,21 @@ def test_executor_does_not_reuse_failed_cached_results(tmp_path):
     assert second_results[0]["result"]["cache_hit"] is False
 
 
-def test_augment_dependency_output_promotes_analysis_and_best_frame():
+def test_augment_dependency_output_returns_payload_unchanged():
     payload = {
         "frames": [{"video_id": "sample1", "timestamp_s": 2.5}],
         "regions": [{"frame": {"video_id": "sample1", "timestamp_s": 2.5}, "label": "puzzle", "bbox": [1, 2, 3, 4]}],
         "response": "Counted 18 triangles.",
+        "clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 5.0}],
+        "text": "hello world",
+        "segments": [{"start_s": 0.0, "end_s": 1.0, "text": "hello"}],
+        "transcripts": [{"transcript_id": "tx_1", "text": "hello world", "segments": []}],
+        "backend": "fake_asr",
     }
 
     augmented = augment_dependency_output(payload)
 
-    assert augmented["best_frame"]["timestamp_s"] == 2.5
-    assert augmented["puzzle_bbox"]["label"] == "puzzle"
-    assert augmented["analysis"] == "Counted 18 triangles."
+    assert augmented == payload
 
 
 def test_executor_merges_duplicate_input_refs_for_plural_targets(tmp_path):
@@ -917,7 +867,7 @@ def test_resolve_arguments_wraps_single_scalar_binding_for_plural_target(tmp_pat
     assert resolved_text["text_contexts"] == ["line one"]
 
 
-def test_executor_autofills_frame_bundle_into_generic_purpose_from_dependency(tmp_path):
+def test_executor_passes_explicit_frame_bundle_into_generic_purpose(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     workspace = WorkspaceManager(profile)
     frame_adapter = FakeFrameRetrieverAdapter()
@@ -961,7 +911,7 @@ def test_executor_autofills_frame_bundle_into_generic_purpose_from_dependency(tm
                 arguments={
                     "tool_name": "frame_retriever",
                     "query": "living room table",
-                    "clip": {"video_id": "sample1", "start_s": 0.0, "end_s": 5.0},
+                    "clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 5.0}],
                 },
                 input_refs=[],
                 depends_on=[],
@@ -971,7 +921,7 @@ def test_executor_autofills_frame_bundle_into_generic_purpose_from_dependency(tm
                 tool_name="generic_purpose",
                 purpose="Inspect the retrieved frames.",
                 arguments={"tool_name": "generic_purpose", "query": "Inspect the retrieved frames."},
-                input_refs=[],
+                input_refs=[{"target_field": "frames", "source": {"step_id": 1, "field_path": "frames"}}],
                 depends_on=[1],
             ),
         ],
@@ -985,7 +935,7 @@ def test_executor_autofills_frame_bundle_into_generic_purpose_from_dependency(tm
     assert generic_adapter.last_request.frames[0].timestamp_s == 2.5
 
 
-def test_executor_seeds_recent_evidence_ids_for_context_free_reuse_followup(tmp_path):
+def test_executor_does_not_seed_recent_evidence_ids_for_context_free_reuse_followup(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     workspace = WorkspaceManager(profile)
     generic_adapter = FakeGenericPurposeAdapter()
@@ -1052,4 +1002,4 @@ def test_executor_seeds_recent_evidence_ids_for_context_free_reuse_followup(tmp_
     executor.execute_plan(plan, context, ledger, video_fingerprint="reusefollowup123")
 
     assert generic_adapter.calls == 1
-    assert generic_adapter.last_request.evidence_ids == ["ev_01_demo", "ev_02_demo"]
+    assert generic_adapter.last_request.evidence_ids == []

@@ -314,9 +314,10 @@ class LocalASRAdapter(ToolAdapter):
         self.extra = dict(extra or {})
 
     def _execute_single(self, request, context):
-        clip = request.clip or (request.clips[0] if getattr(request, "clips", None) else None)
+        clip = request.clips[0] if getattr(request, "clips", None) else None
         if clip is None:
             raise ValueError("ASR requires at least one clip")
+        clip_payload = clip.model_dump()
         start_s, end_s = normalize_clip_bounds(context.task.video_path, clip.start_s, clip.end_s)
         audio_path = None
         try:
@@ -341,20 +342,27 @@ class LocalASRAdapter(ToolAdapter):
                 error_text = str(exc)
                 failed_data = ASROutput.model_validate(
                     {
-                        "clip": clip.model_dump(),
+                        "clips": [clip_payload],
                         "text": "",
                         "segments": [],
                         "backend": "whisperx_local",
                     }
-                ).model_dump()
-                failed_data["error"] = error_text
+                )
+                failure_payload = {
+                    "clips": [clip_payload],
+                    "text": failed_data.text,
+                    "segments": [item.model_dump() for item in list(failed_data.segments or [])],
+                    "transcripts": [],
+                    "backend": failed_data.backend,
+                    "error": error_text,
+                }
                 return ToolResult(
                     tool_name=self.name,
                     ok=False,
-                    data=failed_data,
+                    data=failure_payload,
                     raw_output_text="",
                     artifact_refs=[],
-                    request_hash=hash_payload({"tool": self.name, "clip": clip.model_dump()}),
+                    request_hash=hash_payload({"tool": self.name, "clip": clip_payload}),
                     summary="ASR unavailable.",
                     metadata={"error": error_text},
                 )
@@ -373,14 +381,37 @@ class LocalASRAdapter(ToolAdapter):
                 )
             text = " ".join(segment["text"] for segment in segments).strip()
             phrase_matches = _phrase_matches(getattr(context.task, "question", ""), text, segments)
-            data = ASROutput.model_validate(
+            validated_output = ASROutput.model_validate(
                 {
-                    "clip": clip.model_dump(),
+                    "clips": [clip_payload],
                     "text": text,
                     "segments": segments,
                     "backend": "whisperx_local",
                 }
-            ).model_dump()
+            )
+            transcript_payload = {
+                "transcript_id": "tx_%s"
+                % hash_payload(
+                    {
+                        "clip": clip_payload,
+                        "text": validated_output.text,
+                        "segments": [item.model_dump() for item in list(validated_output.segments or [])],
+                        "backend": validated_output.backend,
+                    },
+                    12,
+                ),
+                "clip": clip_payload,
+                "text": validated_output.text,
+                "segments": [item.model_dump() for item in list(validated_output.segments or [])],
+                "metadata": {"backend": validated_output.backend or "whisperx_local"},
+            }
+            data = {
+                "clips": [clip_payload],
+                "text": validated_output.text,
+                "segments": [item.model_dump() for item in list(validated_output.segments or [])],
+                "transcripts": [transcript_payload],
+                "backend": validated_output.backend,
+            }
             if phrase_matches:
                 data["phrase_matches"] = phrase_matches
                 best_match = dict(phrase_matches[0])
@@ -402,7 +433,7 @@ class LocalASRAdapter(ToolAdapter):
                 data=data,
                 raw_output_text=json.dumps(data, ensure_ascii=False),
                 artifact_refs=[],
-                request_hash=hash_payload({"tool": self.name, "clip": clip.model_dump()}),
+                request_hash=hash_payload({"tool": self.name, "clip": clip_payload}),
                 summary=summary_text[:2000],
                 metadata={"runtime_warning": runtime_warning} if runtime_warning else {},
             )
@@ -416,7 +447,7 @@ class LocalASRAdapter(ToolAdapter):
                 self.request_model.model_validate(
                     {
                         "tool_name": self.name,
-                        "clip": item.model_dump() if hasattr(item, "model_dump") else item,
+                        "clips": [item.model_dump() if hasattr(item, "model_dump") else item],
                         "speaker_attribution": request.speaker_attribution,
                     }
                 )
@@ -435,19 +466,12 @@ class LocalASRAdapter(ToolAdapter):
                     texts.append(text)
                 sub_segments = list(subresult.data.get("segments") or [])
                 segments.extend(sub_segments)
-                transcripts.append(
-                    {
-                        "clip": subrequest.clip.model_dump() if getattr(subrequest, "clip", None) is not None else None,
-                        "text": text,
-                        "segments": sub_segments,
-                        "backend": subresult.data.get("backend") or "whisperx_local",
-                    }
-                )
+                transcripts.extend(list(subresult.data.get("transcripts") or []))
             return ToolResult(
                 tool_name=self.name,
                 ok=True,
                 data={
-                    "clips": [item.clip.model_dump() for item in subrequests if getattr(item, "clip", None) is not None],
+                    "clips": [item.clips[0].model_dump() for item in subrequests if list(getattr(item, "clips", []) or [])],
                     "text": _join_text_blocks(texts),
                     "segments": segments,
                     "transcripts": transcripts,
@@ -470,7 +494,7 @@ class LocalASRAdapter(ToolAdapter):
         request = self.request_model.model_validate(
             {
                 "tool_name": self.name,
-                "clip": clip.model_dump(),
+                "clips": [clip.model_dump()],
                 "speaker_attribution": False,
             }
         )
@@ -487,8 +511,9 @@ class LocalASRAdapter(ToolAdapter):
                 }
             raise
         if getattr(result, "ok", True):
+            clips = list(result.data.get("clips") or [])
             return {
-                "clip": clip.model_dump(),
+                "clip": clips[0] if clips else clip.model_dump(),
                 "text": str(result.data.get("text") or "").strip(),
                 "segments": list(result.data.get("segments") or []),
                 "backend": result.data.get("backend") or "whisperx_local",

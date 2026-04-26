@@ -8,7 +8,7 @@ from typing import Any, Dict, Iterable, List, Optional
 
 from filelock import FileLock
 
-from ..common import append_jsonl, ensure_dir, read_json, read_jsonl, write_json, write_text
+from ..common import append_jsonl, ensure_dir, read_json, read_jsonl, write_json
 from ..schemas import AtomicObservation, EvidenceEntry, ToolResult
 from .workspace import RunContext, WorkspaceManager
 
@@ -32,9 +32,6 @@ class SharedEvidenceCache(object):
             "manifest": read_json(manifest_path),
             "result": read_json(result_path),
             "observations": read_jsonl(observations_path),
-            "summary_markdown": (cache_dir / "summary.md").read_text(encoding="utf-8")
-            if (cache_dir / "summary.md").exists()
-            else "",
         }
 
     def store_unlocked(
@@ -44,12 +41,10 @@ class SharedEvidenceCache(object):
         manifest: Dict[str, Any],
         result: Dict[str, Any],
         observations: Iterable[Dict[str, Any]],
-        summary_markdown: str,
     ) -> Path:
         cache_dir = self.workspace.evidence_cache_dir(tool_name, request_hash)
         write_json(cache_dir / "manifest.json", manifest)
         write_json(cache_dir / "result.json", result)
-        write_text(cache_dir / "summary.md", summary_markdown)
         obs_path = cache_dir / "observations.jsonl"
         obs_path.unlink(missing_ok=True)  # type: ignore[attr-defined]
         append_jsonl(obs_path, observations)
@@ -62,7 +57,6 @@ class SharedEvidenceCache(object):
         manifest: Dict[str, Any],
         result: Dict[str, Any],
         observations: Iterable[Dict[str, Any]],
-        summary_markdown: str,
     ) -> Path:
         lock = self.lock(tool_name, request_hash)
         with lock:
@@ -72,7 +66,6 @@ class SharedEvidenceCache(object):
                 manifest=manifest,
                 result=result,
                 observations=observations,
-                summary_markdown=summary_markdown,
             )
 
 
@@ -81,7 +74,6 @@ class EvidenceLedger(object):
         self.run = run
         self.index_path = run.evidence_dir / "evidence_index.jsonl"
         self.observations_path = run.evidence_dir / "atomic_observations.jsonl"
-        self.readable_path = run.evidence_dir / "evidence_readable.md"
         self.sqlite_path = run.evidence_dir / "evidence.sqlite3"
         self._init_sqlite()
 
@@ -339,52 +331,6 @@ class EvidenceLedger(object):
                 _append_record(dict(observations_by_id[requested_id]))
 
         return resolved
-
-    def render_readable_markdown(self) -> str:
-        observations = self.observations()
-        grouped_by_subject = defaultdict(list)
-        grouped_by_time = defaultdict(list)
-        timeless = []
-
-        for item in observations:
-            subject = str(item.get("subject") or "unknown")
-            grouped_by_subject[subject].append(item)
-            if item.get("time_start_s") is not None:
-                key = "%.3f-%.3f" % (
-                    float(item.get("time_start_s") or 0.0),
-                    float(item.get("time_end_s") or item.get("time_start_s") or 0.0),
-                )
-                grouped_by_time[key].append(item)
-            else:
-                timeless.append(item)
-
-        lines = ["# Evidence Ledger", ""]
-        lines.append("## By Subject")
-        lines.append("")
-        for subject in sorted(grouped_by_subject):
-            lines.append("### %s" % subject)
-            for item in grouped_by_subject[subject]:
-                lines.append("- %s" % item.get("atomic_text", ""))
-            lines.append("")
-
-        lines.append("## By Time")
-        lines.append("")
-        for key in sorted(grouped_by_time):
-            lines.append("### %s" % key)
-            for item in grouped_by_time[key]:
-                lines.append("- %s" % item.get("atomic_text", ""))
-            lines.append("")
-
-        if timeless:
-            lines.append("## Without Time")
-            lines.append("")
-            for item in timeless:
-                lines.append("- %s" % item.get("atomic_text", ""))
-            lines.append("")
-
-        markdown = "\n".join(lines).rstrip() + "\n"
-        write_text(self.readable_path, markdown)
-        return markdown
 
     def retrieve(
         self,

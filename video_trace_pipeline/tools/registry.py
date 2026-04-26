@@ -142,6 +142,53 @@ def _model_nested_lines(model_cls, *, exclude_fields: set[str] | None = None) ->
             lines.append("%s%s -> %s" % (field_name, suffix, ", ".join(nested_fields)))
     return lines
 
+_CANONICAL_OUTPUT_OVERRIDES = {
+    "asr": {
+        "output_fields": ["clips", "text", "segments", "transcripts", "backend"],
+        "output_schema": [
+            "clips: List[ClipRef]",
+            "text: str",
+            "segments: List[ASRSegmentOutput]",
+            "transcripts: List[TranscriptRef]",
+            "backend: Optional[str]",
+        ],
+        "output_nested": [
+            "clips[] -> video_id: str, start_s: float, end_s: float, metadata: Dict[str, Any]",
+            "segments[] -> start_s: float, end_s: float, text: str, speaker_id: Optional[str], confidence: Optional[float]",
+            "transcripts[] -> transcript_id: str, clip: Optional[ClipRef], relpath: Optional[str], text: str, segments: List[Dict[str, Any]], metadata: Dict[str, Any]",
+        ],
+    },
+    "dense_captioner": {
+        "output_fields": ["clips", "captions", "overall_summary", "sampled_frames", "backend"],
+        "output_schema": [
+            "clips: List[ClipRef]",
+            "captions: List[DenseCaptionSpan]",
+            "overall_summary: str",
+            "sampled_frames: List[Dict[str, Any]]",
+            "backend: Optional[str]",
+        ],
+        "output_nested": [
+            "clips[] -> video_id: str, start_s: float, end_s: float, metadata: Dict[str, Any]",
+            "captions[] -> start: float, end: float, visual: str, audio: str, on_screen_text: str, actions: List[str], objects: List[str], attributes: List[str]",
+        ],
+    },
+    "spatial_grounder": {
+        "output_fields": ["frames", "detections", "regions", "spatial_description", "backend"],
+        "output_schema": [
+            "frames: List[FrameRef]",
+            "detections: List[SpatialDetectionOutput]",
+            "regions: List[RegionRef]",
+            "spatial_description: str",
+            "backend: Optional[str]",
+        ],
+        "output_nested": [
+            "frames[] -> video_id: str, timestamp_s: float, artifact_id: Optional[str], relpath: Optional[str], clip: Optional[ClipRef], metadata: Dict[str, Any]",
+            "detections[] -> label: str, bbox: Optional[List[float]], confidence: Optional[float], metadata: Dict[str, Any]",
+            "regions[] -> frame: FrameRef, bbox: List[float], label: Optional[str], artifact_id: Optional[str], relpath: Optional[str], metadata: Dict[str, Any]",
+        ],
+    },
+}
+
 
 class ToolRegistry(object):
     def __init__(
@@ -392,6 +439,13 @@ class ToolRegistry(object):
             output_schema = _model_signature_lines(getattr(adapter, "output_model", None))
             request_nested = _model_nested_lines(getattr(adapter, "request_model", None), exclude_fields={"tool_name"})
             output_nested = _model_nested_lines(getattr(adapter, "output_model", None))
+            output_override = _CANONICAL_OUTPUT_OVERRIDES.get(tool_name) or {}
+            if output_override.get("output_fields"):
+                output_fields = list(output_override.get("output_fields") or [])
+            if output_override.get("output_schema"):
+                output_schema = list(output_override.get("output_schema") or [])
+            if output_override.get("output_nested"):
+                output_nested = list(output_override.get("output_nested") or [])
             catalog[tool_name] = {
                 "implementation": self.implementation_name(tool_name),
                 "model": config.model,

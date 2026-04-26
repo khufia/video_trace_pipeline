@@ -88,6 +88,16 @@ class JsonProcessMixin(object):
             command[0] = sys.executable
         return command
 
+    def _scratch_dir(self, context) -> Path:
+        tool_name = str(getattr(self, "name", "") or "tool")
+        legacy_tools_dir = getattr(context.run, "tools_dir", None)
+        if legacy_tools_dir is not None:
+            return (Path(legacy_tools_dir).expanduser().resolve() / "_scratch" / tool_name).resolve()
+        run_dir = getattr(context.run, "run_dir", None)
+        if run_dir is not None:
+            return (Path(run_dir).expanduser().resolve() / "_scratch" / tool_name).resolve()
+        return (Path(context.workspace.workspace_root).expanduser().resolve() / "_scratch" / tool_name).resolve()
+
     def _runtime_payload(self, context) -> Dict[str, Any]:
         device = resolve_device_label(context.workspace.profile.gpu_assignments.get(self.name))
         device_mapping = describe_device_mapping(device)
@@ -104,7 +114,7 @@ class JsonProcessMixin(object):
             "resolved_model_path": model_resolution.get("resolved_path"),
             "model_resolution_status": model_resolution.get("status"),
             "workspace_root": str(context.workspace.workspace_root),
-            "scratch_dir": str((context.run.tools_dir / "_scratch" / getattr(self, "name", "")).resolve()),
+            "scratch_dir": str(self._scratch_dir(context)),
             "extra": {key: value for key, value in self.extra.items() if key not in {"command", "cmd", "env", "cwd"}},
         }
         return runtime
@@ -341,6 +351,11 @@ def _join_text_blocks(items: List[str]) -> str:
     return "\n\n".join(cleaned)
 
 
+def _first_list_item(values: List[Any]) -> Any:
+    items = list(values or [])
+    return items[0] if items else None
+
+
 def _frame_rank_sort_key(frame: Dict[str, Any]) -> tuple:
     metadata = dict(frame.get("metadata") or {})
     temporal_score = metadata.get("temporal_score")
@@ -498,7 +513,7 @@ class AudioTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
                     {
                         "tool_name": self.name,
                         "query": request.query,
-                        "clip": item.dict() if hasattr(item, "dict") else item,
+                        "clips": [item.dict() if hasattr(item, "dict") else item],
                     }
                 )
                 for item in clips
@@ -560,7 +575,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
         request = dict(payload.get("request") or {})
         task = dict(payload.get("task") or {})
         runtime = dict(payload.get("runtime") or {})
-        clip = dict(request.get("clip") or {})
+        clip = dict(_first_list_item(request.get("clips") or []) or {})
         clip_start_s = float(clip.get("start_s") or 0.0)
         clip_end_s = float(clip.get("end_s") or clip_start_s)
         clip_duration_s = max(1.0, clip_end_s - clip_start_s)
@@ -587,7 +602,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
         request = dict(payload.get("request") or {})
         task = dict(payload.get("task") or {})
         runtime = dict(payload.get("runtime") or {})
-        clip = dict(request.get("clip") or {})
+        clip = dict(_first_list_item(request.get("clips") or []) or {})
         clip_start_s = float(clip.get("start_s") or 0.0)
         clip_end_s = float(clip.get("end_s") or clip_start_s)
         harness = ReferenceHarness(
@@ -611,6 +626,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
         parsed = self._parse_output(payload)
         artifact_refs = []
         frames = []
+        clip_ref = _first_list_item(getattr(request, "clips", []) or [])
         for item in parsed.frames:
             artifact = context.workspace.store_file_artifact(item.frame_path, kind="frame", source_tool=self.name)
             artifact_refs.append(artifact)
@@ -620,7 +636,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                     timestamp_s=float(item.timestamp_s),
                     artifact_id=artifact.artifact_id,
                     relpath=artifact.relpath,
-                    clip=request.clip,
+                    clip=clip_ref,
                     metadata={
                         "source_path": item.frame_path,
                         "relevance_score": item.relevance_score,
@@ -662,10 +678,10 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                         self.request_model.parse_obj(
                             {
                                 "tool_name": self.name,
-                                "clip": clip.dict() if hasattr(clip, "dict") else clip,
+                                "clips": [clip.dict() if hasattr(clip, "dict") else clip],
                                 "query": request.query,
                                 "num_frames": request.num_frames,
-                                "time_hints": time_hints,
+                                "time_hints": list(time_hints),
                             }
                         )
                     )
@@ -675,7 +691,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                         self.request_model.parse_obj(
                             {
                                 "tool_name": self.name,
-                                "time_hint": time_hint,
+                                "time_hints": [time_hint],
                                 "query": request.query,
                                 "num_frames": request.num_frames,
                             }
@@ -696,10 +712,12 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                 group_frames = list(subresult.data.get("frames") or [])
                 group_cache_metadata = dict(subresult.data.get("cache_metadata") or {})
                 merged_frames.extend(group_frames)
+                group_clip = _first_list_item(getattr(subrequest, "clips", []) or [])
+                group_time_hint = _first_list_item(getattr(subrequest, "time_hints", []) or [])
                 frame_groups.append(
                     {
-                        "clip": subrequest.clip.dict() if getattr(subrequest, "clip", None) is not None else None,
-                        "time_hint": getattr(subrequest, "time_hint", None),
+                        "clips": [group_clip.dict() if hasattr(group_clip, "dict") else group_clip] if group_clip is not None else [],
+                        "time_hints": [group_time_hint] if group_time_hint else [],
                         "frames": group_frames,
                         "cache_metadata": group_cache_metadata,
                         "rationale": subresult.data.get("rationale") or subresult.summary,
@@ -708,8 +726,8 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                 if group_cache_metadata:
                     cache_groups.append(
                         {
-                            "clip": subrequest.clip.dict() if getattr(subrequest, "clip", None) is not None else None,
-                            "time_hint": getattr(subrequest, "time_hint", None),
+                            "clips": [group_clip.dict() if hasattr(group_clip, "dict") else group_clip] if group_clip is not None else [],
+                            "time_hints": [group_time_hint] if group_time_hint else [],
                             "cache_metadata": group_cache_metadata,
                         }
                     )
@@ -738,7 +756,11 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
             selected_frames = _select_multi_clip_frames(frame_groups, max(1, int(request.num_frames or 1)))
             merged_data = {
                 "query": request.query,
-                "clips": [item.clip.dict() for item in subrequests if getattr(item, "clip", None) is not None],
+                "clips": [
+                    first_clip.dict()
+                    for first_clip in (_first_list_item(getattr(item, "clips", []) or []) for item in subrequests)
+                    if first_clip is not None
+                ],
                 "frames": selected_frames,
                 "frame_groups": frame_groups,
                 "cache_groups": cache_groups,
@@ -792,7 +814,7 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
             enriched["relpath"] = artifact.relpath
             sampled_frames.append(enriched)
         data = {
-            "clip": parsed.clip.dict(),
+            "clips": [item.dict() for item in parsed.clips],
             "captions": [item.dict() for item in parsed.captions],
             "overall_summary": parsed.overall_summary,
             "captioned_range": parsed.captioned_range.dict(),
@@ -833,7 +855,7 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
                 self.request_model.parse_obj(
                     {
                         "tool_name": self.name,
-                        "clip": item.dict() if hasattr(item, "dict") else item,
+                        "clips": [item.dict() if hasattr(item, "dict") else item],
                         "granularity": request.granularity,
                         "focus_query": request.focus_query,
                     }
@@ -856,15 +878,20 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
                 group_summary = subresult.data.get("overall_summary") or ""
                 if group_summary:
                     summaries.append(group_summary)
+                group_clip = _first_list_item(getattr(subrequest, "clips", []) or [])
                 caption_groups.append(
                     {
-                        "clip": subrequest.clip.dict() if getattr(subrequest, "clip", None) is not None else None,
+                        "clips": [group_clip.dict() if hasattr(group_clip, "dict") else group_clip] if group_clip is not None else [],
                         "captions": list(subresult.data.get("captions") or []),
                         "overall_summary": group_summary,
                     }
                 )
             merged_data = {
-                "clips": [item.clip.dict() for item in subrequests if getattr(item, "clip", None) is not None],
+                "clips": [
+                    first_clip.dict()
+                    for first_clip in (_first_list_item(getattr(item, "clips", []) or []) for item in subrequests)
+                    if first_clip is not None
+                ],
                 "captions": captions,
                 "overall_summary": _join_text_blocks(summaries),
                 "sampled_frames": sampled_frames,
@@ -923,11 +950,13 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
                 request = self.request_model.parse_obj(
                     {
                         "tool_name": self.name,
-                        "clip": {
+                        "clips": [
+                            {
                             "video_id": task.video_id or task.sample_key,
                             "start_s": start,
                             "end_s": end,
-                        },
+                            }
+                        ],
                         "granularity": "segment",
                         "focus_query": "",
                     }
@@ -1008,7 +1037,7 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
                 subrequests = []
                 for field_name, item in units:
                     single_payload = {"tool_name": self.name, "query": request.query}
-                    single_payload[field_name] = item.dict() if hasattr(item, "dict") else item
+                    single_payload["%ss" % field_name] = [item.dict() if hasattr(item, "dict") else item]
                     subrequests.append(self.request_model.parse_obj(single_payload))
                 subresults = [self._execute_single(item, context) for item in subrequests]
                 artifact_refs = []
@@ -1139,7 +1168,8 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
     def _execute_single(self, request, context):
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
-        frame_path = parsed.source_frame_path or request.frame.metadata.get("source_path")
+        frame_ref = _first_list_item(getattr(request, "frames", []) or [])
+        frame_path = parsed.source_frame_path or ((frame_ref.metadata or {}).get("source_path") if frame_ref is not None else None)
         artifact_refs = []
         if frame_path:
             artifact_refs.append(context.workspace.store_file_artifact(frame_path, kind="frame", source_tool=self.name))
@@ -1150,7 +1180,7 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
                 continue
             regions.append(
                 RegionRef(
-                    frame=request.frame,
+                    frame=frame_ref,
                     bbox=item.bbox,
                     label=item.label,
                     metadata={"confidence": item.confidence, **dict(item.metadata or {})},
@@ -1158,15 +1188,10 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
             )
         data = {
             "query": parsed.query,
-            "frame": request.frame.dict(),
-            "best_frame": request.frame.dict(),
-            "timestamp": parsed.timestamp_s or request.frame.timestamp_s,
+            "frames": [frame_ref.dict()] if frame_ref is not None else [],
             "detections": detections,
             "regions": regions,
-            "region": regions[0] if regions else None,
-            "puzzle_bbox": regions[0] if regions else None,
             "spatial_description": parsed.spatial_description,
-            "analysis": parsed.spatial_description,
             "backend": parsed.backend or self.model_name,
         }
         confidence_metadata = _confidence_metadata(
@@ -1191,7 +1216,7 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
                 self.request_model.parse_obj(
                     {
                         "tool_name": self.name,
-                        "frame": item.dict() if hasattr(item, "dict") else item,
+                        "frames": [item.dict() if hasattr(item, "dict") else item],
                         "query": request.query,
                     }
                 )
@@ -1212,10 +1237,10 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
                     summaries.append(subresult.summary)
                 detections.extend(list(subresult.data.get("detections") or []))
                 regions.extend(list(subresult.data.get("regions") or []))
+                grounding_frame = _first_list_item(getattr(subrequest, "frames", []) or [])
                 groundings.append(
                     {
-                        "frame": subrequest.frame.dict() if getattr(subrequest, "frame", None) is not None else None,
-                        "timestamp": subresult.data.get("timestamp"),
+                        "frames": [grounding_frame.dict() if hasattr(grounding_frame, "dict") else grounding_frame] if grounding_frame is not None else [],
                         "detections": list(subresult.data.get("detections") or []),
                         "regions": list(subresult.data.get("regions") or []),
                         "spatial_description": subresult.data.get("spatial_description") or "",
@@ -1223,14 +1248,15 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
                 )
             merged_data = {
                 "query": request.query,
-                "frames": [item.frame.dict() for item in subrequests if getattr(item, "frame", None) is not None],
+                "frames": [
+                    first_frame.dict()
+                    for first_frame in (_first_list_item(getattr(item, "frames", []) or []) for item in subrequests)
+                    if first_frame is not None
+                ],
                 "detections": detections,
                 "regions": regions,
                 "groundings": groundings,
-                "region": regions[0] if regions else None,
-                "puzzle_bbox": regions[0] if regions else None,
                 "spatial_description": _join_text_blocks([item.get("spatial_description") for item in groundings]),
-                "analysis": _join_text_blocks([item.get("spatial_description") for item in groundings]),
                 "backend": self.model_name,
             }
             return ToolResult(

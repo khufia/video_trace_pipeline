@@ -5,10 +5,9 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Type
 
-from filelock import FileLock
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_fixed
 
-from ..common import ensure_dir, extract_json_object, fingerprint_file, hash_payload, write_json, write_text
+from ..common import extract_json_object
 from ..config import resolve_api_key
 from ..schemas import MachineProfile, ModelsConfig
 
@@ -30,8 +29,6 @@ def _temperature_kwargs(model_name: str, temperature: float) -> Dict[str, float]
 
 
 class OpenAIChatClient(object):
-    CACHE_VERSION = "v1"
-
     def __init__(self, profile: MachineProfile, models_config: ModelsConfig):
         self.profile = profile
         self.models_config = models_config
@@ -61,36 +58,16 @@ class OpenAIChatClient(object):
             )
         return content
 
-    def _cache_root(self) -> Path:
-        cache_root_value = str(self.profile.cache_root or "").strip()
-        if cache_root_value:
-            base_root = Path(cache_root_value).expanduser().resolve()
-        else:
-            base_root = Path(self.profile.workspace_root).expanduser().resolve() / "cache"
-        return ensure_dir(base_root / "agent_responses")
-
     def _image_cache_payload(self, image_paths: Optional[List[str]] = None) -> List[Dict[str, Any]]:
         payload = []
         for image_path in list(image_paths or []):
             entry: Dict[str, Any] = {"path": str(Path(image_path).expanduser())}
             try:
-                entry["fingerprint"] = fingerprint_file(image_path)
+                entry["fingerprint"] = Path(image_path).expanduser().resolve().stat().st_mtime_ns
             except Exception:
                 entry["fingerprint"] = None
             payload.append(entry)
         return payload
-
-    def _cache_key(self, namespace: str, payload: Dict[str, Any]) -> str:
-        return hash_payload({"version": self.CACHE_VERSION, "namespace": namespace, "payload": dict(payload or {})}, length=40)
-
-    def _cache_paths(self, namespace: str, cache_key: str):
-        cache_dir = ensure_dir(self._cache_root() / str(namespace or "text") / cache_key[:2] / cache_key)
-        return (
-            cache_dir,
-            cache_dir / "response.txt",
-            cache_dir / "request.json",
-            FileLock(str(cache_dir / ".lock")),
-        )
 
     def _request_payload(
         self,
@@ -171,7 +148,7 @@ class OpenAIChatClient(object):
         image_paths: Optional[List[str]] = None,
         response_format: Optional[Dict[str, Any]] = None,
     ) -> str:
-        request_payload = self._request_payload(
+        return self._request_text(
             endpoint_name=endpoint_name,
             model_name=model_name,
             system_prompt=system_prompt,
@@ -181,24 +158,6 @@ class OpenAIChatClient(object):
             image_paths=image_paths,
             response_format=response_format,
         )
-        cache_key = self._cache_key("text", request_payload)
-        _, response_path, request_path, lock = self._cache_paths("text", cache_key)
-        with lock:
-            if response_path.exists():
-                return response_path.read_text(encoding="utf-8").strip()
-            text = self._request_text(
-                endpoint_name=endpoint_name,
-                model_name=model_name,
-                system_prompt=system_prompt,
-                user_prompt=user_prompt,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                image_paths=image_paths,
-                response_format=response_format,
-            )
-            write_json(request_path, request_payload)
-            write_text(response_path, text)
-            return text
 
     def complete_json(
         self,
@@ -212,7 +171,7 @@ class OpenAIChatClient(object):
         image_paths: Optional[List[str]] = None,
     ):
         response_format = {"type": "json_object"}
-        request_payload = self._request_payload(
+        text = self._request_text(
             endpoint_name=endpoint_name,
             model_name=model_name,
             system_prompt=system_prompt,
@@ -221,29 +180,10 @@ class OpenAIChatClient(object):
             max_tokens=max_tokens,
             image_paths=image_paths,
             response_format=response_format,
-            response_model=response_model,
         )
-        cache_key = self._cache_key("json", request_payload)
-        _, response_path, request_path, lock = self._cache_paths("json", cache_key)
-        with lock:
-            text = response_path.read_text(encoding="utf-8").strip() if response_path.exists() else ""
-            payload = extract_json_object(text) if text else None
-            if payload is None:
-                text = self._request_text(
-                    endpoint_name=endpoint_name,
-                    model_name=model_name,
-                    system_prompt=system_prompt,
-                    user_prompt=user_prompt,
-                    temperature=temperature,
-                    max_tokens=max_tokens,
-                    image_paths=image_paths,
-                    response_format=response_format,
-                )
-                payload = extract_json_object(text)
-                if payload is None:
-                    raise ValueError("Model did not return a JSON object: %s" % text[:1000])
-                write_json(request_path, request_payload)
-                write_text(response_path, text)
+        payload = extract_json_object(text)
+        if payload is None:
+            raise ValueError("Model did not return a JSON object: %s" % text[:1000])
         if response_model is dict:
             return payload, text
         if hasattr(response_model, "model_validate"):

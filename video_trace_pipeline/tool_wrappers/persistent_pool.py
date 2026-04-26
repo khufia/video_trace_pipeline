@@ -6,23 +6,6 @@ from .local_multimodal import PenguinRunner, QwenStyleRunner, TimeChatCaptionerR
 
 
 _QWEN35_SHARED_TOOLS = frozenset({"generic_purpose", "spatial_grounder"})
-_TOOL_ALIASES = {
-    "temporal_grounder": "visual_temporal_grounder",
-    "visual_grounder": "visual_temporal_grounder",
-    "visual-temporal-grounder": "visual_temporal_grounder",
-    "dense_caption": "dense_captioner",
-    "dense-captioner": "dense_captioner",
-    "generic": "generic_purpose",
-    "generic-purpose": "generic_purpose",
-    "spatial": "spatial_grounder",
-}
-
-
-def normalize_persist_tool_name(tool_name: str) -> str:
-    normalized = str(tool_name or "").strip()
-    if not normalized:
-        return ""
-    return _TOOL_ALIASES.get(normalized, normalized)
 
 
 class PersistentModelPool(object):
@@ -30,7 +13,7 @@ class PersistentModelPool(object):
         normalized = []
         seen = set()
         for item in list(enabled_tools or []):
-            name = normalize_persist_tool_name(str(item or ""))
+            name = str(item or "").strip()
             if not name or name in seen:
                 continue
             seen.add(name)
@@ -41,13 +24,13 @@ class PersistentModelPool(object):
         self._timechat_runners = {}
 
     def _share_scope(self, tool_name: str) -> str:
-        normalized = normalize_persist_tool_name(tool_name)
+        normalized = str(tool_name or "").strip()
         if normalized in _QWEN35_SHARED_TOOLS and self.enabled_tools.intersection(_QWEN35_SHARED_TOOLS):
             return "qwen35_shared"
         return normalized
 
     def should_persist(self, tool_name: str) -> bool:
-        normalized = normalize_persist_tool_name(tool_name)
+        normalized = str(tool_name or "").strip()
         if normalized in _QWEN35_SHARED_TOOLS and self.enabled_tools.intersection(_QWEN35_SHARED_TOOLS):
             return True
         return normalized in self.enabled_tools

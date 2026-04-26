@@ -4,10 +4,12 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
+from ..temporal import render_temporal_anchor
 
-def _short_text(value: Any, limit: int = 220) -> str:
+
+def _display_text(value: Any, limit: Optional[int] = 220) -> str:
     text = str(value or "").strip().replace("\n", " ")
-    if len(text) <= limit:
+    if limit is None or len(text) <= limit:
         return text
     return text[: max(0, limit - 3)].rstrip() + "..."
 
@@ -35,23 +37,6 @@ def _format_seconds(value: Any) -> str:
     return "%ss" % text
 
 
-def _render_temporal_anchor(item: Dict[str, Any]) -> str:
-    start_s = item.get("time_start_s")
-    end_s = item.get("time_end_s")
-    frame_ts_s = item.get("frame_ts_s")
-    if start_s is not None or end_s is not None:
-        if start_s is None:
-            start_s = end_s
-        if end_s is None:
-            end_s = start_s
-        if float(start_s) == float(end_s):
-            return _format_seconds(start_s)
-        return "%s to %s" % (_format_seconds(start_s), _format_seconds(end_s))
-    if frame_ts_s is not None:
-        return _format_seconds(frame_ts_s)
-    return ""
-
-
 def _inference_time_anchor(step_payload: Dict[str, Any], evidence_entries: List[Dict[str, Any]]) -> str:
     supporting_ids = {
         str(item).strip()
@@ -70,7 +55,7 @@ def _inference_time_anchor(step_payload: Dict[str, Any], evidence_entries: List[
         }
         if not supporting_ids.intersection(observation_ids):
             continue
-        anchor = _render_temporal_anchor(dict(item or {}))
+        anchor = render_temporal_anchor(dict(item or {}))
         if not anchor or anchor in seen:
             continue
         seen.add(anchor)
@@ -103,14 +88,14 @@ def _iter_tool_steps(plan_payload: Dict[str, Any]) -> Iterable[str]:
             continue
         step_id = item.get("step_id")
         tool_name = str(item.get("tool_name") or "").strip()
-        purpose = _short_text(item.get("purpose") or "", limit=140)
+        purpose = _display_text(item.get("purpose") or "", limit=140)
         depends_on = list(item.get("depends_on") or [])
         arguments = dict(item.get("arguments") or {})
         parts = ["%s. %s" % (step_id, tool_name or "tool")]
         if purpose:
             parts.append(purpose)
         if arguments:
-            parts.append("args=%s" % _short_text(arguments, limit=180))
+            parts.append("args=%s" % _display_text(arguments, limit=180))
         if depends_on:
             parts.append("depends_on=%s" % ",".join(str(value) for value in depends_on))
         yield " | ".join(parts)
@@ -126,7 +111,7 @@ class LiveRunReporter(object):
             "[bold cyan]Run[/bold cyan] %s | mode=%s | max_rounds=%s | clip_duration=%ss"
             % (task.sample_key, mode, int(max_rounds), int(float(clip_duration_s)))
         )
-        self.console.print("question: %s" % _short_text(task.question, limit=240))
+        self.console.print("question: %s" % _display_text(task.question, limit=240))
         if list(task.options or []):
             self.console.print("options: %s" % " | ".join(str(item) for item in list(task.options or [])))
         self.console.print("run_dir: %s" % run_dir)
@@ -162,17 +147,29 @@ class LiveRunReporter(object):
 
     def on_preprocess_start(self):
         self.console.print("")
-        self.console.print("[bold cyan]Preprocess[/bold cyan] dense-caption summary")
+        self.console.print("[bold cyan]Preprocess[/bold cyan] dense-caption and transcript context")
 
     def on_preprocess_end(self, preprocess_output: Dict[str, Any]):
-        self.console.print(
-            "cache_hit=%s | cache_dir=%s"
-            % (
-                bool(preprocess_output.get("cache_hit")),
-                str(preprocess_output.get("cache_dir") or ""),
-            )
-        )
-        self.console.print("summary: %s" % _short_text(preprocess_output.get("summary") or "", limit=300))
+        manifest = dict(preprocess_output.get("manifest") or {})
+        segment_count = manifest.get("segment_count")
+        if segment_count is None:
+            segment_count = len(list(preprocess_output.get("segments") or []))
+        planner_segment_count = manifest.get("planner_segment_count")
+        if planner_segment_count is None:
+            planner_segment_count = len(list(preprocess_output.get("planner_segments") or []))
+        dense_caption_span_count = manifest.get("dense_caption_span_count")
+        transcript_segment_count = manifest.get("transcript_segment_count")
+        parts = [
+            "cache_hit=%s" % bool(preprocess_output.get("cache_hit")),
+            "cache_dir=%s" % str(preprocess_output.get("cache_dir") or ""),
+            "segments=%s" % int(segment_count or 0),
+            "planner_segments=%s" % int(planner_segment_count or 0),
+        ]
+        if dense_caption_span_count is not None:
+            parts.append("dense_spans=%s" % int(dense_caption_span_count or 0))
+        if transcript_segment_count is not None:
+            parts.append("transcript_spans=%s" % int(transcript_segment_count or 0))
+        self.console.print(" | ".join(parts))
 
     def on_initial_audit(self, audit_payload: Dict[str, Any]):
         self.console.print("")
@@ -184,7 +181,7 @@ class LiveRunReporter(object):
                 _format_scores(dict(audit_payload.get("scores") or {})),
             )
         )
-        feedback = _short_text(audit_payload.get("feedback") or "", limit=260)
+        feedback = _display_text(audit_payload.get("feedback") or "", limit=260)
         if feedback:
             self.console.print("feedback: %s" % feedback)
 
@@ -193,29 +190,28 @@ class LiveRunReporter(object):
         *,
         round_index: int,
         planning_mode: str,
-        use_summary: bool,
+        preprocess_context: bool,
         retrieved_count: int,
     ):
         self.console.print("")
         self.console.print(
-            "[bold green]Round %02d[/bold green] mode=%s | summary_context=%s | retrieved_observations=%s"
-            % (int(round_index), planning_mode, bool(use_summary), int(retrieved_count))
+            "[bold green]Round %02d[/bold green] mode=%s | preprocess_context=%s | retrieved_observations=%s"
+            % (int(round_index), planning_mode, bool(preprocess_context), int(retrieved_count))
         )
 
-    def on_planner(self, *, round_index: int, plan_payload: Dict[str, Any], planner_dir: Optional[str] = None):
+    def on_planner(self, *, round_index: int, plan_payload: Dict[str, Any], round_dir: Optional[str] = None):
         self.console.print("[bold]Planner[/bold]")
         self.console.print(
             "strategy: %s"
-            % _short_text(plan_payload.get("strategy") or "", limit=220)
+            % _display_text(plan_payload.get("strategy") or "", limit=220)
         )
-        self.console.print("plan_use_summary: %s" % bool(plan_payload.get("use_summary")))
         for line in _iter_tool_steps(plan_payload):
             self.console.print("  %s" % line)
-        instructions = _short_text(plan_payload.get("refinement_instructions") or "", limit=260)
+        instructions = _display_text(plan_payload.get("refinement_instructions") or "", limit=260)
         if instructions:
             self.console.print("refinement: %s" % instructions)
-        if planner_dir:
-            self.console.print("planner_dir: %s" % planner_dir)
+        if round_dir:
+            self.console.print("round_dir: %s" % round_dir)
 
     def on_tool_start(
         self,
@@ -229,8 +225,8 @@ class LiveRunReporter(object):
         self.console.print("")
         self.console.print("[bold]Tool %02d[/bold] %s" % (int(step_id), tool_name))
         if purpose:
-            self.console.print("purpose: %s" % _short_text(purpose, limit=220))
-        self.console.print("request: %s" % _short_text(request_payload, limit=320))
+            self.console.print("purpose: %s" % _display_text(purpose, limit=220))
+        self.console.print("request: %s" % _display_text(request_payload, limit=320))
 
     def on_tool_end(
         self,
@@ -242,7 +238,7 @@ class LiveRunReporter(object):
         observations: List[Dict[str, Any]],
         step_dir: Optional[str] = None,
     ):
-        summary = _short_text(result_payload.get("summary") or "", limit=280)
+        summary = _display_text(result_payload.get("summary") or "", limit=None)
         metadata = dict(result_payload.get("metadata") or {})
         parts = [
             "status=%s" % ("ok" if result_payload.get("ok", True) else "error"),
@@ -294,7 +290,7 @@ class LiveRunReporter(object):
             if parts:
                 self.console.print("frame_cache: %s" % " | ".join(parts))
         for item in list(observations or [])[:4]:
-            atomic_text = _short_text(item.get("atomic_text") or "", limit=220)
+            atomic_text = _display_text(item.get("atomic_text") or "", limit=None)
             if atomic_text:
                 prefix = ""
                 if isinstance(item.get("confidence"), (int, float)):
@@ -303,9 +299,6 @@ class LiveRunReporter(object):
         if step_dir:
             self.console.print("step_dir: %s" % step_dir)
             self.console.print("request_file: %s" % str(Path(step_dir) / "request.json"))
-            request_full_file = Path(step_dir) / "request_full.json"
-            if request_full_file.exists():
-                self.console.print("request_full_file: %s" % str(request_full_file))
             runtime_file = Path(step_dir) / "runtime.json"
             if runtime_file.exists():
                 self.console.print("runtime_file: %s" % str(runtime_file))
@@ -322,7 +315,7 @@ class LiveRunReporter(object):
                 elif resolved_model_path:
                     self.console.print("model_path: %s" % resolved_model_path)
 
-    def on_trace(self, *, round_index: int, trace_payload: Dict[str, Any], trace_dir: Optional[str] = None):
+    def on_trace(self, *, round_index: int, trace_payload: Dict[str, Any], round_dir: Optional[str] = None):
         self.console.print("")
         self.console.print("[bold]Trace[/bold]")
         evidence_entries = [dict(item or {}) for item in list(trace_payload.get("evidence_entries") or []) if isinstance(item, dict)]
@@ -332,19 +325,31 @@ class LiveRunReporter(object):
             anchor = _inference_time_anchor(item, evidence_entries)
             line = "%s. %s" % (
                 item.get("step_id"),
-                _short_text(item.get("text") or "", limit=220),
+                _display_text(item.get("text") or "", limit=None),
             )
             if anchor:
                 line = "%s [%s]" % (line, anchor)
             self.console.print(
                 "  %s" % line
             )
+        if evidence_entries:
+            self.console.print("evidence:")
+        for item in evidence_entries:
+            evidence_id = str(item.get("evidence_id") or "evidence").strip() or "evidence"
+            evidence_text = _display_text(item.get("evidence_text") or "", limit=None)
+            temporal_anchor = render_temporal_anchor(item)
+            line = "  - %s" % evidence_id
+            if temporal_anchor:
+                line = "%s [%s]" % (line, temporal_anchor)
+            if evidence_text:
+                line = "%s: %s" % (line, evidence_text)
+            self.console.print(line)
         if trace_payload.get("final_answer") not in (None, ""):
-            self.console.print("final_answer: %s" % _short_text(trace_payload.get("final_answer") or "", limit=220))
-        if trace_dir:
-            self.console.print("trace_dir: %s" % trace_dir)
+            self.console.print("final_answer: %s" % _display_text(trace_payload.get("final_answer") or "", limit=None))
+        if round_dir:
+            self.console.print("round_dir: %s" % round_dir)
 
-    def on_audit(self, *, round_index: int, audit_payload: Dict[str, Any], auditor_dir: Optional[str] = None):
+    def on_audit(self, *, round_index: int, audit_payload: Dict[str, Any], round_dir: Optional[str] = None):
         self.console.print("")
         self.console.print("[bold]Auditor[/bold]")
         self.console.print(
@@ -354,21 +359,19 @@ class LiveRunReporter(object):
                 _format_scores(dict(audit_payload.get("scores") or {})),
             )
         )
-        feedback = _short_text(audit_payload.get("feedback") or "", limit=320)
+        feedback = _display_text(audit_payload.get("feedback") or "", limit=None)
         if feedback:
             self.console.print("feedback: %s" % feedback)
         missing = [str(item).strip() for item in list(audit_payload.get("missing_information") or []) if str(item).strip()]
         for item in missing[:5]:
-            self.console.print("  missing: %s" % _short_text(item, limit=220))
-        if auditor_dir:
-            self.console.print("auditor_dir: %s" % auditor_dir)
+            self.console.print("  missing: %s" % _display_text(item, limit=None))
+        if round_dir:
+            self.console.print("round_dir: %s" % round_dir)
 
     def on_complete(self, *, final_payload: Dict[str, Any]):
         self.console.print("")
         self.console.print("[bold cyan]Complete[/bold cyan]")
         self.console.print("run_dir: %s" % str(final_payload.get("run_dir") or ""))
-        if final_payload.get("exported_results_dir"):
-            self.console.print("exported_results_dir: %s" % str(final_payload.get("exported_results_dir") or ""))
         audit_payload = dict(final_payload.get("audit_report") or {})
         if audit_payload:
             self.console.print("final_verdict: %s" % str(audit_payload.get("verdict") or ""))

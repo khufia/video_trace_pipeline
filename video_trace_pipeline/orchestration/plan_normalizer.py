@@ -6,39 +6,6 @@ from ..common import stable_json_dumps
 from ..schemas import ArgumentBinding, ExecutionPlan, InputRef, PlanStep
 from .executor import request_model_field_names
 
-
-_COMMON_ARGUMENT_ALIASES = {
-    "prompt": "query",
-    "instruction": "query",
-    "question": "query",
-}
-
-_TOOL_ARGUMENT_ALIASES = {
-    "visual_temporal_grounder": {
-        "k": "top_k",
-        "max_segments": "top_k",
-        "num_segments": "top_k",
-    },
-    "frame_retriever": {
-        "k": "num_frames",
-        "top_k": "num_frames",
-        "count": "num_frames",
-        "max_frames": "num_frames",
-    },
-    "ocr": {
-        "prompt": "query",
-    },
-    "generic_purpose": {
-        "evidence": "text_contexts",
-        "evidence_id": "evidence_ids",
-        "text": "text_contexts",
-        "text_context": "text_contexts",
-        "texts": "text_contexts",
-        "ocr_text": "text_contexts",
-        "ocr_texts": "text_contexts",
-    },
-}
-
 _LIST_FIELDS = {
     "clips",
     "frames",
@@ -51,34 +18,13 @@ _LIST_FIELDS = {
 
 _GENERIC_PURPOSE_CONTEXT_FIELDS = frozenset(
     {
-        "clip",
         "clips",
-        "frame",
         "frames",
-        "transcript",
         "transcripts",
         "text_contexts",
         "evidence_ids",
     }
 )
-
-_GENERIC_PURPOSE_REUSE_HINTS = (
-    "already grounded",
-    "earlier clip",
-    "earlier frame",
-    "grounded frame",
-    "grounded frames",
-    "previous frame",
-    "previous frames",
-    "previously grounded",
-    "previously retrieved",
-    "prior evidence",
-    "provided evidence",
-    "retrieved frame",
-    "retrieved frames",
-    "supplied evidence",
-)
-
 
 def _normalize_text(value: Any) -> str:
     return " ".join(str(value or "").strip().split())
@@ -145,29 +91,21 @@ class ExecutionPlanNormalizer(object):
         adapter = self.tool_registry.get_adapter(tool_name)
         return [name for name in request_model_field_names(getattr(adapter, "request_model", None)) if name != "tool_name"]
 
-    def _canonical_field_name(self, tool_name: str, field_name: str) -> str:
-        aliases = dict(_COMMON_ARGUMENT_ALIASES)
-        aliases.update(_TOOL_ARGUMENT_ALIASES.get(tool_name, {}))
-        return aliases.get(str(field_name or "").strip(), str(field_name or "").strip())
+    def _normalized_field_name(self, field_name: str) -> str:
+        return str(field_name or "").strip()
 
-    def _preferred_target_field(self, tool_name: str, target_field: str, source_field_path: str) -> str:
-        allowed_fields = set(self._allowed_fields(tool_name))
-        field_name = self._canonical_field_name(tool_name, target_field)
-        source_tail = str(source_field_path or "").split(".")[-1].strip().lower()
-        if tool_name == "generic_purpose" and source_tail in {"transcript", "transcripts"} and "transcripts" in allowed_fields:
-            return "transcripts"
-        plural_map = {
-            "clip": "clips",
-            "frame": "frames",
-            "region": "regions",
-            "transcript": "transcripts",
-            "time_hint": "time_hints",
-            "text_context": "text_contexts",
-            "evidence_id": "evidence_ids",
-        }
-        if field_name in plural_map and source_tail.endswith("s") and plural_map[field_name] in allowed_fields:
-            return plural_map[field_name]
-        return field_name
+    def _validate_asr_transcript_contract(self, *, step: PlanStep, binding: ArgumentBinding, source_tool_name: str) -> None:
+        if str(step.tool_name or "").strip() != "generic_purpose":
+            return
+        if str(source_tool_name or "").strip() != "asr":
+            return
+        target_field = str(binding.target_field or "").strip()
+        field_path = str(binding.source.field_path or "").strip()
+        if target_field != "transcripts" or field_path != "transcripts":
+            raise ValueError(
+                "Plan step %s must bind ASR output to generic_purpose via transcripts -> transcripts, not %s -> %s."
+                % (int(step.step_id), field_path or "<empty>", target_field or "<empty>")
+            )
 
     def _normalize_step(self, step: PlanStep) -> PlanStep:
         tool_name = _normalize_text(step.tool_name)
@@ -175,17 +113,25 @@ class ExecutionPlanNormalizer(object):
 
         normalized_arguments: Dict[str, Any] = {}
         for key in sorted(dict(step.arguments or {})):
-            canonical_key = self._canonical_field_name(tool_name, key)
+            canonical_key = self._normalized_field_name(key)
             raw_value = dict(step.arguments or {}).get(key)
-            if (
-                tool_name == "generic_purpose"
-                and canonical_key == "text_contexts"
-                and "transcripts" in allowed_fields
-                and _looks_like_transcript_payload(raw_value)
-            ):
-                canonical_key = "transcripts"
-            if canonical_key not in allowed_fields:
+            if canonical_key == "tool_name":
                 continue
+            if tool_name == "generic_purpose" and canonical_key == "text_contexts" and _looks_like_transcript_payload(raw_value):
+                raise ValueError(
+                    "Plan step %s passes transcript payloads via text_contexts. Use transcripts instead."
+                    % int(step.step_id)
+                )
+            if canonical_key not in allowed_fields:
+                raise ValueError(
+                    "Plan step %s uses unexpected argument %r for %s. Use canonical request fields only: %s."
+                    % (
+                        int(step.step_id),
+                        canonical_key,
+                        tool_name,
+                        ", ".join(sorted(allowed_fields)),
+                    )
+                )
             normalized_arguments[canonical_key] = _merge_field_value(
                 canonical_key,
                 normalized_arguments.get(canonical_key),
@@ -195,13 +141,23 @@ class ExecutionPlanNormalizer(object):
             key: normalized_arguments[key]
             for key in sorted(normalized_arguments)
         }
+        if "query" in normalized_arguments:
+            normalized_arguments["query"] = _normalize_text(normalized_arguments.get("query"))
 
         normalized_refs: List[ArgumentBinding] = []
         seen_refs = set()
         for binding in list(step.input_refs or []):
-            target_field = self._preferred_target_field(tool_name, binding.target_field, binding.source.field_path)
+            target_field = self._normalized_field_name(binding.target_field)
             if target_field not in allowed_fields:
-                continue
+                raise ValueError(
+                    "Plan step %s uses unexpected input_ref target_field %r for %s. Use canonical request fields only: %s."
+                    % (
+                        int(step.step_id),
+                        target_field,
+                        tool_name,
+                        ", ".join(sorted(allowed_fields)),
+                    )
+                )
             normalized_binding = ArgumentBinding(
                 target_field=target_field,
                 source=InputRef(
@@ -231,7 +187,11 @@ class ExecutionPlanNormalizer(object):
         )
 
     def _validate_references(self, steps: List[PlanStep]) -> None:
-        step_ids = {int(step.step_id) for step in list(steps or [])}
+        ordered_step_ids = [int(step.step_id) for step in list(steps or [])]
+        if len(set(ordered_step_ids)) != len(ordered_step_ids):
+            raise ValueError("Execution plan contains duplicate step_ids: %s" % ordered_step_ids)
+        step_ids = set(ordered_step_ids)
+        step_by_id = {int(step.step_id): step for step in list(steps or [])}
         for step in list(steps or []):
             step_id = int(step.step_id)
             for binding in list(step.input_refs or []):
@@ -246,6 +206,13 @@ class ExecutionPlanNormalizer(object):
                         "Plan step %s has a self-referential input_ref for %s."
                         % (step_id, binding.target_field)
                     )
+                source_step = step_by_id.get(source_id)
+                if source_step is not None:
+                    self._validate_asr_transcript_contract(
+                        step=step,
+                        binding=binding,
+                        source_tool_name=source_step.tool_name,
+                    )
             for dep in list(step.depends_on or []):
                 dep_id = int(dep)
                 if dep_id not in step_ids:
@@ -257,16 +224,6 @@ class ExecutionPlanNormalizer(object):
         for step in list(steps or []):
             if str(step.tool_name or "").strip() != "generic_purpose":
                 continue
-            haystack = " ".join(
-                part
-                for part in (
-                    str(step.purpose or "").strip().lower(),
-                    str((step.arguments or {}).get("query") or "").strip().lower(),
-                )
-                if part
-            )
-            if not any(hint in haystack for hint in _GENERIC_PURPOSE_REUSE_HINTS):
-                continue
             has_argument_context = any(
                 _normalize_text((step.arguments or {}).get(field_name))
                 if isinstance((step.arguments or {}).get(field_name), str)
@@ -277,7 +234,7 @@ class ExecutionPlanNormalizer(object):
             if has_argument_context or has_bound_context:
                 continue
             raise ValueError(
-                "Plan step %s is a context-free generic_purpose reuse follow-up. "
+                "Plan step %s is a context-free generic_purpose request. "
                 "Pass frames, clips, transcripts, text_contexts, evidence_ids, or an earlier dependency explicitly."
                 % int(step.step_id)
             )
@@ -371,8 +328,9 @@ class ExecutionPlanNormalizer(object):
                         % (step_id, dep)
                     )
 
-    def normalize(self, task, plan: ExecutionPlan) -> ExecutionPlan:
+    def normalize(self, task, plan: ExecutionPlan, preprocess_planning_memory: Dict[str, Any] | None = None) -> ExecutionPlan:
         del task
+        del preprocess_planning_memory
         normalized_steps = [self._normalize_step(step) for step in list(plan.steps or [])]
         self._validate_references(normalized_steps)
         self._validate_generic_purpose_context_contract(normalized_steps)

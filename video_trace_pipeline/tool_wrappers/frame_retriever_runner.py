@@ -226,13 +226,15 @@ def _select_diverse_frames(
 
 
 def _resolved_clip(request: Dict[str, Any], task: Dict[str, Any]) -> Dict[str, Any]:
-    clip = dict(request.get("clip") or {})
+    clip = dict((list(request.get("clips") or []) or [{}])[0] or {})
     if clip:
         return clip
+    time_hints = [str(item).strip() for item in list(request.get("time_hints") or []) if str(item).strip()]
+    time_hint = time_hints[0] if time_hints else None
     derived = _clip_from_time_hint(
         str(task.get("video_id") or task.get("sample_key") or "video"),
         str(task.get("video_path") or ""),
-        request.get("time_hint"),
+        time_hint,
     )
     if derived is None:
         return {}
@@ -265,7 +267,7 @@ def execute_payload(payload: Dict[str, Any], *, harness=None, release_embedder: 
     num_frames = max(1, int(request.get("num_frames") or 5))
     time_hints = [
         str(item).strip()
-        for item in list(request.get("time_hints") or ([request.get("time_hint")] if request.get("time_hint") else []))
+        for item in list(request.get("time_hints") or [])
         if str(item).strip()
     ]
     owns_harness = harness is None
