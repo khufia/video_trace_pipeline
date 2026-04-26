@@ -54,7 +54,29 @@ def test_build_planner_prompt_formats_diagnosis_for_original_style_planning():
             }
         ],
         compact_rounds=[],
-        retrieved_observations=[],
+        retrieved_observations=[
+            {
+                "observation_id": "obs_1",
+                "subject": "speaker",
+                "predicate": "said",
+                "object_text": "Safety is important.",
+                "evidence_id": "ev_a",
+            },
+            {
+                "observation_id": "obs_2",
+                "subject": "speaker",
+                "predicate": "said",
+                "object_text": "No door.",
+                "evidence_id": "ev_b",
+            },
+            {
+                "observation_id": "obs_3",
+                "subject": "speaker",
+                "predicate": "said",
+                "object_text": "Safety is important.",
+                "evidence_id": "ev_a",
+            },
+        ],
         preprocess_planning_memory={
             "identity_memory": [{"label": "Phil", "kind": "speaker_id", "time_ranges": [{"start_s": 12.0, "end_s": 15.0}]}],
             "audio_event_memory": [{"label": "metallic bang", "time_ranges": [{"start_s": 14.0, "end_s": 15.0}]}],
@@ -99,6 +121,11 @@ def test_build_planner_prompt_formats_diagnosis_for_original_style_planning():
     assert "CURRENT_TRACE_CUES:" not in prompt
     assert "- use_summary: boolean" not in prompt
     assert "they are not automatically complete support" in prompt
+    assert "RETRIEVED_EVIDENCE_IDS_AVAILABLE:" in prompt
+    assert '"ev_a"' in prompt
+    assert '"ev_b"' in prompt
+    assert prompt.count('"ev_a"') >= 2
+    assert "copy one or more of these exact evidence_ids into the step arguments" in prompt
 
 
 def test_planner_system_prompt_uses_original_style_repair_decomposition():
@@ -108,7 +135,17 @@ def test_planner_system_prompt_uses_original_style_repair_decomposition():
     assert "visual_temporal_grounder -> frame_retriever -> spatial_grounder" in PLANNER_SYSTEM_PROMPT
     assert "visual_temporal_grounder -> frame_retriever -> spatial_grounder -> ocr" in PLANNER_SYSTEM_PROMPT
     assert "visual_temporal_grounder -> frame_retriever -> generic_purpose" in PLANNER_SYSTEM_PROMPT
+    assert "animated or evolving chart/table reading" in PLANNER_SYSTEM_PROMPT
+    assert "asr -> frame_retriever -> spatial_grounder -> generic_purpose" in PLANNER_SYSTEM_PROMPT
+    assert "Prefer it over OCR as the primary interpretation tool for charts/tables" in PLANNER_SYSTEM_PROMPT
+    assert "compares frames across the bounded clip" in PLANNER_SYSTEM_PROMPT
     assert "pass `transcripts`, not flattened `text_contexts`" in PLANNER_SYSTEM_PROMPT
+    assert "Do not bind current-plan outputs into `evidence_ids`" in PLANNER_SYSTEM_PROMPT
+    assert "If you want `generic_purpose` to reason over previously retrieved observations" in PLANNER_SYSTEM_PROMPT
+    assert "Use only literal reusable `evidence_ids`" in PLANNER_SYSTEM_PROMPT
+    assert "`generic_purpose` cannot be the first step unless" in PLANNER_SYSTEM_PROMPT
+    assert "If the question asks for a total across repeated occurrences" in PLANNER_SYSTEM_PROMPT
+    assert "match the semantic target of the option" in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" in PLANNER_SYSTEM_PROMPT
     assert "CURRENT_TRACE_CUES" not in PLANNER_SYSTEM_PROMPT
     assert "dialogue_claim_memory" not in PLANNER_SYSTEM_PROMPT

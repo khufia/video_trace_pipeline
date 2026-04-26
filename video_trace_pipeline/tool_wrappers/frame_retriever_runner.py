@@ -209,6 +209,61 @@ def _select_diverse_frames(
     structured_visual = _query_prefers_structured_visual_context(query)
     min_gap_s = 1.0 if structured_visual else 0.5
     selected: List[Dict[str, Any]] = []
+    if structured_visual:
+        best_score = max(float(item.get("temporal_score") or 0.0) for item in list(ranked or []))
+        margin = max(0.02, best_score * 0.03)
+        high_quality = [
+            item
+            for item in sorted(list(ranked or []), key=lambda candidate: float(candidate["timestamp"]))
+            if (best_score - float(item.get("temporal_score") or 0.0)) <= margin
+        ]
+        if high_quality:
+            groups: List[List[Dict[str, Any]]] = []
+            current_group: List[Dict[str, Any]] = []
+            for item in high_quality:
+                if not current_group:
+                    current_group = [item]
+                    continue
+                prev_ts = float(current_group[-1]["timestamp"])
+                curr_ts = float(item["timestamp"])
+                if abs(curr_ts - prev_ts) <= 1.25:
+                    current_group.append(item)
+                else:
+                    groups.append(current_group)
+                    current_group = [item]
+            if current_group:
+                groups.append(current_group)
+
+            def _group_key(group: List[Dict[str, Any]]) -> tuple:
+                scores = [float(item.get("temporal_score") or 0.0) for item in group]
+                return (
+                    -(sum(scores) / float(len(scores))),
+                    -len(group),
+                    -max(scores),
+                    float(group[0]["timestamp"]),
+                )
+
+            best_group = sorted(groups, key=_group_key)[0]
+            timestamps = [float(item["timestamp"]) for item in best_group]
+            midpoint = (
+                timestamps[len(timestamps) // 2]
+                if len(timestamps) % 2 == 1
+                else (timestamps[(len(timestamps) // 2) - 1] + timestamps[len(timestamps) // 2]) / 2.0
+            )
+            plateau_anchor = dict(
+                sorted(
+                    best_group,
+                    key=lambda item: (
+                        abs(float(item["timestamp"]) - midpoint),
+                        -float(item.get("temporal_score") or 0.0),
+                        float(item["timestamp"]),
+                    ),
+                )[0]
+            )
+            plateau_anchor["selection_reason"] = "structured_visual_plateau_center"
+            selected.append(plateau_anchor)
+            if len(selected) >= max(1, int(num_frames or 1)):
+                return selected
     for item in list(ranked or []):
         timestamp_s = float(item["timestamp"])
         if any(abs(float(existing["timestamp"]) - timestamp_s) < min_gap_s for existing in selected):

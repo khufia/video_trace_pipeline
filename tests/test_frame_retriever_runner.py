@@ -394,3 +394,23 @@ def test_frame_retriever_process_adapter_runs_persisted_payload_without_releasin
     assert result["mode"] == "clip_bounded"
     assert seen["harness"] is fake_harness
     assert seen["release_embedder"] is False
+
+
+def test_select_diverse_frames_prefers_structured_visual_plateau_center():
+    ranked = [
+        {"frame_path": "/tmp/frame_10.00.png", "timestamp": 10.0, "relevance_score": 0.90, "temporal_score": 0.95, "selection_reason": "structured_visual_temporal_rerank"},
+        {"frame_path": "/tmp/frame_11.00.png", "timestamp": 11.0, "relevance_score": 0.91, "temporal_score": 0.96, "selection_reason": "structured_visual_temporal_rerank"},
+        {"frame_path": "/tmp/frame_12.00.png", "timestamp": 12.0, "relevance_score": 0.92, "temporal_score": 0.97, "selection_reason": "structured_visual_temporal_rerank"},
+        {"frame_path": "/tmp/frame_13.00.png", "timestamp": 13.0, "relevance_score": 0.90, "temporal_score": 0.95, "selection_reason": "structured_visual_temporal_rerank"},
+        {"frame_path": "/tmp/frame_20.00.png", "timestamp": 20.0, "relevance_score": 0.60, "temporal_score": 0.60, "selection_reason": "structured_visual_temporal_rerank"},
+    ]
+
+    selected = frame_retriever_runner._select_diverse_frames(
+        ranked,
+        1,
+        query="completed chart with all labels visible",
+    )
+
+    assert len(selected) == 1
+    assert selected[0]["timestamp"] == 12.0
+    assert selected[0]["selection_reason"] == "structured_visual_plateau_center"

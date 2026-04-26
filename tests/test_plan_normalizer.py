@@ -289,6 +289,102 @@ def test_plan_normalizer_rejects_asr_text_binding_into_generic_purpose():
         raise AssertionError("Expected plan normalization to reject ASR text -> text_contexts binding.")
 
 
+def test_plan_normalizer_rejects_input_ref_binding_into_evidence_ids():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Reject synthetic evidence-id wiring.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="ocr",
+                purpose="Read chart text.",
+                arguments={"query": "Read the chart.", "frames": [{"video_id": "sample1", "timestamp_s": 12.0}]},
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="generic_purpose",
+                purpose="Answer from OCR.",
+                arguments={"query": "Determine the answer."},
+                input_refs=[
+                    {"target_field": "evidence_ids", "source": {"step_id": 1, "field_path": "backend"}},
+                ],
+                depends_on=[1],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    with pytest.raises(ValueError, match="do not emit bindable evidence ids"):
+        normalizer.normalize(_task(), plan)
+
+
+def test_plan_normalizer_rejects_non_structural_media_input_ref_bindings():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Reject non-structural media wiring.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="frame_retriever",
+                purpose="Retrieve frames.",
+                arguments={"query": "Best frame.", "num_frames": 2},
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="ocr",
+                purpose="Read the image.",
+                arguments={"query": "Read text."},
+                input_refs=[
+                    {"target_field": "frames", "source": {"step_id": 1, "field_path": "summary"}},
+                ],
+                depends_on=[1],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    with pytest.raises(ValueError, match="must bind frames via frames -> frames"):
+        normalizer.normalize(_task(), plan)
+
+
+def test_plan_normalizer_rejects_non_textual_text_context_bindings():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Reject non-text text_contexts wiring.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="ocr",
+                purpose="Read chart text.",
+                arguments={"query": "Read the chart.", "frames": [{"video_id": "sample1", "timestamp_s": 12.0}]},
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="generic_purpose",
+                purpose="Answer from OCR.",
+                arguments={"query": "Determine the answer."},
+                input_refs=[
+                    {"target_field": "text_contexts", "source": {"step_id": 1, "field_path": "backend"}},
+                ],
+                depends_on=[1],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    with pytest.raises(ValueError, match="text_contexts only accepts textual outputs"):
+        normalizer.normalize(_task(), plan)
+
+
 def test_plan_normalizer_keeps_retrieval_query_verbatim():
     normalizer = ExecutionPlanNormalizer(_Registry())
     task = TaskSpec(

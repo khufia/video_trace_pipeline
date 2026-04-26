@@ -26,6 +26,26 @@ _GENERIC_PURPOSE_CONTEXT_FIELDS = frozenset(
     }
 )
 
+_STRUCTURAL_INPUT_REF_FIELDS = {
+    "clips",
+    "frames",
+    "regions",
+    "transcripts",
+}
+
+_TEXT_CONTEXT_SOURCE_FIELDS = frozenset(
+    {
+        "text",
+        "summary",
+        "overall_summary",
+        "analysis",
+        "answer",
+        "supporting_points",
+        "spatial_description",
+        "raw_output_text",
+    }
+)
+
 def _normalize_text(value: Any) -> str:
     return " ".join(str(value or "").strip().split())
 
@@ -105,6 +125,31 @@ class ExecutionPlanNormalizer(object):
             raise ValueError(
                 "Plan step %s must bind ASR output to generic_purpose via transcripts -> transcripts, not %s -> %s."
                 % (int(step.step_id), field_path or "<empty>", target_field or "<empty>")
+            )
+
+    def _validate_input_ref_contract(self, *, step: PlanStep, binding: ArgumentBinding) -> None:
+        step_id = int(step.step_id)
+        target_field = str(binding.target_field or "").strip()
+        field_path = str(binding.source.field_path or "").strip()
+        if target_field == "evidence_ids":
+            raise ValueError(
+                "Plan step %s binds input_refs into evidence_ids. Current-plan steps do not emit bindable evidence ids; "
+                "pass frames, clips, transcripts, or text_contexts instead."
+                % step_id
+            )
+        if target_field in _STRUCTURAL_INPUT_REF_FIELDS and field_path != target_field:
+            raise ValueError(
+                "Plan step %s must bind %s via %s -> %s, not %s -> %s."
+                % (step_id, target_field, target_field, target_field, field_path or "<empty>", target_field)
+            )
+        if target_field == "text_contexts" and field_path not in _TEXT_CONTEXT_SOURCE_FIELDS:
+            raise ValueError(
+                "Plan step %s binds %s into text_contexts, but text_contexts only accepts textual outputs such as: %s."
+                % (
+                    step_id,
+                    field_path or "<empty>",
+                    ", ".join(sorted(_TEXT_CONTEXT_SOURCE_FIELDS)),
+                )
             )
 
     def _normalize_step(self, step: PlanStep) -> PlanStep:
@@ -208,6 +253,7 @@ class ExecutionPlanNormalizer(object):
                     )
                 source_step = step_by_id.get(source_id)
                 if source_step is not None:
+                    self._validate_input_ref_contract(step=step, binding=binding)
                     self._validate_asr_transcript_contract(
                         step=step,
                         binding=binding,

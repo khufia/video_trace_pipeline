@@ -60,23 +60,27 @@ Query construction rules:
 - Do not hide the missing field inside answer-option phrasing when a neutral retrieval query is better.
 - For ordinal questions, query the base observable event or state first; determine earliest/latest only after validating candidate occurrences.
 - For state questions such as empty/full/open/closed/on/off, retrieve the object and then verify the state explicitly.
+- For inference questions, match the semantic target of the option, not just the literal sound or keyword used in the retrieval query.
+- If options mix a direct source label with a downstream state or inferred event, do not automatically prefer the literal source named in the query.
 
 Tool guidance:
 - `visual_temporal_grounder`: localize candidate clips for a visual event, screen, chart, sign, or action before deeper analysis.
-- `frame_retriever`: retrieve the exact frame bundle inside known clips. Retrieval order is relevance-ranked, not chronological.
+- `frame_retriever`: retrieve the exact frame bundle inside known clips. Retrieval order is relevance-ranked, not chronological. For structured visuals such as charts, tables, dashboards, scoreboards, menus, or slides, it compares frames across the bounded clip and can return the most stable/readable representative frames when your query asks for a completed or fully visible state.
 - `spatial_grounder`: use it when the answer depends on which object, icon, person, textbox, or region inside a retrieved frame matters.
-- `ocr`: use it to read explicit text from grounded frames or grounded regions.
+- `ocr`: use it to read explicit text from grounded frames or grounded regions. Do not treat OCR as the default primary tool for interpreting animated charts or tables when multi-frame visual reasoning is better.
 - `asr`: use it to ground spoken content in bounded clips. When a later `generic_purpose` step needs ASR output, pass `transcripts`, not flattened `text_contexts`.
 - `audio_temporal_grounder`: use it for distinctive non-speech sounds, not for spoken dialogue.
 - `dense_captioner`: use it for bounded open-ended action or scene evolution, not as the default first tool for precise text, counting, or region selection.
-- `generic_purpose`: use it only after the relevant evidence is grounded. It must receive explicit context through `clips`, `frames`, `transcripts`, `text_contexts`, `evidence_ids`, or explicit plan dependencies.
+- `generic_purpose`: use it only after the relevant evidence is grounded. It must receive explicit context through `clips`, `frames`, `transcripts`, `text_contexts`, `evidence_ids`, or explicit plan dependencies. It is never a free-standing scratchpad or planner-think step. Prefer it over OCR as the primary interpretation tool for charts/tables when the answer depends on reading the completed visual state across one or more frames.
 
 Canonical tool-chain examples:
 - visible text: `visual_temporal_grounder -> frame_retriever -> ocr`
 - inside-frame localization: `visual_temporal_grounder -> frame_retriever -> spatial_grounder`
 - localized text region: `visual_temporal_grounder -> frame_retriever -> spatial_grounder -> ocr`
 - structured visual interpretation: `visual_temporal_grounder -> frame_retriever -> generic_purpose`
+- animated or evolving chart/table reading: `visual_temporal_grounder -> frame_retriever -> generic_purpose`, with OCR added only for explicit label/value verification when needed
 - dialogue question: bounded clip localization when needed -> `asr` -> optional grounded `generic_purpose`
+- object-state verification during dialogue: `asr -> frame_retriever -> spatial_grounder -> generic_purpose`
 
 Planning rules:
 - Use only canonical tool argument names from `AVAILABLE_TOOLS`.
@@ -84,8 +88,14 @@ Planning rules:
 - `input_refs` and `depends_on` may only refer to earlier steps in the current plan.
 - Never use `0`, previous rounds, retrieved observations, or other pseudo-sources as step ids.
 - If a downstream tool needs prior outputs, wire them explicitly with `input_refs`.
+- `input_refs` are structural, not semantic: bind `clips -> clips`, `frames -> frames`, `regions -> regions`, `transcripts -> transcripts`, and bind `text_contexts` only from textual outputs such as `text`, `summary`, `overall_summary`, `analysis`, or `answer`.
+- Do not bind current-plan outputs into `evidence_ids`; current plan steps do not emit bindable evidence ids for later request wiring.
+- If you want `generic_purpose` to reason over previously retrieved observations instead of new tool outputs, pass the actual prior `evidence_ids` that appear in `RETRIEVED_ATOMIC_OBSERVATIONS`.
+- Use only literal reusable `evidence_ids` that are present in `RETRIEVED_ATOMIC_OBSERVATIONS`; do not invent ids from diagnosis shorthand, trace prose, or placeholder labels.
 - If a tool needs frames, clips, transcripts, or evidence from earlier steps, pass that exact structured context instead of hinting at it in prose.
+- `generic_purpose` cannot be the first step unless its arguments already include non-empty `clips`, `frames`, `transcripts`, `text_contexts`, or `evidence_ids`.
 - If a clip is grounded but a downstream tool needs frame-level evidence, add a frame retrieval step instead of inventing a point timestamp.
+- If the question asks for a total across repeated occurrences, preserve all grounded relevant intervals and resolve each one before deduplicating or counting.
 - Never call more than 6 tools in one plan.
 - Prefer validated retrieved observations before launching broader new searches.
 
@@ -123,6 +133,20 @@ def _normalize_string_list(values, *, sort_values: bool = True) -> List[str]:
         seen.add(text)
         ordered.append(text)
     return sorted(ordered) if sort_values else ordered
+
+
+def _collect_retrieved_evidence_ids(retrieved_observations: List[dict]) -> List[str]:
+    evidence_ids = []
+    seen = set()
+    for item in list(retrieved_observations or []):
+        if not isinstance(item, dict):
+            continue
+        evidence_id = _normalize_text(item.get("evidence_id"))
+        if not evidence_id or evidence_id in seen:
+            continue
+        seen.add(evidence_id)
+        evidence_ids.append(evidence_id)
+    return evidence_ids
 
 
 def _canonicalize_audit_feedback(audit_feedback: Optional[dict]) -> Optional[dict]:
@@ -199,6 +223,9 @@ def build_planner_prompt(
         for key, value in dict(preprocess_planning_memory or {}).items()
         if value not in (None, "", [], {})
     }
+    available_retrieved_evidence_ids = _collect_retrieved_evidence_ids(
+        [dict(item) for item in list(retrieved_observations or []) if isinstance(item, dict)]
+    )
 
     parts = [
         "MODE: %s" % mode,
@@ -257,6 +284,18 @@ def build_planner_prompt(
                 "",
                 "RETRIEVED_OBSERVATIONS_USAGE_NOTE:",
                 "Prefer repairing from these observations before launching broader new searches. Re-check them only when the diagnosis says the current anchor is wrong or incomplete.",
+                "",
+            ]
+        )
+
+    if available_retrieved_evidence_ids:
+        parts.extend(
+            [
+                "RETRIEVED_EVIDENCE_IDS_AVAILABLE:",
+                pretty_json(available_retrieved_evidence_ids),
+                "",
+                "RETRIEVED_EVIDENCE_IDS_USAGE_NOTE:",
+                "If you want generic_purpose to reinterpret already retrieved observations instead of gathering new media evidence, copy one or more of these exact evidence_ids into the step arguments. Do not invent ids from diagnosis shorthand or trace prose.",
                 "",
             ]
         )
