@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "the second reviewed play in the cricket broadcast, showing umpire review or DRS decision with ball tracking or review outcome",
+    "clips": [
+      {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 44.0,
+        "end_s": 56.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 172.0,
+        "end_s": 176.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 595.7,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 44.00s-56.00s, 79.00s-85.00s, 172.00s-176.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 10,
+      "candidate_windows": 10,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"the second reviewed play in the cricket broadcast, showing umpire review or DRS decision with ball tracking or review outcome\", \"clips\": [{\"video_id\": \"-4IduHFnEwg\", \"start_s\": 44.0, \"end_s\": 56.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-4IduHFnEwg\", \"start_s\": 79.0, \"end_s\": 85.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-4IduHFnEwg\", \"start_s\": 172.0, \"end_s\": 176.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 595.7, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 44.00s-56.00s, 79.00s-85.00s, 172.00s-176.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 10, \"candidate_windows\": 10, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "82ed887afef1130868c01df7",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 44.00s-56.00s, 79.00s-85.00s, 172.00s-176.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 10,
+      "candidate_windows": 10,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 1.0,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-26T07:58:27.297815+00:00",
+      "finished_at_utc": "2026-04-26T08:00:09.289427+00:00",
+      "duration_s": 101.9917,
+      "cache_wait_s": 0.0008,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_b627909547d5d957",
+      "obs_09b6d0cdc644ad31",
+      "obs_d55d9eabbdfce3b3"
+    ]
+  }
+}

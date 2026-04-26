@@ -1,0 +1,82 @@
+{
+  "tool_name": "asr",
+  "ok": true,
+  "data": {
+    "clips": [
+      {
+        "video_id": "video",
+        "start_s": 148.0,
+        "end_s": 162.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "reason": "Preprocess transcript places 'That's the guy that kidnapped me' around 154-160s."
+        }
+      }
+    ],
+    "text": "Eleven? It's me! Will! Will?",
+    "segments": [
+      {
+        "start_s": 149.82,
+        "end_s": 155.844,
+        "text": "Eleven? It's me! Will! Will?",
+        "speaker_id": null,
+        "confidence": null
+      }
+    ],
+    "transcripts": [
+      {
+        "transcript_id": "tx_d43be8ea8913",
+        "clip": {
+          "video_id": "video",
+          "start_s": 148.0,
+          "end_s": 162.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "reason": "Preprocess transcript places 'That's the guy that kidnapped me' around 154-160s."
+          }
+        },
+        "text": "Eleven? It's me! Will! Will?",
+        "segments": [
+          {
+            "start_s": 149.82,
+            "end_s": 155.844,
+            "text": "Eleven? It's me! Will! Will?",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ],
+        "metadata": {
+          "backend": "whisperx_local"
+        }
+      }
+    ],
+    "backend": "whisperx_local"
+  },
+  "raw_output_text": "{\"clips\": [{\"video_id\": \"video\", \"start_s\": 148.0, \"end_s\": 162.0, \"artifact_id\": null, \"relpath\": null, \"metadata\": {\"reason\": \"Preprocess transcript places 'That's the guy that kidnapped me' around 154-160s.\"}}], \"text\": \"Eleven? It's me! Will! Will?\", \"segments\": [{\"start_s\": 149.82, \"end_s\": 155.844, \"text\": \"Eleven? It's me! Will! Will?\", \"speaker_id\": null, \"confidence\": null}], \"transcripts\": [{\"transcript_id\": \"tx_d43be8ea8913\", \"clip\": {\"video_id\": \"video\", \"start_s\": 148.0, \"end_s\": 162.0, \"artifact_id\": null, \"relpath\": null, \"metadata\": {\"reason\": \"Preprocess transcript places 'That's the guy that kidnapped me' around 154-160s.\"}}, \"text\": \"Eleven? It's me! Will! Will?\", \"segments\": [{\"start_s\": 149.82, \"end_s\": 155.844, \"text\": \"Eleven? It's me! Will! Will?\", \"speaker_id\": null, \"confidence\": null}], \"metadata\": {\"backend\": \"whisperx_local\"}}], \"backend\": \"whisperx_local\"}",
+  "artifact_refs": [],
+  "request_hash": "53034214e6f2c5bd299848f6",
+  "cache_hit": false,
+  "summary": "Eleven? It's me! Will! Will?",
+  "metadata": {
+    "runtime_warning": "WhisperX GPU runtime unavailable on cuda:0 (missing libcudnn_ops_infer.so.8, libcudnn_cnn_infer.so.8, libcudnn_adv_infer.so.8; searched <redacted-path>, <redacted-path>, <redacted-path>). Falling back to CPU int8 ASR.",
+    "timing": {
+      "started_at_utc": "2026-04-26T09:00:17.376302+00:00",
+      "finished_at_utc": "2026-04-26T09:00:40.873736+00:00",
+      "duration_s": 23.4975,
+      "cache_wait_s": 0.0007,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_9c7b9c74d4984e36",
+      "obs_f82af3b591584d45",
+      "obs_b47e8c6675c397ad",
+      "obs_dfed85ba744a5d22",
+      "obs_1dd40791300cb889",
+      "obs_ae4f3e05d95545dd",
+      "obs_dcac24c95797f4c7",
+      "obs_cfd0a9157a94d038"
+    ]
+  }
+}

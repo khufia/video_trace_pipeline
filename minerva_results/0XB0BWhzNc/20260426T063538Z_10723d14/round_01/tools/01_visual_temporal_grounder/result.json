@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "end of the third quarter scoreboard shown after a buzzer-beater in the basketball game",
+    "clips": [
+      {
+        "video_id": "-0XB0BWhzNc",
+        "start_s": 58.0,
+        "end_s": 60.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-0XB0BWhzNc",
+        "start_s": 118.0,
+        "end_s": 119.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-0XB0BWhzNc",
+        "start_s": 125.0,
+        "end_s": 132.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 186.33333333333334,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 58.00s-60.00s, 118.00s-119.00s, 125.00s-132.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 4,
+      "candidate_windows": 4,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"end of the third quarter scoreboard shown after a buzzer-beater in the basketball game\", \"clips\": [{\"video_id\": \"-0XB0BWhzNc\", \"start_s\": 58.0, \"end_s\": 60.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-0XB0BWhzNc\", \"start_s\": 118.0, \"end_s\": 119.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-0XB0BWhzNc\", \"start_s\": 125.0, \"end_s\": 132.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 186.33333333333334, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 58.00s-60.00s, 118.00s-119.00s, 125.00s-132.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 4, \"candidate_windows\": 4, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "013217bf9fa3e6afe78b2c3a",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 58.00s-60.00s, 118.00s-119.00s, 125.00s-132.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 4,
+      "candidate_windows": 4,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 1.0,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-26T06:40:28.872662+00:00",
+      "finished_at_utc": "2026-04-26T06:40:59.584026+00:00",
+      "duration_s": 30.7114,
+      "cache_wait_s": 0.0012,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_92740071e3a1fdba",
+      "obs_4a1da961e7bb383a",
+      "obs_0dc10b0e88cfe9d9"
+    ]
+  }
+}

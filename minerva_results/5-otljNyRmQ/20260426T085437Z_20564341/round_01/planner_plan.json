@@ -1,0 +1,89 @@
+{
+  "strategy": "Ground the accusation dialogue in the rainy forest confrontation, then inspect frames from that exact moment to identify which visible person the man in the light gray jacket is accusing.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "asr",
+      "purpose": "Transcribe the confrontation where the accusation occurs and, if available, separate speakers so the accusing line can be tied to the man in the light gray jacket.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "video",
+            "start_s": 148.0,
+            "end_s": 162.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Preprocess transcript places 'That's the guy that kidnapped me' around 154-160s."
+            }
+          }
+        ],
+        "speaker_attribution": true
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve frames from the accusation moment showing the man in the light gray jacket and the person he is indicating or facing.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "video",
+            "start_s": 148.0,
+            "end_s": 162.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Need visual identity of accused person during accusation exchange."
+            }
+          }
+        ],
+        "num_frames": 6,
+        "query": "frames showing the man in the light gray jacket during the accusation and the person he is accusing in the same exchange",
+        "time_hints": [
+          "around the spoken line 'That's the guy that kidnapped me'",
+          "immediately before and after the denial 'I did not. I didn't'"
+        ]
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "Use the grounded transcript and retrieved frames to determine which option-described person is the accused kidnapper.",
+      "arguments": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From these transcripts and frames, identify which visible person is accused of being a kidnapper by the man in the light gray jacket. Match the accused person to the provided appearance categories: backwards baseball cap, glasses, blonde wig, orange puff jacket, or plaid shirt. Use only the accusation moment evidence.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 2,
+            "field_path": "frames"
+          }
+        },
+        {
+          "target_field": "transcripts",
+          "source": {
+            "step_id": 1,
+            "field_path": "transcripts"
+          }
+        }
+      ],
+      "depends_on": [
+        1,
+        2
+      ]
+    }
+  ],
+  "refinement_instructions": "Preserve the preprocess-supported anchor that the relevant scene is the rainy forest confrontation around 154-160 seconds and that the accusation line is 'That's the guy that kidnapped me.' Do not rely on preprocess alone for who is being accused, because the target identity is not decisively grounded there. Replace any unsupported assumption about which character the line refers to with the new evidence from the bounded ASR and accusation-moment frames. The answer-critical field is the visual identity of the accused person, mapped to the option descriptions. The modality that matters most is the combination of accusation dialogue timing and the corresponding frames showing who the man in the light gray jacket is indicating/facing. If the new evidence still does not clearly distinguish among the listed appearances, leave the answer unresolved rather than guessing."
+}

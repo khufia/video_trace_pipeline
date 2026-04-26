@@ -1,0 +1,88 @@
+{
+  "strategy": "Repair the missing accusation grounding by transcribing a slightly later confrontation window that should include the line 'That's the guy that kidnapped me' and the immediate denial, then inspect frames from that exact utterance window to verify which visible person the light-gray-jacketed man is accusing and map that person to one answer option.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "asr",
+      "purpose": "Transcribe the later portion of the rainy forest confrontation where the accusation and denial occur, with speaker attribution enabled so the accusing speaker can be tied to the man in the light gray jacket if possible.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "video",
+            "start_s": 154.0,
+            "end_s": 162.5,
+            "metadata": {
+              "scene": "rainy forest confrontation",
+              "goal": "capture accusation and denial"
+            }
+          }
+        ],
+        "speaker_attribution": true
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve frames from the exact accusation window showing the man in the light gray jacket and the person he is pointing at, facing, or otherwise singling out during the accusation exchange.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "video",
+            "start_s": 154.0,
+            "end_s": 162.5,
+            "metadata": {
+              "scene": "rainy forest confrontation",
+              "goal": "visual identity of accused person"
+            }
+          }
+        ],
+        "num_frames": 8,
+        "query": "frames showing the man in the light gray jacket accusing another person of kidnapping, with the accused person visible",
+        "time_hints": [
+          "during the spoken accusation about kidnapping",
+          "immediately around the denial 'I did not' or 'I didn't'",
+          "frames where the man in the light gray jacket is addressing or indicating another person"
+        ]
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "Using the grounded accusation transcript and the retrieved accusation frames, determine which visible person is being accused by the man in the light gray jacket and map that person to the provided answer options.",
+      "arguments": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From these transcripts and frames only, identify whom the man in the light gray jacket accuses of being the kidnapper. Use the accusation wording and immediate visual interaction during that exact moment, then match the accused person to one of these descriptions: man with backwards baseball cap, man wearing glasses, man wearing a blonde wig, man in the orange puff jacket, man in the plaid shirt. If the evidence does not decisively identify one person, say unresolved.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 2,
+            "field_path": "frames"
+          }
+        },
+        {
+          "target_field": "transcripts",
+          "source": {
+            "step_id": 1,
+            "field_path": "transcripts"
+          }
+        }
+      ],
+      "depends_on": [
+        1,
+        2
+      ]
+    }
+  ],
+  "refinement_instructions": "Preserve the supported prior anchor that the relevant event is the rainy forest confrontation near 154-160 seconds and that the questioned speaker is the man in the light gray jacket. Remove or replace the unsupported prior claim that the accused person is the blonde-wigged person unless the new evidence explicitly ties the accusation to that person. The new evidence must resolve two exact gaps: (1) the textually grounded accusation/denial exchange itself, and (2) which visible person in that exact moment is the accusation target, mapped to one answer option. The transcript from step 1 is the primary grounding for the accusation event; the frames from step 2 matter only to identify which visible person that accusation targets. If step 1 still does not capture the accusation wording or step 3 cannot confidently link the accusation target to a single option, the answer should remain unresolved rather than reusing the earlier scene-level assumption."
+}

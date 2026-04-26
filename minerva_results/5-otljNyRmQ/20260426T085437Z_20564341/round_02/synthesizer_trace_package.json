@@ -1,0 +1,686 @@
+{
+  "task_key": "5-otljNyRmQ__4eb94d541d13",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_53034214",
+      "tool_name": "asr",
+      "evidence_text": "Eleven? It's me! Will! Will?",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": 149.82,
+      "time_end_s": 155.844,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_9c7b9c74d4984e36",
+        "obs_f82af3b591584d45",
+        "obs_b47e8c6675c397ad",
+        "obs_dfed85ba744a5d22"
+      ],
+      "metadata": {
+        "request_hash": "53034214e6f2c5bd299848f6",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_768d3a61",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved 6 frame(s) across 1 input clip(s).",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 148.0,
+          "end_s": 148.0
+        },
+        {
+          "start_s": 149.0,
+          "end_s": 149.0
+        },
+        {
+          "start_s": 150.0,
+          "end_s": 150.0
+        },
+        {
+          "start_s": 151.0,
+          "end_s": 151.0
+        },
+        {
+          "start_s": 152.0,
+          "end_s": 152.0
+        },
+        {
+          "start_s": 153.0,
+          "end_s": 153.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "5d6e691f23ad8ef5a976013e",
+          "kind": "frame",
+          "relpath": "cache/artifacts/5d6e691f23ad8ef5a976013e/frame_148.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_148.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 257692
+          }
+        },
+        {
+          "artifact_id": "2f8531365a2d20f867b272a5",
+          "kind": "frame",
+          "relpath": "cache/artifacts/2f8531365a2d20f867b272a5/frame_149.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_149.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 137704
+          }
+        },
+        {
+          "artifact_id": "4b423031128a57504c4bba64",
+          "kind": "frame",
+          "relpath": "cache/artifacts/4b423031128a57504c4bba64/frame_150.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_150.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 110031
+          }
+        },
+        {
+          "artifact_id": "5d2edc9203e269686e92b472",
+          "kind": "frame",
+          "relpath": "cache/artifacts/5d2edc9203e269686e92b472/frame_151.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_151.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 251019
+          }
+        },
+        {
+          "artifact_id": "3e415a926ad27e9f4a317b04",
+          "kind": "frame",
+          "relpath": "cache/artifacts/3e415a926ad27e9f4a317b04/frame_152.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_152.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 239926
+          }
+        },
+        {
+          "artifact_id": "3471c20cdf5acfa8a72b01d0",
+          "kind": "frame",
+          "relpath": "cache/artifacts/3471c20cdf5acfa8a72b01d0/frame_153.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_153.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 117861
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_90f0f255d9bab112",
+        "obs_e1ac9f02f0502395",
+        "obs_e500dc12a424b367",
+        "obs_99a50d42e78fc2d4",
+        "obs_a577e3525bc44a1c",
+        "obs_527ce7e574077623"
+      ],
+      "metadata": {
+        "request_hash": "768d3a61bcbe2fd5512cb652",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_03_2bfb391c",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Frames in this segment show a man in a light gray jacket holding a lantern and wearing a dark baseball cap, and another person in the woods with long blonde hair or a blonde wig. The transcript in this bounded clip does not itself include the word \"kidnapper.\"",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_ab319e2988b0dfbf",
+        "obs_fdcb2bdadf7e053c",
+        "obs_1f030bf847e59f47",
+        "obs_34fe6012b011bd9b",
+        "obs_6d8763cbc06aecb7",
+        "obs_14134ea37c721623",
+        "obs_d0b5eca4eb9e4aef",
+        "obs_1044227a3f9825dc",
+        "obs_d2b7978f64a23ff9",
+        "obs_c3350b10cdeb4a0c",
+        "obs_fc8a030a50d245e3",
+        "obs_a6fba4e8debe8b50"
+      ],
+      "metadata": {
+        "request_hash": "2bfb391c9c52090c7dca551b",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_01_fa09aa7c",
+      "tool_name": "asr",
+      "evidence_text": "Will! Will?",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": 154.031,
+      "time_end_s": 162.468,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_ea9907ad461418b8",
+        "obs_56a09b4f7d16791c",
+        "obs_b76ebb98c6e731ae",
+        "obs_318d685bd2c357f1"
+      ],
+      "metadata": {
+        "request_hash": "fa09aa7c72169d31950beef7",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_b663bd97",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved 8 frame(s) across 1 input clip(s).",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 154.0,
+          "end_s": 154.0
+        },
+        {
+          "start_s": 155.0,
+          "end_s": 155.0
+        },
+        {
+          "start_s": 156.0,
+          "end_s": 156.0
+        },
+        {
+          "start_s": 157.0,
+          "end_s": 157.0
+        },
+        {
+          "start_s": 158.0,
+          "end_s": 158.0
+        },
+        {
+          "start_s": 159.0,
+          "end_s": 159.0
+        },
+        {
+          "start_s": 160.0,
+          "end_s": 160.0
+        },
+        {
+          "start_s": 161.0,
+          "end_s": 161.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "8d04684537c30b1b93ad367c",
+          "kind": "frame",
+          "relpath": "cache/artifacts/8d04684537c30b1b93ad367c/frame_154.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_154.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 115372
+          }
+        },
+        {
+          "artifact_id": "8ca147175c134b1d3c10493d",
+          "kind": "frame",
+          "relpath": "cache/artifacts/8ca147175c134b1d3c10493d/frame_155.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_155.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 222154
+          }
+        },
+        {
+          "artifact_id": "f5537a01d69440491fb4a6f8",
+          "kind": "frame",
+          "relpath": "cache/artifacts/f5537a01d69440491fb4a6f8/frame_156.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_156.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 225309
+          }
+        },
+        {
+          "artifact_id": "66ff0ddbdca91911dbd4c4fe",
+          "kind": "frame",
+          "relpath": "cache/artifacts/66ff0ddbdca91911dbd4c4fe/frame_157.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_157.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 232901
+          }
+        },
+        {
+          "artifact_id": "0e32e2367d894b5fc77e5789",
+          "kind": "frame",
+          "relpath": "cache/artifacts/0e32e2367d894b5fc77e5789/frame_158.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_158.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 137294
+          }
+        },
+        {
+          "artifact_id": "ad9ae6298e7cb510c3196729",
+          "kind": "frame",
+          "relpath": "cache/artifacts/ad9ae6298e7cb510c3196729/frame_159.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_159.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 125530
+          }
+        },
+        {
+          "artifact_id": "bc96737fd4f7a66cf0216120",
+          "kind": "frame",
+          "relpath": "cache/artifacts/bc96737fd4f7a66cf0216120/frame_160.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_160.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 98700
+          }
+        },
+        {
+          "artifact_id": "2c15a537a91dace4cdb1cdda",
+          "kind": "frame",
+          "relpath": "cache/artifacts/2c15a537a91dace4cdb1cdda/frame_161.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_161.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 154901
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_358973c5bf4b85b2",
+        "obs_f1e683206c3733e6",
+        "obs_c31fa0245ad83c4f",
+        "obs_7bfdb7c9521cb80c",
+        "obs_e70f49ca026b715e",
+        "obs_a2a975ba86f369d5",
+        "obs_69f5b2ad8c8421d0",
+        "obs_00a29ebf18a8540a"
+      ],
+      "metadata": {
+        "request_hash": "b663bd970fc5f225e3c0785b",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_03_9b374711",
+      "tool_name": "generic_purpose",
+      "evidence_text": "In the 154-161s frames, a man in a light gray jacket holding a lantern and wearing a blue baseball cap is visible, and a second visible person has long blonde hair, possibly a wig, and also appears with a lantern. The transcript for 154.031s-162.468s is only \"Will! Will?\" and does not contain the accusation word \"kidnapper.\"",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": 154.031,
+      "time_end_s": 162.468,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 154.0,
+          "end_s": 161.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_25892cdb02a635a8",
+        "obs_b6bcaf0e5f4e959c",
+        "obs_793f62ec966078e9",
+        "obs_1621387067a86226",
+        "obs_6f8b7c2c0c2f4d32",
+        "obs_e02f6b11b8050260",
+        "obs_1600b5f17de89ceb",
+        "obs_a13774ccc327321d",
+        "obs_d2681fcfe908a464",
+        "obs_04ec2fe5dde171fe",
+        "obs_be56d388d6677c51"
+      ],
+      "metadata": {
+        "request_hash": "9b374711b593f5ade25ba069",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The relevant event remains the forest confrontation around 149.82s-162.468s, where the visible speaker anchor is a man in a light gray jacket holding a lantern.",
+      "supporting_observation_ids": [
+        "obs_1f030bf847e59f47",
+        "obs_34fe6012b011bd9b",
+        "obs_b6bcaf0e5f4e959c"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": 149.82,
+      "time_end_s": 162.468,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 148.0,
+          "end_s": 153.0
+        },
+        {
+          "start_s": 154.0,
+          "end_s": 161.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "Both transcript spans available for this moment contain only calls to \"Will\" / \"Will?\" and do not include the accusation wording or the word \"kidnapper,\" so the accusation itself is still not textually grounded.",
+      "supporting_observation_ids": [
+        "obs_9c7b9c74d4984e36",
+        "obs_f82af3b591584d45",
+        "obs_b47e8c6675c397ad",
+        "obs_dfed85ba744a5d22",
+        "obs_ea9907ad461418b8",
+        "obs_56a09b4f7d16791c",
+        "obs_04ec2fe5dde171fe"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": 149.82,
+      "time_end_s": 162.468,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 3,
+      "text": "The frames do show another visible person with long blonde hair, possibly a blonde wig, near the man in the light gray jacket during this confrontation, but without the accusation wording there is no grounded basis to conclude that this visible person is the one being accused.",
+      "supporting_observation_ids": [
+        "obs_fdcb2bdadf7e053c",
+        "obs_a6fba4e8debe8b50",
+        "obs_1621387067a86226",
+        "obs_6f8b7c2c0c2f4d32",
+        "obs_d2681fcfe908a464"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 148.0,
+          "end_s": 153.0
+        },
+        {
+          "start_s": 154.0,
+          "end_s": 161.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Because the new evidence still does not resolve the accusation/denial exchange or tie the accusation target to one visible person at that exact moment, none of the answer options can be selected with confidence from the provided evidence alone.",
+      "supporting_observation_ids": [
+        "obs_04ec2fe5dde171fe",
+        "obs_be881d0a1c73f676",
+        "obs_d2681fcfe908a464",
+        "obs_be56d388d6677c51"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": 154.031,
+      "time_end_s": 162.468,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 154.0,
+          "end_s": 161.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "5-otljNyRmQ__4eb94d541d13",
+      "trace": {
+        "inference_steps": [
+          "[148s to 153s; 154s to 161s] The relevant event remains the forest confrontation around 149.82s-162.468s, where the visible speaker anchor is a man in a light gray jacket holding a lantern.",
+          "[149.82s to 162.468s] Both transcript spans available for this moment contain only calls to \"Will\" / \"Will?\" and do not include the accusation wording or the word \"kidnapper,\" so the accusation itself is still not textually grounded.",
+          "[148s to 153s; 154s to 161s] The frames do show another visible person with long blonde hair, possibly a blonde wig, near the man in the light gray jacket during this confrontation, but without the accusation wording there is no grounded basis to conclude that this visible person is the one being accused.",
+          "[154s to 161s] Because the new evidence still does not resolve the accusation/denial exchange or tie the accusation target to one visible person at that exact moment, none of the answer options can be selected with confidence from the provided evidence alone."
+        ],
+        "evidence": [
+          {
+            "tool_name": "asr",
+            "evidence_text": "Eleven? It's me! Will! Will?",
+            "observation_ids": [
+              "obs_9c7b9c74d4984e36",
+              "obs_f82af3b591584d45",
+              "obs_b47e8c6675c397ad",
+              "obs_dfed85ba744a5d22"
+            ],
+            "time_start_s": 149.82,
+            "time_end_s": 155.844,
+            "frame_ts_s": null,
+            "time_intervals": []
+          },
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved 6 frame(s) across 1 input clip(s).",
+            "observation_ids": [
+              "obs_90f0f255d9bab112",
+              "obs_e1ac9f02f0502395",
+              "obs_e500dc12a424b367",
+              "obs_99a50d42e78fc2d4",
+              "obs_a577e3525bc44a1c",
+              "obs_527ce7e574077623"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 148.0,
+                "end_s": 148.0
+              },
+              {
+                "start_s": 149.0,
+                "end_s": 149.0
+              },
+              {
+                "start_s": 150.0,
+                "end_s": 150.0
+              },
+              {
+                "start_s": 151.0,
+                "end_s": 151.0
+              },
+              {
+                "start_s": 152.0,
+                "end_s": 152.0
+              },
+              {
+                "start_s": 153.0,
+                "end_s": 153.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Frames in this segment show a man in a light gray jacket holding a lantern and wearing a dark baseball cap, and another person in the woods with long blonde hair or a blonde wig. The transcript in this bounded clip does not itself include the word \"kidnapper.\"",
+            "observation_ids": [
+              "obs_ab319e2988b0dfbf",
+              "obs_fdcb2bdadf7e053c",
+              "obs_1f030bf847e59f47",
+              "obs_34fe6012b011bd9b",
+              "obs_6d8763cbc06aecb7",
+              "obs_14134ea37c721623",
+              "obs_d0b5eca4eb9e4aef",
+              "obs_1044227a3f9825dc",
+              "obs_d2b7978f64a23ff9",
+              "obs_c3350b10cdeb4a0c",
+              "obs_fc8a030a50d245e3",
+              "obs_a6fba4e8debe8b50"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          },
+          {
+            "tool_name": "asr",
+            "evidence_text": "Will! Will?",
+            "observation_ids": [
+              "obs_ea9907ad461418b8",
+              "obs_56a09b4f7d16791c",
+              "obs_b76ebb98c6e731ae",
+              "obs_318d685bd2c357f1"
+            ],
+            "time_start_s": 154.031,
+            "time_end_s": 162.468,
+            "frame_ts_s": null,
+            "time_intervals": []
+          },
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved 8 frame(s) across 1 input clip(s).",
+            "observation_ids": [
+              "obs_358973c5bf4b85b2",
+              "obs_f1e683206c3733e6",
+              "obs_c31fa0245ad83c4f",
+              "obs_7bfdb7c9521cb80c",
+              "obs_e70f49ca026b715e",
+              "obs_a2a975ba86f369d5",
+              "obs_69f5b2ad8c8421d0",
+              "obs_00a29ebf18a8540a"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 154.0,
+                "end_s": 154.0
+              },
+              {
+                "start_s": 155.0,
+                "end_s": 155.0
+              },
+              {
+                "start_s": 156.0,
+                "end_s": 156.0
+              },
+              {
+                "start_s": 157.0,
+                "end_s": 157.0
+              },
+              {
+                "start_s": 158.0,
+                "end_s": 158.0
+              },
+              {
+                "start_s": 159.0,
+                "end_s": 159.0
+              },
+              {
+                "start_s": 160.0,
+                "end_s": 160.0
+              },
+              {
+                "start_s": 161.0,
+                "end_s": 161.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "In the 154-161s frames, a man in a light gray jacket holding a lantern and wearing a blue baseball cap is visible, and a second visible person has long blonde hair, possibly a wig, and also appears with a lantern. The transcript for 154.031s-162.468s is only \"Will! Will?\" and does not contain the accusation word \"kidnapper.\"",
+            "observation_ids": [
+              "obs_25892cdb02a635a8",
+              "obs_b6bcaf0e5f4e959c",
+              "obs_793f62ec966078e9",
+              "obs_1621387067a86226",
+              "obs_6f8b7c2c0c2f4d32",
+              "obs_e02f6b11b8050260",
+              "obs_1600b5f17de89ceb",
+              "obs_a13774ccc327321d",
+              "obs_d2681fcfe908a464",
+              "obs_04ec2fe5dde171fe",
+              "obs_be56d388d6677c51"
+            ],
+            "time_start_s": 154.031,
+            "time_end_s": 162.468,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 154.0,
+                "end_s": 161.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {}
+}

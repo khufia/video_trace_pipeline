@@ -1,0 +1,415 @@
+{
+  "task_key": "AY84ybskqI__067504b6f6bd",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_9c5e2884",
+      "tool_name": "visual_temporal_grounder",
+      "evidence_text": "The queried woman-in-gray Inner City Tennis drill appears in two intervals: 117.00s-119.00s and 120.00s-128.00s.",
+      "inference_hint": null,
+      "confidence": 1.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 117.0,
+          "end_s": 119.0
+        },
+        {
+          "start_s": 120.0,
+          "end_s": 128.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_1f98d42030ff46bf",
+        "obs_0de66ffa8dfd6ef5"
+      ],
+      "metadata": {
+        "role": "query_localization"
+      }
+    },
+    {
+      "evidence_id": "ev_loc_inner_city",
+      "tool_name": "dense_captioner",
+      "evidence_text": "The 117.00s-119.00s establishing shot shows text identifying the location as Inner City Tennis.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 117.0,
+          "end_s": 119.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_9a72cfe0e05a2f8e",
+        "obs_5eb4dfd8b409dda5",
+        "obs_5a28d443a21e0b45"
+      ],
+      "metadata": {
+        "role": "location_anchor"
+      }
+    },
+    {
+      "evidence_id": "ev_instructor_identity",
+      "tool_name": "dense_captioner",
+      "evidence_text": "In the indoor court segment, the female instructor wears a grey t-shirt and black shorts.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 122.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_f0e3560b1a67f701",
+        "obs_e946ca64e3cda1bb",
+        "obs_e1a8b7756a96989f"
+      ],
+      "metadata": {
+        "role": "woman_in_gray_anchor"
+      }
+    },
+    {
+      "evidence_id": "ev_ball_toss_grounded",
+      "tool_name": "dense_captioner",
+      "evidence_text": "Within the drill sequence, the instructor is directly observed tossing a ball at 120.00s and also tossing a tennis ball up to a young girl during 120.00s-122.00s.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 120.0
+        },
+        {
+          "start_s": 120.0,
+          "end_s": 122.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_1a36bf75385d319a",
+        "obs_2ecaa49de8bacb5b",
+        "obs_ba5931bfcbd58f6f"
+      ],
+      "metadata": {
+        "role": "grounded_ball_toss_evidence"
+      }
+    },
+    {
+      "evidence_id": "ev_side_steps_only_generic",
+      "tool_name": "generic_purpose",
+      "evidence_text": "A non-grounded summary claims the instructor takes two side steps in a later clip and also claims additional toss counts, but these counts are not directly supported by the dense-caption observations for the full sequence.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "provisional",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_845f73849bc98c3a",
+        "obs_5a56ca92f3cbab9c",
+        "obs_1e073448312fae37",
+        "obs_88f7d734a1572e7a",
+        "obs_621e0afc69ce1bb6"
+      ],
+      "metadata": {
+        "role": "unsupported_count_claims"
+      }
+    },
+    {
+      "evidence_id": "ev_dense_caption_gap",
+      "tool_name": "dense_captioner",
+      "evidence_text": "The dense-caption evidence after 122s focuses on the girl's hands and practice details rather than clearly separating and counting the instructor's side steps versus ball tosses across the whole drill.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 125.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_ad66e4f64d49a2a3",
+        "obs_72e7ac8a99c35ebe",
+        "obs_784ceff2b64e09e0",
+        "obs_5425041cbe0b9cdb"
+      ],
+      "metadata": {
+        "role": "insufficient_visual_counting_evidence"
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The relevant segment is the Inner City Tennis volunteering scene, anchored by the establishing shot naming Inner City Tennis and the later indoor-court drill with the woman in gray.",
+      "supporting_observation_ids": [
+        "obs_1f98d42030ff46bf",
+        "obs_0de66ffa8dfd6ef5",
+        "obs_9a72cfe0e05a2f8e",
+        "obs_5eb4dfd8b409dda5",
+        "obs_f0e3560b1a67f701",
+        "obs_e946ca64e3cda1bb"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 117.0,
+          "end_s": 119.0
+        },
+        {
+          "start_s": 120.0,
+          "end_s": 128.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The woman in gray is the female instructor on the indoor court, wearing a grey t-shirt and black shorts.",
+      "supporting_observation_ids": [
+        "obs_f0e3560b1a67f701",
+        "obs_e946ca64e3cda1bb",
+        "obs_079af6e7cc3d2b68"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 122.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "There is grounded visual evidence of at least one ball toss by the instructor in the drill sequence, but the available dense-caption evidence does not provide a complete, clearly separated count of all ball tosses and all side steps across the whole relevant sequence.",
+      "supporting_observation_ids": [
+        "obs_1a36bf75385d319a",
+        "obs_2ecaa49de8bacb5b",
+        "obs_ba5931bfcbd58f6f",
+        "obs_ad66e4f64d49a2a3",
+        "obs_72e7ac8a99c35ebe",
+        "obs_784ceff2b64e09e0"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 122.0
+        },
+        {
+          "start_s": 123.0,
+          "end_s": 125.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Although a generic summary suggests two side steps and multiple tosses, those counts are not directly grounded by the decisive visual evidence here, so they should not be used to choose a ratio.",
+      "supporting_observation_ids": [
+        "obs_845f73849bc98c3a",
+        "obs_5a56ca92f3cbab9c",
+        "obs_1e073448312fae37",
+        "obs_88f7d734a1572e7a",
+        "obs_621e0afc69ce1bb6"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 5,
+      "text": "Because the answer requires an exact ratio of side steps to ball tosses and the grounded evidence does not clearly establish both totals, the multiple-choice answer cannot be resolved confidently.",
+      "supporting_observation_ids": [
+        "obs_1a36bf75385d319a",
+        "obs_2ecaa49de8bacb5b",
+        "obs_ad66e4f64d49a2a3",
+        "obs_72e7ac8a99c35ebe",
+        "obs_784ceff2b64e09e0"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 122.0
+        },
+        {
+          "start_s": 123.0,
+          "end_s": 125.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "AY84ybskqI__067504b6f6bd",
+      "trace": {
+        "inference_steps": [
+          "[117s to 119s; 120s to 128s] The relevant segment is the Inner City Tennis volunteering scene, anchored by the establishing shot naming Inner City Tennis and the later indoor-court drill with the woman in gray.",
+          "[120s to 122s] The woman in gray is the female instructor on the indoor court, wearing a grey t-shirt and black shorts.",
+          "[120s to 122s; 123s to 125s] There is grounded visual evidence of at least one ball toss by the instructor in the drill sequence, but the available dense-caption evidence does not provide a complete, clearly separated count of all ball tosses and all side steps across the whole relevant sequence.",
+          "Although a generic summary suggests two side steps and multiple tosses, those counts are not directly grounded by the decisive visual evidence here, so they should not be used to choose a ratio.",
+          "[120s to 122s; 123s to 125s] Because the answer requires an exact ratio of side steps to ball tosses and the grounded evidence does not clearly establish both totals, the multiple-choice answer cannot be resolved confidently."
+        ],
+        "evidence": [
+          {
+            "tool_name": "visual_temporal_grounder",
+            "evidence_text": "The queried woman-in-gray Inner City Tennis drill appears in two intervals: 117.00s-119.00s and 120.00s-128.00s.",
+            "observation_ids": [
+              "obs_1f98d42030ff46bf",
+              "obs_0de66ffa8dfd6ef5"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 117.0,
+                "end_s": 119.0
+              },
+              {
+                "start_s": 120.0,
+                "end_s": 128.0
+              }
+            ]
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "The 117.00s-119.00s establishing shot shows text identifying the location as Inner City Tennis.",
+            "observation_ids": [
+              "obs_9a72cfe0e05a2f8e",
+              "obs_5eb4dfd8b409dda5",
+              "obs_5a28d443a21e0b45"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 117.0,
+                "end_s": 119.0
+              }
+            ]
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "In the indoor court segment, the female instructor wears a grey t-shirt and black shorts.",
+            "observation_ids": [
+              "obs_f0e3560b1a67f701",
+              "obs_e946ca64e3cda1bb",
+              "obs_e1a8b7756a96989f"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 120.0,
+                "end_s": 122.0
+              }
+            ]
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "Within the drill sequence, the instructor is directly observed tossing a ball at 120.00s and also tossing a tennis ball up to a young girl during 120.00s-122.00s.",
+            "observation_ids": [
+              "obs_1a36bf75385d319a",
+              "obs_2ecaa49de8bacb5b",
+              "obs_ba5931bfcbd58f6f"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 120.0,
+                "end_s": 120.0
+              },
+              {
+                "start_s": 120.0,
+                "end_s": 122.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "A non-grounded summary claims the instructor takes two side steps in a later clip and also claims additional toss counts, but these counts are not directly supported by the dense-caption observations for the full sequence.",
+            "observation_ids": [
+              "obs_845f73849bc98c3a",
+              "obs_5a56ca92f3cbab9c",
+              "obs_1e073448312fae37",
+              "obs_88f7d734a1572e7a",
+              "obs_621e0afc69ce1bb6"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "The dense-caption evidence after 122s focuses on the girl's hands and practice details rather than clearly separating and counting the instructor's side steps versus ball tosses across the whole drill.",
+            "observation_ids": [
+              "obs_ad66e4f64d49a2a3",
+              "obs_72e7ac8a99c35ebe",
+              "obs_784ceff2b64e09e0",
+              "obs_5425041cbe0b9cdb"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 123.0,
+                "end_s": 125.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved_due_to_insufficient_grounded_visual_counts"
+  }
+}

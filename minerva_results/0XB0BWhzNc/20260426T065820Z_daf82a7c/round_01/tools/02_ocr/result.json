@@ -1,0 +1,652 @@
+{
+  "tool_name": "ocr",
+  "ok": true,
+  "data": {
+    "query": "Read the scoreboard text, including both team names or sides, scores, game clock, and quarter/period indicator.",
+    "text": "BRISTOL CENT.\n52\nE. CATHOLIC\n40\n3rd\n0:00.0 The Day\n\nBRISTOL CENT.\n52\nE. CATHOLIC\n40\n3rd\n0:00.0 The Da\n\nEO\nBRISTOL CENT.\nE. CATHOLIC\n40\n3rd\n0:00.8\nThe Day\n\nEOF\nBRISTOL CENT.\n52\n1\nE. CATHOLIC\n40\n3rd\n0:01.8\nThe Day\n\nOOE\nBRISTOL CENT.\n52\nE. CATHOLIC\n40\n3rd\n0:02.8 The Day",
+    "lines": [
+      {
+        "text": "BRISTOL CENT.",
+        "bbox": null,
+        "confidence": 0.9986451268196106
+      },
+      {
+        "text": "52",
+        "bbox": null,
+        "confidence": 0.9999364614486694
+      },
+      {
+        "text": "E. CATHOLIC",
+        "bbox": null,
+        "confidence": 0.9882000088691711
+      },
+      {
+        "text": "40",
+        "bbox": null,
+        "confidence": 0.9999094009399414
+      },
+      {
+        "text": "3rd",
+        "bbox": null,
+        "confidence": 0.9996444582939148
+      },
+      {
+        "text": "0:00.0 The Day",
+        "bbox": null,
+        "confidence": 0.9393250346183777
+      },
+      {
+        "text": "BRISTOL CENT.",
+        "bbox": null,
+        "confidence": 0.996077835559845
+      },
+      {
+        "text": "52",
+        "bbox": null,
+        "confidence": 0.9999778270721436
+      },
+      {
+        "text": "E. CATHOLIC",
+        "bbox": null,
+        "confidence": 0.9603164792060852
+      },
+      {
+        "text": "40",
+        "bbox": null,
+        "confidence": 0.9998699426651001
+      },
+      {
+        "text": "3rd",
+        "bbox": null,
+        "confidence": 0.9996554255485535
+      },
+      {
+        "text": "0:00.0 The Da",
+        "bbox": null,
+        "confidence": 0.8091570734977722
+      },
+      {
+        "text": "EO",
+        "bbox": null,
+        "confidence": 0.3788931369781494
+      },
+      {
+        "text": "BRISTOL CENT.",
+        "bbox": null,
+        "confidence": 0.9971218705177307
+      },
+      {
+        "text": "E. CATHOLIC",
+        "bbox": null,
+        "confidence": 0.9825140237808228
+      },
+      {
+        "text": "40",
+        "bbox": null,
+        "confidence": 0.9998812675476074
+      },
+      {
+        "text": "3rd",
+        "bbox": null,
+        "confidence": 0.9995129108428955
+      },
+      {
+        "text": "0:00.8",
+        "bbox": null,
+        "confidence": 0.970827579498291
+      },
+      {
+        "text": "The Day",
+        "bbox": null,
+        "confidence": 0.917267918586731
+      },
+      {
+        "text": "EOF",
+        "bbox": null,
+        "confidence": 0.45911797881126404
+      },
+      {
+        "text": "BRISTOL CENT.",
+        "bbox": null,
+        "confidence": 0.9906845688819885
+      },
+      {
+        "text": "52",
+        "bbox": null,
+        "confidence": 0.9999613165855408
+      },
+      {
+        "text": "1",
+        "bbox": null,
+        "confidence": 0.14140863716602325
+      },
+      {
+        "text": "E. CATHOLIC",
+        "bbox": null,
+        "confidence": 0.9824914336204529
+      },
+      {
+        "text": "40",
+        "bbox": null,
+        "confidence": 0.9998766183853149
+      },
+      {
+        "text": "3rd",
+        "bbox": null,
+        "confidence": 0.9994733929634094
+      },
+      {
+        "text": "0:01.8",
+        "bbox": null,
+        "confidence": 0.9989507794380188
+      },
+      {
+        "text": "The Day",
+        "bbox": null,
+        "confidence": 0.9404053092002869
+      },
+      {
+        "text": "OOE",
+        "bbox": null,
+        "confidence": 0.4566507041454315
+      },
+      {
+        "text": "BRISTOL CENT.",
+        "bbox": null,
+        "confidence": 0.9974052906036377
+      },
+      {
+        "text": "52",
+        "bbox": null,
+        "confidence": 0.9999405741691589
+      },
+      {
+        "text": "E. CATHOLIC",
+        "bbox": null,
+        "confidence": 0.9631010293960571
+      },
+      {
+        "text": "40",
+        "bbox": null,
+        "confidence": 0.9998613595962524
+      },
+      {
+        "text": "3rd",
+        "bbox": null,
+        "confidence": 0.9993361830711365
+      },
+      {
+        "text": "0:02.8 The Day",
+        "bbox": null,
+        "confidence": 0.9006813168525696
+      }
+    ],
+    "reads": [
+      {
+        "frame": {
+          "video_id": "-0XB0BWhzNc",
+          "timestamp_s": 126.0,
+          "artifact_id": "d5ccbe680c33f8e9a1174626",
+          "relpath": "cache/artifacts/d5ccbe680c33f8e9a1174626/frame_126.00.png",
+          "clip": {
+            "video_id": "video",
+            "start_s": 118.0,
+            "end_s": 126.5,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Preprocess indicates scoreboard visible with 3 seconds left in the 3rd quarter in this interval."
+            }
+          },
+          "metadata": {
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 118.0,
+            "clip_end_s": 126.5,
+            "temporal_score": 0.214118,
+            "anchor_distance_s": 0.5,
+            "selection_reason": "structured_visual_temporal_rerank"
+          }
+        },
+        "text": "BRISTOL CENT.\n52\nE. CATHOLIC\n40\n3rd\n0:00.0 The Day",
+        "lines": [
+          {
+            "text": "BRISTOL CENT.",
+            "bbox": null,
+            "confidence": 0.9986451268196106
+          },
+          {
+            "text": "52",
+            "bbox": null,
+            "confidence": 0.9999364614486694
+          },
+          {
+            "text": "E. CATHOLIC",
+            "bbox": null,
+            "confidence": 0.9882000088691711
+          },
+          {
+            "text": "40",
+            "bbox": null,
+            "confidence": 0.9999094009399414
+          },
+          {
+            "text": "3rd",
+            "bbox": null,
+            "confidence": 0.9996444582939148
+          },
+          {
+            "text": "0:00.0 The Day",
+            "bbox": null,
+            "confidence": 0.9393250346183777
+          }
+        ],
+        "timestamp_s": 126.0,
+        "source_frame_path": "workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_126.00.png",
+        "backend": "paddleocr"
+      },
+      {
+        "frame": {
+          "video_id": "-0XB0BWhzNc",
+          "timestamp_s": 125.0,
+          "artifact_id": "58f7c7c21f48311ef5b971ca",
+          "relpath": "cache/artifacts/58f7c7c21f48311ef5b971ca/frame_125.00.png",
+          "clip": {
+            "video_id": "video",
+            "start_s": 118.0,
+            "end_s": 126.5,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Preprocess indicates scoreboard visible with 3 seconds left in the 3rd quarter in this interval."
+            }
+          },
+          "metadata": {
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 118.0,
+            "clip_end_s": 126.5,
+            "temporal_score": 0.062353,
+            "anchor_distance_s": 1.5,
+            "selection_reason": "structured_visual_temporal_rerank"
+          }
+        },
+        "text": "BRISTOL CENT.\n52\nE. CATHOLIC\n40\n3rd\n0:00.0 The Da",
+        "lines": [
+          {
+            "text": "BRISTOL CENT.",
+            "bbox": null,
+            "confidence": 0.996077835559845
+          },
+          {
+            "text": "52",
+            "bbox": null,
+            "confidence": 0.9999778270721436
+          },
+          {
+            "text": "E. CATHOLIC",
+            "bbox": null,
+            "confidence": 0.9603164792060852
+          },
+          {
+            "text": "40",
+            "bbox": null,
+            "confidence": 0.9998699426651001
+          },
+          {
+            "text": "3rd",
+            "bbox": null,
+            "confidence": 0.9996554255485535
+          },
+          {
+            "text": "0:00.0 The Da",
+            "bbox": null,
+            "confidence": 0.8091570734977722
+          }
+        ],
+        "timestamp_s": 125.0,
+        "source_frame_path": "workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_125.00.png",
+        "backend": "paddleocr"
+      },
+      {
+        "frame": {
+          "video_id": "-0XB0BWhzNc",
+          "timestamp_s": 124.0,
+          "artifact_id": "14777dd53ea9f0c1a948d671",
+          "relpath": "cache/artifacts/14777dd53ea9f0c1a948d671/frame_124.00.png",
+          "clip": {
+            "video_id": "video",
+            "start_s": 118.0,
+            "end_s": 126.5,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Preprocess indicates scoreboard visible with 3 seconds left in the 3rd quarter in this interval."
+            }
+          },
+          "metadata": {
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 118.0,
+            "clip_end_s": 126.5,
+            "temporal_score": 0.028235,
+            "anchor_distance_s": 2.5,
+            "selection_reason": "structured_visual_temporal_rerank"
+          }
+        },
+        "text": "EO\nBRISTOL CENT.\nE. CATHOLIC\n40\n3rd\n0:00.8\nThe Day",
+        "lines": [
+          {
+            "text": "EO",
+            "bbox": null,
+            "confidence": 0.3788931369781494
+          },
+          {
+            "text": "BRISTOL CENT.",
+            "bbox": null,
+            "confidence": 0.9971218705177307
+          },
+          {
+            "text": "E. CATHOLIC",
+            "bbox": null,
+            "confidence": 0.9825140237808228
+          },
+          {
+            "text": "40",
+            "bbox": null,
+            "confidence": 0.9998812675476074
+          },
+          {
+            "text": "3rd",
+            "bbox": null,
+            "confidence": 0.9995129108428955
+          },
+          {
+            "text": "0:00.8",
+            "bbox": null,
+            "confidence": 0.970827579498291
+          },
+          {
+            "text": "The Day",
+            "bbox": null,
+            "confidence": 0.917267918586731
+          }
+        ],
+        "timestamp_s": 124.0,
+        "source_frame_path": "workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_124.00.png",
+        "backend": "paddleocr"
+      },
+      {
+        "frame": {
+          "video_id": "-0XB0BWhzNc",
+          "timestamp_s": 123.0,
+          "artifact_id": "4a1eccaa970e3b88a6d2b8c8",
+          "relpath": "cache/artifacts/4a1eccaa970e3b88a6d2b8c8/frame_123.00.png",
+          "clip": {
+            "video_id": "video",
+            "start_s": 118.0,
+            "end_s": 126.5,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Preprocess indicates scoreboard visible with 3 seconds left in the 3rd quarter in this interval."
+            }
+          },
+          "metadata": {
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 118.0,
+            "clip_end_s": 126.5,
+            "temporal_score": 0.023529,
+            "anchor_distance_s": 3.5,
+            "selection_reason": "structured_visual_temporal_rerank"
+          }
+        },
+        "text": "EOF\nBRISTOL CENT.\n52\n1\nE. CATHOLIC\n40\n3rd\n0:01.8\nThe Day",
+        "lines": [
+          {
+            "text": "EOF",
+            "bbox": null,
+            "confidence": 0.45911797881126404
+          },
+          {
+            "text": "BRISTOL CENT.",
+            "bbox": null,
+            "confidence": 0.9906845688819885
+          },
+          {
+            "text": "52",
+            "bbox": null,
+            "confidence": 0.9999613165855408
+          },
+          {
+            "text": "1",
+            "bbox": null,
+            "confidence": 0.14140863716602325
+          },
+          {
+            "text": "E. CATHOLIC",
+            "bbox": null,
+            "confidence": 0.9824914336204529
+          },
+          {
+            "text": "40",
+            "bbox": null,
+            "confidence": 0.9998766183853149
+          },
+          {
+            "text": "3rd",
+            "bbox": null,
+            "confidence": 0.9994733929634094
+          },
+          {
+            "text": "0:01.8",
+            "bbox": null,
+            "confidence": 0.9989507794380188
+          },
+          {
+            "text": "The Day",
+            "bbox": null,
+            "confidence": 0.9404053092002869
+          }
+        ],
+        "timestamp_s": 123.0,
+        "source_frame_path": "workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_123.00.png",
+        "backend": "paddleocr"
+      },
+      {
+        "frame": {
+          "video_id": "-0XB0BWhzNc",
+          "timestamp_s": 122.0,
+          "artifact_id": "9b681f75bdf4d0c982f27d51",
+          "relpath": "cache/artifacts/9b681f75bdf4d0c982f27d51/frame_122.00.png",
+          "clip": {
+            "video_id": "video",
+            "start_s": 118.0,
+            "end_s": 126.5,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Preprocess indicates scoreboard visible with 3 seconds left in the 3rd quarter in this interval."
+            }
+          },
+          "metadata": {
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 118.0,
+            "clip_end_s": 126.5,
+            "temporal_score": 0.018824,
+            "anchor_distance_s": 4.5,
+            "selection_reason": "structured_visual_temporal_rerank"
+          }
+        },
+        "text": "OOE\nBRISTOL CENT.\n52\nE. CATHOLIC\n40\n3rd\n0:02.8 The Day",
+        "lines": [
+          {
+            "text": "OOE",
+            "bbox": null,
+            "confidence": 0.4566507041454315
+          },
+          {
+            "text": "BRISTOL CENT.",
+            "bbox": null,
+            "confidence": 0.9974052906036377
+          },
+          {
+            "text": "52",
+            "bbox": null,
+            "confidence": 0.9999405741691589
+          },
+          {
+            "text": "E. CATHOLIC",
+            "bbox": null,
+            "confidence": 0.9631010293960571
+          },
+          {
+            "text": "40",
+            "bbox": null,
+            "confidence": 0.9998613595962524
+          },
+          {
+            "text": "3rd",
+            "bbox": null,
+            "confidence": 0.9993361830711365
+          },
+          {
+            "text": "0:02.8 The Day",
+            "bbox": null,
+            "confidence": 0.9006813168525696
+          }
+        ],
+        "timestamp_s": 122.0,
+        "source_frame_path": "workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_122.00.png",
+        "backend": "paddleocr"
+      }
+    ],
+    "backend": "paddleocr"
+  },
+  "raw_output_text": "{\"results\": [{\"text\": \"BRISTOL CENT.\\n52\\nE. CATHOLIC\\n40\\n3rd\\n0:00.0 The Day\", \"lines\": [{\"text\": \"BRISTOL CENT.\", \"bbox\": null, \"confidence\": 0.9986451268196106}, {\"text\": \"52\", \"bbox\": null, \"confidence\": 0.9999364614486694}, {\"text\": \"E. CATHOLIC\", \"bbox\": null, \"confidence\": 0.9882000088691711}, {\"text\": \"40\", \"bbox\": null, \"confidence\": 0.9999094009399414}, {\"text\": \"3rd\", \"bbox\": null, \"confidence\": 0.9996444582939148}, {\"text\": \"0:00.0 The Day\", \"bbox\": null, \"confidence\": 0.9393250346183777}], \"query\": \"Read the scoreboard text, including both team names or sides, scores, game clock, and quarter/period indicator.\", \"timestamp_s\": 126.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_126.00.png\", \"backend\": \"paddleocr\"}, {\"text\": \"BRISTOL CENT.\\n52\\nE. CATHOLIC\\n40\\n3rd\\n0:00.0 The Da\", \"lines\": [{\"text\": \"BRISTOL CENT.\", \"bbox\": null, \"confidence\": 0.996077835559845}, {\"text\": \"52\", \"bbox\": null, \"confidence\": 0.9999778270721436}, {\"text\": \"E. CATHOLIC\", \"bbox\": null, \"confidence\": 0.9603164792060852}, {\"text\": \"40\", \"bbox\": null, \"confidence\": 0.9998699426651001}, {\"text\": \"3rd\", \"bbox\": null, \"confidence\": 0.9996554255485535}, {\"text\": \"0:00.0 The Da\", \"bbox\": null, \"confidence\": 0.8091570734977722}], \"query\": \"Read the scoreboard text, including both team names or sides, scores, game clock, and quarter/period indicator.\", \"timestamp_s\": 125.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_125.00.png\", \"backend\": \"paddleocr\"}, {\"text\": \"EO\\nBRISTOL CENT.\\nE. CATHOLIC\\n40\\n3rd\\n0:00.8\\nThe Day\", \"lines\": [{\"text\": \"EO\", \"bbox\": null, \"confidence\": 0.3788931369781494}, {\"text\": \"BRISTOL CENT.\", \"bbox\": null, \"confidence\": 0.9971218705177307}, {\"text\": \"E. CATHOLIC\", \"bbox\": null, \"confidence\": 0.9825140237808228}, {\"text\": \"40\", \"bbox\": null, \"confidence\": 0.9998812675476074}, {\"text\": \"3rd\", \"bbox\": null, \"confidence\": 0.9995129108428955}, {\"text\": \"0:00.8\", \"bbox\": null, \"confidence\": 0.970827579498291}, {\"text\": \"The Day\", \"bbox\": null, \"confidence\": 0.917267918586731}], \"query\": \"Read the scoreboard text, including both team names or sides, scores, game clock, and quarter/period indicator.\", \"timestamp_s\": 124.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_124.00.png\", \"backend\": \"paddleocr\"}, {\"text\": \"EOF\\nBRISTOL CENT.\\n52\\n1\\nE. CATHOLIC\\n40\\n3rd\\n0:01.8\\nThe Day\", \"lines\": [{\"text\": \"EOF\", \"bbox\": null, \"confidence\": 0.45911797881126404}, {\"text\": \"BRISTOL CENT.\", \"bbox\": null, \"confidence\": 0.9906845688819885}, {\"text\": \"52\", \"bbox\": null, \"confidence\": 0.9999613165855408}, {\"text\": \"1\", \"bbox\": null, \"confidence\": 0.14140863716602325}, {\"text\": \"E. CATHOLIC\", \"bbox\": null, \"confidence\": 0.9824914336204529}, {\"text\": \"40\", \"bbox\": null, \"confidence\": 0.9998766183853149}, {\"text\": \"3rd\", \"bbox\": null, \"confidence\": 0.9994733929634094}, {\"text\": \"0:01.8\", \"bbox\": null, \"confidence\": 0.9989507794380188}, {\"text\": \"The Day\", \"bbox\": null, \"confidence\": 0.9404053092002869}], \"query\": \"Read the scoreboard text, including both team names or sides, scores, game clock, and quarter/period indicator.\", \"timestamp_s\": 123.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_123.00.png\", \"backend\": \"paddleocr\"}, {\"text\": \"OOE\\nBRISTOL CENT.\\n52\\nE. CATHOLIC\\n40\\n3rd\\n0:02.8 The Day\", \"lines\": [{\"text\": \"OOE\", \"bbox\": null, \"confidence\": 0.4566507041454315}, {\"text\": \"BRISTOL CENT.\", \"bbox\": null, \"confidence\": 0.9974052906036377}, {\"text\": \"52\", \"bbox\": null, \"confidence\": 0.9999405741691589}, {\"text\": \"E. CATHOLIC\", \"bbox\": null, \"confidence\": 0.9631010293960571}, {\"text\": \"40\", \"bbox\": null, \"confidence\": 0.9998613595962524}, {\"text\": \"3rd\", \"bbox\": null, \"confidence\": 0.9993361830711365}, {\"text\": \"0:02.8 The Day\", \"bbox\": null, \"confidence\": 0.9006813168525696}], \"query\": \"Read the scoreboard text, including both team names or sides, scores, game clock, and quarter/period indicator.\", \"timestamp_s\": 122.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_122.00.png\", \"backend\": \"paddleocr\"}], \"backend\": \"paddleocr\"}\n",
+  "artifact_refs": [
+    {
+      "artifact_id": "d5ccbe680c33f8e9a1174626",
+      "kind": "frame",
+      "relpath": "cache/artifacts/d5ccbe680c33f8e9a1174626/frame_126.00.png",
+      "media_type": "image",
+      "source_tool": "ocr",
+      "metadata": {
+        "source_name": "frame_126.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 434311
+      }
+    },
+    {
+      "artifact_id": "58f7c7c21f48311ef5b971ca",
+      "kind": "frame",
+      "relpath": "cache/artifacts/58f7c7c21f48311ef5b971ca/frame_125.00.png",
+      "media_type": "image",
+      "source_tool": "ocr",
+      "metadata": {
+        "source_name": "frame_125.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 435122
+      }
+    },
+    {
+      "artifact_id": "14777dd53ea9f0c1a948d671",
+      "kind": "frame",
+      "relpath": "cache/artifacts/14777dd53ea9f0c1a948d671/frame_124.00.png",
+      "media_type": "image",
+      "source_tool": "ocr",
+      "metadata": {
+        "source_name": "frame_124.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 432352
+      }
+    },
+    {
+      "artifact_id": "4a1eccaa970e3b88a6d2b8c8",
+      "kind": "frame",
+      "relpath": "cache/artifacts/4a1eccaa970e3b88a6d2b8c8/frame_123.00.png",
+      "media_type": "image",
+      "source_tool": "ocr",
+      "metadata": {
+        "source_name": "frame_123.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 430294
+      }
+    },
+    {
+      "artifact_id": "9b681f75bdf4d0c982f27d51",
+      "kind": "frame",
+      "relpath": "cache/artifacts/9b681f75bdf4d0c982f27d51/frame_122.00.png",
+      "media_type": "image",
+      "source_tool": "ocr",
+      "metadata": {
+        "source_name": "frame_122.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 431128
+      }
+    }
+  ],
+  "request_hash": "0dda8719828f612f1d32ddf3",
+  "cache_hit": false,
+  "summary": "OCR completed for 5 input item(s).",
+  "metadata": {
+    "backend": "paddleocr",
+    "group_count": 5,
+    "batch_execution": "single_subprocess",
+    "confidence": 1.0,
+    "confidence_avg": 0.9076,
+    "confidence_count": 35,
+    "confidence_kind": "ocr_line",
+    "timing": {
+      "started_at_utc": "2026-04-26T06:59:47.011900+00:00",
+      "finished_at_utc": "2026-04-26T07:00:30.119279+00:00",
+      "duration_s": 43.1074,
+      "cache_wait_s": 0.0006,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_5ecb066e4cdcf602",
+      "obs_87be3108385e07ed",
+      "obs_af45d2abe1f55318",
+      "obs_2f2035bbb9838364",
+      "obs_4deb1d3d9072125e",
+      "obs_21f8fd99f52681eb",
+      "obs_a820f90a10c7e638",
+      "obs_7ef5db72fc0f5199",
+      "obs_2de46a97842f7191",
+      "obs_b8d070cc34288e91",
+      "obs_09dcb2c83920b695",
+      "obs_74bd5357928e1d1a",
+      "obs_d79426583e7c30f1",
+      "obs_4d1e64efc77c4ea2",
+      "obs_2f973be70ea1e49d",
+      "obs_b41e71f208405235",
+      "obs_587a8e34cf55f3ac",
+      "obs_57d4ddb46bddc1bc",
+      "obs_6e44fa2b89029c03",
+      "obs_b3f361a087d46bec",
+      "obs_c491f63bc30638b1",
+      "obs_8f8780e67ef6bc1d",
+      "obs_517e011b29ea8f32",
+      "obs_c6834c2ec1f0a1de",
+      "obs_9262417536334c04",
+      "obs_9c581cf48ea9fa82",
+      "obs_1787abce69536476",
+      "obs_a3a5044ae2657e8f",
+      "obs_118eeb85aa8a01e1",
+      "obs_515844de7cfeebd8",
+      "obs_5f1525101b440d12",
+      "obs_52fdfd6cb7cd445e",
+      "obs_4288b546e7994c0c",
+      "obs_239bf69a56f8a9b8",
+      "obs_c30e32faaff094eb"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "tool_name": "frame_retriever",
+  "clips": [
+    {
+      "video_id": "video",
+      "start_s": 3.0,
+      "end_s": 7.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "source": "preprocess_anchor",
+        "reason": "Dense caption places the relevant man and action in the garage from 3 to 6 seconds; question asks about 00:06."
+      }
+    }
+  ],
+  "time_hints": [
+    "around 00:06",
+    "end of the opening garage action"
+  ],
+  "query": "man in garage throwing or holding a dart near a dartboard, with beer can visible if present",
+  "num_frames": 4
+}

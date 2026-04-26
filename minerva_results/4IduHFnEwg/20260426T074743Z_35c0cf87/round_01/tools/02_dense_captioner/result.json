@@ -1,0 +1,996 @@
+{
+  "tool_name": "dense_captioner",
+  "ok": true,
+  "data": {
+    "clips": [
+      {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 44.0,
+        "end_s": 56.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 172.0,
+        "end_s": 176.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "captions": [
+      {
+        "start": 44.0,
+        "end": 45.0,
+        "visual": "A close-up, slow-motion shot shows a cricket ball hitting the bat. The ball bounces on the pitch, and the camera follows its trajectory as it is struck again. The batsman is wearing green pads and gloves.",
+        "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of the cricket ball hitting the bat is audible.",
+        "on_screen_text": "",
+        "actions": [],
+        "objects": [],
+        "attributes": [
+          "camera_state: The camera is at a low angle, providing a close-up, slow-motion view of the bat and ball. It then pans to follow the ball's movement.",
+          "video_background: The scene is a cricket pitch with a green, grassy field. The wicket, stumps, and a bowler in an orange shirt are visible in the background.",
+          "storyline: This is a replay of the play that is being reviewed, showing the initial impact of the ball.",
+          "shooting_style: This is a slow-motion replay of the live action."
+        ]
+      },
+      {
+        "start": 46.0,
+        "end": 52.0,
+        "visual": "The video shows the original broadcast footage of the play. The batsman is standing on the pitch, and the umpire's decision is displayed on screen: 'ORIGINAL DECISION NOT OUT'. The on-screen text also indicates the impact was 'IN-LINE'.",
+        "audio": "speech: Original decision not out. Pitching in line, impact in line.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: Faint ambient sounds of the cricket match.",
+        "on_screen_text": "s decision is displayed on screen: | . The on-screen text also indicates the impact was",
+        "actions": [],
+        "objects": [],
+        "attributes": [
+          "camera_state: The camera is positioned high, providing a wide shot of the pitch, showing the batsman, bowler, and wicketkeeper.",
+          "video_background: The setting is a cricket ground with a green field. Advertising hoardings are visible in the background.",
+          "storyline: The video establishes the initial umpire's decision and the review criteria, which is the 'in-line' impact.",
+          "shooting_style: This is a standard broadcast shot with on-screen graphics."
+        ]
+      },
+      {
+        "start": 53.0,
+        "end": 56.0,
+        "visual": "A 3D animated reconstruction of the play begins. The camera zooms in on the wicket, showing the ball's trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the 'WICKETS HITTING' and 'IMPACT IN-LINE' review criteria.",
+        "audio": "speech: Wickets hitting. Michael, you need to reverse your decision.; acoustics: 1) Tone of speech: Authoritative, direct. 2) Background sounds or music: A subtle, tense electronic sound effect accompanies the animation.",
+        "on_screen_text": "s trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the | and",
+        "actions": [],
+        "objects": [],
+        "attributes": [
+          "camera_state: The camera is at a high angle, zooming in on the wicket to provide a detailed 3D reconstruction of the ball's impact.",
+          "video_background: The background is a 3D rendering of a cricket ground with a crowd visible in the distance.",
+          "storyline: The review process begins, using a 3D animation to visualize the play from a different angle than the live broadcast.",
+          "shooting_style: This is a 3D animated reconstruction of the play."
+        ]
+      },
+      {
+        "start": 79.0,
+        "end": 80.0,
+        "visual": "A close-up, low-angle shot shows a cricket player in green and black gear, including pads and a bat, walking on the grass. The camera follows his feet as he moves across the field.",
+        "audio": "speech: a great review as it...; acoustics: 1) Tone of speech: Neutral, conversational. 2) Background sounds or music: Faint crowd noise.",
+        "on_screen_text": "",
+        "actions": [],
+        "objects": [],
+        "attributes": [
+          "camera_state: The camera is at a low angle, focused on the player's legs and feet, and pans to follow his movement.",
+          "video_background: The background is a blurry green cricket field with other players and the 'Love cricket' logo visible in the lower-left corner.",
+          "storyline: This is a standard broadcast shot, likely a replay or a detail shot, setting the scene for the play.",
+          "shooting_style: This is a standard broadcast shot."
+        ]
+      },
+      {
+        "start": 81.0,
+        "end": 85.0,
+        "visual": "A high-angle, wide shot shows a cricket match in progress. A batsman in a green jersey is at the crease, facing a bowler in an orange jersey. The umpire and another fielder are also visible. The scoreboard at the bottom indicates the score is Pakistan 13-1.",
+        "audio": "speech: There he is. There he goes. First shot in anger.; acoustics: 1) Tone of speech: Excited, anticipatory. 2) Background sounds or music: The sound of the bat hitting the ball is heard.",
+        "on_screen_text": "",
+        "actions": [],
+        "objects": [],
+        "attributes": [
+          "camera_state: The camera is positioned at a high angle, providing a wide view of the cricket pitch and the players' positions.",
+          "video_background: The scene is a professional cricket ground with a green, striped pitch. Advertising hoardings line the perimeter of the field.",
+          "storyline: This is a standard broadcast shot showing the live action of the cricket match, establishing the context of the game.",
+          "shooting_style: This is a standard broadcast shot."
+        ]
+      },
+      {
+        "start": 172.0,
+        "end": 173.0,
+        "visual": "A close-up shot shows the back of a cricketer wearing an orange jersey with the name 'KINGMA' and the number 23 on the back. He is walking on the field. The scoreboard in the background shows Pakistan is batting at 37-1.",
+        "audio": "speech: is reigning for us.; acoustics: 1) Tone of speech: Neutral, narrative. 2) Background sounds or music: Faint crowd noise.",
+        "on_screen_text": "KINGMA",
+        "actions": [],
+        "objects": [],
+        "attributes": [
+          "camera_state: The camera is at a medium close-up, following the player from behind as he walks.",
+          "video_background: The background is a cricket ground with a large digital scoreboard displaying the score. Other players and officials are blurred in the distance.",
+          "storyline: The scene is set, showing a player from the Netherlands cricket team, Kingma, during a match against Pakistan.",
+          "shooting_style: This is a standard broadcast shot."
+        ]
+      },
+      {
+        "start": 174.0,
+        "end": 176.0,
+        "visual": "The scene cuts to a wide shot of a cricket pitch. A batsman in a green jersey stands at the crease, holding his bat, while a bowler in an orange jersey stands on the pitch. The umpire stands behind the batsman, and another player in orange stands nearby.",
+        "audio": "speech: against the bigger size, you have to feel out of your size.; acoustics: 1) Tone of speech: Analytical, instructional. 2) Background sounds or music: Ambient sounds of the cricket match.",
+        "on_screen_text": "",
+        "actions": [],
+        "objects": [],
+        "attributes": [
+          "camera_state: The camera is positioned at a wide angle, showing the pitch, the batsman, the bowler, and the umpire.",
+          "video_background: The setting is a cricket pitch with green grass. Advertising hoardings for 'MUGHAL STEEL' and 'airplay news' are visible in the background.",
+          "storyline: The play is in progress, with the bowler preparing to bowl to the batsman.",
+          "shooting_style: This is a standard wide shot used in cricket broadcasts to show the action."
+        ]
+      }
+    ],
+    "overall_summary": "A close-up, slow-motion shot shows a cricket ball hitting the bat. The ball bounces on the pitch, and the camera follows its trajectory as it is struck again. The batsman is wearing green pads and gloves.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of the cricket ball hitting the bat is audible.; attributes: camera_state: The camera is at a low angle, providing a close-up, slow-motion view of the bat and ball. It then pans to follow the ball's movement., video_background: The scene is a cricket pitch with a green, grassy field. The wicket, stumps, and a bowler in an orange shirt are visible in the background., storyline: This is a replay of the play that is being reviewed, showing the initial impact of the ball., shooting_style: This is a slow-motion replay of the live action. The video shows the original broadcast footage of the play. The batsman is standing on the pitch, and the umpire's decision is displayed on screen: 'ORIGINAL DECISION NOT OUT'. The on-screen text also indicates the impact was 'IN-LINE'.; speech: Original decision not out. Pitching in line, impact in line.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: Faint ambient sounds of the cricket match.; s decision is displayed on screen: | . The on-screen text also indicates the impact was; attributes: camera_state: The camera is positioned high, providing a wide shot of the pitch, showing the batsman, bowler, and wicketkeeper., video_background: The setting is a cricket ground with a green field. Advertising hoardings are visible in the background., storyline: The video establishes the initial umpire's decision and the review criteria, which is the 'in-line' impact., shooting_style: This is a standard broadcast shot with on-screen graphics. A 3D animated reconstruction of the play begins. The camera zooms in on the wicket, showing the ball's trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the 'WICKETS HITTING' and 'IMPACT IN-LINE' review criteria.; speech: Wickets hitting. Michael, you need to reverse your decision.; acoustics: 1) Tone of speech: Authoritative, direct. 2) Background sounds or music: A subtle, tense electronic sound effect accompanies the animation.; s trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the | and; attributes: camera_state: The camera is at a high angle, zooming in on the wicket to provide a detailed 3D reconstruction of the ball's impact., video_background: The background is a 3D rendering of a cricket ground with a crowd visible in the distance., storyline: The review process begins, using a 3D animation to visualize the play from a different angle than the live broadcast., shooting_style: This is a 3D animated reconstruction of the play.\n\nA close-up, low-angle shot shows a cricket player in green and black gear, including pads and a bat, walking on the grass. The camera follows his feet as he moves across the field.; speech: a great review as it...; acoustics: 1) Tone of speech: Neutral, conversational. 2) Background sounds or music: Faint crowd noise.; attributes: camera_state: The camera is at a low angle, focused on the player's legs and feet, and pans to follow his movement., video_background: The background is a blurry green cricket field with other players and the 'Love cricket' logo visible in the lower-left corner., storyline: This is a standard broadcast shot, likely a replay or a detail shot, setting the scene for the play., shooting_style: This is a standard broadcast shot. A high-angle, wide shot shows a cricket match in progress. A batsman in a green jersey is at the crease, facing a bowler in an orange jersey. The umpire and another fielder are also visible. The scoreboard at the bottom indicates the score is Pakistan 13-1.; speech: There he is. There he goes. First shot in anger.; acoustics: 1) Tone of speech: Excited, anticipatory. 2) Background sounds or music: The sound of the bat hitting the ball is heard.; attributes: camera_state: The camera is positioned at a high angle, providing a wide view of the cricket pitch and the players' positions., video_background: The scene is a professional cricket ground with a green, striped pitch. Advertising hoardings line the perimeter of the field., storyline: This is a standard broadcast shot showing the live action of the cricket match, establishing the context of the game., shooting_style: This is a standard broadcast shot.\n\nA close-up shot shows the back of a cricketer wearing an orange jersey with the name 'KINGMA' and the number 23 on the back. He is walking on the field. The scoreboard in the background shows Pakistan is batting at 37-1.; speech: is reigning for us.; acoustics: 1) Tone of speech: Neutral, narrative. 2) Background sounds or music: Faint crowd noise.; KINGMA; attributes: camera_state: The camera is at a medium close-up, following the player from behind as he walks., video_background: The background is a cricket ground with a large digital scoreboard displaying the score. Other players and officials are blurred in the distance., storyline: The scene is set, showing a player from the Netherlands cricket team, Kingma, during a match against Pakistan., shooting_style: This is a standard broadcast shot. The scene cuts to a wide shot of a cricket pitch. A batsman in a green jersey stands at the crease, holding his bat, while a bowler in an orange jersey stands on the pitch. The umpire stands behind the batsman, and another player in orange stands nearby.; speech: against the bigger size, you have to feel out of your size.; acoustics: 1) Tone of speech: Analytical, instructional. 2) Background sounds or music: Ambient sounds of the cricket match.; attributes: camera_state: The camera is positioned at a wide angle, showing the pitch, the batsman, the bowler, and the umpire., video_background: The setting is a cricket pitch with green grass. Advertising hoardings for 'MUGHAL STEEL' and 'airplay news' are visible in the background., storyline: The play is in progress, with the bowler preparing to bowl to the batsman., shooting_style: This is a standard wide shot used in cricket broadcasts to show the action.",
+    "sampled_frames": [
+      {
+        "timestamp_s": 44.0,
+        "artifact_id": "035d1ed330dc02fe9c4c6d9a",
+        "relpath": "cache/artifacts/035d1ed330dc02fe9c4c6d9a/dense_caption_01_044.000.jpg"
+      },
+      {
+        "timestamp_s": 45.333333333333336,
+        "artifact_id": "0cd24b4b98639cadbeae6ff2",
+        "relpath": "cache/artifacts/0cd24b4b98639cadbeae6ff2/dense_caption_02_045.333.jpg"
+      },
+      {
+        "timestamp_s": 46.666666666666664,
+        "artifact_id": "d9113d7b622f1a5aff9117dc",
+        "relpath": "cache/artifacts/d9113d7b622f1a5aff9117dc/dense_caption_03_046.667.jpg"
+      },
+      {
+        "timestamp_s": 48.0,
+        "artifact_id": "1b5f5d2c7ad3f8edac413136",
+        "relpath": "cache/artifacts/1b5f5d2c7ad3f8edac413136/dense_caption_04_048.000.jpg"
+      },
+      {
+        "timestamp_s": 49.333333333333336,
+        "artifact_id": "f335259623d081d5736d301c",
+        "relpath": "cache/artifacts/f335259623d081d5736d301c/dense_caption_05_049.333.jpg"
+      },
+      {
+        "timestamp_s": 50.666666666666664,
+        "artifact_id": "6113659115e28b5740e593ae",
+        "relpath": "cache/artifacts/6113659115e28b5740e593ae/dense_caption_06_050.667.jpg"
+      },
+      {
+        "timestamp_s": 52.0,
+        "artifact_id": "e90876d4909e87342593032f",
+        "relpath": "cache/artifacts/e90876d4909e87342593032f/dense_caption_07_052.000.jpg"
+      },
+      {
+        "timestamp_s": 53.33333333333333,
+        "artifact_id": "f5a7ae773b068084f98c97b1",
+        "relpath": "cache/artifacts/f5a7ae773b068084f98c97b1/dense_caption_08_053.333.jpg"
+      },
+      {
+        "timestamp_s": 54.666666666666664,
+        "artifact_id": "929c90815d7da49f447cc1d1",
+        "relpath": "cache/artifacts/929c90815d7da49f447cc1d1/dense_caption_09_054.667.jpg"
+      },
+      {
+        "timestamp_s": 56.0,
+        "artifact_id": "d52ac0308b8e4197ffb97b5d",
+        "relpath": "cache/artifacts/d52ac0308b8e4197ffb97b5d/dense_caption_10_056.000.jpg"
+      },
+      {
+        "timestamp_s": 79.0,
+        "artifact_id": "a300c5edf85a33c2a5eba8dd",
+        "relpath": "cache/artifacts/a300c5edf85a33c2a5eba8dd/dense_caption_01_079.000.jpg"
+      },
+      {
+        "timestamp_s": 79.66666666666667,
+        "artifact_id": "f361e0f62e8874f12e30b49d",
+        "relpath": "cache/artifacts/f361e0f62e8874f12e30b49d/dense_caption_02_079.667.jpg"
+      },
+      {
+        "timestamp_s": 80.33333333333333,
+        "artifact_id": "cb5bb0f5cf611be1e14f1330",
+        "relpath": "cache/artifacts/cb5bb0f5cf611be1e14f1330/dense_caption_03_080.333.jpg"
+      },
+      {
+        "timestamp_s": 81.0,
+        "artifact_id": "a522040646b09b72f5c46fef",
+        "relpath": "cache/artifacts/a522040646b09b72f5c46fef/dense_caption_04_081.000.jpg"
+      },
+      {
+        "timestamp_s": 81.66666666666667,
+        "artifact_id": "c725437db84cb8f2b6cb2df6",
+        "relpath": "cache/artifacts/c725437db84cb8f2b6cb2df6/dense_caption_05_081.667.jpg"
+      },
+      {
+        "timestamp_s": 82.33333333333333,
+        "artifact_id": "c9d2c687a935e95cc748bb80",
+        "relpath": "cache/artifacts/c9d2c687a935e95cc748bb80/dense_caption_06_082.333.jpg"
+      },
+      {
+        "timestamp_s": 83.0,
+        "artifact_id": "f8c6728b9a8225b4301e5567",
+        "relpath": "cache/artifacts/f8c6728b9a8225b4301e5567/dense_caption_07_083.000.jpg"
+      },
+      {
+        "timestamp_s": 83.66666666666667,
+        "artifact_id": "db5411bb61291ee13492aae4",
+        "relpath": "cache/artifacts/db5411bb61291ee13492aae4/dense_caption_08_083.667.jpg"
+      },
+      {
+        "timestamp_s": 84.33333333333333,
+        "artifact_id": "f8021465570950f876b5fcb8",
+        "relpath": "cache/artifacts/f8021465570950f876b5fcb8/dense_caption_09_084.333.jpg"
+      },
+      {
+        "timestamp_s": 85.0,
+        "artifact_id": "52d137017c1eef92767b5983",
+        "relpath": "cache/artifacts/52d137017c1eef92767b5983/dense_caption_10_085.000.jpg"
+      },
+      {
+        "timestamp_s": 172.0,
+        "artifact_id": "1b92137b2f7357c719dec739",
+        "relpath": "cache/artifacts/1b92137b2f7357c719dec739/dense_caption_01_172.000.jpg"
+      },
+      {
+        "timestamp_s": 172.44444444444446,
+        "artifact_id": "41539ac42c376b61054d1f16",
+        "relpath": "cache/artifacts/41539ac42c376b61054d1f16/dense_caption_02_172.444.jpg"
+      },
+      {
+        "timestamp_s": 172.88888888888889,
+        "artifact_id": "e92ea05416b9d16f209fac2d",
+        "relpath": "cache/artifacts/e92ea05416b9d16f209fac2d/dense_caption_03_172.889.jpg"
+      },
+      {
+        "timestamp_s": 173.33333333333334,
+        "artifact_id": "462fe73e8337209668063780",
+        "relpath": "cache/artifacts/462fe73e8337209668063780/dense_caption_04_173.333.jpg"
+      },
+      {
+        "timestamp_s": 173.77777777777777,
+        "artifact_id": "fbc820fb850876c3f9aa26e7",
+        "relpath": "cache/artifacts/fbc820fb850876c3f9aa26e7/dense_caption_05_173.778.jpg"
+      },
+      {
+        "timestamp_s": 174.22222222222223,
+        "artifact_id": "f58d0ecbf6f3f935a375ecf0",
+        "relpath": "cache/artifacts/f58d0ecbf6f3f935a375ecf0/dense_caption_06_174.222.jpg"
+      },
+      {
+        "timestamp_s": 174.66666666666666,
+        "artifact_id": "5152f5058322eb016b5a6107",
+        "relpath": "cache/artifacts/5152f5058322eb016b5a6107/dense_caption_07_174.667.jpg"
+      },
+      {
+        "timestamp_s": 175.11111111111111,
+        "artifact_id": "6d2a39f8e9a7f1aa5be0bb07",
+        "relpath": "cache/artifacts/6d2a39f8e9a7f1aa5be0bb07/dense_caption_08_175.111.jpg"
+      },
+      {
+        "timestamp_s": 175.55555555555554,
+        "artifact_id": "46510e39d627b84fed9ffe67",
+        "relpath": "cache/artifacts/46510e39d627b84fed9ffe67/dense_caption_09_175.556.jpg"
+      },
+      {
+        "timestamp_s": 176.0,
+        "artifact_id": "acbd350bedc1f9452c450299",
+        "relpath": "cache/artifacts/acbd350bedc1f9452c450299/dense_caption_10_176.000.jpg"
+      }
+    ],
+    "caption_groups": [
+      {
+        "clips": [
+          {
+            "video_id": "-4IduHFnEwg",
+            "start_s": 44.0,
+            "end_s": 56.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          }
+        ],
+        "captions": [
+          {
+            "start": 44.0,
+            "end": 45.0,
+            "visual": "A close-up, slow-motion shot shows a cricket ball hitting the bat. The ball bounces on the pitch, and the camera follows its trajectory as it is struck again. The batsman is wearing green pads and gloves.",
+            "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of the cricket ball hitting the bat is audible.",
+            "on_screen_text": "",
+            "actions": [],
+            "objects": [],
+            "attributes": [
+              "camera_state: The camera is at a low angle, providing a close-up, slow-motion view of the bat and ball. It then pans to follow the ball's movement.",
+              "video_background: The scene is a cricket pitch with a green, grassy field. The wicket, stumps, and a bowler in an orange shirt are visible in the background.",
+              "storyline: This is a replay of the play that is being reviewed, showing the initial impact of the ball.",
+              "shooting_style: This is a slow-motion replay of the live action."
+            ]
+          },
+          {
+            "start": 46.0,
+            "end": 52.0,
+            "visual": "The video shows the original broadcast footage of the play. The batsman is standing on the pitch, and the umpire's decision is displayed on screen: 'ORIGINAL DECISION NOT OUT'. The on-screen text also indicates the impact was 'IN-LINE'.",
+            "audio": "speech: Original decision not out. Pitching in line, impact in line.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: Faint ambient sounds of the cricket match.",
+            "on_screen_text": "s decision is displayed on screen: | . The on-screen text also indicates the impact was",
+            "actions": [],
+            "objects": [],
+            "attributes": [
+              "camera_state: The camera is positioned high, providing a wide shot of the pitch, showing the batsman, bowler, and wicketkeeper.",
+              "video_background: The setting is a cricket ground with a green field. Advertising hoardings are visible in the background.",
+              "storyline: The video establishes the initial umpire's decision and the review criteria, which is the 'in-line' impact.",
+              "shooting_style: This is a standard broadcast shot with on-screen graphics."
+            ]
+          },
+          {
+            "start": 53.0,
+            "end": 56.0,
+            "visual": "A 3D animated reconstruction of the play begins. The camera zooms in on the wicket, showing the ball's trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the 'WICKETS HITTING' and 'IMPACT IN-LINE' review criteria.",
+            "audio": "speech: Wickets hitting. Michael, you need to reverse your decision.; acoustics: 1) Tone of speech: Authoritative, direct. 2) Background sounds or music: A subtle, tense electronic sound effect accompanies the animation.",
+            "on_screen_text": "s trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the | and",
+            "actions": [],
+            "objects": [],
+            "attributes": [
+              "camera_state: The camera is at a high angle, zooming in on the wicket to provide a detailed 3D reconstruction of the ball's impact.",
+              "video_background: The background is a 3D rendering of a cricket ground with a crowd visible in the distance.",
+              "storyline: The review process begins, using a 3D animation to visualize the play from a different angle than the live broadcast.",
+              "shooting_style: This is a 3D animated reconstruction of the play."
+            ]
+          }
+        ],
+        "overall_summary": "A close-up, slow-motion shot shows a cricket ball hitting the bat. The ball bounces on the pitch, and the camera follows its trajectory as it is struck again. The batsman is wearing green pads and gloves.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of the cricket ball hitting the bat is audible.; attributes: camera_state: The camera is at a low angle, providing a close-up, slow-motion view of the bat and ball. It then pans to follow the ball's movement., video_background: The scene is a cricket pitch with a green, grassy field. The wicket, stumps, and a bowler in an orange shirt are visible in the background., storyline: This is a replay of the play that is being reviewed, showing the initial impact of the ball., shooting_style: This is a slow-motion replay of the live action. The video shows the original broadcast footage of the play. The batsman is standing on the pitch, and the umpire's decision is displayed on screen: 'ORIGINAL DECISION NOT OUT'. The on-screen text also indicates the impact was 'IN-LINE'.; speech: Original decision not out. Pitching in line, impact in line.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: Faint ambient sounds of the cricket match.; s decision is displayed on screen: | . The on-screen text also indicates the impact was; attributes: camera_state: The camera is positioned high, providing a wide shot of the pitch, showing the batsman, bowler, and wicketkeeper., video_background: The setting is a cricket ground with a green field. Advertising hoardings are visible in the background., storyline: The video establishes the initial umpire's decision and the review criteria, which is the 'in-line' impact., shooting_style: This is a standard broadcast shot with on-screen graphics. A 3D animated reconstruction of the play begins. The camera zooms in on the wicket, showing the ball's trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the 'WICKETS HITTING' and 'IMPACT IN-LINE' review criteria.; speech: Wickets hitting. Michael, you need to reverse your decision.; acoustics: 1) Tone of speech: Authoritative, direct. 2) Background sounds or music: A subtle, tense electronic sound effect accompanies the animation.; s trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the | and; attributes: camera_state: The camera is at a high angle, zooming in on the wicket to provide a detailed 3D reconstruction of the ball's impact., video_background: The background is a 3D rendering of a cricket ground with a crowd visible in the distance., storyline: The review process begins, using a 3D animation to visualize the play from a different angle than the live broadcast., shooting_style: This is a 3D animated reconstruction of the play."
+      },
+      {
+        "clips": [
+          {
+            "video_id": "-4IduHFnEwg",
+            "start_s": 79.0,
+            "end_s": 85.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          }
+        ],
+        "captions": [
+          {
+            "start": 79.0,
+            "end": 80.0,
+            "visual": "A close-up, low-angle shot shows a cricket player in green and black gear, including pads and a bat, walking on the grass. The camera follows his feet as he moves across the field.",
+            "audio": "speech: a great review as it...; acoustics: 1) Tone of speech: Neutral, conversational. 2) Background sounds or music: Faint crowd noise.",
+            "on_screen_text": "",
+            "actions": [],
+            "objects": [],
+            "attributes": [
+              "camera_state: The camera is at a low angle, focused on the player's legs and feet, and pans to follow his movement.",
+              "video_background: The background is a blurry green cricket field with other players and the 'Love cricket' logo visible in the lower-left corner.",
+              "storyline: This is a standard broadcast shot, likely a replay or a detail shot, setting the scene for the play.",
+              "shooting_style: This is a standard broadcast shot."
+            ]
+          },
+          {
+            "start": 81.0,
+            "end": 85.0,
+            "visual": "A high-angle, wide shot shows a cricket match in progress. A batsman in a green jersey is at the crease, facing a bowler in an orange jersey. The umpire and another fielder are also visible. The scoreboard at the bottom indicates the score is Pakistan 13-1.",
+            "audio": "speech: There he is. There he goes. First shot in anger.; acoustics: 1) Tone of speech: Excited, anticipatory. 2) Background sounds or music: The sound of the bat hitting the ball is heard.",
+            "on_screen_text": "",
+            "actions": [],
+            "objects": [],
+            "attributes": [
+              "camera_state: The camera is positioned at a high angle, providing a wide view of the cricket pitch and the players' positions.",
+              "video_background: The scene is a professional cricket ground with a green, striped pitch. Advertising hoardings line the perimeter of the field.",
+              "storyline: This is a standard broadcast shot showing the live action of the cricket match, establishing the context of the game.",
+              "shooting_style: This is a standard broadcast shot."
+            ]
+          }
+        ],
+        "overall_summary": "A close-up, low-angle shot shows a cricket player in green and black gear, including pads and a bat, walking on the grass. The camera follows his feet as he moves across the field.; speech: a great review as it...; acoustics: 1) Tone of speech: Neutral, conversational. 2) Background sounds or music: Faint crowd noise.; attributes: camera_state: The camera is at a low angle, focused on the player's legs and feet, and pans to follow his movement., video_background: The background is a blurry green cricket field with other players and the 'Love cricket' logo visible in the lower-left corner., storyline: This is a standard broadcast shot, likely a replay or a detail shot, setting the scene for the play., shooting_style: This is a standard broadcast shot. A high-angle, wide shot shows a cricket match in progress. A batsman in a green jersey is at the crease, facing a bowler in an orange jersey. The umpire and another fielder are also visible. The scoreboard at the bottom indicates the score is Pakistan 13-1.; speech: There he is. There he goes. First shot in anger.; acoustics: 1) Tone of speech: Excited, anticipatory. 2) Background sounds or music: The sound of the bat hitting the ball is heard.; attributes: camera_state: The camera is positioned at a high angle, providing a wide view of the cricket pitch and the players' positions., video_background: The scene is a professional cricket ground with a green, striped pitch. Advertising hoardings line the perimeter of the field., storyline: This is a standard broadcast shot showing the live action of the cricket match, establishing the context of the game., shooting_style: This is a standard broadcast shot."
+      },
+      {
+        "clips": [
+          {
+            "video_id": "-4IduHFnEwg",
+            "start_s": 172.0,
+            "end_s": 176.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          }
+        ],
+        "captions": [
+          {
+            "start": 172.0,
+            "end": 173.0,
+            "visual": "A close-up shot shows the back of a cricketer wearing an orange jersey with the name 'KINGMA' and the number 23 on the back. He is walking on the field. The scoreboard in the background shows Pakistan is batting at 37-1.",
+            "audio": "speech: is reigning for us.; acoustics: 1) Tone of speech: Neutral, narrative. 2) Background sounds or music: Faint crowd noise.",
+            "on_screen_text": "KINGMA",
+            "actions": [],
+            "objects": [],
+            "attributes": [
+              "camera_state: The camera is at a medium close-up, following the player from behind as he walks.",
+              "video_background: The background is a cricket ground with a large digital scoreboard displaying the score. Other players and officials are blurred in the distance.",
+              "storyline: The scene is set, showing a player from the Netherlands cricket team, Kingma, during a match against Pakistan.",
+              "shooting_style: This is a standard broadcast shot."
+            ]
+          },
+          {
+            "start": 174.0,
+            "end": 176.0,
+            "visual": "The scene cuts to a wide shot of a cricket pitch. A batsman in a green jersey stands at the crease, holding his bat, while a bowler in an orange jersey stands on the pitch. The umpire stands behind the batsman, and another player in orange stands nearby.",
+            "audio": "speech: against the bigger size, you have to feel out of your size.; acoustics: 1) Tone of speech: Analytical, instructional. 2) Background sounds or music: Ambient sounds of the cricket match.",
+            "on_screen_text": "",
+            "actions": [],
+            "objects": [],
+            "attributes": [
+              "camera_state: The camera is positioned at a wide angle, showing the pitch, the batsman, the bowler, and the umpire.",
+              "video_background: The setting is a cricket pitch with green grass. Advertising hoardings for 'MUGHAL STEEL' and 'airplay news' are visible in the background.",
+              "storyline: The play is in progress, with the bowler preparing to bowl to the batsman.",
+              "shooting_style: This is a standard wide shot used in cricket broadcasts to show the action."
+            ]
+          }
+        ],
+        "overall_summary": "A close-up shot shows the back of a cricketer wearing an orange jersey with the name 'KINGMA' and the number 23 on the back. He is walking on the field. The scoreboard in the background shows Pakistan is batting at 37-1.; speech: is reigning for us.; acoustics: 1) Tone of speech: Neutral, narrative. 2) Background sounds or music: Faint crowd noise.; KINGMA; attributes: camera_state: The camera is at a medium close-up, following the player from behind as he walks., video_background: The background is a cricket ground with a large digital scoreboard displaying the score. Other players and officials are blurred in the distance., storyline: The scene is set, showing a player from the Netherlands cricket team, Kingma, during a match against Pakistan., shooting_style: This is a standard broadcast shot. The scene cuts to a wide shot of a cricket pitch. A batsman in a green jersey stands at the crease, holding his bat, while a bowler in an orange jersey stands on the pitch. The umpire stands behind the batsman, and another player in orange stands nearby.; speech: against the bigger size, you have to feel out of your size.; acoustics: 1) Tone of speech: Analytical, instructional. 2) Background sounds or music: Ambient sounds of the cricket match.; attributes: camera_state: The camera is positioned at a wide angle, showing the pitch, the batsman, the bowler, and the umpire., video_background: The setting is a cricket pitch with green grass. Advertising hoardings for 'MUGHAL STEEL' and 'airplay news' are visible in the background., storyline: The play is in progress, with the bowler preparing to bowl to the batsman., shooting_style: This is a standard wide shot used in cricket broadcasts to show the action."
+      }
+    ],
+    "backend": "yaolily/TimeChat-Captioner-GRPO-7B"
+  },
+  "raw_output_text": "{\"clips\": [{\"video_id\": \"-4IduHFnEwg\", \"start_s\": 44.0, \"end_s\": 56.0, \"artifact_id\": null, \"relpath\": null, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"captioned_range\": {\"start_s\": 44.0, \"end_s\": 56.0}, \"captions\": [{\"start\": 44.0, \"end\": 45.0, \"visual\": \"A close-up, slow-motion shot shows a cricket ball hitting the bat. The ball bounces on the pitch, and the camera follows its trajectory as it is struck again. The batsman is wearing green pads and gloves.\", \"audio\": \"acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of the cricket ball hitting the bat is audible.\", \"on_screen_text\": \"\", \"actions\": [], \"objects\": [], \"attributes\": [\"camera_state: The camera is at a low angle, providing a close-up, slow-motion view of the bat and ball. It then pans to follow the ball's movement.\", \"video_background: The scene is a cricket pitch with a green, grassy field. The wicket, stumps, and a bowler in an orange shirt are visible in the background.\", \"storyline: This is a replay of the play that is being reviewed, showing the initial impact of the ball.\", \"shooting_style: This is a slow-motion replay of the live action.\"]}, {\"start\": 46.0, \"end\": 52.0, \"visual\": \"The video shows the original broadcast footage of the play. The batsman is standing on the pitch, and the umpire's decision is displayed on screen: 'ORIGINAL DECISION NOT OUT'. The on-screen text also indicates the impact was 'IN-LINE'.\", \"audio\": \"speech: Original decision not out. Pitching in line, impact in line.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: Faint ambient sounds of the cricket match.\", \"on_screen_text\": \"s decision is displayed on screen: | . The on-screen text also indicates the impact was\", \"actions\": [], \"objects\": [], \"attributes\": [\"camera_state: The camera is positioned high, providing a wide shot of the pitch, showing the batsman, bowler, and wicketkeeper.\", \"video_background: The setting is a cricket ground with a green field. Advertising hoardings are visible in the background.\", \"storyline: The video establishes the initial umpire's decision and the review criteria, which is the 'in-line' impact.\", \"shooting_style: This is a standard broadcast shot with on-screen graphics.\"]}, {\"start\": 53.0, \"end\": 56.0, \"visual\": \"A 3D animated reconstruction of the play begins. The camera zooms in on the wicket, showing the ball's trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the 'WICKETS HITTING' and 'IMPACT IN-LINE' review criteria.\", \"audio\": \"speech: Wickets hitting. Michael, you need to reverse your decision.; acoustics: 1) Tone of speech: Authoritative, direct. 2) Background sounds or music: A subtle, tense electronic sound effect accompanies the animation.\", \"on_screen_text\": \"s trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the | and\", \"actions\": [], \"objects\": [], \"attributes\": [\"camera_state: The camera is at a high angle, zooming in on the wicket to provide a detailed 3D reconstruction of the ball's impact.\", \"video_background: The background is a 3D rendering of a cricket ground with a crowd visible in the distance.\", \"storyline: The review process begins, using a 3D animation to visualize the play from a different angle than the live broadcast.\", \"shooting_style: This is a 3D animated reconstruction of the play.\"]}], \"overall_summary\": \"A close-up, slow-motion shot shows a cricket ball hitting the bat. The ball bounces on the pitch, and the camera follows its trajectory as it is struck again. The batsman is wearing green pads and gloves.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of the cricket ball hitting the bat is audible.; attributes: camera_state: The camera is at a low angle, providing a close-up, slow-motion view of the bat and ball. It then pans to follow the ball's movement., video_background: The scene is a cricket pitch with a green, grassy field. The wicket, stumps, and a bowler in an orange shirt are visible in the background., storyline: This is a replay of the play that is being reviewed, showing the initial impact of the ball., shooting_style: This is a slow-motion replay of the live action. The video shows the original broadcast footage of the play. The batsman is standing on the pitch, and the umpire's decision is displayed on screen: 'ORIGINAL DECISION NOT OUT'. The on-screen text also indicates the impact was 'IN-LINE'.; speech: Original decision not out. Pitching in line, impact in line.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: Faint ambient sounds of the cricket match.; s decision is displayed on screen: | . The on-screen text also indicates the impact was; attributes: camera_state: The camera is positioned high, providing a wide shot of the pitch, showing the batsman, bowler, and wicketkeeper., video_background: The setting is a cricket ground with a green field. Advertising hoardings are visible in the background., storyline: The video establishes the initial umpire's decision and the review criteria, which is the 'in-line' impact., shooting_style: This is a standard broadcast shot with on-screen graphics. A 3D animated reconstruction of the play begins. The camera zooms in on the wicket, showing the ball's trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the 'WICKETS HITTING' and 'IMPACT IN-LINE' review criteria.; speech: Wickets hitting. Michael, you need to reverse your decision.; acoustics: 1) Tone of speech: Authoritative, direct. 2) Background sounds or music: A subtle, tense electronic sound effect accompanies the animation.; s trajectory as it bounces and strikes the stumps. The on-screen text remains, indicating the | and; attributes: camera_state: The camera is at a high angle, zooming in on the wicket to provide a detailed 3D reconstruction of the ball's impact., video_background: The background is a 3D rendering of a cricket ground with a crowd visible in the distance., storyline: The review process begins, using a 3D animation to visualize the play from a different angle than the live broadcast., shooting_style: This is a 3D animated reconstruction of the play.\", \"sampled_frames\": [{\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_01_044.000.jpg\", \"timestamp_s\": 44.0}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_02_045.333.jpg\", \"timestamp_s\": 45.333333333333336}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_03_046.667.jpg\", \"timestamp_s\": 46.666666666666664}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_04_048.000.jpg\", \"timestamp_s\": 48.0}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_05_049.333.jpg\", \"timestamp_s\": 49.333333333333336}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_06_050.667.jpg\", \"timestamp_s\": 50.666666666666664}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_07_052.000.jpg\", \"timestamp_s\": 52.0}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_08_053.333.jpg\", \"timestamp_s\": 53.33333333333333}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_09_054.667.jpg\", \"timestamp_s\": 54.666666666666664}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_10_056.000.jpg\", \"timestamp_s\": 56.0}], \"backend\": \"timechat_captioner_qwen25_omni\"}\n\n{\"clips\": [{\"video_id\": \"-4IduHFnEwg\", \"start_s\": 79.0, \"end_s\": 85.0, \"artifact_id\": null, \"relpath\": null, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"captioned_range\": {\"start_s\": 79.0, \"end_s\": 85.0}, \"captions\": [{\"start\": 79.0, \"end\": 80.0, \"visual\": \"A close-up, low-angle shot shows a cricket player in green and black gear, including pads and a bat, walking on the grass. The camera follows his feet as he moves across the field.\", \"audio\": \"speech: a great review as it...; acoustics: 1) Tone of speech: Neutral, conversational. 2) Background sounds or music: Faint crowd noise.\", \"on_screen_text\": \"\", \"actions\": [], \"objects\": [], \"attributes\": [\"camera_state: The camera is at a low angle, focused on the player's legs and feet, and pans to follow his movement.\", \"video_background: The background is a blurry green cricket field with other players and the 'Love cricket' logo visible in the lower-left corner.\", \"storyline: This is a standard broadcast shot, likely a replay or a detail shot, setting the scene for the play.\", \"shooting_style: This is a standard broadcast shot.\"]}, {\"start\": 81.0, \"end\": 85.0, \"visual\": \"A high-angle, wide shot shows a cricket match in progress. A batsman in a green jersey is at the crease, facing a bowler in an orange jersey. The umpire and another fielder are also visible. The scoreboard at the bottom indicates the score is Pakistan 13-1.\", \"audio\": \"speech: There he is. There he goes. First shot in anger.; acoustics: 1) Tone of speech: Excited, anticipatory. 2) Background sounds or music: The sound of the bat hitting the ball is heard.\", \"on_screen_text\": \"\", \"actions\": [], \"objects\": [], \"attributes\": [\"camera_state: The camera is positioned at a high angle, providing a wide view of the cricket pitch and the players' positions.\", \"video_background: The scene is a professional cricket ground with a green, striped pitch. Advertising hoardings line the perimeter of the field.\", \"storyline: This is a standard broadcast shot showing the live action of the cricket match, establishing the context of the game.\", \"shooting_style: This is a standard broadcast shot.\"]}], \"overall_summary\": \"A close-up, low-angle shot shows a cricket player in green and black gear, including pads and a bat, walking on the grass. The camera follows his feet as he moves across the field.; speech: a great review as it...; acoustics: 1) Tone of speech: Neutral, conversational. 2) Background sounds or music: Faint crowd noise.; attributes: camera_state: The camera is at a low angle, focused on the player's legs and feet, and pans to follow his movement., video_background: The background is a blurry green cricket field with other players and the 'Love cricket' logo visible in the lower-left corner., storyline: This is a standard broadcast shot, likely a replay or a detail shot, setting the scene for the play., shooting_style: This is a standard broadcast shot. A high-angle, wide shot shows a cricket match in progress. A batsman in a green jersey is at the crease, facing a bowler in an orange jersey. The umpire and another fielder are also visible. The scoreboard at the bottom indicates the score is Pakistan 13-1.; speech: There he is. There he goes. First shot in anger.; acoustics: 1) Tone of speech: Excited, anticipatory. 2) Background sounds or music: The sound of the bat hitting the ball is heard.; attributes: camera_state: The camera is positioned at a high angle, providing a wide view of the cricket pitch and the players' positions., video_background: The scene is a professional cricket ground with a green, striped pitch. Advertising hoardings line the perimeter of the field., storyline: This is a standard broadcast shot showing the live action of the cricket match, establishing the context of the game., shooting_style: This is a standard broadcast shot.\", \"sampled_frames\": [{\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_01_079.000.jpg\", \"timestamp_s\": 79.0}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_02_079.667.jpg\", \"timestamp_s\": 79.66666666666667}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_03_080.333.jpg\", \"timestamp_s\": 80.33333333333333}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_04_081.000.jpg\", \"timestamp_s\": 81.0}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_05_081.667.jpg\", \"timestamp_s\": 81.66666666666667}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_06_082.333.jpg\", \"timestamp_s\": 82.33333333333333}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_07_083.000.jpg\", \"timestamp_s\": 83.0}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_08_083.667.jpg\", \"timestamp_s\": 83.66666666666667}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_09_084.333.jpg\", \"timestamp_s\": 84.33333333333333}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_10_085.000.jpg\", \"timestamp_s\": 85.0}], \"backend\": \"timechat_captioner_qwen25_omni\"}\n\n{\"clips\": [{\"video_id\": \"-4IduHFnEwg\", \"start_s\": 172.0, \"end_s\": 176.0, \"artifact_id\": null, \"relpath\": null, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"captioned_range\": {\"start_s\": 172.0, \"end_s\": 176.0}, \"captions\": [{\"start\": 172.0, \"end\": 173.0, \"visual\": \"A close-up shot shows the back of a cricketer wearing an orange jersey with the name 'KINGMA' and the number 23 on the back. He is walking on the field. The scoreboard in the background shows Pakistan is batting at 37-1.\", \"audio\": \"speech: is reigning for us.; acoustics: 1) Tone of speech: Neutral, narrative. 2) Background sounds or music: Faint crowd noise.\", \"on_screen_text\": \"KINGMA\", \"actions\": [], \"objects\": [], \"attributes\": [\"camera_state: The camera is at a medium close-up, following the player from behind as he walks.\", \"video_background: The background is a cricket ground with a large digital scoreboard displaying the score. Other players and officials are blurred in the distance.\", \"storyline: The scene is set, showing a player from the Netherlands cricket team, Kingma, during a match against Pakistan.\", \"shooting_style: This is a standard broadcast shot.\"]}, {\"start\": 174.0, \"end\": 176.0, \"visual\": \"The scene cuts to a wide shot of a cricket pitch. A batsman in a green jersey stands at the crease, holding his bat, while a bowler in an orange jersey stands on the pitch. The umpire stands behind the batsman, and another player in orange stands nearby.\", \"audio\": \"speech: against the bigger size, you have to feel out of your size.; acoustics: 1) Tone of speech: Analytical, instructional. 2) Background sounds or music: Ambient sounds of the cricket match.\", \"on_screen_text\": \"\", \"actions\": [], \"objects\": [], \"attributes\": [\"camera_state: The camera is positioned at a wide angle, showing the pitch, the batsman, the bowler, and the umpire.\", \"video_background: The setting is a cricket pitch with green grass. Advertising hoardings for 'MUGHAL STEEL' and 'airplay news' are visible in the background.\", \"storyline: The play is in progress, with the bowler preparing to bowl to the batsman.\", \"shooting_style: This is a standard wide shot used in cricket broadcasts to show the action.\"]}], \"overall_summary\": \"A close-up shot shows the back of a cricketer wearing an orange jersey with the name 'KINGMA' and the number 23 on the back. He is walking on the field. The scoreboard in the background shows Pakistan is batting at 37-1.; speech: is reigning for us.; acoustics: 1) Tone of speech: Neutral, narrative. 2) Background sounds or music: Faint crowd noise.; KINGMA; attributes: camera_state: The camera is at a medium close-up, following the player from behind as he walks., video_background: The background is a cricket ground with a large digital scoreboard displaying the score. Other players and officials are blurred in the distance., storyline: The scene is set, showing a player from the Netherlands cricket team, Kingma, during a match against Pakistan., shooting_style: This is a standard broadcast shot. The scene cuts to a wide shot of a cricket pitch. A batsman in a green jersey stands at the crease, holding his bat, while a bowler in an orange jersey stands on the pitch. The umpire stands behind the batsman, and another player in orange stands nearby.; speech: against the bigger size, you have to feel out of your size.; acoustics: 1) Tone of speech: Analytical, instructional. 2) Background sounds or music: Ambient sounds of the cricket match.; attributes: camera_state: The camera is positioned at a wide angle, showing the pitch, the batsman, the bowler, and the umpire., video_background: The setting is a cricket pitch with green grass. Advertising hoardings for 'MUGHAL STEEL' and 'airplay news' are visible in the background., storyline: The play is in progress, with the bowler preparing to bowl to the batsman., shooting_style: This is a standard wide shot used in cricket broadcasts to show the action.\", \"sampled_frames\": [{\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_01_172.000.jpg\", \"timestamp_s\": 172.0}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_02_172.444.jpg\", \"timestamp_s\": 172.44444444444446}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_03_172.889.jpg\", \"timestamp_s\": 172.88888888888889}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_04_173.333.jpg\", \"timestamp_s\": 173.33333333333334}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_05_173.778.jpg\", \"timestamp_s\": 173.77777777777777}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_06_174.222.jpg\", \"timestamp_s\": 174.22222222222223}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_07_174.667.jpg\", \"timestamp_s\": 174.66666666666666}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_08_175.111.jpg\", \"timestamp_s\": 175.11111111111111}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_09_175.556.jpg\", \"timestamp_s\": 175.55555555555554}, {\"frame_path\": \"runs/4IduHFnEwg/20260426T074743Z_35c0cf87/_scratch/dense_captioner/dense_caption_10_176.000.jpg\", \"timestamp_s\": 176.0}], \"backend\": \"timechat_captioner_qwen25_omni\"}",
+  "artifact_refs": [
+    {
+      "artifact_id": "035d1ed330dc02fe9c4c6d9a",
+      "kind": "frame",
+      "relpath": "cache/artifacts/035d1ed330dc02fe9c4c6d9a/dense_caption_01_044.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_01_044.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 81758
+      }
+    },
+    {
+      "artifact_id": "0cd24b4b98639cadbeae6ff2",
+      "kind": "frame",
+      "relpath": "cache/artifacts/0cd24b4b98639cadbeae6ff2/dense_caption_02_045.333.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_02_045.333.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 58939
+      }
+    },
+    {
+      "artifact_id": "d9113d7b622f1a5aff9117dc",
+      "kind": "frame",
+      "relpath": "cache/artifacts/d9113d7b622f1a5aff9117dc/dense_caption_03_046.667.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_03_046.667.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 72309
+      }
+    },
+    {
+      "artifact_id": "1b5f5d2c7ad3f8edac413136",
+      "kind": "frame",
+      "relpath": "cache/artifacts/1b5f5d2c7ad3f8edac413136/dense_caption_04_048.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_04_048.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 76301
+      }
+    },
+    {
+      "artifact_id": "f335259623d081d5736d301c",
+      "kind": "frame",
+      "relpath": "cache/artifacts/f335259623d081d5736d301c/dense_caption_05_049.333.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_05_049.333.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 77130
+      }
+    },
+    {
+      "artifact_id": "6113659115e28b5740e593ae",
+      "kind": "frame",
+      "relpath": "cache/artifacts/6113659115e28b5740e593ae/dense_caption_06_050.667.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_06_050.667.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 69172
+      }
+    },
+    {
+      "artifact_id": "e90876d4909e87342593032f",
+      "kind": "frame",
+      "relpath": "cache/artifacts/e90876d4909e87342593032f/dense_caption_07_052.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_07_052.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 61906
+      }
+    },
+    {
+      "artifact_id": "f5a7ae773b068084f98c97b1",
+      "kind": "frame",
+      "relpath": "cache/artifacts/f5a7ae773b068084f98c97b1/dense_caption_08_053.333.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_08_053.333.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 75088
+      }
+    },
+    {
+      "artifact_id": "929c90815d7da49f447cc1d1",
+      "kind": "frame",
+      "relpath": "cache/artifacts/929c90815d7da49f447cc1d1/dense_caption_09_054.667.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_09_054.667.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 81101
+      }
+    },
+    {
+      "artifact_id": "d52ac0308b8e4197ffb97b5d",
+      "kind": "frame",
+      "relpath": "cache/artifacts/d52ac0308b8e4197ffb97b5d/dense_caption_10_056.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_10_056.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 86315
+      }
+    },
+    {
+      "artifact_id": "a300c5edf85a33c2a5eba8dd",
+      "kind": "frame",
+      "relpath": "cache/artifacts/a300c5edf85a33c2a5eba8dd/dense_caption_01_079.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_01_079.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 61771
+      }
+    },
+    {
+      "artifact_id": "f361e0f62e8874f12e30b49d",
+      "kind": "frame",
+      "relpath": "cache/artifacts/f361e0f62e8874f12e30b49d/dense_caption_02_079.667.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_02_079.667.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 60145
+      }
+    },
+    {
+      "artifact_id": "cb5bb0f5cf611be1e14f1330",
+      "kind": "frame",
+      "relpath": "cache/artifacts/cb5bb0f5cf611be1e14f1330/dense_caption_03_080.333.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_03_080.333.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 59920
+      }
+    },
+    {
+      "artifact_id": "a522040646b09b72f5c46fef",
+      "kind": "frame",
+      "relpath": "cache/artifacts/a522040646b09b72f5c46fef/dense_caption_04_081.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_04_081.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 60718
+      }
+    },
+    {
+      "artifact_id": "c725437db84cb8f2b6cb2df6",
+      "kind": "frame",
+      "relpath": "cache/artifacts/c725437db84cb8f2b6cb2df6/dense_caption_05_081.667.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_05_081.667.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 63511
+      }
+    },
+    {
+      "artifact_id": "c9d2c687a935e95cc748bb80",
+      "kind": "frame",
+      "relpath": "cache/artifacts/c9d2c687a935e95cc748bb80/dense_caption_06_082.333.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_06_082.333.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 61610
+      }
+    },
+    {
+      "artifact_id": "f8c6728b9a8225b4301e5567",
+      "kind": "frame",
+      "relpath": "cache/artifacts/f8c6728b9a8225b4301e5567/dense_caption_07_083.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_07_083.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 61343
+      }
+    },
+    {
+      "artifact_id": "db5411bb61291ee13492aae4",
+      "kind": "frame",
+      "relpath": "cache/artifacts/db5411bb61291ee13492aae4/dense_caption_08_083.667.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_08_083.667.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 63690
+      }
+    },
+    {
+      "artifact_id": "f8021465570950f876b5fcb8",
+      "kind": "frame",
+      "relpath": "cache/artifacts/f8021465570950f876b5fcb8/dense_caption_09_084.333.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_09_084.333.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 61812
+      }
+    },
+    {
+      "artifact_id": "52d137017c1eef92767b5983",
+      "kind": "frame",
+      "relpath": "cache/artifacts/52d137017c1eef92767b5983/dense_caption_10_085.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_10_085.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 64617
+      }
+    },
+    {
+      "artifact_id": "1b92137b2f7357c719dec739",
+      "kind": "frame",
+      "relpath": "cache/artifacts/1b92137b2f7357c719dec739/dense_caption_01_172.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_01_172.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 64869
+      }
+    },
+    {
+      "artifact_id": "41539ac42c376b61054d1f16",
+      "kind": "frame",
+      "relpath": "cache/artifacts/41539ac42c376b61054d1f16/dense_caption_02_172.444.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_02_172.444.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 67591
+      }
+    },
+    {
+      "artifact_id": "e92ea05416b9d16f209fac2d",
+      "kind": "frame",
+      "relpath": "cache/artifacts/e92ea05416b9d16f209fac2d/dense_caption_03_172.889.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_03_172.889.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 78838
+      }
+    },
+    {
+      "artifact_id": "462fe73e8337209668063780",
+      "kind": "frame",
+      "relpath": "cache/artifacts/462fe73e8337209668063780/dense_caption_04_173.333.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_04_173.333.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 76759
+      }
+    },
+    {
+      "artifact_id": "fbc820fb850876c3f9aa26e7",
+      "kind": "frame",
+      "relpath": "cache/artifacts/fbc820fb850876c3f9aa26e7/dense_caption_05_173.778.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_05_173.778.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 78110
+      }
+    },
+    {
+      "artifact_id": "f58d0ecbf6f3f935a375ecf0",
+      "kind": "frame",
+      "relpath": "cache/artifacts/f58d0ecbf6f3f935a375ecf0/dense_caption_06_174.222.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_06_174.222.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 81608
+      }
+    },
+    {
+      "artifact_id": "5152f5058322eb016b5a6107",
+      "kind": "frame",
+      "relpath": "cache/artifacts/5152f5058322eb016b5a6107/dense_caption_07_174.667.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_07_174.667.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 81117
+      }
+    },
+    {
+      "artifact_id": "6d2a39f8e9a7f1aa5be0bb07",
+      "kind": "frame",
+      "relpath": "cache/artifacts/6d2a39f8e9a7f1aa5be0bb07/dense_caption_08_175.111.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_08_175.111.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 78570
+      }
+    },
+    {
+      "artifact_id": "46510e39d627b84fed9ffe67",
+      "kind": "frame",
+      "relpath": "cache/artifacts/46510e39d627b84fed9ffe67/dense_caption_09_175.556.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_09_175.556.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 78130
+      }
+    },
+    {
+      "artifact_id": "acbd350bedc1f9452c450299",
+      "kind": "frame",
+      "relpath": "cache/artifacts/acbd350bedc1f9452c450299/dense_caption_10_176.000.jpg",
+      "media_type": "image",
+      "source_tool": "dense_captioner",
+      "metadata": {
+        "source_name": "dense_caption_10_176.000.jpg",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 83639
+      }
+    }
+  ],
+  "request_hash": "3278aa248eb2e6c0822de6e5",
+  "cache_hit": false,
+  "summary": "Dense captioning completed for 3 clip(s).",
+  "metadata": {
+    "backend": "yaolily/TimeChat-Captioner-GRPO-7B",
+    "group_count": 3,
+    "timing": {
+      "started_at_utc": "2026-04-26T08:00:09.311486+00:00",
+      "finished_at_utc": "2026-04-26T08:01:42.774189+00:00",
+      "duration_s": 93.4627,
+      "cache_wait_s": 0.0005,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_25458e2dabd01d98",
+      "obs_62f5d770534ab404",
+      "obs_c2e07fd64fdcf0b4",
+      "obs_c3cb976043d97725",
+      "obs_46d8d56de42d4154",
+      "obs_057715ff9b28625a",
+      "obs_3ae595a1dd8453cc",
+      "obs_0fbe33230f4d563b",
+      "obs_58907950c37f4d6a",
+      "obs_5ce43a1d75751dfc",
+      "obs_22019fc3338ddea6",
+      "obs_3dcb2093f31d8195",
+      "obs_b07a422b2eb1169d",
+      "obs_2f1b50660c90cd4a",
+      "obs_0ad7ce8d3cbbf3d8",
+      "obs_f41595aa832bd7ab",
+      "obs_029bd2f43cd97ec4",
+      "obs_6df11c5c7eba7b31",
+      "obs_c2500aebbee7d2a2",
+      "obs_2f359c7b320461aa",
+      "obs_7a6ba17faef1d966",
+      "obs_74329d2dc025cd72",
+      "obs_7ff70897fcce9f75",
+      "obs_8df1dae4c784d8f7",
+      "obs_701a67987482dfbd",
+      "obs_99c45f1069f5f2fd",
+      "obs_3b8f89a6568d5d9d",
+      "obs_a8893eee237b65c0",
+      "obs_f205f7e03e3957ba",
+      "obs_59bb5d946b286a17",
+      "obs_fc5bc0cc38a21937",
+      "obs_40afeda191169fb5",
+      "obs_9d8c2e7b70af7166",
+      "obs_ac2175104a8fb293",
+      "obs_2dc0abd12cc126c0",
+      "obs_f7085a3d9fe0c3f3",
+      "obs_974834916da30199",
+      "obs_da033465d632b50a",
+      "obs_172a89afef657bd5",
+      "obs_33d357a0e7cb9561",
+      "obs_abca0562101eac51",
+      "obs_b7aff59c367d2c3f",
+      "obs_93e6630022b63ca6",
+      "obs_0e4a7d80b32bc38d",
+      "obs_d9a0432729dda8ae",
+      "obs_32f6a847a039232e",
+      "obs_2b2b49aa4ba1f70a",
+      "obs_ea901f8dd5059dd2",
+      "obs_51b4df695c0f585a",
+      "obs_2e7c1a3ef6def72b",
+      "obs_c117fc66c79cf330",
+      "obs_e8538581da87d876",
+      "obs_3bcf36fc0471f393",
+      "obs_2370af97d7cfbb05",
+      "obs_9e7df1b726214095",
+      "obs_889178701515026f",
+      "obs_d7278ff7af3cd751",
+      "obs_e57f5bb5603f0572",
+      "obs_73fc2e356161254f",
+      "obs_0698f8e9a3ace55d",
+      "obs_5a88614025881dc4",
+      "obs_be3cfd1b53748ce8",
+      "obs_7ab11ff65dfbcc11",
+      "obs_d02b06496e75a8e4",
+      "obs_4ab798c647ac4a20",
+      "obs_3f0c60de6cb7fb74",
+      "obs_d6e4c190bb578793",
+      "obs_3a670d2a83e5e1e6",
+      "obs_d66f862511fdd909",
+      "obs_9614034ace3e0793",
+      "obs_6b4cb4f75f3026d1",
+      "obs_a15a7f1f2e4f5ea7",
+      "obs_bafd64ca21446157",
+      "obs_2eeee73e58d7f6cd",
+      "obs_1793521a1e7722a0",
+      "obs_a9c21bae10b063e4",
+      "obs_c92531078e5a98a4",
+      "obs_9582cf6cb17fa133",
+      "obs_29736d6f1644ca8c",
+      "obs_b71a6fce2e558984",
+      "obs_2413d6b10b8ef930",
+      "obs_8c8784db6b8609b8",
+      "obs_b8e7de64b3e39646",
+      "obs_2307fe2e03f898b3",
+      "obs_3e0119ac77ced9e1",
+      "obs_b8ad63970622ce86",
+      "obs_8046bbd90e321256",
+      "obs_3d199b3c187111bd",
+      "obs_d5b6b6d8ec59b011",
+      "obs_7eddd7b8613f91f9",
+      "obs_1207fe1e8408d3a5",
+      "obs_45b45251e68281a7",
+      "obs_e70a4d5bafa132e5",
+      "obs_b77b3abf5b797d20",
+      "obs_06b0d8316d12cd88",
+      "obs_88ef34913b1aac57",
+      "obs_671c903fb0097083",
+      "obs_a6ab8bdcd36cae43",
+      "obs_ee0faf8173f932ad",
+      "obs_c32c2bfa80f353e6",
+      "obs_1b26573473c97594",
+      "obs_cbb46c141d046fca",
+      "obs_7804e6fc1603e6b5",
+      "obs_50d79ab907f3d082",
+      "obs_74f6f6993ee81881",
+      "obs_bdc87bc32d0892ce",
+      "obs_527ff732ff7fd727",
+      "obs_9321c80aaa750ff4",
+      "obs_d5f47e0ca9b3ea7b",
+      "obs_5c394fea6792db55",
+      "obs_001760fb86569382",
+      "obs_3689bf17dcdf32fd",
+      "obs_76338f71380a4952",
+      "obs_415bfe931a862656",
+      "obs_6f249b5b027805a1",
+      "obs_717daa63d74da0af",
+      "obs_a1144b16862d60db",
+      "obs_1b8155789d3cf98a",
+      "obs_b6908f18c55cb52f",
+      "obs_23125df6f65011dc",
+      "obs_50cc3922b10ffa90",
+      "obs_d6d52dbe4c666208",
+      "obs_ddf52337a98af4c6",
+      "obs_56e5aaf7009e9c76"
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "sample_key": "0ZosUeqDg0__393ad01505d9",
+  "trace": {
+    "inference_steps": [
+      "[49s to 56s; 57s to 59s; 72s to 77s] The black team's first scoring-shot material remains grounded in three candidate replay-related windows: 49.00s-56.00s, 57.00s-59.00s, and 72.00s-77.00s.",
+      "[49s to 56s] The replay ordering is clarified by the dense-caption evidence: within 49.00s-56.00s, the goal replay is shown from two different angles, and the second replay angle is explicitly described as a higher, more traditional overhead angle. This identifies 49.00s-56.00s, not the later windows, as the interval containing the second replay of the black team's first scoring shot.",
+      "[77s] Separately, there is still grounded visual evidence at 77.00s of a referee and a nearby word on the ice, with the word region near the referee's skates, but that frame is not validated as the second replay once replay ordering is resolved.",
+      "[75s; 77s] The evidence package still does not provide a readable OCR transcription of the ice word under the referee: the 77.00s OCR entry contains no text observations, and an additional OCR attempt at 75.00s also detected no text.",
+      "[49s to 56s] Because the second replay is localized to 49.00s-56.00s but the provided evidence does not read any word under the referee in that validated replay, no answer choice can be justified from the supplied evidence."
+    ],
+    "evidence": [
+      {
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "The queried event appears at: 49.00s-56.00s, 57.00s-59.00s, 72.00s-77.00s.",
+        "observation_ids": [
+          "obs_0e88dfd2ce22a6eb",
+          "obs_89824509106d212e",
+          "obs_f660bee776a9f3d7"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 49.0,
+            "end_s": 56.0
+          },
+          {
+            "start_s": 57.0,
+            "end_s": 59.0
+          },
+          {
+            "start_s": 72.0,
+            "end_s": 77.0
+          }
+        ]
+      },
+      {
+        "tool_name": "spatial_grounder",
+        "evidence_text": "In frame 77.00s, the referee and a nearby word on the ice were spatially grounded; the word region is near the referee's skates.",
+        "observation_ids": [
+          "obs_9557b3482bc5ea7e",
+          "obs_0ff1f9ed7195f9c0"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 77.0,
+        "time_intervals": []
+      },
+      {
+        "tool_name": "dense_captioner",
+        "evidence_text": "Dense captioning across the replay windows states that 49.00s-56.00s is a replay of the black team's goal shown from two different angles, with the second replay angle described as a higher, more traditional overhead angle. The 57.00s-59.00s and 72.00s-77.00s windows are described as different replay material rather than that second angle.",
+        "observation_ids": [
+          "obs_a057f6367791b8bb",
+          "obs_0578ffb6f6666f8e",
+          "obs_50752a07be37e2de",
+          "obs_35eb23fec02aeb85",
+          "obs_5205e119b67c0181",
+          "obs_cb7bd47eb8ec75f3",
+          "obs_63e8ac997e1d8f06",
+          "obs_56ac321656c4a1da"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 49.0,
+            "end_s": 56.0
+          },
+          {
+            "start_s": 57.0,
+            "end_s": 59.0
+          },
+          {
+            "start_s": 72.0,
+            "end_s": 77.0
+          }
+        ]
+      },
+      {
+        "tool_name": "ocr",
+        "evidence_text": "OCR completed for the selected frame artifact, but no OCR text observations were provided in the evidence package.",
+        "observation_ids": [],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      },
+      {
+        "tool_name": "ocr",
+        "evidence_text": "No text detected in frame 75.00s.",
+        "observation_ids": [],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 75.0,
+        "time_intervals": []
+      }
+    ]
+  },
+  "answer": ""
+}

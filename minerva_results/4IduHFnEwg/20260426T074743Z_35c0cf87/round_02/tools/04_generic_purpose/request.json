@@ -1,0 +1,316 @@
+{
+  "tool_name": "generic_purpose",
+  "query": "Determine which candidate interval is the second reviewed play in chronological order. Then identify the exact broadcast shot two shots before that review begins. In that identified shot, count the number of complete times the spectator waves his flag while the cricket ball lands near him. Report the grounded count only if the shot and wave cycles are visually supported.",
+  "clips": [
+    {
+      "video_id": "-4IduHFnEwg",
+      "start_s": 44.0,
+      "end_s": 56.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "start_s": 79.0,
+      "end_s": 85.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "start_s": 172.0,
+      "end_s": 176.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    }
+  ],
+  "frames": [
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 79.0,
+      "artifact_id": "dac840f3f01e17ff66b222b1",
+      "relpath": "cache/artifacts/dac840f3f01e17ff66b222b1/frame_79.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_79.00.png",
+        "relevance_score": 0.43003225326538086,
+        "device": "cuda:1",
+        "clip_start_s": 79.0,
+        "clip_end_s": 85.0,
+        "temporal_score": 0.714379,
+        "anchor_distance_s": 0.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 172.0,
+      "artifact_id": "2505354c8a0abdda8648ce34",
+      "relpath": "cache/artifacts/2505354c8a0abdda8648ce34/frame_172.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 172.0,
+        "end_s": 176.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_172.00.png",
+        "relevance_score": 0.41952988505363464,
+        "device": "cuda:1",
+        "clip_start_s": 172.0,
+        "clip_end_s": 176.0,
+        "temporal_score": 0.70282,
+        "anchor_distance_s": 0.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 44.0,
+      "artifact_id": "3b4d77b2de639ab03cbba44b",
+      "relpath": "cache/artifacts/3b4d77b2de639ab03cbba44b/frame_44.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 44.0,
+        "end_s": 56.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_44.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 44.0,
+        "clip_end_s": 56.0,
+        "temporal_score": 0.25,
+        "anchor_distance_s": 0.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 80.0,
+      "artifact_id": "d5122c33a4dad3bb0081dd57",
+      "relpath": "cache/artifacts/d5122c33a4dad3bb0081dd57/frame_80.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_80.00.png",
+        "relevance_score": 0.42933595180511475,
+        "device": "cuda:1",
+        "clip_start_s": 79.0,
+        "clip_end_s": 85.0,
+        "temporal_score": 0.50523,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 84.0,
+      "artifact_id": "7f15596a35e630e2189c02ed",
+      "relpath": "cache/artifacts/7f15596a35e630e2189c02ed/frame_84.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_84.00.png",
+        "relevance_score": 0.44986507296562195,
+        "device": "cuda:1",
+        "clip_start_s": 79.0,
+        "clip_end_s": 85.0,
+        "temporal_score": 0.484889,
+        "anchor_distance_s": 5.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 176.0,
+      "artifact_id": "cd23d7e8bf84035708ac0409",
+      "relpath": "cache/artifacts/cd23d7e8bf84035708ac0409/frame_176.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 172.0,
+        "end_s": 176.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_176.00.png",
+        "relevance_score": 0.4450455605983734,
+        "device": "cuda:1",
+        "clip_start_s": 172.0,
+        "clip_end_s": 176.0,
+        "temporal_score": 0.478623,
+        "anchor_distance_s": 4.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 85.0,
+      "artifact_id": "94d7594fd5fe48fcad9ee741",
+      "relpath": "cache/artifacts/94d7594fd5fe48fcad9ee741/frame_85.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_85.00.png",
+        "relevance_score": 0.4408145844936371,
+        "device": "cuda:1",
+        "clip_start_s": 79.0,
+        "clip_end_s": 85.0,
+        "temporal_score": 0.476804,
+        "anchor_distance_s": 6.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 83.0,
+      "artifact_id": "e17b9319e631141b941a9298",
+      "relpath": "cache/artifacts/e17b9319e631141b941a9298/frame_83.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_83.00.png",
+        "relevance_score": 0.43478673696517944,
+        "device": "cuda:1",
+        "clip_start_s": 79.0,
+        "clip_end_s": 85.0,
+        "temporal_score": 0.470158,
+        "anchor_distance_s": 4.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 82.0,
+      "artifact_id": "820bc47492d93a8744d0f18b",
+      "relpath": "cache/artifacts/820bc47492d93a8744d0f18b/frame_82.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_82.00.png",
+        "relevance_score": 0.4344273507595062,
+        "device": "cuda:1",
+        "clip_start_s": 79.0,
+        "clip_end_s": 85.0,
+        "temporal_score": 0.468845,
+        "anchor_distance_s": 3.0,
+        "selection_reason": "temporal_rerank"
+      }
+    },
+    {
+      "video_id": "-4IduHFnEwg",
+      "timestamp_s": 81.0,
+      "artifact_id": "c8e9a11300ae84ce001fc6d1",
+      "relpath": "cache/artifacts/c8e9a11300ae84ce001fc6d1/frame_81.00.png",
+      "clip": {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 79.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+        }
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-4IduHFnEwg/dense_frames/-4IduHFnEwg/frame_81.00.png",
+        "relevance_score": 0.42565029859542847,
+        "device": "cuda:1",
+        "clip_start_s": 79.0,
+        "clip_end_s": 85.0,
+        "temporal_score": 0.460201,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "temporal_rerank"
+      }
+    }
+  ],
+  "transcripts": [],
+  "text_contexts": [
+    "A close-up, slow-motion shot shows a cricket ball hitting the bat. The ball bounces on the pitch, and the camera follows its trajectory as it is struck again. The batsman is wearing green pads and gloves.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of the cricket ball being hit by the bat is audible.; attributes: camera_state: The camera is at a low angle, providing a close-up, slow-motion view of the bat and ball. It then pans to follow the ball's movement., video_background: The scene is a cricket pitch with a green, grassy field. The wicket and stumps are visible in the background., storyline: The video begins by replaying a key moment from a cricket match, setting the stage for a review of the play., shooting_style: This is a slow-motion replay of a live-action shot. The video cuts to a high-angle, wide shot of the cricket pitch. The batsman is in a defensive stance, and the bowler, in an orange jersey, is running in. The umpire is positioned behind the stumps. On-screen text displays 'ORIGINAL DECISION NOT OUT' and 'IMPACT IN-LINE'.; speech: Original decision not out. Pitching in line. Impact in line.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: Faint sounds of the game and commentary.; ORIGINAL DECISION NOT OUT | IMPACT IN-LINE; attributes: camera_state: The camera is positioned at a high angle, providing a wide shot of the pitch and the players' positions., video_background: The setting is a cricket ground with a green field, a wicket, and a few spectators in the background. Advertising hoardings are visible behind the players., storyline: The initial decision of the play is presented. The on-screen text indicates the umpire's original decision was 'NOT OUT' and that the impact was 'IN-LINE', which is crucial for the review., shooting_style: This is a standard broadcast shot of the live cricket match. A 3D animated replay of the cricket pitch is shown. The ball bounces on the pitch, and the camera follows it as it's struck. The wicket is shown in its initial state before the ball hits it. The on-screen text remains the same: 'ORIGINAL DECISION NOT OUT', 'WICKETS HITTING', and 'IMPACT IN-LINE'.; speech: It gets hitting. Michael, you need to reverse your decision.; acoustics: 1) Tone of speech: Authoritative, persuasive. 2) Background sounds or music: None.; s struck. The wicket is shown in its initial state before the ball hits it. The on-screen text remains the same: | , and; attributes: camera_state: The camera is at a high angle, providing a wide shot of the animated cricket pitch., video_background: The background is a 3D rendering of a cricket ground with a green field, a wicket, and a crowd in the stands., storyline: The review process begins, with the 3D animation allowing for a detailed analysis of the ball's trajectory and impact point., shooting_style: This is a 3D animated replay of the live-action footage. The 3D animation continues, showing the ball hitting the wicket. The stumps are hit, and the bails are sent flying. The wicket is now shown as 'OUT' in the 3D model. The on-screen text updates to reflect this: 'WICKETS OUT'.; speech: Out. Sir, the ball is hitting the wicket.; acoustics: 1) Tone of speech: Conclusive, certain. 2) Background sounds or music: None.; OUT | WICKETS OUT; attributes: camera_state: The camera remains at a high angle, focused on the animated wicket as it is struck., video_background: The background is a 3D rendering of a cricket ground with a green field, a wicket, and a crowd in the stands., storyline: The review concludes with the 3D animation showing the wicket being dismissed, leading to the final decision., shooting_style: This is a 3D animated replay of the live-action footage.\n\nA close-up shot focuses on the lower body of a cricketer in green and black gear, including pads and white shoes, as they walk on a grassy cricket pitch. The 'Love cricket' logo and a 'Subscribe' button are visible on screen.; speech: a great review as it...; acoustics: 1) Tone of speech: Neutral, conversational. 2) Background sounds or music: Faint sounds of a cricket match.; Love cricket | Subscribe; attributes: camera_state: The camera is at a low angle, focused on the player's legs and feet as they walk from right to left across the frame., video_background: The background is a blurred green cricket pitch with other players in orange and green uniforms moving around in the distance., storyline: The video begins with a standard broadcast shot, setting the scene for a cricket match., shooting_style: This is a standard broadcast shot. The scene cuts to a high-angle, wide shot of a cricket pitch. A batsman in a green jersey is at the crease, facing a bowler in an orange jersey. The umpire and another player are also on the pitch. The scoreboard at the bottom indicates the match is between Pakistan and the Netherlands.; speech: There he is. There he goes. First shot in anger. Don't think...; acoustics: 1) Tone of speech: Excited, anticipatory. 2) Background sounds or music: The sound of the bowler's run-up and the bat hitting the ball.; attributes: camera_state: The camera is positioned at a high angle, providing a wide, overhead view of the entire cricket pitch., video_background: The setting is a professional cricket ground with a green, striped pitch. Advertising hoardings line the perimeter of the field., storyline: The broadcast shows the live action of the cricket match, with the batsman preparing to face a delivery., shooting_style: This is a standard wide shot used in sports broadcasting to show the full context of the play.\n\nA close-up shot shows the back of a cricketer wearing an orange jersey with the name 'KINGMA' and the number 23 on the back. He is walking on the field. The scoreboard in the background shows the Netherlands are batting with a score of 141-4.; speech: is reigning for us.; acoustics: 1) Tone of speech: Neutral, conversational. 2) Background sounds or music: Faint sounds of the cricket match.; KINGMA; attributes: camera_state: The camera is at a medium close-up, following the player from behind as he walks., video_background: The background is a blurry view of the cricket ground, with a large digital scoreboard visible. The scoreboard shows the score is 141-4 for the Netherlands., storyline: The scene is set, showing a player from the Netherlands cricket team during a match., shooting_style: This is a standard shot following the action. The scene cuts to a wide shot of a cricket pitch. A batsman in a green jersey stands at the crease, holding his bat, while a wicketkeeper in an orange jersey and a third umpire stand behind him. The scoreboard is visible in the background, showing Pakistan's score is 45-1.; speech: against the bigger size, you have to feel out of your size.; acoustics: 1) Tone of speech: Analytical, instructional. 2) Background sounds or music: Ambient sounds of the cricket ground.; attributes: camera_state: The camera is positioned at a wide angle, providing a full view of the pitch and the players at the wicket., video_background: The setting is a cricket ground with a green pitch. Advertising hoardings for 'MUGHAL STEEL' and 'airplay news' are visible behind the players. The scoreboard shows Pakistan is batting., storyline: This shot establishes the current state of the cricket match, showing the batsman and wicketkeeper in position, with Pakistan batting., shooting_style: This is a standard wide shot establishing the scene."
+  ],
+  "evidence_ids": []
+}

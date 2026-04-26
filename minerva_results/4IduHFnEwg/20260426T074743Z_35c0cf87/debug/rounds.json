@@ -1,0 +1,312 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Localize the second reviewed play, step back two broadcast shots to the spectator/ball-landing shot, then inspect that clip directly to count the flag waves by the spectator nearest where the ball lands.",
+      "refinement_instructions": "Do not answer from preprocess alone. The answer-critical gap is the exact identity of the shot two shots before the second reviewed play and the count of complete flag-wave motions by the spectator in that shot. Preserve only broad preprocess anchors that there is an early review around 29-57s and another later review around 437-467s; the later one is the likely second reviewed play but must be grounded by the new evidence. Replace any unsupported assumption about which crowd shot is being referenced. The decisive evidence should come from the localized second review context plus direct inspection of the candidate spectator shot. If the new evidence does not clearly isolate the shot order or does not permit a reliable wave count, leave the answer unresolved rather than guessing.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "visual_temporal_grounder",
+          "purpose": "Find the second reviewed play in the broadcast, i.e. the later umpire/DRS review sequence rather than the early first review.",
+          "arguments": {
+            "query": "the second reviewed play in the cricket broadcast, showing umpire review or DRS decision with ball tracking or review outcome",
+            "top_k": 3
+          }
+        },
+        {
+          "step_id": 2,
+          "tool_name": "dense_captioner",
+          "purpose": "Within the localized second review clip, describe nearby shot order so we can identify the shot exactly two shots before the review and verify it is the spectator shot where a ball lands near him.",
+          "arguments": {
+            "clips": [],
+            "focus_query": "Describe the sequence of broadcast shots around this reviewed play, including the two shots immediately before the review begins. Note any crowd shot where a ball lands near a male spectator holding or waving a flag.",
+            "granularity": "fine"
+          }
+        },
+        {
+          "step_id": 3,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve representative frames from the candidate pre-review spectator shot to visually confirm the male spectator with a flag and the ball landing near him.",
+          "arguments": {
+            "clips": [],
+            "num_frames": 8,
+            "query": "male spectator in the stands waving a flag while a cricket ball lands near him",
+            "time_hints": [
+              "two shots before the reviewed play begins",
+              "crowd shot where a ball lands near a male spectator waving a flag"
+            ]
+          }
+        },
+        {
+          "step_id": 4,
+          "tool_name": "generic_purpose",
+          "purpose": "Using the grounded review clip and retrieved frames, determine which exact shot is two shots before the second reviewed play and count how many distinct flag-wave motions the spectator makes while the ball lands near him.",
+          "arguments": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "Identify the exact broadcast shot that is two shots before the second reviewed play. In that shot, count the number of complete times the male spectator waves his flag while the ball lands near him. Count distinct wave motions only, and report the final count.",
+            "text_contexts": [],
+            "transcripts": []
+          }
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 4,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The evidence contains three candidate intervals for the queried reviewed-play event: 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 44.0,
+              "end_s": 56.0
+            },
+            {
+              "start_s": 79.0,
+              "end_s": 85.0
+            },
+            {
+              "start_s": 172.0,
+              "end_s": 176.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "Only the 44.00s-56.00s interval is directly grounded as an actual review sequence, because it includes replay footage, review decision graphics, and a 3D ball-tracking reconstruction with wicket-impact conclusions.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 44.0,
+              "end_s": 56.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "The later candidate intervals do not show review graphics or review outcomes in the supplied evidence; instead they show ordinary player close-ups and live wide shots. Therefore the new evidence does not ground which later interval is the second reviewed play.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 79.0,
+              "end_s": 85.0
+            },
+            {
+              "start_s": 172.0,
+              "end_s": 176.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Because the second reviewed play is not reliably isolated, the shot two shots before it is also not reliably identified. Without that shot being grounded, the spectator flag-wave count cannot be determined from the provided evidence.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace is orderly but incomplete. It correctly notes that the provided text does not isolate the second reviewed play, yet it fails to produce a justified answer choice. The missing temporal identification blocks the downstream shot selection and count.",
+      "audit_missing_information": [
+        "Which grounded interval is the second reviewed play",
+        "Which shot is two shots before that second reviewed play",
+        "How many times the spectator waves his flag while a ball lands near him in that identified shot",
+        "Which answer option matches that grounded count"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace does not answer the multiple-choice question with a justified option. It stops at 'cannot be determined' and leaves final_answer blank, which is not a valid completion for this benchmark question.",
+          "evidence_ids": [
+            "ev_01_82ed887a",
+            "ev_02_review_44_56",
+            "ev_03_context_79_85",
+            "ev_04_context_172_176"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "TEMPORAL_GAP",
+          "message": "The answer-critical chain is unresolved: the text does not ground which interval is the second reviewed play, so the trace cannot identify the shot two shots before it or the relevant spectator flag-wave count.",
+          "evidence_ids": [
+            "ev_01_82ed887a",
+            "ev_03_context_79_85",
+            "ev_04_context_172_176"
+          ]
+        }
+      ]
+    },
+    {
+      "round_index": 2,
+      "round_dir": "round_02",
+      "planner_request_path": "round_02/planner_request.json",
+      "planner_plan_path": "round_02/planner_plan.json",
+      "synthesizer_request_path": "round_02/synthesizer_request.json",
+      "trace_path": "round_02/synthesizer_trace_package.json",
+      "auditor_request_path": "round_02/auditor_request.json",
+      "audit_path": "round_02/auditor_report.json",
+      "strategy": "Resolve the temporal gap by directly localizing the later DRS/review sequence with surrounding context, then inspect the pre-review shot order and count the spectator's complete flag waves in the exact shot two shots before that review.",
+      "refinement_instructions": "Preserve the supported prior anchor that there are multiple review-like intervals and that the early 44-56s interval is a genuine review sequence with replay, decision text, and 3D ball tracking. Remove the unsupported assumption that any of the previously retrieved intervals was already established as the 'second reviewed play' for the question. Replace the prior unresolved branch with new evidence that explicitly identifies which grounded interval is the later/second review in chronological order, then which shot is two shots before that review begins. The answer-critical evidence is visual shot order and the count of complete flag-wave motions in the specific crowd shot where the ball lands near the spectator. Do not answer from preprocess alone. If the new evidence still does not clearly isolate both the exact pre-review shot and the complete wave count, keep the answer unresolved rather than guessing an option.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "visual_temporal_grounder",
+          "purpose": "Find the later reviewed play in the broadcast with enough surrounding context to distinguish it from the early LBW review and to include the two immediately preceding shots.",
+          "arguments": {
+            "query": "later cricket review sequence after the early LBW review, showing umpire review or DRS outcome with surrounding broadcast shots before the review begins",
+            "top_k": 3
+          }
+        },
+        {
+          "step_id": 2,
+          "tool_name": "dense_captioner",
+          "purpose": "Describe shot-by-shot visual sequence inside the candidate later-review clips, explicitly identifying the review start and the two shots immediately before it, especially any crowd shot where a ball lands near a spectator waving a flag.",
+          "arguments": {
+            "focus_query": "Identify where the reviewed play actually begins in each candidate clip. Describe the broadcast shots immediately before the review begins, in order. Note any crowd shot where a cricket ball lands near a male spectator waving a flag.",
+            "granularity": "fine"
+          }
+        },
+        {
+          "step_id": 3,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve representative frames from the identified pre-review crowd shot candidate so the spectator with the flag and the nearby landing ball can be visually verified.",
+          "arguments": {
+            "num_frames": 10,
+            "query": "male spectator in the stands waving a flag while a cricket ball lands near him",
+            "time_hints": [
+              "two shots before the later reviewed play begins",
+              "crowd shot where a cricket ball lands near a male spectator waving a flag"
+            ]
+          }
+        },
+        {
+          "step_id": 4,
+          "tool_name": "generic_purpose",
+          "purpose": "Using the localized candidate clips, dense shot descriptions, and retrieved frames, determine which interval is the second reviewed play, which exact shot is two shots before it, and count the number of complete flag-wave motions by the spectator in that shot.",
+          "arguments": {
+            "query": "Determine which candidate interval is the second reviewed play in chronological order. Then identify the exact broadcast shot two shots before that review begins. In that identified shot, count the number of complete times the spectator waves his flag while the cricket ball lands near him. Report the grounded count only if the shot and wave cycles are visually supported."
+          }
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 5,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The evidence still supports three review-like candidate intervals for the queried event: 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 44.0,
+              "end_s": 56.0
+            },
+            {
+              "start_s": 79.0,
+              "end_s": 85.0
+            },
+            {
+              "start_s": 172.0,
+              "end_s": 176.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "The early 44.00s-56.00s interval is genuinely a review sequence, because it contains replay footage, review decision text, and 3D ball-tracking conclusions.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 44.0,
+              "end_s": 56.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "However, the newly supplied descriptions for 79.00s-85.00s and 172.00s-176.00s show ordinary close-ups and live wide shots rather than review graphics, so the evidence still does not isolate which later interval is the second reviewed play.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 79.0,
+              "end_s": 85.0
+            },
+            {
+              "start_s": 172.0,
+              "end_s": 176.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Because the second reviewed play is not grounded, the shot two shots before that review cannot be identified from the evidence. As a result, the specific crowd shot with the spectator and the number of complete flag-wave motions while the ball lands near him are also not grounded.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace is orderly but incomplete: it stops at unresolved identification of the second reviewed play and never maps to a single answer option. The answer-critical temporal anchor and resulting flag-wave count are still missing.",
+      "audit_missing_information": [
+        "Which event in the provided sequence is the second reviewed play",
+        "Which shot is two shots before that second reviewed play",
+        "Whether that identified shot shows a spectator waving a flag while a ball lands near him",
+        "The number of complete flag-wave motions in that shot",
+        "Which answer option matches that count"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace does not answer the multiple-choice question: final_answer is blank, so no option is selected or justified.",
+          "evidence_ids": []
+        },
+        {
+          "severity": "HIGH",
+          "category": "TEMPORAL_GAP",
+          "message": "The trace argues that the second reviewed play is not grounded, but the provided text does not fully justify that conclusion because it relies on candidate intervals from temporal grounders while not resolving how 'reviewed play' maps to those intervals or to shot order. Without grounding the second reviewed play, the required 'two shots before' target shot remains unresolved.",
+          "evidence_ids": [
+            "ev_01_82ed887a",
+            "ev_05_round_grounder_later_review",
+            "ev_06_round_context_79_85",
+            "ev_07_round_context_172_176"
+          ]
+        },
+        {
+          "severity": "MEDIUM",
+          "category": "ANSWER_ERROR",
+          "message": "Even if the trace is intentionally unresolved, that is not a completed benchmark answer for a fixed-option counting question.",
+          "evidence_ids": []
+        }
+      ]
+    }
+  ]
+}

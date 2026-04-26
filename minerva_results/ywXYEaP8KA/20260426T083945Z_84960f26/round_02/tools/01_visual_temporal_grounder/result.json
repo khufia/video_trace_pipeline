@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "stone monument, plaque, gravestone, or inscription for Tombstone founder Ed Sheflin showing birth and death years",
+    "clips": [
+      {
+        "video_id": "-ywXYEaP8KA",
+        "start_s": 162.0,
+        "end_s": 165.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-ywXYEaP8KA",
+        "start_s": 166.0,
+        "end_s": 169.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-ywXYEaP8KA",
+        "start_s": 180.0,
+        "end_s": 183.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 203.4032,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 162.00s-165.00s, 166.00s-169.00s, 180.00s-183.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 4,
+      "candidate_windows": 4,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"stone monument, plaque, gravestone, or inscription for Tombstone founder Ed Sheflin showing birth and death years\", \"clips\": [{\"video_id\": \"-ywXYEaP8KA\", \"start_s\": 162.0, \"end_s\": 165.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-ywXYEaP8KA\", \"start_s\": 166.0, \"end_s\": 169.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-ywXYEaP8KA\", \"start_s\": 180.0, \"end_s\": 183.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 203.4032, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 162.00s-165.00s, 166.00s-169.00s, 180.00s-183.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 4, \"candidate_windows\": 4, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "e9d98431bf12c28d3d32470b",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 162.00s-165.00s, 166.00s-169.00s, 180.00s-183.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 4,
+      "candidate_windows": 4,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 1.0,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-26T08:48:59.485874+00:00",
+      "finished_at_utc": "2026-04-26T08:49:32.372686+00:00",
+      "duration_s": 32.8868,
+      "cache_wait_s": 0.0008,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_8bd6448dd5a0a087",
+      "obs_f7c08f7c0dfed751",
+      "obs_7c4680280b482073"
+    ]
+  }
+}

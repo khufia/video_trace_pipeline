@@ -1,0 +1,85 @@
+{
+  "strategy": "Repair only the missing score-to-team association at the 0:00.0 third-quarter scoreboard by localizing the scoreboard region inside the already anchored end-of-quarter frames, then OCR that region so the supported multiple-choice option can be selected.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve the single best end-of-third-quarter frame where the full scoreboard overlay is visible, prioritizing the 0:00.0 third-quarter moment.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "video",
+            "start_s": 125.5,
+            "end_s": 126.2,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          }
+        ],
+        "num_frames": 1,
+        "query": "basketball scoreboard overlay showing both team names and their scores at 0:00.0 in the 3rd quarter",
+        "time_hints": [
+          "0:00.0 in the 3rd quarter",
+          "end of third quarter scoreboard",
+          "full scoreboard overlay visible"
+        ]
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "spatial_grounder",
+      "purpose": "Locate the scoreboard overlay regions for the two team labels and their adjacent scores within the retrieved end-of-quarter frame.",
+      "arguments": {
+        "frames": [],
+        "query": "Locate the scoreboard overlay showing BRISTOL CENT., E. CATHOLIC, and the numeric scores next to each team name."
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step_id": 3,
+      "tool_name": "ocr",
+      "purpose": "Read only the grounded scoreboard regions so the exact mapping from team name to score at the 0:00.0 third-quarter frame is explicit.",
+      "arguments": {
+        "clips": [],
+        "frames": [],
+        "query": "Read the scoreboard regions containing BRISTOL CENT., E. CATHOLIC, and the score digits adjacent to each team name.",
+        "regions": []
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        },
+        {
+          "target_field": "regions",
+          "source": {
+            "step_id": 2,
+            "field_path": "regions"
+          }
+        }
+      ],
+      "depends_on": [
+        1,
+        2
+      ]
+    }
+  ],
+  "refinement_instructions": "Preserve the already supported prior claims that the relevant moment is the end of the third quarter, that the scoreboard shows 3rd, and that the countdown reaches 0:00.0 near 126s. Preserve the prior OCR-supported candidate score pair 52 and 40 as provisional only. Replace any unsupported summary claim about which team owns which score unless the new region-grounded OCR makes that association explicit. The new evidence is meant to resolve exactly one missing field: the score-to-team association at the 0:00.0 third-quarter frame, which then determines which listed option is supported. The modality that matters is the visual scoreboard overlay, not commentary. If the region-grounded OCR still does not clearly associate each score with BRISTOL CENT. versus E. CATHOLIC, the answer should remain unresolved rather than guessing between options A and C or forcing option B."
+}

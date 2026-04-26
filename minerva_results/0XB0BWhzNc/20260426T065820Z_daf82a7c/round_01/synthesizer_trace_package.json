@@ -1,0 +1,481 @@
+{
+  "task_key": "0XB0BWhzNc__7f54fa7b6dfe",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_3e71ab28",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved candidate frames at 122.00s, 123.00s, 124.00s, 125.00s, and 126.00s near the end of the third quarter.",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 122.0,
+          "end_s": 122.0
+        },
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 124.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "d5ccbe680c33f8e9a1174626",
+          "kind": "frame",
+          "relpath": "cache/artifacts/d5ccbe680c33f8e9a1174626/frame_126.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_126.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 434311
+          }
+        },
+        {
+          "artifact_id": "58f7c7c21f48311ef5b971ca",
+          "kind": "frame",
+          "relpath": "cache/artifacts/58f7c7c21f48311ef5b971ca/frame_125.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_125.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 435122
+          }
+        },
+        {
+          "artifact_id": "14777dd53ea9f0c1a948d671",
+          "kind": "frame",
+          "relpath": "cache/artifacts/14777dd53ea9f0c1a948d671/frame_124.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_124.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 432352
+          }
+        },
+        {
+          "artifact_id": "4a1eccaa970e3b88a6d2b8c8",
+          "kind": "frame",
+          "relpath": "cache/artifacts/4a1eccaa970e3b88a6d2b8c8/frame_123.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_123.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 430294
+          }
+        },
+        {
+          "artifact_id": "9b681f75bdf4d0c982f27d51",
+          "kind": "frame",
+          "relpath": "cache/artifacts/9b681f75bdf4d0c982f27d51/frame_122.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_122.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 431128
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_4166535374bc1580",
+        "obs_40621d81d1533575",
+        "obs_e39891027b66c6ac",
+        "obs_fe0427218e9a71e2",
+        "obs_1edd2b3e5b3bf63a"
+      ],
+      "metadata": {
+        "request_hash": "3e71ab2892602b1e4afbc73f",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_0dda8719",
+      "tool_name": "ocr",
+      "evidence_text": "Across frames 122.00s-126.00s, OCR repeatedly reads the scoreboard with team labels \"BRISTOL CENT.\" and \"E. CATHOLIC,\" scores \"52\" and \"40,\" period \"3rd,\" and clocks counting down from about 0:02.8 to 0:00.0.",
+      "inference_hint": null,
+      "confidence": 1.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 122.0,
+          "end_s": 122.0
+        },
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 124.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "d5ccbe680c33f8e9a1174626",
+          "kind": "frame",
+          "relpath": "cache/artifacts/d5ccbe680c33f8e9a1174626/frame_126.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_126.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 434311
+          }
+        },
+        {
+          "artifact_id": "58f7c7c21f48311ef5b971ca",
+          "kind": "frame",
+          "relpath": "cache/artifacts/58f7c7c21f48311ef5b971ca/frame_125.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_125.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 435122
+          }
+        },
+        {
+          "artifact_id": "14777dd53ea9f0c1a948d671",
+          "kind": "frame",
+          "relpath": "cache/artifacts/14777dd53ea9f0c1a948d671/frame_124.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_124.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 432352
+          }
+        },
+        {
+          "artifact_id": "4a1eccaa970e3b88a6d2b8c8",
+          "kind": "frame",
+          "relpath": "cache/artifacts/4a1eccaa970e3b88a6d2b8c8/frame_123.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_123.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 430294
+          }
+        },
+        {
+          "artifact_id": "9b681f75bdf4d0c982f27d51",
+          "kind": "frame",
+          "relpath": "cache/artifacts/9b681f75bdf4d0c982f27d51/frame_122.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_122.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 431128
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_515844de7cfeebd8",
+        "obs_5f1525101b440d12",
+        "obs_52fdfd6cb7cd445e",
+        "obs_4288b546e7994c0c",
+        "obs_239bf69a56f8a9b8",
+        "obs_c30e32faaff094eb",
+        "obs_c491f63bc30638b1",
+        "obs_8f8780e67ef6bc1d",
+        "obs_c6834c2ec1f0a1de",
+        "obs_9262417536334c04",
+        "obs_9c581cf48ea9fa82",
+        "obs_1787abce69536476",
+        "obs_4d1e64efc77c4ea2",
+        "obs_2f973be70ea1e49d",
+        "obs_b41e71f208405235",
+        "obs_587a8e34cf55f3ac",
+        "obs_57d4ddb46bddc1bc",
+        "obs_a820f90a10c7e638",
+        "obs_7ef5db72fc0f5199",
+        "obs_2de46a97842f7191",
+        "obs_b8d070cc34288e91",
+        "obs_09dcb2c83920b695",
+        "obs_74bd5357928e1d1a",
+        "obs_5ecb066e4cdcf602",
+        "obs_87be3108385e07ed",
+        "obs_af45d2abe1f55318",
+        "obs_2f2035bbb9838364",
+        "obs_4deb1d3d9072125e",
+        "obs_21f8fd99f52681eb"
+      ],
+      "metadata": {
+        "request_hash": "0dda8719828f612f1d32ddf3",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The relevant scoreboard frames are near the end of the third quarter, because the retrieved frames span 122.00s to 126.00s and OCR in those frames shows the period as \"3rd\" with the clock decreasing from about 0:02.8 to 0:00.0.",
+      "supporting_observation_ids": [
+        "obs_4166535374bc1580",
+        "obs_40621d81d1533575",
+        "obs_e39891027b66c6ac",
+        "obs_fe0427218e9a71e2",
+        "obs_1edd2b3e5b3bf63a",
+        "obs_239bf69a56f8a9b8",
+        "obs_9c581cf48ea9fa82",
+        "obs_587a8e34cf55f3ac",
+        "obs_09dcb2c83920b695",
+        "obs_4deb1d3d9072125e",
+        "obs_c30e32faaff094eb",
+        "obs_1787abce69536476",
+        "obs_57d4ddb46bddc1bc",
+        "obs_74bd5357928e1d1a",
+        "obs_21f8fd99f52681eb"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 122.0,
+          "end_s": 126.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "In multiple end-of-quarter frames, OCR reads the scoreboard team labels as \"BRISTOL CENT.\" and \"E. CATHOLIC,\" with the numbers \"52\" next to Bristol Central and \"40\" next to East Catholic.",
+      "supporting_observation_ids": [
+        "obs_515844de7cfeebd8",
+        "obs_5f1525101b440d12",
+        "obs_52fdfd6cb7cd445e",
+        "obs_4288b546e7994c0c",
+        "obs_c491f63bc30638b1",
+        "obs_8f8780e67ef6bc1d",
+        "obs_c6834c2ec1f0a1de",
+        "obs_9262417536334c04",
+        "obs_4d1e64efc77c4ea2",
+        "obs_2f973be70ea1e49d",
+        "obs_b41e71f208405235",
+        "obs_a820f90a10c7e638",
+        "obs_7ef5db72fc0f5199",
+        "obs_2de46a97842f7191",
+        "obs_b8d070cc34288e91",
+        "obs_5ecb066e4cdcf602",
+        "obs_87be3108385e07ed",
+        "obs_af45d2abe1f55318",
+        "obs_2f2035bbb9838364"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 122.0,
+          "end_s": 126.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Because the clock reaches 0:00.0 while still showing the same 3rd-quarter scoreboard, the end-of-third-quarter score is 52 to 40, with Bristol Central leading.",
+      "supporting_observation_ids": [
+        "obs_5ecb066e4cdcf602",
+        "obs_87be3108385e07ed",
+        "obs_af45d2abe1f55318",
+        "obs_2f2035bbb9838364",
+        "obs_4deb1d3d9072125e",
+        "obs_21f8fd99f52681eb"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 126.0,
+      "time_intervals": [
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Among the answer choices, this matches the option stating 52 to 52 tied only in the first number but not the second, and it does not match any 55-40 or 64-32 option. The only supported score from OCR is 52-40 with Bristol Central ahead, which is not listed exactly among the choices.",
+      "supporting_observation_ids": [
+        "obs_5ecb066e4cdcf602",
+        "obs_87be3108385e07ed",
+        "obs_af45d2abe1f55318",
+        "obs_2f2035bbb9838364",
+        "obs_4deb1d3d9072125e",
+        "obs_21f8fd99f52681eb"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 126.0,
+      "time_intervals": [
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "0XB0BWhzNc__7f54fa7b6dfe",
+      "trace": {
+        "inference_steps": [
+          "[122s to 126s] The relevant scoreboard frames are near the end of the third quarter, because the retrieved frames span 122.00s to 126.00s and OCR in those frames shows the period as \"3rd\" with the clock decreasing from about 0:02.8 to 0:00.0.",
+          "[122s to 126s] In multiple end-of-quarter frames, OCR reads the scoreboard team labels as \"BRISTOL CENT.\" and \"E. CATHOLIC,\" with the numbers \"52\" next to Bristol Central and \"40\" next to East Catholic.",
+          "[126s] Because the clock reaches 0:00.0 while still showing the same 3rd-quarter scoreboard, the end-of-third-quarter score is 52 to 40, with Bristol Central leading.",
+          "[126s] Among the answer choices, this matches the option stating 52 to 52 tied only in the first number but not the second, and it does not match any 55-40 or 64-32 option. The only supported score from OCR is 52-40 with Bristol Central ahead, which is not listed exactly among the choices."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved candidate frames at 122.00s, 123.00s, 124.00s, 125.00s, and 126.00s near the end of the third quarter.",
+            "observation_ids": [
+              "obs_4166535374bc1580",
+              "obs_40621d81d1533575",
+              "obs_e39891027b66c6ac",
+              "obs_fe0427218e9a71e2",
+              "obs_1edd2b3e5b3bf63a"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 122.0,
+                "end_s": 122.0
+              },
+              {
+                "start_s": 123.0,
+                "end_s": 123.0
+              },
+              {
+                "start_s": 124.0,
+                "end_s": 124.0
+              },
+              {
+                "start_s": 125.0,
+                "end_s": 125.0
+              },
+              {
+                "start_s": 126.0,
+                "end_s": 126.0
+              }
+            ]
+          },
+          {
+            "tool_name": "ocr",
+            "evidence_text": "Across frames 122.00s-126.00s, OCR repeatedly reads the scoreboard with team labels \"BRISTOL CENT.\" and \"E. CATHOLIC,\" scores \"52\" and \"40,\" period \"3rd,\" and clocks counting down from about 0:02.8 to 0:00.0.",
+            "observation_ids": [
+              "obs_515844de7cfeebd8",
+              "obs_5f1525101b440d12",
+              "obs_52fdfd6cb7cd445e",
+              "obs_4288b546e7994c0c",
+              "obs_239bf69a56f8a9b8",
+              "obs_c30e32faaff094eb",
+              "obs_c491f63bc30638b1",
+              "obs_8f8780e67ef6bc1d",
+              "obs_c6834c2ec1f0a1de",
+              "obs_9262417536334c04",
+              "obs_9c581cf48ea9fa82",
+              "obs_1787abce69536476",
+              "obs_4d1e64efc77c4ea2",
+              "obs_2f973be70ea1e49d",
+              "obs_b41e71f208405235",
+              "obs_587a8e34cf55f3ac",
+              "obs_57d4ddb46bddc1bc",
+              "obs_a820f90a10c7e638",
+              "obs_7ef5db72fc0f5199",
+              "obs_2de46a97842f7191",
+              "obs_b8d070cc34288e91",
+              "obs_09dcb2c83920b695",
+              "obs_74bd5357928e1d1a",
+              "obs_5ecb066e4cdcf602",
+              "obs_87be3108385e07ed",
+              "obs_af45d2abe1f55318",
+              "obs_2f2035bbb9838364",
+              "obs_4deb1d3d9072125e",
+              "obs_21f8fd99f52681eb"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 122.0,
+                "end_s": 122.0
+              },
+              {
+                "start_s": 123.0,
+                "end_s": 123.0
+              },
+              {
+                "start_s": 124.0,
+                "end_s": 124.0
+              },
+              {
+                "start_s": 125.0,
+                "end_s": 125.0
+              },
+              {
+                "start_s": 126.0,
+                "end_s": 126.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved_due_to_option_mismatch",
+    "notes": "OCR-supported scoreboard at the end of the 3rd quarter reads Bristol Central 52, East Catholic 40, but no provided option matches exactly."
+  }
+}

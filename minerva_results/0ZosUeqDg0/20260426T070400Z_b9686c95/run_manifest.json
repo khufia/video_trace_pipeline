@@ -1,0 +1,30 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "0ZosUeqDg0__393ad01505d9",
+  "video_id": "-0ZosUeqDg0",
+  "run_id": "20260426T070400Z_b9686c95",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "0ZosUeqDg0__393ad01505d9",
+    "question": "In the second replay of the black team's first scoring shot, what word is the referee skating on?",
+    "options": [
+      "A. Hues.",
+      "B. Hugo's.",
+      "C. Yugo's.",
+      "D. Rydell.",
+      "E. Wegos."
+    ],
+    "video_id": "-0ZosUeqDg0",
+    "question_id": null,
+    "gold_answer": "Hugo's.",
+    "initial_trace_steps": [
+      "I first searched for the black team's scoring shot by finding the time when the score of the black team displayed on the top of the screen changes from 0 to 1. This happens around 2:40 after the word \"GOAL\" is displayed at the top. I then waited for the second replay. The first one starts at 2:53 and the second one starts at 3:06 and is an overhead shot of the rink. Then I looked for the referee who I identified by his black and white striped shirt. I saw the advertisement he was skating over which is the word \"HUGO's\", so I tentatively assumed that answer (3) must be correct. To be sure, I watched further for more goals of the black team. The score another time around 4:10, but in none of the replays is the referee skating over a word. With that I am certain that answer (3) is correct."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "cache/preprocess/42dac59b44ebc784bf99990f0aa8e8e97e3034fdbbcb9e8eaf00361083fc137c/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/26503208b9ce",
+  "clip_duration_s": 60.0
+}

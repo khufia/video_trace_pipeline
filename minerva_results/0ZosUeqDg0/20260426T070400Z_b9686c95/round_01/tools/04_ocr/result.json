@@ -1,0 +1,152 @@
+{
+  "tool_name": "ocr",
+  "ok": true,
+  "data": {
+    "query": "Read the advertisement or painted word on the ice under the referee's skates",
+    "text": "",
+    "lines": [],
+    "reads": [
+      {
+        "region": {
+          "frame": {
+            "video_id": "-0ZosUeqDg0",
+            "timestamp_s": 77.0,
+            "artifact_id": "9cf7237b61c95b3610a4d8d8",
+            "relpath": "cache/artifacts/9cf7237b61c95b3610a4d8d8/frame_77.00.png",
+            "clip": {
+              "video_id": "-0ZosUeqDg0",
+              "start_s": 72.0,
+              "end_s": 77.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.5132078528404236,
+              "device": "cuda:1",
+              "clip_start_s": 72.0,
+              "clip_end_s": 77.0,
+              "temporal_score": 0.550623,
+              "anchor_distance_s": 5.0,
+              "selection_reason": "temporal_rerank"
+            }
+          },
+          "bbox": [
+            102.33333333333333,
+            248.0,
+            141.66666666666666,
+            332.3333333333333
+          ],
+          "label": "referee",
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "confidence": 0.95,
+            "bbox_normalized_to_image": true,
+            "raw_bbox": [
+              307.0,
+              744.0,
+              425.0,
+              997.0
+            ]
+          }
+        },
+        "text": "",
+        "lines": [],
+        "timestamp_s": 77.0,
+        "source_frame_path": "workspace/cache/tool_wrappers/reference/-0ZosUeqDg0/dense_frames/-0ZosUeqDg0/frame_77.00.png",
+        "backend": "paddleocr"
+      },
+      {
+        "region": {
+          "frame": {
+            "video_id": "-0ZosUeqDg0",
+            "timestamp_s": 77.0,
+            "artifact_id": "9cf7237b61c95b3610a4d8d8",
+            "relpath": "cache/artifacts/9cf7237b61c95b3610a4d8d8/frame_77.00.png",
+            "clip": {
+              "video_id": "-0ZosUeqDg0",
+              "start_s": 72.0,
+              "end_s": 77.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.5132078528404236,
+              "device": "cuda:1",
+              "clip_start_s": 72.0,
+              "clip_end_s": 77.0,
+              "temporal_score": 0.550623,
+              "anchor_distance_s": 5.0,
+              "selection_reason": "temporal_rerank"
+            }
+          },
+          "bbox": [
+            90.0,
+            330.0,
+            130.0,
+            350.0
+          ],
+          "label": "word on ice",
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "confidence": 0.9,
+            "bbox_normalized_to_image": true,
+            "raw_bbox": [
+              225.0,
+              825.0,
+              325.0,
+              875.0
+            ]
+          }
+        },
+        "text": "",
+        "lines": [],
+        "timestamp_s": 77.0,
+        "source_frame_path": "workspace/cache/tool_wrappers/reference/-0ZosUeqDg0/dense_frames/-0ZosUeqDg0/frame_77.00.png",
+        "backend": "paddleocr"
+      }
+    ],
+    "backend": "paddleocr"
+  },
+  "raw_output_text": "{\"results\": [{\"text\": \"\", \"lines\": [], \"query\": \"Read the advertisement or painted word on the ice under the referee's skates\", \"timestamp_s\": 77.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-0ZosUeqDg0/dense_frames/-0ZosUeqDg0/frame_77.00.png\", \"backend\": \"paddleocr\"}, {\"text\": \"\", \"lines\": [], \"query\": \"Read the advertisement or painted word on the ice under the referee's skates\", \"timestamp_s\": 77.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-0ZosUeqDg0/dense_frames/-0ZosUeqDg0/frame_77.00.png\", \"backend\": \"paddleocr\"}], \"backend\": \"paddleocr\"}\n",
+  "artifact_refs": [
+    {
+      "artifact_id": "9cf7237b61c95b3610a4d8d8",
+      "kind": "frame",
+      "relpath": "cache/artifacts/9cf7237b61c95b3610a4d8d8/frame_77.00.png",
+      "media_type": "image",
+      "source_tool": "ocr",
+      "metadata": {
+        "source_name": "frame_77.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 425259
+      }
+    }
+  ],
+  "request_hash": "296e59e91ae04701dfcfb01a",
+  "cache_hit": false,
+  "summary": "OCR completed for 2 input item(s).",
+  "metadata": {
+    "backend": "paddleocr",
+    "group_count": 2,
+    "batch_execution": "single_subprocess",
+    "timing": {
+      "started_at_utc": "2026-04-26T07:23:16.522965+00:00",
+      "finished_at_utc": "2026-04-26T07:23:29.602164+00:00",
+      "duration_s": 13.0792,
+      "cache_wait_s": 0.0006,
+      "execution_mode": "executed"
+    },
+    "observation_ids": []
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "friends exiting a vehicle in heavy rain at night, standing near or in front of the car afterward",
+    "clips": [
+      {
+        "video_id": "5-otljNyRmQ",
+        "start_s": 41.0,
+        "end_s": 45.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "5-otljNyRmQ",
+        "start_s": 108.0,
+        "end_s": 119.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "5-otljNyRmQ",
+        "start_s": 120.0,
+        "end_s": 122.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 253.9203333333333,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 41.00s-45.00s, 108.00s-119.00s, 120.00s-122.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 5,
+      "candidate_windows": 5,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"friends exiting a vehicle in heavy rain at night, standing near or in front of the car afterward\", \"clips\": [{\"video_id\": \"5-otljNyRmQ\", \"start_s\": 41.0, \"end_s\": 45.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"5-otljNyRmQ\", \"start_s\": 108.0, \"end_s\": 119.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"5-otljNyRmQ\", \"start_s\": 120.0, \"end_s\": 122.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 253.9203333333333, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 41.00s-45.00s, 108.00s-119.00s, 120.00s-122.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 5, \"candidate_windows\": 5, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "1cca04eb5da607f7c2e638a7",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 41.00s-45.00s, 108.00s-119.00s, 120.00s-122.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 5,
+      "candidate_windows": 5,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 0.9833,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-26T09:08:36.810953+00:00",
+      "finished_at_utc": "2026-04-26T09:09:13.570518+00:00",
+      "duration_s": 36.7596,
+      "cache_wait_s": 0.0006,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_61b75405db768d27",
+      "obs_6eff184e71e31c8c",
+      "obs_8c12661a1ee348c5"
+    ]
+  }
+}

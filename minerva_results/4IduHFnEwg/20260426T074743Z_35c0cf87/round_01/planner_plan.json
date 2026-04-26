@@ -1,0 +1,107 @@
+{
+  "strategy": "Localize the second reviewed play, step back two broadcast shots to the spectator/ball-landing shot, then inspect that clip directly to count the flag waves by the spectator nearest where the ball lands.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "visual_temporal_grounder",
+      "purpose": "Find the second reviewed play in the broadcast, i.e. the later umpire/DRS review sequence rather than the early first review.",
+      "arguments": {
+        "query": "the second reviewed play in the cricket broadcast, showing umpire review or DRS decision with ball tracking or review outcome",
+        "top_k": 3
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "dense_captioner",
+      "purpose": "Within the localized second review clip, describe nearby shot order so we can identify the shot exactly two shots before the review and verify it is the spectator shot where a ball lands near him.",
+      "arguments": {
+        "clips": [],
+        "focus_query": "Describe the sequence of broadcast shots around this reviewed play, including the two shots immediately before the review begins. Note any crowd shot where a ball lands near a male spectator holding or waving a flag.",
+        "granularity": "fine"
+      },
+      "input_refs": [
+        {
+          "target_field": "clips",
+          "source": {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step_id": 3,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve representative frames from the candidate pre-review spectator shot to visually confirm the male spectator with a flag and the ball landing near him.",
+      "arguments": {
+        "clips": [],
+        "num_frames": 8,
+        "query": "male spectator in the stands waving a flag while a cricket ball lands near him",
+        "time_hints": [
+          "two shots before the reviewed play begins",
+          "crowd shot where a ball lands near a male spectator waving a flag"
+        ]
+      },
+      "input_refs": [
+        {
+          "target_field": "clips",
+          "source": {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step_id": 4,
+      "tool_name": "generic_purpose",
+      "purpose": "Using the grounded review clip and retrieved frames, determine which exact shot is two shots before the second reviewed play and count how many distinct flag-wave motions the spectator makes while the ball lands near him.",
+      "arguments": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Identify the exact broadcast shot that is two shots before the second reviewed play. In that shot, count the number of complete times the male spectator waves his flag while the ball lands near him. Count distinct wave motions only, and report the final count.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": [
+        {
+          "target_field": "clips",
+          "source": {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        },
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 3,
+            "field_path": "frames"
+          }
+        },
+        {
+          "target_field": "text_contexts",
+          "source": {
+            "step_id": 2,
+            "field_path": "overall_summary"
+          }
+        }
+      ],
+      "depends_on": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "refinement_instructions": "Do not answer from preprocess alone. The answer-critical gap is the exact identity of the shot two shots before the second reviewed play and the count of complete flag-wave motions by the spectator in that shot. Preserve only broad preprocess anchors that there is an early review around 29-57s and another later review around 437-467s; the later one is the likely second reviewed play but must be grounded by the new evidence. Replace any unsupported assumption about which crowd shot is being referenced. The decisive evidence should come from the localized second review context plus direct inspection of the candidate spectator shot. If the new evidence does not clearly isolate the shot order or does not permit a reliable wave count, leave the answer unresolved rather than guessing."
+}

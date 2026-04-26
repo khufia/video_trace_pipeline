@@ -1,0 +1,708 @@
+{
+  "task_key": "AY84ybskqI__067504b6f6bd",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_9c5e2884",
+      "tool_name": "visual_temporal_grounder",
+      "evidence_text": "The queried woman-in-gray Inner City Tennis drill appears in two intervals: 117.00s-119.00s and 120.00s-128.00s.",
+      "inference_hint": null,
+      "confidence": 1.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 117.0,
+          "end_s": 119.0
+        },
+        {
+          "start_s": 120.0,
+          "end_s": 128.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_1f98d42030ff46bf",
+        "obs_0de66ffa8dfd6ef5"
+      ],
+      "metadata": {
+        "role": "query_localization"
+      }
+    },
+    {
+      "evidence_id": "ev_loc_inner_city",
+      "tool_name": "dense_captioner",
+      "evidence_text": "The 117.00s-119.00s establishing shot shows text identifying the location as Inner City Tennis.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 117.0,
+          "end_s": 119.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_9a72cfe0e05a2f8e",
+        "obs_5eb4dfd8b409dda5",
+        "obs_5a28d443a21e0b45"
+      ],
+      "metadata": {
+        "role": "location_anchor"
+      }
+    },
+    {
+      "evidence_id": "ev_instructor_identity",
+      "tool_name": "dense_captioner",
+      "evidence_text": "In the indoor court segment, the female instructor wears a grey t-shirt and black shorts.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 122.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_f0e3560b1a67f701",
+        "obs_e946ca64e3cda1bb",
+        "obs_e1a8b7756a96989f"
+      ],
+      "metadata": {
+        "role": "woman_in_gray_anchor"
+      }
+    },
+    {
+      "evidence_id": "ev_frame_window_120_128",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved sampled frames at 120.00s, 121.00s, 122.00s, 123.00s, 124.00s, 125.00s, 126.00s, 127.00s, and 128.00s covering the full 120.00s-128.00s drill window.",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 120.0
+        },
+        {
+          "start_s": 121.0,
+          "end_s": 121.0
+        },
+        {
+          "start_s": 122.0,
+          "end_s": 122.0
+        },
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 124.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        },
+        {
+          "start_s": 128.0,
+          "end_s": 128.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "691d77af746bd4a72aa5091f",
+          "kind": "frame",
+          "relpath": "cache/artifacts/691d77af746bd4a72aa5091f/frame_124.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_124.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 245830
+          }
+        },
+        {
+          "artifact_id": "abbeca5ac874db381c05b8f4",
+          "kind": "frame",
+          "relpath": "cache/artifacts/abbeca5ac874db381c05b8f4/frame_123.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_123.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 264716
+          }
+        },
+        {
+          "artifact_id": "39b1954148dc17970b5c8b3b",
+          "kind": "frame",
+          "relpath": "cache/artifacts/39b1954148dc17970b5c8b3b/frame_125.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_125.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 239007
+          }
+        },
+        {
+          "artifact_id": "4c1f8ccefe834194cd59994a",
+          "kind": "frame",
+          "relpath": "cache/artifacts/4c1f8ccefe834194cd59994a/frame_122.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_122.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 242861
+          }
+        },
+        {
+          "artifact_id": "8ed1bf9cfe812c5b3f38407e",
+          "kind": "frame",
+          "relpath": "cache/artifacts/8ed1bf9cfe812c5b3f38407e/frame_126.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_126.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 275343
+          }
+        },
+        {
+          "artifact_id": "3d745a8b32616fa98294ffa7",
+          "kind": "frame",
+          "relpath": "cache/artifacts/3d745a8b32616fa98294ffa7/frame_121.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_121.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 228037
+          }
+        },
+        {
+          "artifact_id": "aa139ab74be3fca3d50d588c",
+          "kind": "frame",
+          "relpath": "cache/artifacts/aa139ab74be3fca3d50d588c/frame_127.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_127.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 273671
+          }
+        },
+        {
+          "artifact_id": "2ad817a278c87b923c1d1830",
+          "kind": "frame",
+          "relpath": "cache/artifacts/2ad817a278c87b923c1d1830/frame_120.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_120.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 270372
+          }
+        },
+        {
+          "artifact_id": "c34d3e93dbfce5a02a85fac4",
+          "kind": "frame",
+          "relpath": "cache/artifacts/c34d3e93dbfce5a02a85fac4/frame_128.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_128.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 255318
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_84b653501ac90d05",
+        "obs_6fc1eb3a303351e0",
+        "obs_4166535374bc1580",
+        "obs_40621d81d1533575",
+        "obs_e39891027b66c6ac",
+        "obs_fe0427218e9a71e2",
+        "obs_1edd2b3e5b3bf63a",
+        "obs_854aa1019d24fe4a",
+        "obs_338e4d47d345479d"
+      ],
+      "metadata": {
+        "role": "full_drill_frame_coverage"
+      }
+    },
+    {
+      "evidence_id": "ev_frame_actions_ball_tosses",
+      "tool_name": "generic_purpose",
+      "evidence_text": "In the sampled drill frames, one frame is described as clearly showing the woman tossing a ball up with her right hand, and another frame is described as appearing to show her tossing or about to toss the ball to the child. Other ball-related frames are interpretive or may depict the aftermath of a toss rather than a distinct additional toss.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 124.0
+        },
+        {
+          "start_s": 128.0,
+          "end_s": 128.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_036ebe4f7588de4f",
+        "obs_68dc511e8d1d22de",
+        "obs_6bf9706019203e7d",
+        "obs_cea2f292d7e0c438",
+        "obs_776bdd6d03a53b23"
+      ],
+      "metadata": {
+        "role": "ball_toss_counting_evidence"
+      }
+    },
+    {
+      "evidence_id": "ev_frame_actions_side_steps",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Among the sampled drill frames, only one frame is described as looking like a side step or recovery movement; the evidence does not ground multiple distinct side-step events across the full window.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_bc508f4507188f24",
+        "obs_d8b84cbe3708eb51",
+        "obs_372b1b4527241f2c",
+        "obs_d78a4ca69720a2ea"
+      ],
+      "metadata": {
+        "role": "side_step_counting_evidence"
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The relevant scene remains the Inner City Tennis volunteering/drill segment, anchored by the establishing shot naming Inner City Tennis and the indoor-court sequence with the woman in gray in the 120.00s-128.00s window.",
+      "supporting_observation_ids": [
+        "obs_1f98d42030ff46bf",
+        "obs_0de66ffa8dfd6ef5",
+        "obs_9a72cfe0e05a2f8e",
+        "obs_5eb4dfd8b409dda5",
+        "obs_f0e3560b1a67f701",
+        "obs_e946ca64e3cda1bb"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 117.0,
+          "end_s": 119.0
+        },
+        {
+          "start_s": 120.0,
+          "end_s": 128.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The woman in gray is the female instructor on the indoor court, wearing a grey t-shirt and black shorts.",
+      "supporting_observation_ids": [
+        "obs_f0e3560b1a67f701",
+        "obs_e946ca64e3cda1bb",
+        "obs_e1a8b7756a96989f"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 122.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "The new frame retrieval covers the full drill window from 120.00s through 128.00s, so the counting evidence now spans the relevant sequence rather than only an early portion of it.",
+      "supporting_observation_ids": [
+        "obs_84b653501ac90d05",
+        "obs_6fc1eb3a303351e0",
+        "obs_4166535374bc1580",
+        "obs_40621d81d1533575",
+        "obs_e39891027b66c6ac",
+        "obs_fe0427218e9a71e2",
+        "obs_1edd2b3e5b3bf63a",
+        "obs_854aa1019d24fe4a",
+        "obs_338e4d47d345479d"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 120.0,
+          "end_s": 128.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Within those sampled frames, the woman is visually counted for two ball tosses: one frame appears to show her tossing or about to toss the ball to the child, and another clearly shows her tossing a ball up with her right hand. Other ball-in-air frames are better treated as aftermath or continuation, not separate additional tosses.",
+      "supporting_observation_ids": [
+        "obs_036ebe4f7588de4f",
+        "obs_68dc511e8d1d22de",
+        "obs_6bf9706019203e7d",
+        "obs_776bdd6d03a53b23"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        },
+        {
+          "start_s": 128.0,
+          "end_s": 128.0
+        }
+      ]
+    },
+    {
+      "step_id": 5,
+      "text": "Within the same sampled frames, only one frame is described as a side step or recovery movement, so the grounded side-step count is one.",
+      "supporting_observation_ids": [
+        "obs_bc508f4507188f24",
+        "obs_d8b84cbe3708eb51",
+        "obs_372b1b4527241f2c",
+        "obs_d78a4ca69720a2ea"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        }
+      ]
+    },
+    {
+      "step_id": 6,
+      "text": "Using the grounded counts from the sampled full-window frames, the ratio of side steps to ball tosses is 1 to 2.",
+      "supporting_observation_ids": [
+        "obs_036ebe4f7588de4f",
+        "obs_68dc511e8d1d22de",
+        "obs_6bf9706019203e7d",
+        "obs_bc508f4507188f24",
+        "obs_d8b84cbe3708eb51",
+        "obs_372b1b4527241f2c",
+        "obs_d78a4ca69720a2ea"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        }
+      ]
+    },
+    {
+      "step_id": 7,
+      "text": "A 1:2 ratio does not match any of the provided answer choices, so no listed option can be justified from the grounded evidence.",
+      "supporting_observation_ids": [
+        "obs_036ebe4f7588de4f",
+        "obs_68dc511e8d1d22de",
+        "obs_6bf9706019203e7d",
+        "obs_bc508f4507188f24",
+        "obs_d8b84cbe3708eb51",
+        "obs_372b1b4527241f2c",
+        "obs_d78a4ca69720a2ea"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "AY84ybskqI__067504b6f6bd",
+      "trace": {
+        "inference_steps": [
+          "[117s to 119s; 120s to 128s] The relevant scene remains the Inner City Tennis volunteering/drill segment, anchored by the establishing shot naming Inner City Tennis and the indoor-court sequence with the woman in gray in the 120.00s-128.00s window.",
+          "[120s to 122s] The woman in gray is the female instructor on the indoor court, wearing a grey t-shirt and black shorts.",
+          "[120s to 128s] The new frame retrieval covers the full drill window from 120.00s through 128.00s, so the counting evidence now spans the relevant sequence rather than only an early portion of it.",
+          "[123s; 127s; 128s] Within those sampled frames, the woman is visually counted for two ball tosses: one frame appears to show her tossing or about to toss the ball to the child, and another clearly shows her tossing a ball up with her right hand. Other ball-in-air frames are better treated as aftermath or continuation, not separate additional tosses.",
+          "[125s] Within the same sampled frames, only one frame is described as a side step or recovery movement, so the grounded side-step count is one.",
+          "[123s; 125s; 127s] Using the grounded counts from the sampled full-window frames, the ratio of side steps to ball tosses is 1 to 2.",
+          "[123s; 125s; 127s] A 1:2 ratio does not match any of the provided answer choices, so no listed option can be justified from the grounded evidence."
+        ],
+        "evidence": [
+          {
+            "tool_name": "visual_temporal_grounder",
+            "evidence_text": "The queried woman-in-gray Inner City Tennis drill appears in two intervals: 117.00s-119.00s and 120.00s-128.00s.",
+            "observation_ids": [
+              "obs_1f98d42030ff46bf",
+              "obs_0de66ffa8dfd6ef5"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 117.0,
+                "end_s": 119.0
+              },
+              {
+                "start_s": 120.0,
+                "end_s": 128.0
+              }
+            ]
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "The 117.00s-119.00s establishing shot shows text identifying the location as Inner City Tennis.",
+            "observation_ids": [
+              "obs_9a72cfe0e05a2f8e",
+              "obs_5eb4dfd8b409dda5",
+              "obs_5a28d443a21e0b45"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 117.0,
+                "end_s": 119.0
+              }
+            ]
+          },
+          {
+            "tool_name": "dense_captioner",
+            "evidence_text": "In the indoor court segment, the female instructor wears a grey t-shirt and black shorts.",
+            "observation_ids": [
+              "obs_f0e3560b1a67f701",
+              "obs_e946ca64e3cda1bb",
+              "obs_e1a8b7756a96989f"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 120.0,
+                "end_s": 122.0
+              }
+            ]
+          },
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved sampled frames at 120.00s, 121.00s, 122.00s, 123.00s, 124.00s, 125.00s, 126.00s, 127.00s, and 128.00s covering the full 120.00s-128.00s drill window.",
+            "observation_ids": [
+              "obs_84b653501ac90d05",
+              "obs_6fc1eb3a303351e0",
+              "obs_4166535374bc1580",
+              "obs_40621d81d1533575",
+              "obs_e39891027b66c6ac",
+              "obs_fe0427218e9a71e2",
+              "obs_1edd2b3e5b3bf63a",
+              "obs_854aa1019d24fe4a",
+              "obs_338e4d47d345479d"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 120.0,
+                "end_s": 120.0
+              },
+              {
+                "start_s": 121.0,
+                "end_s": 121.0
+              },
+              {
+                "start_s": 122.0,
+                "end_s": 122.0
+              },
+              {
+                "start_s": 123.0,
+                "end_s": 123.0
+              },
+              {
+                "start_s": 124.0,
+                "end_s": 124.0
+              },
+              {
+                "start_s": 125.0,
+                "end_s": 125.0
+              },
+              {
+                "start_s": 126.0,
+                "end_s": 126.0
+              },
+              {
+                "start_s": 127.0,
+                "end_s": 127.0
+              },
+              {
+                "start_s": 128.0,
+                "end_s": 128.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "In the sampled drill frames, one frame is described as clearly showing the woman tossing a ball up with her right hand, and another frame is described as appearing to show her tossing or about to toss the ball to the child. Other ball-related frames are interpretive or may depict the aftermath of a toss rather than a distinct additional toss.",
+            "observation_ids": [
+              "obs_036ebe4f7588de4f",
+              "obs_68dc511e8d1d22de",
+              "obs_6bf9706019203e7d",
+              "obs_cea2f292d7e0c438",
+              "obs_776bdd6d03a53b23"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 123.0,
+                "end_s": 123.0
+              },
+              {
+                "start_s": 127.0,
+                "end_s": 127.0
+              },
+              {
+                "start_s": 124.0,
+                "end_s": 124.0
+              },
+              {
+                "start_s": 128.0,
+                "end_s": 128.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Among the sampled drill frames, only one frame is described as looking like a side step or recovery movement; the evidence does not ground multiple distinct side-step events across the full window.",
+            "observation_ids": [
+              "obs_bc508f4507188f24",
+              "obs_d8b84cbe3708eb51",
+              "obs_372b1b4527241f2c",
+              "obs_d78a4ca69720a2ea"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 125.0,
+                "end_s": 125.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved_no_option_matches_grounded_ratio",
+    "grounded_side_steps": 1,
+    "grounded_ball_tosses": 2,
+    "grounded_ratio": "1:2"
+  }
+}

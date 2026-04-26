@@ -1,0 +1,34 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.95,
+  "scores": {
+    "logical_coherence": 2,
+    "completeness": 1,
+    "factual_correctness": 2,
+    "reasoning_order": 3
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The trace does not ground the answer-critical accusation itself. The ASR explicitly lacks the accusation wording, and the visual evidence only shows a light-gray-jacketed man interacting with a blonde-haired/wigged person. From text alone, interaction or being addressed does not justify that this person is the one accused of being a kidnapper.",
+      "evidence_ids": [
+        "ev_01_53034214",
+        "ev_03_2bfb391c"
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "category": "INFERENCE_ERROR",
+      "message": "Step 4 relies on an external 'accusation-scene anchor from the instructions' rather than evidence in the package. The question text does not supply who was accused, so the final option selection is an unsupported jump from scene presence to accusation identity.",
+      "evidence_ids": [
+        "ev_03_2bfb391c"
+      ]
+    }
+  ],
+  "feedback": "The trace identifies the man in the light gray jacket and a nearby blonde-wigged person, but it never textually verifies that this is the person he accuses of being a kidnapper. The final choice depends on an unsupported scene-level assumption.",
+  "missing_information": [
+    "The textually grounded statement or event showing whom the man in the light gray jacket accuses of being a kidnapper",
+    "A grounded link between the accusation and one specific answer option, rather than only the appearance of a nearby person"
+  ]
+}

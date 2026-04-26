@@ -1,0 +1,102 @@
+{
+  "sample_key": "1YjD_Epw9M__f309a1ce747d",
+  "trace": {
+    "inference_steps": [
+      "[0.031s to 23.858s] The transcript describes a completed postgame interview about Sheridan's game against Campbell, including that Sheridan had been down 14-3 early, so the game was played rather than cancelled.",
+      "[0.031s to 23.858s; 52.175s to 81.875s; 82.381s to 103.306s] The interview language supports that Sheridan won: the interviewer says, \"Fourth time's the charm, and that's the one that matters most,\" and the coach says they had to beat good teams to win and that the kids stepped up and did that. This supports a Sheridan victory rather than a loss or tie.",
+      "[12s to 26s; 33s to 47s; 50s to 58s] The new visual grounding is specifically for the Sheridan girls basketball team associated with coach Ryan Sullivan, with the team's jersey color clearly visible during gameplay or celebration intervals.",
+      "[33s; 50s] In the visually reviewed gameplay frames from those grounded intervals, both uniform colors appear, but the Sheridan-linked players are reported in white: a white-uniform player is dribbling in one frame and a white-uniform player is shooting in another. Using the new visual evidence for color identification, Sheridan is grounded as the white team.",
+      "[0.031s to 23.858s; 82.381s to 103.306s; 33s; 50s] Combining the transcript evidence that Sheridan won with the visual evidence that Sheridan is the white-uniform team, the supported multiple-choice result is that the white team won. Nothing in the evidence suggests disqualification."
+    ],
+    "evidence": [
+      {
+        "tool_name": "asr",
+        "evidence_text": "The transcript is a postgame interview about a game against Campbell. The interviewer says, \"Fourth time's the charm, and that's the one that matters most, doesn't it?\" The coach says it was important \"for us to kind of get over that hurdle against Campbell,\" describes being down 14-3 early, and later says, \"It was our defense that carried us through the game,\" \"we had to get stops, and we got them,\" and \"We had to beat really good teams to win... the kids stepped up and did that.\"",
+        "observation_ids": [
+          "obs_1c8a601c3974cbd1",
+          "obs_0f101acb60975a36",
+          "obs_20e848dfe60ff7b1",
+          "obs_f75fb0fe9bcd71df",
+          "obs_dd892d1550091acc",
+          "obs_5ca24470db1bc087",
+          "obs_ec25173ad0359fe7",
+          "obs_fc6c6c84fd6995ed",
+          "obs_2bb14f251c81ec93",
+          "obs_16285604466c11de"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 0.031,
+            "end_s": 23.858
+          },
+          {
+            "start_s": 52.175,
+            "end_s": 81.875
+          },
+          {
+            "start_s": 82.381,
+            "end_s": 103.306
+          }
+        ]
+      },
+      {
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "The queried event \"Sheridan girls basketball team associated with coach Ryan Sullivan playing in the game or celebrating after the win, with team jersey color clearly visible\" appears at 12.00s-26.00s, 33.00s-47.00s, and 50.00s-58.00s.",
+        "observation_ids": [
+          "obs_fb8ab865f8431ad9",
+          "obs_d3abc17270e9514a",
+          "obs_b87b16b6cb6018e6"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 12.0,
+            "end_s": 26.0
+          },
+          {
+            "start_s": 33.0,
+            "end_s": 47.0
+          },
+          {
+            "start_s": 50.0,
+            "end_s": 58.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Visual review of the retrieved gameplay frames reports both black and white uniforms are present, and specifically notes white-uniform players dribbling and shooting in the sampled gameplay frames. The same review ties the interview to Sheridan and states Sheridan is the winning team.",
+        "observation_ids": [
+          "obs_43fadb786f1e0df4",
+          "obs_31c717146c06bc98",
+          "obs_69ef2029106224ea",
+          "obs_bd6cd3b8b36cfb46",
+          "obs_437a83889f7b7bc5",
+          "obs_035ab49f86b10504",
+          "obs_fb2e5725770da990",
+          "obs_73194b0bc627be87",
+          "obs_1003e86533fa655d"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 33.0,
+            "end_s": 33.0
+          },
+          {
+            "start_s": 50.0,
+            "end_s": 50.0
+          }
+        ]
+      }
+    ]
+  },
+  "answer": "C. The white team won."
+}

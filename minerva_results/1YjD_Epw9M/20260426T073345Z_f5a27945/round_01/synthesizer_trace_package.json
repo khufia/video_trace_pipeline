@@ -1,0 +1,235 @@
+{
+  "task_key": "1YjD_Epw9M__f309a1ce747d",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_0b8516ac",
+      "tool_name": "asr",
+      "evidence_text": "The transcript is a postgame interview about a game against Campbell. The interviewer says, \"Fourth time's the charm, and that's the one that matters most, doesn't it?\" The coach says it was important \"for us to kind of get over that hurdle against Campbell,\" describes being down 14-3 early, and later says, \"It was our defense that carried us through the game,\" \"we had to get stops, and we got them,\" and \"We had to beat really good teams to win... the kids stepped up and did that.\"",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.031,
+          "end_s": 23.858
+        },
+        {
+          "start_s": 52.175,
+          "end_s": 81.875
+        },
+        {
+          "start_s": 82.381,
+          "end_s": 103.306
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_1c8a601c3974cbd1",
+        "obs_0f101acb60975a36",
+        "obs_20e848dfe60ff7b1",
+        "obs_f75fb0fe9bcd71df",
+        "obs_dd892d1550091acc",
+        "obs_5ca24470db1bc087",
+        "obs_ec25173ad0359fe7",
+        "obs_fc6c6c84fd6995ed",
+        "obs_2bb14f251c81ec93",
+        "obs_16285604466c11de"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_02_65bb6358",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The task instructions say to identify explicit evidence that the interviewed Sheridan girls basketball team won, lost, tied, had the game cancelled, or was disqualified, and to map the result to white-team or black-team options only if grounded evidence supports that color mapping.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_1022c384abdf1d37",
+        "obs_9a7daaed81ed4665",
+        "obs_34824f8ab79f0eb2",
+        "obs_9b08f34dfec1852f",
+        "obs_eb98e894e36bc0ca",
+        "obs_ffca1be1fd72b3b7",
+        "obs_8aeb85b15cc7ffb1"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The transcript describes a completed game against Campbell and discusses how Sheridan responded after falling behind 14-3 early, so the game was played rather than cancelled.",
+      "supporting_observation_ids": [
+        "obs_20e848dfe60ff7b1",
+        "obs_f75fb0fe9bcd71df",
+        "obs_0f101acb60975a36"
+      ],
+      "answer_relevance": "rules out cancellation",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.031,
+          "end_s": 23.858
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "Multiple postgame remarks indicate Sheridan won: the interviewer says, \"Fourth time's the charm, and that's the one that matters most,\" and the coach says, \"It was our defense that carried us through the game,\" \"we had to get stops, and we got them,\" and that they \"had to beat really good teams to win\" and \"the kids stepped up and did that.\" These statements are consistent with defeating Campbell, not losing or tying.",
+      "supporting_observation_ids": [
+        "obs_1c8a601c3974cbd1",
+        "obs_dd892d1550091acc",
+        "obs_5ca24470db1bc087",
+        "obs_ec25173ad0359fe7",
+        "obs_fc6c6c84fd6995ed",
+        "obs_16285604466c11de"
+      ],
+      "answer_relevance": "supports that Sheridan won the game",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.031,
+          "end_s": 23.858
+        },
+        {
+          "start_s": 52.175,
+          "end_s": 81.875
+        },
+        {
+          "start_s": 82.381,
+          "end_s": 103.306
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Nothing in the grounded evidence identifies Sheridan as the white team or the black team. The instructions explicitly require a color-team mapping only if grounded evidence supports it.",
+      "supporting_observation_ids": [
+        "obs_9a7daaed81ed4665"
+      ],
+      "answer_relevance": "prevents choosing between black-team-won and white-team-won options",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 4,
+      "text": "Because the transcript supports that Sheridan won, but does not ground whether Sheridan was wearing white or black, the correct multiple-choice option cannot be selected from the provided color-based answers. The evidence also does not support tie, cancellation, or disqualification.",
+      "supporting_observation_ids": [
+        "obs_1c8a601c3974cbd1",
+        "obs_dd892d1550091acc",
+        "obs_5ca24470db1bc087",
+        "obs_ec25173ad0359fe7",
+        "obs_fc6c6c84fd6995ed",
+        "obs_16285604466c11de",
+        "obs_9a7daaed81ed4665",
+        "obs_ffca1be1fd72b3b7",
+        "obs_8aeb85b15cc7ffb1",
+        "obs_34824f8ab79f0eb2"
+      ],
+      "answer_relevance": "determines final answer should remain unresolved",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.031,
+          "end_s": 23.858
+        },
+        {
+          "start_s": 52.175,
+          "end_s": 81.875
+        },
+        {
+          "start_s": 82.381,
+          "end_s": 103.306
+        }
+      ]
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "1YjD_Epw9M__f309a1ce747d",
+      "trace": {
+        "inference_steps": [
+          "[0.031s to 23.858s] The transcript describes a completed game against Campbell and discusses how Sheridan responded after falling behind 14-3 early, so the game was played rather than cancelled.",
+          "[0.031s to 23.858s; 52.175s to 81.875s; 82.381s to 103.306s] Multiple postgame remarks indicate Sheridan won: the interviewer says, \"Fourth time's the charm, and that's the one that matters most,\" and the coach says, \"It was our defense that carried us through the game,\" \"we had to get stops, and we got them,\" and that they \"had to beat really good teams to win\" and \"the kids stepped up and did that.\" These statements are consistent with defeating Campbell, not losing or tying.",
+          "Nothing in the grounded evidence identifies Sheridan as the white team or the black team. The instructions explicitly require a color-team mapping only if grounded evidence supports it.",
+          "[0.031s to 23.858s; 52.175s to 81.875s; 82.381s to 103.306s] Because the transcript supports that Sheridan won, but does not ground whether Sheridan was wearing white or black, the correct multiple-choice option cannot be selected from the provided color-based answers. The evidence also does not support tie, cancellation, or disqualification."
+        ],
+        "evidence": [
+          {
+            "tool_name": "asr",
+            "evidence_text": "The transcript is a postgame interview about a game against Campbell. The interviewer says, \"Fourth time's the charm, and that's the one that matters most, doesn't it?\" The coach says it was important \"for us to kind of get over that hurdle against Campbell,\" describes being down 14-3 early, and later says, \"It was our defense that carried us through the game,\" \"we had to get stops, and we got them,\" and \"We had to beat really good teams to win... the kids stepped up and did that.\"",
+            "observation_ids": [
+              "obs_1c8a601c3974cbd1",
+              "obs_0f101acb60975a36",
+              "obs_20e848dfe60ff7b1",
+              "obs_f75fb0fe9bcd71df",
+              "obs_dd892d1550091acc",
+              "obs_5ca24470db1bc087",
+              "obs_ec25173ad0359fe7",
+              "obs_fc6c6c84fd6995ed",
+              "obs_2bb14f251c81ec93",
+              "obs_16285604466c11de"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 0.031,
+                "end_s": 23.858
+              },
+              {
+                "start_s": 52.175,
+                "end_s": 81.875
+              },
+              {
+                "start_s": 82.381,
+                "end_s": 103.306
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "The task instructions say to identify explicit evidence that the interviewed Sheridan girls basketball team won, lost, tied, had the game cancelled, or was disqualified, and to map the result to white-team or black-team options only if grounded evidence supports that color mapping.",
+            "observation_ids": [
+              "obs_1022c384abdf1d37",
+              "obs_9a7daaed81ed4665",
+              "obs_34824f8ab79f0eb2",
+              "obs_9b08f34dfec1852f",
+              "obs_eb98e894e36bc0ca",
+              "obs_ffca1be1fd72b3b7",
+              "obs_8aeb85b15cc7ffb1"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "notes": "Transcript supports that Sheridan won the game, but no grounded evidence maps Sheridan to white or black, so no listed option can be selected safely."
+  }
+}

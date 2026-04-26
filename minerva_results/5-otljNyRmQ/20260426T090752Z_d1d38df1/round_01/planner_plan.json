@@ -1,0 +1,78 @@
+{
+  "strategy": "Localize the rainy vehicle-exit scene, then inspect the immediate post-exit visuals to determine which answer-option event happens next.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "visual_temporal_grounder",
+      "purpose": "Find the clip where friends exit a vehicle in the rain and the moments immediately after.",
+      "arguments": {
+        "query": "friends exiting a vehicle in heavy rain at night, standing near or in front of the car afterward",
+        "top_k": 3
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve representative frames from the grounded rainy vehicle-exit clip, emphasizing the moments just after the exit and any event near the car or in the woods.",
+      "arguments": {
+        "clips": [],
+        "num_frames": 8,
+        "query": "friends in rain after getting out of car, person with lantern, gun or rifle, slipping or falling, car door action",
+        "time_hints": [
+          "immediately after the friends exit the vehicle",
+          "moments when they stand in front of the car",
+          "next visible event after exiting"
+        ]
+      },
+      "input_refs": [
+        {
+          "target_field": "clips",
+          "source": {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine the first answer-relevant event that occurs after the friends exit the vehicle in the rain, using grounded clip and frame evidence.",
+      "arguments": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Using the grounded rainy vehicle-exit clip and retrieved frames, identify what happens after the friends exit the vehicle in the rain. Choose only among these observable event types if supported by the evidence: someone slams a car door; someone shoots a gun at the friends standing in front of the car; someone appears holding a lantern; someone cocks their rifle; someone slips and falls on the wet terrain. If none is clearly supported, say unresolved.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": [
+        {
+          "target_field": "clips",
+          "source": {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        },
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 2,
+            "field_path": "frames"
+          }
+        }
+      ],
+      "depends_on": [
+        1,
+        2
+      ]
+    }
+  ],
+  "refinement_instructions": "Use preprocess only as rough context: the likely relevant sequence is around 120-132s with rain, a car, and later lanterns in the woods. Do not treat preprocess alone as decisive because the question asks what happens after the vehicle exit, which requires ordering. Preserve only the supported anchor that this is a dark rainy scene with a vehicle and friends exiting/walking away. Replace any unsupported assumptions about gunfire, rifle cocking, slipping, or door slamming unless newly grounded evidence shows them. The new evidence is meant to resolve the exact missing field: the first answer-option event that occurs after the friends exit the vehicle in the rain. Prioritize the temporally earliest grounded post-exit event. If the grounded clip/frames do not clearly establish the next event, leave the answer unresolved rather than guessing."
+}

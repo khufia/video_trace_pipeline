@@ -1,0 +1,60 @@
+{
+  "strategy": "Directly verify the visual action at the 00:06 moment with a bounded frame retrieval around the known early clip, then use grounded visual interpretation to distinguish among the action options.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve frames around the 00:06 moment in the opening garage scene to visually inspect what the man is doing.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "video",
+            "start_s": 3.0,
+            "end_s": 7.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "source": "preprocess_anchor",
+              "reason": "Dense caption places the relevant man and action in the garage from 3 to 6 seconds; question asks about 00:06."
+            }
+          }
+        ],
+        "num_frames": 4,
+        "query": "man in garage throwing or holding a dart near a dartboard, with beer can visible if present",
+        "time_hints": [
+          "around 00:06",
+          "end of the opening garage action"
+        ]
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine the man's action at 00:06 from the retrieved frames and distinguish between darts, beer drinking, garage tinkering, cards, and ping pong.",
+      "arguments": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Using the retrieved frames around 00:06, identify what the man is doing at that moment. Focus on the primary action, not nearby objects. Distinguish specifically among throwing/playing darts, drinking beer, tinkering in a garage, playing cards, and playing ping pong.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    }
+  ],
+  "refinement_instructions": "Use preprocess only as a rough temporal anchor: the relevant moment is the opening garage scene near 00:06. Base the answer on the newly retrieved visual evidence. The missing field is the man's exact action at 00:06. Prioritize the primary visible action over incidental context such as holding a beer can or merely being inside a garage. If the frames do not clearly show the action at that moment, keep the answer unresolved rather than inferring from scene context."
+}

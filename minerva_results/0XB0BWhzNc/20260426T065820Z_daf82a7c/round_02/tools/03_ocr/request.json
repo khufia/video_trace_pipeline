@@ -1,0 +1,78 @@
+{
+  "tool_name": "ocr",
+  "clips": [],
+  "frames": [
+    {
+      "video_id": "-0XB0BWhzNc",
+      "timestamp_s": 126.0,
+      "artifact_id": "d5ccbe680c33f8e9a1174626",
+      "relpath": "cache/artifacts/d5ccbe680c33f8e9a1174626/frame_126.00.png",
+      "clip": {
+        "video_id": "video",
+        "start_s": 125.5,
+        "end_s": 126.2,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_126.00.png",
+        "relevance_score": 0.47211283445358276,
+        "device": "cuda:1",
+        "clip_start_s": 125.5,
+        "clip_end_s": 126.2,
+        "temporal_score": 0.700684,
+        "anchor_distance_s": 0.2,
+        "selection_reason": "structured_visual_temporal_rerank"
+      }
+    }
+  ],
+  "regions": [
+    {
+      "frame": {
+        "video_id": "-0XB0BWhzNc",
+        "timestamp_s": 126.0,
+        "artifact_id": "d5ccbe680c33f8e9a1174626",
+        "relpath": "cache/artifacts/d5ccbe680c33f8e9a1174626/frame_126.00.png",
+        "clip": {
+          "video_id": "video",
+          "start_s": 125.5,
+          "end_s": 126.2,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-0XB0BWhzNc/dense_frames/-0XB0BWhzNc/frame_126.00.png",
+          "relevance_score": 0.47211283445358276,
+          "device": "cuda:1",
+          "clip_start_s": 125.5,
+          "clip_end_s": 126.2,
+          "temporal_score": 0.700684,
+          "anchor_distance_s": 0.2,
+          "selection_reason": "structured_visual_temporal_rerank"
+        }
+      },
+      "bbox": [
+        69.0,
+        291.6666666666667,
+        269.0,
+        308.3333333333333
+      ],
+      "label": "scoreboard overlay showing BRISTOL CENT., E. CATHOLIC, and the numeric scores next to each team name",
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "confidence": 0.95,
+        "bbox_normalized_to_image": true,
+        "raw_bbox": [
+          207.0,
+          875.0,
+          807.0,
+          925.0
+        ]
+      }
+    }
+  ],
+  "query": "Read the scoreboard regions containing BRISTOL CENT., E. CATHOLIC, and the score digits adjacent to each team name."
+}

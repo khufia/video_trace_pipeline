@@ -1,0 +1,70 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "woman in gray shirt volunteering at Inner City Tennis on an indoor tennis court, demonstrating or teaching a drill with side steps and ball tosses",
+    "clips": [
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 117.0,
+        "end_s": 119.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 120.0,
+        "end_s": 128.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 172.2721,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 117.00s-119.00s, 120.00s-128.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 3,
+      "candidate_windows": 3,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"woman in gray shirt volunteering at Inner City Tennis on an indoor tennis court, demonstrating or teaching a drill with side steps and ball tosses\", \"clips\": [{\"video_id\": \"-AY84ybskqI\", \"start_s\": 117.0, \"end_s\": 119.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-AY84ybskqI\", \"start_s\": 120.0, \"end_s\": 128.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 172.2721, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 117.00s-119.00s, 120.00s-128.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 3, \"candidate_windows\": 3, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "9c5e288496f4ef586c0170ac",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 117.00s-119.00s, 120.00s-128.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 3,
+      "candidate_windows": 3,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 1.0,
+    "confidence_count": 2,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-26T08:24:58.998605+00:00",
+      "finished_at_utc": "2026-04-26T08:25:26.796888+00:00",
+      "duration_s": 27.7984,
+      "cache_wait_s": 0.0007,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_1f98d42030ff46bf",
+      "obs_0de66ffa8dfd6ef5"
+    ]
+  }
+}

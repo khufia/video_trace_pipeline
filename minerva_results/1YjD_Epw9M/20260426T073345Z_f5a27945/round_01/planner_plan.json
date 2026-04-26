@@ -1,0 +1,52 @@
+{
+  "strategy": "Use the interview transcript already hinted by preprocess to directly ground whether the team won, then optionally interpret the grounded transcript into the multiple-choice result. No broad visual search is needed because the decisive discriminator is spoken postgame outcome language.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "asr",
+      "purpose": "Transcribe the full video to capture the interview statements that indicate whether Sheridan won the game/state title.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "full_video",
+            "start_s": 0.0,
+            "end_s": 141.867,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          }
+        ],
+        "speaker_attribution": false
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine the game result from the grounded transcript, focusing on explicit statements about winning, losing, tying, cancellation, disqualification, or championship outcome.",
+      "arguments": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From the provided transcript, what was the result of the game? Identify any explicit evidence that the interviewed Sheridan girls basketball team won, lost, tied, had the game cancelled, or was disqualified. If the transcript indicates they won the state title or beat the opponent, state that clearly and map it to whether the white team or black team won only if the transcript or surrounding grounded evidence supports that team-color mapping.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": [
+        {
+          "target_field": "transcripts",
+          "source": {
+            "step_id": 1,
+            "field_path": "transcripts"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    }
+  ],
+  "refinement_instructions": "Preserve preprocess-supported context that this is a postgame interview with Ryan Sullivan, Sheridan Girls Basketball Coach, and that the transcript already strongly suggests a victory. Do not rely on celebration visuals alone to infer the answer. Replace any unsupported assumption about jersey color winner unless the grounded transcript explicitly supports it. The new evidence is meant to resolve the exact missing field: the game result (won/lost/tied/cancelled/disqualified), with team-color mapping only if grounded. If the transcript confirms Sheridan won but does not securely map Sheridan to white or black, the answer should remain unresolved between color-based options rather than guessing."
+}

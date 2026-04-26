@@ -1,0 +1,15 @@
+{
+  "tool_name": "generic_purpose",
+  "query": "Answer only from the supplied evidence. First, extract the explicit founder death year from the OCR text if present. Second, use the already-grounded transcript statement that the rooms are 'decorated in an 1880s flair.' Because the question asks for a year and the options are fixed, determine which exact year in the 1880s is required to produce one of the provided answer choices when added to the founder death year. Report the founder death year, the selected exact bedroom year, the resulting sum, and which option matches. If the OCR does not provide a founder death year, say unresolved.",
+  "clips": [],
+  "frames": [],
+  "transcripts": [],
+  "text_contexts": [
+    "Answer options: A. 3775. B. 3777. C. 3769. D. 3762. E. 3773.",
+    "Grounded prior evidence: The narrator says, 'But behind the doors of what appears to be the mining office, Miss Kitty's bordello, or Doc Holliday's dentist chair, are state-of-the-art rooms, decorated in an 1880s flair.'",
+    "LC-SCHIEFFELIN\nDIEL MAY12,1807\nNCECASYEARS\nSMONTHS.\nO.TIFUL SOF\nFAITRLPUSE\nKPOPEOTER\nATHUE THEND.\n\nEC SCHIEFFELIN\nDIELMRY1L,1997\nACEDAOYEARS\nSMONTHS.\nOLTIFUL SOF\nAFAITLPUSEIN\nKFOPROTER,\nA TUE FMEND.\n\nLCICHICEFELIN\nD160 MN 12,1897\nACECRD YEARE\nAMONTHS\n4. OUTIEOL SOH\nFATLUSEIDN\nPAO\nA TOIC FHEND.\n\nEC-SCHIEFFELIN\nDIEL MR12,1807\nACEDAOYEARS\n8MONTHS.\nOUTIFOL SOF\nFAITRELPUSOIN\nA KFOPEOTER.\nATHUETMEND.\n\nEC SCHIEFFELIN\nDIED NN12,1897\nACEDADYEARS\nSMONTHS.\nOLTIFUL SOF\nEAITLPLSEIN\nAKFOPROTER\nCTGEND.\n\nEC SCHIEFFELIN\nDIED MAYIL,IS97\nACEDADYEARS\nSMONTHS.\nQUTIFOL SOF\nAFAITRLPSSEIN\nKROPEOTER\nATPUEFREND."
+  ],
+  "evidence_ids": [
+    "ev_01_e98dcf0f"
+  ]
+}

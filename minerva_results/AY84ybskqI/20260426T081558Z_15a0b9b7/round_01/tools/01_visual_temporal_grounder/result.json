@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "Alex Replier or the main female tennis player holding an object in her hand other than a tennis racket or tennis ball, such as a water bottle, sunglasses, towel, wristband, or snack",
+    "clips": [
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 57.0,
+        "end_s": 59.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 60.0,
+        "end_s": 62.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 138.0,
+        "end_s": 140.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 172.2721,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 57.00s-59.00s, 60.00s-62.00s, 138.00s-140.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 3,
+      "candidate_windows": 3,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"Alex Replier or the main female tennis player holding an object in her hand other than a tennis racket or tennis ball, such as a water bottle, sunglasses, towel, wristband, or snack\", \"clips\": [{\"video_id\": \"-AY84ybskqI\", \"start_s\": 57.0, \"end_s\": 59.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-AY84ybskqI\", \"start_s\": 60.0, \"end_s\": 62.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-AY84ybskqI\", \"start_s\": 138.0, \"end_s\": 140.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 172.2721, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 57.00s-59.00s, 60.00s-62.00s, 138.00s-140.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 3, \"candidate_windows\": 3, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "8cdcd94120cc546c497fbd2c",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 57.00s-59.00s, 60.00s-62.00s, 138.00s-140.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 3,
+      "candidate_windows": 3,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 0.9833,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-26T08:20:41.805853+00:00",
+      "finished_at_utc": "2026-04-26T08:21:08.579444+00:00",
+      "duration_s": 26.7736,
+      "cache_wait_s": 0.0006,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_314454e2700ced4f",
+      "obs_921b1b273f2a777b",
+      "obs_7abde3ea308bfd7a"
+    ]
+  }
+}

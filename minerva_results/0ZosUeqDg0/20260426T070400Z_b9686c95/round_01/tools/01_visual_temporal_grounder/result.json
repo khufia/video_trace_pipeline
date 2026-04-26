@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "North Dakota black team first goal scoring shot followed by replay sequence; find the replay segment and especially the second replay angle after the goal",
+    "clips": [
+      {
+        "video_id": "-0ZosUeqDg0",
+        "start_s": 49.0,
+        "end_s": 56.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-0ZosUeqDg0",
+        "start_s": 57.0,
+        "end_s": 59.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-0ZosUeqDg0",
+        "start_s": 72.0,
+        "end_s": 77.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 424.49073333333337,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 49.00s-56.00s, 57.00s-59.00s, 72.00s-77.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 8,
+      "candidate_windows": 8,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"North Dakota black team first goal scoring shot followed by replay sequence; find the replay segment and especially the second replay angle after the goal\", \"clips\": [{\"video_id\": \"-0ZosUeqDg0\", \"start_s\": 49.0, \"end_s\": 56.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-0ZosUeqDg0\", \"start_s\": 57.0, \"end_s\": 59.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-0ZosUeqDg0\", \"start_s\": 72.0, \"end_s\": 77.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 424.49073333333337, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 49.00s-56.00s, 57.00s-59.00s, 72.00s-77.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 8, \"candidate_windows\": 8, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "6eeac1acf6bc0e0ba2a7c9f1",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 49.00s-56.00s, 57.00s-59.00s, 72.00s-77.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 8,
+      "candidate_windows": 8,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 0.9667,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-26T07:13:16.738488+00:00",
+      "finished_at_utc": "2026-04-26T07:14:34.933451+00:00",
+      "duration_s": 78.195,
+      "cache_wait_s": 0.0007,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_0e88dfd2ce22a6eb",
+      "obs_89824509106d212e",
+      "obs_f660bee776a9f3d7"
+    ]
+  }
+}

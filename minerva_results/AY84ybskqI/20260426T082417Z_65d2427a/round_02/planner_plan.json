@@ -1,0 +1,75 @@
+{
+  "strategy": "Use the already grounded Inner City Tennis clip window and retrieve a dense set of frames across 120-128s, then ask a grounded visual reasoning step to count the woman-in-gray instructor's total side steps and total ball tosses in that drill and map the resulting ratio to the answer options.",
+  "use_summary": true,
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a broad but bounded set of frames spanning the relevant Inner City Tennis drill so the woman's repeated side-step and ball-toss actions can be counted from grounded visual evidence.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 120.0,
+            "end_s": 128.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Previously grounded relevant volunteering/drill segment with woman in gray at Inner City Tennis"
+            }
+          }
+        ],
+        "num_frames": 16,
+        "query": "woman in gray instructor at Inner City Tennis performing the drill; frames showing lateral side-step positions and ball toss moments",
+        "time_hints": [
+          "sample across the full 120.0s-128.0s clip",
+          "include early, middle, and late moments of the drill",
+          "prioritize frames where the woman in gray changes lateral position or releases/tosses a ball"
+        ]
+      },
+      "input_refs": [],
+      "depends_on": []
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "From grounded frames in the known drill clip, count the total number of side steps and total number of ball tosses performed by the woman in gray, then compute which multiple-choice ratio matches.",
+      "arguments": {
+        "clips": [
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 120.0,
+            "end_s": 128.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "reason": "Bounded relevant drill clip"
+            }
+          }
+        ],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Using only the provided grounded clip and retrieved frames from the Inner City Tennis drill, identify the woman in gray instructor and count her total side steps and total ball tosses during the relevant drill sequence. Treat side steps as distinct lateral step movements by the instructor and ball tosses as distinct releases/throws of a ball by the instructor. Report the two totals, the resulting side-steps-to-ball-tosses ratio, and which option letter matches if the evidence is sufficient; otherwise say unresolved.",
+        "text_contexts": [
+          "Answer options: A 4:1, B 3:1, C 1:1, D 5:1, E 2:1.",
+          "Preserve the supported anchor that this is the indoor Inner City Tennis volunteering segment with the woman in gray around 120-128 seconds.",
+          "Relevant question: What is the ratio of side steps to ball tosses when the woman in gray volunteers with Inner City Tennis?"
+        ],
+        "transcripts": []
+      },
+      "input_refs": [
+        {
+          "target_field": "frames",
+          "source": {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        }
+      ],
+      "depends_on": [
+        1
+      ]
+    }
+  ],
+  "refinement_instructions": "Preserve the supported anchor that the relevant scene is the Inner City Tennis indoor volunteering/drill segment with the woman in gray, specifically the previously grounded 120-128s window. Preserve only the location/identity support from prior rounds; do not preserve prior unsupported inferred counts from dense captioner or generic summaries such as unnamed 'Clip 4/5/8' toss counts or side-step claims without direct grounded totals. Replace the unresolved counting section with the new grounded visual count evidence from the retrieved frames over the full drill window. The exact missing fields to resolve are: total side steps by the woman in gray, total ball tosses by the woman in gray, and which answer option matches that ratio. The modality that matters is visual action counting, not transcript or signage. If the grounded frames still do not support decisive totals across the full drill, the answer should remain unresolved rather than guessing an option."
+}

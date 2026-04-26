@@ -1,0 +1,40 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.95,
+  "scores": {
+    "logical_coherence": 4,
+    "completeness": 1,
+    "factual_correctness": 4,
+    "reasoning_order": 4
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The trace does not answer the multiple-choice question with a justified option. It concludes that no option can be selected and leaves final_answer blank, which is not a completed benchmark answer.",
+      "evidence_ids": [
+        "ev_01_53034214",
+        "ev_03_2bfb391c",
+        "ev_01_fa09aa7c",
+        "ev_03_9b374711"
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "category": "ATTRIBUTION_GAP",
+      "message": "The evidence text grounds the presence of the man in the light gray jacket and a blonde-haired person, but it does not ground the accusation itself, who says it, or which visible person is the accusation target at the exact moment needed to choose among the options.",
+      "evidence_ids": [
+        "ev_01_53034214",
+        "ev_03_2bfb391c",
+        "ev_01_fa09aa7c",
+        "ev_03_9b374711"
+      ]
+    }
+  ],
+  "feedback": "The trace is cautious and mostly internally consistent, but it remains answer-incomplete: the accusation wording and target are not textually grounded, so the package cannot justify any single option and cannot leave the answer blank.",
+  "missing_information": [
+    "The accusation wording in which the man in the light gray jacket calls someone a kidnapper",
+    "Which visible person is the target of that accusation at the exact moment of the accusation",
+    "A grounded mapping from that identified target to one unique answer option"
+  ]
+}

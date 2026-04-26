@@ -1,0 +1,55 @@
+{
+  "tool_name": "ocr",
+  "clips": [],
+  "frames": [],
+  "regions": [
+    {
+      "frame": {
+        "video_id": "-0ZosUeqDg0",
+        "timestamp_s": 75.0,
+        "artifact_id": "47bd61eaf6f4a0ffbe12f089",
+        "relpath": "cache/artifacts/47bd61eaf6f4a0ffbe12f089/frame_75.00.png",
+        "clip": {
+          "video_id": "-0ZosUeqDg0",
+          "start_s": 72.0,
+          "end_s": 77.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "candidate_replay": "likely_second_replay_from_prior_trace"
+          }
+        },
+        "metadata": {
+          "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-0ZosUeqDg0/dense_frames/-0ZosUeqDg0/frame_75.00.png",
+          "relevance_score": 0.46213066577911377,
+          "device": "cuda:1",
+          "clip_start_s": 72.0,
+          "clip_end_s": 77.0,
+          "temporal_score": 0.497632,
+          "anchor_distance_s": 3.0,
+          "selection_reason": "temporal_rerank"
+        }
+      },
+      "bbox": [
+        40.0,
+        280.0,
+        90.0,
+        310.0
+      ],
+      "label": "advertisement",
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "confidence": 0.95,
+        "bbox_normalized_to_image": true,
+        "raw_bbox": [
+          100.0,
+          700.0,
+          225.0,
+          775.0
+        ]
+      }
+    }
+  ],
+  "query": "Read the painted word on the ice under the referee's skates"
+}

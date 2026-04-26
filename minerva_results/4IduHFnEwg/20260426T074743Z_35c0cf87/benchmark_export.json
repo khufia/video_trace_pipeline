@@ -1,0 +1,146 @@
+{
+  "sample_key": "4IduHFnEwg__cc315707869e",
+  "trace": {
+    "inference_steps": [
+      "[44s to 56s; 79s to 85s; 172s to 176s] The evidence still supports three review-like candidate intervals for the queried event: 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+      "[44s to 56s] The early 44.00s-56.00s interval is genuinely a review sequence, because it contains replay footage, review decision text, and 3D ball-tracking conclusions.",
+      "[79s to 85s; 172s to 176s] However, the newly supplied descriptions for 79.00s-85.00s and 172.00s-176.00s show ordinary close-ups and live wide shots rather than review graphics, so the evidence still does not isolate which later interval is the second reviewed play.",
+      "Because the second reviewed play is not grounded, the shot two shots before that review cannot be identified from the evidence. As a result, the specific crowd shot with the spectator and the number of complete flag-wave motions while the ball lands near him are also not grounded."
+    ],
+    "evidence": [
+      {
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "The queried event appears at 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+        "observation_ids": [
+          "obs_b627909547d5d957",
+          "obs_09b6d0cdc644ad31",
+          "obs_d55d9eabbdfce3b3"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 44.0,
+            "end_s": 56.0
+          },
+          {
+            "start_s": 79.0,
+            "end_s": 85.0
+          },
+          {
+            "start_s": 172.0,
+            "end_s": 176.0
+          }
+        ]
+      },
+      {
+        "tool_name": "dense_captioner",
+        "evidence_text": "From 44.00s-56.00s the broadcast shows replay/review material: a slow-motion replay of ball hitting bat, then review graphics with 'ORIGINAL DECISION NOT OUT', 'IN-LINE', and a 3D reconstruction showing the ball striking the stumps with 'WICKETS HITTING' and 'IMPACT IN-LINE'.",
+        "observation_ids": [
+          "obs_3dcb2093f31d8195",
+          "obs_b07a422b2eb1169d",
+          "obs_6df11c5c7eba7b31",
+          "obs_c2500aebbee7d2a2",
+          "obs_ac2175104a8fb293",
+          "obs_da033465d632b50a",
+          "obs_33d357a0e7cb9561",
+          "obs_abca0562101eac51"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 44.0,
+            "end_s": 45.0
+          },
+          {
+            "start_s": 46.0,
+            "end_s": 52.0
+          },
+          {
+            "start_s": 53.0,
+            "end_s": 56.0
+          }
+        ]
+      },
+      {
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "The new round grounder describes the queried event as a later cricket review sequence after the early LBW review, with intervals at 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+        "observation_ids": [
+          "obs_4c0b5ed8b19ec6ed",
+          "obs_9cc184e27dd4feea",
+          "obs_418b01e76e68016c"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 44.0,
+            "end_s": 56.0
+          },
+          {
+            "start_s": 79.0,
+            "end_s": 85.0
+          },
+          {
+            "start_s": 172.0,
+            "end_s": 176.0
+          }
+        ]
+      },
+      {
+        "tool_name": "dense_captioner",
+        "evidence_text": "From 79.00s-85.00s the sequence is a close-up of a player's legs walking (79.00s-80.00s) followed by a standard high-angle wide live-action cricket shot (81.00s-85.00s), with no review graphics grounded in this interval.",
+        "observation_ids": [
+          "obs_d7e06e102966c3f9",
+          "obs_bf88819e13faa3fd",
+          "obs_5be318672f1900d3",
+          "obs_16c662616498e475",
+          "obs_a15a7f1f2e4f5ea7",
+          "obs_bafd64ca21446157",
+          "obs_8113350d0142e0ce"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 79.0,
+            "end_s": 80.0
+          },
+          {
+            "start_s": 81.0,
+            "end_s": 85.0
+          }
+        ]
+      },
+      {
+        "tool_name": "dense_captioner",
+        "evidence_text": "From 172.00s-176.00s the sequence is a close-up of KINGMA from behind (172.00s-173.00s) followed by a standard wide shot of the pitch with batsman and wicketkeeper in position (174.00s-176.00s), not review graphics.",
+        "observation_ids": [
+          "obs_45b45251e68281a7",
+          "obs_88ef34913b1aac57",
+          "obs_9321c80aaa750ff4",
+          "obs_99cdac6ec03c6819"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 172.0,
+            "end_s": 173.0
+          },
+          {
+            "start_s": 174.0,
+            "end_s": 176.0
+          }
+        ]
+      }
+    ]
+  },
+  "answer": ""
+}

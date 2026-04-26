@@ -1,0 +1,2148 @@
+{
+  "run_dir": "runs/4IduHFnEwg/20260426T074743Z_35c0cf87",
+  "trace_package": {
+    "task_key": "4IduHFnEwg__cc315707869e",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_01_82ed887a",
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "The queried event appears at 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+        "inference_hint": null,
+        "confidence": 1.0,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 44.0,
+            "end_s": 56.0
+          },
+          {
+            "start_s": 79.0,
+            "end_s": 85.0
+          },
+          {
+            "start_s": 172.0,
+            "end_s": 176.0
+          }
+        ],
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_b627909547d5d957",
+          "obs_09b6d0cdc644ad31",
+          "obs_d55d9eabbdfce3b3"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_02_review_44_56",
+        "tool_name": "dense_captioner",
+        "evidence_text": "From 44.00s-56.00s the broadcast shows replay/review material: a slow-motion replay of ball hitting bat, then review graphics with 'ORIGINAL DECISION NOT OUT', 'IN-LINE', and a 3D reconstruction showing the ball striking the stumps with 'WICKETS HITTING' and 'IMPACT IN-LINE'.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 44.0,
+            "end_s": 45.0
+          },
+          {
+            "start_s": 46.0,
+            "end_s": 52.0
+          },
+          {
+            "start_s": 53.0,
+            "end_s": 56.0
+          }
+        ],
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_3dcb2093f31d8195",
+          "obs_b07a422b2eb1169d",
+          "obs_6df11c5c7eba7b31",
+          "obs_c2500aebbee7d2a2",
+          "obs_ac2175104a8fb293",
+          "obs_da033465d632b50a",
+          "obs_33d357a0e7cb9561",
+          "obs_abca0562101eac51"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_05_round_grounder_later_review",
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "The new round grounder describes the queried event as a later cricket review sequence after the early LBW review, with intervals at 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+        "inference_hint": null,
+        "confidence": 1.0,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 44.0,
+            "end_s": 56.0
+          },
+          {
+            "start_s": 79.0,
+            "end_s": 85.0
+          },
+          {
+            "start_s": 172.0,
+            "end_s": 176.0
+          }
+        ],
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_4c0b5ed8b19ec6ed",
+          "obs_9cc184e27dd4feea",
+          "obs_418b01e76e68016c"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_06_round_context_79_85",
+        "tool_name": "dense_captioner",
+        "evidence_text": "From 79.00s-85.00s the sequence is a close-up of a player's legs walking (79.00s-80.00s) followed by a standard high-angle wide live-action cricket shot (81.00s-85.00s), with no review graphics grounded in this interval.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 79.0,
+            "end_s": 80.0
+          },
+          {
+            "start_s": 81.0,
+            "end_s": 85.0
+          }
+        ],
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_d7e06e102966c3f9",
+          "obs_bf88819e13faa3fd",
+          "obs_5be318672f1900d3",
+          "obs_16c662616498e475",
+          "obs_a15a7f1f2e4f5ea7",
+          "obs_bafd64ca21446157",
+          "obs_8113350d0142e0ce"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_07_round_context_172_176",
+        "tool_name": "dense_captioner",
+        "evidence_text": "From 172.00s-176.00s the sequence is a close-up of KINGMA from behind (172.00s-173.00s) followed by a standard wide shot of the pitch with batsman and wicketkeeper in position (174.00s-176.00s), not review graphics.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 172.0,
+            "end_s": 173.0
+          },
+          {
+            "start_s": 174.0,
+            "end_s": 176.0
+          }
+        ],
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_45b45251e68281a7",
+          "obs_88ef34913b1aac57",
+          "obs_9321c80aaa750ff4",
+          "obs_99cdac6ec03c6819"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The evidence still supports three review-like candidate intervals for the queried event: 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+        "supporting_observation_ids": [
+          "obs_b627909547d5d957",
+          "obs_09b6d0cdc644ad31",
+          "obs_d55d9eabbdfce3b3",
+          "obs_4c0b5ed8b19ec6ed",
+          "obs_9cc184e27dd4feea",
+          "obs_418b01e76e68016c"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 44.0,
+            "end_s": 56.0
+          },
+          {
+            "start_s": 79.0,
+            "end_s": 85.0
+          },
+          {
+            "start_s": 172.0,
+            "end_s": 176.0
+          }
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The early 44.00s-56.00s interval is genuinely a review sequence, because it contains replay footage, review decision text, and 3D ball-tracking conclusions.",
+        "supporting_observation_ids": [
+          "obs_3dcb2093f31d8195",
+          "obs_6df11c5c7eba7b31",
+          "obs_c2500aebbee7d2a2",
+          "obs_ac2175104a8fb293",
+          "obs_da033465d632b50a",
+          "obs_33d357a0e7cb9561",
+          "obs_abca0562101eac51"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 44.0,
+            "end_s": 56.0
+          }
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "However, the newly supplied descriptions for 79.00s-85.00s and 172.00s-176.00s show ordinary close-ups and live wide shots rather than review graphics, so the evidence still does not isolate which later interval is the second reviewed play.",
+        "supporting_observation_ids": [
+          "obs_d7e06e102966c3f9",
+          "obs_bf88819e13faa3fd",
+          "obs_16c662616498e475",
+          "obs_a15a7f1f2e4f5ea7",
+          "obs_bafd64ca21446157",
+          "obs_45b45251e68281a7",
+          "obs_88ef34913b1aac57",
+          "obs_9321c80aaa750ff4",
+          "obs_99cdac6ec03c6819"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 79.0,
+            "end_s": 85.0
+          },
+          {
+            "start_s": 172.0,
+            "end_s": 176.0
+          }
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "Because the second reviewed play is not grounded, the shot two shots before that review cannot be identified from the evidence. As a result, the specific crowd shot with the spectator and the number of complete flag-wave motions while the ball lands near him are also not grounded.",
+        "supporting_observation_ids": [
+          "obs_9cc184e27dd4feea",
+          "obs_418b01e76e68016c",
+          "obs_d7e06e102966c3f9",
+          "obs_16c662616498e475",
+          "obs_45b45251e68281a7",
+          "obs_9321c80aaa750ff4"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "4IduHFnEwg__cc315707869e",
+        "trace": {
+          "inference_steps": [
+            "[44s to 56s; 79s to 85s; 172s to 176s] The evidence still supports three review-like candidate intervals for the queried event: 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+            "[44s to 56s] The early 44.00s-56.00s interval is genuinely a review sequence, because it contains replay footage, review decision text, and 3D ball-tracking conclusions.",
+            "[79s to 85s; 172s to 176s] However, the newly supplied descriptions for 79.00s-85.00s and 172.00s-176.00s show ordinary close-ups and live wide shots rather than review graphics, so the evidence still does not isolate which later interval is the second reviewed play.",
+            "Because the second reviewed play is not grounded, the shot two shots before that review cannot be identified from the evidence. As a result, the specific crowd shot with the spectator and the number of complete flag-wave motions while the ball lands near him are also not grounded."
+          ],
+          "evidence": [
+            {
+              "tool_name": "visual_temporal_grounder",
+              "evidence_text": "The queried event appears at 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+              "observation_ids": [
+                "obs_b627909547d5d957",
+                "obs_09b6d0cdc644ad31",
+                "obs_d55d9eabbdfce3b3"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 44.0,
+                  "end_s": 56.0
+                },
+                {
+                  "start_s": 79.0,
+                  "end_s": 85.0
+                },
+                {
+                  "start_s": 172.0,
+                  "end_s": 176.0
+                }
+              ]
+            },
+            {
+              "tool_name": "dense_captioner",
+              "evidence_text": "From 44.00s-56.00s the broadcast shows replay/review material: a slow-motion replay of ball hitting bat, then review graphics with 'ORIGINAL DECISION NOT OUT', 'IN-LINE', and a 3D reconstruction showing the ball striking the stumps with 'WICKETS HITTING' and 'IMPACT IN-LINE'.",
+              "observation_ids": [
+                "obs_3dcb2093f31d8195",
+                "obs_b07a422b2eb1169d",
+                "obs_6df11c5c7eba7b31",
+                "obs_c2500aebbee7d2a2",
+                "obs_ac2175104a8fb293",
+                "obs_da033465d632b50a",
+                "obs_33d357a0e7cb9561",
+                "obs_abca0562101eac51"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 44.0,
+                  "end_s": 45.0
+                },
+                {
+                  "start_s": 46.0,
+                  "end_s": 52.0
+                },
+                {
+                  "start_s": 53.0,
+                  "end_s": 56.0
+                }
+              ]
+            },
+            {
+              "tool_name": "visual_temporal_grounder",
+              "evidence_text": "The new round grounder describes the queried event as a later cricket review sequence after the early LBW review, with intervals at 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+              "observation_ids": [
+                "obs_4c0b5ed8b19ec6ed",
+                "obs_9cc184e27dd4feea",
+                "obs_418b01e76e68016c"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 44.0,
+                  "end_s": 56.0
+                },
+                {
+                  "start_s": 79.0,
+                  "end_s": 85.0
+                },
+                {
+                  "start_s": 172.0,
+                  "end_s": 176.0
+                }
+              ]
+            },
+            {
+              "tool_name": "dense_captioner",
+              "evidence_text": "From 79.00s-85.00s the sequence is a close-up of a player's legs walking (79.00s-80.00s) followed by a standard high-angle wide live-action cricket shot (81.00s-85.00s), with no review graphics grounded in this interval.",
+              "observation_ids": [
+                "obs_d7e06e102966c3f9",
+                "obs_bf88819e13faa3fd",
+                "obs_5be318672f1900d3",
+                "obs_16c662616498e475",
+                "obs_a15a7f1f2e4f5ea7",
+                "obs_bafd64ca21446157",
+                "obs_8113350d0142e0ce"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 79.0,
+                  "end_s": 80.0
+                },
+                {
+                  "start_s": 81.0,
+                  "end_s": 85.0
+                }
+              ]
+            },
+            {
+              "tool_name": "dense_captioner",
+              "evidence_text": "From 172.00s-176.00s the sequence is a close-up of KINGMA from behind (172.00s-173.00s) followed by a standard wide shot of the pitch with batsman and wicketkeeper in position (174.00s-176.00s), not review graphics.",
+              "observation_ids": [
+                "obs_45b45251e68281a7",
+                "obs_88ef34913b1aac57",
+                "obs_9321c80aaa750ff4",
+                "obs_99cdac6ec03c6819"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 172.0,
+                  "end_s": 173.0
+                },
+                {
+                  "start_s": 174.0,
+                  "end_s": 176.0
+                }
+              ]
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {
+      "answer_status": "unresolved",
+      "reason": "The refined evidence preserves the genuine early review at 44-56s but still does not ground which later interval is the second reviewed play, so the required earlier shot and flag-wave count remain unidentifiable."
+    }
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.95,
+    "scores": {
+      "logical_coherence": 3,
+      "completeness": 1,
+      "factual_correctness": 3,
+      "reasoning_order": 4
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace does not answer the multiple-choice question: final_answer is blank, so no option is selected or justified.",
+        "evidence_ids": []
+      },
+      {
+        "severity": "HIGH",
+        "category": "TEMPORAL_GAP",
+        "message": "The trace argues that the second reviewed play is not grounded, but the provided text does not fully justify that conclusion because it relies on candidate intervals from temporal grounders while not resolving how 'reviewed play' maps to those intervals or to shot order. Without grounding the second reviewed play, the required 'two shots before' target shot remains unresolved.",
+        "evidence_ids": [
+          "ev_01_82ed887a",
+          "ev_05_round_grounder_later_review",
+          "ev_06_round_context_79_85",
+          "ev_07_round_context_172_176"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "ANSWER_ERROR",
+        "message": "Even if the trace is intentionally unresolved, that is not a completed benchmark answer for a fixed-option counting question.",
+        "evidence_ids": []
+      }
+    ],
+    "feedback": "The trace is orderly but incomplete: it stops at unresolved identification of the second reviewed play and never maps to a single answer option. The answer-critical temporal anchor and resulting flag-wave count are still missing.",
+    "missing_information": [
+      "Which event in the provided sequence is the second reviewed play",
+      "Which shot is two shots before that second reviewed play",
+      "Whether that identified shot shows a spectator waving a flag while a ball lands near him",
+      "The number of complete flag-wave motions in that shot",
+      "Which answer option matches that count"
+    ]
+  },
+  "benchmark_export": {
+    "sample_key": "4IduHFnEwg__cc315707869e",
+    "trace": {
+      "inference_steps": [
+        "[44s to 56s; 79s to 85s; 172s to 176s] The evidence still supports three review-like candidate intervals for the queried event: 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+        "[44s to 56s] The early 44.00s-56.00s interval is genuinely a review sequence, because it contains replay footage, review decision text, and 3D ball-tracking conclusions.",
+        "[79s to 85s; 172s to 176s] However, the newly supplied descriptions for 79.00s-85.00s and 172.00s-176.00s show ordinary close-ups and live wide shots rather than review graphics, so the evidence still does not isolate which later interval is the second reviewed play.",
+        "Because the second reviewed play is not grounded, the shot two shots before that review cannot be identified from the evidence. As a result, the specific crowd shot with the spectator and the number of complete flag-wave motions while the ball lands near him are also not grounded."
+      ],
+      "evidence": [
+        {
+          "tool_name": "visual_temporal_grounder",
+          "evidence_text": "The queried event appears at 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+          "observation_ids": [
+            "obs_b627909547d5d957",
+            "obs_09b6d0cdc644ad31",
+            "obs_d55d9eabbdfce3b3"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 44.0,
+              "end_s": 56.0
+            },
+            {
+              "start_s": 79.0,
+              "end_s": 85.0
+            },
+            {
+              "start_s": 172.0,
+              "end_s": 176.0
+            }
+          ]
+        },
+        {
+          "tool_name": "dense_captioner",
+          "evidence_text": "From 44.00s-56.00s the broadcast shows replay/review material: a slow-motion replay of ball hitting bat, then review graphics with 'ORIGINAL DECISION NOT OUT', 'IN-LINE', and a 3D reconstruction showing the ball striking the stumps with 'WICKETS HITTING' and 'IMPACT IN-LINE'.",
+          "observation_ids": [
+            "obs_3dcb2093f31d8195",
+            "obs_b07a422b2eb1169d",
+            "obs_6df11c5c7eba7b31",
+            "obs_c2500aebbee7d2a2",
+            "obs_ac2175104a8fb293",
+            "obs_da033465d632b50a",
+            "obs_33d357a0e7cb9561",
+            "obs_abca0562101eac51"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 44.0,
+              "end_s": 45.0
+            },
+            {
+              "start_s": 46.0,
+              "end_s": 52.0
+            },
+            {
+              "start_s": 53.0,
+              "end_s": 56.0
+            }
+          ]
+        },
+        {
+          "tool_name": "visual_temporal_grounder",
+          "evidence_text": "The new round grounder describes the queried event as a later cricket review sequence after the early LBW review, with intervals at 44.00s-56.00s, 79.00s-85.00s, and 172.00s-176.00s.",
+          "observation_ids": [
+            "obs_4c0b5ed8b19ec6ed",
+            "obs_9cc184e27dd4feea",
+            "obs_418b01e76e68016c"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 44.0,
+              "end_s": 56.0
+            },
+            {
+              "start_s": 79.0,
+              "end_s": 85.0
+            },
+            {
+              "start_s": 172.0,
+              "end_s": 176.0
+            }
+          ]
+        },
+        {
+          "tool_name": "dense_captioner",
+          "evidence_text": "From 79.00s-85.00s the sequence is a close-up of a player's legs walking (79.00s-80.00s) followed by a standard high-angle wide live-action cricket shot (81.00s-85.00s), with no review graphics grounded in this interval.",
+          "observation_ids": [
+            "obs_d7e06e102966c3f9",
+            "obs_bf88819e13faa3fd",
+            "obs_5be318672f1900d3",
+            "obs_16c662616498e475",
+            "obs_a15a7f1f2e4f5ea7",
+            "obs_bafd64ca21446157",
+            "obs_8113350d0142e0ce"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 79.0,
+              "end_s": 80.0
+            },
+            {
+              "start_s": 81.0,
+              "end_s": 85.0
+            }
+          ]
+        },
+        {
+          "tool_name": "dense_captioner",
+          "evidence_text": "From 172.00s-176.00s the sequence is a close-up of KINGMA from behind (172.00s-173.00s) followed by a standard wide shot of the pitch with batsman and wicketkeeper in position (174.00s-176.00s), not review graphics.",
+          "observation_ids": [
+            "obs_45b45251e68281a7",
+            "obs_88ef34913b1aac57",
+            "obs_9321c80aaa750ff4",
+            "obs_99cdac6ec03c6819"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 172.0,
+              "end_s": 173.0
+            },
+            {
+              "start_s": 174.0,
+              "end_s": 176.0
+            }
+          ]
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": false,
+    "cache_dir": "cache/preprocess/12dfd9f178d85d8d2d4d28ed5e2a126213b9259fddc9690213ac2fd7930bd326/dense_caption/local_process__yaolily_TimeChat-Captioner-GRPO-7B/60/tool_v2/26503208b9ce",
+    "manifest": {
+      "video_fingerprint": "12dfd9f178d85d8d2d4d28ed5e2a126213b9259fddc9690213ac2fd7930bd326",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "26503208b9ce",
+      "include_asr": true,
+      "segment_count": 10,
+      "planner_segment_count": 10,
+      "dense_caption_span_count": 22,
+      "transcript_segment_count": 21,
+      "identity_memory_count": 6,
+      "audio_event_memory_count": 20
+    },
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 0.0,
+              "end": 1.0,
+              "visual": "A shot shows spectators in the stands, including a woman in a green hijab and sunglasses, watching a cricket match. The scoreboard at the bottom indicates a match between Pakistan and the Netherlands, with Pakistan leading 2-0 in the first over.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of a sports event.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium distance, focused on the spectators in the stands.",
+                "video_background: The background consists of a white metal fence and green trees behind the spectators.",
+                "storyline: This is an establishing shot, setting the scene for a cricket match between Pakistan and the Netherlands.",
+                "shooting_style: This is a standard shot establishing the context of the event."
+              ]
+            },
+            {
+              "start": 2.0,
+              "end": 5.0,
+              "visual": "A cricket player in a green jersey bowls the ball. The batsman, in an orange jersey, hits the ball, which is caught by a fielder in an orange uniform. The fielder then stumbles and falls to the ground.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of the bat hitting the ball and the ball being caught.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide shot of the cricket pitch, following the action of the ball.",
+                "video_background: The scene is a green cricket pitch with players from both teams positioned around the wicket. Advertising hoardings are visible in the background.",
+                "storyline: The Netherlands batsman hits the ball, which is caught by a fielder, leading to a potential run-out.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            },
+            {
+              "start": 6.0,
+              "end": 9.0,
+              "visual": "A replay shows the batsman hitting the ball. The fielder catches it, but he stumbles and falls over. The ball bounces on the grass, and the batsman is shown to be out as the fielder scrambles to retrieve the ball.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The commentator's voice is heard over the replay.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera angle is high, providing a wide view of the pitch for the replay.",
+                "video_background: The background is the green cricket pitch with advertising hoardings.",
+                "storyline: The replay confirms the batsman is out, as the fielder's stumble prevents him from making a clean catch.",
+                "shooting_style: This is a replay of the previous action."
+              ]
+            }
+          ],
+          "overall_summary": "A shot shows spectators in the stands, including a woman in a green hijab and sunglasses, watching a cricket match. The scoreboard at the bottom indicates a match between Pakistan and the Netherlands, with Pakistan leading 2-0 in the first over.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of a sports event.; attributes: camera_state: The camera is at a medium distance, focused on the spectators in the stands., video_background: The background consists of a white metal fence and green trees behind the spectators., storyline: This is an establishing shot, setting the scene for a cricket match between Pakistan and the Netherlands., shooting_style: This is a standard shot establishing the context of the event. A cricket player in a green jersey bowls the ball. The batsman, in an orange jersey, hits the ball, which is caught by a fielder in an orange uniform. The fielder then stumbles and falls to the ground.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of the bat hitting the ball and the ball being caught.; attributes: camera_state: The camera is positioned high, providing a wide shot of the cricket pitch, following the action of the ball., video_background: The scene is a green cricket pitch with players from both teams positioned around the wicket. Advertising hoardings are visible in the background., storyline: The Netherlands batsman hits the ball, which is caught by a fielder, leading to a potential run-out., shooting_style: This is a standard live sports broadcast shot. A replay shows the batsman hitting the ball. The fielder catches it, but he stumbles and falls over. The ball bounces on the grass, and the batsman is shown to be out as the fielder scrambles to retrieve the ball.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The commentator's voice is heard over the replay.; attributes: camera_state: The camera angle is high, providing a wide view of the pitch for the replay., video_background: The background is the green cricket pitch with advertising hoardings., storyline: The replay confirms the batsman is out, as the fielder's stumble prevents him from making a clean catch., shooting_style: This is a replay of the previous action.",
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 3.777,
+            "end_s": 26.963,
+            "text": "There's that intent, finally. And fortune favours the brave for Foucault-Zermann. He gets a boundary, the first of the day.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 29.225,
+            "end_s": 57.237,
+            "text": "Satisfied, no bat involved. Can we go to ball tracking please? Satisfied, no bat involved. Can we go to ball tracking please? Original decision not out. Pitching in line, impact in line, wickets hitting. Michael, you need to reverse your decision to how?",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 60.0,
+        "end": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 60.0,
+              "end": 65.0,
+              "visual": "A cricket umpire, dressed in black, stands on the field with his hands clasped. He raises his right index finger to signal a 'no-ball' decision. The scene then cuts to the Netherlands' team, all in orange, celebrating a wicket. They are huddled together, with one player waving his bat in the air and another player with curly hair celebrating enthusiastically.",
+              "audio": "speech: Commentator: ...fantastic review by the Dutch. Faka Zaman goes. Viv King must strikes.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: Upbeat, celebratory music plays during the team's celebration.",
+              "on_screen_text": "no-ball",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The first shot is a medium shot of the umpire. The second shot is a medium shot of the celebrating team, with a slight pan to follow the action.",
+                "video_background: The scene is a cricket ground with a green field. In the background, there are advertising hoardings and a 'Subscribe' button overlay in the top right corner.",
+                "storyline: The umpire signals a 'no-ball' after a review, which is a significant event in a cricket match. The Netherlands team is shown celebrating a wicket, indicating they have successfully dismissed a batsman.",
+                "shooting_style: This is a montage of two separate clips: the umpire's signal and the team's celebration."
+              ]
+            },
+            {
+              "start": 66.0,
+              "end": 70.0,
+              "visual": "A Pakistani cricketer, wearing a green jersey with 'PAKISTAN' and 'pepsi' written on it, walks off the field. He is seen from the back, holding his cricket bat. The camera follows his legs and bat as he walks away from the pitch.",
+              "audio": "speech: Commentator: ...terrible reward for the Dutch for this start. A very disciplined start. And a great review as it...; acoustics: 1) Tone of speech: Analytical. 2) Background sounds or music: None.",
+              "on_screen_text": "PAKISTAN | pepsi",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A low-angle, medium shot follows the cricketer's legs and bat as he walks away.",
+                "video_background: The background is a blurred view of the cricket ground, with a red advertising board visible on the left.",
+                "storyline: A Pakistani batsman is shown walking off the field, likely after being dismissed or changing ends. The scoreboard shows Pakistan is at 10-1.",
+                "shooting_style: This is a single, continuous shot focusing on the player's departure."
+              ]
+            }
+          ],
+          "overall_summary": "A cricket umpire, dressed in black, stands on the field with his hands clasped. He raises his right index finger to signal a 'no-ball' decision. The scene then cuts to the Netherlands' team, all in orange, celebrating a wicket. They are huddled together, with one player waving his bat in the air and another player with curly hair celebrating enthusiastically.; speech: Commentator: ...fantastic review by the Dutch. Faka Zaman goes. Viv King must strikes.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: Upbeat, celebratory music plays during the team's celebration.; no-ball; attributes: camera_state: The first shot is a medium shot of the umpire. The second shot is a medium shot of the celebrating team, with a slight pan to follow the action., video_background: The scene is a cricket ground with a green field. In the background, there are advertising hoardings and a 'Subscribe' button overlay in the top right corner., storyline: The umpire signals a 'no-ball' after a review, which is a significant event in a cricket match. The Netherlands team is shown celebrating a wicket, indicating they have successfully dismissed a batsman., shooting_style: This is a montage of two separate clips: the umpire's signal and the team's celebration. A Pakistani cricketer, wearing a green jersey with 'PAKISTAN' and 'pepsi' written on it, walks off the field. He is seen from the back, holding his cricket bat. The camera follows his legs and bat as he walks away from the pitch.; speech: Commentator: ...terrible reward for the Dutch for this start. A very disciplined start. And a great review as it...; acoustics: 1) Tone of speech: Analytical. 2) Background sounds or music: None.; PAKISTAN | pepsi; attributes: camera_state: A low-angle, medium shot follows the cricketer's legs and bat as he walks away., video_background: The background is a blurred view of the cricket ground, with a red advertising board visible on the left., storyline: A Pakistani batsman is shown walking off the field, likely after being dismissed or changing ends. The scoreboard shows Pakistan is at 10-1., shooting_style: This is a single, continuous shot focusing on the player's departure.",
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 58.908,
+            "end_s": 80.086,
+            "text": "That is a fantastic review by the Dutch. Back as a man goes. Viv Kingma strikes. Started. Really terrific reward for the Dutch for this start. Very disciplined start. Great review, isn't it?",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 81.942,
+            "end_s": 109.921,
+            "text": "There he is. There he goes. First shot and anger. Don't think it's going to go all the way. Third is getting around it just about. Around it just about. Trickles into the ropes. Brings the Pakistan crowd alive. Now running at Kingman. Looking to get himself going here. Just running at the better. Forcing a change in the bowling. That's where generally fuckers are man likes to play again today.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 120.0,
+        "end": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 120.0,
+              "end": 128.0,
+              "visual": "A cricket match is underway. A batsman in a green Pakistan jersey hits the ball, sending it high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands where fans, including a woman holding a large orange umbrella, are cheering and waving green and white scarves.",
+              "audio": "speech: Yeah, these world-class batsmen... Batten ball. Oh, that is a beauty. I am to anyone who is watching you play. That is exactly what you are happy to do.; acoustics: 1) Tone of speech: Excited, appreciative. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the cheers of the crowd.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot of the batsman, then pans to follow the ball's flight, and finally tilts up to show the fans in the stands.",
+                "video_background: The scene is a cricket stadium with a green field, advertising hoardings, and spectators in the stands. The weather appears to be sunny.",
+                "storyline: The segment captures a key moment in a cricket match, showing a batsman scoring runs and the immediate reaction of the home fans.",
+                "shooting_style: This is a standard live sports broadcast shot, following the action of the game."
+              ]
+            },
+            {
+              "start": 129.0,
+              "end": 134.0,
+              "visual": "A replay shows a different batsman in a green Pakistan jersey hitting the ball. The camera follows the ball as it is hit high and lands just inside the boundary. The fielder in an orange Netherlands jersey dives to his right, but the ball is out of his reach.",
+              "audio": "speech: bit wide from King Ma. Too much through the length. I know the hands... through the length. It's a bit of the ball. Just such an exquisite timer of the ball. As Baba Azam and just...; acoustics: 1) Tone of speech: Analytical, complimentary. 2) Background sounds or music: None.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide shot of the pitch and the batsman. It then pans to follow the ball's flight and the fielder's dive.",
+                "video_background: The setting is a cricket pitch with green grass and advertising hoardings in the background. The sky is clear.",
+                "storyline: This replay highlights a significant scoring opportunity for Pakistan, where a fielder's diving attempt is unsuccessful, resulting in a boundary.",
+                "shooting_style: This is a slow-motion replay of a previous play, used to emphasize the action."
+              ]
+            }
+          ],
+          "overall_summary": "A cricket match is underway. A batsman in a green Pakistan jersey hits the ball, sending it high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands where fans, including a woman holding a large orange umbrella, are cheering and waving green and white scarves.; speech: Yeah, these world-class batsmen... Batten ball. Oh, that is a beauty. I am to anyone who is watching you play. That is exactly what you are happy to do.; acoustics: 1) Tone of speech: Excited, appreciative. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the cheers of the crowd.; attributes: camera_state: The camera starts with a medium shot of the batsman, then pans to follow the ball's flight, and finally tilts up to show the fans in the stands., video_background: The scene is a cricket stadium with a green field, advertising hoardings, and spectators in the stands. The weather appears to be sunny., storyline: The segment captures a key moment in a cricket match, showing a batsman scoring runs and the immediate reaction of the home fans., shooting_style: This is a standard live sports broadcast shot, following the action of the game. A replay shows a different batsman in a green Pakistan jersey hitting the ball. The camera follows the ball as it is hit high and lands just inside the boundary. The fielder in an orange Netherlands jersey dives to his right, but the ball is out of his reach.; speech: bit wide from King Ma. Too much through the length. I know the hands... through the length. It's a bit of the ball. Just such an exquisite timer of the ball. As Baba Azam and just...; acoustics: 1) Tone of speech: Analytical, complimentary. 2) Background sounds or music: None.; attributes: camera_state: The camera is positioned high, providing a wide shot of the pitch and the batsman. It then pans to follow the ball's flight and the fielder's dive., video_background: The setting is a cricket pitch with green grass and advertising hoardings in the background. The sky is clear., storyline: This replay highlights a significant scoring opportunity for Pakistan, where a fielder's diving attempt is unsuccessful, resulting in a boundary., shooting_style: This is a slow-motion replay of a previous play, used to emphasize the action.",
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 112.891,
+            "end_s": 136.398,
+            "text": "Caress to the offside. Too much width. All of a sudden, Faka Zaman just getting into his groove. Yeah, the contest. That's what it's all about. Bat and ball. Oh, that is beautiful. If you were describing Baba Razam to anyone who's never watched the game, that's exactly what you would say.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 137.815,
+            "end_s": 165.828,
+            "text": "having seen that shot. A little bit wide from King Mark, too much width, length to throw his hand through, and that's a beautiful shot. Just such an exquisite, just such an exquisite timer of the ball. It's Barbara's arm. Just that balance. Oh, square of the wicket, left-handed, all of a sudden, Pakistan and Pakistan are in the... Streaky.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 180.0,
+        "end": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 180.0,
+              "end": 183.0,
+              "visual": "A Dutch cricketer in an orange uniform, wearing number 88, runs across the field. He kneels down to pick up a white cricket ball that has rolled to a stop on the green grass.",
+              "audio": "speech: Should get back for a comfortable couple.; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A wide, panning shot follows the cricketer as he runs and then kneels.",
+                "video_background: The scene is a green cricket field during a match. Advertising hoardings are visible in the distant background.",
+                "storyline: A fielder is retrieving a ball that has gone out of play, preparing to resume the game.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            },
+            {
+              "start": 184.0,
+              "end": 185.0,
+              "visual": "A close-up shows a Pakistani cricketer in a green uniform, wearing a helmet and holding a cricket bat. He looks down with a focused expression.",
+              "audio": "speech: Zaman. Just uses the pace.; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: A medium close-up shot focuses on the cricketer from the waist up.",
+                "video_background: The background is a blurred view of the cricket ground, with a blue advertising banner partially visible.",
+                "storyline: The batsman is shown in a moment of concentration before facing the next delivery.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            },
+            {
+              "start": 186.0,
+              "end": 190.0,
+              "visual": "A Dutch cricketer in an orange uniform runs on the field. The scene then cuts to a high-angle view of a batsman hitting the ball, which goes high and clear over the wicketkeeper. The ball bounces once on the boundary pad before rolling off.",
+              "audio": "speech: one bounce for four.; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the ball hitting the pad.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The sequence starts with a wide shot of a player running, then cuts to a high-angle, wide shot of the pitch, following the ball's trajectory to the boundary.",
+                "video_background: The setting is a cricket ground with green grass, white boundary lines, and advertising hoardings. The sky is overcast.",
+                "storyline: A batsman hits a six, scoring six runs and sending the ball to the boundary for a four.",
+                "shooting_style: This is a standard live sports broadcast shot with a cut between two different camera angles."
+              ]
+            }
+          ],
+          "overall_summary": "A Dutch cricketer in an orange uniform, wearing number 88, runs across the field. He kneels down to pick up a white cricket ball that has rolled to a stop on the green grass.; speech: Should get back for a comfortable couple.; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise.; attributes: camera_state: A wide, panning shot follows the cricketer as he runs and then kneels., video_background: The scene is a green cricket field during a match. Advertising hoardings are visible in the distant background., storyline: A fielder is retrieving a ball that has gone out of play, preparing to resume the game., shooting_style: This is a standard live sports broadcast shot. A close-up shows a Pakistani cricketer in a green uniform, wearing a helmet and holding a cricket bat. He looks down with a focused expression.; speech: Zaman. Just uses the pace.; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise.; attributes: camera_state: A medium close-up shot focuses on the cricketer from the waist up., video_background: The background is a blurred view of the cricket ground, with a blue advertising banner partially visible., storyline: The batsman is shown in a moment of concentration before facing the next delivery., shooting_style: This is a standard live sports broadcast shot. A Dutch cricketer in an orange uniform runs on the field. The scene then cuts to a high-angle view of a batsman hitting the ball, which goes high and clear over the wicketkeeper. The ball bounces once on the boundary pad before rolling off.; speech: one bounce for four.; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the ball hitting the pad.; attributes: camera_state: The sequence starts with a wide shot of a player running, then cuts to a high-angle, wide shot of the pitch, following the ball's trajectory to the boundary., video_background: The setting is a cricket ground with green grass, white boundary lines, and advertising hoardings. The sky is overcast., storyline: A batsman hits a six, scoring six runs and sending the ball to the boundary for a four., shooting_style: This is a standard live sports broadcast shot with a cut between two different camera angles.",
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 167.819,
+            "end_s": 196.321,
+            "text": "going to beat third as well it's another boundary all of a sudden here and Rotterdam is reigning for us against the bigger size you have to feel out of your skin lovely touch very nice from fuckers of mine just uses the pace should get back for a comfortable couple man break in the air over the keeper",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 196.895,
+            "end_s": 223.793,
+            "text": "And one bounce for four. Well, 54. I've got to get back on line. Crunch down the ground for four. So before that boundary earlier in the over from Fakad. Seems to start feeling very comfortable now out in the middle. It's going to be four more.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 240.0,
+        "end": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 240.0,
+              "end": 242.0,
+              "visual": "A close-up shot shows a young man with dark hair, wearing a green and yellow cricket jersey, looking intensely and seriously towards the camera. The scene then cuts to a shot of a cheering crowd in a stadium, with a 'Subscribe' button graphic in the top right corner.",
+              "audio": "speech: really have found some momentum.; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise.",
+              "on_screen_text": "Subscribe",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The first shot is a close-up on the cricketer's face. The second shot is a medium shot of the crowd, panning slightly to the right.",
+                "video_background: The first scene has a blue background with a white star and the 'Star Sports' logo. The second scene is a crowded cricket stadium with spectators in the stands.",
+                "storyline: This segment introduces a key cricketer and then establishes the setting of a live cricket match, setting the stage for the action to follow.",
+                "shooting_style: This is a montage of two quick cuts: a close-up and a wide shot of the crowd."
+              ]
+            },
+            {
+              "start": 243.0,
+              "end": 247.0,
+              "visual": "A cricket match is in progress. A batsman in a green jersey hits the ball, sending it high towards the square leg boundary. The ball bounces once and rolls into the stands, where a few spectators grab it. The batsman is shown walking back to the crease.",
+              "audio": "speech: out towards deep backwards square leg. And he's say by found...; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voiceover.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide view of the pitch and boundary. It pans to follow the ball's trajectory to the boundary.",
+                "video_background: The scene is a green cricket field with a white boundary fence. The stands are filled with spectators, and there are advertisements for 'fairplay' and 'wolf777 news' along the boundary.",
+                "storyline: A batsman scores a boundary, and the ball is caught by spectators in the stands, leading to a discussion about the play.",
+                "shooting_style: This is a continuous shot of the live action."
+              ]
+            }
+          ],
+          "overall_summary": "A close-up shot shows a young man with dark hair, wearing a green and yellow cricket jersey, looking intensely and seriously towards the camera. The scene then cuts to a shot of a cheering crowd in a stadium, with a 'Subscribe' button graphic in the top right corner.; speech: really have found some momentum.; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise.; Subscribe; attributes: camera_state: The first shot is a close-up on the cricketer's face. The second shot is a medium shot of the crowd, panning slightly to the right., video_background: The first scene has a blue background with a white star and the 'Star Sports' logo. The second scene is a crowded cricket stadium with spectators in the stands., storyline: This segment introduces a key cricketer and then establishes the setting of a live cricket match, setting the stage for the action to follow., shooting_style: This is a montage of two quick cuts: a close-up and a wide shot of the crowd. A cricket match is in progress. A batsman in a green jersey hits the ball, sending it high towards the square leg boundary. The ball bounces once and rolls into the stands, where a few spectators grab it. The batsman is shown walking back to the crease.; speech: out towards deep backwards square leg. And he's say by found...; acoustics: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voiceover.; attributes: camera_state: The camera is positioned high, providing a wide view of the pitch and boundary. It pans to follow the ball's trajectory to the boundary., video_background: The scene is a green cricket field with a white boundary fence. The stands are filled with spectators, and there are advertisements for 'fairplay' and 'wolf777 news' along the boundary., storyline: A batsman scores a boundary, and the ball is caught by spectators in the stands, leading to a discussion about the play., shooting_style: This is a continuous shot of the live action.",
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 231.303,
+            "end_s": 256.7,
+            "text": "Short again from Ariandat. And he's punished. That's gone for four. And that brings up the Pakistan 100. All of a sudden, they really have found some momentum. Pulled out towards deep back. Pulled out towards deep back with square leg. And the gap is found. Perfectly bisects Ariandat and Tim Pringle.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 258.91,
+            "end_s": 288.307,
+            "text": "It'll pick up now from him in the same area and it's the same result successive boundaries always is to take wickets Fuck has a man's response He used to slog sweep for four I think it just pitched inside the rope Michael Goff's going to check and he's having super easy down here long on for the right hand of Barber's arm Barber's switched to a cap",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 300.0,
+        "end": 360.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 300.0,
+              "end_s": 360.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 300.0,
+              "end": 302.0,
+              "visual": "A cricket player in a bright orange uniform, with the number 31 on his back, is on the field. He bends down to pick up a loose cricket ball from the green grass, then stands up and walks away with it.",
+              "audio": "speech: Long on of all places to fields. Also known as square.; acoustics: 1) Tone of speech: Informative, neutral. 2) Background sounds or music: None.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is at a medium distance, panning to follow the player's action.",
+                "video_background: The scene is a green cricket field with white boundary lines. An advertising board is visible in the background.",
+                "storyline: This is a pre-match or warm-up scene, showing a player preparing for the game.",
+                "shooting_style: This is a standard shot following the action."
+              ]
+            },
+            {
+              "start": 303.0,
+              "end": 308.0,
+              "visual": "A cricket match is in progress. A batsman in a green uniform hits the ball, sending it flying high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands. The crowd, including a man with a red headband and glasses, erupts in celebration, jumping up and clapping enthusiastically.",
+              "audio": "speech: Slower ball. It's gone a long way. Abdi's gone a long way back. I thought initially it was a top edge. It probably was. But it's carried the other options thus far.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the roar of the crowd.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera starts with a high-angle shot of the pitch, then pans and zooms to follow the ball's flight to the stands.",
+                "video_background: The setting is a cricket stadium with a green field, a large crowd in the stands, and advertising hoardings.",
+                "storyline: A powerful shot is hit, resulting in a six, which is a significant scoring event in cricket, leading to a celebration from the batting team's fans.",
+                "shooting_style: This is a standard broadcast shot of a live sports event."
+              ]
+            }
+          ],
+          "overall_summary": "A cricket player in a bright orange uniform, with the number 31 on his back, is on the field. He bends down to pick up a loose cricket ball from the green grass, then stands up and walks away with it.; speech: Long on of all places to fields. Also known as square.; acoustics: 1) Tone of speech: Informative, neutral. 2) Background sounds or music: None.; attributes: camera_state: The camera is at a medium distance, panning to follow the player's action., video_background: The scene is a green cricket field with white boundary lines. An advertising board is visible in the background., storyline: This is a pre-match or warm-up scene, showing a player preparing for the game., shooting_style: This is a standard shot following the action. A cricket match is in progress. A batsman in a green uniform hits the ball, sending it flying high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands. The crowd, including a man with a red headband and glasses, erupts in celebration, jumping up and clapping enthusiastically.; speech: Slower ball. It's gone a long way. Abdi's gone a long way back. I thought initially it was a top edge. It probably was. But it's carried the other options thus far.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the roar of the crowd.; attributes: camera_state: The camera starts with a high-angle shot of the pitch, then pans and zooms to follow the ball's flight to the stands., video_background: The setting is a cricket stadium with a green field, a large crowd in the stands, and advertising hoardings., storyline: A powerful shot is hit, resulting in a six, which is a significant scoring event in cricket, leading to a celebration from the batting team's fans., shooting_style: This is a standard broadcast shot of a live sports event.",
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 360.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 290.922,
+            "end_s": 318.226,
+            "text": "He hasn't altered the way he's played. All the way. What a work for Beresia. Long on. And he missed Fields. It's gone for four. Slow ball. It's gone a long way up. And it's gone a long way back. I thought initially it was a top edge. It probably was. But it's carried.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 319.205,
+            "end_s": 346.103,
+            "text": "any other options thus far? ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 347.116,
+            "end_s": 372.344,
+            "text": "And at last, the Netherlands have the breakthrough. Abrazam looking to get on with it. Runs away from a half century. From a century, I should say. Goes over mid-off. One bounce. And four. He's up to 99. There it is.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 360.0,
+        "end": 420.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 360.0,
+              "end_s": 420.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 360.0,
+              "end": 364.0,
+              "visual": "A cricket match is in progress. The camera follows a batsman in a green Pakistan jersey with 'MIZAN' on the back as he runs between the wickets. The scoreboard in the background shows Pakistan is batting at 180-2. The scene then cuts to a wide shot of the pitch, showing the bowler in orange running up to bowl.",
+              "audio": "speech: Commentator: ...one bounce... and four. He's up to ninety-nine. That endangered us at one stage here.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voiceover.",
+              "on_screen_text": "MIZAN",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot, panning to follow the batsman, then cuts to a high-angle wide shot of the entire pitch.",
+                "video_background: The setting is a cricket stadium with a green field, white boundary hoardings with 'MUGHAL STEEL' and 'fairplay news' logos, and a small crowd in the stands.",
+                "storyline: The segment sets the scene for a cricket match, establishing the teams (Pakistan and Netherlands) and the current score.",
+                "shooting_style: This is a standard live sports broadcast style, cutting between a player's perspective and a wide establishing shot."
+              ]
+            },
+            {
+              "start": 365.0,
+              "end": 371.0,
+              "visual": "A replay shows the batsman, Mizanur Rahman, hitting a powerful six. The camera then cuts to a close-up of him on the field, wearing his green Pakistan jersey and helmet. He looks focused as he adjusts his gloves and prepares for the next delivery.",
+              "audio": "speech: Commentator: There it is. The seventh wonder international hundred for Fakazaman. He's gone past two 50s.; acoustics: 1) Tone of speech: Informative, appreciative. 2) Background sounds or music: The commentator's voiceover continues.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera shows a wide shot of the pitch for the replay, then cuts to a medium close-up of the batsman from behind, focusing on his upper body and helmet.",
+                "video_background: The background includes the cricket pitch, the scoreboard with the score 185-2, and green trees behind the boundary.",
+                "storyline: This segment highlights a key moment in the match—a six—and focuses on the batsman's reaction, building up his character.",
+                "shooting_style: The segment uses a replay of the action, followed by a close-up to emphasize the player's emotion and preparation."
+              ]
+            }
+          ],
+          "overall_summary": "A cricket match is in progress. The camera follows a batsman in a green Pakistan jersey with 'MIZAN' on the back as he runs between the wickets. The scoreboard in the background shows Pakistan is batting at 180-2. The scene then cuts to a wide shot of the pitch, showing the bowler in orange running up to bowl.; speech: Commentator: ...one bounce... and four. He's up to ninety-nine. That endangered us at one stage here.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voiceover.; MIZAN; attributes: camera_state: The camera starts with a medium shot, panning to follow the batsman, then cuts to a high-angle wide shot of the entire pitch., video_background: The setting is a cricket stadium with a green field, white boundary hoardings with 'MUGHAL STEEL' and 'fairplay news' logos, and a small crowd in the stands., storyline: The segment sets the scene for a cricket match, establishing the teams (Pakistan and Netherlands) and the current score., shooting_style: This is a standard live sports broadcast style, cutting between a player's perspective and a wide establishing shot. A replay shows the batsman, Mizanur Rahman, hitting a powerful six. The camera then cuts to a close-up of him on the field, wearing his green Pakistan jersey and helmet. He looks focused as he adjusts his gloves and prepares for the next delivery.; speech: Commentator: There it is. The seventh wonder international hundred for Fakazaman. He's gone past two 50s.; acoustics: 1) Tone of speech: Informative, appreciative. 2) Background sounds or music: The commentator's voiceover continues.; attributes: camera_state: The camera shows a wide shot of the pitch for the replay, then cuts to a medium close-up of the batsman from behind, focusing on his upper body and helmet., video_background: The background includes the cricket pitch, the scoreboard with the score 185-2, and green trees behind the boundary., storyline: This segment highlights a key moment in the match—a six—and focuses on the batsman's reaction, building up his character., shooting_style: The segment uses a replay of the action, followed by a close-up to emphasize the player's emotion and preparation.",
+          "captioned_range": {
+            "start_s": 360.0,
+            "end_s": 420.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 373.93,
+            "end_s": 399.918,
+            "text": "7th Wonder International 100 for Fakhaz Aman. He's gone past 2,500 Wonder International runs in this innings. He's had some fortune. He was dropped before he reached 50. Wagon wheel runs all around the ground. Oh, and that's delicate. We saw power down the ground earlier in the over. And that was a little bit of... Side screen, long on.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 401.538,
+            "end_s": 430.343,
+            "text": "looks like side rightly so it's a big bound he should get back for a couple scott edwards that's gone that's gone excellent in the deep brilliant work in the deep bendis returned well gathered by edwards and well for kazaman acknowledges the approach shuffles across for his back goes high goes long and goes all the way",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 420.0,
+        "end": 480.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 420.0,
+              "end_s": 480.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 420.0,
+              "end": 426.0,
+              "visual": "A cricket match is in progress. A batsman in a green uniform hits the ball, sending it high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands where a few spectators are seated. The batsman is then seen celebrating with his teammates.",
+              "audio": "speech: across. Goes long and goes all the way. Third.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's excited voice.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot of the batsman, then pans up to follow the ball's flight. It then cuts to a shot of the boundary area before returning to the batsman.",
+                "video_background: The scene is a cricket ground with a green field, a crowd of spectators in the stands, and advertising hoardings in the background.",
+                "storyline: A batsman hits a high, long shot that is likely to be a six or a very large four, leading to a celebration.",
+                "shooting_style: This is a standard live sports broadcast style, cutting between the action on the field and the boundary area."
+              ]
+            },
+            {
+              "start": 427.0,
+              "end": 430.0,
+              "visual": "In another play, a batsman hits the ball, which is caught by a fielder in an orange uniform. The umpire, standing behind the batsman, immediately raises his arm to signal that the batsman is out due to an obstructed view.",
+              "audio": "speech: Big shout for LBW and the umpire goes with Michael.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the pitch and the fielders. It zooms in slightly on the umpire as he makes his decision.",
+                "video_background: The setting is a cricket pitch during a match, with the 'fairplay' advertising hoardings visible in the background.",
+                "storyline: A batsman is caught, but the umpire immediately reviews the decision due to the fielder's obstructed view, indicating a potential contentious call.",
+                "shooting_style: A standard broadcast shot of a cricket match, focusing on the key moment of the play."
+              ]
+            }
+          ],
+          "overall_summary": "A cricket match is in progress. A batsman in a green uniform hits the ball, sending it high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands where a few spectators are seated. The batsman is then seen celebrating with his teammates.; speech: across. Goes long and goes all the way. Third.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's excited voice.; attributes: camera_state: The camera starts with a medium shot of the batsman, then pans up to follow the ball's flight. It then cuts to a shot of the boundary area before returning to the batsman., video_background: The scene is a cricket ground with a green field, a crowd of spectators in the stands, and advertising hoardings in the background., storyline: A batsman hits a high, long shot that is likely to be a six or a very large four, leading to a celebration., shooting_style: This is a standard live sports broadcast style, cutting between the action on the field and the boundary area. In another play, a batsman hits the ball, which is caught by a fielder in an orange uniform. The umpire, standing behind the batsman, immediately raises his arm to signal that the batsman is out due to an obstructed view.; speech: Big shout for LBW and the umpire goes with Michael.; acoustics: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the pitch and the fielders. It zooms in slightly on the umpire as he makes his decision., video_background: The setting is a cricket pitch during a match, with the 'fairplay' advertising hoardings visible in the background., storyline: A batsman is caught, but the umpire immediately reviews the decision due to the fielder's obstructed view, indicating a potential contentious call., shooting_style: A standard broadcast shot of a cricket match, focusing on the key moment of the play.",
+          "captioned_range": {
+            "start_s": 420.0,
+            "end_s": 480.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 437.448,
+            "end_s": 467.367,
+            "text": "Big shout for LBW and the finger goes up. There's the latest strikes. Original decision out. Pitching outside off. Impact in line. Pickett's umpire's call. Michael, you can stay with your decision. Imagine one day international cricket. That's going to be four. There's no point in chasing that Wesley Barresi. Mid-off and mid-on up in the circle. Straight away he's drilled down the ground for four.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 467.738,
+            "end_s": 491.718,
+            "text": "Kushtil's shot. Oh, no. For Pakistan. Slow ball from King Mark. And it's gone over. Extra cover for four. Danger, danger for the Dutch here. Slow ball. And I think it's gone all the way for six. Pulled away by Kushtil.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 480.0,
+        "end": 540.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 480.0,
+              "end_s": 540.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 480.0,
+              "end": 485.0,
+              "visual": "A cricket player in a green jersey hits the ball, sending it high towards the boundary. The camera follows the ball as it lands near the boundary, and a fielder in an orange jersey runs to retrieve it. The fielder catches the ball, and the batsman is out. The fielder, who has curly blonde hair, raises his arm in celebration.",
+              "audio": "speech: Yeah. Floaty. Slower. I think it's a good idea. Attle Mayank six.; acoustics: 1) Tone of speech: Excited, conversational. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot of the batsman, then pans to follow the ball's trajectory. It then cuts to a wide shot of the field to show the fielder catching the ball.",
+                "video_background: The scene is a cricket ground with a green field, a boundary fence, and spectators in the stands. The weather appears overcast.",
+                "storyline: A batsman is dismissed by a fielder after hitting a high shot that is caught near the boundary.",
+                "shooting_style: This is a standard live sports broadcast style, cutting between different angles to follow the action."
+              ]
+            },
+            {
+              "start": 486.0,
+              "end": 490.0,
+              "visual": "A replay shows the batsman hitting the ball. The camera follows the ball as it is caught by a fielder in an orange jersey. The fielder, with the name 'KINGMA' and number 23 on his back, raises his arm to signal the catch.",
+              "audio": "speech: And it was a very good catch there by Tom Cooper. Cuz...; acoustics: 1) Tone of speech: Analytical, appreciative. 2) Background sounds or music: The commentator's voiceover.",
+              "on_screen_text": "KINGMA",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide view of the field. It pans to follow the ball and then zooms in slightly on the fielder who catches it.",
+                "video_background: The background consists of the green cricket field, the boundary area with 'WOLF NEWS' advertisements, and the stands filled with spectators.",
+                "storyline: This replay confirms the dismissal, showing the fielder's catch and the batsman's out.",
+                "shooting_style: This is a replay of the previous action, shown from a different, higher angle."
+              ]
+            }
+          ],
+          "overall_summary": "A cricket player in a green jersey hits the ball, sending it high towards the boundary. The camera follows the ball as it lands near the boundary, and a fielder in an orange jersey runs to retrieve it. The fielder catches the ball, and the batsman is out. The fielder, who has curly blonde hair, raises his arm in celebration.; speech: Yeah. Floaty. Slower. I think it's a good idea. Attle Mayank six.; acoustics: 1) Tone of speech: Excited, conversational. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice.; attributes: camera_state: The camera starts with a medium shot of the batsman, then pans to follow the ball's trajectory. It then cuts to a wide shot of the field to show the fielder catching the ball., video_background: The scene is a cricket ground with a green field, a boundary fence, and spectators in the stands. The weather appears overcast., storyline: A batsman is dismissed by a fielder after hitting a high shot that is caught near the boundary., shooting_style: This is a standard live sports broadcast style, cutting between different angles to follow the action. A replay shows the batsman hitting the ball. The camera follows the ball as it is caught by a fielder in an orange jersey. The fielder, with the name 'KINGMA' and number 23 on his back, raises his arm to signal the catch.; speech: And it was a very good catch there by Tom Cooper. Cuz...; acoustics: 1) Tone of speech: Analytical, appreciative. 2) Background sounds or music: The commentator's voiceover.; KINGMA; attributes: camera_state: The camera is positioned high, providing a wide view of the field. It pans to follow the ball and then zooms in slightly on the fielder who catches it., video_background: The background consists of the green cricket field, the boundary area with 'WOLF NEWS' advertisements, and the stands filled with spectators., storyline: This replay confirms the dismissal, showing the fielder's catch and the batsman's out., shooting_style: This is a replay of the previous action, shown from a different, higher angle.",
+          "captioned_range": {
+            "start_s": 480.0,
+            "end_s": 540.0
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 495.667,
+            "end_s": 519.798,
+            "text": "Powered down towards Longhorn by Cushnill and out. It's a really good catch. Oh, beam up. It's gone for four, but will it be signalled as a no ball? Yes, indeed it will. Free hit. Cracked out towards the midwicket and all the way for six.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 520.355,
+            "end_s": 548.468,
+            "text": "Well, that was a costly error from Van Beek. It's the end of the over and a very expensive over too. Slow ball bumper. Should be taken. It's taken. Easy catch. Viv Kingman, third inside the ring. And once again, Bazalela. They call on the golden arm for a... Slapped. It's that Matt Pringle. Not going to cut it off. Another boundary.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      },
+      {
+        "start": 540.0,
+        "end": 595.7,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-4IduHFnEwg",
+              "start_s": 540.0,
+              "end_s": 595.7,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            }
+          ],
+          "captions": [
+            {
+              "start": 540.0,
+              "end": 545.0,
+              "visual": "A cricket match is underway. A bowler in an orange kit runs up to deliver a ball to a batsman in a green kit. The batsman hits the ball, sending it flying high towards the boundary. The fielder in orange runs to the boundary and dives to his left, successfully catching the ball to make a catch.",
+              "audio": "speech: Pringle: Not going to cut it off. Another boundary.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide shot of the pitch. It pans to follow the ball as it is hit and caught.",
+                "video_background: The scene is a green cricket field with a large 'WOLF 777 NEWS' advertisement board behind the boundary. Spectators can be seen in the stands.",
+                "storyline: The Netherlands are bowling against Pakistan. The batsman hits a high catch, which the fielder dives to save, preventing a run-out.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            },
+            {
+              "start": 546.0,
+              "end": 550.0,
+              "visual": "A replay shows the previous play from a different angle. The batsman hits the ball, and the fielder runs onto the pitch to make a diving catch. The camera then cuts to a close-up of the batsman, Shadab Khan, who looks disappointed as he walks away from the crease.",
+              "audio": "speech: Commentator: Wonderful. Wonderful batsmanship. First time we've seen that. A little bit...; acoustics: 1) Tone of speech: Appreciative, analytical. 2) Background sounds or music: None.",
+              "on_screen_text": "",
+              "actions": [],
+              "objects": [],
+              "attributes": [
+                "camera_state: The first shot is a high-angle replay. The second shot is a medium close-up on the batsman's face and upper body.",
+                "video_background: The background is the cricket field, with the 'fairplay' and 'almirah' advertisements visible behind the boundary.",
+                "storyline: The replay confirms the catch, and the focus shifts to the batsman's reaction, showing his disappointment at being out.",
+                "shooting_style: The segment uses a replay followed by a cut to a close-up reaction shot."
+              ]
+            }
+          ],
+          "overall_summary": "A cricket match is underway. A bowler in an orange kit runs up to deliver a ball to a batsman in a green kit. The batsman hits the ball, sending it flying high towards the boundary. The fielder in orange runs to the boundary and dives to his left, successfully catching the ball to make a catch.; speech: Pringle: Not going to cut it off. Another boundary.; acoustics: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice.; attributes: camera_state: The camera is positioned high, providing a wide shot of the pitch. It pans to follow the ball as it is hit and caught., video_background: The scene is a green cricket field with a large 'WOLF 777 NEWS' advertisement board behind the boundary. Spectators can be seen in the stands., storyline: The Netherlands are bowling against Pakistan. The batsman hits a high catch, which the fielder dives to save, preventing a run-out., shooting_style: This is a standard live sports broadcast shot. A replay shows the previous play from a different angle. The batsman hits the ball, and the fielder runs onto the pitch to make a diving catch. The camera then cuts to a close-up of the batsman, Shadab Khan, who looks disappointed as he walks away from the crease.; speech: Commentator: Wonderful. Wonderful batsmanship. First time we've seen that. A little bit...; acoustics: 1) Tone of speech: Appreciative, analytical. 2) Background sounds or music: None.; attributes: camera_state: The first shot is a high-angle replay. The second shot is a medium close-up on the batsman's face and upper body., video_background: The background is the cricket field, with the 'fairplay' and 'almirah' advertisements visible behind the boundary., storyline: The replay confirms the catch, and the focus shifts to the batsman's reaction, showing his disappointment at being out., shooting_style: The segment uses a replay followed by a cut to a close-up reaction shot.",
+          "captioned_range": {
+            "start_s": 540.0,
+            "end_s": 595.7
+          },
+          "sampled_frames": [],
+          "backend": "timechat_captioner_qwen25_omni"
+        },
+        "transcript_segments": [
+          {
+            "start_s": 551.337,
+            "end_s": 580.97,
+            "text": "Logan van Beek for his last. Improvisation. Wonderful, wonderful batsmanship. First time we've seen that. Chopped away. Brilliant. Poor bowling. Third is inside the ring. You know. Falls across. Gets it well enough. Straight down the ground. Bang it straight to that. Half a dozen. Punches at the non-strikers there. Last ball.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 584.243,
+            "end_s": 595.212,
+            "text": "Well, that is exceptional bowling from Baz Delayda today. Fought it over, just seven from it. And brilliant figures. Baz Delayda, two for 42.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ]
+      }
+    ],
+    "planner_segments": [
+      {
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 0.0,
+            "end_s": 1.0,
+            "visual": "A shot shows spectators in the stands, including a woman in a green hijab and sunglasses, watching a cricket match. The scoreboard at the bottom indicates a match between Pakistan and the Netherlands, with Pakistan leading 2-0 in the first over.",
+            "audio": [
+              "1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of a sports event."
+            ]
+          },
+          {
+            "start_s": 2.0,
+            "end_s": 5.0,
+            "visual": "A cricket player in a green jersey bowls the ball. The batsman, in an orange jersey, hits the ball, which is caught by a fielder in an orange uniform. The fielder then stumbles and falls to the ground.",
+            "audio": [
+              "1) Tone of speech: N/A. 2) Background sounds or music: The sound of the bat hitting the ball and the ball being caught."
+            ]
+          },
+          {
+            "start_s": 6.0,
+            "end_s": 9.0,
+            "visual": "A replay shows the batsman hitting the ball. The fielder catches it, but he stumbles and falls over. The ball bounces on the grass, and the batsman is shown to be out as the fielder scrambles to retrieve the ball.",
+            "audio": [
+              "1) Tone of speech: N/A. 2) Background sounds or music: The commentator's voice is heard over the replay."
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 3.777,
+            "end_s": 26.963,
+            "text": "There's that intent, finally. And fortune favours the brave for Foucault-Zermann. He gets a boundary, the first of the day."
+          },
+          {
+            "start_s": 29.225,
+            "end_s": 57.237,
+            "text": "Satisfied, no bat involved. Can we go to ball tracking please? Satisfied, no bat involved. Can we go to ball tracking please? Original decision not out. Pitching in line, impact in line, wickets hitting. Michael, you need to reverse your decision to how?"
+          }
+        ]
+      },
+      {
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 60.0,
+            "end_s": 65.0,
+            "visual": "A cricket umpire, dressed in black, stands on the field with his hands clasped. He raises his right index finger to signal a 'no-ball' decision. The scene then cuts to the Netherlands' team, all in orange, celebrating a wicket. They are huddled together, with one player waving his bat in the air and another player with curly hair celebrating enthusiastically.",
+            "audio": [
+              "1) Tone of speech: Excited, analytical. 2) Background sounds or music: Upbeat, celebratory music plays during the team's celebration."
+            ],
+            "on_screen_text": [
+              "no-ball"
+            ]
+          },
+          {
+            "start_s": 66.0,
+            "end_s": 70.0,
+            "visual": "A Pakistani cricketer, wearing a green jersey with 'PAKISTAN' and 'pepsi' written on it, walks off the field. He is seen from the back, holding his cricket bat. The camera follows his legs and bat as he walks away from the pitch.",
+            "audio": [
+              "1) Tone of speech: Analytical. 2) Background sounds or music: None."
+            ],
+            "on_screen_text": [
+              "PAKISTAN",
+              "pepsi"
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 58.908,
+            "end_s": 80.086,
+            "text": "That is a fantastic review by the Dutch. Back as a man goes. Viv Kingma strikes. Started. Really terrific reward for the Dutch for this start. Very disciplined start. Great review, isn't it?"
+          },
+          {
+            "start_s": 81.942,
+            "end_s": 109.921,
+            "text": "There he is. There he goes. First shot and anger. Don't think it's going to go all the way. Third is getting around it just about. Around it just about. Trickles into the ropes. Brings the Pakistan crowd alive. Now running at Kingman. Looking to get himself going here. Just running at the better. Forcing a change in the bowling. That's where generally fuckers are man likes to play again today."
+          }
+        ]
+      },
+      {
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 120.0,
+            "end_s": 128.0,
+            "visual": "A cricket match is underway. A batsman in a green Pakistan jersey hits the ball, sending it high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands where fans, including a woman holding a large orange umbrella, are cheering and waving green and white scarves.",
+            "audio": [
+              "1) Tone of speech: Excited, appreciative. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the cheers of the crowd."
+            ]
+          },
+          {
+            "start_s": 129.0,
+            "end_s": 134.0,
+            "visual": "A replay shows a different batsman in a green Pakistan jersey hitting the ball. The camera follows the ball as it is hit high and lands just inside the boundary. The fielder in an orange Netherlands jersey dives to his right, but the ball is out of his reach.",
+            "audio": [
+              "1) Tone of speech: Analytical, complimentary. 2) Background sounds or music: None."
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 112.891,
+            "end_s": 136.398,
+            "text": "Caress to the offside. Too much width. All of a sudden, Faka Zaman just getting into his groove. Yeah, the contest. That's what it's all about. Bat and ball. Oh, that is beautiful. If you were describing Baba Razam to anyone who's never watched the game, that's exactly what you would say."
+          },
+          {
+            "start_s": 137.815,
+            "end_s": 165.828,
+            "text": "having seen that shot. A little bit wide from King Mark, too much width, length to throw his hand through, and that's a beautiful shot. Just such an exquisite, just such an exquisite timer of the ball. It's Barbara's arm. Just that balance. Oh, square of the wicket, left-handed, all of a sudden, Pakistan and Pakistan are in the... Streaky."
+          }
+        ]
+      },
+      {
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 180.0,
+            "end_s": 183.0,
+            "visual": "A Dutch cricketer in an orange uniform, wearing number 88, runs across the field. He kneels down to pick up a white cricket ball that has rolled to a stop on the green grass.",
+            "audio": [
+              "1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise."
+            ]
+          },
+          {
+            "start_s": 184.0,
+            "end_s": 185.0,
+            "visual": "A close-up shows a Pakistani cricketer in a green uniform, wearing a helmet and holding a cricket bat. He looks down with a focused expression.",
+            "audio": [
+              "1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise."
+            ]
+          },
+          {
+            "start_s": 186.0,
+            "end_s": 190.0,
+            "visual": "A Dutch cricketer in an orange uniform runs on the field. The scene then cuts to a high-angle view of a batsman hitting the ball, which goes high and clear over the wicketkeeper. The ball bounces once on the boundary pad before rolling off.",
+            "audio": [
+              "1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the ball hitting the pad."
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 167.819,
+            "end_s": 196.321,
+            "text": "going to beat third as well it's another boundary all of a sudden here and Rotterdam is reigning for us against the bigger size you have to feel out of your skin lovely touch very nice from fuckers of mine just uses the pace should get back for a comfortable couple man break in the air over the keeper"
+          },
+          {
+            "start_s": 196.895,
+            "end_s": 223.793,
+            "text": "And one bounce for four. Well, 54. I've got to get back on line. Crunch down the ground for four. So before that boundary earlier in the over from Fakad. Seems to start feeling very comfortable now out in the middle. It's going to be four more."
+          }
+        ]
+      },
+      {
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 240.0,
+            "end_s": 242.0,
+            "visual": "A close-up shot shows a young man with dark hair, wearing a green and yellow cricket jersey, looking intensely and seriously towards the camera. The scene then cuts to a shot of a cheering crowd in a stadium, with a 'Subscribe' button graphic in the top right corner.",
+            "audio": [
+              "1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise."
+            ],
+            "on_screen_text": [
+              "Subscribe"
+            ]
+          },
+          {
+            "start_s": 243.0,
+            "end_s": 247.0,
+            "visual": "A cricket match is in progress. A batsman in a green jersey hits the ball, sending it high towards the square leg boundary. The ball bounces once and rolls into the stands, where a few spectators grab it. The batsman is shown walking back to the crease.",
+            "audio": [
+              "1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voiceover."
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 231.303,
+            "end_s": 256.7,
+            "text": "Short again from Ariandat. And he's punished. That's gone for four. And that brings up the Pakistan 100. All of a sudden, they really have found some momentum. Pulled out towards deep back. Pulled out towards deep back with square leg. And the gap is found. Perfectly bisects Ariandat and Tim Pringle."
+          },
+          {
+            "start_s": 258.91,
+            "end_s": 288.307,
+            "text": "It'll pick up now from him in the same area and it's the same result successive boundaries always is to take wickets Fuck has a man's response He used to slog sweep for four I think it just pitched inside the rope Michael Goff's going to check and he's having super easy down here long on for the right hand of Barber's arm Barber's switched to a cap"
+          }
+        ]
+      },
+      {
+        "start_s": 300.0,
+        "end_s": 360.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 300.0,
+            "end_s": 302.0,
+            "visual": "A cricket player in a bright orange uniform, with the number 31 on his back, is on the field. He bends down to pick up a loose cricket ball from the green grass, then stands up and walks away with it.",
+            "audio": [
+              "1) Tone of speech: Informative, neutral. 2) Background sounds or music: None."
+            ]
+          },
+          {
+            "start_s": 303.0,
+            "end_s": 308.0,
+            "visual": "A cricket match is in progress. A batsman in a green uniform hits the ball, sending it flying high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands. The crowd, including a man with a red headband and glasses, erupts in celebration, jumping up and clapping enthusiastically.",
+            "audio": [
+              "1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the roar of the crowd."
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 290.922,
+            "end_s": 318.226,
+            "text": "He hasn't altered the way he's played. All the way. What a work for Beresia. Long on. And he missed Fields. It's gone for four. Slow ball. It's gone a long way up. And it's gone a long way back. I thought initially it was a top edge. It probably was. But it's carried."
+          },
+          {
+            "start_s": 319.205,
+            "end_s": 346.103,
+            "text": "any other options thus far? ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ..."
+          },
+          {
+            "start_s": 347.116,
+            "end_s": 372.344,
+            "text": "And at last, the Netherlands have the breakthrough. Abrazam looking to get on with it. Runs away from a half century. From a century, I should say. Goes over mid-off. One bounce. And four. He's up to 99. There it is."
+          }
+        ]
+      },
+      {
+        "start_s": 360.0,
+        "end_s": 420.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 360.0,
+            "end_s": 364.0,
+            "visual": "A cricket match is in progress. The camera follows a batsman in a green Pakistan jersey with 'MIZAN' on the back as he runs between the wickets. The scoreboard in the background shows Pakistan is batting at 180-2. The scene then cuts to a wide shot of the pitch, showing the bowler in orange running up to bowl.",
+            "audio": [
+              "1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voiceover."
+            ],
+            "on_screen_text": [
+              "MIZAN"
+            ]
+          },
+          {
+            "start_s": 365.0,
+            "end_s": 371.0,
+            "visual": "A replay shows the batsman, Mizanur Rahman, hitting a powerful six. The camera then cuts to a close-up of him on the field, wearing his green Pakistan jersey and helmet. He looks focused as he adjusts his gloves and prepares for the next delivery.",
+            "audio": [
+              "1) Tone of speech: Informative, appreciative. 2) Background sounds or music: The commentator's voiceover continues."
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 373.93,
+            "end_s": 399.918,
+            "text": "7th Wonder International 100 for Fakhaz Aman. He's gone past 2,500 Wonder International runs in this innings. He's had some fortune. He was dropped before he reached 50. Wagon wheel runs all around the ground. Oh, and that's delicate. We saw power down the ground earlier in the over. And that was a little bit of... Side screen, long on."
+          },
+          {
+            "start_s": 401.538,
+            "end_s": 430.343,
+            "text": "looks like side rightly so it's a big bound he should get back for a couple scott edwards that's gone that's gone excellent in the deep brilliant work in the deep bendis returned well gathered by edwards and well for kazaman acknowledges the approach shuffles across for his back goes high goes long and goes all the way"
+          }
+        ]
+      },
+      {
+        "start_s": 420.0,
+        "end_s": 480.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 420.0,
+            "end_s": 426.0,
+            "visual": "A cricket match is in progress. A batsman in a green uniform hits the ball, sending it high towards the boundary. The camera follows the ball's trajectory, showing it landing in the stands where a few spectators are seated. The batsman is then seen celebrating with his teammates.",
+            "audio": [
+              "1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's excited voice."
+            ]
+          },
+          {
+            "start_s": 427.0,
+            "end_s": 430.0,
+            "visual": "In another play, a batsman hits the ball, which is caught by a fielder in an orange uniform. The umpire, standing behind the batsman, immediately raises his arm to signal that the batsman is out due to an obstructed view.",
+            "audio": [
+              "1) Tone of speech: Neutral, informative. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice."
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 437.448,
+            "end_s": 467.367,
+            "text": "Big shout for LBW and the finger goes up. There's the latest strikes. Original decision out. Pitching outside off. Impact in line. Pickett's umpire's call. Michael, you can stay with your decision. Imagine one day international cricket. That's going to be four. There's no point in chasing that Wesley Barresi. Mid-off and mid-on up in the circle. Straight away he's drilled down the ground for four."
+          },
+          {
+            "start_s": 467.738,
+            "end_s": 491.718,
+            "text": "Kushtil's shot. Oh, no. For Pakistan. Slow ball from King Mark. And it's gone over. Extra cover for four. Danger, danger for the Dutch here. Slow ball. And I think it's gone all the way for six. Pulled away by Kushtil."
+          }
+        ]
+      },
+      {
+        "start_s": 480.0,
+        "end_s": 540.0,
+        "dense_caption_spans": [
+          {
+            "start_s": 480.0,
+            "end_s": 485.0,
+            "visual": "A cricket player in a green jersey hits the ball, sending it high towards the boundary. The camera follows the ball as it lands near the boundary, and a fielder in an orange jersey runs to retrieve it. The fielder catches the ball, and the batsman is out. The fielder, who has curly blonde hair, raises his arm in celebration.",
+            "audio": [
+              "1) Tone of speech: Excited, conversational. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice."
+            ]
+          },
+          {
+            "start_s": 486.0,
+            "end_s": 490.0,
+            "visual": "A replay shows the batsman hitting the ball. The camera follows the ball as it is caught by a fielder in an orange jersey. The fielder, with the name 'KINGMA' and number 23 on his back, raises his arm to signal the catch.",
+            "audio": [
+              "1) Tone of speech: Analytical, appreciative. 2) Background sounds or music: The commentator's voiceover."
+            ],
+            "on_screen_text": [
+              "KINGMA"
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 495.667,
+            "end_s": 519.798,
+            "text": "Powered down towards Longhorn by Cushnill and out. It's a really good catch. Oh, beam up. It's gone for four, but will it be signalled as a no ball? Yes, indeed it will. Free hit. Cracked out towards the midwicket and all the way for six."
+          },
+          {
+            "start_s": 520.355,
+            "end_s": 548.468,
+            "text": "Well, that was a costly error from Van Beek. It's the end of the over and a very expensive over too. Slow ball bumper. Should be taken. It's taken. Easy catch. Viv Kingman, third inside the ring. And once again, Bazalela. They call on the golden arm for a... Slapped. It's that Matt Pringle. Not going to cut it off. Another boundary."
+          }
+        ]
+      },
+      {
+        "start_s": 540.0,
+        "end_s": 595.7,
+        "dense_caption_spans": [
+          {
+            "start_s": 540.0,
+            "end_s": 545.0,
+            "visual": "A cricket match is underway. A bowler in an orange kit runs up to deliver a ball to a batsman in a green kit. The batsman hits the ball, sending it flying high towards the boundary. The fielder in orange runs to the boundary and dives to his left, successfully catching the ball to make a catch.",
+            "audio": [
+              "1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice."
+            ]
+          },
+          {
+            "start_s": 546.0,
+            "end_s": 550.0,
+            "visual": "A replay shows the previous play from a different angle. The batsman hits the ball, and the fielder runs onto the pitch to make a diving catch. The camera then cuts to a close-up of the batsman, Shadab Khan, who looks disappointed as he walks away from the crease.",
+            "audio": [
+              "1) Tone of speech: Appreciative, analytical. 2) Background sounds or music: None."
+            ]
+          }
+        ],
+        "transcript_spans": [
+          {
+            "start_s": 551.337,
+            "end_s": 580.97,
+            "text": "Logan van Beek for his last. Improvisation. Wonderful, wonderful batsmanship. First time we've seen that. Chopped away. Brilliant. Poor bowling. Third is inside the ring. You know. Falls across. Gets it well enough. Straight down the ground. Bang it straight to that. Half a dozen. Punches at the non-strikers there. Last ball."
+          },
+          {
+            "start_s": 584.243,
+            "end_s": 595.212,
+            "text": "Well, that is exceptional bowling from Baz Delayda today. Fought it over, just seven from it. And brilliant figures. Baz Delayda, two for 42."
+          }
+        ]
+      }
+    ],
+    "planner_context": {
+      "identity_memory": [
+        {
+          "label": "KINGMA",
+          "kind": "on_screen_text",
+          "modalities": [
+            "on_screen_text"
+          ],
+          "time_ranges": [
+            {
+              "start_s": 486.0,
+              "end_s": 490.0
+            }
+          ],
+          "supporting_snippets": [
+            "Visual: A replay shows the batsman hitting the ball. The camera follows the ball as it is caught by a fielder in an orange jersey. The fielder, with the name 'KINGMA' and number..."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "MIZAN",
+          "kind": "on_screen_text",
+          "modalities": [
+            "on_screen_text"
+          ],
+          "time_ranges": [
+            {
+              "start_s": 360.0,
+              "end_s": 364.0
+            }
+          ],
+          "supporting_snippets": [
+            "Visual: A cricket match is in progress. The camera follows a batsman in a green Pakistan jersey with 'MIZAN' on the back as he runs between the wickets. The scoreboard in the ba..."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "no-ball",
+          "kind": "on_screen_text",
+          "modalities": [
+            "on_screen_text"
+          ],
+          "time_ranges": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0
+            }
+          ],
+          "supporting_snippets": [
+            "Visual: A cricket umpire, dressed in black, stands on the field with his hands clasped. He raises his right index finger to signal a 'no-ball' decision. The scene then cuts to t..."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "PAKISTAN",
+          "kind": "on_screen_text",
+          "modalities": [
+            "on_screen_text"
+          ],
+          "time_ranges": [
+            {
+              "start_s": 66.0,
+              "end_s": 70.0
+            }
+          ],
+          "supporting_snippets": [
+            "Visual: A Pakistani cricketer, wearing a green jersey with 'PAKISTAN' and 'pepsi' written on it, walks off the field. He is seen from the back, holding his cricket bat. The came..."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "pepsi",
+          "kind": "on_screen_text",
+          "modalities": [
+            "on_screen_text"
+          ],
+          "time_ranges": [
+            {
+              "start_s": 66.0,
+              "end_s": 70.0
+            }
+          ],
+          "supporting_snippets": [
+            "Visual: A Pakistani cricketer, wearing a green jersey with 'PAKISTAN' and 'pepsi' written on it, walks off the field. He is seen from the back, holding his cricket bat. The came..."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "Subscribe",
+          "kind": "on_screen_text",
+          "modalities": [
+            "on_screen_text"
+          ],
+          "time_ranges": [
+            {
+              "start_s": 240.0,
+              "end_s": 242.0
+            }
+          ],
+          "supporting_snippets": [
+            "Visual: A close-up shot shows a young man with dark hair, wearing a green and yellow cricket jersey, looking intensely and seriously towards the camera. The scene then cuts to a..."
+          ],
+          "mention_count": 1
+        }
+      ],
+      "audio_event_memory": [
+        {
+          "label": "1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise.",
+          "time_ranges": [
+            {
+              "start_s": 180.0,
+              "end_s": 183.0
+            },
+            {
+              "start_s": 184.0,
+              "end_s": 185.0
+            },
+            {
+              "start_s": 240.0,
+              "end_s": 242.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: Faint crowd noise."
+          ],
+          "mention_count": 3
+        },
+        {
+          "label": "1) Tone of speech: Analytical, appreciative. 2) Background sounds or music: The commentator's voi...",
+          "time_ranges": [
+            {
+              "start_s": 486.0,
+              "end_s": 490.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Analytical, appreciative. 2) Background sounds or music: The commentator's voiceover."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Analytical, complimentary. 2) Background sounds or music: None.",
+          "time_ranges": [
+            {
+              "start_s": 129.0,
+              "end_s": 134.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Analytical, complimentary. 2) Background sounds or music: None."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Analytical. 2) Background sounds or music: None.",
+          "time_ranges": [
+            {
+              "start_s": 66.0,
+              "end_s": 70.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Analytical. 2) Background sounds or music: None."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Appreciative, analytical. 2) Background sounds or music: None.",
+          "time_ranges": [
+            {
+              "start_s": 546.0,
+              "end_s": 550.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Appreciative, analytical. 2) Background sounds or music: None."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitti...",
+          "time_ranges": [
+            {
+              "start_s": 303.0,
+              "end_s": 308.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the roar of the crowd."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitti...",
+          "time_ranges": [
+            {
+              "start_s": 360.0,
+              "end_s": 364.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voiceover."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitti...",
+          "time_ranges": [
+            {
+              "start_s": 420.0,
+              "end_s": 426.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's excited voice."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitti...",
+          "time_ranges": [
+            {
+              "start_s": 540.0,
+              "end_s": 545.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Excited, analytical. 2) Background sounds or music: Upbeat, celebratory music...",
+          "time_ranges": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Excited, analytical. 2) Background sounds or music: Upbeat, celebratory music plays during the team's celebration."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Excited, appreciative. 2) Background sounds or music: The sound of the bat hit...",
+          "time_ranges": [
+            {
+              "start_s": 120.0,
+              "end_s": 128.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Excited, appreciative. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the cheers of the crowd."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Excited, conversational. 2) Background sounds or music: The sound of the bat h...",
+          "time_ranges": [
+            {
+              "start_s": 480.0,
+              "end_s": 485.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Excited, conversational. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Informative, appreciative. 2) Background sounds or music: The commentator's vo...",
+          "time_ranges": [
+            {
+              "start_s": 365.0,
+              "end_s": 371.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Informative, appreciative. 2) Background sounds or music: The commentator's voiceover continues."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Informative, neutral. 2) Background sounds or music: None.",
+          "time_ranges": [
+            {
+              "start_s": 300.0,
+              "end_s": 302.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Informative, neutral. 2) Background sounds or music: None."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of a sports event.",
+          "time_ranges": [
+            {
+              "start_s": 0.0,
+              "end_s": 1.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of a sports event."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: N/A. 2) Background sounds or music: The commentator's voice is heard over the...",
+          "time_ranges": [
+            {
+              "start_s": 6.0,
+              "end_s": 9.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: N/A. 2) Background sounds or music: The commentator's voice is heard over the replay."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: N/A. 2) Background sounds or music: The sound of the bat hitting the ball and...",
+          "time_ranges": [
+            {
+              "start_s": 2.0,
+              "end_s": 5.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of the bat hitting the ball and the ball being caught."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitti...",
+          "time_ranges": [
+            {
+              "start_s": 186.0,
+              "end_s": 190.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the ball hitting the pad."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitti...",
+          "time_ranges": [
+            {
+              "start_s": 243.0,
+              "end_s": 247.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Neutral, analytical. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voiceover."
+          ],
+          "mention_count": 1
+        },
+        {
+          "label": "1) Tone of speech: Neutral, informative. 2) Background sounds or music: The sound of the bat hitt...",
+          "time_ranges": [
+            {
+              "start_s": 427.0,
+              "end_s": 430.0
+            }
+          ],
+          "supporting_snippets": [
+            "Audio: 1) Tone of speech: Neutral, informative. 2) Background sounds or music: The sound of the bat hitting the ball, followed by the commentator's voice."
+          ],
+          "mention_count": 1
+        }
+      ]
+    },
+    "video_fingerprint": "12dfd9f178d85d8d2d4d28ed5e2a126213b9259fddc9690213ac2fd7930bd326"
+  },
+  "rounds_executed": 2
+}
