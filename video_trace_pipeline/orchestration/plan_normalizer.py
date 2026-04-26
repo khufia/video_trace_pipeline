@@ -164,9 +164,14 @@ class ExecutionPlanNormalizer(object):
             return
         target_field = str(binding.target_field or "").strip()
         field_path = str(binding.source.field_path or "").strip()
-        if target_field != "transcripts" or field_path != "transcripts":
+        if target_field == "text_contexts":
             raise ValueError(
-                "Plan step %s must bind ASR output to generic_purpose via transcripts -> transcripts, not %s -> %s."
+                "Plan step %s must bind ASR transcript content to generic_purpose via transcripts -> transcripts, not %s -> %s."
+                % (int(step.step_id), field_path or "<empty>", target_field or "<empty>")
+            )
+        if target_field == "transcripts" and field_path != "transcripts":
+            raise ValueError(
+                "Plan step %s must bind ASR transcript content to generic_purpose via transcripts -> transcripts, not %s -> %s."
                 % (int(step.step_id), field_path or "<empty>", target_field or "<empty>")
             )
 

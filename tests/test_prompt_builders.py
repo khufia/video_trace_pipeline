@@ -140,6 +140,7 @@ def test_planner_system_prompt_uses_original_style_repair_decomposition():
     assert "Prefer it over OCR as the primary interpretation tool for charts/tables" in PLANNER_SYSTEM_PROMPT
     assert "compares frames across the bounded clip" in PLANNER_SYSTEM_PROMPT
     assert "pass `transcripts`, not flattened `text_contexts`" in PLANNER_SYSTEM_PROMPT
+    assert "You may additionally pass the same bounded `clips`" in PLANNER_SYSTEM_PROMPT
     assert "Do not bind current-plan outputs into `evidence_ids`" in PLANNER_SYSTEM_PROMPT
     assert "If you want `generic_purpose` to reason over previously retrieved observations" in PLANNER_SYSTEM_PROMPT
     assert "Use only literal reusable `evidence_ids`" in PLANNER_SYSTEM_PROMPT

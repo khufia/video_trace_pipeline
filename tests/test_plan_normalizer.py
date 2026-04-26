@@ -284,9 +284,44 @@ def test_plan_normalizer_rejects_asr_text_binding_into_generic_purpose():
     try:
         normalizer.normalize(_task(), plan)
     except ValueError as exc:
-        assert "must bind ASR output to generic_purpose via transcripts -> transcripts" in str(exc)
+        assert "must bind ASR transcript content to generic_purpose via transcripts -> transcripts" in str(exc)
     else:
         raise AssertionError("Expected plan normalization to reject ASR text -> text_contexts binding.")
+
+
+def test_plan_normalizer_allows_asr_clip_context_into_generic_purpose():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Use ASR-bounded clip and transcript context together.",
+        use_summary=True,
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="asr",
+                purpose="Transcribe the spoken dialogue.",
+                arguments={"clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 30.0}]},
+                input_refs=[],
+                depends_on=[],
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="generic_purpose",
+                purpose="Answer using the bounded spoken moment with transcript support.",
+                arguments={"query": "Use the bounded spoken moment to answer."},
+                input_refs=[
+                    {"target_field": "clips", "source": {"step_id": 1, "field_path": "clips"}},
+                    {"target_field": "transcripts", "source": {"step_id": 1, "field_path": "transcripts"}},
+                ],
+                depends_on=[1],
+            ),
+        ],
+        refinement_instructions="",
+    )
+
+    normalized = normalizer.normalize(_task(), plan)
+
+    assert normalized.steps[1].input_refs[0].target_field == "clips"
+    assert normalized.steps[1].input_refs[1].target_field == "transcripts"
 
 
 def test_plan_normalizer_rejects_input_ref_binding_into_evidence_ids():
