@@ -171,17 +171,31 @@ class OpenAIChatClient(object):
         image_paths: Optional[List[str]] = None,
     ):
         response_format = {"type": "json_object"}
-        text = self._request_text(
-            endpoint_name=endpoint_name,
-            model_name=model_name,
-            system_prompt=system_prompt,
-            user_prompt=user_prompt,
-            temperature=temperature,
-            max_tokens=max_tokens,
-            image_paths=image_paths,
-            response_format=response_format,
-        )
-        payload = extract_json_object(text)
+        candidate_budgets = [int(max_tokens)]
+        expanded_budget = max(int(max_tokens) + 4000, int(max_tokens) * 2)
+        if expanded_budget > candidate_budgets[-1]:
+            candidate_budgets.append(expanded_budget)
+
+        text = ""
+        payload = None
+        for index, budget in enumerate(candidate_budgets):
+            text = self._request_text(
+                endpoint_name=endpoint_name,
+                model_name=model_name,
+                system_prompt=system_prompt,
+                user_prompt=user_prompt,
+                temperature=temperature,
+                max_tokens=budget,
+                image_paths=image_paths,
+                response_format=response_format,
+            )
+            payload = extract_json_object(text)
+            if payload is not None:
+                break
+            if index + 1 >= len(candidate_budgets):
+                break
+            if not str(text or "").lstrip().startswith("{"):
+                break
         if payload is None:
             raise ValueError("Model did not return a JSON object: %s" % text[:1000])
         if response_model is dict:

@@ -6,6 +6,7 @@ import os
 import pytest
 import numpy as np
 import torch
+from packaging import version
 
 from video_trace_pipeline.tool_wrappers import local_multimodal
 
@@ -674,6 +675,43 @@ def test_patch_qwen_omni_video_reader_bounds_clamps_decord_indices(monkeypatch):
     assert sample_fps == pytest.approx(24.0 / 180.0)
 
 
+def test_patch_qwen_omni_video_reader_bounds_handles_single_torchvision_frame(monkeypatch):
+    fake_qwen = types.ModuleType("qwen_omni_utils")
+    fake_v25 = types.ModuleType("qwen_omni_utils.v2_5")
+    fake_vision = types.ModuleType("qwen_omni_utils.v2_5.vision_process")
+    fake_vision.version = version
+    fake_vision.warnings = types.SimpleNamespace(warn=lambda *args, **kwargs: None)
+    fake_vision.io = types.SimpleNamespace(
+        read_video=lambda *args, **kwargs: (
+            torch.zeros((1, 3, 2, 2), dtype=torch.uint8),
+            None,
+            {"video_fps": 24.0},
+        )
+    )
+    fake_vision.smart_nframes = lambda ele, total_frames, video_fps: (_ for _ in ()).throw(
+        ValueError("nframes should in interval [2, 1], but got 0.")
+    )
+    fake_vision.logger = types.SimpleNamespace(info=lambda *args, **kwargs: None)
+    fake_vision.VIDEO_READER_BACKENDS = {"decord": object(), "torchvision": object()}
+    fake_qwen.v2_5 = fake_v25
+    fake_v25.vision_process = fake_vision
+    monkeypatch.setitem(sys.modules, "qwen_omni_utils", fake_qwen)
+    monkeypatch.setitem(sys.modules, "qwen_omni_utils.v2_5", fake_v25)
+    monkeypatch.setitem(sys.modules, "qwen_omni_utils.v2_5.vision_process", fake_vision)
+
+    fake_torchvision = types.ModuleType("torchvision")
+    fake_torchvision.__version__ = "0.19.0"
+    monkeypatch.setitem(sys.modules, "torchvision", fake_torchvision)
+
+    local_multimodal._patch_qwen_omni_video_reader_bounds()
+
+    video, metadata, sample_fps = fake_vision.VIDEO_READER_BACKENDS["torchvision"]({"video": "/tmp/demo.mp4"})
+
+    assert video.shape[0] == 1
+    assert metadata["total_num_frames"] == 1
+    assert sample_fps == pytest.approx(24.0)
+
+
 def test_patch_qwen_vl_video_reader_bounds_clamps_decord_indices(monkeypatch):
     fake_qwen = types.ModuleType("qwen_vl_utils")
     fake_vision = types.ModuleType("qwen_vl_utils.vision_process")
@@ -717,6 +755,40 @@ def test_patch_qwen_vl_video_reader_bounds_clamps_decord_indices(monkeypatch):
     assert video.shape[0] == 8
     assert metadata["frames_indices"][-1] == 1439
     assert sample_fps == pytest.approx(24.0 / 180.0)
+
+
+def test_patch_qwen_vl_video_reader_bounds_handles_single_torchvision_frame(monkeypatch):
+    fake_qwen = types.ModuleType("qwen_vl_utils")
+    fake_vision = types.ModuleType("qwen_vl_utils.vision_process")
+    fake_vision.version = version
+    fake_vision.warnings = types.SimpleNamespace(warn=lambda *args, **kwargs: None)
+    fake_vision.io = types.SimpleNamespace(
+        read_video=lambda *args, **kwargs: (
+            torch.zeros((1, 3, 2, 2), dtype=torch.uint8),
+            None,
+            {"video_fps": 24.0},
+        )
+    )
+    fake_vision.smart_nframes = lambda ele, total_frames, video_fps: (_ for _ in ()).throw(
+        ValueError("nframes should in interval [2, 1], but got 0.")
+    )
+    fake_vision.logger = types.SimpleNamespace(info=lambda *args, **kwargs: None)
+    fake_vision.VIDEO_READER_BACKENDS = {"decord": object(), "torchvision": object()}
+    fake_qwen.vision_process = fake_vision
+    monkeypatch.setitem(sys.modules, "qwen_vl_utils", fake_qwen)
+    monkeypatch.setitem(sys.modules, "qwen_vl_utils.vision_process", fake_vision)
+
+    fake_torchvision = types.ModuleType("torchvision")
+    fake_torchvision.__version__ = "0.19.0"
+    monkeypatch.setitem(sys.modules, "torchvision", fake_torchvision)
+
+    local_multimodal._patch_qwen_vl_video_reader_bounds()
+
+    video, metadata, sample_fps = fake_vision.VIDEO_READER_BACKENDS["torchvision"]({"video": "/tmp/demo.mp4"})
+
+    assert video.shape[0] == 1
+    assert metadata["total_num_frames"] == 1
+    assert sample_fps == pytest.approx(24.0)
 
 
 def test_configure_audioread_ffmpeg_command_injects_imageio_binary(monkeypatch, tmp_path):

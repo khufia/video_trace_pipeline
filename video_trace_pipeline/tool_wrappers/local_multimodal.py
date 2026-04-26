@@ -18,6 +18,28 @@ _QWEN35_MIN_TRANSFORMERS = "5.2.0"
 logger = logging.getLogger(__name__)
 
 
+def _safe_video_nframes(vision_process, ele: Dict[str, Any], *, total_frames: int, video_fps: float) -> int:
+    total_frames = max(0, int(total_frames or 0))
+    if total_frames <= 0:
+        raise RuntimeError(
+            "Video reader decoded zero frames for %r."
+            % str((ele or {}).get("video") or "<video>")
+        )
+    try:
+        nframes = int(
+            vision_process.smart_nframes(
+                ele,
+                total_frames=total_frames,
+                video_fps=video_fps,
+            )
+        )
+    except Exception:
+        if total_frames == 1:
+            return 1
+        raise
+    return max(1, min(total_frames, nframes))
+
+
 def _checkpoint_model_type(model_path: str) -> str | None:
     config_path = Path(model_path).expanduser() / "config.json"
     if not config_path.exists():
@@ -101,7 +123,8 @@ def _patch_qwen_omni_video_reader_bounds() -> None:
                 source_total_frames,
                 video_fps,
             )
-            nframes = vision_process.smart_nframes(
+            nframes = _safe_video_nframes(
+                vision_process,
                 ele,
                 total_frames=selected_total_frames,
                 video_fps=video_fps,
@@ -158,7 +181,8 @@ def _patch_qwen_omni_video_reader_bounds() -> None:
                 video_fps,
                 time.time() - st,
             )
-            nframes = vision_process.smart_nframes(
+            nframes = _safe_video_nframes(
+                vision_process,
                 ele,
                 total_frames=total_frames,
                 video_fps=video_fps,
@@ -206,7 +230,8 @@ def _patch_qwen_vl_video_reader_bounds() -> None:
                 source_total_frames,
                 video_fps,
             )
-            nframes = vision_process.smart_nframes(
+            nframes = _safe_video_nframes(
+                vision_process,
                 ele,
                 total_frames=selected_total_frames,
                 video_fps=video_fps,
@@ -263,7 +288,8 @@ def _patch_qwen_vl_video_reader_bounds() -> None:
                 video_fps,
                 time.time() - st,
             )
-            nframes = vision_process.smart_nframes(
+            nframes = _safe_video_nframes(
+                vision_process,
                 ele,
                 total_frames=total_frames,
                 video_fps=video_fps,

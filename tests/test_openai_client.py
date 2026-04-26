@@ -17,10 +17,11 @@ class _FakeChatCompletions(object):
 
     def create(self, **kwargs):
         self.calls.append(kwargs)
+        content = self.content[len(self.calls) - 1] if isinstance(self.content, list) else self.content
         return SimpleNamespace(
             choices=[
                 SimpleNamespace(
-                    message=SimpleNamespace(content=self.content),
+                    message=SimpleNamespace(content=content),
                 )
             ]
         )
@@ -91,3 +92,29 @@ def test_complete_json_does_not_persist_or_reuse_agent_response_cache(tmp_path):
     assert second.strategy == "focus on OCR"
     assert first_raw == second_raw == '{"strategy": "focus on OCR"}'
     assert len(fake_completions.calls) == 2
+
+
+def test_complete_json_retries_once_with_larger_budget_for_truncated_json(tmp_path):
+    fake_completions = _FakeChatCompletions(
+        ['{"strategy": "focus on OCR"', '{"strategy": "focus on OCR"}']
+    )
+    client = _make_client(
+        fake_completions,
+        workspace_root=tmp_path / "workspace",
+        cache_root=tmp_path / "cache",
+    )
+
+    parsed, raw = client.complete_json(
+        endpoint_name="default",
+        model_name="gpt-5.4",
+        system_prompt="Return JSON only.",
+        user_prompt="Plan this task.",
+        response_model=_DummyResponseModel,
+        max_tokens=8000,
+    )
+
+    assert parsed.strategy == "focus on OCR"
+    assert raw == '{"strategy": "focus on OCR"}'
+    assert len(fake_completions.calls) == 2
+    assert fake_completions.calls[0]["max_completion_tokens"] == 8000
+    assert fake_completions.calls[1]["max_completion_tokens"] == 16000
