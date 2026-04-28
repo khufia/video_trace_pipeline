@@ -206,6 +206,7 @@ def _build_prompt(
         "For cause-or-inference multiple-choice questions, prefer the option that best matches the directly grounded phenomenon; do not swap in a more remote presumed cause unless the evidence explicitly supports that causal step.",
         "For earliest/first questions with multiple candidate moments, identify the earliest validated candidate first and analyze only that candidate's downstream attribute; do not mix later-candidate details into the earliest event.",
         "For repeated-text, quoted-span, or mentioned-in-text tasks, compare full surface forms and exact span boundaries before considering substrings or paraphrases.",
+        "For repeated place/name/entity questions, count whole named entities or repeated surface phrases. Prefer the longest repeated matching name/phrase over a shorter substring embedded inside that phrase unless the task explicitly asks about words or tokens.",
         "For chart, table, scoreboard, or graph images, read label-value pairs from explicit visual alignment. If multiple images show the same progressive display, prefer the latest stable complete image and do not treat missing early bars or labels as zero.",
         "Use the INPUT MEDIA image numbers, artifact ids, and timestamps when comparing images; do not confuse Image N with timestamps or prior evidence ids.",
         "If the grounded evidence still leaves multiple answer options compatible, answer indeterminate instead of forcing a best guess.",
@@ -221,6 +222,7 @@ def _build_prompt(
             "OUTPUT EXAMPLES:",
             '{"answer":"B. Example Store, 20 percentage points","supporting_points":["Image 2 is the complete chart for Metric X.","Example Store: |70-50| = 20 points."],"confidence":0.82,"analysis":"The selected option has the largest grounded difference."}',
             '{"answer":"indeterminate","supporting_points":["Image 1 shows the object, but its required state is occluded."],"confidence":0.35,"analysis":"The answer-critical state is not directly visible."}',
+            '{"answer":"C. Example phrase","supporting_points":["The repeated full name is Example Station, not the substring Example.","The interval between the two full mentions contains options A and B but not C."],"confidence":0.78,"analysis":"The answer uses full repeated-entity span boundaries."}',
         ]
     )
     task_question = str(task.get("question") or "").strip()

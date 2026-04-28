@@ -29,11 +29,14 @@ def test_generic_purpose_prompt_includes_task_question_and_options():
     assert "best matches the directly grounded phenomenon" in prompt
     assert "identify the earliest validated candidate first" in prompt
     assert "compare full surface forms" in prompt
+    assert "count whole named entities or repeated surface phrases" in prompt
+    assert "longest repeated matching name/phrase" in prompt
     assert "INPUT MEDIA:" in prompt
     assert "artifact_id=frame_demo" in prompt
     assert "latest stable complete image" in prompt
     assert "Keep answer short" in prompt
     assert '"answer":"B. Example Store, 20 percentage points"' in prompt
+    assert '"answer":"C. Example phrase"' in prompt
 
 
 def test_generic_purpose_uses_image_artifacts_from_evidence_records(tmp_path, monkeypatch):
