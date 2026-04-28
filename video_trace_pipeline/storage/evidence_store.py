@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from collections import defaultdict
 from pathlib import Path
@@ -8,7 +9,7 @@ from typing import Any, Dict, Iterable, List, Optional
 
 from filelock import FileLock
 
-from ..common import append_jsonl, ensure_dir, read_json, read_jsonl, write_json
+from ..common import append_jsonl, ensure_dir, read_json, read_jsonl, sanitize_path_component, write_json
 from ..schemas import AtomicObservation, EvidenceEntry, ToolResult
 from .workspace import RunContext, WorkspaceManager
 
@@ -76,6 +77,236 @@ class EvidenceLedger(object):
         self.observations_path = run.evidence_dir / "atomic_observations.jsonl"
         self.sqlite_path = run.evidence_dir / "evidence.sqlite3"
         self._init_sqlite()
+
+    def _artifact_context_path(self) -> Path:
+        video_id = sanitize_path_component(self.run.video_id or "video")
+        return self.run.workspace_root / "artifacts" / video_id / "artifact_context.jsonl"
+
+    def _artifact_context_lock(self) -> FileLock:
+        path = self._artifact_context_path()
+        ensure_dir(path.parent)
+        return FileLock(str(path.parent / ".artifact_context.lock"))
+
+    @staticmethod
+    def _artifact_ref_payload(artifact_ref: Any) -> Dict[str, Any]:
+        if hasattr(artifact_ref, "model_dump"):
+            return artifact_ref.model_dump()
+        if hasattr(artifact_ref, "dict"):
+            return artifact_ref.dict()
+        return dict(artifact_ref or {}) if isinstance(artifact_ref, dict) else {}
+
+    @staticmethod
+    def _compact_text(value: Any, limit: int = 360) -> str:
+        text = " ".join(str(value or "").split()).strip()
+        if len(text) <= limit:
+            return text
+        return text[: limit - 3].rstrip() + "..."
+
+    @staticmethod
+    def _timestamp_from_frame_artifact(artifact_ref: Dict[str, Any]) -> Optional[float]:
+        candidates = [
+            str(artifact_ref.get("artifact_id") or ""),
+            Path(str(artifact_ref.get("relpath") or "")).stem,
+        ]
+        for candidate in candidates:
+            match = re.search(r"frame_([0-9]+(?:[._][0-9]+)?)", candidate)
+            if not match:
+                continue
+            value = match.group(1).replace("_", ".")
+            try:
+                return float(value)
+            except Exception:
+                continue
+        return None
+
+    @staticmethod
+    def _merge_unique_records(existing: List[Dict[str, Any]], new_items: List[Dict[str, Any]], key_fields: List[str], limit: int) -> List[Dict[str, Any]]:
+        merged: List[Dict[str, Any]] = []
+        seen = set()
+        for item in list(existing or []) + list(new_items or []):
+            if not isinstance(item, dict):
+                continue
+            key = tuple(str(item.get(field) or "").strip() for field in key_fields)
+            if key in seen:
+                continue
+            seen.add(key)
+            merged.append(item)
+            if len(merged) >= limit:
+                break
+        return merged
+
+    @staticmethod
+    def _merge_unique_text(existing: List[str], new_items: List[str], limit: int) -> List[str]:
+        merged: List[str] = []
+        seen = set()
+        for item in list(existing or []) + list(new_items or []):
+            text = " ".join(str(item or "").split()).strip()
+            if not text or text in seen:
+                continue
+            if text.startswith("A candidate frame was retrieved at "):
+                continue
+            seen.add(text)
+            merged.append(text)
+            if len(merged) >= limit:
+                break
+        return merged
+
+    @staticmethod
+    def _observation_is_contains_text(observation: Dict[str, Any]) -> bool:
+        source_tool = str(observation.get("source_tool") or "").strip()
+        predicate = str(observation.get("predicate") or "").strip()
+        subject = str(observation.get("subject") or "").strip().lower()
+        subject_type = str(observation.get("subject_type") or "").strip().lower()
+        atomic_text = str(observation.get("atomic_text") or "").strip()
+        atomic_lower = atomic_text.lower()
+        if source_tool == "frame_retriever" and predicate == "retrieved_frame_at":
+            return False
+        if predicate in {"present_in_interval"}:
+            return False
+        if subject_type in {"prompt", "question", "task"}:
+            return False
+        if subject in {"the prompt", "prompt", "the user", "user"}:
+            return False
+        if atomic_lower.startswith(("the prompt asks", "the user wants", "the question asks")):
+            return False
+        return bool(atomic_text)
+
+    @classmethod
+    def _seed_artifact_context_record(cls, artifact_ref: Dict[str, Any]) -> Dict[str, Any]:
+        artifact_id = str(artifact_ref.get("artifact_id") or "").strip()
+        relpath = str(artifact_ref.get("relpath") or "").strip()
+        metadata = dict(artifact_ref.get("metadata") or {})
+        record: Dict[str, Any] = {
+            "artifact_id": artifact_id,
+            "artifact_type": str(artifact_ref.get("kind") or "artifact").strip() or "artifact",
+        }
+        if relpath:
+            record["relpath"] = relpath
+        time_payload: Dict[str, Any] = {}
+        timestamp_s = metadata.get("timestamp_s") or metadata.get("frame_ts_s")
+        if timestamp_s is None and record["artifact_type"] == "frame":
+            timestamp_s = cls._timestamp_from_frame_artifact(artifact_ref)
+        if timestamp_s is not None:
+            time_payload["timestamp_s"] = timestamp_s
+        start_s = metadata.get("start_s")
+        end_s = metadata.get("end_s")
+        if start_s is not None or end_s is not None:
+            time_payload["source_clip" if record["artifact_type"] != "clip" else "clip"] = {
+                "start_s": start_s,
+                "end_s": end_s,
+            }
+        if time_payload:
+            record["time"] = time_payload
+        record["contains"] = []
+        record["linked_observations"] = []
+        record["linked_evidence"] = []
+        return record
+
+    @classmethod
+    def _merge_artifact_time(cls, record: Dict[str, Any], observations: List[Dict[str, Any]]) -> None:
+        time_payload = dict(record.get("time") or {})
+        for observation in observations:
+            if time_payload.get("timestamp_s") is None and observation.get("frame_ts_s") is not None:
+                time_payload["timestamp_s"] = observation.get("frame_ts_s")
+            if "source_clip" not in time_payload and (
+                observation.get("time_start_s") is not None or observation.get("time_end_s") is not None
+            ):
+                time_payload["source_clip"] = {
+                    "start_s": observation.get("time_start_s"),
+                    "end_s": observation.get("time_end_s"),
+                }
+        if time_payload:
+            record["time"] = time_payload
+
+    def _update_artifact_context(self, entry: EvidenceEntry, observations: List[AtomicObservation]) -> None:
+        artifact_refs = [self._artifact_ref_payload(item) for item in list(entry.artifact_refs or [])]
+        artifact_refs = [item for item in artifact_refs if str(item.get("artifact_id") or "").strip()]
+        if not artifact_refs:
+            return
+
+        artifact_by_id = {
+            str(item.get("artifact_id") or "").strip(): item
+            for item in artifact_refs
+            if str(item.get("artifact_id") or "").strip()
+        }
+        observation_payloads = [
+            {
+                **(item.model_dump() if hasattr(item, "model_dump") else item.dict()),
+                "source_artifact_refs": [
+                    str(artifact_id).strip()
+                    for artifact_id in list(getattr(item, "source_artifact_refs", []) or [])
+                    if str(artifact_id).strip()
+                ],
+            }
+            for item in list(observations or [])
+        ]
+        path = self._artifact_context_path()
+        with self._artifact_context_lock():
+            existing_records = {
+                str(item.get("artifact_id") or "").strip(): dict(item)
+                for item in read_jsonl(path)
+                if isinstance(item, dict) and str(item.get("artifact_id") or "").strip()
+            }
+            for artifact_id, artifact_ref in sorted(artifact_by_id.items()):
+                linked_observations = [
+                    item
+                    for item in observation_payloads
+                    if artifact_id in list(item.get("source_artifact_refs") or [])
+                ]
+                if not linked_observations and len(artifact_by_id) == 1:
+                    linked_observations = list(observation_payloads)
+
+                record = existing_records.get(artifact_id) or self._seed_artifact_context_record(artifact_ref)
+                seeded = self._seed_artifact_context_record(artifact_ref)
+                for key in ("artifact_type", "relpath"):
+                    if seeded.get(key):
+                        record[key] = seeded[key]
+                self._merge_artifact_time(record, linked_observations)
+                contains = [
+                    self._compact_text(item.get("atomic_text"))
+                    for item in linked_observations
+                    if self._observation_is_contains_text(item)
+                ]
+                record["contains"] = self._merge_unique_text(list(record.get("contains") or []), contains, limit=40)
+                observation_records = [
+                    {
+                        "observation_id": item.get("observation_id"),
+                        "source_tool": item.get("source_tool"),
+                        "text": self._compact_text(item.get("atomic_text")),
+                    }
+                    for item in linked_observations
+                    if self._observation_is_contains_text(item)
+                ]
+                record["linked_observations"] = self._merge_unique_records(
+                    list(record.get("linked_observations") or []),
+                    observation_records,
+                    ["observation_id", "text"],
+                    limit=80,
+                )
+                linked_texts = [
+                    self._compact_text(item.get("atomic_text"), limit=220)
+                    for item in linked_observations
+                    if self._observation_is_contains_text(item)
+                ][:12]
+                evidence_record = {
+                    "evidence_id": entry.evidence_id,
+                    "tool_name": entry.tool_name,
+                    "summary": self._compact_text(entry.evidence_text),
+                    "observation_texts": linked_texts,
+                }
+                record["linked_evidence"] = self._merge_unique_records(
+                    list(record.get("linked_evidence") or []),
+                    [evidence_record],
+                    ["evidence_id", "summary"],
+                    limit=40,
+                )
+                existing_records[artifact_id] = record
+
+            ensure_dir(path.parent)
+            with path.open("w", encoding="utf-8") as handle:
+                for artifact_id in sorted(existing_records):
+                    handle.write(json.dumps(existing_records[artifact_id], ensure_ascii=False))
+                    handle.write("\n")
 
     def _connect(self):
         connection = sqlite3.connect(str(self.sqlite_path))
@@ -239,6 +470,7 @@ class EvidenceLedger(object):
                     ),
                 )
             connection.commit()
+        self._update_artifact_context(entry, observations)
 
     def entries(self) -> List[Dict[str, Any]]:
         if not self.sqlite_path.exists():

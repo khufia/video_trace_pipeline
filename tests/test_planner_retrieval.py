@@ -1,4 +1,5 @@
 from types import SimpleNamespace
+import json
 
 from video_trace_pipeline.orchestration.planner_retrieval import PlannerContextRetriever, query_terms_from_task_and_audit
 from video_trace_pipeline.schemas import MachineProfile, TaskSpec
@@ -120,3 +121,70 @@ def test_retriever_supplements_validated_evidence_and_ranks_preprocess(tmp_path)
     assert retrieved["preprocess_matches"]["planner_segments"][0]["segment_id"] == "seg_sound"
     assert retrieved["preprocess_matches"]["asr_transcripts"][0]["transcript_id"] == "tx_sound"
     assert retrieved["audit_gaps"] == ["validated sound moment"]
+
+
+def test_retriever_compacts_artifact_context_to_relevant_text(tmp_path):
+    workspace = WorkspaceManager(MachineProfile(workspace_root=str(tmp_path / "workspace")))
+    task = TaskSpec(
+        benchmark="adhoc",
+        sample_key="video_13",
+        video_id="video_13",
+        question="How many empty beer bottles are on the table?",
+        options=[],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+    artifact_context_path = workspace.artifacts_root / "video_13" / "artifact_context.jsonl"
+    artifact_context_path.parent.mkdir(parents=True, exist_ok=True)
+    record = {
+        "artifact_id": "frame_132.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/video_13/frames/frame_132.00.png",
+        "contains": [
+            "A generic background wall is visible.",
+            "The table contains two beer bottles.",
+            "Both beer bottles appear to contain liquid, so they are not clearly empty.",
+            "A distant poster is visible.",
+        ],
+        "linked_observations": [
+            {"observation_id": "obs_bg", "text": "The background wall is visible."},
+            {"observation_id": "obs_bottle", "text": "The beer bottles appear to contain liquid."},
+        ],
+        "linked_evidence": [
+            {
+                "evidence_id": "ev_generic",
+                "tool_name": "generic_purpose",
+                "summary": "The bottle state was inspected.",
+                "observation_texts": [
+                    "The wall is visible.",
+                    "The left beer bottle has light liquid.",
+                    "The right beer bottle has amber liquid.",
+                    "A game controller is visible.",
+                    "The bottles are not clearly empty.",
+                ],
+            }
+        ],
+    }
+    artifact_context_path.write_text(json.dumps(record) + "\n", encoding="utf-8")
+
+    retrieved = PlannerContextRetriever(workspace).retrieve(
+        task=task,
+        preprocess_bundle={},
+        evidence_ledger=_Ledger(),
+        audit_report={"missing_information": ["empty bottle state"]},
+        current_trace=None,
+        mode="refine",
+        limit=5,
+    )
+
+    artifact = retrieved["artifact_context"][0]
+    assert artifact["artifact_id"] == "frame_132.00"
+    assert "Both beer bottles appear to contain liquid" in " ".join(artifact["contains"])
+    assert all("wall" not in item.lower() for item in artifact["contains"])
+    assert artifact["linked_observations"] == [
+        {"observation_id": "obs_bottle", "text": "The beer bottles appear to contain liquid."}
+    ]
+    assert artifact["linked_evidence"][0]["observation_texts"] == [
+        "The left beer bottle has light liquid.",
+        "The right beer bottle has amber liquid.",
+        "The bottles are not clearly empty.",
+    ]

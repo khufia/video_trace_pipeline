@@ -273,18 +273,14 @@ def _normalize_transcripts(asr_result: Dict[str, Any], *, workspace: WorkspaceMa
             )
             if item is not None
         ]
-        transcript_text = _clean_text(transcript.get("text") or " ".join(item["text"] for item in segments))
         payload = {
             "transcript_id": transcript.get("transcript_id") or "tx_%s" % hash_payload({"clip": normalized_clip, "segments": segments}, 12),
             "clip": normalized_clip,
-            "text": transcript_text,
             "segments": segments,
             "metadata": _prune_empty(dict(transcript.get("metadata") or {})),
         }
         if not payload["segments"]:
             payload.pop("segments")
-        if not payload["text"]:
-            payload.pop("text")
         transcripts.append(_prune_empty(payload))
     return transcripts
 

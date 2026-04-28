@@ -57,19 +57,6 @@ class InputRef(BaseModel):
         return value
 
 
-class ArgumentBinding(BaseModel):
-    """Legacy helper kept for callers that still import the name.
-
-    The active plan schema does not accept list-style bindings. Runtime code uses
-    field-keyed `input_refs` only.
-    """
-
-    model_config = ConfigDict(extra="forbid")
-
-    target_field: str
-    source: InputRef
-
-
 class PlanStep(BaseModel):
     model_config = ConfigDict(extra="forbid")
 

@@ -144,6 +144,30 @@ def _score_record(record: Dict[str, Any], terms: List[str]) -> int:
     return sum(1 for term in terms if _matches(term))
 
 
+def _score_text(text: str, terms: List[str]) -> int:
+    if not terms:
+        return 0
+    tokens = set(re.findall(r"[a-z0-9]+", str(text or "").lower()))
+    score = 0
+    for term in terms:
+        if term in tokens:
+            score += 1
+            continue
+        if term.endswith("s") and term[:-1] in tokens:
+            score += 1
+            continue
+        if len(term) >= 6:
+            prefix = term[:4]
+            if any(token.startswith(prefix) for token in tokens if len(token) >= 4):
+                score += 1
+    return score
+
+
+def _is_prompt_meta_text(text: str) -> bool:
+    normalized = " ".join(str(text or "").split()).strip().lower()
+    return normalized.startswith(("the prompt asks", "the user wants", "the question asks"))
+
+
 def _top_matching_records(records: List[Dict[str, Any]], terms: List[str], *, limit: int) -> List[Dict[str, Any]]:
     if not terms:
         return [dict(item) for item in list(records or [])[:limit] if isinstance(item, dict)]
@@ -156,6 +180,64 @@ def _top_matching_records(records: List[Dict[str, Any]], terms: List[str], *, li
             scored.append((score, item))
     scored.sort(key=lambda pair: pair[0], reverse=True)
     return [dict(item) for _, item in scored[:limit]]
+
+
+def _top_text_items(items: List[Any], terms: List[str], *, limit: int) -> List[Any]:
+    candidates = []
+    for index, item in enumerate(list(items or [])):
+        if isinstance(item, dict):
+            text = " ".join(str(item.get(key) or "") for key in ("text", "summary", "evidence_text"))
+        else:
+            text = str(item or "")
+        if _is_prompt_meta_text(text):
+            continue
+        score = _score_text(text, terms)
+        candidates.append((score, index, item))
+    if terms:
+        positives = [item for item in candidates if item[0] > 0]
+        source = positives if positives else candidates
+    else:
+        source = candidates
+    source.sort(key=lambda pair: (-pair[0], pair[1]))
+    return [item for _, _, item in source[:limit]]
+
+
+def _compact_artifact_context_record(record: Dict[str, Any], terms: List[str]) -> Dict[str, Any]:
+    compact = {
+        key: record.get(key)
+        for key in ("artifact_id", "artifact_type", "relpath", "time")
+        if record.get(key) not in (None, "", [], {})
+    }
+    contains = _top_text_items(list(record.get("contains") or []), terms, limit=12)
+    if contains:
+        compact["contains"] = contains
+    linked_observations = _top_text_items(list(record.get("linked_observations") or []), terms, limit=8)
+    if linked_observations:
+        compact["linked_observations"] = linked_observations
+    linked_evidence = []
+    for item in _top_text_items(list(record.get("linked_evidence") or []), terms, limit=5):
+        if not isinstance(item, dict):
+            continue
+        evidence_item = {
+            key: item.get(key)
+            for key in ("evidence_id", "tool_name", "summary")
+            if item.get(key) not in (None, "", [], {})
+        }
+        if _is_prompt_meta_text(evidence_item.get("summary", "")):
+            evidence_item.pop("summary", None)
+        observation_texts = _top_text_items(list(item.get("observation_texts") or []), terms, limit=4)
+        observation_texts = [text for text in observation_texts if not _is_prompt_meta_text(str(text))]
+        if observation_texts:
+            evidence_item["observation_texts"] = observation_texts
+        if evidence_item:
+            linked_evidence.append(evidence_item)
+    if linked_evidence:
+        compact["linked_evidence"] = linked_evidence
+    return compact
+
+
+def _top_artifact_context_records(records: List[Dict[str, Any]], terms: List[str], *, limit: int) -> List[Dict[str, Any]]:
+    return [_compact_artifact_context_record(item, terms) for item in _top_matching_records(records, terms, limit=limit)]
 
 
 def _trace_claims(trace_package: Optional[Any]) -> List[Dict[str, Any]]:
@@ -236,7 +318,7 @@ class PlannerContextRetriever(object):
             "query_terms": terms,
             "observations": observations,
             "evidence": _top_matching_records(entries, terms, limit=20),
-            "artifact_context": _top_matching_records(artifact_context, terms, limit=20),
+            "artifact_context": _top_artifact_context_records(artifact_context, terms, limit=20),
         }
         if str(mode or "").strip() == "refine":
             payload["preprocess_matches"] = {

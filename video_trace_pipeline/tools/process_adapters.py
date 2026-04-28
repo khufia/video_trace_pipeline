@@ -19,6 +19,7 @@ from ..tool_wrappers.spatial_grounder_runner import execute_payload as execute_s
 from ..tool_wrappers.shared import resolve_generation_controls, resolve_model_path, resolved_device_label
 from ..tool_wrappers.timelens_runner import execute_payload as execute_visual_temporal_grounder_payload
 from ..schemas import (
+    ArtifactRef,
     AudioTemporalGrounderOutput,
     AudioTemporalGrounderRequest,
     ClipRef,
@@ -402,6 +403,52 @@ def _dedupe_artifact_refs(items):
         seen.add(key)
         deduped.append(item)
     return deduped
+
+
+def _media_artifact_ref(payload: Dict[str, Any], *, kind: str, source_tool: str) -> Optional[ArtifactRef]:
+    artifact_id = str(payload.get("artifact_id") or "").strip()
+    relpath = str(payload.get("relpath") or "").strip() or None
+    if not artifact_id and not relpath:
+        return None
+    if not artifact_id and relpath:
+        artifact_id = Path(relpath).stem
+    metadata = dict(payload.get("metadata") or {})
+    for key in ("video_id", "start_s", "end_s", "timestamp_s"):
+        if payload.get(key) is not None and key not in metadata:
+            metadata[key] = payload.get(key)
+    return ArtifactRef(
+        artifact_id=artifact_id,
+        kind=kind,
+        relpath=relpath,
+        media_type={"clip": "video", "frame": "image", "region": "image"}.get(kind),
+        source_tool=source_tool,
+        metadata=metadata,
+    )
+
+
+def _request_artifact_refs(request, *, source_tool: str) -> List[ArtifactRef]:
+    artifacts: List[ArtifactRef] = []
+    for clip in list(getattr(request, "clips", []) or []):
+        payload = _model_to_dict(clip)
+        artifact = _media_artifact_ref(payload, kind="clip", source_tool=source_tool)
+        if artifact is not None:
+            artifacts.append(artifact)
+    for frame in list(getattr(request, "frames", []) or []):
+        payload = _model_to_dict(frame)
+        artifact = _media_artifact_ref(payload, kind="frame", source_tool=source_tool)
+        if artifact is not None:
+            artifacts.append(artifact)
+        clip_payload = _model_to_dict(payload.get("clip"))
+        clip_artifact = _media_artifact_ref(clip_payload, kind="clip", source_tool=source_tool)
+        if clip_artifact is not None:
+            artifacts.append(clip_artifact)
+    for transcript in list(getattr(request, "transcripts", []) or []):
+        payload = _model_to_dict(transcript)
+        clip_payload = _model_to_dict(payload.get("clip"))
+        clip_artifact = _media_artifact_ref(clip_payload, kind="clip", source_tool=source_tool)
+        if clip_artifact is not None:
+            artifacts.append(clip_artifact)
+    return _dedupe_artifact_refs(artifacts)
 
 
 def _join_text_blocks(items: List[str]) -> str:
@@ -1481,6 +1528,7 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
         request = _generic_request_with_sequence_context(self.request_model, request)
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
+        artifact_refs = _request_artifact_refs(request, source_tool=self.name)
         low_signal_output = False
         candidate_chunks = [str(parsed.answer or "").strip(), str(parsed.analysis or "").strip()]
         candidate_chunks.extend(str(item).strip() for item in list(parsed.supporting_points or []) if str(item).strip())
@@ -1499,6 +1547,7 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
             ok=True,
             data=data,
             raw_output_text=raw,
+            artifact_refs=artifact_refs,
             request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
             summary=(
                 "generic_purpose produced a low-signal response and it was omitted from evidence."

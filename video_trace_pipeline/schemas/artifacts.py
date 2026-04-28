@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, ConfigDict, Field, validator
 
 
 class ArtifactRef(BaseModel):
@@ -63,9 +63,10 @@ class TranscriptSegment(BaseModel):
 
 
 class TranscriptRef(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     transcript_id: str
     clip: Optional[ClipRef] = None
     relpath: Optional[str] = None
-    text: str = ""
     segments: List[TranscriptSegment] = Field(default_factory=list)
     metadata: Dict[str, object] = Field(default_factory=dict)

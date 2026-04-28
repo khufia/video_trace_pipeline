@@ -41,7 +41,25 @@ Reasoning discipline:
 - For brief sound-cause questions, distinguish setup context from the direct trigger in the local sound-centered before/during/after sequence. Allow small audio/visual alignment offsets, but prefer the direct visible/audible event over a remote dialogue line.
 - For map, direction, and relative-position questions, state the referenced region, the anchor region, and the relative geometry. If pointing plus nearby labels ground the referenced region, do not leave the answer blank merely because a tiny icon label is imperfectly readable.
 - For quote-adjacent dialogue questions, allow grounded paraphrase mapping from the local exchange when exact wording is absent, but cite the local utterance sequence and speaker/response relation.
-- For multiple-choice questions, justify one supported option or leave `final_answer` empty.
+- For multiple-choice questions, choose the uniquely best-supported option when the evidence rules out alternatives or clearly maps to one option.
+- Leave `final_answer` empty only when multiple options remain genuinely compatible or the missing premise could change the selected option.
+- If the best option is supported but one detail is weak, keep the answer and state the weakness in evidence/inference text instead of erasing the answer.
+
+Chronology synthesis rule:
+- Before answering sequence, first/last, before/after, or count-over-time questions, sort every frame/clip/transcript observation by timestamp.
+- State the ordered candidates in the inference steps before mapping to the final option.
+
+Atomic evidence rule:
+- Prefer atomic observations as the citation surface for answer-critical claims.
+- Use evidence summaries as handles only; do not treat a broad evidence summary as proof of details absent from linked observations.
+
+Prior-evidence rule:
+- In refine mode, preserve prior supported evidence unless new evidence directly contradicts it, corrects it, or proves the old anchor wrong.
+- If new evidence is weaker or narrower, use it as a supplement, not a replacement.
+
+Option-mapping rule:
+- For multiple choice, explicitly state why the grounded observation maps to the selected option and why close alternatives are not better supported.
+- Do not answer with a nearby referent, related event, or semantically similar option unless the evidence links that exact referent/event.
 
 Uncertainty discipline:
 - Preserve uncertainty when evidence is partial, approximate, or ambiguous.
@@ -73,6 +91,36 @@ Example C, sound trigger:
 Example D, unresolved fine detail:
 - Evidence confirms a person is holding an object but does not ground left/right hand.
 - Output should leave final_answer empty when the answer choices require handedness, and the inference step should say the handedness remains unresolved.
+
+Example E, chronology:
+- Evidence observations: 10s shows STEP_A, 12s shows STEP_B, 15s shows STEP_C.
+- Good synthesis: "Chronologically, STEP_A -> STEP_B -> STEP_C, so the matching option is ..."
+- Bad synthesis: "The retrieved frames list STEP_B first, so STEP_B is first."
+
+Example F, option-induced convention:
+- Evidence says "early 2000s"; options contain "2000" but not "early 2000s".
+- Good synthesis: choose the closest provided option if unique, while stating that the exact year is not directly stated.
+- Bad synthesis: claim the video directly says "2000".
+
+Example G, label-value pairing:
+- Evidence reads LEFT TEAM=12 and RIGHT TEAM=10.
+- Good synthesis: preserve which label is paired with which number before selecting the option.
+- Bad synthesis: choose any option containing 12 and 10.
+
+Example H, referent alignment:
+- Evidence says the person with a red bag is seated and a different person in a red shirt is standing.
+- Good synthesis: answer about the person with the red bag.
+- Bad synthesis: answer about any person associated with red.
+
+Example I, closest-category option:
+- Evidence describes a small portable light source with a handle; options are portable light, book, phone, plate.
+- Good synthesis: map uniquely to portable light without overclaiming the exact subtype.
+- Bad synthesis: leave blank because the exact option phrase was not observed.
+
+Example J, ASR-to-visual anchor:
+- Evidence has transcript at 40s naming an object and frames at 40-42s showing the object closed.
+- Good synthesis: use the transcript to anchor the moment and visual frames to ground the state.
+- Bad synthesis: infer the visual state from the object being mentioned in speech.
 """
 
 

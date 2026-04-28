@@ -35,7 +35,7 @@ Retrieval use:
 - If using previous evidence directly, pass literal `evidence_ids` from RETRIEVED_CONTEXT in `inputs`; do not invent IDs.
 
 Planning rules:
-- Gather the fewest tool calls that resolve the answer-critical gap.
+- Gather the smallest sufficient evidence set that resolves the answer-critical gap. Do not shrink context so much that temporal order, action state, referent identity, or option mapping becomes ungrounded.
 - Use only canonical tool request fields from AVAILABLE_TOOLS.
 - If a downstream tool needs prior media or transcripts, wire that exact structured output through `input_refs`.
 - Pass ASR to generic_purpose through `transcripts`, never flattened `text_contexts`.
@@ -45,6 +45,34 @@ Planning rules:
 - Do not bind current-plan outputs into `evidence_ids`.
 - generic_purpose must receive explicit context: clips, frames, transcripts, text_contexts, evidence_ids, or input_refs.
 - Never call more than 6 tools in one plan.
+
+Wiring is not evidence:
+- `input_refs` only pass media/text objects between tools.
+- The plan must still say what answer-critical observation the downstream tool should extract from those inputs.
+
+Chain sufficiency rule:
+- A chain is sufficient only if its output can ground the final discriminator, not merely locate a related moment.
+- For sequence/order/count/action tasks, prefer chronological clips or frame sequences over isolated top-k frames.
+- For visible text tasks, preserve label-value adjacency and region context until OCR has read the target text.
+
+Evidence preservation rule:
+- In refine mode, preserve useful prior timestamps, clips, OCR text, ASR spans, artifact context, and atomic observations.
+- Re-search broadly only when the diagnosis says the old anchor is wrong, contradicted, or incomplete.
+- If the audit names missing information, target that missing fact directly before starting a new semantic search.
+
+Occurrence and chronology rule:
+- For first/last/before/after/ordered-list questions, collect all relevant candidate events in the bounded interval, sort by timestamp, and then choose the requested occurrence.
+- Never infer chronology from retrieval result order.
+- If an early/late candidate is missing, retrieve the full interval before answering.
+
+Action-at-timestamp rule:
+- Exact timestamps are anchors, not isolated proof.
+- For action, motion, state change, count, or identity at a timestamp, retrieve the anchor frame plus chronological neighbors.
+- The downstream tool must receive the structured frame sequence and answer from the local sequence.
+
+Small-text rule:
+- For scoreboards, prices, labels, signs, nameplates, charts, menus, or control panels, use high-resolution frames, region grounding, OCR, and explicit label-value pairing.
+- Preserve spatial adjacency such as team-score, product-price, name-role, and label-value.
 
 Tool-chain patterns:
 - Visible text: visual_temporal_grounder -> frame_retriever -> ocr.
@@ -103,6 +131,47 @@ Example D, repeated count/state:
   ],
   "refinement_instructions": "Count only candidates whose state is grounded; explain rejected ambiguous candidates."
 }
+
+Example E, ordered labels:
+- Good plan: retrieve the bounded montage as a chronological frame sequence, OCR each visible label, then synthesize the ordered label list.
+- Bad plan: retrieve top-k relevant frames and treat returned relevance order as chronology.
+
+Example F, exact timestamp action:
+- Good plan: retrieve the anchor frame plus +/- 2s chronological neighbors, then ask generic_purpose over the sequence.
+- Bad plan: inspect only the exact frame and ignore adjacent motion context.
+
+Example G, label-value display:
+- Good plan: retrieve the stable display after the update, spatially ground the relevant region, OCR label-value pairs, and preserve adjacency.
+- Bad plan: OCR an early full frame and infer the missing pairing.
+
+Example H, tone transition:
+- Good plan: localize before/after utterance windows for the same speaker, run ASR, retrieve delivery frames/clips, and compare delivery.
+- Bad plan: infer tone from transcript sentiment words alone.
+
+Example I, quote-adjacent response:
+- Good plan: localize the quoted line in ASR, keep the local dialogue window before and after it, identify the responding speaker, and map the response to an option.
+- Bad plan: search only for exact option text and ignore turn-taking.
+
+Example J, speaker/addressee attribution:
+- Good plan: combine the ASR line, neighboring frames, turn order, gaze, position, subtitles, or response behavior.
+- Bad plan: assume the nearest named person in the transcript is the speaker or addressee.
+
+Example K, object state anchored by speech:
+- Good plan: use ASR to find the utterance time, retrieve frames around it, spatially ground the object, and verify state such as empty/full/open/closed/on/off.
+- Bad plan: use the transcript topic as proof of the visual state.
+
+Example L, repeated event count:
+- Good plan: localize the marker event and count interval, retrieve a dense chronological sequence, count complete cycles, and state inclusion rules.
+- Bad plan: count from sparse representative frames.
+
+Example M, absence/not-mentioned:
+- Good plan: run ASR over the relevant explanation window, preserve exact transcript spans for mentioned candidates, and compare every option against transcript evidence.
+- Bad plan: answer from broad scene captions or world knowledge.
+
+Example N, refine after audit:
+- Diagnosis: "The trace found the event but did not prove the object state."
+- Good plan: preserve the event timestamp, retrieve frames/regions at that timestamp, and verify only the missing state.
+- Bad plan: run a broad new event search and discard the prior timestamp.
 """
 
 

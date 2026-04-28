@@ -47,6 +47,29 @@ def evidence_temporal_bounds(observations: List[AtomicObservation]) -> Dict[str,
     return temporal_payload_from_records(observations)
 
 
+def _artifact_ids_from_payload(payload: Any) -> List[str]:
+    if not isinstance(payload, dict):
+        return []
+    ordered: List[str] = []
+    seen = set()
+
+    def _add(value: Any) -> None:
+        text = str(value or "").strip()
+        if not text or text in seen:
+            return
+        seen.add(text)
+        ordered.append(text)
+
+    _add(payload.get("artifact_id"))
+    frame = payload.get("frame")
+    if isinstance(frame, dict):
+        _add(frame.get("artifact_id"))
+    clip = payload.get("clip")
+    if isinstance(clip, dict):
+        _add(clip.get("artifact_id"))
+    return ordered
+
+
 class ObservationExtractor(object):
     VERSION = "v2"
 
@@ -218,6 +241,7 @@ class ObservationExtractor(object):
         items = []
         for frame in list(data.get("frames") or []):
             ts = float(frame.get("timestamp_s", frame.get("timestamp", 0.0)) or 0.0)
+            source_artifact_refs = _artifact_ids_from_payload(frame) or artifact_ids
             items.append(
                 self._make_observation(
                     "frame_retriever",
@@ -229,7 +253,7 @@ class ObservationExtractor(object):
                     atomic_text="A candidate frame was retrieved at %.2fs." % ts,
                     frame_ts_s=ts,
                     confidence=frame.get("metadata", {}).get("relevance_score") or frame.get("relevance_score"),
-                    source_artifact_refs=artifact_ids,
+                    source_artifact_refs=source_artifact_refs,
                 )
             )
         return items
@@ -431,8 +455,14 @@ class ObservationExtractor(object):
         reads = list(data.get("reads") or [])
         if reads:
             for read in reads:
-                frame = dict(read.get("frame") or {})
-                region = dict(read.get("region") or {})
+                frame_payload = read.get("frame")
+                if not frame_payload and isinstance(read.get("frames"), list) and read.get("frames"):
+                    frame_payload = read.get("frames")[0]
+                region_payload = read.get("region")
+                if not region_payload and isinstance(read.get("regions"), list) and read.get("regions"):
+                    region_payload = read.get("regions")[0]
+                frame = dict(frame_payload or {})
+                region = dict(region_payload or {})
                 timestamp = read.get("timestamp_s")
                 if timestamp is None and frame:
                     timestamp = frame.get("timestamp_s")
@@ -451,6 +481,11 @@ class ObservationExtractor(object):
                         bbox = region.get("bbox") if region else None
                     if not text:
                         continue
+                    source_artifact_refs = (
+                        _artifact_ids_from_payload(region)
+                        or _artifact_ids_from_payload(frame)
+                        or artifact_ids
+                    )
                     items.append(
                         self._make_observation(
                             "ocr",
@@ -462,7 +497,7 @@ class ObservationExtractor(object):
                             atomic_text='OCR detected text: "%s".' % text,
                             bbox=bbox,
                             frame_ts_s=float(timestamp) if timestamp is not None else None,
-                            source_artifact_refs=artifact_ids,
+                            source_artifact_refs=source_artifact_refs,
                         )
                     )
             return items
@@ -503,6 +538,7 @@ class ObservationExtractor(object):
             for grounding in groundings:
                 frame = dict((list(grounding.get("frames") or []) or [{}])[0] or {})
                 frame_ts = frame.get("timestamp_s") or frame.get("timestamp")
+                source_artifact_refs = _artifact_ids_from_payload(frame) or artifact_ids
                 for detection in grounding.get("detections") or []:
                     label = str(detection.get("label") or detection.get("name") or "entity").strip()
                     bbox = detection.get("bbox") or detection.get("box")
@@ -519,7 +555,7 @@ class ObservationExtractor(object):
                             bbox=bbox,
                             frame_ts_s=float(frame_ts) if frame_ts is not None else None,
                             confidence=float(confidence) if confidence is not None else None,
-                            source_artifact_refs=artifact_ids,
+                            source_artifact_refs=source_artifact_refs,
                         )
                     )
             return items
@@ -528,6 +564,7 @@ class ObservationExtractor(object):
         frame_ts = data.get("timestamp_s") or data.get("timestamp")
         if frame_ts is None:
             frame_ts = frame.get("timestamp_s") or frame.get("timestamp")
+        source_artifact_refs = _artifact_ids_from_payload(frame) or artifact_ids
         for detection in detections:
             label = str(detection.get("label") or detection.get("name") or "entity").strip()
             bbox = detection.get("bbox") or detection.get("box")
@@ -544,7 +581,7 @@ class ObservationExtractor(object):
                     bbox=bbox,
                     frame_ts_s=frame_ts,
                     confidence=float(confidence) if confidence is not None else None,
-                    source_artifact_refs=artifact_ids,
+                    source_artifact_refs=source_artifact_refs,
                 )
             )
         return items
@@ -566,20 +603,28 @@ class ObservationExtractor(object):
             return llm_chunks
         if text:
             chunks.extend(_atomic_chunks(text))
-        return [
-            self._make_observation(
-                "generic_purpose",
-                subject="generic_tool",
-                subject_type="tool",
-                predicate="reported",
-                object_text=chunk,
-                object_type="text",
-                atomic_text=chunk,
-                direct_or_derived="derived",
-                source_artifact_refs=artifact_ids,
+        observations = []
+        for chunk in chunks:
+            source_artifact_refs = artifact_ids
+            ordinal_match = re.search(r"\bframe\s+(\d+)\b", str(chunk or ""), flags=re.IGNORECASE)
+            if ordinal_match and artifact_ids:
+                index = int(ordinal_match.group(1)) - 1
+                if 0 <= index < len(artifact_ids):
+                    source_artifact_refs = [artifact_ids[index]]
+            observations.append(
+                self._make_observation(
+                    "generic_purpose",
+                    subject="generic_tool",
+                    subject_type="tool",
+                    predicate="reported",
+                    object_text=chunk,
+                    object_type="text",
+                    atomic_text=chunk,
+                    direct_or_derived="derived",
+                    source_artifact_refs=source_artifact_refs,
+                )
             )
-            for chunk in chunks
-        ]
+        return observations
 
     def _fallback(self, data: Dict[str, Any], tool_name: str, artifact_ids: Optional[List[str]] = None) -> List[AtomicObservation]:
         text = json.dumps(data, ensure_ascii=False)

@@ -8,7 +8,7 @@ from .config import (
     RuntimeSnapshot,
     ToolConfig,
 )
-from .plans import ArgumentBinding, ExecutionPlan, InputRef, PlanStep
+from .plans import ExecutionPlan, InputRef, PlanStep
 from .task import TaskSpec
 from .tool_requests import (
     ASRRequest,
@@ -55,7 +55,6 @@ __all__ = [
     "ASROutput",
     "ASRSegmentOutput",
     "ApiEndpointConfig",
-    "ArgumentBinding",
     "ArtifactRef",
     "AtomicObservation",
     "AudioEventCandidate",

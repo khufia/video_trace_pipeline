@@ -117,7 +117,6 @@ class _Registry(object):
                         {
                             "transcript_id": "tx_1",
                             "clip": request["clips"][0],
-                            "text": "hello world",
                             "segments": [{"start_s": 0.0, "end_s": 1.0, "text": "hello world"}],
                         }
                     ],

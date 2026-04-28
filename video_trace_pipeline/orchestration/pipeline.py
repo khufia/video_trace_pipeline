@@ -445,6 +445,7 @@ class PipelineRunner(object):
             "task": task.persistable_dict(),
             "preprocess_cache": None,
             "clip_duration_s": effective_clip_duration_s,
+            "max_rounds": int(max_rounds),
         }
         self.workspace.write_run_manifest(run, manifest_payload)
         if progress_reporter is not None and hasattr(progress_reporter, "on_run_start"):

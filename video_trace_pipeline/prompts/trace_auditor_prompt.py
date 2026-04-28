@@ -191,26 +191,63 @@ evidence summary, not merely plausible.
 
 Audit score ICL:
 
-Example score 5:
-- Trace cites ASR transcript, chronological frames, and OCR observations for every answer-critical claim.
-- The final option follows from a stated comparison, timestamps are aligned, and diagnostics explain referent and option alignment.
-- Return PASS with scores near 5 and no blocking findings.
+Example A, strong multimodal PASS:
+- Question asks for the status and number shown after a spoken "start" cue.
+- Evidence: ASR anchors "start" at 5.2s; an old display at 4.8s is rejected; OCR at 6.1s reads STATUS=READY and COUNT=18 with label-value pairing.
+- Trace cites the ASR anchor, rejects the pre-cue value, preserves label-value pairing, and selects "READY, 18".
+- Expected audit: PASS; logical_coherence=5, completeness=5, factual_correctness=5, reasoning_order=5; no missing_information.
 
-Example score 4:
-- Trace reaches the right option with strong cited evidence, but one non-critical timestamp is approximate or one minor supporting detail is under-explained.
-- Return PASS only if the answer-critical discriminator is fully supported; otherwise FAIL. Scores should be mostly 4 with a LOW finding if needed.
+Example B, answer likely correct but under-supported:
+- Question asks which container is empty after a lid is removed.
+- Evidence: lid removed from the left container; middle and right contain objects; left interior is occluded.
+- Trace selects left container as empty, but cites only the occluded view.
+- Expected audit: FAIL; logical_coherence=4, completeness=2, factual_correctness=3, reasoning_order=4; category=INCOMPLETE_TRACE; missing_information=["left container contents after the lid is removed"]; feedback preserves the left-container candidate but asks for state verification.
 
-Example score 3:
-- Trace has the right broad moment and some cited evidence, but skips an important bridge such as reading the exact label, verifying a state, or mapping the observation to a unique option.
-- Return FAIL. Scores should be around 3, with one MEDIUM or HIGH root-cause finding and missing_information naming the unresolved discriminator.
+Example C, wrong temporal occurrence:
+- Question asks for the first indicator light color.
+- Evidence: first at 5s is blue; later at 18s is red; later at 22s is yellow.
+- Trace answers red from the clearest later frame.
+- Expected audit: FAIL; logical_coherence=2, completeness=2, factual_correctness=1, reasoning_order=2; categories=TEMPORAL_GAP and ANSWER_ERROR.
 
-Example score 2:
-- Trace uses a localized clip but imports a speaker identity, object count, handedness, or direct sound cause not stated by the evidence.
-- Return FAIL. logical_coherence may be 2 or 3 if the reasoning shape is visible, completeness and factual_correctness should be 2 because the answer-critical claim is unsupported.
+Example D, correct final option with wrong intermediate reasoning:
+- Question asks which label appears second.
+- Evidence order: ALPHA at 3s, BETA at 6s, GAMMA at 9s.
+- Trace says the order is ALPHA, GAMMA, BETA but final_answer is "BETA".
+- Expected audit: FAIL; logical_coherence=1, completeness=2, factual_correctness=2, reasoning_order=2; category=INFERENCE_ERROR because the final answer contradicts the trace's own intermediate order.
 
-Example score 1:
-- Trace contradicts cited evidence, answers a non-option, performs impossible arithmetic, or cites observations that do not exist.
-- Return FAIL with HIGH findings. Scores should be 1 for the broken dimensions, and missing_information should identify the first necessary repair instead of listing every downstream consequence.
+Example E, unresolved despite enough evidence:
+- Question asks which word appears on the sign.
+- Evidence: OCR reads CAUTION and options include CAUTION, START, EXIT.
+- Trace says the sign reads CAUTION but leaves final_answer empty.
+- Expected audit: FAIL; logical_coherence=3, completeness=2, factual_correctness=5, reasoning_order=4; category=INCOMPLETE_TRACE; missing_information=["final answer selection from the already grounded OCR text"].
+
+Example F, exact timestamp action supported by neighbors:
+- Question asks what action is happening at 12.0s.
+- Evidence: exact frame is ambiguous, but 11.0s-13.0s chronological frames show continuous pouring and no alternative action.
+- Trace treats 12.0s as an anchor and uses neighboring frames for the action.
+- Expected audit: PASS; logical_coherence=5, completeness=4, factual_correctness=5, reasoning_order=5; diagnostics.exact_anchor_handling=pass.
+
+Example G, speaker/addressee mismatch:
+- Question asks who is addressed after a quoted line.
+- Evidence: Speaker A says the quote, faces Person X, and Person X responds; Person Y is nearby but does not respond.
+- Trace answers Person Y because Person Y was named earlier.
+- Expected audit: FAIL; logical_coherence=2, completeness=2, factual_correctness=1, reasoning_order=2; category=ATTRIBUTION_GAP; missing_information=["addressee identity grounded by local turn-taking and visual response"].
+
+Example H, closest-category option should pass:
+- Question asks which object category best matches the table item.
+- Evidence: grounded object is a small portable light source with a handle; no screen, pages, or phone-like rectangle is visible.
+- Trace rules out book, phone, and plate, maps to portable light, and does not overclaim subtype.
+- Expected audit: PASS; logical_coherence=4, completeness=4, factual_correctness=4, reasoning_order=5; at most a LOW evidence-limitation finding.
+
+Example I, option-induced convention overclaimed:
+- Evidence says "early 2000s"; options are 1995, 2000, 2010.
+- Trace says the transcript directly states "2000".
+- Expected audit: FAIL; logical_coherence=3, completeness=3, factual_correctness=2, reasoning_order=4; category=INFERENCE_ERROR; feedback says the answer may be intended but the trace must mark the year as option-induced convention, not direct evidence.
+
+Example J, truncated task:
+- Question text is incomplete and lacks the temporal boundary needed to answer.
+- Trace leaves final_answer empty and says the task is incomplete.
+- Expected audit: FAIL; logical_coherence=3, completeness=1, factual_correctness=3, reasoning_order=3; category=TASK_DATA_ISSUE; missing_information=["complete question text or temporal boundary"].
 
 Return JSON only matching the `AuditReport` schema.
 """

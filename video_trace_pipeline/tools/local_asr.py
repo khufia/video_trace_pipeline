@@ -349,7 +349,6 @@ class LocalASRAdapter(ToolAdapter):
                 12,
             ),
             "clip": clip_payload,
-            "text": str(text or "").strip(),
             "segments": list(segments or []),
             "metadata": metadata,
         }

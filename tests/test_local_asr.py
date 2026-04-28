@@ -240,6 +240,7 @@ def test_local_asr_summary_includes_closest_quoted_phrase_match(monkeypatch):
     assert "Closest ASR match for quoted phrase" in result.summary
     assert result.data["phrase_matches"][0]["phrase"] == "come to bill's ammunition"
     assert "text" not in result.data
+    assert "text" not in result.data["transcripts"][0]
     assert result.data["transcripts"][0]["segments"][0]["text"] == "Come to Phil's Heavy Nation today."
 
 
@@ -268,6 +269,7 @@ def test_local_asr_returns_empty_success_when_clip_collapses_after_bounds_normal
     assert "text" not in result.data
     assert "segments" not in result.data
     assert len(result.data["transcripts"]) == 1
+    assert "text" not in result.data["transcripts"][0]
     assert result.data["transcripts"][0]["segments"] == []
     assert result.metadata["warning"] == "clip_collapsed_after_bounds_normalization"
     assert "no positive duration" in result.summary.lower()

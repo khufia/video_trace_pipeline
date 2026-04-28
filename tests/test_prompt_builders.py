@@ -67,6 +67,8 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "Do not bind current-plan outputs into `time_hints`" in PLANNER_SYSTEM_PROMPT
     assert "Example A, visible text region" in PLANNER_SYSTEM_PROMPT
     assert "Example C, sound trigger" in PLANNER_SYSTEM_PROMPT
+    assert "Example K, object state anchored by speech" in PLANNER_SYSTEM_PROMPT
+    assert "Wiring is not evidence" in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" not in PLANNER_SYSTEM_PROMPT
 
 
@@ -85,6 +87,8 @@ def test_synthesizer_prompt_is_one_shot_with_icl_examples():
     assert "ROUND_ATOMIC_OBSERVATIONS:" in prompt
     assert "EVIDENCE_MEMORY" not in prompt
     assert "Example D, unresolved fine detail" in SYNTHESIZER_SYSTEM_PROMPT
+    assert "Example J, ASR-to-visual anchor" in SYNTHESIZER_SYSTEM_PROMPT
+    assert "choose the uniquely best-supported option" in SYNTHESIZER_SYSTEM_PROMPT
 
 
 def test_auditor_prompt_has_complex_score_icl_without_evidence_memory():
@@ -96,8 +100,8 @@ def test_auditor_prompt_has_complex_score_icl_without_evidence_memory():
 
     assert "ordered, deduplicated, tool-agnostic list of atomic unresolved answer-critical needs" in prompt
     assert "diagnostics: object" in prompt
-    assert "Example score 5" in AUDITOR_SYSTEM_PROMPT
-    assert "Example score 1" in AUDITOR_SYSTEM_PROMPT
+    assert "Example A, strong multimodal PASS" in AUDITOR_SYSTEM_PROMPT
+    assert "Example J, truncated task" in AUDITOR_SYSTEM_PROMPT
     assert "EVIDENCE_MEMORY" not in prompt
 
 

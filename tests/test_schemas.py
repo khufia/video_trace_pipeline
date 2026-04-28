@@ -1,7 +1,7 @@
 import pytest
 
 from video_trace_pipeline.common import traverse_path
-from video_trace_pipeline.schemas import ASRRequest, AuditReport, ClipRef, ExecutionPlan, FrameRetrieverRequest, OCRRequest, TracePackage
+from video_trace_pipeline.schemas import ASRRequest, AuditReport, ClipRef, ExecutionPlan, FrameRetrieverRequest, OCRRequest, TracePackage, TranscriptRef
 from video_trace_pipeline.tools.base import ToolAdapter
 
 
@@ -63,6 +63,18 @@ def test_asr_request_accepts_multiple_clips():
     )
 
     assert len(request.clips) == 2
+
+
+def test_transcript_ref_rejects_flattened_text_field():
+    with pytest.raises(ValueError, match="Extra inputs"):
+        TranscriptRef.model_validate(
+            {
+                "transcript_id": "tx_1",
+                "clip": {"video_id": "video1", "start_s": 0.0, "end_s": 1.0},
+                "text": "flattened transcript text",
+                "segments": [{"start_s": 0.0, "end_s": 1.0, "text": "hello"}],
+            }
+        )
 
 
 def test_ocr_request_prefers_specific_frame_inputs_over_clip_context():

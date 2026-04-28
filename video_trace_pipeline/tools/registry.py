@@ -152,7 +152,7 @@ _CANONICAL_OUTPUT_OVERRIDES = {
         ],
         "output_nested": [
             "clips[] -> video_id: str, start_s: float, end_s: float, metadata: Dict[str, Any]",
-            "transcripts[] -> transcript_id: str, clip: Optional[ClipRef], relpath: Optional[str], text: str, segments: List[TranscriptSegment], metadata: Dict[str, Any]",
+            "transcripts[] -> transcript_id: str, clip: Optional[ClipRef], relpath: Optional[str], segments: List[TranscriptSegment], metadata: Dict[str, Any]",
         ],
     },
     "dense_captioner": {
