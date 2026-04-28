@@ -111,6 +111,9 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "Artifact timing and frame reuse" in PLANNER_SYSTEM_PROMPT
     assert "partially revealed chart" in PLANNER_SYSTEM_PROMPT
     assert "latest complete frame per display" in PLANNER_SYSTEM_PROMPT
+    assert "contains` text as provisional model-observation text" in PLANNER_SYSTEM_PROMPT
+    assert "preserve distinct retrieved frame sequences" in PLANNER_SYSTEM_PROMPT
+    assert "pass representative frames from each candidate sequence" in PLANNER_SYSTEM_PROMPT
     assert "RETRIEVED_FRAME_SEQUENCES_AVAILABLE groups adjacent retrieved frames" in PLANNER_SYSTEM_PROMPT
     assert "Choose frames by task semantics" in PLANNER_SYSTEM_PROMPT
     assert "first/earliest questions need first_frame plus neighbors" in PLANNER_SYSTEM_PROMPT

@@ -36,6 +36,7 @@ Retrieval use:
 - RETRIEVAL_CATALOG lists the available text stores before planning: preprocess windows, ASR/dense-caption stores, artifact context, evidence entries, observations, and prior trace claims.
 - RETRIEVED_CONTEXT is the text-only retrieval package selected before this final plan. It may include preprocess spans, artifact context, prior atomic observations, evidence summaries, OCR text, spatial boxes, audit gaps, and prior trace claims.
 - Prefer validated retrieved observations and artifact context before starting broad searches.
+- Treat artifact_context `contains` text as provisional model-observation text, not direct visual truth. Use it to choose candidate frames or evidence ids, but verify answer-critical visual content with tools.
 - If using previous evidence directly, pass literal `evidence_ids` from RETRIEVED_CONTEXT in `inputs`; do not invent IDs.
 
 Artifact timing and frame reuse:
@@ -45,6 +46,8 @@ Artifact timing and frame reuse:
 - Call frame_retriever only when no suitable frame artifact exists, when neighboring context is required, or when the retrieved artifact context is explicitly insufficient.
 - RETRIEVED_FRAME_REFS_AVAILABLE may include redundant consecutive frames from one progressive display. For static chart/table/scoreboard tasks, select the smallest stable set, usually one latest complete frame per display, instead of passing every neighboring frame.
 - RETRIEVED_FRAME_SEQUENCES_AVAILABLE groups adjacent retrieved frames that may be an animation/progressive reveal. Choose frames by task semantics: first/earliest questions need first_frame plus neighbors, final/static completed-display questions often need latest_frame, before/after or change questions need chronological_frames, and peak/min/max visual-state questions need the frame where that state is visible.
+- For tasks requiring multiple distinct visual displays, charts, panels, or time-separated states, preserve distinct retrieved frame sequences. Do not satisfy two different required displays using two frames from the same sequence unless the same frame visibly contains both required displays.
+- When artifact_context `contains` claims conflict across neighboring frames or attach two display names to one timestamp, pass representative frames from each candidate sequence to generic_purpose and ask it to identify the display before extracting values.
 
 Planning rules:
 - Gather the smallest sufficient evidence set that resolves the answer-critical gap. Do not shrink context so much that temporal order, action state, referent identity, or option mapping becomes ungrounded.
