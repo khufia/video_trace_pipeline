@@ -148,6 +148,23 @@ def _compact_round_summary(round_index: int, plan, execution_records, audit_repo
     }
 
 
+def _build_planner_repair_request(planner_request: Dict[str, Any], plan_payload: Dict[str, Any], error: Exception) -> Dict[str, Any]:
+    repair_request = dict(planner_request or {})
+    repair_note = "\n\n".join(
+        [
+            "PLAN_VALIDATION_ERROR:",
+            str(error),
+            "REJECTED_PLAN:",
+            json.dumps(sanitize_for_persistence(plan_payload), indent=2, sort_keys=True),
+            "Rewrite the ExecutionPlan as JSON only. Keep the same evidence goal, but fix schema and wiring. "
+            "Every generic_purpose step must receive explicit clips, frames, transcripts, text_contexts, evidence_ids, "
+            "or input_refs. Do not invent evidence_ids or artifact_ids.",
+        ]
+    )
+    repair_request["user_prompt"] = "%s\n\n%s" % (str(repair_request.get("user_prompt") or ""), repair_note)
+    return repair_request
+
+
 def _trace_from_initial_steps(task, steps: List[str]) -> TracePackage:
     inference_steps = [
         InferenceStep(step_id=index + 1, text=text, supporting_observation_ids=[], answer_relevance="medium")
@@ -715,12 +732,31 @@ class PipelineRunner(object):
             )
             planner_request = self.planner.build_request(**planner_kwargs)
             write_json(round_dir / "planner_request.json", sanitize_for_persistence(planner_request))
-            _, plan = self.planner.complete_request(planner_request)
-            plan = self.plan_normalizer.normalize(
-                task,
-                plan,
-                retrieved_context=retrieved_context,
-            )
+            planner_raw, plan = self.planner.complete_request(planner_request)
+            write_json(round_dir / "planner_raw.json", {"raw": planner_raw})
+            try:
+                plan = self.plan_normalizer.normalize(
+                    task,
+                    plan,
+                    retrieved_context=retrieved_context,
+                )
+            except ValueError as exc:
+                write_json(
+                    round_dir / "planner_invalid_plan.json",
+                    {
+                        "error": str(exc),
+                        "plan": sanitize_for_persistence(plan.dict()),
+                    },
+                )
+                repair_request = _build_planner_repair_request(planner_request, plan.dict(), exc)
+                write_json(round_dir / "planner_repair_request.json", sanitize_for_persistence(repair_request))
+                repair_raw, repair_plan = self.planner.complete_request(repair_request)
+                write_json(round_dir / "planner_repair_raw.json", {"raw": repair_raw})
+                plan = self.plan_normalizer.normalize(
+                    task,
+                    repair_plan,
+                    retrieved_context=retrieved_context,
+                )
             write_json(round_dir / "planner_plan.json", sanitize_for_persistence(plan.dict()))
             if progress_reporter is not None and hasattr(progress_reporter, "on_planner"):
                 progress_reporter.on_planner(

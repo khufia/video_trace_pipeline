@@ -61,6 +61,9 @@ Planning rules:
 - Do not bind current-plan outputs into `evidence_ids`.
 - generic_purpose must receive explicit context: clips, frames, transcripts, text_contexts, evidence_ids, or input_refs.
 - Avoid generic_purpose -> generic_purpose chains whose only role is arithmetic, comparison, or consolidation of prior generic text. If the original representative media fits in one call, pass the media together and ask for extraction plus comparison in that single call.
+- If an audio/count question is conditioned on a visible object, action, or state, first ground the visible condition, then analyze audio only inside that visual interval. Start with audio grounding only when the sound itself is the primary anchor.
+- For relationship or comparison questions, plan explicit referent slots before tools: ground each queried person/object in its own intended temporal scope, then perform the relationship/comparison only after all slots have evidence. If a slot contains ordinal language like first/last/next, resolve that ordinal over the question's full scope rather than the first candidate inside a later local clip.
+- If a relationship depends on dialogue, carry the relevant transcripts into the final generic_purpose call along with the frames for each referent slot.
 - Never call more than 6 tools in one plan.
 
 Wiring is not evidence:
@@ -107,8 +110,10 @@ Tool-chain patterns:
 - Dialogue: bounded clip localization when needed -> asr -> optional generic_purpose over transcripts.
 - Tone/affect: asr plus frame_retriever sequence -> generic_purpose over transcripts and frames.
 - Brief sound cause: audio_temporal_grounder -> frame_retriever chronological sequence -> generic_purpose trigger verification.
+- Visual-conditioned audio/count: visual_temporal_grounder -> frame_retriever to verify the visible condition -> audio_temporal_grounder on those clips or generic_purpose over clips/frames/transcripts -> final count or classification.
 - Exact timestamp/action/state: frame_retriever with sequence_mode "anchor_window", include_anchor_neighbors true, sort_order "chronological" -> downstream visual verification.
 - Object count/state: visual_temporal_grounder -> frame_retriever -> spatial_grounder if same-type candidates matter -> generic_purpose.
+- Multi-referent relation/comparison: identify referent slots from the question -> retrieve/ground each slot in its own scope -> pass all slot frames plus relationship transcripts/text to one generic_purpose call for relation mapping.
 - Map/direction: speech or visual anchor -> frame_retriever -> spatial_grounder for anchor and referent -> generic_purpose coordinate comparison.
 - ASR-to-visual grounding: asr -> frame_retriever using transcripts[].clip or clips, with no `time_hints` input_ref -> generic_purpose with transcripts and frames.
 
@@ -214,6 +219,11 @@ Example P, progressive chart frame selection:
 - RETRIEVED_FRAME_REFS_AVAILABLE includes several consecutive frames from one chart reveal and several consecutive frames from a second chart reveal.
 - Good plan: decide from the question whether it asks for the first state, final complete state, a before/after change, or a peak/min/max state; pass the smallest frame set that preserves that semantics.
 - Bad plan: pass all consecutive frames to generic_purpose and ask it to reconcile partial/revealed bars as if they were separate evidence.
+
+Example Q, multi-referent relation:
+- Question pattern: "What is the relation between the person holding the named object and the person holding the first object?"
+- Good plan: create two slots, one for the named-object holder and one for the first-object holder; ground the first-object slot over the full question scope, ground the named-object slot near the naming event, pass both frame sets plus any relationship transcript to one generic_purpose call, then map the relation option.
+- Bad plan: inspect only the named-object window, treat the first object in that local window as the question's first object, and drop the relationship transcript before option mapping.
 """
 
 
@@ -283,6 +293,21 @@ Return:
 
 def _normalize_text(value: object) -> str:
     return " ".join(str(value or "").strip().split())
+
+
+def _question_structure_hints(question: object) -> List[str]:
+    text = _normalize_text(question)
+    lowered = text.lower()
+    hints: List[str] = []
+    if "relation between" in lowered or "relationship between" in lowered:
+        hints.append(
+            "This is a multi-referent relation question. Maintain separate referent slots for each side of the relationship, ground each slot in its own intended temporal scope, then compare the grounded referents."
+        )
+    if hints and re.search(r"\b(first|last|next|previous|earliest|latest)\b", lowered):
+        hints.append(
+            "One relation slot uses ordinal language. Resolve that ordinal over the question's full scope, not only within a later retrieved local clip."
+        )
+    return hints
 
 
 def _severity_rank(value: object) -> int:
@@ -605,6 +630,7 @@ def build_planner_prompt(
         normalized_preprocess_segments,
         video_id=str(task.video_id or task.sample_key),
     )
+    question_structure_hints = _question_structure_hints(task.question)
 
     parts = [
         "MODE: %s" % mode,
@@ -618,6 +644,15 @@ def build_planner_prompt(
         render_tool_catalog(tool_catalog),
         "",
     ]
+
+    if question_structure_hints:
+        parts.extend(
+            [
+                "QUESTION_STRUCTURE_HINTS:",
+                pretty_json(question_structure_hints),
+                "",
+            ]
+        )
 
     if normalized_preprocess_segments:
         parts.extend(

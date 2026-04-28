@@ -83,6 +83,36 @@ def test_trace_synthesizer_uses_tracepackage_response_model():
     assert client.calls[0]["response_model"] is TracePackage
 
 
+def test_trace_synthesizer_coerces_labeled_evidence_confidence():
+    payload = {
+        "task_key": "sample1",
+        "mode": "generate",
+        "evidence_entries": [
+            {
+                "evidence_id": "ev_1",
+                "tool_name": "generic_purpose",
+                "evidence_text": "The chart supports the value.",
+                "confidence": "medium",
+            },
+            {
+                "evidence_id": "ev_2",
+                "tool_name": "generic_purpose",
+                "evidence_text": "The label is clear.",
+                "confidence": "high",
+            },
+        ],
+        "inference_steps": [],
+        "final_answer": "A",
+        "benchmark_renderings": {},
+        "metadata": {},
+    }
+
+    parsed = TracePackage.model_validate(payload)
+
+    assert parsed.evidence_entries[0].confidence == 0.5
+    assert parsed.evidence_entries[1].confidence == 0.85
+
+
 def test_trace_synthesizer_rejects_noncanonical_trace_payloads():
     payload = {
         "task_key": "sample1",

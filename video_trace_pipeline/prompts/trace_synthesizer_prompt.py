@@ -43,6 +43,7 @@ Reasoning discipline:
 - For quote-adjacent dialogue questions, allow grounded paraphrase mapping from the local exchange when exact wording is absent, but cite the local utterance sequence and speaker/response relation.
 - For repeated place/name/entity or mentioned-in-text questions, preserve exact surface forms and span boundaries. Prefer the longest repeated matching name or phrase over a shorter substring embedded inside that phrase unless the task explicitly asks about words or tokens.
 - Do not downgrade a repeated organization, venue, event, brand, or institution phrase to a shorter place token inside it when the full phrase repeats and defines a clearer interval.
+- For relationship or comparison questions, keep each queried referent as a separate evidence slot until the relation is mapped. If one slot uses ordinal language such as first/last, use the full ordered scope for that slot rather than the first candidate in a later local clip.
 - For multiple-choice questions, choose the uniquely best-supported option when the evidence rules out alternatives or clearly maps to one option.
 - Leave `final_answer` empty only when multiple options remain genuinely compatible or the missing premise could change the selected option.
 - If the best option is supported but one detail is weak, keep the answer and state the weakness in evidence/inference text instead of erasing the answer.
@@ -123,6 +124,11 @@ Example J, ASR-to-visual anchor:
 - Evidence has transcript at 40s naming an object and frames at 40-42s showing the object closed.
 - Good synthesis: use the transcript to anchor the moment and visual frames to ground the state.
 - Bad synthesis: infer the visual state from the object being mentioned in speech.
+
+Example K, relation slots:
+- Evidence has early frames grounding person A with the first object, later frames grounding person B with a named object, and transcript evidence stating the relationship between A and B.
+- Good synthesis: state A, state B, cite both visual slots and the transcript relation, then map the option.
+- Bad synthesis: inspect only the later named-object window and decide the first object-holder from that local window.
 """
 
 

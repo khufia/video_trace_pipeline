@@ -92,6 +92,30 @@ def test_build_planner_prompt_uses_rich_preprocess_and_retrieved_context():
     assert "- never emit arguments, depends_on, use_summary" in prompt
 
 
+def test_build_planner_prompt_adds_multi_referent_relation_hint():
+    task = TaskSpec(
+        benchmark="adhoc",
+        sample_key="sample_relation",
+        question="What is the relation between the person holding the named object and the person holding the first object?",
+        options=["A", "B"],
+        video_path="video.mp4",
+    )
+
+    prompt = build_planner_prompt(
+        task=task,
+        mode="generate",
+        planner_segments=[],
+        retrieved_context={},
+        audit_feedback=None,
+        tool_catalog={"generic_purpose": {"request_fields": ["query", "frames", "transcripts"]}},
+        retrieval_catalog={},
+    )
+
+    assert "QUESTION_STRUCTURE_HINTS:" in prompt
+    assert "multi-referent relation question" in prompt
+    assert "Resolve that ordinal over the question's full scope" in prompt
+
+
 def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "steps: list of {step_id, tool_name, purpose, inputs, input_refs, expected_outputs}" in PLANNER_SYSTEM_PROMPT
     assert "field-keyed object" in PLANNER_SYSTEM_PROMPT
@@ -100,6 +124,11 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "PREPROCESS_TRANSCRIPTS_AVAILABLE as structured `inputs.transcripts`" in PLANNER_SYSTEM_PROMPT
     assert "Transcript already in preprocessing" in PLANNER_SYSTEM_PROMPT
     assert "run ASR only when transcript coverage is missing or insufficient" in PLANNER_SYSTEM_PROMPT
+    assert "audio/count question is conditioned on a visible object, action, or state" in PLANNER_SYSTEM_PROMPT
+    assert "Visual-conditioned audio/count" in PLANNER_SYSTEM_PROMPT
+    assert "relationship or comparison questions" in PLANNER_SYSTEM_PROMPT
+    assert "Multi-referent relation/comparison" in PLANNER_SYSTEM_PROMPT
+    assert "Example Q, multi-referent relation" in PLANNER_SYSTEM_PROMPT
     assert "Text_contexts alone are not enough for visual-state verification" in PLANNER_SYSTEM_PROMPT
     assert "Avoid generic_purpose -> generic_purpose chains" in PLANNER_SYSTEM_PROMPT
     assert "extraction plus comparison in that single call" in PLANNER_SYSTEM_PROMPT
@@ -165,6 +194,8 @@ def test_synthesizer_prompt_is_one_shot_with_icl_examples():
     assert "EVIDENCE_MEMORY" not in prompt
     assert "Example D, unresolved fine detail" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Example J, ASR-to-visual anchor" in SYNTHESIZER_SYSTEM_PROMPT
+    assert "relationship or comparison questions" in SYNTHESIZER_SYSTEM_PROMPT
+    assert "Example K, relation slots" in SYNTHESIZER_SYSTEM_PROMPT
     assert "choose the uniquely best-supported option" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Prefer the longest repeated matching name or phrase" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Do not downgrade a repeated organization" in SYNTHESIZER_SYSTEM_PROMPT

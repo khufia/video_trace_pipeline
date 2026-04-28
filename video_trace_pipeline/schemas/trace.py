@@ -7,6 +7,42 @@ from pydantic import BaseModel, Field, validator
 
 from .artifacts import ArtifactRef
 
+_CONFIDENCE_LABELS = {
+    "very low": 0.1,
+    "low": 0.25,
+    "medium": 0.5,
+    "moderate": 0.5,
+    "high": 0.85,
+    "very high": 0.95,
+}
+
+
+def _coerce_optional_confidence(value):
+    if value is None or isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        numeric = float(value)
+        return numeric if 0.0 <= numeric <= 1.0 else None
+    text = str(value or "").strip()
+    if not text:
+        return None
+    normalized = text.lower()
+    if normalized in {"none", "null", "unknown", "n/a", "na", "unavailable"}:
+        return None
+    if normalized in _CONFIDENCE_LABELS:
+        return _CONFIDENCE_LABELS[normalized]
+    if normalized.endswith("%"):
+        try:
+            numeric = float(normalized[:-1].strip()) / 100.0
+        except ValueError:
+            return None
+        return numeric if 0.0 <= numeric <= 1.0 else None
+    try:
+        numeric = float(normalized)
+    except ValueError:
+        return None
+    return numeric if 0.0 <= numeric <= 1.0 else None
+
 
 class ToolResult(BaseModel):
     tool_name: str
@@ -48,6 +84,10 @@ class AtomicObservation(BaseModel):
         if len(value) != 4:
             raise ValueError("bbox must have 4 elements")
         return [float(item) for item in value]
+
+    @validator("confidence", pre=True)
+    def _normalize_confidence(cls, value):  # noqa: N805
+        return _coerce_optional_confidence(value)
 
 
 def _normalize_time_interval_list(value):
@@ -117,6 +157,10 @@ class EvidenceEntry(BaseModel):
         if normalized not in {"validated", "provisional", "superseded"}:
             raise ValueError("status must be validated, provisional, or superseded")
         return normalized
+
+    @validator("confidence", pre=True)
+    def _normalize_confidence(cls, value):  # noqa: N805
+        return _coerce_optional_confidence(value)
 
     @validator("time_intervals", pre=True)
     def _normalize_time_intervals(cls, value):  # noqa: N805
@@ -203,6 +247,11 @@ class AuditReport(BaseModel):
     def _validate_verdict(cls, value):  # noqa: N805
         value = str(value or "FAIL").strip().upper()
         return value if value in {"PASS", "FAIL"} else "FAIL"
+
+    @validator("confidence", pre=True)
+    def _normalize_confidence(cls, value):  # noqa: N805
+        normalized = _coerce_optional_confidence(value)
+        return 0.0 if normalized is None else normalized
 
     @validator("scores", pre=True)
     def _normalize_scores(cls, value):  # noqa: N805

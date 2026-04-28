@@ -193,6 +193,71 @@ def test_frame_retriever_exact_timestamp_returns_chronological_neighbors(monkeyp
     assert emitted["cache_metadata"]["anchor_window_applied"] is True
 
 
+def test_anchor_window_expands_frame_pool_beyond_short_clip(monkeypatch):
+    emitted = {}
+
+    class _SequenceHarness(_FakeHarness):
+        def _list_dense_frame_paths(self, dataset_folder, video_path):
+            return (
+                [
+                    "/tmp/frame_9.00.png",
+                    "/tmp/frame_10.00.png",
+                    "/tmp/frame_11.00.png",
+                    "/tmp/frame_12.00.png",
+                    "/tmp/frame_13.00.png",
+                    "/tmp/frame_14.00.png",
+                    "/tmp/frame_15.00.png",
+                ],
+                "/tmp/reference/dense_frames",
+            )
+
+        def _qwen_score_frames(self, query, bounded, top_k, *, persist_cache=True):
+            self.persist_cache = persist_cache
+            return [
+                {
+                    "frame_path": item["frame_path"],
+                    "timestamp": item["timestamp"],
+                    "relevance_score": 1.0 - (abs(float(item["timestamp"]) - 12.0) * 0.05),
+                }
+                for item in bounded
+            ]
+
+    fake_harness = _SequenceHarness()
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "load_request",
+        lambda: {
+            "request": {
+                "query": "frames before during and after the impact",
+                "clips": [{"start_s": 11.6, "end_s": 12.384}],
+                "time_hints": ["11.60s-12.384s event interval; center near 11.99s"],
+                "num_frames": 5,
+                "sequence_mode": "anchor_window",
+                "neighbor_radius_s": 2.5,
+                "include_anchor_neighbors": True,
+                "sort_order": "chronological",
+            },
+            "task": {},
+            "runtime": {},
+        },
+    )
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "_reference_harness_cls",
+        lambda: (lambda *args, **kwargs: fake_harness),
+    )
+    monkeypatch.setattr(frame_retriever_runner, "emit_json", lambda payload: emitted.update(payload))
+    monkeypatch.setattr(frame_retriever_runner, "resolved_device_label", lambda runtime: "cpu")
+
+    frame_retriever_runner.main()
+
+    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [10.0, 11.0, 12.0, 13.0, 14.0]
+    assert emitted["cache_metadata"]["frame_pool_start_s"] == 9.1
+    assert emitted["cache_metadata"]["frame_pool_end_s"] == 14.884
+    assert emitted["cache_metadata"]["expanded_frame_pool_for_anchor_window"] is True
+    assert emitted["frames"][0]["metadata"]["frame_pool_start_s"] == 9.1
+
+
 def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 

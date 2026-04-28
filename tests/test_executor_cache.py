@@ -315,3 +315,56 @@ def test_invalid_wiring_records_failure_before_downstream_tool_call(tmp_path):
     assert records[1]["result"]["ok"] is False
     assert records[1]["result"]["data"]["error_type"] == "unresolved_dependency"
     assert registry.adapters["frame_retriever"].calls == []
+
+
+def test_empty_resolved_media_records_invalid_request_before_tool_call(tmp_path):
+    workspace, task, run, context = _context(tmp_path)
+    registry = _Registry()
+    registry.adapters["spatial_grounder"].output = lambda request: {
+        "query": request["query"],
+        "frames": request["frames"],
+        "regions": [],
+        "spatial_description": "No matching region found.",
+    }
+    executor = _executor(workspace, registry)
+    ledger = EvidenceLedger(run)
+    plan = ExecutionPlan(
+        strategy="OCR only if spatial grounding finds a region.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="visual_temporal_grounder",
+                purpose="Find clip.",
+                inputs={"query": "price", "top_k": 1},
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="frame_retriever",
+                purpose="Retrieve frame.",
+                inputs={"query": "price frame", "num_frames": 1},
+                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
+            ),
+            PlanStep(
+                step_id=3,
+                tool_name="spatial_grounder",
+                purpose="Find price region.",
+                inputs={"query": "price label"},
+                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
+            ),
+            PlanStep(
+                step_id=4,
+                tool_name="ocr",
+                purpose="Read price label.",
+                inputs={"query": "read exact price"},
+                input_refs={"regions": [{"step_id": 3, "field_path": "regions"}]},
+            ),
+        ],
+    )
+
+    records = executor.execute_plan(plan, context, ledger, video_fingerprint="vid", round_index=1)
+
+    assert len(records) == 4
+    assert records[3]["result"]["ok"] is False
+    assert records[3]["result"]["data"]["error_type"] == "invalid_request"
+    assert records[3]["request"]["resolved_arguments"]["regions"] == []
+    assert registry.adapters["ocr"].calls == []

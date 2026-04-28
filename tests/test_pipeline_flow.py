@@ -1,10 +1,12 @@
 from types import SimpleNamespace
 
+from video_trace_pipeline.orchestration.plan_normalizer import ExecutionPlanNormalizer
 from video_trace_pipeline.orchestration.pipeline import PipelineRunner
 from video_trace_pipeline.schemas import (
     AgentConfig,
     AuditReport,
     ExecutionPlan,
+    GenericPurposeRequest,
     InferenceStep,
     MachineProfile,
     ModelsConfig,
@@ -49,17 +51,24 @@ class FakePreprocessor(object):
 class FakePlanner(object):
     def __init__(self, retrieval_decisions=None, plan=None):
         self.calls = []
+        self.completed_requests = []
         self.retrieval_calls = []
         self.retrieval_decisions = list(retrieval_decisions or [])
-        self.plan = plan
+        if isinstance(plan, list):
+            self.plans = list(plan)
+        elif plan is not None:
+            self.plans = [plan]
+        else:
+            self.plans = []
 
     def build_request(self, **kwargs):
         self.calls.append(dict(kwargs))
         return {"endpoint_name": "default", "model_name": "gpt-5.4", "system_prompt": "planner", "user_prompt": "prompt"}
 
     def complete_request(self, request):
-        del request
-        return "{}", self.plan or ExecutionPlan(strategy="No tools needed.", steps=[], refinement_instructions="")
+        self.completed_requests.append(dict(request))
+        plan = self.plans.pop(0) if self.plans else ExecutionPlan(strategy="No tools needed.", steps=[], refinement_instructions="")
+        return "{}", plan
 
     def build_retrieval_request(self, **kwargs):
         self.retrieval_calls.append(dict(kwargs))
@@ -194,6 +203,13 @@ class FakePlannerRetriever(object):
         }
 
 
+class FakePlanRegistry(object):
+    def get_adapter(self, tool_name):
+        if tool_name != "generic_purpose":
+            raise KeyError(tool_name)
+        return SimpleNamespace(request_model=GenericPurposeRequest)
+
+
 def _models_config():
     return ModelsConfig(
         agents={
@@ -326,3 +342,31 @@ def test_pipeline_writes_final_outputs(tmp_path):
     planner_request_path = tmp_path / "workspace" / result["run_dir"] / "round_01" / "planner_request.json"
     assert final_result_path.exists()
     assert planner_request_path.exists()
+
+
+def test_pipeline_retries_invalid_planner_plan_once(tmp_path):
+    invalid_plan = ExecutionPlan(
+        strategy="Invalid detached generic step.",
+        steps=[
+            {
+                "step_id": 1,
+                "tool_name": "generic_purpose",
+                "purpose": "Answer without context.",
+                "inputs": {"query": "Answer from nowhere."},
+            }
+        ],
+        refinement_instructions="",
+    )
+    repaired_plan = ExecutionPlan(strategy="No tools needed after repair.", steps=[], refinement_instructions="")
+    planner = FakePlanner(plan=[invalid_plan, repaired_plan])
+    runner = _runner(tmp_path, planner=planner)
+    runner.plan_normalizer = ExecutionPlanNormalizer(FakePlanRegistry())
+
+    result = runner.run_task(_task(tmp_path), mode="generate", max_rounds=1, clip_duration_s=30.0)
+
+    round_dir = tmp_path / "workspace" / result["run_dir"] / "round_01"
+    assert len(planner.completed_requests) == 2
+    assert "PLAN_VALIDATION_ERROR" in planner.completed_requests[1]["user_prompt"]
+    assert (round_dir / "planner_invalid_plan.json").exists()
+    assert (round_dir / "planner_repair_request.json").exists()
+    assert result["trace_package"]["final_answer"] == "A"

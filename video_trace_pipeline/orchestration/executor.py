@@ -100,36 +100,30 @@ class PlanExecutor(object):
         tool_result.cache_hit = True
         return tool_result, observations
 
-    def _record_unresolved_dependency_failure(
+    def _record_tool_step_failure(
         self,
         *,
         step,
         exc: Exception,
         execution_context: ToolExecutionContext,
         evidence_ledger: EvidenceLedger,
+        request_payload: Dict[str, Any],
+        error_type: str,
+        execution_mode: str,
+        summary_prefix: str,
         progress_reporter=None,
         round_index: int | None = None,
     ) -> Dict[str, Any]:
         error_text = str(exc)
-        summary = "Tool step skipped because a declared input reference could not be resolved: %s" % error_text
-        request_payload = {
-            "inputs": sanitize_for_persistence(dict(step.inputs or {})),
-            "input_refs": sanitize_for_persistence(
-                {
-                    target_field: [
-                        item.model_dump() if hasattr(item, "model_dump") else item.dict() if hasattr(item, "dict") else item
-                        for item in list(refs or [])
-                    ]
-                    for target_field, refs in dict(getattr(step, "input_refs", {}) or {}).items()
-                }
-            ),
-        }
+        summary = "%s: %s" % (summary_prefix, error_text)
+        request_payload = sanitize_for_persistence(request_payload)
         request_hash = hash_payload(
             {
                 "tool": step.tool_name,
                 "step_id": step.step_id,
                 "purpose": step.purpose,
-                "unresolved_dependency": error_text,
+                "error_type": error_type,
+                "error": error_text,
                 "request": request_payload,
             }
         )
@@ -138,17 +132,17 @@ class PlanExecutor(object):
             "finished_at_utc": datetime.now(timezone.utc).isoformat(),
             "duration_s": 0.0,
             "cache_wait_s": 0.0,
-            "execution_mode": "unresolved_dependency",
+            "execution_mode": execution_mode,
         }
         tool_result = ToolResult(
             tool_name=step.tool_name,
             ok=False,
-            data={"error": error_text, "error_type": "unresolved_dependency"},
+            data={"error": error_text, "error_type": error_type},
             raw_output_text=summary,
             request_hash=request_hash,
             cache_hit=False,
             summary=summary,
-            metadata={"error": error_text, "error_type": "unresolved_dependency", "timing": timing_metadata},
+            metadata={"error": error_text, "error_type": error_type, "timing": timing_metadata},
         )
         evidence_entry = EvidenceEntry(
             evidence_id="ev_%02d_%s" % (step.step_id, request_hash[:8]),
@@ -157,7 +151,7 @@ class PlanExecutor(object):
             status="provisional",
             artifact_refs=[],
             observation_ids=[],
-            metadata={"request_hash": request_hash, "cache_hit": False, "error_type": "unresolved_dependency"},
+            metadata={"request_hash": request_hash, "cache_hit": False, "error_type": error_type},
         )
         evidence_ledger.append(evidence_entry, [])
 
@@ -187,6 +181,41 @@ class PlanExecutor(object):
             "evidence_entry": evidence_entry.dict(),
             "observations": [],
         }
+
+    def _record_unresolved_dependency_failure(
+        self,
+        *,
+        step,
+        exc: Exception,
+        execution_context: ToolExecutionContext,
+        evidence_ledger: EvidenceLedger,
+        progress_reporter=None,
+        round_index: int | None = None,
+    ) -> Dict[str, Any]:
+        request_payload = {
+            "inputs": sanitize_for_persistence(dict(step.inputs or {})),
+            "input_refs": sanitize_for_persistence(
+                {
+                    target_field: [
+                        item.model_dump() if hasattr(item, "model_dump") else item.dict() if hasattr(item, "dict") else item
+                        for item in list(refs or [])
+                    ]
+                    for target_field, refs in dict(getattr(step, "input_refs", {}) or {}).items()
+                }
+            ),
+        }
+        return self._record_tool_step_failure(
+            step=step,
+            exc=exc,
+            execution_context=execution_context,
+            evidence_ledger=evidence_ledger,
+            request_payload=request_payload,
+            error_type="unresolved_dependency",
+            execution_mode="unresolved_dependency",
+            summary_prefix="Tool step skipped because a declared input reference could not be resolved",
+            progress_reporter=progress_reporter,
+            round_index=round_index,
+        )
 
     def execute_plan(
         self,
@@ -224,10 +253,39 @@ class PlanExecutor(object):
             try:
                 request = adapter.parse_request(resolved_arguments)
             except ValidationError as exc:
-                raise ValueError(
-                    "Failed to parse request for step %s (%s) with argument keys %s: %s"
-                    % (step.step_id, step.tool_name, sorted(resolved_arguments.keys()), exc)
-                ) from exc
+                failure_record = self._record_tool_step_failure(
+                    step=step,
+                    exc=exc,
+                    execution_context=execution_context,
+                    evidence_ledger=evidence_ledger,
+                    request_payload={
+                        "resolved_arguments": sanitize_for_persistence(resolved_arguments),
+                        "argument_keys": sorted(resolved_arguments.keys()),
+                        "input_refs": sanitize_for_persistence(
+                            {
+                                target_field: [
+                                    item.model_dump() if hasattr(item, "model_dump") else item.dict() if hasattr(item, "dict") else item
+                                    for item in list(refs or [])
+                                ]
+                                for target_field, refs in dict(getattr(step, "input_refs", {}) or {}).items()
+                            }
+                        ),
+                    },
+                    error_type="invalid_request",
+                    execution_mode="invalid_request",
+                    summary_prefix="Tool step skipped because the resolved request did not satisfy the tool schema",
+                    progress_reporter=progress_reporter,
+                    round_index=round_index,
+                )
+                step_outputs[step.step_id] = {
+                    "ok": False,
+                    "summary": failure_record["result"].get("summary"),
+                    "raw_output_text": failure_record["result"].get("raw_output_text"),
+                    "error": failure_record["result"].get("data", {}).get("error"),
+                    "error_type": failure_record["result"].get("data", {}).get("error_type"),
+                }
+                results.append(failure_record)
+                continue
             if progress_reporter is not None and hasattr(progress_reporter, "on_tool_start"):
                 progress_reporter.on_tool_start(
                     round_index=round_index or 0,

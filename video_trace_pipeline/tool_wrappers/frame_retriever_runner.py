@@ -513,15 +513,25 @@ def execute_payload(payload: Dict[str, Any], *, harness=None, release_embedder: 
             }
             for frame_path in frame_items
         ]
-        bounded = [
-            item for item in candidates if clip_start_s <= float(item["timestamp"]) <= clip_end_s
-        ] or candidates
         embedding_cache_ready = bool(getattr(harness, "_frame_embedding_cache_ready", lambda: False)())
         anchors = _anchor_seconds_for_time_hints(time_hints, clip_start_s, clip_end_s)
         anchor_window_requested = (
             sequence_mode in {"anchor_window", "chronological"}
             or _has_explicit_timestamp_hint(time_hints)
         )
+        expand_for_anchor_neighbors = bool(
+            anchor_window_requested
+            and (sequence_mode == "anchor_window" or _has_explicit_timestamp_hint(time_hints))
+        )
+        frame_pool_start_s = clip_start_s
+        frame_pool_end_s = clip_end_s
+        if expand_for_anchor_neighbors:
+            expansion_s = max(0.0, float(neighbor_radius_s or 0.0))
+            frame_pool_start_s = max(0.0, clip_start_s - expansion_s)
+            frame_pool_end_s = clip_end_s + expansion_s
+        bounded = [
+            item for item in candidates if frame_pool_start_s <= float(item["timestamp"]) <= frame_pool_end_s
+        ] or candidates
         effective_sort_order = (
             "chronological"
             if anchor_window_requested and sort_order == "ranked"
@@ -578,6 +588,8 @@ def execute_payload(payload: Dict[str, Any], *, harness=None, release_embedder: 
                         "device": resolved_device_label(runtime),
                         "clip_start_s": clip_start_s,
                         "clip_end_s": clip_end_s,
+                        "frame_pool_start_s": round(float(frame_pool_start_s), 3),
+                        "frame_pool_end_s": round(float(frame_pool_end_s), 3),
                         "temporal_score": item.get("temporal_score"),
                         "anchor_distance_s": item.get("anchor_distance_s"),
                         "selection_reason": item.get("selection_reason"),
@@ -627,6 +639,9 @@ def execute_payload(payload: Dict[str, Any], *, harness=None, release_embedder: 
                 "dense_frame_cache_hit": dense_frame_cache_hit,
                 "dense_frame_count": len(candidates),
                 "bounded_frame_count": len(bounded),
+                "frame_pool_start_s": round(float(frame_pool_start_s), 3),
+                "frame_pool_end_s": round(float(frame_pool_end_s), 3),
+                "expanded_frame_pool_for_anchor_window": expand_for_anchor_neighbors,
                 "embedding_cache_ready": embedding_cache_ready,
                 "embedding_cache_scope": "full_video" if embedding_cache_ready else "none",
                 "persist_cache_on_bounded_request": False,
