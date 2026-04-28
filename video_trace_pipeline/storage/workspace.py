@@ -93,6 +93,11 @@ class WorkspaceManager(object):
         }.get(str(kind or "").strip(), "misc")
         return ensure_dir(video_dir / subdir_name)
 
+    def clear_video_artifacts(self, video_id: Optional[str]) -> None:
+        video_dir = self.artifacts_root / sanitize_path_component(video_id or "unknown_video")
+        if video_dir.exists():
+            shutil.rmtree(str(video_dir))
+
     def logical_clip_artifact(self, video_id: str, start_s: float, end_s: float, source_tool: Optional[str] = None) -> ArtifactRef:
         safe_video_id = sanitize_path_component(video_id or "video")
         artifact_id = "clip_%06.2f_%06.2f" % (float(start_s or 0.0), float(end_s or 0.0))

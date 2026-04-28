@@ -32,7 +32,7 @@ print(len(payload))
 PY
 )"
 
-for ((input_index = 0; input_index < SAMPLE_COUNT; input_index++)); do
+for ((input_index = 2; input_index < SAMPLE_COUNT; input_index++)); do
   echo "[$((input_index + 1))/$SAMPLE_COUNT] running input_index=$input_index"
   "$PYTHON_BIN" -m video_trace_pipeline.cli.main run \
     --profile "$MACHINE_PROFILE_PATH" \

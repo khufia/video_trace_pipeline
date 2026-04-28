@@ -1,0 +1,31 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "583ad331ba9d929330fa8e6f",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "-1YjD_Epw9M",
+        "start_s": 120.0,
+        "end_s": 141.867,
+        "artifact_id": "clip_120_00_141_87",
+        "relpath": "artifacts/1YjD_Epw9M/clips/clip_120_00_141_87.mp4",
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "126s",
+      "127s",
+      "128s",
+      "129s",
+      "130s"
+    ],
+    "query": "frames showing the team celebrating on stage with the trophy; include visible jerseys of the celebrating team",
+    "num_frames": 5,
+    "sequence_mode": "anchor_window",
+    "neighbor_radius_s": 2.0,
+    "include_anchor_neighbors": true,
+    "sort_order": "chronological"
+  }
+}

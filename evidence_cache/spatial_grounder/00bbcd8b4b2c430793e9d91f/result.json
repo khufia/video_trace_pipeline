@@ -1,0 +1,153 @@
+{
+  "tool_name": "spatial_grounder",
+  "ok": true,
+  "data": {
+    "query": "Locate the referee visible in the replay and the painted word on the ice directly under or immediately next to the referee's skates; return regions for the readable word area, not board ads.",
+    "frames": [
+      {
+        "video_id": "-0ZosUeqDg0",
+        "timestamp_s": 255.0,
+        "artifact_id": "frame_255.00",
+        "relpath": "artifacts/0ZosUeqDg0/frames/frame_255.00.png",
+        "clip": null,
+        "metadata": {
+          "source": "retrieved_artifact_context"
+        }
+      },
+      {
+        "video_id": "-0ZosUeqDg0",
+        "timestamp_s": 256.0,
+        "artifact_id": "frame_256.00",
+        "relpath": "artifacts/0ZosUeqDg0/frames/frame_256.00.png",
+        "clip": null,
+        "metadata": {
+          "source": "retrieved_artifact_context"
+        }
+      },
+      {
+        "video_id": "-0ZosUeqDg0",
+        "timestamp_s": 257.0,
+        "artifact_id": "frame_257.00",
+        "relpath": "artifacts/0ZosUeqDg0/frames/frame_257.00.png",
+        "clip": null,
+        "metadata": {
+          "source": "retrieved_artifact_context"
+        }
+      }
+    ],
+    "detections": [],
+    "regions": [],
+    "groundings": [
+      {
+        "frames": [
+          {
+            "video_id": "-0ZosUeqDg0",
+            "timestamp_s": 255.0,
+            "artifact_id": "frame_255.00",
+            "relpath": "artifacts/0ZosUeqDg0/frames/frame_255.00.png",
+            "clip": null,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            }
+          }
+        ],
+        "detections": [],
+        "regions": [],
+        "spatial_description": "Got it, let's analyze the image. First, find the referee. There's a referee in the bottom left, wearing a black and white striped shirt. Then, the painted word on the ice under or next to the referee's skates. The word is \"VISION\" maybe? Wait, the text on the ice near the referee. Let's check the coordinates.\n\nFirst, the referee: [115, 670, 245, 997] (that's the referee in the bottom left). Then the painted word on the ice: the text \"VISION\" is there. Let's find its bbox. The word \"VISION\" is on the ice, so [10, 890, 125, 937] maybe. Wait, need to check the exact positions.\n\nSo the referee is [115, 670, 245, 997], and the painted word (VISION) is [10, 890, 125, 937]. Let's confirm. The referee is the one in the black and white stripes, and the word on the ice is \"VISION\" near the bottom left.\n<<redacted-path>>\n\n```json\n{\n  \"detections\": [\n    {\"label\": \"referee\", \"bbox\": [115, 670, 245, 997], \"confidence\": 0.95},\n    {\"label\": \"painted word on ice\", \"bbox\": [10, 890, 125, 937], \"confidence\": 0.9}\n  ],\n  \"spatial_description\": \"The referee is positioned in the bottom - left area of the image, wearing a black and white"
+      },
+      {
+        "frames": [
+          {
+            "video_id": "-0ZosUeqDg0",
+            "timestamp_s": 256.0,
+            "artifact_id": "frame_256.00",
+            "relpath": "artifacts/0ZosUeqDg0/frames/frame_256.00.png",
+            "clip": null,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            }
+          }
+        ],
+        "detections": [],
+        "regions": [],
+        "spatial_description": "Got it, let's analyze the image. First, find the referee. The referee is the person in the black and white striped shirt on the left. Then, check the ice for the painted word under or next to the referee's skates. Looking at the bottom left, there's a logo or text. Wait, the referee's skates are on the ice, and the painted word—let's see. The referee is at [0, 283, 195, 997]. Now, the painted word on the ice: in the bottom left, there's a logo with text. Let's check the coordinates. The ice area near the referee's skates—there's a logo that might have text. Wait, the problem says \"painted word on the ice directly under or immediately next to the referee's skates\". Let's look at the image. The referee is on the left, and on the ice, there's a logo with \"N\" maybe? Wait, the image has a logo at the bottom left: [167, 897, 237, 975]—that's a logo, but is there a word? Wait, maybe the text is part of that. Alternatively, check the referee's position. The referee is [0, 283, 195, 997]. Now, the painted word on the ice: let's see. The ice has some markings. Wait, the problem says \"readable word area\". Let's check the bottom left. There's a logo with \"N\" and maybe other text. Wait, the image shows a logo at the bottom left: [167, 897, 237, 975]—that's a logo, but is there a word? Alternatively,"
+      },
+      {
+        "frames": [
+          {
+            "video_id": "-0ZosUeqDg0",
+            "timestamp_s": 257.0,
+            "artifact_id": "frame_257.00",
+            "relpath": "artifacts/0ZosUeqDg0/frames/frame_257.00.png",
+            "clip": null,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            }
+          }
+        ],
+        "detections": [],
+        "regions": [],
+        "spatial_description": "Got it, let's analyze the image. First, find the referee. The referee is in the black and white striped shirt. Then, check the ice for any painted word under or next to the referee's skates. Wait, in the image, the referee is standing, and the ice area—do we see a word? Let's check. The referee's skates are on the ice, but maybe there's no visible word. Wait, the problem says \"painted word on the ice directly under or immediately next to the referee's skates\". Let's look again. The referee is in the background, near the boards. The ice area—maybe there's no word. Wait, maybe I missed. Let's check the image. The referee is the one in the striped shirt, standing. The ice around—no visible word. So maybe the referee is present, but the word is not. Wait, the task is to locate the referee and the painted word. Let's first find the referee. The referee's bounding box: let's see. The referee is in the middle, wearing black and white stripes. So [537, 100, 675, 775] maybe. Then, is there a painted word on the ice? Let's check the ice. The ice area—no visible word. So the word part might not be present. Wait, the problem says \"return regions for the readable word area, not board ads\". So if there's no word, then the word part is not there. So first, the referee: [537, 100, 675, 775] (category: referee). Then, the painted word: is there any? Let's check again. The ice—no, the boards have ads, but the ice itself—no. So the word"
+      }
+    ],
+    "spatial_description": "Got it, let's analyze the image. First, find the referee. There's a referee in the bottom left, wearing a black and white striped shirt. Then, the painted word on the ice under or next to the referee's skates. The word is \"VISION\" maybe? Wait, the text on the ice near the referee. Let's check the coordinates.\n\nFirst, the referee: [115, 670, 245, 997] (that's the referee in the bottom left). Then the painted word on the ice: the text \"VISION\" is there. Let's find its bbox. The word \"VISION\" is on the ice, so [10, 890, 125, 937] maybe. Wait, need to check the exact positions.\n\nSo the referee is [115, 670, 245, 997], and the painted word (VISION) is [10, 890, 125, 937]. Let's confirm. The referee is the one in the black and white stripes, and the word on the ice is \"VISION\" near the bottom left.\n<<redacted-path>>\n\n```json\n{\n  \"detections\": [\n    {\"label\": \"referee\", \"bbox\": [115, 670, 245, 997], \"confidence\": 0.95},\n    {\"label\": \"painted word on ice\", \"bbox\": [10, 890, 125, 937], \"confidence\": 0.9}\n  ],\n  \"spatial_description\": \"The referee is positioned in the bottom - left area of the image, wearing a black and white\n\nGot it, let's analyze the image. First, find the referee. The referee is the person in the black and white striped shirt on the left. Then, check the ice for the painted word under or next to the referee's skates. Looking at the bottom left, there's a logo or text. Wait, the referee's skates are on the ice, and the painted word—let's see. The referee is at [0, 283, 195, 997]. Now, the painted word on the ice: in the bottom left, there's a logo with text. Let's check the coordinates. The ice area near the referee's skates—there's a logo that might have text. Wait, the problem says \"painted word on the ice directly under or immediately next to the referee's skates\". Let's look at the image. The referee is on the left, and on the ice, there's a logo with \"N\" maybe? Wait, the image has a logo at the bottom left: [167, 897, 237, 975]—that's a logo, but is there a word? Wait, maybe the text is part of that. Alternatively, check the referee's position. The referee is [0, 283, 195, 997]. Now, the painted word on the ice: let's see. The ice has some markings. Wait, the problem says \"readable word area\". Let's check the bottom left. There's a logo with \"N\" and maybe other text. Wait, the image shows a logo at the bottom left: [167, 897, 237, 975]—that's a logo, but is there a word? Alternatively,\n\nGot it, let's analyze the image. First, find the referee. The referee is in the black and white striped shirt. Then, check the ice for any painted word under or next to the referee's skates. Wait, in the image, the referee is standing, and the ice area—do we see a word? Let's check. The referee's skates are on the ice, but maybe there's no visible word. Wait, the problem says \"painted word on the ice directly under or immediately next to the referee's skates\". Let's look again. The referee is in the background, near the boards. The ice area—maybe there's no word. Wait, maybe I missed. Let's check the image. The referee is the one in the striped shirt, standing. The ice around—no visible word. So maybe the referee is present, but the word is not. Wait, the task is to locate the referee and the painted word. Let's first find the referee. The referee's bounding box: let's see. The referee is in the middle, wearing black and white stripes. So [537, 100, 675, 775] maybe. Then, is there a painted word on the ice? Let's check the ice. The ice area—no visible word. So the word part might not be present. Wait, the problem says \"return regions for the readable word area, not board ads\". So if there's no word, then the word part is not there. So first, the referee: [537, 100, 675, 775] (category: referee). Then, the painted word: is there any? Let's check again. The ice—no, the boards have ads, but the ice itself—no. So the word",
+    "backend": "Qwen/Qwen3.5-9B"
+  },
+  "raw_output_text": "{\"query\": \"Locate the referee visible in the replay and the painted word on the ice directly under or immediately next to the referee's skates; return regions for the readable word area, not board ads.\", \"timestamp_s\": 255.0, \"detections\": [], \"spatial_description\": \"Got it, let's analyze the image. First, find the referee. There's a referee in the bottom left, wearing a black and white striped shirt. Then, the painted word on the ice under or next to the referee's skates. The word is \\\"VISION\\\" maybe? Wait, the text on the ice near the referee. Let's check the coordinates.\\n\\nFirst, the referee: [115, 670, 245, 997] (that's the referee in the bottom left). Then the painted word on the ice: the text \\\"VISION\\\" is there. Let's find its bbox. The word \\\"VISION\\\" is on the ice, so [10, 890, 125, 937] maybe. Wait, need to check the exact positions.\\n\\nSo the referee is [115, 670, 245, 997], and the painted word (VISION) is [10, 890, 125, 937]. Let's confirm. The referee is the one in the black and white stripes, and the word on the ice is \\\"VISION\\\" near the bottom left.\\n<<redacted-path>>\\n\\n```json\\n{\\n  \\\"detections\\\": [\\n    {\\\"label\\\": \\\"referee\\\", \\\"bbox\\\": [115, 670, 245, 997], \\\"confidence\\\": 0.95},\\n    {\\\"label\\\": \\\"painted word on ice\\\", \\\"bbox\\\": [10, 890, 125, 937], \\\"confidence\\\": 0.9}\\n  ],\\n  \\\"spatial_description\\\": \\\"The referee is positioned in the bottom - left area of the image, wearing a black and white\", \"source_frame_path\": \"artifacts/0ZosUeqDg0/frames/frame_255.00.png\", \"backend\": \"Qwen/Qwen3.5-9B\"}\n\n{\"query\": \"Locate the referee visible in the replay and the painted word on the ice directly under or immediately next to the referee's skates; return regions for the readable word area, not board ads.\", \"timestamp_s\": 256.0, \"detections\": [], \"spatial_description\": \"Got it, let's analyze the image. First, find the referee. The referee is the person in the black and white striped shirt on the left. Then, check the ice for the painted word under or next to the referee's skates. Looking at the bottom left, there's a logo or text. Wait, the referee's skates are on the ice, and the painted word—let's see. The referee is at [0, 283, 195, 997]. Now, the painted word on the ice: in the bottom left, there's a logo with text. Let's check the coordinates. The ice area near the referee's skates—there's a logo that might have text. Wait, the problem says \\\"painted word on the ice directly under or immediately next to the referee's skates\\\". Let's look at the image. The referee is on the left, and on the ice, there's a logo with \\\"N\\\" maybe? Wait, the image has a logo at the bottom left: [167, 897, 237, 975]—that's a logo, but is there a word? Wait, maybe the text is part of that. Alternatively, check the referee's position. The referee is [0, 283, 195, 997]. Now, the painted word on the ice: let's see. The ice has some markings. Wait, the problem says \\\"readable word area\\\". Let's check the bottom left. There's a logo with \\\"N\\\" and maybe other text. Wait, the image shows a logo at the bottom left: [167, 897, 237, 975]—that's a logo, but is there a word? Alternatively,\", \"source_frame_path\": \"artifacts/0ZosUeqDg0/frames/frame_256.00.png\", \"backend\": \"Qwen/Qwen3.5-9B\"}\n\n{\"query\": \"Locate the referee visible in the replay and the painted word on the ice directly under or immediately next to the referee's skates; return regions for the readable word area, not board ads.\", \"timestamp_s\": 257.0, \"detections\": [], \"spatial_description\": \"Got it, let's analyze the image. First, find the referee. The referee is in the black and white striped shirt. Then, check the ice for any painted word under or next to the referee's skates. Wait, in the image, the referee is standing, and the ice area—do we see a word? Let's check. The referee's skates are on the ice, but maybe there's no visible word. Wait, the problem says \\\"painted word on the ice directly under or immediately next to the referee's skates\\\". Let's look again. The referee is in the background, near the boards. The ice area—maybe there's no word. Wait, maybe I missed. Let's check the image. The referee is the one in the striped shirt, standing. The ice around—no visible word. So maybe the referee is present, but the word is not. Wait, the task is to locate the referee and the painted word. Let's first find the referee. The referee's bounding box: let's see. The referee is in the middle, wearing black and white stripes. So [537, 100, 675, 775] maybe. Then, is there a painted word on the ice? Let's check the ice. The ice area—no visible word. So the word part might not be present. Wait, the problem says \\\"return regions for the readable word area, not board ads\\\". So if there's no word, then the word part is not there. So first, the referee: [537, 100, 675, 775] (category: referee). Then, the painted word: is there any? Let's check again. The ice—no, the boards have ads, but the ice itself—no. So the word\", \"source_frame_path\": \"artifacts/0ZosUeqDg0/frames/frame_257.00.png\", \"backend\": \"Qwen/Qwen3.5-9B\"}",
+  "artifact_refs": [
+    {
+      "artifact_id": "frame_255.00",
+      "kind": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_255.00.png",
+      "media_type": "image",
+      "source_tool": "spatial_grounder",
+      "metadata": {
+        "source_name": "frame_255.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 311473
+      }
+    },
+    {
+      "artifact_id": "frame_256.00",
+      "kind": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_256.00.png",
+      "media_type": "image",
+      "source_tool": "spatial_grounder",
+      "metadata": {
+        "source_name": "frame_256.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 302241
+      }
+    },
+    {
+      "artifact_id": "frame_257.00",
+      "kind": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_257.00.png",
+      "media_type": "image",
+      "source_tool": "spatial_grounder",
+      "metadata": {
+        "source_name": "frame_257.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 305142
+      }
+    }
+  ],
+  "request_hash": "00bbcd8b4b2c430793e9d91f",
+  "cache_hit": false,
+  "summary": "Spatial grounding completed for 3 frame(s).",
+  "metadata": {
+    "backend": "Qwen/Qwen3.5-9B",
+    "group_count": 3,
+    "timing": {
+      "started_at_utc": "2026-04-28T17:02:37.724185+00:00",
+      "finished_at_utc": "2026-04-28T17:05:30.748554+00:00",
+      "duration_s": 173.0244,
+      "cache_wait_s": 0.0005,
+      "execution_mode": "executed"
+    },
+    "observation_ids": []
+  }
+}

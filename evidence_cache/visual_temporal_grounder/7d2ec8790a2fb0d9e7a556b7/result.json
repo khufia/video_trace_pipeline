@@ -1,0 +1,81 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "replay montage of the black team's first scoring shot; second replay is a closer angle showing a referee skating near visible ice text or logo under the skates",
+    "clips": [
+      {
+        "video_id": "-0ZosUeqDg0",
+        "start_s": 49.0,
+        "end_s": 58.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-0ZosUeqDg0",
+        "start_s": 72.0,
+        "end_s": 77.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "-0ZosUeqDg0",
+        "start_s": 171.0,
+        "end_s": 178.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 424.49073333333337,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 49.00s-58.00s, 72.00s-77.00s, 171.00s-178.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 8,
+      "candidate_windows": 8,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"replay montage of the black team's first scoring shot; second replay is a closer angle showing a referee skating near visible ice text or logo under the skates\", \"clips\": [{\"video_id\": \"-0ZosUeqDg0\", \"start_s\": 49.0, \"end_s\": 58.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-0ZosUeqDg0\", \"start_s\": 72.0, \"end_s\": 77.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"-0ZosUeqDg0\", \"start_s\": 171.0, \"end_s\": 178.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 424.49073333333337, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 49.00s-58.00s, 72.00s-77.00s, 171.00s-178.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 8, \"candidate_windows\": 8, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "7d2ec8790a2fb0d9e7a556b7",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 49.00s-58.00s, 72.00s-77.00s, 171.00s-178.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 8,
+      "candidate_windows": 8,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 0.9667,
+    "confidence_count": 3,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-28T16:22:08.650539+00:00",
+      "finished_at_utc": "2026-04-28T16:24:27.660816+00:00",
+      "duration_s": 139.0103,
+      "cache_wait_s": 0.0007,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_12cf57ada7b261a9",
+      "obs_a9e50da190d03d9d",
+      "obs_e1a205998c140844"
+    ]
+  }
+}

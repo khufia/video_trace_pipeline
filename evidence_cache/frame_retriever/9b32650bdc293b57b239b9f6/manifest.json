@@ -1,0 +1,29 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "9b32650bdc293b57b239b9f6",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "-0ZosUeqDg0",
+        "start_s": 72.0,
+        "end_s": 77.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "73s-76s second replay",
+      "referee in foreground near painted ice word",
+      "frame 76s previously showed referee and nearby ice text"
+    ],
+    "query": "chronological frames from the second replay where the referee is skating nearest a painted word on the ice",
+    "num_frames": 4,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

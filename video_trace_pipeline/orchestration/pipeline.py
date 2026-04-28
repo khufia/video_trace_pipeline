@@ -556,9 +556,34 @@ class PipelineRunner(object):
         initial_trace_path: Optional[str] = None,
         progress_reporter=None,
     ) -> Dict[str, object]:
+        video_id = task.video_id or task.sample_key
+        run = self.workspace.create_run(task)
+        self.workspace.clear_video_artifacts(video_id)
+        try:
+            return self._run_task_impl(
+                run=run,
+                task=task,
+                mode=mode,
+                max_rounds=max_rounds,
+                clip_duration_s=clip_duration_s,
+                initial_trace_path=initial_trace_path,
+                progress_reporter=progress_reporter,
+            )
+        finally:
+            self.workspace.clear_video_artifacts(video_id)
+
+    def _run_task_impl(
+        self,
+        run,
+        task,
+        mode: str = "generate",
+        max_rounds: int = 3,
+        clip_duration_s: Optional[float] = None,
+        initial_trace_path: Optional[str] = None,
+        progress_reporter=None,
+    ) -> Dict[str, object]:
         preprocess_settings = self.preprocessor.resolve_preprocess_settings(clip_duration_s)
         effective_clip_duration_s = float(preprocess_settings["clip_duration_s"])
-        run = self.workspace.create_run(task)
         self._write_runtime_snapshot(run)
         manifest_payload = {
             "benchmark": task.benchmark,

@@ -1,0 +1,119 @@
+{
+  "tool_name": "ocr",
+  "request_hash": "fbee164374c8e3bae0053084",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "ocr",
+    "clips": [],
+    "frames": [],
+    "regions": [
+      {
+        "frame": {
+          "video_id": "-0ZosUeqDg0",
+          "timestamp_s": 76.0,
+          "artifact_id": "frame_76.00",
+          "relpath": "artifacts/0ZosUeqDg0/frames/frame_76.00.png",
+          "clip": {
+            "video_id": "-0ZosUeqDg0",
+            "start_s": 72.0,
+            "end_s": 77.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          },
+          "metadata": {
+            "relevance_score": 0.4462422728538513,
+            "device": "cuda:1",
+            "clip_start_s": 72.0,
+            "clip_end_s": 77.0,
+            "temporal_score": 0.4462422728538513,
+            "anchor_distance_s": 1.5,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 74.5,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "after",
+            "sequence_index": 3,
+            "sequence_sort_order": "chronological"
+          }
+        },
+        "bbox": [
+          187.5,
+          105.5,
+          246.0,
+          325.0
+        ],
+        "label": "referee",
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "confidence": 0.95,
+          "bbox_normalized_to_image": true,
+          "raw_bbox": [
+            375.0,
+            211.0,
+            492.0,
+            650.0
+          ]
+        }
+      },
+      {
+        "frame": {
+          "video_id": "-0ZosUeqDg0",
+          "timestamp_s": 76.0,
+          "artifact_id": "frame_76.00",
+          "relpath": "artifacts/0ZosUeqDg0/frames/frame_76.00.png",
+          "clip": {
+            "video_id": "-0ZosUeqDg0",
+            "start_s": 72.0,
+            "end_s": 77.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          },
+          "metadata": {
+            "relevance_score": 0.4462422728538513,
+            "device": "cuda:1",
+            "clip_start_s": 72.0,
+            "clip_end_s": 77.0,
+            "temporal_score": 0.4462422728538513,
+            "anchor_distance_s": 1.5,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 74.5,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "after",
+            "sequence_index": 3,
+            "sequence_sort_order": "chronological"
+          }
+        },
+        "bbox": [
+          78.66666666666667,
+          302.0,
+          104.0,
+          322.3333333333333
+        ],
+        "label": "word on the ice",
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "confidence": 0.92,
+          "bbox_normalized_to_image": true,
+          "raw_bbox": [
+            236.0,
+            906.0,
+            312.0,
+            967.0
+          ]
+        }
+      }
+    ],
+    "query": "read the exact word under the referee's skates\n\nFrame sequence context: These frames are a chronological sequence centered on timestamp 74.5s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 76s, 76s."
+  }
+}

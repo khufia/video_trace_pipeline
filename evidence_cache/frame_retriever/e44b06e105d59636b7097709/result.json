@@ -1,0 +1,207 @@
+{
+  "tool_name": "frame_retriever",
+  "ok": true,
+  "data": {
+    "query": "latest clear frame showing the celebrating team on stage with trophy and visible jersey color",
+    "frames": [
+      {
+        "video_id": "-1YjD_Epw9M",
+        "timestamp_s": 129.0,
+        "artifact_id": "frame_129.00",
+        "relpath": "artifacts/1YjD_Epw9M/frames/frame_129.00.png",
+        "clip": {
+          "video_id": "-1YjD_Epw9M",
+          "start_s": 120.0,
+          "end_s": 141.867,
+          "artifact_id": "clip_120_00_141_87",
+          "relpath": "artifacts/1YjD_Epw9M/clips/clip_120_00_141_87.mp4",
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 120.0,
+          "clip_end_s": 141.867,
+          "frame_pool_start_s": 118.0,
+          "frame_pool_end_s": 143.867,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 130.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-1YjD_Epw9M",
+        "timestamp_s": 130.0,
+        "artifact_id": "frame_130.00",
+        "relpath": "artifacts/1YjD_Epw9M/frames/frame_130.00.png",
+        "clip": {
+          "video_id": "-1YjD_Epw9M",
+          "start_s": 120.0,
+          "end_s": 141.867,
+          "artifact_id": "clip_120_00_141_87",
+          "relpath": "artifacts/1YjD_Epw9M/clips/clip_120_00_141_87.mp4",
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 120.0,
+          "clip_end_s": 141.867,
+          "frame_pool_start_s": 118.0,
+          "frame_pool_end_s": 143.867,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 130.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      }
+    ],
+    "mode": "clip_bounded",
+    "cache_metadata": {
+      "dense_frame_cache_hit": true,
+      "dense_frame_count": 141,
+      "bounded_frame_count": 23,
+      "frame_pool_start_s": 118.0,
+      "frame_pool_end_s": 143.867,
+      "expanded_frame_pool_for_anchor_window": true,
+      "embedding_cache_ready": false,
+      "embedding_cache_scope": "none",
+      "persist_cache_on_bounded_request": false,
+      "time_hints_applied": true,
+      "sequence_mode": "anchor_window",
+      "anchor_window_applied": true,
+      "requested_anchor_timestamps_s": [
+        130.0
+      ],
+      "neighbor_radius_s": 2.0,
+      "timings": {
+        "total_s": 41.1405
+      },
+      "embedder": {
+        "requested_attn_implementation": "flash_attention_2",
+        "loaded_attn_implementation": "flash_attention_2",
+        "fallback_attn_implementations": [],
+        "embed_call_count": 2,
+        "retry_count": 0,
+        "batch_attempt_count": 1,
+        "batch_failure_count": 1,
+        "single_item_fallback_count": 0,
+        "zero_embedding_fallback_count": 23,
+        "dense_frame_embed_batch": 24,
+        "cache_load_error": null,
+        "cache_build_error": null,
+        "cache_write_error": null,
+        "query_error": null,
+        "frame_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.03 GiB. GPU 1 has a total capacity of 39.49 GiB of which 386.19 MiB is free. Process 3141509 has 646.00 MiB memory in use. Process 3425353 has 530.00 MiB memory in use. Including non-PyTorch memory, this process has 37.95 GiB memory in use. Of the allocated memory 36.97 GiB is allocated by PyTorch, and 497.82 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)",
+        "cache_load_s": 0.0,
+        "cache_build_s": 0.0,
+        "query_embed_s": 0.4832995431497693,
+        "frame_embed_s": 9.493931618984789,
+        "embedding_cache_ready": false
+      }
+    },
+    "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+  },
+  "raw_output_text": "{\"query\": \"latest clear frame showing the celebrating team on stage with trophy and visible jersey color\", \"frames\": [{\"frame_path\": \"workspace/cache/tool_wrappers/reference/-1YjD_Epw9M/dense_frames/-1YjD_Epw9M/frame_129.00.png\", \"timestamp_s\": 129.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 141.867, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 143.867, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 130.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 0, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/-1YjD_Epw9M/dense_frames/-1YjD_Epw9M/frame_130.00.png\", \"timestamp_s\": 130.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 141.867, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 143.867, \"temporal_score\": 0.0, \"anchor_distance_s\": 0.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 130.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 1, \"sequence_sort_order\": \"chronological\"}}], \"mode\": \"clip_bounded\", \"cache_metadata\": {\"dense_frame_cache_hit\": true, \"dense_frame_count\": 141, \"bounded_frame_count\": 23, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 143.867, \"expanded_frame_pool_for_anchor_window\": true, \"embedding_cache_ready\": false, \"embedding_cache_scope\": \"none\", \"persist_cache_on_bounded_request\": false, \"time_hints_applied\": true, \"sequence_mode\": \"anchor_window\", \"anchor_window_applied\": true, \"requested_anchor_timestamps_s\": [130.0], \"neighbor_radius_s\": 2.0, \"timings\": {\"total_s\": 41.1405}, \"embedder\": {\"requested_attn_implementation\": \"flash_attention_2\", \"loaded_attn_implementation\": \"flash_attention_2\", \"fallback_attn_implementations\": [], \"embed_call_count\": 2, \"retry_count\": 0, \"batch_attempt_count\": 1, \"batch_failure_count\": 1, \"single_item_fallback_count\": 0, \"zero_embedding_fallback_count\": 23, \"dense_frame_embed_batch\": 24, \"cache_load_error\": null, \"cache_build_error\": null, \"cache_write_error\": null, \"query_error\": null, \"frame_error\": \"OutOfMemoryError: CUDA out of memory. Tried to allocate 3.03 GiB. GPU 1 has a total capacity of 39.49 GiB of which 386.19 MiB is free. Process 3141509 has 646.00 MiB memory in use. Process 3425353 has 530.00 MiB memory in use. Including non-PyTorch memory, this process has 37.95 GiB memory in use. Of the allocated memory 36.97 GiB is allocated by PyTorch, and 497.82 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)\", \"cache_load_s\": 0.0, \"cache_build_s\": 0.0, \"query_embed_s\": 0.4832995431497693, \"frame_embed_s\": 9.493931618984789, \"embedding_cache_ready\": false}}, \"rationale\": \"Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\"}\n",
+  "artifact_refs": [
+    {
+      "artifact_id": "frame_129.00",
+      "kind": "frame",
+      "relpath": "artifacts/1YjD_Epw9M/frames/frame_129.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_129.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 227360
+      }
+    },
+    {
+      "artifact_id": "frame_130.00",
+      "kind": "frame",
+      "relpath": "artifacts/1YjD_Epw9M/frames/frame_130.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_130.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 243672
+      }
+    }
+  ],
+  "request_hash": "e44b06e105d59636b7097709",
+  "cache_hit": false,
+  "summary": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.",
+  "metadata": {
+    "backend": "Qwen/Qwen3-VL-Embedding-8B",
+    "confidence": 0.0,
+    "confidence_avg": 0.0,
+    "confidence_count": 2,
+    "confidence_kind": "frame_relevance",
+    "dense_frame_cache_hit": true,
+    "dense_frame_count": 141,
+    "bounded_frame_count": 23,
+    "frame_pool_start_s": 118.0,
+    "frame_pool_end_s": 143.867,
+    "expanded_frame_pool_for_anchor_window": true,
+    "embedding_cache_ready": false,
+    "embedding_cache_scope": "none",
+    "persist_cache_on_bounded_request": false,
+    "time_hints_applied": true,
+    "sequence_mode": "anchor_window",
+    "anchor_window_applied": true,
+    "requested_anchor_timestamps_s": [
+      130.0
+    ],
+    "neighbor_radius_s": 2.0,
+    "timings": {
+      "total_s": 41.1405
+    },
+    "embedder": {
+      "requested_attn_implementation": "flash_attention_2",
+      "loaded_attn_implementation": "flash_attention_2",
+      "fallback_attn_implementations": [],
+      "embed_call_count": 2,
+      "retry_count": 0,
+      "batch_attempt_count": 1,
+      "batch_failure_count": 1,
+      "single_item_fallback_count": 0,
+      "zero_embedding_fallback_count": 23,
+      "dense_frame_embed_batch": 24,
+      "cache_load_error": null,
+      "cache_build_error": null,
+      "cache_write_error": null,
+      "query_error": null,
+      "frame_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.03 GiB. GPU 1 has a total capacity of 39.49 GiB of which 386.19 MiB is free. Process 3141509 has 646.00 MiB memory in use. Process 3425353 has 530.00 MiB memory in use. Including non-PyTorch memory, this process has 37.95 GiB memory in use. Of the allocated memory 36.97 GiB is allocated by PyTorch, and 497.82 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)",
+      "cache_load_s": 0.0,
+      "cache_build_s": 0.0,
+      "query_embed_s": 0.4832995431497693,
+      "frame_embed_s": 9.493931618984789,
+      "embedding_cache_ready": false
+    },
+    "timing": {
+      "started_at_utc": "2026-04-28T17:27:28.234426+00:00",
+      "finished_at_utc": "2026-04-28T17:28:23.280451+00:00",
+      "duration_s": 55.0464,
+      "cache_wait_s": 0.001,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_cdf91975c35f8e4a",
+      "obs_e0130ec777c753f6"
+    ]
+  }
+}

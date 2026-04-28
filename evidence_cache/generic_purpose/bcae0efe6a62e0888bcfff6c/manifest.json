@@ -1,0 +1,104 @@
+{
+  "tool_name": "generic_purpose",
+  "request_hash": "bcae0efe6a62e0888bcfff6c",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "generic_purpose",
+    "query": "From these frames, what is the score at the end of the third quarter? Identify the clearest scoreboard reading, including both team scores, whether the period is the 3rd quarter/end of period three, and which team is leading.",
+    "clips": [],
+    "frames": [
+      {
+        "video_id": "-0XB0BWhzNc",
+        "timestamp_s": 124.0,
+        "artifact_id": "frame_124.00",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_124.00.png",
+        "clip": {
+          "video_id": "-0XB0BWhzNc",
+          "start_s": 118.0,
+          "end_s": 126.5,
+          "artifact_id": "clip_120_00_180_00",
+          "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4",
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 118.0,
+          "clip_end_s": 126.5,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 126.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-0XB0BWhzNc",
+        "timestamp_s": 125.0,
+        "artifact_id": "frame_125.00",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_125.00.png",
+        "clip": {
+          "video_id": "-0XB0BWhzNc",
+          "start_s": 118.0,
+          "end_s": 126.5,
+          "artifact_id": "clip_120_00_180_00",
+          "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4",
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 118.0,
+          "clip_end_s": 126.5,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 126.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-0XB0BWhzNc",
+        "timestamp_s": 126.0,
+        "artifact_id": "frame_126.00",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_126.00.png",
+        "clip": {
+          "video_id": "-0XB0BWhzNc",
+          "start_s": 118.0,
+          "end_s": 126.5,
+          "artifact_id": "clip_120_00_180_00",
+          "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4",
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 118.0,
+          "clip_end_s": 126.5,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 126.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 2,
+          "sequence_sort_order": "chronological"
+        }
+      }
+    ],
+    "transcripts": [],
+    "text_contexts": [
+      "These frames are a chronological sequence centered on timestamp 126s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 124s, 125s, 126s."
+    ],
+    "evidence_ids": []
+  }
+}

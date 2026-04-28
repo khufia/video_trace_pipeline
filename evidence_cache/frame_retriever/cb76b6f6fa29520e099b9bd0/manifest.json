@@ -1,0 +1,30 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "cb76b6f6fa29520e099b9bd0",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "-0ZosUeqDg0",
+        "start_s": 252.0,
+        "end_s": 262.0,
+        "artifact_id": "clip_240_00_300_00",
+        "relpath": "artifacts/0ZosUeqDg0/clips/clip_240_00_300_00.mp4",
+        "metadata": {
+          "source": "preprocess_seg_005",
+          "reason": "Replay montage for black team's first scoring shot"
+        }
+      }
+    ],
+    "time_hints": [
+      "252-262s replay montage; identify first, second, and final replay angles in order"
+    ],
+    "query": "chronological frames covering the replay montage of the black team's first scoring shot, including each replay angle and any referee visible on the ice",
+    "num_frames": 8,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}
