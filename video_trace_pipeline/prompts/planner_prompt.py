@@ -71,6 +71,7 @@ Evidence preservation rule:
 - In refine mode, preserve useful prior timestamps, clips, OCR text, ASR spans, artifact context, and atomic observations.
 - Re-search broadly only when the diagnosis says the old anchor is wrong, contradicted, or incomplete.
 - If the audit names missing information, target that missing fact directly before starting a new semantic search.
+- If the audit says a prior answer missed an attribute such as empty/full/open/closed/count/state, do not pass answer-only generic evidence back as proof. Reuse media/transcripts/regions and only prior evidence that explicitly contains the missing attribute.
 
 Occurrence and chronology rule:
 - For first/last/before/after/ordered-list questions, collect all relevant candidate events in the bounded interval, sort by timestamp, and then choose the requested occurrence.

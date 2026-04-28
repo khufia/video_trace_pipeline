@@ -112,6 +112,7 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "RETRIEVED_FRAME_SEQUENCES_AVAILABLE groups adjacent retrieved frames" in PLANNER_SYSTEM_PROMPT
     assert "Choose frames by task semantics" in PLANNER_SYSTEM_PROMPT
     assert "first/earliest questions need first_frame plus neighbors" in PLANNER_SYSTEM_PROMPT
+    assert "do not pass answer-only generic evidence back as proof" in PLANNER_SYSTEM_PROMPT
     assert "Wiring is not evidence" in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" not in PLANNER_SYSTEM_PROMPT
 
