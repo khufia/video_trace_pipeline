@@ -1,0 +1,2099 @@
+{
+  "run_dir": "runs/AY84ybskqI/20260428T181344Z_e465836b",
+  "trace_package": {
+    "task_key": "AY84ybskqI__067504b6f6bd",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_01_bc372a7f",
+        "tool_name": "frame_retriever",
+        "evidence_text": "Chronological neighboring frames were retrieved at 123s, 124s, 125s, 126s, and 127s around the relevant interval.",
+        "inference_hint": null,
+        "confidence": 1.0,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.0,
+            "end_s": 123.0
+          },
+          {
+            "start_s": 124.0,
+            "end_s": 124.0
+          },
+          {
+            "start_s": 125.0,
+            "end_s": 125.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 126.0
+          },
+          {
+            "start_s": 127.0,
+            "end_s": 127.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_123.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_123.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 264716
+            }
+          },
+          {
+            "artifact_id": "frame_124.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_124.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_124.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 245830
+            }
+          },
+          {
+            "artifact_id": "frame_125.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_125.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_125.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 239007
+            }
+          },
+          {
+            "artifact_id": "frame_126.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_126.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 275343
+            }
+          },
+          {
+            "artifact_id": "frame_127.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_127.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 273671
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_40621d81d1533575",
+          "obs_e39891027b66c6ac",
+          "obs_fe0427218e9a71e2",
+          "obs_1edd2b3e5b3bf63a",
+          "obs_854aa1019d24fe4a"
+        ],
+        "metadata": {
+          "request_hash": "bc372a7f001759efe9de128e",
+          "cache_hit": false
+        }
+      },
+      {
+        "evidence_id": "ev_gp_visible_actions",
+        "tool_name": "generic_purpose",
+        "evidence_text": "Within the retrieved sequence, the woman in gray is visible standing and holding a ball at 123s; at 124s the frame is a close-up of a racket hitting a ball and does not clearly show her performing a toss; at 125s no woman is visible; at 126s she is standing with a racket while a ball is in the air and she is looking up at it; at 127s she is holding the racket out and no ball is in the air.",
+        "inference_hint": null,
+        "confidence": 0.67,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.0,
+            "end_s": 123.0
+          },
+          {
+            "start_s": 124.0,
+            "end_s": 124.0
+          },
+          {
+            "start_s": 125.0,
+            "end_s": 125.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 126.0
+          },
+          {
+            "start_s": 127.0,
+            "end_s": 127.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "clip_120_00_172_27",
+            "kind": "clip",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "video_id": "-AY84ybskqI",
+              "start_s": 120.0,
+              "end_s": 125.0
+            }
+          },
+          {
+            "artifact_id": "frame_123.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 123.0
+            }
+          },
+          {
+            "artifact_id": "frame_124.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_124.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 124.0
+            }
+          },
+          {
+            "artifact_id": "frame_125.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_125.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 125.0
+            }
+          },
+          {
+            "artifact_id": "frame_126.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 126.0
+            }
+          },
+          {
+            "artifact_id": "frame_127.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 127.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_58baefaabf9330b0",
+          "obs_280e58fcd2f9ef86",
+          "obs_505710e8a488bc29",
+          "obs_2fd95d52fae5466e",
+          "obs_48e29ca8676b10e6",
+          "obs_39a336e3bee50872",
+          "obs_aab1a288360f0b79",
+          "obs_6f607737594f52bd",
+          "obs_3e9a72e7a17dd339",
+          "obs_556d6527bd3a9799",
+          "obs_eacb952dda896492",
+          "obs_ed6aa91722c53306",
+          "obs_1e525c6b57612c8f",
+          "obs_7d337af79333923b",
+          "obs_9016a5ae6210aaf0"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_gp_no_completed_side_steps",
+        "tool_name": "generic_purpose",
+        "evidence_text": "The retrieved frames that show the woman do not show a completed visible side step: Image 1/123s, Image 4/126s, and Image 5/127s are each marked as not showing a completed side step, with feet positions described as together or shoulder-width rather than a clearly completed lateral movement.",
+        "inference_hint": null,
+        "confidence": 0.63,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.0,
+            "end_s": 123.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 126.0
+          },
+          {
+            "start_s": 127.0,
+            "end_s": 127.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_123.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 123.0
+            }
+          },
+          {
+            "artifact_id": "frame_126.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 126.0
+            }
+          },
+          {
+            "artifact_id": "frame_127.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 127.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_27459b1e14ba4df0",
+          "obs_7f222d9c6a8afb7d",
+          "obs_4ba5694c7fc884d1",
+          "obs_47d723601f358fa7",
+          "obs_0aac2802aa7c1d37",
+          "obs_cf0da9ab65f3eb99"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_01_addc3e4b",
+        "tool_name": "frame_retriever",
+        "evidence_text": "An extended chronological neighboring sequence was retrieved at 123s, 124s, 125s, 126s, 127s, 128s, and 129s for the same activity segment.",
+        "inference_hint": null,
+        "confidence": 1.0,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.0,
+            "end_s": 123.0
+          },
+          {
+            "start_s": 124.0,
+            "end_s": 124.0
+          },
+          {
+            "start_s": 125.0,
+            "end_s": 125.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 126.0
+          },
+          {
+            "start_s": 127.0,
+            "end_s": 127.0
+          },
+          {
+            "start_s": 128.0,
+            "end_s": 128.0
+          },
+          {
+            "start_s": 129.0,
+            "end_s": 129.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_123.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_123.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 264716
+            }
+          },
+          {
+            "artifact_id": "frame_124.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_124.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_124.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 245830
+            }
+          },
+          {
+            "artifact_id": "frame_125.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_125.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_125.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 239007
+            }
+          },
+          {
+            "artifact_id": "frame_126.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_126.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 275343
+            }
+          },
+          {
+            "artifact_id": "frame_127.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_127.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 273671
+            }
+          },
+          {
+            "artifact_id": "frame_128.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_128.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_128.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 255318
+            }
+          },
+          {
+            "artifact_id": "frame_129.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_129.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_129.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 376787
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_40621d81d1533575",
+          "obs_e39891027b66c6ac",
+          "obs_fe0427218e9a71e2",
+          "obs_1edd2b3e5b3bf63a",
+          "obs_854aa1019d24fe4a",
+          "obs_338e4d47d345479d",
+          "obs_cdf91975c35f8e4a"
+        ],
+        "metadata": {
+          "request_hash": "addc3e4b4c34e3b9f0904f94",
+          "cache_hit": false
+        }
+      },
+      {
+        "evidence_id": "ev_02_5475c88c",
+        "tool_name": "generic_purpose",
+        "evidence_text": "In the extended 123s-129s sequence, the woman in gray is holding a ball at 123s; a racket is hitting a ball at 124s; no woman is visible at 125s; at 126s a ball is in the air while she looks at it; at 127s no ball is in the air; at 128s a ball is again in the air while she looks at it; and at 129s a ball is still in the air while she looks at it. The same analysis also states there are no clear side steps visible in these static frames and that the transcript mentions the Inner City Tennis volunteering context.",
+        "inference_hint": null,
+        "confidence": 0.62,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.0,
+            "end_s": 123.0
+          },
+          {
+            "start_s": 124.0,
+            "end_s": 124.0
+          },
+          {
+            "start_s": 125.0,
+            "end_s": 125.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 126.0
+          },
+          {
+            "start_s": 127.0,
+            "end_s": 127.0
+          },
+          {
+            "start_s": 128.0,
+            "end_s": 128.0
+          },
+          {
+            "start_s": 129.0,
+            "end_s": 129.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "clip_120_00_172_27",
+            "kind": "clip",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "video_id": "-AY84ybskqI",
+              "start_s": 120.0,
+              "end_s": 129.0
+            }
+          },
+          {
+            "artifact_id": "frame_123.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 123.0
+            }
+          },
+          {
+            "artifact_id": "frame_124.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_124.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 124.0
+            }
+          },
+          {
+            "artifact_id": "frame_125.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_125.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 125.0
+            }
+          },
+          {
+            "artifact_id": "frame_126.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 126.0
+            }
+          },
+          {
+            "artifact_id": "frame_127.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 127.0
+            }
+          },
+          {
+            "artifact_id": "frame_128.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_128.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 128.0
+            }
+          },
+          {
+            "artifact_id": "frame_129.00",
+            "kind": "frame",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_129.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 129.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_8309c357ecef73e8",
+          "obs_f0614a196eb9f61a",
+          "obs_6f607737594f52bd",
+          "obs_e715e77dfa37f118",
+          "obs_14dc68980b8cfb54",
+          "obs_c5fe9a967a827bf4",
+          "obs_d60e568d4a3a6fa9",
+          "obs_665ca19a260bd248",
+          "obs_8d4378b4ed182f59",
+          "obs_46bb67c89a1f07af",
+          "obs_00ff6094e8862db0",
+          "obs_f6abd4529815ab15"
+        ],
+        "metadata": {
+          "request_hash": "5475c88ce29040a5cd69dc6d",
+          "cache_hit": false
+        }
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The relevant activity remains the Inner City Tennis volunteering segment, and the denser chronological visual sequence for counting is 123s -> 124s -> 125s -> 126s -> 127s -> 128s -> 129s.",
+        "supporting_observation_ids": [
+          "obs_f6abd4529815ab15",
+          "obs_40621d81d1533575",
+          "obs_e39891027b66c6ac",
+          "obs_fe0427218e9a71e2",
+          "obs_1edd2b3e5b3bf63a",
+          "obs_854aa1019d24fe4a",
+          "obs_338e4d47d345479d",
+          "obs_cdf91975c35f8e4a"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": 123.0,
+        "time_end_s": 129.0,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.0,
+            "end_s": 123.0
+          },
+          {
+            "start_s": 124.0,
+            "end_s": 124.0
+          },
+          {
+            "start_s": 125.0,
+            "end_s": 125.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 126.0
+          },
+          {
+            "start_s": 127.0,
+            "end_s": 127.0
+          },
+          {
+            "start_s": 128.0,
+            "end_s": 128.0
+          },
+          {
+            "start_s": 129.0,
+            "end_s": 129.0
+          }
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "For side steps, the visible frames that show the woman at 123s, 126s, and 127s are explicitly marked as not showing a completed side step, and the extended review also says there are no clear side steps visible in these static frames. So the grounded completed side-step count in the retrieved sequence is 0.",
+        "supporting_observation_ids": [
+          "obs_27459b1e14ba4df0",
+          "obs_7f222d9c6a8afb7d",
+          "obs_4ba5694c7fc884d1",
+          "obs_00ff6094e8862db0"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": 123.0,
+        "time_end_s": 127.0,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.0,
+            "end_s": 123.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 126.0
+          },
+          {
+            "start_s": 127.0,
+            "end_s": 127.0
+          }
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "For ball tosses, the frames support one completed toss cycle bounded by 126s and 127s: a ball is in the air while she looks at it at 126s, and by 127s no ball is in the air. The later 128s and 129s frames both still show a ball in the air, so they do not bound an additional completed toss cycle within the retrieved sequence. The 123s-124s transition also does not show her clearly performing a toss. Thus the grounded completed ball-toss count is 1.",
+        "supporting_observation_ids": [
+          "obs_e715e77dfa37f118",
+          "obs_14dc68980b8cfb54",
+          "obs_c5fe9a967a827bf4",
+          "obs_d60e568d4a3a6fa9",
+          "obs_8d4378b4ed182f59",
+          "obs_39a336e3bee50872"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": 124.0,
+        "time_end_s": 129.0,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 124.0,
+            "end_s": 124.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 127.0
+          },
+          {
+            "start_s": 128.0,
+            "end_s": 129.0
+          }
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "Using the grounded counts from the retrieved sequence gives a side-steps-to-ball-tosses ratio of 0:1. None of the answer choices is 0:1, so no listed option is supported by the visual counts.",
+        "supporting_observation_ids": [
+          "obs_27459b1e14ba4df0",
+          "obs_7f222d9c6a8afb7d",
+          "obs_4ba5694c7fc884d1",
+          "obs_00ff6094e8862db0",
+          "obs_e715e77dfa37f118",
+          "obs_c5fe9a967a827bf4",
+          "obs_70cb4631b45db85c",
+          "obs_6e803eab2b25378d",
+          "obs_c03bf31274255692",
+          "obs_8e88cd8175707126",
+          "obs_289bb4618df3d6c6"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "AY84ybskqI__067504b6f6bd",
+        "trace": {
+          "inference_steps": [
+            "[123s; 124s; 125s; 126s; 127s; 128s; 129s] The relevant activity remains the Inner City Tennis volunteering segment, and the denser chronological visual sequence for counting is 123s -> 124s -> 125s -> 126s -> 127s -> 128s -> 129s.",
+            "[123s; 126s; 127s] For side steps, the visible frames that show the woman at 123s, 126s, and 127s are explicitly marked as not showing a completed side step, and the extended review also says there are no clear side steps visible in these static frames. So the grounded completed side-step count in the retrieved sequence is 0.",
+            "[124s; 126s to 127s; 128s to 129s] For ball tosses, the frames support one completed toss cycle bounded by 126s and 127s: a ball is in the air while she looks at it at 126s, and by 127s no ball is in the air. The later 128s and 129s frames both still show a ball in the air, so they do not bound an additional completed toss cycle within the retrieved sequence. The 123s-124s transition also does not show her clearly performing a toss. Thus the grounded completed ball-toss count is 1.",
+            "Using the grounded counts from the retrieved sequence gives a side-steps-to-ball-tosses ratio of 0:1. None of the answer choices is 0:1, so no listed option is supported by the visual counts."
+          ],
+          "evidence": [
+            {
+              "tool_name": "frame_retriever",
+              "evidence_text": "Chronological neighboring frames were retrieved at 123s, 124s, 125s, 126s, and 127s around the relevant interval.",
+              "observation_ids": [
+                "obs_40621d81d1533575",
+                "obs_e39891027b66c6ac",
+                "obs_fe0427218e9a71e2",
+                "obs_1edd2b3e5b3bf63a",
+                "obs_854aa1019d24fe4a"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 123.0,
+                  "end_s": 123.0
+                },
+                {
+                  "start_s": 124.0,
+                  "end_s": 124.0
+                },
+                {
+                  "start_s": 125.0,
+                  "end_s": 125.0
+                },
+                {
+                  "start_s": 126.0,
+                  "end_s": 126.0
+                },
+                {
+                  "start_s": 127.0,
+                  "end_s": 127.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "Within the retrieved sequence, the woman in gray is visible standing and holding a ball at 123s; at 124s the frame is a close-up of a racket hitting a ball and does not clearly show her performing a toss; at 125s no woman is visible; at 126s she is standing with a racket while a ball is in the air and she is looking up at it; at 127s she is holding the racket out and no ball is in the air.",
+              "observation_ids": [
+                "obs_58baefaabf9330b0",
+                "obs_280e58fcd2f9ef86",
+                "obs_505710e8a488bc29",
+                "obs_2fd95d52fae5466e",
+                "obs_48e29ca8676b10e6",
+                "obs_39a336e3bee50872",
+                "obs_aab1a288360f0b79",
+                "obs_6f607737594f52bd",
+                "obs_3e9a72e7a17dd339",
+                "obs_556d6527bd3a9799",
+                "obs_eacb952dda896492",
+                "obs_ed6aa91722c53306",
+                "obs_1e525c6b57612c8f",
+                "obs_7d337af79333923b",
+                "obs_9016a5ae6210aaf0"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 123.0,
+                  "end_s": 123.0
+                },
+                {
+                  "start_s": 124.0,
+                  "end_s": 124.0
+                },
+                {
+                  "start_s": 125.0,
+                  "end_s": 125.0
+                },
+                {
+                  "start_s": 126.0,
+                  "end_s": 126.0
+                },
+                {
+                  "start_s": 127.0,
+                  "end_s": 127.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "The retrieved frames that show the woman do not show a completed visible side step: Image 1/123s, Image 4/126s, and Image 5/127s are each marked as not showing a completed side step, with feet positions described as together or shoulder-width rather than a clearly completed lateral movement.",
+              "observation_ids": [
+                "obs_27459b1e14ba4df0",
+                "obs_7f222d9c6a8afb7d",
+                "obs_4ba5694c7fc884d1",
+                "obs_47d723601f358fa7",
+                "obs_0aac2802aa7c1d37",
+                "obs_cf0da9ab65f3eb99"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 123.0,
+                  "end_s": 123.0
+                },
+                {
+                  "start_s": 126.0,
+                  "end_s": 126.0
+                },
+                {
+                  "start_s": 127.0,
+                  "end_s": 127.0
+                }
+              ]
+            },
+            {
+              "tool_name": "frame_retriever",
+              "evidence_text": "An extended chronological neighboring sequence was retrieved at 123s, 124s, 125s, 126s, 127s, 128s, and 129s for the same activity segment.",
+              "observation_ids": [
+                "obs_40621d81d1533575",
+                "obs_e39891027b66c6ac",
+                "obs_fe0427218e9a71e2",
+                "obs_1edd2b3e5b3bf63a",
+                "obs_854aa1019d24fe4a",
+                "obs_338e4d47d345479d",
+                "obs_cdf91975c35f8e4a"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 123.0,
+                  "end_s": 123.0
+                },
+                {
+                  "start_s": 124.0,
+                  "end_s": 124.0
+                },
+                {
+                  "start_s": 125.0,
+                  "end_s": 125.0
+                },
+                {
+                  "start_s": 126.0,
+                  "end_s": 126.0
+                },
+                {
+                  "start_s": 127.0,
+                  "end_s": 127.0
+                },
+                {
+                  "start_s": 128.0,
+                  "end_s": 128.0
+                },
+                {
+                  "start_s": 129.0,
+                  "end_s": 129.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "In the extended 123s-129s sequence, the woman in gray is holding a ball at 123s; a racket is hitting a ball at 124s; no woman is visible at 125s; at 126s a ball is in the air while she looks at it; at 127s no ball is in the air; at 128s a ball is again in the air while she looks at it; and at 129s a ball is still in the air while she looks at it. The same analysis also states there are no clear side steps visible in these static frames and that the transcript mentions the Inner City Tennis volunteering context.",
+              "observation_ids": [
+                "obs_8309c357ecef73e8",
+                "obs_f0614a196eb9f61a",
+                "obs_6f607737594f52bd",
+                "obs_e715e77dfa37f118",
+                "obs_14dc68980b8cfb54",
+                "obs_c5fe9a967a827bf4",
+                "obs_d60e568d4a3a6fa9",
+                "obs_665ca19a260bd248",
+                "obs_8d4378b4ed182f59",
+                "obs_46bb67c89a1f07af",
+                "obs_00ff6094e8862db0",
+                "obs_f6abd4529815ab15"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 123.0,
+                  "end_s": 123.0
+                },
+                {
+                  "start_s": 124.0,
+                  "end_s": 124.0
+                },
+                {
+                  "start_s": 125.0,
+                  "end_s": 125.0
+                },
+                {
+                  "start_s": 126.0,
+                  "end_s": 126.0
+                },
+                {
+                  "start_s": 127.0,
+                  "end_s": 127.0
+                },
+                {
+                  "start_s": 128.0,
+                  "end_s": 128.0
+                },
+                {
+                  "start_s": 129.0,
+                  "end_s": 129.0
+                }
+              ]
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {
+      "answer_status": "unresolved_due_to_option_mismatch_with_grounded_ratio",
+      "notes": "Preserved the Inner City Tennis segment anchor, replaced the earlier sparse-window final non-answer with counts from the denser 123-129s sequence, and kept final_answer empty because the grounded ratio is 0:1 while no option matches 0:1."
+    }
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.95,
+    "scores": {
+      "logical_coherence": 3,
+      "completeness": 1,
+      "factual_correctness": 3,
+      "reasoning_order": 4
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace does not complete the multiple-choice task: it leaves final_answer empty and concludes that no listed option is supported, rather than justifying one provided choice.",
+        "evidence_ids": [
+          "ev_gp_no_completed_side_steps",
+          "ev_02_5475c88c"
+        ]
+      },
+      {
+        "severity": "HIGH",
+        "category": "COUNTING_GAP",
+        "message": "The side-step and ball-toss counts are under-grounded from sparse static frames. The evidence supports that no clear side step is visible in sampled frames and that balls are seen in the air at some timestamps, but it does not fully validate the completed action counts needed to determine the ratio among the answer choices.",
+        "evidence_ids": [
+          "ev_gp_no_completed_side_steps",
+          "ev_gp_visible_actions",
+          "ev_02_5475c88c"
+        ]
+      }
+    ],
+    "feedback": "The trace stays unresolved instead of selecting a justified option, and its action counts rely on limited static-frame evidence that does not fully ground the completed side-step and completed ball-toss totals required for the ratio.",
+    "missing_information": [
+      "grounded completed side-step count for the woman in gray during the Inner City Tennis segment",
+      "grounded completed ball-toss count for the woman in gray during the same segment",
+      "mapping from the grounded ratio to one provided answer choice"
+    ],
+    "diagnostics": {
+      "referent_alignment": "pass: the trace consistently refers to the woman in gray in the Inner City Tennis volunteering segment.",
+      "temporal_alignment": "partial: the trace uses a chronological 123s-129s window, but the sampled timestamps do not fully establish completed action counts across the relevant activity.",
+      "option_alignment": "fail: the trace derives a free-form 0:1 result and leaves the answer blank instead of resolving to one listed option.",
+      "evidence_sufficiency": "fail: evidence confirms some visible states (holding ball, ball in air, no clear side step in sampled frames) but not enough to justify the answer-critical completed-action ratio."
+    }
+  },
+  "benchmark_export": {
+    "sample_key": "AY84ybskqI__067504b6f6bd",
+    "trace": {
+      "inference_steps": [
+        "[123s; 124s; 125s; 126s; 127s; 128s; 129s] The relevant activity remains the Inner City Tennis volunteering segment, and the denser chronological visual sequence for counting is 123s -> 124s -> 125s -> 126s -> 127s -> 128s -> 129s.",
+        "[123s; 126s; 127s] For side steps, the visible frames that show the woman at 123s, 126s, and 127s are explicitly marked as not showing a completed side step, and the extended review also says there are no clear side steps visible in these static frames. So the grounded completed side-step count in the retrieved sequence is 0.",
+        "[124s; 126s to 127s; 128s to 129s] For ball tosses, the frames support one completed toss cycle bounded by 126s and 127s: a ball is in the air while she looks at it at 126s, and by 127s no ball is in the air. The later 128s and 129s frames both still show a ball in the air, so they do not bound an additional completed toss cycle within the retrieved sequence. The 123s-124s transition also does not show her clearly performing a toss. Thus the grounded completed ball-toss count is 1.",
+        "Using the grounded counts from the retrieved sequence gives a side-steps-to-ball-tosses ratio of 0:1. None of the answer choices is 0:1, so no listed option is supported by the visual counts."
+      ],
+      "evidence": [
+        {
+          "tool_name": "frame_retriever",
+          "evidence_text": "Chronological neighboring frames were retrieved at 123s, 124s, 125s, 126s, and 127s around the relevant interval.",
+          "observation_ids": [
+            "obs_40621d81d1533575",
+            "obs_e39891027b66c6ac",
+            "obs_fe0427218e9a71e2",
+            "obs_1edd2b3e5b3bf63a",
+            "obs_854aa1019d24fe4a"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 123.0,
+              "end_s": 123.0
+            },
+            {
+              "start_s": 124.0,
+              "end_s": 124.0
+            },
+            {
+              "start_s": 125.0,
+              "end_s": 125.0
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 126.0
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 127.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "Within the retrieved sequence, the woman in gray is visible standing and holding a ball at 123s; at 124s the frame is a close-up of a racket hitting a ball and does not clearly show her performing a toss; at 125s no woman is visible; at 126s she is standing with a racket while a ball is in the air and she is looking up at it; at 127s she is holding the racket out and no ball is in the air.",
+          "observation_ids": [
+            "obs_58baefaabf9330b0",
+            "obs_280e58fcd2f9ef86",
+            "obs_505710e8a488bc29",
+            "obs_2fd95d52fae5466e",
+            "obs_48e29ca8676b10e6",
+            "obs_39a336e3bee50872",
+            "obs_aab1a288360f0b79",
+            "obs_6f607737594f52bd",
+            "obs_3e9a72e7a17dd339",
+            "obs_556d6527bd3a9799",
+            "obs_eacb952dda896492",
+            "obs_ed6aa91722c53306",
+            "obs_1e525c6b57612c8f",
+            "obs_7d337af79333923b",
+            "obs_9016a5ae6210aaf0"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 123.0,
+              "end_s": 123.0
+            },
+            {
+              "start_s": 124.0,
+              "end_s": 124.0
+            },
+            {
+              "start_s": 125.0,
+              "end_s": 125.0
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 126.0
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 127.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "The retrieved frames that show the woman do not show a completed visible side step: Image 1/123s, Image 4/126s, and Image 5/127s are each marked as not showing a completed side step, with feet positions described as together or shoulder-width rather than a clearly completed lateral movement.",
+          "observation_ids": [
+            "obs_27459b1e14ba4df0",
+            "obs_7f222d9c6a8afb7d",
+            "obs_4ba5694c7fc884d1",
+            "obs_47d723601f358fa7",
+            "obs_0aac2802aa7c1d37",
+            "obs_cf0da9ab65f3eb99"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 123.0,
+              "end_s": 123.0
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 126.0
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 127.0
+            }
+          ]
+        },
+        {
+          "tool_name": "frame_retriever",
+          "evidence_text": "An extended chronological neighboring sequence was retrieved at 123s, 124s, 125s, 126s, 127s, 128s, and 129s for the same activity segment.",
+          "observation_ids": [
+            "obs_40621d81d1533575",
+            "obs_e39891027b66c6ac",
+            "obs_fe0427218e9a71e2",
+            "obs_1edd2b3e5b3bf63a",
+            "obs_854aa1019d24fe4a",
+            "obs_338e4d47d345479d",
+            "obs_cdf91975c35f8e4a"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 123.0,
+              "end_s": 123.0
+            },
+            {
+              "start_s": 124.0,
+              "end_s": 124.0
+            },
+            {
+              "start_s": 125.0,
+              "end_s": 125.0
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 126.0
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 127.0
+            },
+            {
+              "start_s": 128.0,
+              "end_s": 128.0
+            },
+            {
+              "start_s": 129.0,
+              "end_s": 129.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "In the extended 123s-129s sequence, the woman in gray is holding a ball at 123s; a racket is hitting a ball at 124s; no woman is visible at 125s; at 126s a ball is in the air while she looks at it; at 127s no ball is in the air; at 128s a ball is again in the air while she looks at it; and at 129s a ball is still in the air while she looks at it. The same analysis also states there are no clear side steps visible in these static frames and that the transcript mentions the Inner City Tennis volunteering context.",
+          "observation_ids": [
+            "obs_8309c357ecef73e8",
+            "obs_f0614a196eb9f61a",
+            "obs_6f607737594f52bd",
+            "obs_e715e77dfa37f118",
+            "obs_14dc68980b8cfb54",
+            "obs_c5fe9a967a827bf4",
+            "obs_d60e568d4a3a6fa9",
+            "obs_665ca19a260bd248",
+            "obs_8d4378b4ed182f59",
+            "obs_46bb67c89a1f07af",
+            "obs_00ff6094e8862db0",
+            "obs_f6abd4529815ab15"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 123.0,
+              "end_s": 123.0
+            },
+            {
+              "start_s": 124.0,
+              "end_s": 124.0
+            },
+            {
+              "start_s": 125.0,
+              "end_s": 125.0
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 126.0
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 127.0
+            },
+            {
+              "start_s": 128.0,
+              "end_s": 128.0
+            },
+            {
+              "start_s": 129.0,
+              "end_s": 129.0
+            }
+          ]
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": true,
+    "cache_dir": "preprocess/AY84ybskqI",
+    "manifest": {
+      "video_id": "-AY84ybskqI",
+      "video_fingerprint": "ded48d95a990dd443117e200af1724a2049227555292b8f20583bcf00a8d6da0",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "26503208b9ce",
+      "segment_count": 3,
+      "planner_segment_count": 3,
+      "dense_caption_span_count": 7,
+      "transcript_segment_count": 8,
+      "transcript_count": 1,
+      "include_asr": true
+    },
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecting lines.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum.; CCX | MEDIA | CCXMEDIA.ORG; attributes: camera_state: The camera is static, holding a centered, medium shot of the logo., video_background: The background is a dark, abstract design with thin, white diagonal and vertical lines crisscrossing the screen., storyline: This segment serves as the production company's branding intro before the main content begins., shooting_style: This is a static shot of a logo. A montage of young female tennis players is shown. First, a group of girls smiles and talks. Then, a player in a white visor and tank top hits a backhand on a green court. The scene cuts to a close-up of a tennis ball bouncing on the court, then to a player in a white t-shirt with 'CHAMPLIN PARK REBELS' printed on it, smiling as she plays.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; CHAMPLIN PARK REBELS; attributes: camera_state: The camera uses a series of quick cuts. It includes a medium shot of the group, a medium shot of the player in action, a close-up on the tennis ball, and a medium shot of the smiling player., video_background: The scenes take place on and around a green tennis court, with a chain-link fence and trees visible in the background., storyline: This montage introduces the main subjects of the video: young female tennis players, establishing a positive and active atmosphere., shooting_style: This is a montage sequence with quick cuts between different scenes.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecting lines.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum.",
+              "on_screen_text": [
+                "CCXMEDIA.ORG"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot of the logo.",
+                "video_background: The background is a dark, abstract design with thin, white diagonal and vertical lines crisscrossing the screen.",
+                "storyline: This segment serves as the production company's branding intro before the main content begins.",
+                "shooting_style: This is a static shot of a logo."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 8.0,
+              "visual": "A montage of young female tennis players is shown. First, a group of girls smiles and talks. Then, a player in a white visor and tank top hits a backhand on a green court. The scene cuts to a close-up of a tennis ball bouncing on the court, then to a player in a white t-shirt with 'CHAMPLIN PARK REBELS' printed on it, smiling as she plays.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": [
+                "CHAMPLIN PARK REBELS"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of quick cuts. It includes a medium shot of the group, a medium shot of the player in action, a close-up on the tennis ball, and a medium shot of the smiling player.",
+                "video_background: The scenes take place on and around a green tennis court, with a chain-link fence and trees visible in the background.",
+                "storyline: This montage introduces the main subjects of the video: young female tennis players, establishing a positive and active atmosphere.",
+                "shooting_style: This is a montage sequence with quick cuts between different scenes."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 0.031,
+            "end_s": 21.074,
+            "text": "Alex Replier calls the tennis court her happy place. The Chamberlain Park Junior tried a lot of sports growing up, but tennis stuck. It was just something about the fact that when I'm on the court, it's me and I get to make decisions. And if you know I messed up, it's me. And if I win, it's me."
+          },
+          {
+            "start_s": 21.192,
+            "end_s": 44.193,
+            "text": "Replier started playing when she was five years old and made the CP varsity as a seventh grader. In ninth grade, she became the Rebels' number one singles player. I went from just being the flattest, hardest hitter ever to someone who I can actually hit topspin now and just really, I know how to construct points better and I know how to really just set up a strategy that'll work to have me be successful on the court."
+          },
+          {
+            "start_s": 44.412,
+            "end_s": 67.666,
+            "text": "Replier is a team captain this season and tries to be a leader and mentor to younger players. She really took me under her wing. She just made sure I felt like I could talk to her about anything. And if I had any questions, I could go to her. Year after year, she got a little more mature. She started to make friends. And she's really blossomed into the leader of Temple Park tennis."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.; attributes: camera_state: The camera is at a medium distance, panning slightly to the right to follow the man as he walks by., video_background: The scene is set on an outdoor tennis court, with a chain-link fence separating the court from the grassy area behind it. Trees are visible in the distance., storyline: This opening shot establishes the setting and introduces a group of young tennis players, setting a casual and social tone before the action begins., shooting_style: This is a standard establishing shot. A man, identified by a lower-third graphic as Doug Gullickson, the Champlin Park Girls Tennis Assistant Coach, is interviewed. He wears a blue Under Armour cap and a dark blue shirt, speaking directly to the camera.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera is at a medium close-up, focused on the coach's face and upper body., video_background: The background consists of a chain-link fence and trees with green and yellow leaves, indicating it is likely autumn., storyline: This segment introduces a key figure, the assistant coach, who will provide commentary and context for the upcoming tennis match., shooting_style: This is a standard interview shot with a lower-third graphic. A montage of a women's doubles tennis match is shown. One player in a white top and dark shorts hits a backhand, while her partner in a purple top and black shorts runs to the net to return a shot. The camera follows the action as they move around the court.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of tennis balls being hit and sneakers squeaking on the court.; attributes: camera_state: The camera pans to the right, following the players' movements across the court., video_background: The match takes place on a blue tennis court with white lines. A black chain-link fence, trees, and a few spectators are visible in the background., storyline: This montage provides a glimpse into the women's doubles match, showcasing the players' skills and teamwork., shooting_style: This is a montage of action shots from the tennis match.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, panning slightly to the right to follow the man as he walks by.",
+                "video_background: The scene is set on an outdoor tennis court, with a chain-link fence separating the court from the grassy area behind it. Trees are visible in the distance.",
+                "storyline: This opening shot establishes the setting and introduces a group of young tennis players, setting a casual and social tone before the action begins.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 64.0,
+              "visual": "A man, identified by a lower-third graphic as Doug Gullickson, the Champlin Park Girls Tennis Assistant Coach, is interviewed. He wears a blue Under Armour cap and a dark blue shirt, speaking directly to the camera.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera is at a medium close-up, focused on the coach's face and upper body.",
+                "video_background: The background consists of a chain-link fence and trees with green and yellow leaves, indicating it is likely autumn.",
+                "storyline: This segment introduces a key figure, the assistant coach, who will provide commentary and context for the upcoming tennis match.",
+                "shooting_style: This is a standard interview shot with a lower-third graphic."
+              ]
+            },
+            {
+              "start_s": 65.0,
+              "end_s": 69.0,
+              "visual": "A montage of a women's doubles tennis match is shown. One player in a white top and dark shorts hits a backhand, while her partner in a purple top and black shorts runs to the net to return a shot. The camera follows the action as they move around the court.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of tennis balls being hit and sneakers squeaking on the court.",
+              "attributes": [
+                "camera_state: The camera pans to the right, following the players' movements across the court.",
+                "video_background: The match takes place on a blue tennis court with white lines. A black chain-link fence, trees, and a few spectators are visible in the background.",
+                "storyline: This montage provides a glimpse into the women's doubles match, showcasing the players' skills and teamwork.",
+                "shooting_style: This is a montage of action shots from the tennis match."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 67.666,
+            "end_s": 86.667,
+            "text": "Replier is always striving to get better and to that end she plays on the club circuit as well. I love competing in tournaments whether they're local level or national level and the club environment is just so fun and it is something I really love to do is just compete and every weekend you know we're traveling to different cities and spending a lot of time on the court."
+          },
+          {
+            "start_s": 86.87,
+            "end_s": 115.912,
+            "text": "Still, Replier says the club tennis world is very different from high school and can sometimes be difficult to manage. I've kind of built a community with my family and with my coaches where, you know, I have a supportive group around me, but definitely when you're on the court, you're just kind of sitting on the bench yourself. It definitely can get a little, feel a little lonely. When she's not playing tennis or keeping up with her schoolwork, Alex Replier is probably teaching the game. She volunteers at Inner City Tennis in Minneapolis."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 172.272,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 120.0,
+              "end_s": 172.272,
+              "artifact_id": "clip_120_00_172_27",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 172.272
+          },
+          "overall_summary": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; INNER CITY TENNIS; attributes: camera_state: The camera is at a medium distance, focusing on the instructor and the child. It pans slightly to follow the action., video_background: The scene is an indoor tennis facility with a bright blue wall in the background. Other people, including another instructor and a child, are visible in the periphery., storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor teaching a young participant, establishing the theme of youth sports and mentorship., shooting_style: This is a standard shot establishing the scene and characters. A montage of quick cuts shows different scenes from the tennis program. A young girl with long blonde hair hits a ball with her racket. A low-angle shot from the court shows a ball bouncing as a player hits it. A male instructor in a grey shirt smiles while standing behind a net.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, inspirational music continues.; attributes: camera_state: The sequence uses multiple camera angles: a medium shot of a young girl, a low-angle wide shot of a player on the court, and a medium shot of an instructor., video_background: The scenes take place on an indoor tennis court, with blue backdrops, nets, and other players visible in the background., storyline: This montage quickly showcases the activities and participants of the tennis program, highlighting both young players and adult instructors., shooting_style: This is a montage, using quick cuts between different related scenes to convey energy and activity.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": [
+                "INNER CITY TENNIS"
+              ],
+              "attributes": [
+                "camera_state: The camera is at a medium distance, focusing on the instructor and the child. It pans slightly to follow the action.",
+                "video_background: The scene is an indoor tennis facility with a bright blue wall in the background. Other people, including another instructor and a child, are visible in the periphery.",
+                "storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor teaching a young participant, establishing the theme of youth sports and mentorship.",
+                "shooting_style: This is a standard shot establishing the scene and characters."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 129.0,
+              "visual": "A montage of quick cuts shows different scenes from the tennis program. A young girl with long blonde hair hits a ball with her racket. A low-angle shot from the court shows a ball bouncing as a player hits it. A male instructor in a grey shirt smiles while standing behind a net.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, inspirational music continues.",
+              "attributes": [
+                "camera_state: The sequence uses multiple camera angles: a medium shot of a young girl, a low-angle wide shot of a player on the court, and a medium shot of an instructor.",
+                "video_background: The scenes take place on an indoor tennis court, with blue backdrops, nets, and other players visible in the background.",
+                "storyline: This montage quickly showcases the activities and participants of the tennis program, highlighting both young players and adult instructors.",
+                "shooting_style: This is a montage, using quick cuts between different related scenes to convey energy and activity."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 116.097,
+            "end_s": 136.702,
+            "text": "It's the greatest feeling. Just seeing these kids kind of latch on to a sport that I love so much and just the smiles on their face when they kind of, you know, hit a forehand for the first time or, you know, something just clicks in their head where they're like, oh my god, I know how to do this. It's just a really amazing feeling to know that I have an impact on their lives and that I get to show them something that I love so much and see them love it just as much."
+          },
+          {
+            "start_s": 136.769,
+            "end_s": 161.373,
+            "text": "Champlin Park bowed out early in the section tournament, but with a pretty young squad, Replier believes the future is bright for Rebels tennis. All of these girls work so hard in the offseason, and we all play constantly almost every day in the offseason. And so as we look into the future, we know that even if this year isn't perfect, we have time to grow, and we can do even better next year and just keep working hard. Jason Melillo, CCX Sports."
+          },
+          {
+            "start_s": 163.28,
+            "end_s": 169.76,
+            "text": "Find more prep sports games and highlights at ccxmedia.org and follow us on social media."
+          }
+        ]
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecting lines.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum.; CCX | MEDIA | CCXMEDIA.ORG; attributes: camera_state: The camera is static, holding a centered, medium shot of the logo., video_background: The background is a dark, abstract design with thin, white diagonal and vertical lines crisscrossing the screen., storyline: This segment serves as the production company's branding intro before the main content begins., shooting_style: This is a static shot of a logo. A montage of young female tennis players is shown. First, a group of girls smiles and talks. Then, a player in a white visor and tank top hits a backhand on a green court. The scene cuts to a close-up of a tennis ball bouncing on the court, then to a player in a white t-shirt with 'CHAMPLIN PARK REBELS' printed on it, smiling as she plays.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; CHAMPLIN PARK REBELS; attributes: camera_state: The camera uses a series of quick cuts. It includes a medium shot of the group, a medium shot of the player in action, a close-up on the tennis ball, and a medium shot of the smiling player., video_background: The scenes take place on and around a green tennis court, with a chain-link fence and trees visible in the background., storyline: This montage introduces the main subjects of the video: young female tennis players, establishing a positive and active atmosphere., shooting_style: This is a montage sequence with quick cuts between different scenes.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecting lines.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum.",
+              "on_screen_text": [
+                "CCXMEDIA.ORG"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot of the logo.",
+                "video_background: The background is a dark, abstract design with thin, white diagonal and vertical lines crisscrossing the screen.",
+                "storyline: This segment serves as the production company's branding intro before the main content begins.",
+                "shooting_style: This is a static shot of a logo."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 8.0,
+              "visual": "A montage of young female tennis players is shown. First, a group of girls smiles and talks. Then, a player in a white visor and tank top hits a backhand on a green court. The scene cuts to a close-up of a tennis ball bouncing on the court, then to a player in a white t-shirt with 'CHAMPLIN PARK REBELS' printed on it, smiling as she plays.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": [
+                "CHAMPLIN PARK REBELS"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of quick cuts. It includes a medium shot of the group, a medium shot of the player in action, a close-up on the tennis ball, and a medium shot of the smiling player.",
+                "video_background: The scenes take place on and around a green tennis court, with a chain-link fence and trees visible in the background.",
+                "storyline: This montage introduces the main subjects of the video: young female tennis players, establishing a positive and active atmosphere.",
+                "shooting_style: This is a montage sequence with quick cuts between different scenes."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 0.031,
+            "end_s": 21.074,
+            "text": "Alex Replier calls the tennis court her happy place. The Chamberlain Park Junior tried a lot of sports growing up, but tennis stuck. It was just something about the fact that when I'm on the court, it's me and I get to make decisions. And if you know I messed up, it's me. And if I win, it's me."
+          },
+          {
+            "start_s": 21.192,
+            "end_s": 44.193,
+            "text": "Replier started playing when she was five years old and made the CP varsity as a seventh grader. In ninth grade, she became the Rebels' number one singles player. I went from just being the flattest, hardest hitter ever to someone who I can actually hit topspin now and just really, I know how to construct points better and I know how to really just set up a strategy that'll work to have me be successful on the court."
+          },
+          {
+            "start_s": 44.412,
+            "end_s": 67.666,
+            "text": "Replier is a team captain this season and tries to be a leader and mentor to younger players. She really took me under her wing. She just made sure I felt like I could talk to her about anything. And if I had any questions, I could go to her. Year after year, she got a little more mature. She started to make friends. And she's really blossomed into the leader of Temple Park tennis."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.; attributes: camera_state: The camera is at a medium distance, panning slightly to the right to follow the man as he walks by., video_background: The scene is set on an outdoor tennis court, with a chain-link fence separating the court from the grassy area behind it. Trees are visible in the distance., storyline: This opening shot establishes the setting and introduces a group of young tennis players, setting a casual and social tone before the action begins., shooting_style: This is a standard establishing shot. A man, identified by a lower-third graphic as Doug Gullickson, the Champlin Park Girls Tennis Assistant Coach, is interviewed. He wears a blue Under Armour cap and a dark blue shirt, speaking directly to the camera.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera is at a medium close-up, focused on the coach's face and upper body., video_background: The background consists of a chain-link fence and trees with green and yellow leaves, indicating it is likely autumn., storyline: This segment introduces a key figure, the assistant coach, who will provide commentary and context for the upcoming tennis match., shooting_style: This is a standard interview shot with a lower-third graphic. A montage of a women's doubles tennis match is shown. One player in a white top and dark shorts hits a backhand, while her partner in a purple top and black shorts runs to the net to return a shot. The camera follows the action as they move around the court.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of tennis balls being hit and sneakers squeaking on the court.; attributes: camera_state: The camera pans to the right, following the players' movements across the court., video_background: The match takes place on a blue tennis court with white lines. A black chain-link fence, trees, and a few spectators are visible in the background., storyline: This montage provides a glimpse into the women's doubles match, showcasing the players' skills and teamwork., shooting_style: This is a montage of action shots from the tennis match.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, panning slightly to the right to follow the man as he walks by.",
+                "video_background: The scene is set on an outdoor tennis court, with a chain-link fence separating the court from the grassy area behind it. Trees are visible in the distance.",
+                "storyline: This opening shot establishes the setting and introduces a group of young tennis players, setting a casual and social tone before the action begins.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 64.0,
+              "visual": "A man, identified by a lower-third graphic as Doug Gullickson, the Champlin Park Girls Tennis Assistant Coach, is interviewed. He wears a blue Under Armour cap and a dark blue shirt, speaking directly to the camera.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera is at a medium close-up, focused on the coach's face and upper body.",
+                "video_background: The background consists of a chain-link fence and trees with green and yellow leaves, indicating it is likely autumn.",
+                "storyline: This segment introduces a key figure, the assistant coach, who will provide commentary and context for the upcoming tennis match.",
+                "shooting_style: This is a standard interview shot with a lower-third graphic."
+              ]
+            },
+            {
+              "start_s": 65.0,
+              "end_s": 69.0,
+              "visual": "A montage of a women's doubles tennis match is shown. One player in a white top and dark shorts hits a backhand, while her partner in a purple top and black shorts runs to the net to return a shot. The camera follows the action as they move around the court.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of tennis balls being hit and sneakers squeaking on the court.",
+              "attributes": [
+                "camera_state: The camera pans to the right, following the players' movements across the court.",
+                "video_background: The match takes place on a blue tennis court with white lines. A black chain-link fence, trees, and a few spectators are visible in the background.",
+                "storyline: This montage provides a glimpse into the women's doubles match, showcasing the players' skills and teamwork.",
+                "shooting_style: This is a montage of action shots from the tennis match."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 67.666,
+            "end_s": 86.667,
+            "text": "Replier is always striving to get better and to that end she plays on the club circuit as well. I love competing in tournaments whether they're local level or national level and the club environment is just so fun and it is something I really love to do is just compete and every weekend you know we're traveling to different cities and spending a lot of time on the court."
+          },
+          {
+            "start_s": 86.87,
+            "end_s": 115.912,
+            "text": "Still, Replier says the club tennis world is very different from high school and can sometimes be difficult to manage. I've kind of built a community with my family and with my coaches where, you know, I have a supportive group around me, but definitely when you're on the court, you're just kind of sitting on the bench yourself. It definitely can get a little, feel a little lonely. When she's not playing tennis or keeping up with her schoolwork, Alex Replier is probably teaching the game. She volunteers at Inner City Tennis in Minneapolis."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 172.272,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 120.0,
+              "end_s": 172.272,
+              "artifact_id": "clip_120_00_172_27",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 172.272
+          },
+          "overall_summary": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; INNER CITY TENNIS; attributes: camera_state: The camera is at a medium distance, focusing on the instructor and the child. It pans slightly to follow the action., video_background: The scene is an indoor tennis facility with a bright blue wall in the background. Other people, including another instructor and a child, are visible in the periphery., storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor teaching a young participant, establishing the theme of youth sports and mentorship., shooting_style: This is a standard shot establishing the scene and characters. A montage of quick cuts shows different scenes from the tennis program. A young girl with long blonde hair hits a ball with her racket. A low-angle shot from the court shows a ball bouncing as a player hits it. A male instructor in a grey shirt smiles while standing behind a net.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, inspirational music continues.; attributes: camera_state: The sequence uses multiple camera angles: a medium shot of a young girl, a low-angle wide shot of a player on the court, and a medium shot of an instructor., video_background: The scenes take place on an indoor tennis court, with blue backdrops, nets, and other players visible in the background., storyline: This montage quickly showcases the activities and participants of the tennis program, highlighting both young players and adult instructors., shooting_style: This is a montage, using quick cuts between different related scenes to convey energy and activity.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": [
+                "INNER CITY TENNIS"
+              ],
+              "attributes": [
+                "camera_state: The camera is at a medium distance, focusing on the instructor and the child. It pans slightly to follow the action.",
+                "video_background: The scene is an indoor tennis facility with a bright blue wall in the background. Other people, including another instructor and a child, are visible in the periphery.",
+                "storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor teaching a young participant, establishing the theme of youth sports and mentorship.",
+                "shooting_style: This is a standard shot establishing the scene and characters."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 129.0,
+              "visual": "A montage of quick cuts shows different scenes from the tennis program. A young girl with long blonde hair hits a ball with her racket. A low-angle shot from the court shows a ball bouncing as a player hits it. A male instructor in a grey shirt smiles while standing behind a net.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, inspirational music continues.",
+              "attributes": [
+                "camera_state: The sequence uses multiple camera angles: a medium shot of a young girl, a low-angle wide shot of a player on the court, and a medium shot of an instructor.",
+                "video_background: The scenes take place on an indoor tennis court, with blue backdrops, nets, and other players visible in the background.",
+                "storyline: This montage quickly showcases the activities and participants of the tennis program, highlighting both young players and adult instructors.",
+                "shooting_style: This is a montage, using quick cuts between different related scenes to convey energy and activity."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 116.097,
+            "end_s": 136.702,
+            "text": "It's the greatest feeling. Just seeing these kids kind of latch on to a sport that I love so much and just the smiles on their face when they kind of, you know, hit a forehand for the first time or, you know, something just clicks in their head where they're like, oh my god, I know how to do this. It's just a really amazing feeling to know that I have an impact on their lives and that I get to show them something that I love so much and see them love it just as much."
+          },
+          {
+            "start_s": 136.769,
+            "end_s": 161.373,
+            "text": "Champlin Park bowed out early in the section tournament, but with a pretty young squad, Replier believes the future is bright for Rebels tennis. All of these girls work so hard in the offseason, and we all play constantly almost every day in the offseason. And so as we look into the future, we know that even if this year isn't perfect, we have time to grow, and we can do even better next year and just keep working hard. Jason Melillo, CCX Sports."
+          },
+          {
+            "start_s": 163.28,
+            "end_s": 169.76,
+            "text": "Find more prep sports games and highlights at ccxmedia.org and follow us on social media."
+          }
+        ]
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecting lines.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum.; CCX | MEDIA | CCXMEDIA.ORG; attributes: camera_state: The camera is static, holding a centered, medium shot of the logo., video_background: The background is a dark, abstract design with thin, white diagonal and vertical lines crisscrossing the screen., storyline: This segment serves as the production company's branding intro before the main content begins., shooting_style: This is a static shot of a logo. A montage of young female tennis players is shown. First, a group of girls smiles and talks. Then, a player in a white visor and tank top hits a backhand on a green court. The scene cuts to a close-up of a tennis ball bouncing on the court, then to a player in a white t-shirt with 'CHAMPLIN PARK REBELS' printed on it, smiling as she plays.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; CHAMPLIN PARK REBELS; attributes: camera_state: The camera uses a series of quick cuts. It includes a medium shot of the group, a medium shot of the player in action, a close-up on the tennis ball, and a medium shot of the smiling player., video_background: The scenes take place on and around a green tennis court, with a chain-link fence and trees visible in the background., storyline: This montage introduces the main subjects of the video: young female tennis players, establishing a positive and active atmosphere., shooting_style: This is a montage sequence with quick cuts between different scenes.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecting lines.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum.",
+              "on_screen_text": [
+                "CCXMEDIA.ORG"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot of the logo.",
+                "video_background: The background is a dark, abstract design with thin, white diagonal and vertical lines crisscrossing the screen.",
+                "storyline: This segment serves as the production company's branding intro before the main content begins.",
+                "shooting_style: This is a static shot of a logo."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 8.0,
+              "visual": "A montage of young female tennis players is shown. First, a group of girls smiles and talks. Then, a player in a white visor and tank top hits a backhand on a green court. The scene cuts to a close-up of a tennis ball bouncing on the court, then to a player in a white t-shirt with 'CHAMPLIN PARK REBELS' printed on it, smiling as she plays.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": [
+                "CHAMPLIN PARK REBELS"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of quick cuts. It includes a medium shot of the group, a medium shot of the player in action, a close-up on the tennis ball, and a medium shot of the smiling player.",
+                "video_background: The scenes take place on and around a green tennis court, with a chain-link fence and trees visible in the background.",
+                "storyline: This montage introduces the main subjects of the video: young female tennis players, establishing a positive and active atmosphere.",
+                "shooting_style: This is a montage sequence with quick cuts between different scenes."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.; attributes: camera_state: The camera is at a medium distance, panning slightly to the right to follow the man as he walks by., video_background: The scene is set on an outdoor tennis court, with a chain-link fence separating the court from the grassy area behind it. Trees are visible in the distance., storyline: This opening shot establishes the setting and introduces a group of young tennis players, setting a casual and social tone before the action begins., shooting_style: This is a standard establishing shot. A man, identified by a lower-third graphic as Doug Gullickson, the Champlin Park Girls Tennis Assistant Coach, is interviewed. He wears a blue Under Armour cap and a dark blue shirt, speaking directly to the camera.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera is at a medium close-up, focused on the coach's face and upper body., video_background: The background consists of a chain-link fence and trees with green and yellow leaves, indicating it is likely autumn., storyline: This segment introduces a key figure, the assistant coach, who will provide commentary and context for the upcoming tennis match., shooting_style: This is a standard interview shot with a lower-third graphic. A montage of a women's doubles tennis match is shown. One player in a white top and dark shorts hits a backhand, while her partner in a purple top and black shorts runs to the net to return a shot. The camera follows the action as they move around the court.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of tennis balls being hit and sneakers squeaking on the court.; attributes: camera_state: The camera pans to the right, following the players' movements across the court., video_background: The match takes place on a blue tennis court with white lines. A black chain-link fence, trees, and a few spectators are visible in the background., storyline: This montage provides a glimpse into the women's doubles match, showcasing the players' skills and teamwork., shooting_style: This is a montage of action shots from the tennis match.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, panning slightly to the right to follow the man as he walks by.",
+                "video_background: The scene is set on an outdoor tennis court, with a chain-link fence separating the court from the grassy area behind it. Trees are visible in the distance.",
+                "storyline: This opening shot establishes the setting and introduces a group of young tennis players, setting a casual and social tone before the action begins.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 64.0,
+              "visual": "A man, identified by a lower-third graphic as Doug Gullickson, the Champlin Park Girls Tennis Assistant Coach, is interviewed. He wears a blue Under Armour cap and a dark blue shirt, speaking directly to the camera.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera is at a medium close-up, focused on the coach's face and upper body.",
+                "video_background: The background consists of a chain-link fence and trees with green and yellow leaves, indicating it is likely autumn.",
+                "storyline: This segment introduces a key figure, the assistant coach, who will provide commentary and context for the upcoming tennis match.",
+                "shooting_style: This is a standard interview shot with a lower-third graphic."
+              ]
+            },
+            {
+              "start_s": 65.0,
+              "end_s": 69.0,
+              "visual": "A montage of a women's doubles tennis match is shown. One player in a white top and dark shorts hits a backhand, while her partner in a purple top and black shorts runs to the net to return a shot. The camera follows the action as they move around the court.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of tennis balls being hit and sneakers squeaking on the court.",
+              "attributes": [
+                "camera_state: The camera pans to the right, following the players' movements across the court.",
+                "video_background: The match takes place on a blue tennis court with white lines. A black chain-link fence, trees, and a few spectators are visible in the background.",
+                "storyline: This montage provides a glimpse into the women's doubles match, showcasing the players' skills and teamwork.",
+                "shooting_style: This is a montage of action shots from the tennis match."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 172.272,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 120.0,
+              "end_s": 172.272,
+              "artifact_id": "clip_120_00_172_27",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 172.272
+          },
+          "overall_summary": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; INNER CITY TENNIS; attributes: camera_state: The camera is at a medium distance, focusing on the instructor and the child. It pans slightly to follow the action., video_background: The scene is an indoor tennis facility with a bright blue wall in the background. Other people, including another instructor and a child, are visible in the periphery., storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor teaching a young participant, establishing the theme of youth sports and mentorship., shooting_style: This is a standard shot establishing the scene and characters. A montage of quick cuts shows different scenes from the tennis program. A young girl with long blonde hair hits a ball with her racket. A low-angle shot from the court shows a ball bouncing as a player hits it. A male instructor in a grey shirt smiles while standing behind a net.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, inspirational music continues.; attributes: camera_state: The sequence uses multiple camera angles: a medium shot of a young girl, a low-angle wide shot of a player on the court, and a medium shot of an instructor., video_background: The scenes take place on an indoor tennis court, with blue backdrops, nets, and other players visible in the background., storyline: This montage quickly showcases the activities and participants of the tennis program, highlighting both young players and adult instructors., shooting_style: This is a montage, using quick cuts between different related scenes to convey energy and activity.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": [
+                "INNER CITY TENNIS"
+              ],
+              "attributes": [
+                "camera_state: The camera is at a medium distance, focusing on the instructor and the child. It pans slightly to follow the action.",
+                "video_background: The scene is an indoor tennis facility with a bright blue wall in the background. Other people, including another instructor and a child, are visible in the periphery.",
+                "storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor teaching a young participant, establishing the theme of youth sports and mentorship.",
+                "shooting_style: This is a standard shot establishing the scene and characters."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 129.0,
+              "visual": "A montage of quick cuts shows different scenes from the tennis program. A young girl with long blonde hair hits a ball with her racket. A low-angle shot from the court shows a ball bouncing as a player hits it. A male instructor in a grey shirt smiles while standing behind a net.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, inspirational music continues.",
+              "attributes": [
+                "camera_state: The sequence uses multiple camera angles: a medium shot of a young girl, a low-angle wide shot of a player on the court, and a medium shot of an instructor.",
+                "video_background: The scenes take place on an indoor tennis court, with blue backdrops, nets, and other players visible in the background.",
+                "storyline: This montage quickly showcases the activities and participants of the tennis program, highlighting both young players and adult instructors.",
+                "shooting_style: This is a montage, using quick cuts between different related scenes to convey energy and activity."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_b851465016dc",
+        "clip": {
+          "video_id": "-AY84ybskqI",
+          "start_s": 0.0,
+          "end_s": 172.272,
+          "artifact_id": "clip_000_00_172_27",
+          "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_172_27.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 0.031,
+            "end_s": 21.074,
+            "text": "Alex Replier calls the tennis court her happy place. The Chamberlain Park Junior tried a lot of sports growing up, but tennis stuck. It was just something about the fact that when I'm on the court, it's me and I get to make decisions. And if you know I messed up, it's me. And if I win, it's me."
+          },
+          {
+            "start_s": 21.192,
+            "end_s": 44.193,
+            "text": "Replier started playing when she was five years old and made the CP varsity as a seventh grader. In ninth grade, she became the Rebels' number one singles player. I went from just being the flattest, hardest hitter ever to someone who I can actually hit topspin now and just really, I know how to construct points better and I know how to really just set up a strategy that'll work to have me be successful on the court."
+          },
+          {
+            "start_s": 44.412,
+            "end_s": 67.666,
+            "text": "Replier is a team captain this season and tries to be a leader and mentor to younger players. She really took me under her wing. She just made sure I felt like I could talk to her about anything. And if I had any questions, I could go to her. Year after year, she got a little more mature. She started to make friends. And she's really blossomed into the leader of Temple Park tennis."
+          },
+          {
+            "start_s": 67.666,
+            "end_s": 86.667,
+            "text": "Replier is always striving to get better and to that end she plays on the club circuit as well. I love competing in tournaments whether they're local level or national level and the club environment is just so fun and it is something I really love to do is just compete and every weekend you know we're traveling to different cities and spending a lot of time on the court."
+          },
+          {
+            "start_s": 86.87,
+            "end_s": 115.912,
+            "text": "Still, Replier says the club tennis world is very different from high school and can sometimes be difficult to manage. I've kind of built a community with my family and with my coaches where, you know, I have a supportive group around me, but definitely when you're on the court, you're just kind of sitting on the bench yourself. It definitely can get a little, feel a little lonely. When she's not playing tennis or keeping up with her schoolwork, Alex Replier is probably teaching the game. She volunteers at Inner City Tennis in Minneapolis."
+          },
+          {
+            "start_s": 116.097,
+            "end_s": 136.702,
+            "text": "It's the greatest feeling. Just seeing these kids kind of latch on to a sport that I love so much and just the smiles on their face when they kind of, you know, hit a forehand for the first time or, you know, something just clicks in their head where they're like, oh my god, I know how to do this. It's just a really amazing feeling to know that I have an impact on their lives and that I get to show them something that I love so much and see them love it just as much."
+          },
+          {
+            "start_s": 136.769,
+            "end_s": 161.373,
+            "text": "Champlin Park bowed out early in the section tournament, but with a pretty young squad, Replier believes the future is bright for Rebels tennis. All of these girls work so hard in the offseason, and we all play constantly almost every day in the offseason. And so as we look into the future, we know that even if this year isn't perfect, we have time to grow, and we can do even better next year and just keep working hard. Jason Melillo, CCX Sports."
+          },
+          {
+            "start_s": 163.28,
+            "end_s": 169.76,
+            "text": "Find more prep sports games and highlights at ccxmedia.org and follow us on social media."
+          }
+        ]
+      }
+    ],
+    "planner_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecting lines.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum.; CCX | MEDIA | CCXMEDIA.ORG; attributes: camera_state: The camera is static, holding a centered, medium shot of the logo., video_background: The background is a dark, abstract design with thin, white diagonal and vertical lines crisscrossing the screen., storyline: This segment serves as the production company's branding intro before the main content begins., shooting_style: This is a static shot of a logo. A montage of young female tennis players is shown. First, a group of girls smiles and talks. Then, a player in a white visor and tank top hits a backhand on a green court. The scene cuts to a close-up of a tennis ball bouncing on the court, then to a player in a white t-shirt with 'CHAMPLIN PARK REBELS' printed on it, smiling as she plays.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; CHAMPLIN PARK REBELS; attributes: camera_state: The camera uses a series of quick cuts. It includes a medium shot of the group, a medium shot of the player in action, a close-up on the tennis ball, and a medium shot of the smiling player., video_background: The scenes take place on and around a green tennis court, with a chain-link fence and trees visible in the background., storyline: This montage introduces the main subjects of the video: young female tennis players, establishing a positive and active atmosphere., shooting_style: This is a montage sequence with quick cuts between different scenes.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecting lines.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum.",
+              "on_screen_text": [
+                "CCXMEDIA.ORG"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot of the logo.",
+                "video_background: The background is a dark, abstract design with thin, white diagonal and vertical lines crisscrossing the screen.",
+                "storyline: This segment serves as the production company's branding intro before the main content begins.",
+                "shooting_style: This is a static shot of a logo."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 8.0,
+              "visual": "A montage of young female tennis players is shown. First, a group of girls smiles and talks. Then, a player in a white visor and tank top hits a backhand on a green court. The scene cuts to a close-up of a tennis ball bouncing on the court, then to a player in a white t-shirt with 'CHAMPLIN PARK REBELS' printed on it, smiling as she plays.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": [
+                "CHAMPLIN PARK REBELS"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of quick cuts. It includes a medium shot of the group, a medium shot of the player in action, a close-up on the tennis ball, and a medium shot of the smiling player.",
+                "video_background: The scenes take place on and around a green tennis court, with a chain-link fence and trees visible in the background.",
+                "storyline: This montage introduces the main subjects of the video: young female tennis players, establishing a positive and active atmosphere.",
+                "shooting_style: This is a montage sequence with quick cuts between different scenes."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 0.031,
+              "end_s": 21.074,
+              "text": "Alex Replier calls the tennis court her happy place. The Chamberlain Park Junior tried a lot of sports growing up, but tennis stuck. It was just something about the fact that when I'm on the court, it's me and I get to make decisions. And if you know I messed up, it's me. And if I win, it's me."
+            },
+            {
+              "start_s": 21.192,
+              "end_s": 44.193,
+              "text": "Replier started playing when she was five years old and made the CP varsity as a seventh grader. In ninth grade, she became the Rebels' number one singles player. I went from just being the flattest, hardest hitter ever to someone who I can actually hit topspin now and just really, I know how to construct points better and I know how to really just set up a strategy that'll work to have me be successful on the court."
+            },
+            {
+              "start_s": 44.412,
+              "end_s": 67.666,
+              "text": "Replier is a team captain this season and tries to be a leader and mentor to younger players. She really took me under her wing. She just made sure I felt like I could talk to her about anything. And if I had any questions, I could go to her. Year after year, she got a little more mature. She started to make friends. And she's really blossomed into the leader of Temple Park tennis."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.; attributes: camera_state: The camera is at a medium distance, panning slightly to the right to follow the man as he walks by., video_background: The scene is set on an outdoor tennis court, with a chain-link fence separating the court from the grassy area behind it. Trees are visible in the distance., storyline: This opening shot establishes the setting and introduces a group of young tennis players, setting a casual and social tone before the action begins., shooting_style: This is a standard establishing shot. A man, identified by a lower-third graphic as Doug Gullickson, the Champlin Park Girls Tennis Assistant Coach, is interviewed. He wears a blue Under Armour cap and a dark blue shirt, speaking directly to the camera.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera is at a medium close-up, focused on the coach's face and upper body., video_background: The background consists of a chain-link fence and trees with green and yellow leaves, indicating it is likely autumn., storyline: This segment introduces a key figure, the assistant coach, who will provide commentary and context for the upcoming tennis match., shooting_style: This is a standard interview shot with a lower-third graphic. A montage of a women's doubles tennis match is shown. One player in a white top and dark shorts hits a backhand, while her partner in a purple top and black shorts runs to the net to return a shot. The camera follows the action as they move around the court.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of tennis balls being hit and sneakers squeaking on the court.; attributes: camera_state: The camera pans to the right, following the players' movements across the court., video_background: The match takes place on a blue tennis court with white lines. A black chain-link fence, trees, and a few spectators are visible in the background., storyline: This montage provides a glimpse into the women's doubles match, showcasing the players' skills and teamwork., shooting_style: This is a montage of action shots from the tennis match.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, panning slightly to the right to follow the man as he walks by.",
+                "video_background: The scene is set on an outdoor tennis court, with a chain-link fence separating the court from the grassy area behind it. Trees are visible in the distance.",
+                "storyline: This opening shot establishes the setting and introduces a group of young tennis players, setting a casual and social tone before the action begins.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 64.0,
+              "visual": "A man, identified by a lower-third graphic as Doug Gullickson, the Champlin Park Girls Tennis Assistant Coach, is interviewed. He wears a blue Under Armour cap and a dark blue shirt, speaking directly to the camera.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera is at a medium close-up, focused on the coach's face and upper body.",
+                "video_background: The background consists of a chain-link fence and trees with green and yellow leaves, indicating it is likely autumn.",
+                "storyline: This segment introduces a key figure, the assistant coach, who will provide commentary and context for the upcoming tennis match.",
+                "shooting_style: This is a standard interview shot with a lower-third graphic."
+              ]
+            },
+            {
+              "start_s": 65.0,
+              "end_s": 69.0,
+              "visual": "A montage of a women's doubles tennis match is shown. One player in a white top and dark shorts hits a backhand, while her partner in a purple top and black shorts runs to the net to return a shot. The camera follows the action as they move around the court.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of tennis balls being hit and sneakers squeaking on the court.",
+              "attributes": [
+                "camera_state: The camera pans to the right, following the players' movements across the court.",
+                "video_background: The match takes place on a blue tennis court with white lines. A black chain-link fence, trees, and a few spectators are visible in the background.",
+                "storyline: This montage provides a glimpse into the women's doubles match, showcasing the players' skills and teamwork.",
+                "shooting_style: This is a montage of action shots from the tennis match."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 67.666,
+              "end_s": 86.667,
+              "text": "Replier is always striving to get better and to that end she plays on the club circuit as well. I love competing in tournaments whether they're local level or national level and the club environment is just so fun and it is something I really love to do is just compete and every weekend you know we're traveling to different cities and spending a lot of time on the court."
+            },
+            {
+              "start_s": 86.87,
+              "end_s": 115.912,
+              "text": "Still, Replier says the club tennis world is very different from high school and can sometimes be difficult to manage. I've kind of built a community with my family and with my coaches where, you know, I have a supportive group around me, but definitely when you're on the court, you're just kind of sitting on the bench yourself. It definitely can get a little, feel a little lonely. When she's not playing tennis or keeping up with her schoolwork, Alex Replier is probably teaching the game. She volunteers at Inner City Tennis in Minneapolis."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 172.272,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-AY84ybskqI",
+              "start_s": 120.0,
+              "end_s": 172.272,
+              "artifact_id": "clip_120_00_172_27",
+              "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 172.272
+          },
+          "overall_summary": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.; INNER CITY TENNIS; attributes: camera_state: The camera is at a medium distance, focusing on the instructor and the child. It pans slightly to follow the action., video_background: The scene is an indoor tennis facility with a bright blue wall in the background. Other people, including another instructor and a child, are visible in the periphery., storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor teaching a young participant, establishing the theme of youth sports and mentorship., shooting_style: This is a standard shot establishing the scene and characters. A montage of quick cuts shows different scenes from the tennis program. A young girl with long blonde hair hits a ball with her racket. A low-angle shot from the court shows a ball bouncing as a player hits it. A male instructor in a grey shirt smiles while standing behind a net.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, inspirational music continues.; attributes: camera_state: The sequence uses multiple camera angles: a medium shot of a young girl, a low-angle wide shot of a player on the court, and a medium shot of an instructor., video_background: The scenes take place on an indoor tennis court, with blue backdrops, nets, and other players visible in the background., storyline: This montage quickly showcases the activities and participants of the tennis program, highlighting both young players and adult instructors., shooting_style: This is a montage, using quick cuts between different related scenes to convey energy and activity.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, inspirational music begins to play.",
+              "on_screen_text": [
+                "INNER CITY TENNIS"
+              ],
+              "attributes": [
+                "camera_state: The camera is at a medium distance, focusing on the instructor and the child. It pans slightly to follow the action.",
+                "video_background: The scene is an indoor tennis facility with a bright blue wall in the background. Other people, including another instructor and a child, are visible in the periphery.",
+                "storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor teaching a young participant, establishing the theme of youth sports and mentorship.",
+                "shooting_style: This is a standard shot establishing the scene and characters."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 129.0,
+              "visual": "A montage of quick cuts shows different scenes from the tennis program. A young girl with long blonde hair hits a ball with her racket. A low-angle shot from the court shows a ball bouncing as a player hits it. A male instructor in a grey shirt smiles while standing behind a net.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat, inspirational music continues.",
+              "attributes": [
+                "camera_state: The sequence uses multiple camera angles: a medium shot of a young girl, a low-angle wide shot of a player on the court, and a medium shot of an instructor.",
+                "video_background: The scenes take place on an indoor tennis court, with blue backdrops, nets, and other players visible in the background.",
+                "storyline: This montage quickly showcases the activities and participants of the tennis program, highlighting both young players and adult instructors.",
+                "shooting_style: This is a montage, using quick cuts between different related scenes to convey energy and activity."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 116.097,
+              "end_s": 136.702,
+              "text": "It's the greatest feeling. Just seeing these kids kind of latch on to a sport that I love so much and just the smiles on their face when they kind of, you know, hit a forehand for the first time or, you know, something just clicks in their head where they're like, oh my god, I know how to do this. It's just a really amazing feeling to know that I have an impact on their lives and that I get to show them something that I love so much and see them love it just as much."
+            },
+            {
+              "start_s": 136.769,
+              "end_s": 161.373,
+              "text": "Champlin Park bowed out early in the section tournament, but with a pretty young squad, Replier believes the future is bright for Rebels tennis. All of these girls work so hard in the offseason, and we all play constantly almost every day in the offseason. And so as we look into the future, we know that even if this year isn't perfect, we have time to grow, and we can do even better next year and just keep working hard. Jason Melillo, CCX Sports."
+            },
+            {
+              "start_s": 163.28,
+              "end_s": 169.76,
+              "text": "Find more prep sports games and highlights at ccxmedia.org and follow us on social media."
+            }
+          ]
+        }
+      }
+    ],
+    "video_fingerprint": "ded48d95a990dd443117e200af1724a2049227555292b8f20583bcf00a8d6da0"
+  },
+  "rounds_executed": 2
+}

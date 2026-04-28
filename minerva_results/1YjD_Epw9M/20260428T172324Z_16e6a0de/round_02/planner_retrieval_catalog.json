@@ -1,0 +1,537 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "result",
+    "game",
+    "cancelled",
+    "black",
+    "team",
+    "won",
+    "white",
+    "two",
+    "teams",
+    "tied",
+    "were",
+    "disqualified",
+    "root",
+    "problem",
+    "unsupported",
+    "transcript",
+    "like",
+    "phrases",
+    "plus",
+    "final",
+    "option",
+    "selection",
+    "current",
+    "text",
+    "supports",
+    "visuals",
+    "resolve",
+    "justify",
+    "importing",
+    "absent"
+  ],
+  "preprocess": {
+    "planner_segment_count": 3,
+    "raw_segment_count": 3,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 3,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "A man with a reddish-blonde beard, wearing a grey plaid blazer and a yellow patterned tie, is interviewed. A lower-third graphic identifies him as 'Ryan Sullivan, Sheridan Girls Basketball Coach.' He speaks into a microphone, then runs a hand through his ha...",
+        "caption_count": 3,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is at a medium close-up, focused on the coach's face and upper...",
+          "video_background: The background is dark and out of focus, with some people in blue and...",
+          "storyline: The video introduces Ryan Sullivan, the coach of the Sheridan girls' basketb...",
+          "shooting_style: This is a standard interview shot.",
+          "camera_state: The camera uses high-angle, wide shots to capture the basketball court ac...",
+          "video_background: The game takes place on a polished wooden basketball court. Spectator...",
+          "storyline: This montage provides context for the interview, showing highlights from the...",
+          "shooting_style: This is a montage of game highlights, intercut with the interview.",
+          "camera_state: The camera returns to the medium close-up, handheld shot of the coach.",
+          "video_background: The background remains dark and blurry, with people moving around beh...",
+          "storyline: The video returns to the interview, focusing on the coach's reaction to the...",
+          "shooting_style: This is an intercut back to the primary interview footage."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 0.031,
+            "end_s": 23.858,
+            "text": "Fourth time's the charm, and that's the one that matters most, doesn't it? Yeah, I mean, they're an unbelievable team. They're very good, and mentally for us to kind of get over that hurdle against Campbell and show up the way we did today, getting down early in the first quarter and the resolve that we had in the second quarter, we were great defensively second quarter and gave ourselves a chance in the second half, so just very proud of the girls. What was going wrong there early when you were down 14-3?"
+          },
+          {
+            "start_s": 24.078,
+            "end_s": 51.247,
+            "text": "We just were flustered a little bit, and we didn't settle in yet, and kind of had butterflies, I think, and we weren't making reads on our offense. We were kind of guessing on stuff, but the girls settled in and bought into what our game plan was, and we had a lot of kids step up. Defensively, again, we were great in the second quarter, but they were doubling Mesa, and we kind of recognized that, and we had kids make shots when they were open. You know, Avery shot the lights out today. Cam hit big ones. It just was a team effort. We had to have everybody we had them."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-1YjD_Epw9M",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/1YjD_Epw9M/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "A montage of a women's basketball game begins. A player in a black jersey with the number 10 shoots a jump shot. The scene then cuts to a different play where a player in a white jersey with the number 10 dribbles the ball, guarded by a player in a black je...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is positioned high, providing a wide shot of the basketball co...",
+          "video_background: The game takes place in a gymnasium with a wooden floor. Spectators a...",
+          "storyline: This segment introduces the women's basketball team in action, showcasing th...",
+          "shooting_style: This is a montage of different game highlights, cutting between various...",
+          "camera_state: The camera is at eye level, framed as a medium close-up on the man's face...",
+          "video_background: The background is dark and out of focus, with a few people in blue an...",
+          "storyline: This introduces a coach or official providing commentary or a post-game inte...",
+          "shooting_style: This is a standard interview shot, intercut with the game footage."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 52.175,
+            "end_s": 81.875,
+            "text": "You had that hot finish there the second quarter. How did you try to make sure that you didn't have the big letdown coming out of halftime? Well, we just talked at half about how we got through that quarter because we were really good defensively. We got after them a little bit, and our defense turned into offense. And we tried to carry that through the second half. And Campbell came in, and they made a lot of shots. And Cammie Curtis finishes with dang near 30, I think. But we limited everybody else. We were great on the basketball. It was our defense that carried us through the game. Obviously, we shot the ball well, but we had to get stops, and we got them."
+          },
+          {
+            "start_s": 82.381,
+            "end_s": 103.306,
+            "text": "As much as nobody likes to lose, was maybe losing that regional championship game kind of a blessing in disguise considering how the state bracket was shaped and how you went through it? We had to beat really good teams to win, and we knew that regardless. So whoever we got in the first round, second round, third round, we knew we were going to have to beat good teams, and the kids stepped up and did that."
+          },
+          {
+            "start_s": 103.745,
+            "end_s": 120.603,
+            "text": "considering three years ago this team only won nine games? Did he make state tournament two years ago as well and fell short in third place last year? How have you seen this program kind of turn around? Well, Addy and Allie inherited a program with two wins the year before. They come in and they work their tails off that summer and"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-1YjD_Epw9M",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/1YjD_Epw9M/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 141.867,
+        "overall_summary": "A man with a reddish-brown beard, wearing a grey plaid blazer and a yellow patterned tie, speaks passionately into a microphone. He is being interviewed, and the background is dark with a few people and a staircase faintly visible behind him.; acoustics: 1)...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The camera is in a close-up, focused on the man's face and upper torso. T...",
+          "video_background: The background is dark and out of focus, with the faint outline of a...",
+          "storyline: The video begins with a post-event interview, setting a celebratory and refl...",
+          "shooting_style: This is a standard interview shot.",
+          "camera_state: The camera is at a medium distance, capturing the entire team and a large...",
+          "video_background: The team is on a dark stage, with a black curtain behind them. The li...",
+          "storyline: The scene transitions to the women's basketball team's victory celebration,...",
+          "shooting_style: This is a wide shot capturing the group celebration."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 120.788,
+            "end_s": 140.853,
+            "text": "We go 9-15, but we take third at state. We win big games down the stretch. They kind of got a feel for that, but they never stopped working. Adeline and Allie came in and shot for the last four weeks, five weeks they came in and shot and made 700 shots a week in the morning. They don't know how to stop working, and they had a goal, and they continue to work towards that goal, and they deserve everything. I'm very proud of them."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-1YjD_Epw9M",
+            "start_s": 120.0,
+            "end_s": 141.867,
+            "artifact_id": "clip_120_00_141_87",
+            "relpath": "artifacts/1YjD_Epw9M/clips/clip_120_00_141_87.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 2,
+    "observation_count": 37,
+    "counts_by_status": {
+      "provisional": 2
+    },
+    "counts_by_tool": {
+      "frame_retriever": 1,
+      "generic_purpose": 1
+    },
+    "validated_evidence": [],
+    "recent_evidence": [
+      {
+        "evidence_id": "ev_01_e44b06e1",
+        "tool_name": "frame_retriever",
+        "status": "provisional",
+        "summary": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.",
+        "observation_ids": [
+          "obs_cdf91975c35f8e4a",
+          "obs_e0130ec777c753f6"
+        ]
+      },
+      {
+        "evidence_id": "ev_02_e38fd81d",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "The user wants to know the result of the game based on the provided images and context. 1. **Analyze the images:** * **Image 1 (frame_129.00):** Shows a man in a grey plaid suit and yellow tie speaking into a micropho...",
+        "observation_ids": [
+          "obs_b613e5dd34d02b93",
+          "obs_2e2e75d6c9822f50",
+          "obs_91fce7a23069cb47",
+          "obs_a3ae2ba402143220",
+          "obs_ea22ee0ff0da4b9f",
+          "obs_f6f06d6cc05e54dc",
+          "obs_b6ad70e1416f3a8e",
+          "obs_a8b01fc894c87511"
+        ]
+      }
+    ],
+    "recent_observations": [
+      {
+        "observation_id": "obs_cdf91975c35f8e4a",
+        "evidence_id": "ev_01_e44b06e1",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 129.0,
+        "text": "A candidate frame was retrieved at 129.00s."
+      },
+      {
+        "observation_id": "obs_e0130ec777c753f6",
+        "evidence_id": "ev_01_e44b06e1",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 130.0,
+        "text": "A candidate frame was retrieved at 130.00s."
+      },
+      {
+        "observation_id": "obs_b613e5dd34d02b93",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The user wants to know the result of the game based on the provided images and context."
+      },
+      {
+        "observation_id": "obs_2e2e75d6c9822f50",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 is at frame_129.00."
+      },
+      {
+        "observation_id": "obs_91fce7a23069cb47",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 shows a man speaking into a microphone."
+      },
+      {
+        "observation_id": "obs_a3ae2ba402143220",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The man in Image 1 wears a grey plaid suit."
+      },
+      {
+        "observation_id": "obs_ea22ee0ff0da4b9f",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The man in Image 1 wears a yellow tie."
+      },
+      {
+        "observation_id": "obs_f6f06d6cc05e54dc",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The background of Image 1 contains people."
+      },
+      {
+        "observation_id": "obs_b6ad70e1416f3a8e",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "Some people in the background of Image 1 wear grey hoodies."
+      },
+      {
+        "observation_id": "obs_a8b01fc894c87511",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The text on some hoodies in the background of Image 1 is blue."
+      },
+      {
+        "observation_id": "obs_9d305ed74ee157c3",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "One person on the left in Image 1 wears a black and white jacket."
+      },
+      {
+        "observation_id": "obs_eef6c1db175b0db4",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 is at frame_130.00."
+      },
+      {
+        "observation_id": "obs_6642818d53bc4d88",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 is very similar to Image 1."
+      },
+      {
+        "observation_id": "obs_81df1f694de00f3c",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The man is still speaking in Image 2."
+      },
+      {
+        "observation_id": "obs_f2650d3ee8db3809",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The background people in Image 2 are in similar positions to Image 1."
+      },
+      {
+        "observation_id": "obs_f27ab026da38e4b1",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The prompt asks to determine the result of the game from interview transcripts and celebration frame."
+      },
+      {
+        "observation_id": "obs_c6b45fc263fdba13",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The available evidence includes two images."
+      },
+      {
+        "observation_id": "obs_589f5c7c613219ae",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The TEXT CONTEXT section does not provide the actual transcript of what the coach is saying."
+      },
+      {
+        "observation_id": "obs_01959802ca348bdd",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The prompt asks to quote transcript phrases that support the result."
+      },
+      {
+        "observation_id": "obs_a1c184443f93eb14",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The TEXT CONTEXT contains instructions about the frames."
+      },
+      {
+        "observation_id": "obs_452a604d3894e72b",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The TEXT CONTEXT states, \"These frames are a chronological sequence centered on timestamp 130s...\""
+      },
+      {
+        "observation_id": "obs_854ca1679ba6f30a",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The TEXT CONTEXT does not provide the audio transcript."
+      },
+      {
+        "observation_id": "obs_a4912210129e40cf",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The man in the images appears serious or neutral."
+      },
+      {
+        "observation_id": "obs_f29893b2069e64d1",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The prompt asks to identify the jersey color of the celebrating winning team in the frame."
+      },
+      {
+        "observation_id": "obs_d00a2cc5f00d7706",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "Young men on the right in the images wear grey hoodies with blue text."
+      },
+      {
+        "observation_id": "obs_f0cca745e5133413",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The person on the left in the images wears a black and white jacket."
+      },
+      {
+        "observation_id": "obs_9933e15d51873223",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "There are no clear jerseys visible in the images."
+      },
+      {
+        "observation_id": "obs_a89bfaa08b5d0df8",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The visible clothing looks like casual clothes or team hoodies."
+      },
+      {
+        "observation_id": "obs_b0ea1ed853b88b9b",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The prompt asks to map to \"black team won\" or \"white team won\"."
+      },
+      {
+        "observation_id": "obs_4c57616e94ef0c7f",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The result of the game cannot be determined definitively from the visual evidence alone."
+      },
+      {
+        "observation_id": "obs_4c4edcad7f111cfc",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The input does not include a transcript."
+      },
+      {
+        "observation_id": "obs_cff6458133452a71",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The speaker cannot quote transcript phrases because no transcript is provided in the input."
+      },
+      {
+        "observation_id": "obs_755f12cf3ac49888",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The prompt states, \"Answer the query using only the supplied evidence and any sampled media.\""
+      },
+      {
+        "observation_id": "obs_c451b807d993c330",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The images do not show a scoreboard."
+      },
+      {
+        "observation_id": "obs_030083d9c57f1b42",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The people in the back right seem to be standing around."
+      },
+      {
+        "observation_id": "obs_e3c2de3781e0732c",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The person on the left appears to be looking down or adjusting something."
+      },
+      {
+        "observation_id": "obs_5a879999b21a5972",
+        "evidence_id": "ev_02_e38fd81d",
+        "source_tool": "generic_purpose",
+        "text": "The scene in the images does not look like a massive celebration."
+      }
+    ]
+  },
+  "artifact_context": {
+    "record_count": 3,
+    "counts_by_type": {
+      "frame": 2,
+      "clip": 1
+    },
+    "records": [
+      {
+        "artifact_id": "clip_120_00_141_87",
+        "artifact_type": "clip",
+        "relpath": "artifacts/1YjD_Epw9M/clips/clip_120_00_141_87.mp4",
+        "time": {
+          "clip": {
+            "start_s": 120.0,
+            "end_s": 141.867
+          }
+        },
+        "contains_preview": [
+          "Image 1 is at frame_129.00.",
+          "Image 1 shows a man speaking into a microphone.",
+          "The man in Image 1 wears a grey plaid suit.",
+          "The man in Image 1 wears a yellow tie."
+        ],
+        "linked_observation_count": 29,
+        "linked_evidence_ids": [
+          "ev_02_e38fd81d"
+        ]
+      },
+      {
+        "artifact_id": "frame_129.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/1YjD_Epw9M/frames/frame_129.00.png",
+        "time": {
+          "timestamp_s": 129.0
+        },
+        "contains_preview": [
+          "Image 1 is at frame_129.00.",
+          "Image 1 shows a man speaking into a microphone.",
+          "The man in Image 1 wears a grey plaid suit.",
+          "The man in Image 1 wears a yellow tie."
+        ],
+        "linked_observation_count": 29,
+        "linked_evidence_ids": [
+          "ev_01_e44b06e1",
+          "ev_02_e38fd81d"
+        ]
+      },
+      {
+        "artifact_id": "frame_130.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/1YjD_Epw9M/frames/frame_130.00.png",
+        "time": {
+          "timestamp_s": 130.0
+        },
+        "contains_preview": [
+          "Image 1 is at frame_129.00.",
+          "Image 1 shows a man speaking into a microphone.",
+          "The man in Image 1 wears a grey plaid suit.",
+          "The man in Image 1 wears a yellow tie."
+        ],
+        "linked_observation_count": 29,
+        "linked_evidence_ids": [
+          "ev_01_e44b06e1",
+          "ev_02_e38fd81d"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 4,
+    "claims": [
+      {
+        "step_id": 1,
+        "text": "The transcript phrases supplied in the refinement instructions strongly indicate that the speaker's team won the game: phrases such as \"Fourth time's the charm,\" \"that's the one that matters most,\" \"very proud of the girls,\" \"our defense carried us through the game,\" and \"we had to beat really good teams to win\" all describe a victory.",
+        "supporting_observation_ids": []
+      },
+      {
+        "step_id": 2,
+        "text": "Those victory-oriented transcript phrases rule out the options that the game was cancelled, tied, or that the teams were disqualified.",
+        "supporting_observation_ids": []
+      },
+      {
+        "step_id": 3,
+        "text": "To choose between \"black team won\" and \"white team won,\" the instructions say to use the celebration frame to verify jersey color. However, the retrieved frames do not show clear jerseys; they show grey hoodies, a black-and-white jacket, and no scoreboard, so the winner's jersey color cannot be grounded from the supplied visuals.",
+        "supporting_observation_ids": [
+          "obs_d00a2cc5f00d7706",
+          "obs_f0cca745e5133413",
+          "obs_9933e15d51873223",
+          "obs_c451b807d993c330",
+          "obs_4c57616e94ef0c7f"
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "Because the evidence supports that there was a winner but does not reliably map that winner to black versus white jerseys, multiple answer choices remain compatible between those two winning-color options. Under the uncertainty rule, the final answer should be left empty.",
+        "supporting_observation_ids": [
+          "obs_9933e15d51873223",
+          "obs_4c57616e94ef0c7f"
+        ]
+      }
+    ]
+  },
+  "audit_gaps": [
+    "grounded evidence for the game outcome from the provided material rather than unverified transcript phrases",
+    "the winning team's mapping to black versus white"
+  ]
+}

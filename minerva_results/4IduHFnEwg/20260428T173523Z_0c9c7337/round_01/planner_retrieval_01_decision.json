@@ -1,0 +1,46 @@
+{
+  "action": "retrieve",
+  "rationale": "Need existing preprocess captions/transcript spans to locate the second reviewed play and the shot two cuts before it, where the spectator waves a flag near a landing ball.",
+  "requests": [
+    {
+      "request_id": "locate_reviewed_plays",
+      "target": "preprocess",
+      "need": "Identify where the second reviewed play occurs in the video and its surrounding shot sequence from existing summaries/captions/transcript spans.",
+      "query": "review reviewed play third umpire original decision ball tracking replay out not out second review shot sequence",
+      "modalities": [
+        "visual",
+        "asr"
+      ],
+      "time_range": {},
+      "source_tools": [
+        "dense_captioner",
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "flag_wave_shot_before_second_review",
+      "target": "preprocess",
+      "need": "Retrieve the caption/transcript span for the shot two cuts before the second reviewed play, specifically the moment where a spectator waves his flag while a ball lands near him, so the wave count can be determined or narrowly targeted.",
+      "query": "spectator waves flag ball lands near him crowd stands shot before review boundary six lands in stands flag waving",
+      "modalities": [
+        "visual",
+        "asr"
+      ],
+      "time_range": {},
+      "source_tools": [
+        "dense_captioner",
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

@@ -1,0 +1,387 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Verify all on-screen subsection title cards across the full video, then count distinct titled subsections and map to the option.",
+      "refinement_instructions": "Use the visual verification from the retrieved frames as the decisive evidence. Preserve the distinction between subsection headings versus non-subsection text such as the production logo and end credits. If the frame for the 67-72s candidate is unreadable or ambiguous, keep the answer unresolved rather than assuming THE BILL from preprocess alone.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve a small chronological set of frames at the candidate title-card moments identified by preprocessing, including the ambiguous bill title and excluding credits/logo unless they are actual subsection headings.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "cxHtplim5Ic",
+                "start_s": 0.0,
+                "end_s": 337.92
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 8,
+            "query": "frames where large centered on-screen subsection title cards are most readable",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "0-2s production logo/title card",
+              "60-66s THE DRINKS",
+              "67-72s THE BILL",
+              "137-141s THE FART",
+              "188-201s THE PREP",
+              "244-261s THE INTERROGATION",
+              "300-319s end credits"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "Inspect the retrieved frames and determine which ones are true titled subsections, read each title, deduplicate them, count them, and map the count to the multiple-choice option.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "From these frames, identify every true subsection heading/title card shown in the video. Exclude the production logo/opening company card and end credits unless they function as subsection headings. For each accepted heading, read the title text, list distinct subsection titles in chronological order, give the total count, and map that count to the provided options: A 11, B 5, C 9, D 3, E 7.",
+            "text_contexts": [
+              "Preprocess candidates mention these possible on-screen titles: THE DRINKS, THE BILL, THE FART, THE PREP, THE INTERROGATION. The opening logo shows Turtle Canyon Comedy / PRESENTS, and the ending shows credits."
+            ],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "B. 5.",
+      "trace_evidence_count": 2,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The sampled opening frames contain the text \"TURTLE CANYON COMEDY PRESENTS,\" and that text is identified as an opening production logo rather than a subsection heading, so it should not be counted as a titled subsection.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        },
+        {
+          "step_id": 2,
+          "text": "The sampled action/menu frames at 3-4s and 65-67s do not visibly show subsection title text, so those sampled visuals do not independently add confirmed subsection headings.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 3.0,
+              "end_s": 4.0
+            },
+            {
+              "start_s": 65.0,
+              "end_s": 67.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "Separately from the sampled frames, the provided text context enumerates five subsection-style titles: \"THE DRINKS,\" \"THE BILL,\" \"THE FART,\" \"THE PREP,\" and \"THE INTERROGATION.\" Counting those listed titles gives 5.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        },
+        {
+          "step_id": 4,
+          "text": "Among the answer choices, the count 5 maps directly to option B.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.93,
+      "audit_feedback": "The current answer relies on an unverified text-context list rather than grounded confirmation of how many subsection title cards were actually shown in the video. Preserve the exclusion of the opening logo, but repair the missing validation that the subsection-title list is complete and truly present in the video.",
+      "audit_missing_information": [
+        "whether the five listed subsection titles are confirmed as actual titled subsections shown in the video rather than only possible titles",
+        "whether the listed subsection titles are exhaustive for the whole video after excluding the opening production logo"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace answers the count from a text-context list of five possible subsection titles, but the supplied evidence also states those titles were only possible/on-screen candidates and that the sampled frames do not show title cards. This does not justify that exactly five titled subsections were actually in the video.",
+          "evidence_ids": [
+            "ev_02_5401d796"
+          ]
+        },
+        {
+          "severity": "MEDIUM",
+          "category": "INFERENCE_ERROR",
+          "message": "The trace moves from 'the text context lists five subsection-style titles' to 'the video had five titled subsections' without grounded confirmation that the list is exhaustive and corresponds to titles actually shown in the video.",
+          "evidence_ids": [
+            "ev_02_5401d796"
+          ]
+        }
+      ]
+    },
+    {
+      "round_index": 2,
+      "round_dir": "round_02",
+      "planner_request_path": "round_02/planner_request.json",
+      "planner_plan_path": "round_02/planner_plan.json",
+      "synthesizer_request_path": "round_02/synthesizer_request.json",
+      "trace_path": "round_02/synthesizer_trace_package.json",
+      "auditor_request_path": "round_02/auditor_request.json",
+      "audit_path": "round_02/auditor_report.json",
+      "strategy": "Verify the candidate title-card moments across the whole video with targeted frames, confirm the opening logo is excluded and credits are not subsection cards, then count only the actual subsection title cards shown.",
+      "refinement_instructions": "Preserve the prior exclusion that the opening 'Turtle Canyon Comedy / PRESENTS' logo is not a subsection heading. Repair the trace by grounding the answer in OCR-confirmed title-card frames at the candidate moments across the whole video, not just in the prior text-context list. Treat preprocess summaries as whole-video candidate coverage, but only count titles that are visually confirmed as actual on-screen subsection cards. Also verify that the ending is credits rather than another subsection card. In the final trace, explicitly list each confirmed subsection title, explicitly list excluded text displays, explain why the verified set is exhaustive for this video, and only then map the count to the option.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve one readable representative frame for each candidate title-card moment plus exclusion anchors for the opening logo and end credits.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "cxHtplim5Ic",
+                "start_s": 0.0,
+                "end_s": 337.92
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 7,
+            "query": "readable frames showing title cards or text overlays at the hinted moments; include the opening logo and end credits for exclusion checks",
+            "sequence_mode": "ranked",
+            "sort_order": "chronological",
+            "time_hints": [
+              "0s opening logo",
+              "60-66s THE DRINKS",
+              "67-72s THE BILL",
+              "137-141s THE FART",
+              "188-201s THE PREP",
+              "244-261s THE INTERROGATION",
+              "300-319s end credits"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "Use the preprocess summaries as a whole-video candidate inventory to enumerate every claimed subsection-style title card and the non-subsection text displays that must be excluded.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [
+              "ev_02_5401d796"
+            ],
+            "frames": [],
+            "query": "From these preprocess summaries, list every distinct subsection-style title card claimed to appear in the video, with approximate timestamps or segments, and separately list non-subsection text displays that should be excluded such as the opening production logo and end credits. Do not assume completeness beyond what is explicitly claimed.",
+            "text_contexts": [
+              "seg_001 overall_summary/captions: opening production logo 'Turtle Canyon Comedy' / 'PRESENTS'; then living room scene with no subsection title indicated.",
+              "seg_002 overall_summary/captions: title card 'THE DRINKS' around 60-66s and title card 'THE BILL' around 67-72s.",
+              "seg_003 overall_summary/captions: title card 'THE FART' around 137-141s.",
+              "seg_004 overall_summary/captions: title card 'THE PREP' around 188-201s.",
+              "seg_005 overall_summary/captions: title card 'THE INTERROGATION' around 244-261s.",
+              "seg_006 overall_summary/captions: end credits from about 300s onward."
+            ],
+            "transcripts": []
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 3,
+          "tool_name": "ocr",
+          "purpose": "Read the exact on-screen text from the retrieved representative frames to confirm which title cards are actually visible.",
+          "inputs": {
+            "clips": [],
+            "frames": [],
+            "query": "Read all prominent on-screen title-card or overlay text in each frame, including opening logo text and any end-credit text.",
+            "regions": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ]
+          }
+        },
+        {
+          "step_id": 4,
+          "tool_name": "generic_purpose",
+          "purpose": "Determine the final count of actual titled subsections shown in the video by combining whole-video preprocess coverage with OCR-confirmed frames and excluding the opening logo and credits.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [
+              "ev_02_5401d796"
+            ],
+            "frames": [],
+            "query": "Using the whole-video candidate inventory and the OCR-confirmed representative frames, identify which distinct on-screen text displays are true subsection title cards shown in the video, exclude the opening production logo and end credits, state whether the verified list is exhaustive for this video, count the distinct subsection titles, and map the count to the answer option.",
+            "text_contexts": [],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ],
+            "text_contexts": [
+              {
+                "step_id": 2,
+                "field_path": "analysis"
+              },
+              {
+                "step_id": 2,
+                "field_path": "answer"
+              },
+              {
+                "step_id": 2,
+                "field_path": "supporting_points"
+              },
+              {
+                "step_id": 3,
+                "field_path": "text"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 4,
+      "trace_inference_count": 6,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The opening text display is grounded as \"TURTLE CANYON COMEDY PRESENTS\" by both the sampled-frame summary and OCR on the early frames, and it is classified as an opening production logo rather than a subsection heading, so it must be excluded from the subsection count.",
+          "time_start_s": 0.0,
+          "time_end_s": 1.0,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 0.0,
+              "end_s": 1.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "The sampled non-opening frames at 3-4s and 65-67s show action scenes with no visible title text, so these sampled visuals do not themselves visually confirm any subsection title cards.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 3.0,
+              "end_s": 4.0
+            },
+            {
+              "start_s": 65.0,
+              "end_s": 67.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "For whole-video coverage, the preprocess summary identifies the video structure after the excluded opening logo: title card \"THE DRINKS\" around 60-66s, title card \"THE BILL\" around 67-72s, title card \"THE FART\" around 137-141s, and title card \"THE PREP\" around 188-201s. These are the subsection titles explicitly tied to distinct video spans in the supplied evidence.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 60.0,
+              "end_s": 66.0
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 72.0
+            },
+            {
+              "start_s": 137.0,
+              "end_s": 141.0
+            },
+            {
+              "start_s": 188.0,
+              "end_s": 201.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "The ending is separately identified as end credits from about 300s onward, and credits are excluded from the subsection count, so the supplied whole-video structure does not add another subsection title at the end.",
+          "time_start_s": 300.0,
+          "time_end_s": 337.92,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 300.0,
+              "end_s": 337.92
+            }
+          ]
+        },
+        {
+          "step_id": 5,
+          "text": "Although the text context also names \"THE INTERROGATION,\" the refinement instructions require counting only titles that are visually confirmed as actual on-screen subsection cards. In the supplied round evidence, there is no OCR-confirmed frame or other direct visual confirmation for \"THE INTERROGATION,\" and no separate timestamped segment entry for it. Therefore it cannot be added to the verified count.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        },
+        {
+          "step_id": 6,
+          "text": "So the verified subsection-title set supported by the supplied evidence is: THE DRINKS, THE BILL, THE FART, and THE PREP. The excluded text displays are the opening production logo and the ending credits. Counting only the verified subsection titles gives 4, which does not match any answer option.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace preserves valid exclusions for the opening logo and end credits, but it fails to answer the multiple-choice question because it imposes an unsupported visual-confirmation rule and leaves the final option blank. Repair the grounded counting rule for titled subsections and map the supported total to one provided option.",
+      "audit_missing_information": [
+        "the grounded counting rule for whether subsection titles named in the whole-video summary count even without sampled-frame OCR confirmation",
+        "the final answer selection from the supported subsection total and provided options"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace does not complete the multiple-choice task: it leaves final_answer empty and ends with a free-form unresolved count of 4, which is not a valid option selection.",
+          "evidence_ids": [
+            "ev_02_76272991",
+            "ev_03_d0f26151",
+            "ev_02_5401d796"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "INFERENCE_ERROR",
+          "message": "The trace applies an extra requirement that subsection titles must be visually/OCR-confirmed in sampled frames, then excludes 'THE INTERROGATION' despite supplied text evidence stating the summary counts it among the subsection titles. That stricter rule is not grounded by the question text and blocks justified option mapping.",
+          "evidence_ids": [
+            "ev_02_76272991",
+            "ev_03_d0f26151",
+            "ev_02_5401d796"
+          ]
+        }
+      ]
+    }
+  ]
+}

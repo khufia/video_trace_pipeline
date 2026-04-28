@@ -1,0 +1,49 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries indicate the relevant rainy vehicle-exit scene is likely in the 120–180s segment, but we need the existing dense-caption spans and ASR around that interval to determine what happens immediately after they exit the vehicle.",
+  "requests": [
+    {
+      "request_id": "rain_vehicle_exit_densecaps",
+      "target": "dense_captions",
+      "need": "Caption spans describing the rainy scene around when the friends exit the vehicle and the immediately following action",
+      "query": "friends exit vehicle in rain after exiting car what happens next gun lantern rifle slip fall door",
+      "modalities": [
+        "visual",
+        "audio"
+      ],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 180.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "rain_vehicle_exit_asr",
+      "target": "asr_transcripts",
+      "need": "Transcript lines around the rainy vehicle-exit scene to align the moment and any immediately following sounds or dialogue",
+      "query": "friends exit vehicle rain Mike Dustin Lucas Eleven Will kidnapped me",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 180.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

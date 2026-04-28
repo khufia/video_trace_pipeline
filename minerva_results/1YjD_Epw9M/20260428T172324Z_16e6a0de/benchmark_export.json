@@ -1,0 +1,122 @@
+{
+  "sample_key": "1YjD_Epw9M__f309a1ce747d",
+  "trace": {
+    "inference_steps": [
+      "[124s to 128s] The newly grounded transcript evidence indicates a successful outcome rather than a cancellation, tie, or disqualification. In particular, the transcript says \"Fourth time's the charm, and that's the one that matters most,\" \"We had to beat really good teams to win,\" and \"the kids stepped up and did that.\"",
+      "[124s to 128s] The transcript also states \"We go 9-15, but we take third at state,\" which is a completed positive tournament result and is incompatible with the game being cancelled, tied, or ending in disqualification.",
+      "[124s to 128s] For the black-versus-white discriminator, the earlier celebration evidence is answer-critical: it describes a women's basketball team celebrating on a stage with a trophy lift and confirms that the celebrating team is in white jerseys.",
+      "[124s to 128s; 129s to 130s] The later interview frames at 129.00s and 130.00s do not show clear jerseys or a scoreboard, but that limitation does not overturn the earlier grounded celebration evidence. Since the winning/celebrating team is identified as wearing white jerseys, the supported option is that the white team won."
+    ],
+    "evidence": [
+      {
+        "tool_name": "frame_retriever",
+        "evidence_text": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor, including frames at 129.00s and 130.00s.",
+        "observation_ids": [
+          "obs_cdf91975c35f8e4a",
+          "obs_e0130ec777c753f6"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 129.0,
+            "end_s": 129.0
+          },
+          {
+            "start_s": 130.0,
+            "end_s": 130.0
+          }
+        ]
+      },
+      {
+        "tool_name": "frame_retriever",
+        "evidence_text": "Additional chronological frames were retrieved from the same clip at 124.00s, 125.00s, 126.00s, 127.00s, and 128.00s.",
+        "observation_ids": [
+          "obs_e39891027b66c6ac",
+          "obs_fe0427218e9a71e2",
+          "obs_1edd2b3e5b3bf63a",
+          "obs_854aa1019d24fe4a",
+          "obs_338e4d47d345479d"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 124.0,
+            "end_s": 124.0
+          },
+          {
+            "start_s": 125.0,
+            "end_s": 125.0
+          },
+          {
+            "start_s": 126.0,
+            "end_s": 126.0
+          },
+          {
+            "start_s": 127.0,
+            "end_s": 127.0
+          },
+          {
+            "start_s": 128.0,
+            "end_s": 128.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "The newly provided transcript/text-context evidence includes exact victory-oriented phrases and a celebration description: Transcript 1 states \"Fourth time's the charm, and that's the one that matters most\" and \"we were great defensively second quarter\"; Transcript 2 states \"We had to beat really good teams to win\" and \"the kids stepped up and did that\"; Transcript 3 states \"We go 9-15, but we take third at state.\" The same evidence package also describes a women's basketball team celebrating on a stage, with a coach lifting a large wooden trophy, and confirms the team is in white jerseys.",
+        "observation_ids": [
+          "obs_d320c7dbbb13380a",
+          "obs_515288052733cf65",
+          "obs_d3bdf405dc603a98",
+          "obs_5e64b2d0299a806c",
+          "obs_1023c2c0971ad558",
+          "obs_e5105ec8bbe853ae",
+          "obs_5fb434e17a4e985b",
+          "obs_ebabf4c34f4565a6",
+          "obs_7f2f12e191e822fd",
+          "obs_5a11befd207c2a6d",
+          "obs_6d4e533fc213645e",
+          "obs_0fd1ce24e868df7e"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 124.0,
+            "end_s": 128.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "The later interview frames at 129.00s and 130.00s do not show clear jerseys or a scoreboard; they show people in grey hoodies and one person in a black-and-white jacket. These frames do not determine the winner by themselves, but they no longer control the answer because earlier retrieved celebration evidence provides the needed team-color cue.",
+        "observation_ids": [
+          "obs_d00a2cc5f00d7706",
+          "obs_f0cca745e5133413",
+          "obs_9933e15d51873223",
+          "obs_c451b807d993c330",
+          "obs_4c57616e94ef0c7f"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 129.0,
+            "end_s": 129.0
+          },
+          {
+            "start_s": 130.0,
+            "end_s": 130.0
+          }
+        ]
+      }
+    ]
+  },
+  "answer": "C. The white team won."
+}

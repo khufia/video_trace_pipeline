@@ -1,0 +1,116 @@
+{
+  "strategy": "Preserve the already-grounded negative evidence for early/mid positions, then directly ground the unresolved later portions of B and C with chronological board-state frames and verify whether the two white knights ever become adjacent/diagonally adjacent within those option windows.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve chronological board-state frames from the unresolved candidate windows, especially the later interior of B and the full C window where the discriminator should appear.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 123.0,
+            "end_s": 237.0
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 220.0,
+            "end_s": 239.0
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 12,
+        "query": "chessboard states where the two white knights might be within one square of each other; prioritize readable full-board frames and preserve chronology",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "02:03-03:57 unresolved candidate interval B; sample across the interval with emphasis on later interior after 02:05",
+          "03:40-03:59 candidate interval C; retrieve chronological frames across this whole window"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological candidate board-state frames spanning the unresolved portions of B and C"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Read the board states from the retrieved frames, identify the two white knights' squares in each frame, determine whether they are within one square of each other, and map the supported interval to the answer options while using prior evidence only as preserved negative context.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [
+          "ev_01_87901a0e",
+          "ev_02_683a15cd"
+        ],
+        "frames": [
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 113.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_113.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_113.00.png"
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 115.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_115.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_115.00.png"
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 117.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_117.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_117.00.png"
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 28.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_28.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_28.00.png"
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 32.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_32.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_32.00.png"
+          }
+        ],
+        "query": "For each retrieved chessboard frame, identify the squares of White's two knights and state whether they are within one square of each other (adjacent horizontally, vertically, or diagonally). Use the preserved prior evidence only as negative context: 28s-32s shows b1 and g1 far apart, and 113s-117s shows c3 and f3 not adjacent. Then determine which provided option interval contains grounded board states where the two white knights are within one square of each other, and choose the single best option among A-E.",
+        "text_contexts": [
+          "Prior grounded negatives to preserve: 28s-32s white knights on b1 and g1, far apart; 113s-117s white knights on c3 and f3, not adjacent. The unresolved discriminator is whether later portions of B or C contain a board state where the two white knights are within one square of each other."
+        ],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "single supported option letter/time interval",
+        "supporting_points": "frame-by-frame knight-square observations and interval mapping",
+        "analysis": "explicit comparison of B versus C, with preserved negative evidence for E and early B/D"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the prior grounded negatives: E is ruled out by 28s-32s, and early B / part of D are disfavored by 113s-117s showing c3 and f3 not adjacent. Do not treat the provisional 121s d5/f3 reading as decisive unless the new frames visually confirm it. In the final trace, cite exact timestamps from the newly retrieved frames, list the two white-knight squares for each answer-critical frame, and explicitly state whether their Chebyshev distance is 1 or less. Choose a single option only if the new visual evidence grounds it; if multiple sampled frames within one option satisfy the condition, note that consistency. Avoid answering from preprocess summaries alone; the final discriminator must come from the board-state frames."
+}

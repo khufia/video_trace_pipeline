@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "ZF4T833lln4__db2737f0d79b",
+  "video_id": "ZF4T833lln4",
+  "run_id": "20260428T195938Z_f96c247d",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "ZF4T833lln4__db2737f0d79b",
+    "question": "How many total pieces have both players lost when the match concludes?",
+    "options": [
+      "A. 3.",
+      "B. 8.",
+      "C. 16.",
+      "D. 17.",
+      "E. 32."
+    ],
+    "video_id": "ZF4T833lln4",
+    "question_id": null,
+    "gold_answer": "17.",
+    "initial_trace_steps": [
+      "I noticed a resignation message at 05:18, signaling the conclusion of the match. I then knew that the final state would be just before this message. At 05:17, I counted 8 white pieces and 7 black pieces on the board. Since each player started with 16 pieces at 00:01, I then calculated 16-8=8 and 16-7=9. Next, I concluded white lost 8 pieces and black lost 9 pieces. Then, I calculated 8+9=17. Therefore, when the match concludes, both players have lost a total of 17 pieces."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/ZF4T833lln4",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

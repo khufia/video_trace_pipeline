@@ -1,0 +1,297 @@
+{
+  "task_key": "8rdIuLhEQso__339786e8f248",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_msg_meeting_anchor",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Transcript lines establish that the blonde sent a message and that the brunette came to a specific place/time because of it: the blonde asks, \"Did you get my message?\" and says, \"I'm not a telepath\" and \"If I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 53.474,
+          "end_s": 79.495
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_060_00_180_00",
+          "kind": "clip",
+          "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "planner_combined_from_preprocess_segments",
+            "video_id": "8rdIuLhEQso",
+            "start_s": 60.0,
+            "end_s": 180.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_5990a5278b7bc31c",
+        "obs_7d9edc71f0f6dcba",
+        "obs_8df2bd143a171f30",
+        "obs_b0b880a9155eab13"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_cliff_context",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Later dialogue at the meeting includes one speaker asking, \"So why are you here then?\" and the reply, \"To watch you jump.\" The surrounding lines include \"You want to see me die,\" \"Go ahead jump,\" and \"Let me get married in peace.\" This grounds that the meeting is at a cliff/jumping context and tied to an impending marriage.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 81.352,
+          "end_s": 110.883
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_060_00_180_00",
+          "kind": "clip",
+          "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "planner_combined_from_preprocess_segments",
+            "video_id": "8rdIuLhEQso",
+            "start_s": 60.0,
+            "end_s": 180.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_10b41ef62bd360b2",
+        "obs_202ed66c81a40978",
+        "obs_1abe3baeb16a8999",
+        "obs_65abae207e1927e2",
+        "obs_2d39dcdf0279150a"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_relationship_conflict",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The later argument frames the motive as romantic/relationship conflict: the blonde says, \"You've been annoying me for months\" and \"It's much more classy to try to screw up my couple!\" The other speaker replies, \"Your shit couple that you don't even love your guy!\" and \"You don't love him, it's me you love!\" followed by \"I don't love you!\" and \"I left Pierre anyway.\"",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 115.777,
+          "end_s": 143.468
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_060_00_180_00",
+          "kind": "clip",
+          "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "planner_combined_from_preprocess_segments",
+            "video_id": "8rdIuLhEQso",
+            "start_s": 60.0,
+            "end_s": 180.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_172a1ebc693d5b7b",
+        "obs_e3b48486138a204c",
+        "obs_92bdf72d6d3ca202",
+        "obs_7cf14a43fd612180",
+        "obs_445c06666b1317e7",
+        "obs_27ed37d93dd6078d"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The transcript directly establishes that the blonde sent a message and that it was used to get the brunette to a specific location at a specific time: \"Did you get my message?\" plus \"If I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"",
+      "supporting_observation_ids": [
+        "obs_5990a5278b7bc31c",
+        "obs_b0b880a9155eab13"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 53.474,
+          "end_s": 79.495
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The subsequent exchange places that arranged meeting in a cliff/jumping setting: one speaker asks why the other is there, and the reply is \"To watch you jump,\" with nearby lines about dying and jumping. This supports that the message was meant to bring the brunette there, not merely to scold her by text.",
+      "supporting_observation_ids": [
+        "obs_10b41ef62bd360b2",
+        "obs_202ed66c81a40978",
+        "obs_1abe3baeb16a8999",
+        "obs_65abae207e1927e2"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 81.352,
+          "end_s": 110.883
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "The marriage and relationship lines show the broader conflict is about the blonde's impending marriage and the brunette's romantic entanglement with her, but they do not say the text was sent to break up with the brunette, avoid being maid of honor, or stall the brunette's wedding. In fact, \"Let me get married in peace\" points to the blonde's own marriage, not the brunette's wedding.",
+      "supporting_observation_ids": [
+        "obs_2d39dcdf0279150a",
+        "obs_e3b48486138a204c",
+        "obs_7cf14a43fd612180",
+        "obs_445c06666b1317e7"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 81.352,
+          "end_s": 110.883
+        },
+        {
+          "start_s": 115.777,
+          "end_s": 143.468
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Among the options, the only one that matches the grounded function of the message is that the blonde used it to lure the brunette to the cliffs. The rebukes occur later during the confrontation, but the message itself is tied to arranging the meeting place and time.",
+      "supporting_observation_ids": [
+        "obs_5990a5278b7bc31c",
+        "obs_b0b880a9155eab13",
+        "obs_202ed66c81a40978",
+        "obs_d66ab956487fae86",
+        "obs_172a1ebc693d5b7b"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 53.474,
+          "end_s": 79.495
+        },
+        {
+          "start_s": 81.352,
+          "end_s": 110.883
+        },
+        {
+          "start_s": 115.777,
+          "end_s": 143.468
+        }
+      ]
+    }
+  ],
+  "final_answer": "D. To lure the brunette to the cliffs.",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "8rdIuLhEQso__339786e8f248",
+      "trace": {
+        "inference_steps": [
+          "[53.474s to 79.495s] The transcript directly establishes that the blonde sent a message and that it was used to get the brunette to a specific location at a specific time: \"Did you get my message?\" plus \"If I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"",
+          "[81.352s to 110.883s] The subsequent exchange places that arranged meeting in a cliff/jumping setting: one speaker asks why the other is there, and the reply is \"To watch you jump,\" with nearby lines about dying and jumping. This supports that the message was meant to bring the brunette there, not merely to scold her by text.",
+          "[81.352s to 110.883s; 115.777s to 143.468s] The marriage and relationship lines show the broader conflict is about the blonde's impending marriage and the brunette's romantic entanglement with her, but they do not say the text was sent to break up with the brunette, avoid being maid of honor, or stall the brunette's wedding. In fact, \"Let me get married in peace\" points to the blonde's own marriage, not the brunette's wedding.",
+          "[53.474s to 79.495s; 81.352s to 110.883s; 115.777s to 143.468s] Among the options, the only one that matches the grounded function of the message is that the blonde used it to lure the brunette to the cliffs. The rebukes occur later during the confrontation, but the message itself is tied to arranging the meeting place and time."
+        ],
+        "evidence": [
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Transcript lines establish that the blonde sent a message and that the brunette came to a specific place/time because of it: the blonde asks, \"Did you get my message?\" and says, \"I'm not a telepath\" and \"If I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"",
+            "observation_ids": [
+              "obs_5990a5278b7bc31c",
+              "obs_7d9edc71f0f6dcba",
+              "obs_8df2bd143a171f30",
+              "obs_b0b880a9155eab13"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 53.474,
+                "end_s": 79.495
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Later dialogue at the meeting includes one speaker asking, \"So why are you here then?\" and the reply, \"To watch you jump.\" The surrounding lines include \"You want to see me die,\" \"Go ahead jump,\" and \"Let me get married in peace.\" This grounds that the meeting is at a cliff/jumping context and tied to an impending marriage.",
+            "observation_ids": [
+              "obs_10b41ef62bd360b2",
+              "obs_202ed66c81a40978",
+              "obs_1abe3baeb16a8999",
+              "obs_65abae207e1927e2",
+              "obs_2d39dcdf0279150a"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 81.352,
+                "end_s": 110.883
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "The later argument frames the motive as romantic/relationship conflict: the blonde says, \"You've been annoying me for months\" and \"It's much more classy to try to screw up my couple!\" The other speaker replies, \"Your shit couple that you don't even love your guy!\" and \"You don't love him, it's me you love!\" followed by \"I don't love you!\" and \"I left Pierre anyway.\"",
+            "observation_ids": [
+              "obs_172a1ebc693d5b7b",
+              "obs_e3b48486138a204c",
+              "obs_92bdf72d6d3ca202",
+              "obs_7cf14a43fd612180",
+              "obs_445c06666b1317e7",
+              "obs_27ed37d93dd6078d"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 115.777,
+                "end_s": 143.468
+              }
+            ]
+          }
+        ]
+      },
+      "answer": "D. To lure the brunette to the cliffs."
+    }
+  },
+  "metadata": {}
+}

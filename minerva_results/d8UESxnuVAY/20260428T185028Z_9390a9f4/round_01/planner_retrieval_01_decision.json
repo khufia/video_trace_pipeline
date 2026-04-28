@@ -1,0 +1,47 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries and ASR likely contain the checkmate moment, but the current context does not yet include the specific final moved piece.",
+  "requests": [
+    {
+      "request_id": "checkmate_segment_text",
+      "target": "preprocess",
+      "need": "Text spans around the final checkmate sequence, including any summary or captions indicating which black piece makes the mating move",
+      "query": "checkmate another queen beautiful one black move final piece",
+      "modalities": [
+        "visual",
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 180.0,
+        "end_s": 240.0
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "checkmate_asr_span",
+      "target": "asr_transcripts",
+      "need": "Exact transcript around the announced checkmate to anchor the final move timing and nearby dialogue",
+      "query": "checkmate another queen beautiful one",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 210.0,
+        "end_s": 235.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

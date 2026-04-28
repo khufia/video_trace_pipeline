@@ -1,0 +1,45 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "f58e9ff5867ab63f4b83f820",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "artifact_id": "clip_000_00_060_00",
+        "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_060_00.mp4",
+        "metadata": {}
+      },
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "artifact_id": "clip_060_00_120_00",
+        "relpath": "artifacts/AY84ybskqI/clips/clip_060_00_120_00.mp4",
+        "metadata": {}
+      },
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 120.0,
+        "end_s": 172.272,
+        "artifact_id": "clip_120_00_172_27",
+        "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "3-8s montage of player smiling/talking and playing",
+      "60-62s group of players standing and talking",
+      "120-125s instructor/mentor scene where she may briefly hold another object before hitting"
+    ],
+    "query": "frames where Alex Replier or the main female tennis player is holding an object other than a tennis racket or tennis ball, especially a water bottle, sunglasses, towel, wristband, or energy bar",
+    "num_frames": 8,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

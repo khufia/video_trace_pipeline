@@ -1,0 +1,45 @@
+{
+  "action": "retrieve",
+  "rationale": "Need existing text descriptions for 01:20-01:25 to see whether any on-screen prices are already captured before planning new OCR/frame tools.",
+  "requests": [
+    {
+      "request_id": "captions_80_85_prices",
+      "target": "dense_captions",
+      "need": "Dense-caption spans covering 01:20-01:25, especially any on-screen text or visible price labels/items in that interval",
+      "query": "01:20 01:25 on-screen text price item visible label dollar amount",
+      "modalities": [
+        "visual",
+        "ocr"
+      ],
+      "time_range": {
+        "start_s": 80.0,
+        "end_s": 85.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "segment_context_60_120",
+      "target": "preprocess",
+      "need": "Preprocess segment details for the clip containing 01:20-01:25, including summaries or text previews that may mention a screen with priced items",
+      "query": "segment 60 120 screen recording amazon youtube prices items kit cost",
+      "modalities": [],
+      "time_range": {
+        "start_s": 60.0,
+        "end_s": 120.0
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 5
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "c247304b7fd466720327d1ae",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "9u2I5D55tfU",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "artifact_id": "clip_060_00_120_00",
+        "relpath": "artifacts/9u2I5D55tfU/clips/clip_060_00_120_00.mp4",
+        "metadata": {
+          "segment_id": "seg_002",
+          "source": "preprocess_dense_caption"
+        }
+      }
+    ],
+    "time_hints": [
+      "62-68s horse-riding montage; especially the shot described as a young girl in a yellow helmet sitting on a dark horse while a man leads her"
+    ],
+    "query": "frames showing the child in yellow helmet riding the horse, with the horse body clearly visible for coat color and spotting pattern",
+    "num_frames": 5,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

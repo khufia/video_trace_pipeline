@@ -1,0 +1,32 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "dda360b32c0a2f8ca1488417",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "FkuqYtE1rw0",
+        "start_s": 120.0,
+        "end_s": 143.5,
+        "artifact_id": "clip_120_00_180_00",
+        "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+        "metadata": {
+          "source": "preprocess_seg_003",
+          "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+        }
+      }
+    ],
+    "time_hints": [
+      "120-121s card shown",
+      "122-129s four players dealing/discarding",
+      "129-133s immediately after redeal / first post-shuffle hand views"
+    ],
+    "query": "chronological frames showing the four players' hands after the shuffle hands card is played and cards are dealt back out, with card colors visible enough to tell whether each player has any red card",
+    "num_frames": 8,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

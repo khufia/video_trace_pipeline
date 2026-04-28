@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "nq9WnmCGoFQ__5884641d36bd",
+  "video_id": "nq9WnmCGoFQ",
+  "run_id": "20260428T192110Z_d7c8c9c0",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "nq9WnmCGoFQ__5884641d36bd",
+    "question": "How many times is the ingredient which is insulted the most shown with a cutting board in the background?",
+    "options": [
+      "A. 1 times",
+      "B. 4 times",
+      "C. 5 times",
+      "D. 2 times",
+      "E. 3 times"
+    ],
+    "video_id": "nq9WnmCGoFQ",
+    "question_id": null,
+    "gold_answer": "3 times",
+    "initial_trace_steps": [
+      "I looked for an ingredient which the cook insults. From 00:53 - 01:09, the cook insults a head of lettuce, so I take this to be my ingredient. Lettuce does show up slightly before this at 00:51, but it isn't shown with a cutting board in the background, so I didn't count this time. The lettuce shows up again at 01:47, where it is sliced by the cook on a cutting board. It is also sprinkled on buns with a cutting board in the background at 02:05. It shows up one last time with a cutting board in the background at 04:16, where it is used in the burger's assembling. Therefore, I count a total of 3 times."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/nq9WnmCGoFQ",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

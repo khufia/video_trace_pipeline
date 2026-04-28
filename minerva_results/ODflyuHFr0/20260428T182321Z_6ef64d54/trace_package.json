@@ -1,0 +1,289 @@
+{
+  "task_key": "ODflyuHFr0__f0ba80114388",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_0a082813",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Chronological neighboring frames were retrieved at 16.00s, 17.00s, and 18.00s around the ingredient overlay.",
+      "inference_hint": null,
+      "confidence": 0.119,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 16.0,
+          "end_s": 16.0
+        },
+        {
+          "start_s": 17.0,
+          "end_s": 17.0
+        },
+        {
+          "start_s": 18.0,
+          "end_s": 18.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_16.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_16.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 115531
+          }
+        },
+        {
+          "artifact_id": "frame_17.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_17.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 99788
+          }
+        },
+        {
+          "artifact_id": "frame_18.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_18.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 24568
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_e7766e2ff0290146",
+        "obs_a32885a7c1779ccd",
+        "obs_6063d470b05201f4"
+      ],
+      "metadata": {
+        "request_hash": "0a082813f746f52d6bffc1b6",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_03_000f4ce5",
+      "tool_name": "generic_purpose",
+      "evidence_text": "In the clearer ingredient-overlay frames, the visible list includes \"1/2 cup coriander leaves\" and directly below it \"1/2 cup mint leaves\"; the same list also includes \"1/2 inch ginger\", \"1/2 inch green chilli\", \"1/2 tsp salt\", and \"1/2 cup water\". The 18s frame is faint/fading, so the 16s and 17s frames are the main readable anchors.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_16.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 16.0
+          }
+        },
+        {
+          "artifact_id": "frame_17.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 17.0
+          }
+        },
+        {
+          "artifact_id": "frame_18.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 18.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_8aaa6337b4b1dee4",
+        "obs_c1ec34064c400c14",
+        "obs_1bbbe001c4882885",
+        "obs_05cc5f516131df9d",
+        "obs_43466baca1b0d1d1",
+        "obs_3b81caa7ef4cdea5",
+        "obs_a96feebe69a4227d",
+        "obs_433bb13d84a75d85",
+        "obs_8505b06373051365",
+        "obs_c47c7cd44ddd8890",
+        "obs_d0cf9e7dff11fb21",
+        "obs_0c2ef218cc61aadd",
+        "obs_368439fce27de3f2",
+        "obs_a0028599f12eb2f3"
+      ],
+      "metadata": {
+        "request_hash": "000f4ce51c4a2d6370b05451",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The relevant ingredient overlay is grounded by chronologically retrieved frames at 16s, 17s, and 18s, with 16s and 17s being readable and 18s fading out.",
+      "supporting_observation_ids": [
+        "obs_e7766e2ff0290146",
+        "obs_a32885a7c1779ccd",
+        "obs_6063d470b05201f4",
+        "obs_8aaa6337b4b1dee4",
+        "obs_a0028599f12eb2f3"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 16.0,
+          "end_s": 18.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "Across the readable frames, the ingredient list visibly shows \"1/2 cup coriander leaves\" followed by \"1/2 cup mint leaves\". This supports that the second listed ingredient is mint leaves, rather than a different phrase such as \"ginger & garlic\" or \"fresh coriander and mint leaves\".",
+      "supporting_observation_ids": [
+        "obs_c1ec34064c400c14",
+        "obs_1bbbe001c4882885",
+        "obs_433bb13d84a75d85",
+        "obs_8505b06373051365"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 16.0,
+          "end_s": 17.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "For the second ingredient phrase \"mint leaves\", the second word is \"leaves\", whose first letter is L.",
+      "supporting_observation_ids": [
+        "obs_1bbbe001c4882885",
+        "obs_8505b06373051365"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 16.0,
+          "end_s": 17.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Among the options, the letter L corresponds to option B.",
+      "supporting_observation_ids": [
+        "obs_0aee4a4b7198ff69"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "B. L.",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "ODflyuHFr0__f0ba80114388",
+      "trace": {
+        "inference_steps": [
+          "[16s to 18s] The relevant ingredient overlay is grounded by chronologically retrieved frames at 16s, 17s, and 18s, with 16s and 17s being readable and 18s fading out.",
+          "[16s to 17s] Across the readable frames, the ingredient list visibly shows \"1/2 cup coriander leaves\" followed by \"1/2 cup mint leaves\". This supports that the second listed ingredient is mint leaves, rather than a different phrase such as \"ginger & garlic\" or \"fresh coriander and mint leaves\".",
+          "[16s to 17s] For the second ingredient phrase \"mint leaves\", the second word is \"leaves\", whose first letter is L.",
+          "Among the options, the letter L corresponds to option B."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Chronological neighboring frames were retrieved at 16.00s, 17.00s, and 18.00s around the ingredient overlay.",
+            "observation_ids": [
+              "obs_e7766e2ff0290146",
+              "obs_a32885a7c1779ccd",
+              "obs_6063d470b05201f4"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 16.0,
+                "end_s": 16.0
+              },
+              {
+                "start_s": 17.0,
+                "end_s": 17.0
+              },
+              {
+                "start_s": 18.0,
+                "end_s": 18.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "In the clearer ingredient-overlay frames, the visible list includes \"1/2 cup coriander leaves\" and directly below it \"1/2 cup mint leaves\"; the same list also includes \"1/2 inch ginger\", \"1/2 inch green chilli\", \"1/2 tsp salt\", and \"1/2 cup water\". The 18s frame is faint/fading, so the 16s and 17s frames are the main readable anchors.",
+            "observation_ids": [
+              "obs_8aaa6337b4b1dee4",
+              "obs_c1ec34064c400c14",
+              "obs_1bbbe001c4882885",
+              "obs_05cc5f516131df9d",
+              "obs_43466baca1b0d1d1",
+              "obs_3b81caa7ef4cdea5",
+              "obs_a96feebe69a4227d",
+              "obs_433bb13d84a75d85",
+              "obs_8505b06373051365",
+              "obs_c47c7cd44ddd8890",
+              "obs_d0cf9e7dff11fb21",
+              "obs_0c2ef218cc61aadd",
+              "obs_368439fce27de3f2",
+              "obs_a0028599f12eb2f3"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          }
+        ]
+      },
+      "answer": "B. L."
+    }
+  },
+  "metadata": {
+    "answer_type": "multiple_choice",
+    "grounding_note": "Used readable montage frames as primary support and preserved chronology across 16s-18s."
+  }
+}

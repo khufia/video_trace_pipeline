@@ -1,0 +1,23 @@
+{
+  "action": "retrieve",
+  "rationale": "Need existing preprocess captions around the smartphone-use segment to identify the last phone use and any described on-screen option before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "smartphone_last_use_preprocess",
+      "target": "preprocess",
+      "need": "Which segment contains the man's last smartphone use and whether preprocess captions mention the highlighted on-screen option or relevant UI text.",
+      "query": "phone smartphone screen screen recording onscreen option highlighted open photos download accept decline new window",
+      "modalities": [],
+      "time_range": {},
+      "source_tools": [
+        "dense_captioner",
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 6
+    }
+  ]
+}

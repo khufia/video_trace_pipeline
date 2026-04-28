@@ -1,0 +1,720 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "last",
+    "piece",
+    "black",
+    "moves",
+    "deliver",
+    "checkmate",
+    "bishop",
+    "knight",
+    "pawn",
+    "queen",
+    "rook",
+    "preserve",
+    "candidate",
+    "current",
+    "overreaches",
+    "mention",
+    "presence",
+    "final",
+    "move",
+    "actually",
+    "makes",
+    "results",
+    "temporal",
+    "specific",
+    "option",
+    "mapping",
+    "based",
+    "mating",
+    "rather",
+    "than"
+  ],
+  "preprocess": {
+    "planner_segment_count": 5,
+    "raw_segment_count": 5,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 5,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "A woman in a bright green cardigan sits across from a man in a black hoodie at a table with a chessboard. She asks him a question, and he responds with a joke. She then moves a black pawn forward, and he reaches out to shake her hand, saying, 'let's do it.'...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is positioned at a medium distance, capturing both individuals...",
+          "video_background: The scene is set in what appears to be a cafe or restaurant with a wi...",
+          "storyline: The scene is set up for a chess game. The woman initiates the game, and the...",
+          "shooting_style: This is a standard, continuous shot establishing the characters and set...",
+          "camera_state: The camera remains in a static medium shot, focused on the two players an...",
+          "video_background: The background is the same cafe setting with the window and brick wal...",
+          "storyline: The game begins with the woman's first move. The man immediately questions h...",
+          "shooting_style: A static shot with a digital overlay (the chessboard graphic)."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 0.031,
+            "end_s": 16.366,
+            "text": "So now you're going to bring your A game. No, I'm going to bring my C game. Your C game? No, I don't need my A game. You don't need your A game. No, I don't need it. No, you needed it before. It's Women's Month. No, I didn't. I gave back to women. It's Women's Month. Okay. I'm being charitable Sunday, too. All right."
+          },
+          {
+            "start_s": 16.366,
+            "end_s": 44.463,
+            "text": "Let's do it. Come on. Show me your C game then. Say it again. You're going to just say the one that didn't work last time. It is what it is. Let me bring this here. It's okay. Let's get that one. What are you doing? I don't know. No idea. Not at all. What are you doing?"
+          },
+          {
+            "start_s": 44.733,
+            "end_s": 73.96,
+            "text": "Taking up the sun. There you go. Just like I did before. It worked. If it worked once, why not do it again, right? I don't know. You don't know. What's your night doing? Huh? What's your night doing there? What is my night doing there? Yeah. Well, I'm asking you. Whoa, bro. Huh? That's kind of..."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "A man in a black hoodie and a woman in a lime green hoodie are playing a game of chess. The man, looking confused, asks a question. The woman, who is playing as Black, looks at her board, then at him, and makes a move with her knight, exclaiming in surprise...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is positioned at a medium distance, capturing both players fro...",
+          "video_background: The scene is set on an outdoor patio with a brick wall and green blin...",
+          "storyline: The scene opens on a chess game in progress. The man is questioning a move h...",
+          "shooting_style: This is a standard shot with a digital chessboard overlay to show the c...",
+          "camera_state: The camera remains in a static medium shot, keeping both players in the f...",
+          "video_background: The background remains the same, with the brick wall and blinds. Anot...",
+          "storyline: The man's frustration grows as he tries to justify his moves, claiming to be...",
+          "shooting_style: The scene continues with the static shot and the digital chessboard ove..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 74.247,
+            "end_s": 97.973,
+            "text": "Well, I'm bringing my A game, so. Just going to put your queen in that? Yeah. I'm going to put my queen. That's what I think about Grandmaster's games. Just taking calculator a lot means nothing to me. All right. Whoa, boy, got to go. You're going to go? Got to go. Got to go. Got to go. Well, I got to go, too. I know."
+          },
+          {
+            "start_s": 98.429,
+            "end_s": 127.1,
+            "text": "You know what I'm going to do, right? I have not a damn clue. I'm not a grandmaster. You're not? Okay. No. Well, I'm going to be kind to you. I'm going to start by doing this. Don't be kind. Don't be doing other kind stuff. Okay. What? No. Leave me alone. You want me to leave you alone? I don't want to. It's not like personal problem. I have so many things I want to do. I bet you do. I do. I bet. Yeah. Yeah, my corporate voice."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "A man in a black hoodie and a woman in a neon yellow hoodie are playing a game of chess. The man, with a serious expression, rests his chin on his clasped hands, deep in thought. The woman, on the other hand, smiles and laughs, looking amused by the game. A...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is positioned at a medium distance, capturing both players fro...",
+          "video_background: The scene is set indoors, with a stone fireplace wall on the right an...",
+          "storyline: The scene is established, showing a chess game in progress. The contrasting...",
+          "shooting_style: This is a standard, continuous shot focusing on the two main subjects.",
+          "camera_state: The camera remains in a static medium shot, keeping both players in the f...",
+          "video_background: The background remains the same, with the stone wall, window, and dig...",
+          "storyline: The woman initiates a lighthearted challenge, suggesting she is a strong pla...",
+          "shooting_style: This is a continuous shot."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 127.707,
+            "end_s": 149.881,
+            "text": "Oh, there's so much stuff here. I know it is. I know it is. You know it. Yeah, you're thinking long and hard. It makes me glad my game has been the worst. I'm the strongest 750 player you'll ever meet. You're 750? 750. That's kind of high. Hey, man, I'm just telling it like it is, man. I'm 750, bro. I'm sticking to that. What the heck? What the heck? What was I doing? What? What the?"
+          },
+          {
+            "start_s": 150.539,
+            "end_s": 178.754,
+            "text": "What are you doing? I don't know. I'm getting away from you. You're getting away from me? Yeah. Alright, well let me get to you. Is that how you feel it? Yeah, that's how I'm feeling. That's not good. It's perfect. You're going back? I gotta go back. You gotta go back. That's true. I know there's a lot of stuff I want to do. I bet it is. We're gonna go for it. We're gonna go sheer."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "overall_summary": "A young woman in a bright green hoodie sits across from a man in a black hoodie at a chess table. She gestures with her right hand towards his king, asking what he's going to do. The man, looking serious, tells her she's trying to be slick and should use he...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is positioned at a medium distance, capturing both players fro...",
+          "video_background: The scene is set indoors, likely a cafe or community center. Behind t...",
+          "storyline: The scene opens on a chess game in progress. The woman is putting the man on...",
+          "shooting_style: This is a standard shot with a digital graphic overlay showing the ches...",
+          "camera_state: The camera remains in a static medium shot, keeping both players in the f...",
+          "video_background: The background remains the same, with the window, blinds, and brick w...",
+          "storyline: The man continues his attempt to distract the woman with jokes, but she rema...",
+          "shooting_style: This is a continuous shot with a digital graphic overlay."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 181.522,
+            "end_s": 211.458,
+            "text": "What are we gonna do? Going there? Oh, no, you can't. Oh, you're trying to be slick. You're trying to use your brain. Of course I am. No, I can't do that, bro. You almost fell for it. I actually almost did. Go in and go in. Thanks, Mike. What kind of cheerleading crap is this, man? I got a cheerleader here. That's right. You don't have one, but she does. Thank you. Now we go here. What are we gonna do now? Oh, I can take that, too. That was free, so I gotta get that out of there."
+          },
+          {
+            "start_s": 212.217,
+            "end_s": 231.016,
+            "text": "But you know what's also free? Yeah, another queen. A checkmate. Oh! Oh! A checkmate? A checkmate. Drew, I'm still on your side. And a beautiful one. Oh! Oh!"
+          },
+          {
+            "start_s": 232.788,
+            "end_s": 245.292,
+            "text": "She got this thing! She got it! It is what it is! It is what it is! That was almost two in one thing. Thank you! Wow! Oh my gosh!"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 180.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_180_00_240_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 245.267,
+        "overall_summary": "A woman with blonde hair, wearing a bright green cardigan, smiles warmly at the camera. She is seated at a table with a green and white chessboard. On the table, a digital clock shows the time as 03:03:14. Next to the clock are several bottles of water and...",
+        "caption_count": 2,
+        "asr_span_count": 0,
+        "attributes": [
+          "camera_state: The camera is positioned at a medium distance, capturing the upper bodies...",
+          "video_background: The scene is set on a patio with a brick wall on the right and a wind...",
+          "storyline: The scene is established, introducing a casual chess game in progress. The w...",
+          "shooting_style: This is a standard establishing shot.",
+          "camera_state: The camera remains in a static medium shot, keeping the focus on the inte...",
+          "video_background: The background remains the same, with the brick wall and window visib...",
+          "storyline: The interaction between the two players is highlighted, showing the woman's...",
+          "shooting_style: This is a continuation of the previous shot."
+        ],
+        "clips": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 240.0,
+            "end_s": 245.267,
+            "artifact_id": "clip_240_00_245_27",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_240_00_245_27.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 2,
+    "observation_count": 49,
+    "counts_by_status": {
+      "provisional": 2
+    },
+    "counts_by_tool": {
+      "frame_retriever": 1,
+      "generic_purpose": 1
+    },
+    "validated_evidence": [],
+    "recent_evidence": [
+      {
+        "evidence_id": "ev_01_6391ba4e",
+        "tool_name": "frame_retriever",
+        "status": "provisional",
+        "summary": "Retrieved 6 frame(s) across 1 input clip(s).",
+        "observation_ids": [
+          "obs_3d31ff60e7d8e1e5",
+          "obs_c16eb796e1943eeb",
+          "obs_163d8e2dcc9b4fce",
+          "obs_bf10066ba0ba33b9",
+          "obs_b136319ff468a323",
+          "obs_6db94889721ddf85"
+        ]
+      },
+      {
+        "evidence_id": "ev_02_edfbcd81",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "The user wants to identify the specific chess piece that delivers checkmate based on the provided video frames and transcript. 1. **Analyze the Transcript:** * Around 212s-231s, the dialogue mentions: \"But you know wh...",
+        "observation_ids": [
+          "obs_2d2da5f7b10ca4fb",
+          "obs_23196be8230f81c9",
+          "obs_30c20d29a2eea6d4",
+          "obs_0303a38d86c51bfc",
+          "obs_f37f0d094467ba9a",
+          "obs_3f70f805df94070e",
+          "obs_a90c306a5742ed30",
+          "obs_9ae8a83e7fd95328"
+        ]
+      }
+    ],
+    "recent_observations": [
+      {
+        "observation_id": "obs_0303a38d86c51bfc",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "This strongly suggests the move involves a queen."
+      },
+      {
+        "observation_id": "obs_f37f0d094467ba9a",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The man is the black player."
+      },
+      {
+        "observation_id": "obs_3f70f805df94070e",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The man reacts with \"A checkmate?\""
+      },
+      {
+        "observation_id": "obs_a90c306a5742ed30",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The man reacts with \"A checkmate.\""
+      },
+      {
+        "observation_id": "obs_9ae8a83e7fd95328",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 is at 217s."
+      },
+      {
+        "observation_id": "obs_4516bf0bef721f2e",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The woman is the white player."
+      },
+      {
+        "observation_id": "obs_b50e9c4f30539eed",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, the woman is reaching for a piece."
+      },
+      {
+        "observation_id": "obs_b91dd09f9b36c0f4",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, the board shows a black queen on e8 or a similar square near the back rank."
+      },
+      {
+        "observation_id": "obs_45b8693c53223e7e",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, the board shows a white king on e1."
+      },
+      {
+        "observation_id": "obs_a27020c2cba8694d",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The board orientation places White at the bottom."
+      },
+      {
+        "observation_id": "obs_a1fd6e0eb6cb2953",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The board orientation places Black at the top."
+      },
+      {
+        "observation_id": "obs_5080b0bb37ccd05a",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, the woman's hand is near the black queen on the e-file."
+      },
+      {
+        "observation_id": "obs_cf5590079ab9c5a1",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The board on the table shows White pieces at the bottom."
+      },
+      {
+        "observation_id": "obs_e66473c0c78d7dd8",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The board on the table shows Black pieces at the top."
+      },
+      {
+        "observation_id": "obs_813bc19bec7103f4",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The board on the wall shows the position."
+      },
+      {
+        "observation_id": "obs_02ebc39ac3394da0",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The prompt asks, \"What's the last piece black moves to deliver checkmate?\""
+      },
+      {
+        "observation_id": "obs_fc161c67016d9895",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The transcript states, \"But you know what's also free? Yeah, another queen. A checkmate.\""
+      },
+      {
+        "observation_id": "obs_843782ccf73a8885",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "This implies Black just moved a queen to deliver checkmate."
+      },
+      {
+        "observation_id": "obs_267db1889eece602",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The woman is wearing yellow."
+      },
+      {
+        "observation_id": "obs_12d92a6a41c95149",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The man is wearing black."
+      },
+      {
+        "observation_id": "obs_f7b9c76dfd854caa",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, the woman's hand is on a black piece."
+      },
+      {
+        "observation_id": "obs_43f591db3485391f",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "The black piece looks like a queen."
+      },
+      {
+        "observation_id": "obs_0d6da88230a42f2c",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "This implies the move just happened or is about to happen."
+      },
+      {
+        "observation_id": "obs_5bfbaafd9ed33507",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 at 217s shows the woman's hand on a black piece."
+      },
+      {
+        "observation_id": "obs_db61cceae8689288",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 at 217s shows a queen on e8."
+      },
+      {
+        "observation_id": "obs_72186885b17689b6",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 is at 218s."
+      },
+      {
+        "observation_id": "obs_4b7479ffef631259",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 at 218s shows the woman's hand still there."
+      },
+      {
+        "observation_id": "obs_6d1a713047760147",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 is at 219s."
+      },
+      {
+        "observation_id": "obs_cd65b7d82c7a2675",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 at 219s shows the woman's hand still there."
+      },
+      {
+        "observation_id": "obs_53b9c4b745e05b88",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 is at 220s."
+      },
+      {
+        "observation_id": "obs_b640270e595351a8",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 at 220s has the text overlay \"a checkmate?\""
+      },
+      {
+        "observation_id": "obs_52aab84cf9031d45",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 at 220s shows the man looking at the board."
+      },
+      {
+        "observation_id": "obs_b6086e5039d200ec",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 5 is at 221s."
+      },
+      {
+        "observation_id": "obs_8e7a1944a3ac0df0",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 5 at 221s has the text overlay \"a checkmate\""
+      },
+      {
+        "observation_id": "obs_1fab62203bd88f50",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 6 is at 222s."
+      },
+      {
+        "observation_id": "obs_da9b8f40fef64b81",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "Image 6 at 222s shows the woman smiling or laughing."
+      },
+      {
+        "observation_id": "obs_863b67b90a650ce8",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In the wall display, there is a black queen on e8."
+      },
+      {
+        "observation_id": "obs_cf39596117930e12",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In the table board, the white king is on e1."
+      },
+      {
+        "observation_id": "obs_a33f6c90f2507b86",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In the table board, the black queen is on e8."
+      },
+      {
+        "observation_id": "obs_9792ea6ae1354c51",
+        "evidence_id": "ev_02_edfbcd81",
+        "source_tool": "generic_purpose",
+        "text": "In the table board, there is a black knight on f6."
+      }
+    ]
+  },
+  "artifact_context": {
+    "record_count": 7,
+    "counts_by_type": {
+      "frame": 6,
+      "clip": 1
+    },
+    "records": [
+      {
+        "artifact_id": "clip_180_00_240_00",
+        "artifact_type": "clip",
+        "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4",
+        "time": {
+          "clip": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          }
+        },
+        "contains_preview": [
+          "Around 212s-231s, the dialogue mentions, \"But you know what's also free? Yeah, another queen. A checkmate.\"",
+          "This strongly suggests the move involves a queen.",
+          "The man is the black player.",
+          "The man reacts with \"A checkmate?\""
+        ],
+        "linked_observation_count": 40,
+        "linked_evidence_ids": [
+          "ev_02_edfbcd81"
+        ]
+      },
+      {
+        "artifact_id": "frame_217.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/d8UESxnuVAY/frames/frame_217.00.png",
+        "time": {
+          "timestamp_s": 217.0
+        },
+        "contains_preview": [
+          "Around 212s-231s, the dialogue mentions, \"But you know what's also free? Yeah, another queen. A checkmate.\"",
+          "This strongly suggests the move involves a queen.",
+          "The man is the black player.",
+          "The man reacts with \"A checkmate?\""
+        ],
+        "linked_observation_count": 40,
+        "linked_evidence_ids": [
+          "ev_01_6391ba4e",
+          "ev_02_edfbcd81"
+        ]
+      },
+      {
+        "artifact_id": "frame_218.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/d8UESxnuVAY/frames/frame_218.00.png",
+        "time": {
+          "timestamp_s": 218.0
+        },
+        "contains_preview": [
+          "Around 212s-231s, the dialogue mentions, \"But you know what's also free? Yeah, another queen. A checkmate.\"",
+          "This strongly suggests the move involves a queen.",
+          "The man is the black player.",
+          "The man reacts with \"A checkmate?\""
+        ],
+        "linked_observation_count": 40,
+        "linked_evidence_ids": [
+          "ev_01_6391ba4e",
+          "ev_02_edfbcd81"
+        ]
+      },
+      {
+        "artifact_id": "frame_219.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/d8UESxnuVAY/frames/frame_219.00.png",
+        "time": {
+          "timestamp_s": 219.0
+        },
+        "contains_preview": [
+          "Around 212s-231s, the dialogue mentions, \"But you know what's also free? Yeah, another queen. A checkmate.\"",
+          "This strongly suggests the move involves a queen.",
+          "The man is the black player.",
+          "The man reacts with \"A checkmate?\""
+        ],
+        "linked_observation_count": 40,
+        "linked_evidence_ids": [
+          "ev_01_6391ba4e",
+          "ev_02_edfbcd81"
+        ]
+      },
+      {
+        "artifact_id": "frame_220.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/d8UESxnuVAY/frames/frame_220.00.png",
+        "time": {
+          "timestamp_s": 220.0
+        },
+        "contains_preview": [
+          "Around 212s-231s, the dialogue mentions, \"But you know what's also free? Yeah, another queen. A checkmate.\"",
+          "This strongly suggests the move involves a queen.",
+          "The man is the black player.",
+          "The man reacts with \"A checkmate?\""
+        ],
+        "linked_observation_count": 40,
+        "linked_evidence_ids": [
+          "ev_01_6391ba4e",
+          "ev_02_edfbcd81"
+        ]
+      },
+      {
+        "artifact_id": "frame_221.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/d8UESxnuVAY/frames/frame_221.00.png",
+        "time": {
+          "timestamp_s": 221.0
+        },
+        "contains_preview": [
+          "Around 212s-231s, the dialogue mentions, \"But you know what's also free? Yeah, another queen. A checkmate.\"",
+          "This strongly suggests the move involves a queen.",
+          "The man is the black player.",
+          "The man reacts with \"A checkmate?\""
+        ],
+        "linked_observation_count": 40,
+        "linked_evidence_ids": [
+          "ev_01_6391ba4e",
+          "ev_02_edfbcd81"
+        ]
+      },
+      {
+        "artifact_id": "frame_222.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/d8UESxnuVAY/frames/frame_222.00.png",
+        "time": {
+          "timestamp_s": 222.0
+        },
+        "contains_preview": [
+          "Around 212s-231s, the dialogue mentions, \"But you know what's also free? Yeah, another queen. A checkmate.\"",
+          "This strongly suggests the move involves a queen.",
+          "The man is the black player.",
+          "The man reacts with \"A checkmate?\""
+        ],
+        "linked_observation_count": 40,
+        "linked_evidence_ids": [
+          "ev_01_6391ba4e",
+          "ev_02_edfbcd81"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 4,
+    "claims": [
+      {
+        "step_id": 1,
+        "text": "The relevant sequence is the late-game window at 217s through 222s, so the answer should be based on the last move near that interval rather than on earlier moves elsewhere in the clip.",
+        "supporting_observation_ids": [
+          "obs_3d31ff60e7d8e1e5",
+          "obs_c16eb796e1943eeb",
+          "obs_163d8e2dcc9b4fce",
+          "obs_bf10066ba0ba33b9",
+          "obs_b136319ff468a323",
+          "obs_6db94889721ddf85"
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "Within that window, the dialogue explicitly references 'another queen' and then 'A checkmate,' which makes a queen the only piece type directly tied to the mating moment in the provided evidence.",
+        "supporting_observation_ids": [
+          "obs_30c20d29a2eea6d4",
+          "obs_fc161c67016d9895",
+          "obs_b640270e595351a8",
+          "obs_8e7a1944a3ac0df0"
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "The visual analysis in the same sequence identifies a black queen on the board/display, and although the exact square-by-square move is not fully resolved from these observations, there is no comparably grounded visual indication that the final mating piece was a rook, bishop, knight, or pawn. A knight is mentioned only as another piece present on the board, not as the mating move.",
+        "supporting_observation_ids": [
+          "obs_db61cceae8689288",
+          "obs_863b67b90a650ce8",
+          "obs_a33f6c90f2507b86",
+          "obs_43f591db3485391f",
+          "obs_9792ea6ae1354c51"
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "Given the options, the best-supported mapping is that black's last move to deliver checkmate was by the queen.",
+        "supporting_observation_ids": [
+          "obs_fc161c67016d9895",
+          "obs_db61cceae8689288",
+          "obs_863b67b90a650ce8",
+          "obs_a33f6c90f2507b86"
+        ]
+      }
+    ]
+  },
+  "audit_gaps": [
+    "the piece black actually moves on the final move before checkmate",
+    "a grounded temporal link between the checkmate moment and that specific move",
+    "option mapping based on the validated mating move rather than piece presence or dialogue mention alone"
+  ]
+}

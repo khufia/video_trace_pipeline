@@ -1,0 +1,793 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "many",
+    "total",
+    "pieces",
+    "both",
+    "players",
+    "lost",
+    "match",
+    "concludes",
+    "orderly",
+    "preserves",
+    "uncertainty",
+    "appropriately",
+    "incomplete",
+    "benchmark",
+    "task",
+    "black",
+    "final",
+    "remaining",
+    "piece",
+    "count",
+    "unique",
+    "option",
+    "selected",
+    "concluding",
+    "board",
+    "state",
+    "resulting",
+    "number",
+    "mapping",
+    "one"
+  ],
+  "preprocess": {
+    "planner_segment_count": 6,
+    "raw_segment_count": 6,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 6,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboar...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is static, showing a screen recording of a computer interface....",
+          "video_background: The player is in a modern living room with a white couch and a decora...",
+          "storyline: The video begins by establishing the setting: a live chess game. The player...",
+          "shooting_style: This is a screen recording with a picture-in-picture overlay, showing b...",
+          "camera_state: The camera remains static, maintaining the screen recording with the pict...",
+          "video_background: The player's living room background is unchanged. The chessboard inte...",
+          "storyline: The game progresses as the player makes his first move, followed by the oppo...",
+          "shooting_style: The screen recording style continues, with the action on the board driv..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 2.343,
+            "end_s": 26.322,
+            "text": "um okay so now we have uh zhanjaya abdumalik from kazakhstan uh she's uh uh women's or girls junior world champion a few years ago uh and uh i think she's rated uh well well above uh"
+          },
+          {
+            "start_s": 26.322,
+            "end_s": 45.408,
+            "text": "well about 2400 at least I think almost 2500 in classical so she's evidently a strong player and I get my first white game so I'm gonna go for e4 and see what she does because I'm not really sure what her report you are is and"
+          },
+          {
+            "start_s": 46.724,
+            "end_s": 71.294,
+            "text": "yeah we're back to back to team polgar uh and it's not a theme that all of the girls are going to be to be for team polgar and all of all of the guys are going to be for for team kramnik that's not how it's constituted i think there's uh there's a mix it just happens to be that way for the first couple of games and we have a pretty uh traditional"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bott...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is static, showing a split-screen layout. The main view is a s...",
+          "video_background: The player is in a modern living room with a couch and a floor lamp v...",
+          "storyline: The game begins with the player, who is the white knight, making the first m...",
+          "shooting_style: This is a standard screen recording of a chess game with a picture-in-p...",
+          "camera_state: The camera remains static, maintaining the split-screen view of the chess...",
+          "video_background: The player's background remains a modern living room. The chess game...",
+          "storyline: The player continues his opening sequence, moving his knights around the boa...",
+          "shooting_style: This is a standard screen recording of a chess game with a picture-in-p..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 72.728,
+            "end_s": 101.618,
+            "text": "Closed Ruy Lopez. She has gone for Bb7, which is a bit surprising. Which line should I choose here? I don't know. Let's go for this one and then Nc3 next. Maybe this wasn't very good. B4, Nd5, there's Na5."
+          },
+          {
+            "start_s": 105.55,
+            "end_s": 131.538,
+            "text": "b4, knight e2, maybe? Oh, there's knight a5 immediately as well. Okay, then she doesn't give me a lot of choice, because I could take on b5 and win a pawn, but I don't think it would be worth it with my scuffed pawn structure. Let's go c3."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the playe...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is static, showing a split-screen layout. The main view is a s...",
+          "video_background: The player is in a room with a couch and a fan visible behind him. Th...",
+          "storyline: The scene is set, showing a professional chess player, 'absolutechess,' in t...",
+          "shooting_style: This is a screen recording of a live chess game stream, featuring a pic...",
+          "camera_state: The camera remains static, maintaining the split-screen view of the playe...",
+          "video_background: The player's room with a couch and fan is visible in the background o...",
+          "storyline: The player's thoughtful gesture suggests he is deeply analyzing the position...",
+          "shooting_style: The scene continues as a screen recording of a live chess game stream."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 132.112,
+            "end_s": 141.916,
+            "text": "I think b3 is a reasonable option here, giving up a pawn for some... This, I think I'm fairly happy to give up the bishop."
+          },
+          {
+            "start_s": 143.755,
+            "end_s": 172.797,
+            "text": "just play on the fact that hopefully my bishop is going to be strong and once she tries to do something about that well first of all I can win a pawn with queen b4 I think d4 maybe even stronger if she takes I take back there's d5 but then knight c6 looks very promising for me"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "overall_summary": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows app...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is static, showing a split-screen layout. The main view is a s...",
+          "video_background: The player is in a room with a couch and a small, decorative metal st...",
+          "storyline: The player is analyzing a complex position in a chess game. The on-screen gr...",
+          "shooting_style: This is a screen recording of a live stream or video analysis session,...",
+          "camera_state: The camera remains static, maintaining the split-screen view with the pla...",
+          "video_background: The player's room and the purple-themed chess game interface remain t...",
+          "storyline: The player is simulating moves to see how they affect the position. By movin...",
+          "shooting_style: The scene continues as a screen recording of a live stream or video ana..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 178.163,
+            "end_s": 195.494,
+            "text": "Maybe there's Rfc8, because I was thinking Ra8, and then Ed. Maybe that would be strong. I think now after a5, I don't think she should be concerned with b4. I have a lot of good options here, like Rd1, e5."
+          },
+          {
+            "start_s": 197.3,
+            "end_s": 216.723,
+            "text": "um also ed probably forcing i'll still ed5 knight f5 it's not so clear i'll go e5 seems uh seems very logical we'll go h3 i guess bring the knight around"
+          },
+          {
+            "start_s": 220.03,
+            "end_s": 248.785,
+            "text": "Take on e7. Now she could take with a knight. I didn't need to give her that opportunity. But I think regardless I'm better here. But I probably haven't made the most of my chances. Knight h4 looks suspicious to me. Put the knight in the center and I can meet queen g5 with queen g3. I think this was at the very least an inaccuracy."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 180.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_180_00_240_00",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_180_00_240_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is static, showing a wide shot of the digital chess interface....",
+          "video_background: The player is in a room with a couch and a white screen or partition...",
+          "storyline: The game begins with the player, who is white, making the first move. He mov...",
+          "shooting_style: This is a screen recording of a chess game, with a picture-in-picture o...",
+          "camera_state: The camera remains static, maintaining the wide shot of the digital chess...",
+          "video_background: The player is in a room with a couch and a white screen or partition...",
+          "storyline: The black player, who is the opponent, responds to the white knight's move b...",
+          "shooting_style: This is a screen recording of a chess game, with a picture-in-picture o..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 253.527,
+            "end_s": 273.743,
+            "text": "we have a possible line here queen g5 queen g3 takes takes takes takes knight f5 takes takes king e2 and i should be better in the rick ending let's see if that happens i think she has to take now otherwise e6 just falls"
+          },
+          {
+            "start_s": 281.708,
+            "end_s": 303.848,
+            "text": "Maybe Rf8 first. Okay, and this exact line happened. Wow. Oh, that was a bad pre-move, because she could have gone Rook. But now I think I'm, at the very least, much better. I'm probably winning. Rd6, Rd7, then Rf7 and e7, and I just win."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 240.0,
+            "end_s": 300.0,
+            "artifact_id": "clip_240_00_300_00",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_240_00_300_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 344.267,
+        "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the boa...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is static, showing a split-screen view. The main view is a scr...",
+          "video_background: The player is in a modern room with a couch and a floor lamp visible...",
+          "storyline: The scene is set, showing a chess player in the middle of a high-stakes onli...",
+          "shooting_style: This is a standard split-screen shot, combining a live-action webcam fe...",
+          "camera_state: The camera remains static, maintaining the split-screen view. The focus i...",
+          "video_background: The player's room and the digital chessboard interface remain the same.",
+          "storyline: The player wins the game by his opponent's resignation. His reaction suggest...",
+          "shooting_style: The split-screen format continues, effectively capturing both the on-sc..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 308.303,
+            "end_s": 313.552,
+            "text": "because she has no counterplay and I'm just running to e8 and then f8."
+          },
+          {
+            "start_s": 321.483,
+            "end_s": 344.298,
+            "text": "There you go, all those arrows and it actually happens in the game. Okay, I feel like that was the best game so far. She played very well up to some point, but yeah, I think Night Age 4 was bad since I got to centralize in such a good way."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 300.0,
+            "end_s": 344.267,
+            "artifact_id": "clip_300_00_344_27",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_300_00_344_27.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 2,
+    "observation_count": 44,
+    "counts_by_status": {
+      "provisional": 2
+    },
+    "counts_by_tool": {
+      "frame_retriever": 1,
+      "generic_purpose": 1
+    },
+    "validated_evidence": [],
+    "recent_evidence": [
+      {
+        "evidence_id": "ev_01_3d296eaf",
+        "tool_name": "frame_retriever",
+        "status": "provisional",
+        "summary": "Retrieved 6 frame(s) across 1 input clip(s).",
+        "observation_ids": [
+          "obs_76937256cc75bff0",
+          "obs_a4d9893723cffc01",
+          "obs_1d74473cf823cbc0",
+          "obs_68db22aa6da6095b",
+          "obs_bfd7079ac34c18e9",
+          "obs_b612b5f396db4edc"
+        ]
+      },
+      {
+        "evidence_id": "ev_02_5defa3c6",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "The user wants to know the total number of pieces lost by both players when the match concludes. 1. **Identify the final board state:** I need to look at the frames just before the \"Congratulations, you won!\" popup ap...",
+        "observation_ids": [
+          "obs_8ec20ad4924479c8",
+          "obs_54674d06c26381e8",
+          "obs_353f0e604739abed",
+          "obs_1550c81548344499",
+          "obs_11f3ce1e08ce187c",
+          "obs_3d7ba708b004ceaa",
+          "obs_c38504264d46073b",
+          "obs_20fda7b194b0b18b"
+        ]
+      }
+    ],
+    "recent_observations": [
+      {
+        "observation_id": "obs_bfd7079ac34c18e9",
+        "evidence_id": "ev_01_3d296eaf",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 321.0,
+        "text": "A candidate frame was retrieved at 321.00s."
+      },
+      {
+        "observation_id": "obs_b612b5f396db4edc",
+        "evidence_id": "ev_01_3d296eaf",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 322.0,
+        "text": "A candidate frame was retrieved at 322.00s."
+      },
+      {
+        "observation_id": "obs_8ec20ad4924479c8",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "The user wants to know the total number of pieces lost by both players when the match concludes."
+      },
+      {
+        "observation_id": "obs_54674d06c26381e8",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "The speaker says they need to identify the final board state."
+      },
+      {
+        "observation_id": "obs_353f0e604739abed",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "The speaker says they need to look at the frames just before the \"Congratulations, you won!\" popup appears."
+      },
+      {
+        "observation_id": "obs_1550c81548344499",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 is at 317s."
+      },
+      {
+        "observation_id": "obs_11f3ce1e08ce187c",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 shows the board."
+      },
+      {
+        "observation_id": "obs_3d7ba708b004ceaa",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a King."
+      },
+      {
+        "observation_id": "obs_c38504264d46073b",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a Rook."
+      },
+      {
+        "observation_id": "obs_20fda7b194b0b18b",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has Pawns."
+      },
+      {
+        "observation_id": "obs_82a1fc119cfed19d",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, Black has a King."
+      },
+      {
+        "observation_id": "obs_0687225b6b57896f",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, Black has a Rook."
+      },
+      {
+        "observation_id": "obs_89eb3676b5d181e4",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, Black has Pawns."
+      },
+      {
+        "observation_id": "obs_eeb510b3fbca89e5",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 is at 318s."
+      },
+      {
+        "observation_id": "obs_5c573526d7e31497",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 shows the same board."
+      },
+      {
+        "observation_id": "obs_b353840d7967f2ea",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 is at 319s."
+      },
+      {
+        "observation_id": "obs_addb4b0027dd5fc2",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 shows the popup \"Congratulations, you won! Your opponent resigned\"."
+      },
+      {
+        "observation_id": "obs_2a3e811e1341c7f1",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 is the conclusion."
+      },
+      {
+        "observation_id": "obs_6597abe1a1427917",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 is at 320s."
+      },
+      {
+        "observation_id": "obs_2b3a92d1778b1ef9",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 shows the board again."
+      },
+      {
+        "observation_id": "obs_ff9298003152da90",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 4, the popup is gone."
+      },
+      {
+        "observation_id": "obs_d0fdf48a07b203ff",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 4, the board is the same as Image 1/2."
+      },
+      {
+        "observation_id": "obs_1e79d360abaa9d73",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 5 is at 321s."
+      },
+      {
+        "observation_id": "obs_06f8ee7ba98741f9",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 5 shows the same board."
+      },
+      {
+        "observation_id": "obs_60ec3471f4a57034",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 6 is at 322s."
+      },
+      {
+        "observation_id": "obs_42b23e79d9e1a903",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "Image 6 shows the same board."
+      },
+      {
+        "observation_id": "obs_4da600777e7c1317",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "The speaker says Image 1 represents the state before resignation."
+      },
+      {
+        "observation_id": "obs_35081669ae575918",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a visible King at e8."
+      },
+      {
+        "observation_id": "obs_a33b576b0affc2b7",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a visible Rook at f8."
+      },
+      {
+        "observation_id": "obs_1465f23ccede5083",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a visible Pawn at e7."
+      },
+      {
+        "observation_id": "obs_f53bd97054664ad3",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a visible Pawn at a5."
+      },
+      {
+        "observation_id": "obs_170fb6b8c9f4ee9b",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a visible Pawn at b5."
+      },
+      {
+        "observation_id": "obs_249e3d12745eabb6",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a visible Pawn at c5."
+      },
+      {
+        "observation_id": "obs_b1d22f37a924108d",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a visible Pawn at g5."
+      },
+      {
+        "observation_id": "obs_bdbe11edf4048dd8",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has a visible Pawn at h5."
+      },
+      {
+        "observation_id": "obs_f22da045660a34c1",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, White has 8 visible pieces."
+      },
+      {
+        "observation_id": "obs_1304696327886892",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, Black has a visible King at d6."
+      },
+      {
+        "observation_id": "obs_d1dd7844294fc41b",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "The speaker mentions a possible Black Rook at a8 in Image 1."
+      },
+      {
+        "observation_id": "obs_d3a20878543f30a3",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "The speaker mentions a Black pawn at a7 in Image 1."
+      },
+      {
+        "observation_id": "obs_a468adc127dd19db",
+        "evidence_id": "ev_02_5defa3c6",
+        "source_tool": "generic_purpose",
+        "text": "The speaker mentions a Black pawn at b7 in Image 1."
+      }
+    ]
+  },
+  "artifact_context": {
+    "record_count": 7,
+    "counts_by_type": {
+      "frame": 6,
+      "clip": 1
+    },
+    "records": [
+      {
+        "artifact_id": "clip_300_00_344_27",
+        "artifact_type": "clip",
+        "relpath": "artifacts/ZF4T833lln4/clips/clip_300_00_344_27.mp4",
+        "time": {
+          "clip": {
+            "start_s": 300.0,
+            "end_s": 344.267
+          }
+        },
+        "contains_preview": [
+          "The speaker says they need to identify the final board state.",
+          "The speaker says they need to look at the frames just before the \"Congratulations, you won!\" popup appears.",
+          "Image 1 is at 317s.",
+          "Image 1 shows the board."
+        ],
+        "linked_observation_count": 37,
+        "linked_evidence_ids": [
+          "ev_02_5defa3c6"
+        ]
+      },
+      {
+        "artifact_id": "frame_317.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_317.00.png",
+        "time": {
+          "timestamp_s": 317.0
+        },
+        "contains_preview": [
+          "The speaker says they need to identify the final board state.",
+          "The speaker says they need to look at the frames just before the \"Congratulations, you won!\" popup appears.",
+          "Image 1 is at 317s.",
+          "Image 1 shows the board."
+        ],
+        "linked_observation_count": 37,
+        "linked_evidence_ids": [
+          "ev_01_3d296eaf",
+          "ev_02_5defa3c6"
+        ]
+      },
+      {
+        "artifact_id": "frame_318.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png",
+        "time": {
+          "timestamp_s": 318.0
+        },
+        "contains_preview": [
+          "The speaker says they need to identify the final board state.",
+          "The speaker says they need to look at the frames just before the \"Congratulations, you won!\" popup appears.",
+          "Image 1 is at 317s.",
+          "Image 1 shows the board."
+        ],
+        "linked_observation_count": 37,
+        "linked_evidence_ids": [
+          "ev_01_3d296eaf",
+          "ev_02_5defa3c6"
+        ]
+      },
+      {
+        "artifact_id": "frame_319.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_319.00.png",
+        "time": {
+          "timestamp_s": 319.0
+        },
+        "contains_preview": [
+          "The speaker says they need to identify the final board state.",
+          "The speaker says they need to look at the frames just before the \"Congratulations, you won!\" popup appears.",
+          "Image 1 is at 317s.",
+          "Image 1 shows the board."
+        ],
+        "linked_observation_count": 37,
+        "linked_evidence_ids": [
+          "ev_01_3d296eaf",
+          "ev_02_5defa3c6"
+        ]
+      },
+      {
+        "artifact_id": "frame_320.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png",
+        "time": {
+          "timestamp_s": 320.0
+        },
+        "contains_preview": [
+          "The speaker says they need to identify the final board state.",
+          "The speaker says they need to look at the frames just before the \"Congratulations, you won!\" popup appears.",
+          "Image 1 is at 317s.",
+          "Image 1 shows the board."
+        ],
+        "linked_observation_count": 37,
+        "linked_evidence_ids": [
+          "ev_01_3d296eaf",
+          "ev_02_5defa3c6"
+        ]
+      },
+      {
+        "artifact_id": "frame_321.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_321.00.png",
+        "time": {
+          "timestamp_s": 321.0
+        },
+        "contains_preview": [
+          "The speaker says they need to identify the final board state.",
+          "The speaker says they need to look at the frames just before the \"Congratulations, you won!\" popup appears.",
+          "Image 1 is at 317s.",
+          "Image 1 shows the board."
+        ],
+        "linked_observation_count": 37,
+        "linked_evidence_ids": [
+          "ev_01_3d296eaf",
+          "ev_02_5defa3c6"
+        ]
+      },
+      {
+        "artifact_id": "frame_322.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_322.00.png",
+        "time": {
+          "timestamp_s": 322.0
+        },
+        "contains_preview": [
+          "The speaker says they need to identify the final board state.",
+          "The speaker says they need to look at the frames just before the \"Congratulations, you won!\" popup appears.",
+          "Image 1 is at 317s.",
+          "Image 1 shows the board."
+        ],
+        "linked_observation_count": 37,
+        "linked_evidence_ids": [
+          "ev_01_3d296eaf",
+          "ev_02_5defa3c6"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 5,
+    "claims": [
+      {
+        "step_id": 1,
+        "text": "Chronologically, the retrieved end-sequence frames are 317s, 318s, 319s, 320s, 321s, and 322s.",
+        "supporting_observation_ids": [
+          "obs_76937256cc75bff0",
+          "obs_a4d9893723cffc01",
+          "obs_1d74473cf823cbc0",
+          "obs_68db22aa6da6095b",
+          "obs_bfd7079ac34c18e9",
+          "obs_b612b5f396db4edc"
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The match conclusion is marked at 319s by the popup saying the opponent resigned. Because that frame is obscured by the popup, the immediately preceding clear frame at 318s is the final unobscured board state to use; 320s shows the same board again after the popup disappears.",
+        "supporting_observation_ids": [
+          "obs_b353840d7967f2ea",
+          "obs_addb4b0027dd5fc2",
+          "obs_2a3e811e1341c7f1",
+          "obs_eeb510b3fbca89e5",
+          "obs_5c573526d7e31497",
+          "obs_6597abe1a1427917",
+          "obs_ff9298003152da90",
+          "obs_d0fdf48a07b203ff"
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "In that final board state, White's grounded remaining pieces are: king, rook, and six pawns (at e7, a5, b5, c5, g5, h5), for 8 remaining White pieces.",
+        "supporting_observation_ids": [
+          "obs_35081669ae575918",
+          "obs_a33b576b0affc2b7",
+          "obs_1465f23ccede5083",
+          "obs_f53bd97054664ad3",
+          "obs_170fb6b8c9f4ee9b",
+          "obs_249e3d12745eabb6",
+          "obs_b1d22f37a924108d",
+          "obs_bdbe11edf4048dd8",
+          "obs_f22da045660a34c1"
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "For Black, the evidence confirms at least a king and indicates a rook and pawns remain, but the provided grounded observations do not supply a complete reliable final Black piece count. Without that remaining Black count, the required arithmetic 16 minus Black's remaining pieces cannot be completed confidently.",
+        "supporting_observation_ids": [
+          "obs_82a1fc119cfed19d",
+          "obs_0687225b6b57896f",
+          "obs_89eb3676b5d181e4",
+          "obs_1304696327886892",
+          "obs_d1dd7844294fc41b",
+          "obs_d3a20878543f30a3",
+          "obs_a468adc127dd19db"
+        ]
+      },
+      {
+        "step_id": 5,
+        "text": "The requested total would be computed as (16 - White remaining) + (16 - Black remaining). White remaining is grounded as 8, so White lost 8. But Black remaining is not fully grounded from the supplied observations, so the combined total lost cannot be mapped uniquely to one option without overclaiming.",
+        "supporting_observation_ids": [
+          "obs_f22da045660a34c1",
+          "obs_82a1fc119cfed19d",
+          "obs_0687225b6b57896f",
+          "obs_89eb3676b5d181e4"
+        ]
+      }
+    ]
+  },
+  "audit_gaps": [
+    "Black's final remaining piece count in the concluding board state",
+    "the resulting total number of pieces lost by both players and its mapping to one answer option"
+  ]
+}

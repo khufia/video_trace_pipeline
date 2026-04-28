@@ -1,0 +1,25 @@
+{
+  "tool_name": "frame_retriever",
+  "clips": [
+    {
+      "video_id": "5-otljNyRmQ",
+      "start_s": 150.0,
+      "end_s": 186.0,
+      "artifact_id": "clip_120_00_180_00",
+      "relpath": "artifacts/5-otljNyRmQ/clips/clip_120_00_180_00.mp4",
+      "metadata": {
+        "source": "preprocess_segment"
+      }
+    }
+  ],
+  "time_hints": [
+    "around 170s accusation line 'That's the guy that kidnapped me'",
+    "include moments immediately before and after the denial 'I... I did not. I didn't.'"
+  ],
+  "query": "chronological frames showing the man in the light gray jacket and the person he points to or faces during the accusation",
+  "num_frames": 7,
+  "sequence_mode": "anchor_window",
+  "neighbor_radius_s": 4.0,
+  "include_anchor_neighbors": true,
+  "sort_order": "chronological"
+}

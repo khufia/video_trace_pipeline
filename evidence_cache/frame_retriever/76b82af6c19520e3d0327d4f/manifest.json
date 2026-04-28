@@ -1,0 +1,31 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "76b82af6c19520e3d0327d4f",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "GlecDUdZdkE",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "artifact_id": "clip_060_00_120_00",
+        "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4",
+        "metadata": {
+          "source": "preprocess_seg_002",
+          "reason": "segment containing the only described smartphone use before transition to laptop screen"
+        }
+      }
+    ],
+    "time_hints": [
+      "67-72s smartphone held up to take a photo, then transition to laptop screen",
+      "retrieve the latest frames in this phone-use sequence and immediate aftermath where any menu or highlighted option is visible"
+    ],
+    "query": "chronological frames showing the last smartphone use and the on-screen menu or option highlighted immediately after that use",
+    "num_frames": 6,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

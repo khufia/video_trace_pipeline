@@ -1,0 +1,105 @@
+{
+  "strategy": "Reuse the retrieved end-state frames and directly verify Black's final remaining pieces on the unobscured concluding board, then compute the total lost and map it to an option in one grounded pass.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "generic_purpose",
+      "purpose": "Inspect the retrieved final-board frames around the resignation and determine Black's exact remaining pieces in the stable concluding position, while confirming the board is unchanged across the unobscured frames.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 318.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_318.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png"
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 320.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_320.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png"
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 317.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_317.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_317.00.png"
+          }
+        ],
+        "query": "Using these end-sequence chessboard frames, identify the unobscured final board state at match conclusion (prefer 318s and 320s if 319s is covered by the resignation popup), verify that the board is unchanged across the clear frames, and list Black's exact remaining pieces and their count. Also restate White's remaining count only if clearly visible. Do not rely on prior textual guesses; read the board from the frames.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "Black's exact final remaining piece count and piece list, plus confirmation of which clear frame(s) represent the final board state",
+        "supporting_points": "grounded piece-by-piece observations from the final board"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Combine the grounded final-board counts with the known chess starting total to compute total pieces lost by both players and select the matching answer option.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [
+          "ev_02_5defa3c6"
+        ],
+        "frames": [
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 318.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_318.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png"
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 320.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_320.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png"
+          }
+        ],
+        "query": "From the grounded final board observations, compute total pieces lost by both players. Each side starts with 16 pieces. Use White remaining = 8 only if supported by the provided evidence context and Step 1 confirms the same final board. Compute (16 - White remaining) + (16 - Black remaining), then map the result to exactly one option: A. 3, B. 8, C. 16, D. 17, E. 32. Return the chosen option and concise arithmetic.",
+        "text_contexts": [
+          "Prior grounded claim: White's remaining pieces in that final board state are king, rook, and six pawns (at e7, a5, b5, c5, g5, h5), for 8 remaining White pieces.",
+          "Prior grounded claim: the match conclusion is marked at 319s by the resignation popup; 318s is the final unobscured board state and 320s shows the same board again after the popup disappears."
+        ],
+        "transcripts": []
+      },
+      "input_refs": {
+        "text_contexts": [
+          {
+            "step_id": 1,
+            "field_path": "answer"
+          },
+          {
+            "step_id": 1,
+            "field_path": "supporting_points"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "selected multiple-choice option with total pieces lost",
+        "analysis": "brief arithmetic from grounded remaining counts"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the prior end-state anchor: use the retrieved 318s and 320s frames as the unobscured final board, with 317s only as a consistency check. Do not re-search broadly. The missing fact is Black's exact final remaining piece count; Step 1 must explicitly enumerate Black's surviving pieces from the board rather than repeating provisional text like 'king, rook, pawns.' In the trace, cite that 319s is obscured by the resignation popup and that 318s/320s show the same board. Then compute losses using 16 starting pieces per side, preserve the already grounded White remaining count of 8 unless Step 1 contradicts it, and map the numeric total to one option only if the Black count is visually grounded."
+}

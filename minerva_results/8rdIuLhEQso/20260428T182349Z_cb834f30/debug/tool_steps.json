@@ -1,0 +1,4320 @@
+{
+  "tool_steps": [
+    {
+      "round_index": 1,
+      "tool_dir": "round_01/tools/01_generic_purpose",
+      "tool_name": "generic_purpose",
+      "request": {
+        "tool_name": "generic_purpose",
+        "query": "Using only these transcripts and the provided answer choices, determine why the blonde sent the brunette a text. Focus on the lines about receiving the message, meeting at 11h on the cliff, the wedding, the couple conflict, and declarations of love. Distinguish whether the text was meant to stall the brunette's wedding, rebuke behavior, avoid being maid of honor, lure her to the cliffs, or break up with her.",
+        "clips": [
+          {
+            "video_id": "8rdIuLhEQso",
+            "start_s": 60.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_060_00_180_00",
+            "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+            "metadata": {
+              "source": "planner_combined_from_preprocess_segments"
+            }
+          }
+        ],
+        "frames": [],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_002",
+            "clip": {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "relpath": null,
+            "segments": [
+              {
+                "start_s": 53.474,
+                "end_s": 79.495,
+                "text": "T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ?",
+                "speaker_id": null,
+                "confidence": null
+              },
+              {
+                "start_s": 81.352,
+                "end_s": 110.883,
+                "text": "Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok.",
+                "speaker_id": null,
+                "confidence": null
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_002",
+              "span_count": 2
+            }
+          },
+          {
+            "transcript_id": "preprocess_seg_003",
+            "clip": {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "relpath": null,
+            "segments": [
+              {
+                "start_s": 115.777,
+                "end_s": 143.468,
+                "text": "Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même.",
+                "speaker_id": null,
+                "confidence": null
+              },
+              {
+                "start_s": 149.594,
+                "end_s": 166.402,
+                "text": "C'est toi, petite conne. On arrête ton connerie, s'il te plaît.",
+                "speaker_id": null,
+                "confidence": null
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_003",
+              "span_count": 2
+            }
+          }
+        ],
+        "text_contexts": [
+          "Relationship context from preprocess: the blonde and brunette are in a tense confrontation on the cliffs; later montage indicates they have had a romantic relationship. The brunette is associated with an upcoming marriage, and the later argument centers on the brunette's 'couple,' the blonde saying 'it's me you love,' and 'I left Pierre anyway.'"
+        ],
+        "evidence_ids": []
+      },
+      "result": {
+        "tool_name": "generic_purpose",
+        "ok": true,
+        "data": {
+          "response": "The user wants to know why the blonde sent the brunette a text based on the provided transcript and images.\n\n1.  **Analyze the Transcript:**\n    *   **Time 53.474s-79.495s:** The blonde asks, \"Did you get my message? Yeah I got it. At the same time I'm not a telepath so yes if I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"\n    *   **Time 81.352s-110.883s:** The blonde says, \"And you didn't find it more cliché? She's married to Jean Blanc, isn't that cliché? Well finally that's my story, it doesn't concern you. So why are you here then? To watch you jump. You want to see me die. Go ahead jump. Let me get married in peace. With my death on my conscience? I have no conscience. Ah well no morals. Ah no, zero. Ok.\"\n    *   **Time 115.777s-143.468s:** The blonde says, \"But damn, but you're a stupid girl! You're stupid! You come here, you're useless! Do I serve for nothing? But it's you, you've been annoying me for months, it's much more classy to try to screw up my couple! Your couple? Your couple of what? Your shit couple? Your shit couple that you don't even love your guy! You don't love him, it's me you love! I don't love you! I left Pierre anyway.\"\n\n2.  **Evaluate the Options:**\n    *   **A. To stall the brunette's wedding:** The blonde mentions \"Let me get married in peace\" (Que j'aille me marier tranquille). This implies the blonde is the one getting married, not the brunette. The brunette is the one \"married to Jean Blanc\" (Elle est mariée à Jean Blanc). Wait, let's re-read carefully.\n        *   Blonde: \"She's married to Jean Blanc\" (referring to herself? \"Bah pourquoi t'es là alors? ... Elle est mariée à Jean Blanc\"). Actually, the blonde says \"Elle est mariée à Jean Blanc\" (She is married to Jean Blanc). This is likely referring to herself in the third person or referring to the brunette?\n        *   Let's look at the context: \"Que j'aille me marier tranquille\" (Let me get married in peace). This suggests the blonde is the one getting married.\n        *   The brunette says \"You come here, you're useless! ... it's much more classy to try to screw up my couple!\" (c'est beaucoup plus classe d'essayer de foutre envers mon couple). This implies the brunette is the one with the couple (Jean Blanc).\n        *   So, the blonde is the one getting married. The brunette is the one with the \"shit couple\".\n        *   The blonde sent the text to lure the brunette to the cliffs (\"I wouldn't have been able to guess you'd be exactly here at 11h\").\n    *   **B. To rebuke the brunette's unacceptable behavior:** The blonde does rebuke her (\"You're stupid\", \"You come here, you're useless\"), but the *reason* for the text (the meeting) seems to be the lure. The rebuke happens *after* the meeting.\n    *   **C. To avoid being the brunette's maid of honor:** Not mentioned.\n    *",
+          "answer": "The user wants to know why the blonde sent the brunette a text based on the provided transcript and images.\n\n1.  **Analyze the Transcript:**\n    *   **Time 53.474s-79.495s:** The blonde asks, \"Did you get my message? Yeah I got it. At the same time I'm not a telepath so yes if I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"\n    *   **Time 81.352s-110.883s:** The blonde says, \"And you didn't find it more cliché? She's married to Jean Blanc, isn't that cliché? Well finally that's my story, it doesn't concern you. So why are you here then? To watch you jump. You want to see me die. Go ahead jump. Let me get married in peace. With my death on my conscience? I have no conscience. Ah well no morals. Ah no, zero. Ok.\"\n    *   **Time 115.777s-143.468s:** The blonde says, \"But damn, but you're a stupid girl! You're stupid! You come here, you're useless! Do I serve for nothing? But it's you, you've been annoying me for months, it's much more classy to try to screw up my couple! Your couple? Your couple of what? Your shit couple? Your shit couple that you don't even love your guy! You don't love him, it's me you love! I don't love you! I left Pierre anyway.\"\n\n2.  **Evaluate the Options:**\n    *   **A. To stall the brunette's wedding:** The blonde mentions \"Let me get married in peace\" (Que j'aille me marier tranquille). This implies the blonde is the one getting married, not the brunette. The brunette is the one \"married to Jean Blanc\" (Elle est mariée à Jean Blanc). Wait, let's re-read carefully.\n        *   Blonde: \"She's married to Jean Blanc\" (referring to herself? \"Bah pourquoi t'es là alors? ... Elle est mariée à Jean Blanc\"). Actually, the blonde says \"Elle est mariée à Jean Blanc\" (She is married to Jean Blanc). This is likely referring to herself in the third person or referring to the brunette?\n        *   Let's look at the context: \"Que j'aille me marier tranquille\" (Let me get married in peace). This suggests the blonde is the one getting married.\n        *   The brunette says \"You come here, you're useless! ... it's much more classy to try to screw up my couple!\" (c'est beaucoup plus classe d'essayer de foutre envers mon couple). This implies the brunette is the one with the couple (Jean Blanc).\n        *   So, the blonde is the one getting married. The brunette is the one with the \"shit couple\".\n        *   The blonde sent the text to lure the brunette to the cliffs (\"I wouldn't have been able to guess you'd be exactly here at 11h\").\n    *   **B. To rebuke the brunette's unacceptable behavior:** The blonde does rebuke her (\"You're stupid\", \"You come here, you're useless\"), but the *reason* for the text (the meeting) seems to be the lure. The rebuke happens *after* the meeting.\n    *   **C. To avoid being the brunette's maid of honor:** Not mentioned.\n    *",
+          "analysis": "The user wants to know why the blonde sent the brunette a text based on the provided transcript and images.\n\n1.  **Analyze the Transcript:**\n    *   **Time 53.474s-79.495s:** The blonde asks, \"Did you get my message? Yeah I got it. At the same time I'm not a telepath so yes if I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"\n    *   **Time 81.352s-110.883s:** The blonde says, \"And you didn't find it more cliché? She's married to Jean Blanc, isn't that cliché? Well finally that's my story, it doesn't concern you. So why are you here then? To watch you jump. You want to see me die. Go ahead jump. Let me get married in peace. With my death on my conscience? I have no conscience. Ah well no morals. Ah no, zero. Ok.\"\n    *   **Time 115.777s-143.468s:** The blonde says, \"But damn, but you're a stupid girl! You're stupid! You come here, you're useless! Do I serve for nothing? But it's you, you've been annoying me for months, it's much more classy to try to screw up my couple! Your couple? Your couple of what? Your shit couple? Your shit couple that you don't even love your guy! You don't love him, it's me you love! I don't love you! I left Pierre anyway.\"\n\n2.  **Evaluate the Options:**\n    *   **A. To stall the brunette's wedding:** The blonde mentions \"Let me get married in peace\" (Que j'aille me marier tranquille). This implies the blonde is the one getting married, not the brunette. The brunette is the one \"married to Jean Blanc\" (Elle est mariée à Jean Blanc). Wait, let's re-read carefully.\n        *   Blonde: \"She's married to Jean Blanc\" (referring to herself? \"Bah pourquoi t'es là alors? ... Elle est mariée à Jean Blanc\"). Actually, the blonde says \"Elle est mariée à Jean Blanc\" (She is married to Jean Blanc). This is likely referring to herself in the third person or referring to the brunette?\n        *   Let's look at the context: \"Que j'aille me marier tranquille\" (Let me get married in peace). This suggests the blonde is the one getting married.\n        *   The brunette says \"You come here, you're useless! ... it's much more classy to try to screw up my couple!\" (c'est beaucoup plus classe d'essayer de foutre envers mon couple). This implies the brunette is the one with the couple (Jean Blanc).\n        *   So, the blonde is the one getting married. The brunette is the one with the \"shit couple\".\n        *   The blonde sent the text to lure the brunette to the cliffs (\"I wouldn't have been able to guess you'd be exactly here at 11h\").\n    *   **B. To rebuke the brunette's unacceptable behavior:** The blonde does rebuke her (\"You're stupid\", \"You come here, you're useless\"), but the *reason* for the text (the meeting) seems to be the lure. The rebuke happens *after* the meeting.\n    *   **C. To avoid being the brunette's maid of honor:** Not mentioned.\n    *",
+          "supporting_points": [],
+          "confidence": null
+        },
+        "raw_output_text": "{\"answer\": \"The user wants to know why the blonde sent the brunette a text based on the provided transcript and images.\\n\\n1.  **Analyze the Transcript:**\\n    *   **Time 53.474s-79.495s:** The blonde asks, \\\"Did you get my message? Yeah I got it. At the same time I'm not a telepath so yes if I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\\\"\\n    *   **Time 81.352s-110.883s:** The blonde says, \\\"And you didn't find it more cliché? She's married to Jean Blanc, isn't that cliché? Well finally that's my story, it doesn't concern you. So why are you here then? To watch you jump. You want to see me die. Go ahead jump. Let me get married in peace. With my death on my conscience? I have no conscience. Ah well no morals. Ah no, zero. Ok.\\\"\\n    *   **Time 115.777s-143.468s:** The blonde says, \\\"But damn, but you're a stupid girl! You're stupid! You come here, you're useless! Do I serve for nothing? But it's you, you've been annoying me for months, it's much more classy to try to screw up my couple! Your couple? Your couple of what? Your shit couple? Your shit couple that you don't even love your guy! You don't love him, it's me you love! I don't love you! I left Pierre anyway.\\\"\\n\\n2.  **Evaluate the Options:**\\n    *   **A. To stall the brunette's wedding:** The blonde mentions \\\"Let me get married in peace\\\" (Que j'aille me marier tranquille). This implies the blonde is the one getting married, not the brunette. The brunette is the one \\\"married to Jean Blanc\\\" (Elle est mariée à Jean Blanc). Wait, let's re-read carefully.\\n        *   Blonde: \\\"She's married to Jean Blanc\\\" (referring to herself? \\\"Bah pourquoi t'es là alors? ... Elle est mariée à Jean Blanc\\\"). Actually, the blonde says \\\"Elle est mariée à Jean Blanc\\\" (She is married to Jean Blanc). This is likely referring to herself in the third person or referring to the brunette?\\n        *   Let's look at the context: \\\"Que j'aille me marier tranquille\\\" (Let me get married in peace). This suggests the blonde is the one getting married.\\n        *   The brunette says \\\"You come here, you're useless! ... it's much more classy to try to screw up my couple!\\\" (c'est beaucoup plus classe d'essayer de foutre envers mon couple). This implies the brunette is the one with the couple (Jean Blanc).\\n        *   So, the blonde is the one getting married. The brunette is the one with the \\\"shit couple\\\".\\n        *   The blonde sent the text to lure the brunette to the cliffs (\\\"I wouldn't have been able to guess you'd be exactly here at 11h\\\").\\n    *   **B. To rebuke the brunette's unacceptable behavior:** The blonde does rebuke her (\\\"You're stupid\\\", \\\"You come here, you're useless\\\"), but the *reason* for the text (the meeting) seems to be the lure. The rebuke happens *after* the meeting.\\n    *   **C. To avoid being the brunette's maid of honor:** Not mentioned.\\n    *\", \"supporting_points\": [], \"confidence\": null, \"analysis\": \"The user wants to know why the blonde sent the brunette a text based on the provided transcript and images.\\n\\n1.  **Analyze the Transcript:**\\n    *   **Time 53.474s-79.495s:** The blonde asks, \\\"Did you get my message? Yeah I got it. At the same time I'm not a telepath so yes if I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\\\"\\n    *   **Time 81.352s-110.883s:** The blonde says, \\\"And you didn't find it more cliché? She's married to Jean Blanc, isn't that cliché? Well finally that's my story, it doesn't concern you. So why are you here then? To watch you jump. You want to see me die. Go ahead jump. Let me get married in peace. With my death on my conscience? I have no conscience. Ah well no morals. Ah no, zero. Ok.\\\"\\n    *   **Time 115.777s-143.468s:** The blonde says, \\\"But damn, but you're a stupid girl! You're stupid! You come here, you're useless! Do I serve for nothing? But it's you, you've been annoying me for months, it's much more classy to try to screw up my couple! Your couple? Your couple of what? Your shit couple? Your shit couple that you don't even love your guy! You don't love him, it's me you love! I don't love you! I left Pierre anyway.\\\"\\n\\n2.  **Evaluate the Options:**\\n    *   **A. To stall the brunette's wedding:** The blonde mentions \\\"Let me get married in peace\\\" (Que j'aille me marier tranquille). This implies the blonde is the one getting married, not the brunette. The brunette is the one \\\"married to Jean Blanc\\\" (Elle est mariée à Jean Blanc). Wait, let's re-read carefully.\\n        *   Blonde: \\\"She's married to Jean Blanc\\\" (referring to herself? \\\"Bah pourquoi t'es là alors? ... Elle est mariée à Jean Blanc\\\"). Actually, the blonde says \\\"Elle est mariée à Jean Blanc\\\" (She is married to Jean Blanc). This is likely referring to herself in the third person or referring to the brunette?\\n        *   Let's look at the context: \\\"Que j'aille me marier tranquille\\\" (Let me get married in peace). This suggests the blonde is the one getting married.\\n        *   The brunette says \\\"You come here, you're useless! ... it's much more classy to try to screw up my couple!\\\" (c'est beaucoup plus classe d'essayer de foutre envers mon couple). This implies the brunette is the one with the couple (Jean Blanc).\\n        *   So, the blonde is the one getting married. The brunette is the one with the \\\"shit couple\\\".\\n        *   The blonde sent the text to lure the brunette to the cliffs (\\\"I wouldn't have been able to guess you'd be exactly here at 11h\\\").\\n    *   **B. To rebuke the brunette's unacceptable behavior:** The blonde does rebuke her (\\\"You're stupid\\\", \\\"You come here, you're useless\\\"), but the *reason* for the text (the meeting) seems to be the lure. The rebuke happens *after* the meeting.\\n    *   **C. To avoid being the brunette's maid of honor:** Not mentioned.\\n    *\"}\n",
+        "artifact_refs": [
+          {
+            "artifact_id": "clip_060_00_180_00",
+            "kind": "clip",
+            "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "planner_combined_from_preprocess_segments",
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 180.0
+            }
+          }
+        ],
+        "request_hash": "24cae7bb19ad8a07682b7f1d",
+        "cache_hit": false,
+        "summary": "The user wants to know why the blonde sent the brunette a text based on the provided transcript and images.\n\n1.  **Analyze the Transcript:**\n    *   **Time 53.474s-79.495s:** The blonde asks, \"Did you get my message? Yeah I got it. At the same time I'm not a telepath so yes if I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"\n    *   **Time 81.352s-110.883s:** The blonde says, \"And you didn't find it more cliché? She's married to Jean Blanc, isn't that cliché? Well finally that's my story, it doesn't concern you. So why are you here then? To watch you jump. You want to see me die. Go ahead jump. Let me get married in peace. With my death on my conscience? I have no conscience. Ah well no morals. Ah no, zero. Ok.\"\n    *   **Time 115.777s-143.468s:** The blonde says, \"But damn, but you're a stupid girl! You're stupid! You come here, you're useless! Do I serve for nothing? But it's you, you've been annoying me for months, it's much more classy to try to screw up my couple! Your couple? Your couple of what? Your shit couple? Your shit couple that you don't even love your guy! You don't love him, it's me you love! I don't love you! I left Pierre anyway.\"\n\n2.  **Evaluate the Options:**\n    *   **A. To stall the brunette's wedding:** The blonde mentions \"Let me get married in peace\" (Que j'aille me marier tranquille). This implies the blonde is the one getting married, not the brunette. The brunette is the one \"married to Jean Blanc\" (Elle est mariée à Jean Blanc). Wait, let's re-read carefully.\n        *   Blonde: \"She's married to Jean Blanc\" (referring to herself? \"Bah pourquoi t'es là alors? ... Elle est mariée à Jean Blanc\"). Actually, the blonde says \"Elle est mariée à Jean Blanc\" (She is married to Jean Blanc). This is likely referring to herself in the third person or referring to the brunette?\n        *   Let's look at the context: \"Que j'aille me marier tranquille\" (Let me get married in peace). This suggests the blonde is the one getting",
+        "metadata": {
+          "backend": "Qwen/Qwen3.5-9B",
+          "low_signal_output": false,
+          "timing": {
+            "started_at_utc": "2026-04-28T18:28:41.438067+00:00",
+            "finished_at_utc": "2026-04-28T18:30:05.266587+00:00",
+            "duration_s": 83.8286,
+            "cache_wait_s": 0.0007,
+            "execution_mode": "executed"
+          },
+          "observation_ids": [
+            "obs_6e9a28622be8c517",
+            "obs_5990a5278b7bc31c",
+            "obs_7d9edc71f0f6dcba",
+            "obs_8df2bd143a171f30",
+            "obs_b0b880a9155eab13",
+            "obs_57059d505043186f",
+            "obs_c8f9783dfa0b88f2",
+            "obs_74971d53c31077a0",
+            "obs_10b41ef62bd360b2",
+            "obs_202ed66c81a40978",
+            "obs_1abe3baeb16a8999",
+            "obs_65abae207e1927e2",
+            "obs_2d39dcdf0279150a",
+            "obs_211b50e56280facf",
+            "obs_81efc530ddb47080",
+            "obs_3e43682fade9f850",
+            "obs_fd45c6e0de396351",
+            "obs_d66ab956487fae86",
+            "obs_14b6cddcc06f0ec9",
+            "obs_8c3cfb43717410f7",
+            "obs_aa2c4d241d346cbf",
+            "obs_172a1ebc693d5b7b",
+            "obs_e3b48486138a204c",
+            "obs_b5c9d5c134798cc0",
+            "obs_296ff8cf7498ed85",
+            "obs_5d9f792cf2db9899",
+            "obs_92bdf72d6d3ca202",
+            "obs_7cf14a43fd612180",
+            "obs_445c06666b1317e7",
+            "obs_27ed37d93dd6078d",
+            "obs_456859771a05ce92",
+            "obs_f605bb59826c1983",
+            "obs_1756546261656672",
+            "obs_57b00cc1507821b2",
+            "obs_4cc8ab4710d207df",
+            "obs_01db2a48b66208ad",
+            "obs_edc81d38ccde6392",
+            "obs_39b84027e8ab8aff",
+            "obs_9557e2d123cc106c"
+          ]
+        }
+      },
+      "timing": {
+        "started_at_utc": "2026-04-28T18:28:41.438067+00:00",
+        "finished_at_utc": "2026-04-28T18:30:05.266587+00:00",
+        "duration_s": 83.8286,
+        "cache_wait_s": 0.0007,
+        "execution_mode": "executed"
+      },
+      "runtime": {
+        "backend": "qwen35vl",
+        "model_name": "Qwen/Qwen3.5-9B",
+        "device": "cuda:1",
+        "device_mapping": {
+          "requested_label": "cuda:1",
+          "resolved_label": "cuda:1",
+          "cuda_visible_devices": "0,1",
+          "cuda_device_order": null,
+          "local_index": 1,
+          "physical_index_hint": "1",
+          "mapping_source": "CUDA_VISIBLE_DEVICES"
+        },
+        "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+        "resolved_model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--Qwen--Qwen3.5-9B/snapshots/c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "model_resolution_status": "ok",
+        "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+        "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/8rdIuLhEQso/20260428T182349Z_cb834f30/_scratch/generic_purpose",
+        "extra": {
+          "backend_name": "qwen35vl",
+          "attn_implementation": "flash_attention_2",
+          "temperature": 0.0,
+          "do_sample": false
+        }
+      },
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_060_00_180_00",
+          "kind": "clip",
+          "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "planner_combined_from_preprocess_segments",
+            "video_id": "8rdIuLhEQso",
+            "start_s": 60.0,
+            "end_s": 180.0
+          }
+        }
+      ],
+      "observations": [
+        {
+          "observation_id": "obs_6e9a28622be8c517",
+          "subject": "user",
+          "subject_type": "person",
+          "predicate": "wants_to_know",
+          "object_text": "why the blonde sent the brunette a text based on the provided transcript and images",
+          "object_type": "information_need",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The user wants to know why the blonde sent the brunette a text based on the provided transcript and images.",
+          "metadata": {
+            "observation_id": "obs_6e9a28622be8c517"
+          }
+        },
+        {
+          "observation_id": "obs_5990a5278b7bc31c",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "Did you get my message?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 53.474s-79.495s, the blonde asks, \"Did you get my message?\"",
+          "metadata": {
+            "observation_id": "obs_5990a5278b7bc31c"
+          }
+        },
+        {
+          "observation_id": "obs_7d9edc71f0f6dcba",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Yeah I got it.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 53.474s-79.495s, an unspecified speaker says, \"Yeah I got it.\"",
+          "metadata": {
+            "observation_id": "obs_7d9edc71f0f6dcba"
+          }
+        },
+        {
+          "observation_id": "obs_8df2bd143a171f30",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "I'm not a telepath.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 53.474s-79.495s, the blonde says, \"I'm not a telepath.\"",
+          "metadata": {
+            "observation_id": "obs_8df2bd143a171f30"
+          }
+        },
+        {
+          "observation_id": "obs_b0b880a9155eab13",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "If I'm here I wouldn't have been able to guess you'd be exactly here at 11h.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 53.474s-79.495s, the blonde says, \"If I'm here I wouldn't have been able to guess you'd be exactly here at 11h.\"",
+          "metadata": {
+            "observation_id": "obs_b0b880a9155eab13"
+          }
+        },
+        {
+          "observation_id": "obs_57059d505043186f",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "And you didn't find it more cliché?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, the blonde says, \"And you didn't find it more cliché?\"",
+          "metadata": {
+            "observation_id": "obs_57059d505043186f"
+          }
+        },
+        {
+          "observation_id": "obs_c8f9783dfa0b88f2",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "She's married to Jean Blanc, isn't that cliché?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, the blonde says, \"She's married to Jean Blanc, isn't that cliché?\"",
+          "metadata": {
+            "observation_id": "obs_c8f9783dfa0b88f2"
+          }
+        },
+        {
+          "observation_id": "obs_74971d53c31077a0",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Finally that's my story, it doesn't concern you.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, the blonde says, \"Finally that's my story, it doesn't concern you.\"",
+          "metadata": {
+            "observation_id": "obs_74971d53c31077a0"
+          }
+        },
+        {
+          "observation_id": "obs_10b41ef62bd360b2",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "So why are you here then?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker asks, \"So why are you here then?\"",
+          "metadata": {
+            "observation_id": "obs_10b41ef62bd360b2"
+          }
+        },
+        {
+          "observation_id": "obs_202ed66c81a40978",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "To watch you jump.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker says, \"To watch you jump.\"",
+          "metadata": {
+            "observation_id": "obs_202ed66c81a40978"
+          }
+        },
+        {
+          "observation_id": "obs_1abe3baeb16a8999",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "You want to see me die.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker says, \"You want to see me die.\"",
+          "metadata": {
+            "observation_id": "obs_1abe3baeb16a8999"
+          }
+        },
+        {
+          "observation_id": "obs_65abae207e1927e2",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Go ahead jump.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker says, \"Go ahead jump.\"",
+          "metadata": {
+            "observation_id": "obs_65abae207e1927e2"
+          }
+        },
+        {
+          "observation_id": "obs_2d39dcdf0279150a",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Let me get married in peace.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker says, \"Let me get married in peace.\"",
+          "metadata": {
+            "observation_id": "obs_2d39dcdf0279150a"
+          }
+        },
+        {
+          "observation_id": "obs_211b50e56280facf",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "With my death on my conscience?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker says, \"With my death on my conscience?\"",
+          "metadata": {
+            "observation_id": "obs_211b50e56280facf"
+          }
+        },
+        {
+          "observation_id": "obs_81efc530ddb47080",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "I have no conscience.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker says, \"I have no conscience.\"",
+          "metadata": {
+            "observation_id": "obs_81efc530ddb47080"
+          }
+        },
+        {
+          "observation_id": "obs_3e43682fade9f850",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "No morals.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker says, \"No morals.\"",
+          "metadata": {
+            "observation_id": "obs_3e43682fade9f850"
+          }
+        },
+        {
+          "observation_id": "obs_fd45c6e0de396351",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Zero.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 81.352s-110.883s, an unspecified speaker says, \"Zero.\"",
+          "metadata": {
+            "observation_id": "obs_fd45c6e0de396351"
+          }
+        },
+        {
+          "observation_id": "obs_d66ab956487fae86",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "But damn, but you're a stupid girl!",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, the blonde says, \"But damn, but you're a stupid girl!\"",
+          "metadata": {
+            "observation_id": "obs_d66ab956487fae86"
+          }
+        },
+        {
+          "observation_id": "obs_14b6cddcc06f0ec9",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "You're stupid!",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, the blonde says, \"You're stupid!\"",
+          "metadata": {
+            "observation_id": "obs_14b6cddcc06f0ec9"
+          }
+        },
+        {
+          "observation_id": "obs_8c3cfb43717410f7",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "You come here, you're useless!",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, the blonde says, \"You come here, you're useless!\"",
+          "metadata": {
+            "observation_id": "obs_8c3cfb43717410f7"
+          }
+        },
+        {
+          "observation_id": "obs_aa2c4d241d346cbf",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Do I serve for nothing?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, the blonde says, \"Do I serve for nothing?\"",
+          "metadata": {
+            "observation_id": "obs_aa2c4d241d346cbf"
+          }
+        },
+        {
+          "observation_id": "obs_172a1ebc693d5b7b",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "You've been annoying me for months.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, the blonde says, \"You've been annoying me for months.\"",
+          "metadata": {
+            "observation_id": "obs_172a1ebc693d5b7b"
+          }
+        },
+        {
+          "observation_id": "obs_e3b48486138a204c",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "It's much more classy to try to screw up my couple!",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, the blonde says, \"It's much more classy to try to screw up my couple!\"",
+          "metadata": {
+            "observation_id": "obs_e3b48486138a204c"
+          }
+        },
+        {
+          "observation_id": "obs_b5c9d5c134798cc0",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Your couple?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, an unspecified speaker says, \"Your couple?\"",
+          "metadata": {
+            "observation_id": "obs_b5c9d5c134798cc0"
+          }
+        },
+        {
+          "observation_id": "obs_296ff8cf7498ed85",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Your couple of what?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, an unspecified speaker says, \"Your couple of what?\"",
+          "metadata": {
+            "observation_id": "obs_296ff8cf7498ed85"
+          }
+        },
+        {
+          "observation_id": "obs_5d9f792cf2db9899",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Your shit couple?",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, an unspecified speaker says, \"Your shit couple?\"",
+          "metadata": {
+            "observation_id": "obs_5d9f792cf2db9899"
+          }
+        },
+        {
+          "observation_id": "obs_92bdf72d6d3ca202",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Your shit couple that you don't even love your guy!",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, an unspecified speaker says, \"Your shit couple that you don't even love your guy!\"",
+          "metadata": {
+            "observation_id": "obs_92bdf72d6d3ca202"
+          }
+        },
+        {
+          "observation_id": "obs_7cf14a43fd612180",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "You don't love him, it's me you love!",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, an unspecified speaker says, \"You don't love him, it's me you love!\"",
+          "metadata": {
+            "observation_id": "obs_7cf14a43fd612180"
+          }
+        },
+        {
+          "observation_id": "obs_445c06666b1317e7",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "I don't love you!",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, an unspecified speaker says, \"I don't love you!\"",
+          "metadata": {
+            "observation_id": "obs_445c06666b1317e7"
+          }
+        },
+        {
+          "observation_id": "obs_27ed37d93dd6078d",
+          "subject": "unspecified speaker",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "I left Pierre anyway.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "At 115.777s-143.468s, an unspecified speaker says, \"I left Pierre anyway.\"",
+          "metadata": {
+            "observation_id": "obs_27ed37d93dd6078d"
+          }
+        },
+        {
+          "observation_id": "obs_456859771a05ce92",
+          "subject": "blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Let me get married in peace.",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "In the evaluation section, the blonde is described as mentioning, \"Let me get married in peace.\"",
+          "metadata": {
+            "observation_id": "obs_456859771a05ce92"
+          }
+        },
+        {
+          "observation_id": "obs_f605bb59826c1983",
+          "subject": "evaluation section",
+          "subject_type": "text_section",
+          "predicate": "states",
+          "object_text": "This implies the blonde is the one getting married, not the brunette.",
+          "object_type": "interpretation",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The evaluation section states that \"Let me get married in peace\" implies the blonde is the one getting married, not the brunette.",
+          "metadata": {
+            "observation_id": "obs_f605bb59826c1983"
+          }
+        },
+        {
+          "observation_id": "obs_1756546261656672",
+          "subject": "evaluation section",
+          "subject_type": "text_section",
+          "predicate": "states",
+          "object_text": "The brunette is the one married to Jean Blanc.",
+          "object_type": "interpretation",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The evaluation section states that the brunette is the one \"married to Jean Blanc.\"",
+          "metadata": {
+            "observation_id": "obs_1756546261656672"
+          }
+        },
+        {
+          "observation_id": "obs_57b00cc1507821b2",
+          "subject": "evaluation section",
+          "subject_type": "text_section",
+          "predicate": "states",
+          "object_text": "The blonde is the one getting married.",
+          "object_type": "interpretation",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The evaluation section states that the blonde is the one getting married.",
+          "metadata": {
+            "observation_id": "obs_57b00cc1507821b2"
+          }
+        },
+        {
+          "observation_id": "obs_4cc8ab4710d207df",
+          "subject": "evaluation section",
+          "subject_type": "text_section",
+          "predicate": "states",
+          "object_text": "The brunette is the one with the couple.",
+          "object_type": "interpretation",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The evaluation section states that the brunette is the one with the couple.",
+          "metadata": {
+            "observation_id": "obs_4cc8ab4710d207df"
+          }
+        },
+        {
+          "observation_id": "obs_01db2a48b66208ad",
+          "subject": "evaluation section",
+          "subject_type": "text_section",
+          "predicate": "states",
+          "object_text": "The brunette has a shit couple.",
+          "object_type": "interpretation",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The evaluation section states that the brunette is the one with the \"shit couple.\"",
+          "metadata": {
+            "observation_id": "obs_01db2a48b66208ad"
+          }
+        },
+        {
+          "observation_id": "obs_edc81d38ccde6392",
+          "subject": "evaluation section",
+          "subject_type": "text_section",
+          "predicate": "states",
+          "object_text": "The blonde sent the text to lure the brunette to the cliffs.",
+          "object_type": "interpretation",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The evaluation section states that the blonde sent the text to lure the brunette to the cliffs.",
+          "metadata": {
+            "observation_id": "obs_edc81d38ccde6392"
+          }
+        },
+        {
+          "observation_id": "obs_39b84027e8ab8aff",
+          "subject": "evaluation section",
+          "subject_type": "text_section",
+          "predicate": "states",
+          "object_text": "The rebuke happens after the meeting.",
+          "object_type": "interpretation",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The evaluation section states that the rebuke happens after the meeting.",
+          "metadata": {
+            "observation_id": "obs_39b84027e8ab8aff"
+          }
+        },
+        {
+          "observation_id": "obs_9557e2d123cc106c",
+          "subject": "evaluation section",
+          "subject_type": "text_section",
+          "predicate": "states",
+          "object_text": "Avoiding being the brunette's maid of honor is not mentioned.",
+          "object_type": "interpretation",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The evaluation section states that avoiding being the brunette's maid of honor is not mentioned.",
+          "metadata": {
+            "observation_id": "obs_9557e2d123cc106c"
+          }
+        }
+      ],
+      "request_path": "round_01/tools/01_generic_purpose/request.json",
+      "result_path": "round_01/tools/01_generic_purpose/result.json",
+      "timing_path": "round_01/tools/01_generic_purpose/timing.json",
+      "runtime_path": "round_01/tools/01_generic_purpose/runtime.json",
+      "observations_path": "round_01/tools/01_generic_purpose/observations.json",
+      "artifact_refs_path": "round_01/tools/01_generic_purpose/artifact_refs.json"
+    },
+    {
+      "round_index": 2,
+      "tool_dir": "round_02/tools/01_asr",
+      "tool_name": "asr",
+      "request": {
+        "tool_name": "asr",
+        "clips": [
+          {
+            "video_id": "8rdIuLhEQso",
+            "start_s": 53.0,
+            "end_s": 166.5,
+            "artifact_id": "clip_060_00_180_00",
+            "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+            "metadata": {
+              "reason": "refine_speaker_attribution_for_message_vs_rebuke"
+            }
+          }
+        ],
+        "speaker_attribution": true
+      },
+      "result": {
+        "tool_name": "asr",
+        "ok": true,
+        "data": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 53.0,
+              "end_s": 166.5,
+              "artifact_id": "clip_060_00_180_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+              "metadata": {
+                "reason": "refine_speaker_attribution_for_message_vs_rebuke"
+              }
+            }
+          ],
+          "transcripts": [
+            {
+              "transcript_id": "tx_435dd09a021a",
+              "clip": {
+                "video_id": "8rdIuLhEQso",
+                "start_s": 53.0,
+                "end_s": 166.5,
+                "artifact_id": "clip_060_00_180_00",
+                "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+                "metadata": {
+                  "reason": "refine_speaker_attribution_for_message_vs_rebuke"
+                }
+              },
+              "segments": [
+                {
+                  "start_s": 53.474,
+                  "end_s": 79.495,
+                  "text": "T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ?"
+                },
+                {
+                  "start_s": 81.352,
+                  "end_s": 110.883,
+                  "text": "Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok."
+                },
+                {
+                  "start_s": 115.777,
+                  "end_s": 143.468,
+                  "text": "Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même."
+                },
+                {
+                  "start_s": 149.594,
+                  "end_s": 166.402,
+                  "text": "C'est toi, petite conne. On arrête ton connerie, s'il te plaît."
+                }
+              ],
+              "metadata": {
+                "backend": "preprocess_reuse",
+                "source": "preprocess_reuse"
+              }
+            }
+          ]
+        },
+        "raw_output_text": "{\"clips\": [{\"video_id\": \"8rdIuLhEQso\", \"start_s\": 53.0, \"end_s\": 166.5, \"artifact_id\": \"clip_060_00_180_00\", \"relpath\": \"artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4\", \"metadata\": {\"reason\": \"refine_speaker_attribution_for_message_vs_rebuke\"}}], \"transcripts\": [{\"transcript_id\": \"tx_435dd09a021a\", \"clip\": {\"video_id\": \"8rdIuLhEQso\", \"start_s\": 53.0, \"end_s\": 166.5, \"artifact_id\": \"clip_060_00_180_00\", \"relpath\": \"artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4\", \"metadata\": {\"reason\": \"refine_speaker_attribution_for_message_vs_rebuke\"}}, \"segments\": [{\"start_s\": 53.474, \"end_s\": 79.495, \"text\": \"T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ?\"}, {\"start_s\": 81.352, \"end_s\": 110.883, \"text\": \"Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok.\"}, {\"start_s\": 115.777, \"end_s\": 143.468, \"text\": \"Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même.\"}, {\"start_s\": 149.594, \"end_s\": 166.402, \"text\": \"C'est toi, petite conne. On arrête ton connerie, s'il te plaît.\"}], \"metadata\": {\"backend\": \"preprocess_reuse\", \"source\": \"preprocess_reuse\"}}]}",
+        "artifact_refs": [],
+        "request_hash": "88054285a663c80976ffac62",
+        "cache_hit": false,
+        "summary": "T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ? Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok. Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même. C'est toi, petite conne. On arrête ton connerie, s'il te plaît.",
+        "metadata": {
+          "source": "preprocess_reuse",
+          "timing": {
+            "started_at_utc": "2026-04-28T18:31:20.473664+00:00",
+            "finished_at_utc": "2026-04-28T18:31:20.473814+00:00",
+            "duration_s": 0.0002,
+            "cache_wait_s": 0.0007,
+            "execution_mode": "executed"
+          },
+          "observation_ids": [
+            "obs_ddd3df10256334fd",
+            "obs_0b0e11a535b2bf31",
+            "obs_cdc3adbca348173a",
+            "obs_4342c9917dbe11b4",
+            "obs_246d17db203d73cc",
+            "obs_c1bf9c9c4f07c11b",
+            "obs_4316c712313892c8",
+            "obs_73a164d11aa647a5",
+            "obs_f4a62f13d7cf8124",
+            "obs_1b4b74e9c484d45f",
+            "obs_c82ed3ca386a5a31",
+            "obs_66ad6a5742437302",
+            "obs_bf458acb5ce57aa2",
+            "obs_b8be6f2ba45bd035",
+            "obs_2566113365e4fb33",
+            "obs_a9fc9b04c2117e8a",
+            "obs_c26aaaa3621c98a8",
+            "obs_511dee020cbed970",
+            "obs_c9056df68888db2e",
+            "obs_938fb07ada7ebd94",
+            "obs_bb1b296eb86e85ff",
+            "obs_2f0bc46b382b3bd1",
+            "obs_1aaf194617d21505",
+            "obs_fe95af7b1bd7ef50",
+            "obs_e9e4ce581dc57a06",
+            "obs_96aebde8c7567b0f",
+            "obs_c4f5fea890d3350d",
+            "obs_fea97e3a24ad594e",
+            "obs_92102a30774df748",
+            "obs_ce4d9c84154ad37c",
+            "obs_fa157ab4165caa51",
+            "obs_b44262bf247bb44e",
+            "obs_63ae22eccb4bd05a",
+            "obs_02929b22467394a5",
+            "obs_8ae0f059fb2b75fb",
+            "obs_8342e21c6c0ef002",
+            "obs_dac0ad5bcd8f8511",
+            "obs_cda581534b2b6edd",
+            "obs_2e44703a923e2714",
+            "obs_5d05d8b09063d953",
+            "obs_59ce9fcb898b7955",
+            "obs_48152cd9ae85d5f1",
+            "obs_88afc24bf3e16deb",
+            "obs_051e51435e93c4e5",
+            "obs_544b89d30e1d90b1",
+            "obs_a93c1435164876b3",
+            "obs_16e79b7e2d9eb724",
+            "obs_54d6c4d473d37cbe",
+            "obs_9a43f383618fda94",
+            "obs_bc6a3a11a88353a3",
+            "obs_4ab99b50ea3c5565",
+            "obs_adfca23927cce941",
+            "obs_b4248b324a6cc5d3",
+            "obs_2d492a39e270663b",
+            "obs_a7e43e2cd28c1c21",
+            "obs_cfa85d53fb9b0a3f",
+            "obs_283c9b1a308af392",
+            "obs_601f4db6fdf480ad",
+            "obs_b52d832088e8a34b",
+            "obs_b52d832088e8a34b",
+            "obs_5fa4a418918ba20b",
+            "obs_75c0d1f973350e34",
+            "obs_fb08d95f85b9fd1f",
+            "obs_c8cc182cb06ccdba",
+            "obs_263540eca89e0142",
+            "obs_d9560676b1b4dd62",
+            "obs_e0c079a4e5b1f7c9",
+            "obs_34b13c722ca19131",
+            "obs_3422b9a4ed37c079",
+            "obs_2eb8a4a808d71c88",
+            "obs_9dded4d858fd1e9e",
+            "obs_8504e288332ea446",
+            "obs_634312c77fba5ea0",
+            "obs_68089f2534d02645",
+            "obs_55a83ef67f9ebecd",
+            "obs_d652089965c927a4",
+            "obs_d652089965c927a4",
+            "obs_198ef32e59ecd5bf",
+            "obs_829e45c59de911d1",
+            "obs_0fffa1d23871eaf7",
+            "obs_4445a9a9ca48072f",
+            "obs_01f329b6dce6301f",
+            "obs_8f6067204a6f71c2"
+          ]
+        }
+      },
+      "timing": {
+        "started_at_utc": "2026-04-28T18:31:20.473664+00:00",
+        "finished_at_utc": "2026-04-28T18:31:20.473814+00:00",
+        "duration_s": 0.0002,
+        "cache_wait_s": 0.0007,
+        "execution_mode": "executed"
+      },
+      "runtime": {},
+      "artifact_refs": [],
+      "observations": [
+        {
+          "observation_id": "obs_ddd3df10256334fd",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "T'as reçu mon message ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"T'as reçu mon message ?\" from 53.47s to 79.50s.",
+          "metadata": {
+            "observation_id": "obs_ddd3df10256334fd"
+          }
+        },
+        {
+          "observation_id": "obs_0b0e11a535b2bf31",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ?\" from 53.47s to 79.50s.",
+          "metadata": {
+            "observation_id": "obs_0b0e11a535b2bf31"
+          }
+        },
+        {
+          "observation_id": "obs_cdc3adbca348173a",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ?\" from 53.47s to 79.50s.",
+          "metadata": {
+            "observation_id": "obs_cdc3adbca348173a"
+          }
+        },
+        {
+          "observation_id": "obs_4342c9917dbe11b4",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Tu fais quoi ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Tu fais quoi ?\" from 53.47s to 79.50s.",
+          "metadata": {
+            "observation_id": "obs_4342c9917dbe11b4"
+          }
+        },
+        {
+          "observation_id": "obs_246d17db203d73cc",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "C'est un chantage au suicide ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"C'est un chantage au suicide ?\" from 53.47s to 79.50s.",
+          "metadata": {
+            "observation_id": "obs_246d17db203d73cc"
+          }
+        },
+        {
+          "observation_id": "obs_c1bf9c9c4f07c11b",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "C'est ça ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"C'est ça ?\" from 53.47s to 79.50s.",
+          "metadata": {
+            "observation_id": "obs_c1bf9c9c4f07c11b"
+          }
+        },
+        {
+          "observation_id": "obs_4316c712313892c8",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ici là ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ici là ?\" from 53.47s to 79.50s.",
+          "metadata": {
+            "observation_id": "obs_4316c712313892c8"
+          }
+        },
+        {
+          "observation_id": "obs_73a164d11aa647a5",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "asked",
+          "object_text": "whether the message was received",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker asked whether the message was received.",
+          "metadata": {
+            "observation_id": "obs_73a164d11aa647a5"
+          }
+        },
+        {
+          "observation_id": "obs_f4a62f13d7cf8124",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "the message was received",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said the message was received.",
+          "metadata": {
+            "observation_id": "obs_f4a62f13d7cf8124"
+          }
+        },
+        {
+          "observation_id": "obs_1b4b74e9c484d45f",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "they are not telepathic",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said they are not telepathic.",
+          "metadata": {
+            "observation_id": "obs_1b4b74e9c484d45f"
+          }
+        },
+        {
+          "observation_id": "obs_c82ed3ca386a5a31",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "if they are here, they could not have guessed the other person would be exactly here at 11h",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said that if they are here, they could not have guessed the other person would be exactly here at 11h.",
+          "metadata": {
+            "observation_id": "obs_c82ed3ca386a5a31"
+          }
+        },
+        {
+          "observation_id": "obs_66ad6a5742437302",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "they are happy to see the other person",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said they are happy to see the other person.",
+          "metadata": {
+            "observation_id": "obs_66ad6a5742437302"
+          }
+        },
+        {
+          "observation_id": "obs_bf458acb5ce57aa2",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "asked",
+          "object_text": "what the other person is playing at",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker asked what the other person is playing at.",
+          "metadata": {
+            "observation_id": "obs_bf458acb5ce57aa2"
+          }
+        },
+        {
+          "observation_id": "obs_b8be6f2ba45bd035",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "they are not playing",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said they are not playing.",
+          "metadata": {
+            "observation_id": "obs_b8be6f2ba45bd035"
+          }
+        },
+        {
+          "observation_id": "obs_2566113365e4fb33",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "told",
+          "object_text": "the other person to stop the act",
+          "object_type": "directive",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker told the other person to stop the act.",
+          "metadata": {
+            "observation_id": "obs_2566113365e4fb33"
+          }
+        },
+        {
+          "observation_id": "obs_a9fc9b04c2117e8a",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "the act does not work on them",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said the act does not work on them.",
+          "metadata": {
+            "observation_id": "obs_a9fc9b04c2117e8a"
+          }
+        },
+        {
+          "observation_id": "obs_c26aaaa3621c98a8",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "they had already said that before",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said they had already said that before.",
+          "metadata": {
+            "observation_id": "obs_c26aaaa3621c98a8"
+          }
+        },
+        {
+          "observation_id": "obs_511dee020cbed970",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "asked",
+          "object_text": "what this is",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker asked what this is.",
+          "metadata": {
+            "observation_id": "obs_511dee020cbed970"
+          }
+        },
+        {
+          "observation_id": "obs_c9056df68888db2e",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "asked",
+          "object_text": "what the other person is doing",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker asked what the other person is doing.",
+          "metadata": {
+            "observation_id": "obs_c9056df68888db2e"
+          }
+        },
+        {
+          "observation_id": "obs_938fb07ada7ebd94",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "asked",
+          "object_text": "whether this is suicide blackmail",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker asked whether this is suicide blackmail.",
+          "metadata": {
+            "observation_id": "obs_938fb07ada7ebd94"
+          }
+        },
+        {
+          "observation_id": "obs_bb1b296eb86e85ff",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "asked",
+          "object_text": "whether this is happening here",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 53.474,
+          "time_end_s": 79.495,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker asked whether this is happening here.",
+          "metadata": {
+            "observation_id": "obs_bb1b296eb86e85ff"
+          }
+        },
+        {
+          "observation_id": "obs_2f0bc46b382b3bd1",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Et t'as pas trouvé plus cliché ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Et t'as pas trouvé plus cliché ?\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_2f0bc46b382b3bd1"
+          }
+        },
+        {
+          "observation_id": "obs_1aaf194617d21505",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Elle est mariée à Jean Blanc, c'est pas cliché ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Elle est mariée à Jean Blanc, c'est pas cliché ?\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_1aaf194617d21505"
+          }
+        },
+        {
+          "observation_id": "obs_fe95af7b1bd7ef50",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Bon enfin ça c'est mon histoire, ça te regarde pas.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Bon enfin ça c'est mon histoire, ça te regarde pas.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_fe95af7b1bd7ef50"
+          }
+        },
+        {
+          "observation_id": "obs_e9e4ce581dc57a06",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Bah pourquoi t'es là alors ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Bah pourquoi t'es là alors ?\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_e9e4ce581dc57a06"
+          }
+        },
+        {
+          "observation_id": "obs_96aebde8c7567b0f",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Bah pour te regarder sauter.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Bah pour te regarder sauter.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_96aebde8c7567b0f"
+          }
+        },
+        {
+          "observation_id": "obs_c4f5fea890d3350d",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Tu veux me voir mourir.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Tu veux me voir mourir.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_c4f5fea890d3350d"
+          }
+        },
+        {
+          "observation_id": "obs_fea97e3a24ad594e",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Vas-y saute.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Vas-y saute.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_fea97e3a24ad594e"
+          }
+        },
+        {
+          "observation_id": "obs_92102a30774df748",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Que j'aille me marier tranquille.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Que j'aille me marier tranquille.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_92102a30774df748"
+          }
+        },
+        {
+          "observation_id": "obs_ce4d9c84154ad37c",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Avec ma mort sur la conscience ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Avec ma mort sur la conscience ?\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_ce4d9c84154ad37c"
+          }
+        },
+        {
+          "observation_id": "obs_fa157ab4165caa51",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "J'ai pas de conscience.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"J'ai pas de conscience.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_fa157ab4165caa51"
+          }
+        },
+        {
+          "observation_id": "obs_b44262bf247bb44e",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ah bah pas de morale.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ah bah pas de morale.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_b44262bf247bb44e"
+          }
+        },
+        {
+          "observation_id": "obs_63ae22eccb4bd05a",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ah non, zéro.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ah non, zéro.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_63ae22eccb4bd05a"
+          }
+        },
+        {
+          "observation_id": "obs_02929b22467394a5",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ok.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ok.\" from 81.35s to 110.88s.",
+          "metadata": {
+            "observation_id": "obs_02929b22467394a5"
+          }
+        },
+        {
+          "observation_id": "obs_8ae0f059fb2b75fb",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "asked",
+          "object_text": "Et t'as pas trouvé plus cliché ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker asked, \"Et t'as pas trouvé plus cliché ?\"",
+          "metadata": {
+            "observation_id": "obs_8ae0f059fb2b75fb"
+          }
+        },
+        {
+          "observation_id": "obs_8342e21c6c0ef002",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Elle est mariée à Jean Blanc, c'est pas cliché ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Elle est mariée à Jean Blanc, c'est pas cliché ?\"",
+          "metadata": {
+            "observation_id": "obs_8342e21c6c0ef002"
+          }
+        },
+        {
+          "observation_id": "obs_dac0ad5bcd8f8511",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Bon enfin ça c'est mon histoire, ça te regarde pas.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Bon enfin ça c'est mon histoire, ça te regarde pas.\"",
+          "metadata": {
+            "observation_id": "obs_dac0ad5bcd8f8511"
+          }
+        },
+        {
+          "observation_id": "obs_cda581534b2b6edd",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "asked",
+          "object_text": "Bah pourquoi t'es là alors ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker asked, \"Bah pourquoi t'es là alors ?\"",
+          "metadata": {
+            "observation_id": "obs_cda581534b2b6edd"
+          }
+        },
+        {
+          "observation_id": "obs_2e44703a923e2714",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Bah pour te regarder sauter.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Bah pour te regarder sauter.\"",
+          "metadata": {
+            "observation_id": "obs_2e44703a923e2714"
+          }
+        },
+        {
+          "observation_id": "obs_5d05d8b09063d953",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Tu veux me voir mourir.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Tu veux me voir mourir.\"",
+          "metadata": {
+            "observation_id": "obs_5d05d8b09063d953"
+          }
+        },
+        {
+          "observation_id": "obs_59ce9fcb898b7955",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Vas-y saute.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Vas-y saute.\"",
+          "metadata": {
+            "observation_id": "obs_59ce9fcb898b7955"
+          }
+        },
+        {
+          "observation_id": "obs_48152cd9ae85d5f1",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Que j'aille me marier tranquille.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Que j'aille me marier tranquille.\"",
+          "metadata": {
+            "observation_id": "obs_48152cd9ae85d5f1"
+          }
+        },
+        {
+          "observation_id": "obs_88afc24bf3e16deb",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Avec ma mort sur la conscience ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Avec ma mort sur la conscience ?\"",
+          "metadata": {
+            "observation_id": "obs_88afc24bf3e16deb"
+          }
+        },
+        {
+          "observation_id": "obs_051e51435e93c4e5",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "J'ai pas de conscience.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"J'ai pas de conscience.\"",
+          "metadata": {
+            "observation_id": "obs_051e51435e93c4e5"
+          }
+        },
+        {
+          "observation_id": "obs_544b89d30e1d90b1",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ah bah pas de morale.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Ah bah pas de morale.\"",
+          "metadata": {
+            "observation_id": "obs_544b89d30e1d90b1"
+          }
+        },
+        {
+          "observation_id": "obs_a93c1435164876b3",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ah non, zéro.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Ah non, zéro.\"",
+          "metadata": {
+            "observation_id": "obs_a93c1435164876b3"
+          }
+        },
+        {
+          "observation_id": "obs_16e79b7e2d9eb724",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ok.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 81.352,
+          "time_end_s": 110.883,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker said, \"Ok.\"",
+          "metadata": {
+            "observation_id": "obs_16e79b7e2d9eb724"
+          }
+        },
+        {
+          "observation_id": "obs_54d6c4d473d37cbe",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Mais putain, mais t'es naze comme meuf !",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Mais putain, mais t'es naze comme meuf !\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_54d6c4d473d37cbe"
+          }
+        },
+        {
+          "observation_id": "obs_9a43f383618fda94",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "T'es naze !",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"T'es naze !\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_9a43f383618fda94"
+          }
+        },
+        {
+          "observation_id": "obs_bc6a3a11a88353a3",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Tu viens ici, tu sers à rien !",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Tu viens ici, tu sers à rien !\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_bc6a3a11a88353a3"
+          }
+        },
+        {
+          "observation_id": "obs_4ab99b50ea3c5565",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Moi je sers à rien ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Moi je sers à rien ?\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_4ab99b50ea3c5565"
+          }
+        },
+        {
+          "observation_id": "obs_adfca23927cce941",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Je sers à rien ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Je sers à rien ?\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_adfca23927cce941"
+          }
+        },
+        {
+          "observation_id": "obs_b4248b324a6cc5d3",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple !",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple !\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_b4248b324a6cc5d3"
+          }
+        },
+        {
+          "observation_id": "obs_2d492a39e270663b",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ton couple ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ton couple ?\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_2d492a39e270663b"
+          }
+        },
+        {
+          "observation_id": "obs_a7e43e2cd28c1c21",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ton couple de quoi ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ton couple de quoi ?\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_a7e43e2cd28c1c21"
+          }
+        },
+        {
+          "observation_id": "obs_cfa85d53fb9b0a3f",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ton couple de merde ?",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ton couple de merde ?\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_cfa85d53fb9b0a3f"
+          }
+        },
+        {
+          "observation_id": "obs_283c9b1a308af392",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Ton couple de merde que tu l'aimes même pas ton mec !",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Ton couple de merde que tu l'aimes même pas ton mec !\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_283c9b1a308af392"
+          }
+        },
+        {
+          "observation_id": "obs_601f4db6fdf480ad",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Tu l'aimes pas, c'est moi que t'aimes !",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Tu l'aimes pas, c'est moi que t'aimes !\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_601f4db6fdf480ad"
+          }
+        },
+        {
+          "observation_id": "obs_b52d832088e8a34b",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Je t'aime pas !",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Je t'aime pas !\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_b52d832088e8a34b"
+          }
+        },
+        {
+          "observation_id": "obs_b52d832088e8a34b",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "Je t'aime pas !",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"Je t'aime pas !\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_b52d832088e8a34b"
+          }
+        },
+        {
+          "observation_id": "obs_5fa4a418918ba20b",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "J'ai quitté Pierre quand même.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"J'ai quitté Pierre quand même.\" from 115.78s to 143.47s.",
+          "metadata": {
+            "observation_id": "obs_5fa4a418918ba20b"
+          }
+        },
+        {
+          "observation_id": "obs_75c0d1f973350e34",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Mais putain, mais t'es naze comme meuf ! »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Mais putain, mais t'es naze comme meuf ! »",
+          "metadata": {
+            "observation_id": "obs_75c0d1f973350e34"
+          }
+        },
+        {
+          "observation_id": "obs_fb08d95f85b9fd1f",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« T'es naze ! »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « T'es naze ! »",
+          "metadata": {
+            "observation_id": "obs_fb08d95f85b9fd1f"
+          }
+        },
+        {
+          "observation_id": "obs_c8cc182cb06ccdba",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Tu viens ici, tu sers à rien ! »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Tu viens ici, tu sers à rien ! »",
+          "metadata": {
+            "observation_id": "obs_c8cc182cb06ccdba"
+          }
+        },
+        {
+          "observation_id": "obs_263540eca89e0142",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Moi je sers à rien ? »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Moi je sers à rien ? »",
+          "metadata": {
+            "observation_id": "obs_263540eca89e0142"
+          }
+        },
+        {
+          "observation_id": "obs_d9560676b1b4dd62",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Je sers à rien ? »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Je sers à rien ? »",
+          "metadata": {
+            "observation_id": "obs_d9560676b1b4dd62"
+          }
+        },
+        {
+          "observation_id": "obs_e0c079a4e5b1f7c9",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Mais c'est toi »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Mais c'est toi »",
+          "metadata": {
+            "observation_id": "obs_e0c079a4e5b1f7c9"
+          }
+        },
+        {
+          "observation_id": "obs_34b13c722ca19131",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« ça fait des mois que tu me fais chier »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « ça fait des mois que tu me fais chier »",
+          "metadata": {
+            "observation_id": "obs_34b13c722ca19131"
+          }
+        },
+        {
+          "observation_id": "obs_3422b9a4ed37c079",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« c'est beaucoup plus classe d'essayer de foutre envers mon couple ! »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « c'est beaucoup plus classe d'essayer de foutre envers mon couple ! »",
+          "metadata": {
+            "observation_id": "obs_3422b9a4ed37c079"
+          }
+        },
+        {
+          "observation_id": "obs_2eb8a4a808d71c88",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Ton couple ? »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Ton couple ? »",
+          "metadata": {
+            "observation_id": "obs_2eb8a4a808d71c88"
+          }
+        },
+        {
+          "observation_id": "obs_9dded4d858fd1e9e",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Ton couple de quoi ? »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Ton couple de quoi ? »",
+          "metadata": {
+            "observation_id": "obs_9dded4d858fd1e9e"
+          }
+        },
+        {
+          "observation_id": "obs_8504e288332ea446",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Ton couple de merde ? »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Ton couple de merde ? »",
+          "metadata": {
+            "observation_id": "obs_8504e288332ea446"
+          }
+        },
+        {
+          "observation_id": "obs_634312c77fba5ea0",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Ton couple de merde que tu l'aimes même pas ton mec ! »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Ton couple de merde que tu l'aimes même pas ton mec ! »",
+          "metadata": {
+            "observation_id": "obs_634312c77fba5ea0"
+          }
+        },
+        {
+          "observation_id": "obs_68089f2534d02645",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Tu l'aimes pas »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Tu l'aimes pas »",
+          "metadata": {
+            "observation_id": "obs_68089f2534d02645"
+          }
+        },
+        {
+          "observation_id": "obs_55a83ef67f9ebecd",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« c'est moi que t'aimes ! »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « c'est moi que t'aimes ! »",
+          "metadata": {
+            "observation_id": "obs_55a83ef67f9ebecd"
+          }
+        },
+        {
+          "observation_id": "obs_d652089965c927a4",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Je t'aime pas ! »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Je t'aime pas ! »",
+          "metadata": {
+            "observation_id": "obs_d652089965c927a4"
+          }
+        },
+        {
+          "observation_id": "obs_d652089965c927a4",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« Je t'aime pas ! »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « Je t'aime pas ! »",
+          "metadata": {
+            "observation_id": "obs_d652089965c927a4"
+          }
+        },
+        {
+          "observation_id": "obs_198ef32e59ecd5bf",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said_at_115.78s_to_143.47s",
+          "object_text": "« J'ai quitté Pierre quand même. »",
+          "object_type": "quote",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 115.777,
+          "time_end_s": 143.468,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "From 115.78s to 143.47s, unknown_speaker said: « J'ai quitté Pierre quand même. »",
+          "metadata": {
+            "observation_id": "obs_198ef32e59ecd5bf"
+          }
+        },
+        {
+          "observation_id": "obs_829e45c59de911d1",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "C'est toi, petite conne.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 149.594,
+          "time_end_s": 166.402,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"C'est toi, petite conne.\" from 149.59s to 166.40s.",
+          "metadata": {
+            "observation_id": "obs_829e45c59de911d1"
+          }
+        },
+        {
+          "observation_id": "obs_0fffa1d23871eaf7",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "said",
+          "object_text": "On arrête ton connerie, s'il te plaît.",
+          "object_type": "utterance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 149.594,
+          "time_end_s": 166.402,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "direct",
+          "atomic_text": "unknown_speaker said \"On arrête ton connerie, s'il te plaît.\" from 149.59s to 166.40s.",
+          "metadata": {
+            "observation_id": "obs_0fffa1d23871eaf7"
+          }
+        },
+        {
+          "observation_id": "obs_4445a9a9ca48072f",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "addresses",
+          "object_text": "toi",
+          "object_type": "person",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 149.594,
+          "time_end_s": 166.402,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker says, \"C'est toi.\"",
+          "metadata": {
+            "observation_id": "obs_4445a9a9ca48072f"
+          }
+        },
+        {
+          "observation_id": "obs_01f329b6dce6301f",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "calls",
+          "object_text": "petite conne",
+          "object_type": "insult",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 149.594,
+          "time_end_s": 166.402,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker says, \"petite conne.\"",
+          "metadata": {
+            "observation_id": "obs_01f329b6dce6301f"
+          }
+        },
+        {
+          "observation_id": "obs_8f6067204a6f71c2",
+          "subject": "unknown_speaker",
+          "subject_type": "speaker",
+          "predicate": "requests stopping",
+          "object_text": "ton connerie",
+          "object_type": "behavior",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": 149.594,
+          "time_end_s": 166.402,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": "unknown_speaker",
+          "confidence": null,
+          "source_tool": "asr",
+          "source_artifact_refs": [],
+          "direct_or_derived": "derived",
+          "atomic_text": "unknown_speaker says, \"On arrête ton connerie, s'il te plaît.\"",
+          "metadata": {
+            "observation_id": "obs_8f6067204a6f71c2"
+          }
+        }
+      ],
+      "request_path": "round_02/tools/01_asr/request.json",
+      "result_path": "round_02/tools/01_asr/result.json",
+      "timing_path": "round_02/tools/01_asr/timing.json",
+      "runtime_path": "",
+      "observations_path": "round_02/tools/01_asr/observations.json",
+      "artifact_refs_path": "round_02/tools/01_asr/artifact_refs.json"
+    },
+    {
+      "round_index": 2,
+      "tool_dir": "round_02/tools/02_generic_purpose",
+      "tool_name": "generic_purpose",
+      "request": {
+        "tool_name": "generic_purpose",
+        "query": "Using only the transcript evidence, identify: (1) who asks about the message, (2) what exact lines show what information the message conveyed or accomplished, (3) whether any line explicitly says the text itself was sent to rebuke, break up, stall a wedding, avoid maid-of-honor duties, or lure the brunette to the cliffs, and (4) which option is best supported with a careful distinction between the purpose of the text and insults/rebukes spoken later at the meeting. Quote the decisive lines and explain why option B is weaker than option D if D is chosen; if the transcript only supports meeting setup rather than explicit lure-to-cliffs motive, say that clearly before mapping to the closest option.",
+        "clips": [
+          {
+            "video_id": "8rdIuLhEQso",
+            "start_s": 53.0,
+            "end_s": 166.5,
+            "artifact_id": "clip_060_00_180_00",
+            "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+            "metadata": {
+              "reason": "refine_speaker_attribution_for_message_vs_rebuke"
+            }
+          }
+        ],
+        "frames": [],
+        "transcripts": [
+          {
+            "transcript_id": "tx_435dd09a021a",
+            "clip": {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 53.0,
+              "end_s": 166.5,
+              "artifact_id": "clip_060_00_180_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+              "metadata": {
+                "reason": "refine_speaker_attribution_for_message_vs_rebuke"
+              }
+            },
+            "relpath": null,
+            "segments": [
+              {
+                "start_s": 53.474,
+                "end_s": 79.495,
+                "text": "T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ?",
+                "speaker_id": null,
+                "confidence": null
+              },
+              {
+                "start_s": 81.352,
+                "end_s": 110.883,
+                "text": "Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok.",
+                "speaker_id": null,
+                "confidence": null
+              },
+              {
+                "start_s": 115.777,
+                "end_s": 143.468,
+                "text": "Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même.",
+                "speaker_id": null,
+                "confidence": null
+              },
+              {
+                "start_s": 149.594,
+                "end_s": 166.402,
+                "text": "C'est toi, petite conne. On arrête ton connerie, s'il te plaît.",
+                "speaker_id": null,
+                "confidence": null
+              }
+            ],
+            "metadata": {
+              "backend": "preprocess_reuse",
+              "source": "preprocess_reuse"
+            }
+          }
+        ],
+        "text_contexts": [],
+        "evidence_ids": []
+      },
+      "result": {
+        "tool_name": "generic_purpose",
+        "ok": true,
+        "data": {
+          "response": "The user wants to know why the blonde sent the brunette a text based on the provided transcript.\n\n1.  **Analyze the Transcript:**\n    *   **Context:** The blonde woman (let's call her Blonde) is talking to the brunette woman (Brunette). They are at a cliffside (visible in images).\n    *   **Dialogue:**\n        *   Blonde: \"T'as reçu mon message ?\" (Did you get my message?)\n        *   Brunette: \"Ouais j'ai reçu ouais...\" (Yeah I got it...)\n        *   Blonde: \"En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h\" (At the same time I'm not a telepath so yes if I was here I wouldn't have been able to guess you'd be right here at 11).\n        *   Blonde: \"Je suis contente de te voir\" (I'm happy to see you).\n        *   Blonde: \"En quoi tu joues là ?\" (What are you playing at?)\n        *   Brunette: \"Je joue pas\" (I'm not playing).\n        *   Blonde: \"Mais arrête ton cinéma ça fonctionne pas avec moi\" (But stop your drama, it doesn't work on me).\n        *   Blonde: \"Donc c'est quoi là ? Tu fais quoi ?\" (So what is this? What are you doing?)\n        *   Brunette: \"C'est un chantage au suicide ? C'est ça ?\" (Is it a suicide blackmail? Is that it?)\n        *   Blonde: \"Ici là ?\" (Right here?)\n        *   Brunette: \"Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ?\" (And you didn't find anything more cliché? She's married to Jean Blanc, isn't that cliché?)\n        *   Brunette: \"Bon enfin ça c'est mon histoire, ça te regarde pas.\" (Well that's my story, it doesn't concern you.)\n        *   Brunette: \"Bah pourquoi t'es là alors ?\" (So why are you here then?)\n        *   Brunette: \"Bah pour te regarder sauter.\" (To watch you jump.)\n        *   Brunette: \"Tu veux me voir mourir.\" (You want to see me die.)\n        *   Brunette: \"Vas-y saute.\" (Go ahead jump.)\n        *   Brunette: \"Que j'aille me marier tranquille.\" (So I can get married in peace.)\n        *   Brunette: \"Avec ma mort sur la conscience ?\" (With my death on your conscience?)\n        *   Brunette: \"J'ai pas de conscience.\" (I don't have a conscience.)\n        *   Brunette: \"Ah bah pas de morale.\" (Ah well no morals.)\n        *   Brunette: \"Ah non, zéro.\" (Ah no, zero.)\n        *   Brunette: \"Ok.\"\n        *   Brunette: \"Mais putain, mais t'es naze comme meuf !\" (But damn, you're a stupid girl!)\n        *   Brunette: \"T'es naze !\" (You're stupid!)\n        *   Brunette: \"Tu viens ici, tu sers à rien !\" (You come here, you're useless!)\n        *   Brunette: \"Moi je sers à rien ?\" (Am I useless?)",
+          "answer": "The user wants to know why the blonde sent the brunette a text based on the provided transcript.\n\n1.  **Analyze the Transcript:**\n    *   **Context:** The blonde woman (let's call her Blonde) is talking to the brunette woman (Brunette). They are at a cliffside (visible in images).\n    *   **Dialogue:**\n        *   Blonde: \"T'as reçu mon message ?\" (Did you get my message?)\n        *   Brunette: \"Ouais j'ai reçu ouais...\" (Yeah I got it...)\n        *   Blonde: \"En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h\" (At the same time I'm not a telepath so yes if I was here I wouldn't have been able to guess you'd be right here at 11).\n        *   Blonde: \"Je suis contente de te voir\" (I'm happy to see you).\n        *   Blonde: \"En quoi tu joues là ?\" (What are you playing at?)\n        *   Brunette: \"Je joue pas\" (I'm not playing).\n        *   Blonde: \"Mais arrête ton cinéma ça fonctionne pas avec moi\" (But stop your drama, it doesn't work on me).\n        *   Blonde: \"Donc c'est quoi là ? Tu fais quoi ?\" (So what is this? What are you doing?)\n        *   Brunette: \"C'est un chantage au suicide ? C'est ça ?\" (Is it a suicide blackmail? Is that it?)\n        *   Blonde: \"Ici là ?\" (Right here?)\n        *   Brunette: \"Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ?\" (And you didn't find anything more cliché? She's married to Jean Blanc, isn't that cliché?)\n        *   Brunette: \"Bon enfin ça c'est mon histoire, ça te regarde pas.\" (Well that's my story, it doesn't concern you.)\n        *   Brunette: \"Bah pourquoi t'es là alors ?\" (So why are you here then?)\n        *   Brunette: \"Bah pour te regarder sauter.\" (To watch you jump.)\n        *   Brunette: \"Tu veux me voir mourir.\" (You want to see me die.)\n        *   Brunette: \"Vas-y saute.\" (Go ahead jump.)\n        *   Brunette: \"Que j'aille me marier tranquille.\" (So I can get married in peace.)\n        *   Brunette: \"Avec ma mort sur la conscience ?\" (With my death on your conscience?)\n        *   Brunette: \"J'ai pas de conscience.\" (I don't have a conscience.)\n        *   Brunette: \"Ah bah pas de morale.\" (Ah well no morals.)\n        *   Brunette: \"Ah non, zéro.\" (Ah no, zero.)\n        *   Brunette: \"Ok.\"\n        *   Brunette: \"Mais putain, mais t'es naze comme meuf !\" (But damn, you're a stupid girl!)\n        *   Brunette: \"T'es naze !\" (You're stupid!)\n        *   Brunette: \"Tu viens ici, tu sers à rien !\" (You come here, you're useless!)\n        *   Brunette: \"Moi je sers à rien ?\" (Am I useless?)",
+          "analysis": "The user wants to know why the blonde sent the brunette a text based on the provided transcript.\n\n1.  **Analyze the Transcript:**\n    *   **Context:** The blonde woman (let's call her Blonde) is talking to the brunette woman (Brunette). They are at a cliffside (visible in images).\n    *   **Dialogue:**\n        *   Blonde: \"T'as reçu mon message ?\" (Did you get my message?)\n        *   Brunette: \"Ouais j'ai reçu ouais...\" (Yeah I got it...)\n        *   Blonde: \"En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h\" (At the same time I'm not a telepath so yes if I was here I wouldn't have been able to guess you'd be right here at 11).\n        *   Blonde: \"Je suis contente de te voir\" (I'm happy to see you).\n        *   Blonde: \"En quoi tu joues là ?\" (What are you playing at?)\n        *   Brunette: \"Je joue pas\" (I'm not playing).\n        *   Blonde: \"Mais arrête ton cinéma ça fonctionne pas avec moi\" (But stop your drama, it doesn't work on me).\n        *   Blonde: \"Donc c'est quoi là ? Tu fais quoi ?\" (So what is this? What are you doing?)\n        *   Brunette: \"C'est un chantage au suicide ? C'est ça ?\" (Is it a suicide blackmail? Is that it?)\n        *   Blonde: \"Ici là ?\" (Right here?)\n        *   Brunette: \"Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ?\" (And you didn't find anything more cliché? She's married to Jean Blanc, isn't that cliché?)\n        *   Brunette: \"Bon enfin ça c'est mon histoire, ça te regarde pas.\" (Well that's my story, it doesn't concern you.)\n        *   Brunette: \"Bah pourquoi t'es là alors ?\" (So why are you here then?)\n        *   Brunette: \"Bah pour te regarder sauter.\" (To watch you jump.)\n        *   Brunette: \"Tu veux me voir mourir.\" (You want to see me die.)\n        *   Brunette: \"Vas-y saute.\" (Go ahead jump.)\n        *   Brunette: \"Que j'aille me marier tranquille.\" (So I can get married in peace.)\n        *   Brunette: \"Avec ma mort sur la conscience ?\" (With my death on your conscience?)\n        *   Brunette: \"J'ai pas de conscience.\" (I don't have a conscience.)\n        *   Brunette: \"Ah bah pas de morale.\" (Ah well no morals.)\n        *   Brunette: \"Ah non, zéro.\" (Ah no, zero.)\n        *   Brunette: \"Ok.\"\n        *   Brunette: \"Mais putain, mais t'es naze comme meuf !\" (But damn, you're a stupid girl!)\n        *   Brunette: \"T'es naze !\" (You're stupid!)\n        *   Brunette: \"Tu viens ici, tu sers à rien !\" (You come here, you're useless!)\n        *   Brunette: \"Moi je sers à rien ?\" (Am I useless?)",
+          "supporting_points": [],
+          "confidence": null
+        },
+        "raw_output_text": "{\"answer\": \"The user wants to know why the blonde sent the brunette a text based on the provided transcript.\\n\\n1.  **Analyze the Transcript:**\\n    *   **Context:** The blonde woman (let's call her Blonde) is talking to the brunette woman (Brunette). They are at a cliffside (visible in images).\\n    *   **Dialogue:**\\n        *   Blonde: \\\"T'as reçu mon message ?\\\" (Did you get my message?)\\n        *   Brunette: \\\"Ouais j'ai reçu ouais...\\\" (Yeah I got it...)\\n        *   Blonde: \\\"En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h\\\" (At the same time I'm not a telepath so yes if I was here I wouldn't have been able to guess you'd be right here at 11).\\n        *   Blonde: \\\"Je suis contente de te voir\\\" (I'm happy to see you).\\n        *   Blonde: \\\"En quoi tu joues là ?\\\" (What are you playing at?)\\n        *   Brunette: \\\"Je joue pas\\\" (I'm not playing).\\n        *   Blonde: \\\"Mais arrête ton cinéma ça fonctionne pas avec moi\\\" (But stop your drama, it doesn't work on me).\\n        *   Blonde: \\\"Donc c'est quoi là ? Tu fais quoi ?\\\" (So what is this? What are you doing?)\\n        *   Brunette: \\\"C'est un chantage au suicide ? C'est ça ?\\\" (Is it a suicide blackmail? Is that it?)\\n        *   Blonde: \\\"Ici là ?\\\" (Right here?)\\n        *   Brunette: \\\"Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ?\\\" (And you didn't find anything more cliché? She's married to Jean Blanc, isn't that cliché?)\\n        *   Brunette: \\\"Bon enfin ça c'est mon histoire, ça te regarde pas.\\\" (Well that's my story, it doesn't concern you.)\\n        *   Brunette: \\\"Bah pourquoi t'es là alors ?\\\" (So why are you here then?)\\n        *   Brunette: \\\"Bah pour te regarder sauter.\\\" (To watch you jump.)\\n        *   Brunette: \\\"Tu veux me voir mourir.\\\" (You want to see me die.)\\n        *   Brunette: \\\"Vas-y saute.\\\" (Go ahead jump.)\\n        *   Brunette: \\\"Que j'aille me marier tranquille.\\\" (So I can get married in peace.)\\n        *   Brunette: \\\"Avec ma mort sur la conscience ?\\\" (With my death on your conscience?)\\n        *   Brunette: \\\"J'ai pas de conscience.\\\" (I don't have a conscience.)\\n        *   Brunette: \\\"Ah bah pas de morale.\\\" (Ah well no morals.)\\n        *   Brunette: \\\"Ah non, zéro.\\\" (Ah no, zero.)\\n        *   Brunette: \\\"Ok.\\\"\\n        *   Brunette: \\\"Mais putain, mais t'es naze comme meuf !\\\" (But damn, you're a stupid girl!)\\n        *   Brunette: \\\"T'es naze !\\\" (You're stupid!)\\n        *   Brunette: \\\"Tu viens ici, tu sers à rien !\\\" (You come here, you're useless!)\\n        *   Brunette: \\\"Moi je sers à rien ?\\\" (Am I useless?)\", \"supporting_points\": [], \"confidence\": null, \"analysis\": \"The user wants to know why the blonde sent the brunette a text based on the provided transcript.\\n\\n1.  **Analyze the Transcript:**\\n    *   **Context:** The blonde woman (let's call her Blonde) is talking to the brunette woman (Brunette). They are at a cliffside (visible in images).\\n    *   **Dialogue:**\\n        *   Blonde: \\\"T'as reçu mon message ?\\\" (Did you get my message?)\\n        *   Brunette: \\\"Ouais j'ai reçu ouais...\\\" (Yeah I got it...)\\n        *   Blonde: \\\"En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h\\\" (At the same time I'm not a telepath so yes if I was here I wouldn't have been able to guess you'd be right here at 11).\\n        *   Blonde: \\\"Je suis contente de te voir\\\" (I'm happy to see you).\\n        *   Blonde: \\\"En quoi tu joues là ?\\\" (What are you playing at?)\\n        *   Brunette: \\\"Je joue pas\\\" (I'm not playing).\\n        *   Blonde: \\\"Mais arrête ton cinéma ça fonctionne pas avec moi\\\" (But stop your drama, it doesn't work on me).\\n        *   Blonde: \\\"Donc c'est quoi là ? Tu fais quoi ?\\\" (So what is this? What are you doing?)\\n        *   Brunette: \\\"C'est un chantage au suicide ? C'est ça ?\\\" (Is it a suicide blackmail? Is that it?)\\n        *   Blonde: \\\"Ici là ?\\\" (Right here?)\\n        *   Brunette: \\\"Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ?\\\" (And you didn't find anything more cliché? She's married to Jean Blanc, isn't that cliché?)\\n        *   Brunette: \\\"Bon enfin ça c'est mon histoire, ça te regarde pas.\\\" (Well that's my story, it doesn't concern you.)\\n        *   Brunette: \\\"Bah pourquoi t'es là alors ?\\\" (So why are you here then?)\\n        *   Brunette: \\\"Bah pour te regarder sauter.\\\" (To watch you jump.)\\n        *   Brunette: \\\"Tu veux me voir mourir.\\\" (You want to see me die.)\\n        *   Brunette: \\\"Vas-y saute.\\\" (Go ahead jump.)\\n        *   Brunette: \\\"Que j'aille me marier tranquille.\\\" (So I can get married in peace.)\\n        *   Brunette: \\\"Avec ma mort sur la conscience ?\\\" (With my death on your conscience?)\\n        *   Brunette: \\\"J'ai pas de conscience.\\\" (I don't have a conscience.)\\n        *   Brunette: \\\"Ah bah pas de morale.\\\" (Ah well no morals.)\\n        *   Brunette: \\\"Ah non, zéro.\\\" (Ah no, zero.)\\n        *   Brunette: \\\"Ok.\\\"\\n        *   Brunette: \\\"Mais putain, mais t'es naze comme meuf !\\\" (But damn, you're a stupid girl!)\\n        *   Brunette: \\\"T'es naze !\\\" (You're stupid!)\\n        *   Brunette: \\\"Tu viens ici, tu sers à rien !\\\" (You come here, you're useless!)\\n        *   Brunette: \\\"Moi je sers à rien ?\\\" (Am I useless?)\"}\n",
+        "artifact_refs": [
+          {
+            "artifact_id": "clip_060_00_180_00",
+            "kind": "clip",
+            "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "reason": "refine_speaker_attribution_for_message_vs_rebuke",
+              "video_id": "8rdIuLhEQso",
+              "start_s": 53.0,
+              "end_s": 166.5
+            }
+          }
+        ],
+        "request_hash": "406725b197dd9b1242ed3805",
+        "cache_hit": false,
+        "summary": "The user wants to know why the blonde sent the brunette a text based on the provided transcript.\n\n1.  **Analyze the Transcript:**\n    *   **Context:** The blonde woman (let's call her Blonde) is talking to the brunette woman (Brunette). They are at a cliffside (visible in images).\n    *   **Dialogue:**\n        *   Blonde: \"T'as reçu mon message ?\" (Did you get my message?)\n        *   Brunette: \"Ouais j'ai reçu ouais...\" (Yeah I got it...)\n        *   Blonde: \"En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h\" (At the same time I'm not a telepath so yes if I was here I wouldn't have been able to guess you'd be right here at 11).\n        *   Blonde: \"Je suis contente de te voir\" (I'm happy to see you).\n        *   Blonde: \"En quoi tu joues là ?\" (What are you playing at?)\n        *   Brunette: \"Je joue pas\" (I'm not playing).\n        *   Blonde: \"Mais arrête ton cinéma ça fonctionne pas avec moi\" (But stop your drama, it doesn't work on me).\n        *   Blonde: \"Donc c'est quoi là ? Tu fais quoi ?\" (So what is this? What are you doing?)\n        *   Brunette: \"C'est un chantage au suicide ? C'est ça ?\" (Is it a suicide blackmail? Is that it?)\n        *   Blonde: \"Ici là ?\" (Right here?)\n        *   Brunette: \"Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ?\" (And you didn't find anything more cliché? She's married to Jean Blanc, isn't that cliché?)\n        *   Brunette: \"Bon enfin ça c'est mon histoire, ça te regarde pas.\" (Well that's my story, it doesn't concern you.)\n        *   Brunette: \"Bah pourquoi t'es là alors ?\" (So why are you here then?)\n        *   Brunette: \"Bah pour te regarder sauter.\" (To watch you jump.)\n        *   Brunette: \"Tu veux me voir mourir.\" (You want to see me die.)\n        *   Brunette: \"Vas-y saute.\" (Go ahead jump.)\n        *   Brunette: \"Que j'aille me marier tranquille.\" (So I can get married in peace.)\n        *   Brunette: \"Avec ma mo",
+        "metadata": {
+          "backend": "Qwen/Qwen3.5-9B",
+          "low_signal_output": false,
+          "timing": {
+            "started_at_utc": "2026-04-28T18:31:57.662276+00:00",
+            "finished_at_utc": "2026-04-28T18:33:06.343975+00:00",
+            "duration_s": 68.6817,
+            "cache_wait_s": 0.0005,
+            "execution_mode": "executed"
+          },
+          "observation_ids": [
+            "obs_b17eb83c28c7b0d9",
+            "obs_a404c75af1bb180b",
+            "obs_6f9bb58deb6db8a0",
+            "obs_4266ab1a4c959051",
+            "obs_0400836e4df6b1ae",
+            "obs_89da5ca8d8da1df7",
+            "obs_f10cdf63dea417c5",
+            "obs_59d5e3032e02d50d",
+            "obs_59bc13da18f3134e",
+            "obs_c52c434451563c08",
+            "obs_02c3af0916ccb801",
+            "obs_5568c1ca80bc51a2",
+            "obs_e7e15415942dbb94",
+            "obs_ae58f3cb82c80046",
+            "obs_5d02c3d1c31ff5c6",
+            "obs_80f8e53585259d9e",
+            "obs_bf9e04e9a44c9673",
+            "obs_88b1f40175ae7bd5",
+            "obs_6f0689b195c70d5a",
+            "obs_e72716fa04cc76ea",
+            "obs_c9ecd681066c5fdd",
+            "obs_4edebab7bc7dc46c",
+            "obs_6486ff42402328a6",
+            "obs_e35165c617abbf20",
+            "obs_b9df00dd07dca742",
+            "obs_6982c029720e1a7a",
+            "obs_44ceba149a1553a7",
+            "obs_071e5a9c417dc6be",
+            "obs_63b583bb58889c4a",
+            "obs_e114260ca5fe7939",
+            "obs_6a84f90dda77cf1d",
+            "obs_3c259962bff12fa0"
+          ]
+        }
+      },
+      "timing": {
+        "started_at_utc": "2026-04-28T18:31:57.662276+00:00",
+        "finished_at_utc": "2026-04-28T18:33:06.343975+00:00",
+        "duration_s": 68.6817,
+        "cache_wait_s": 0.0005,
+        "execution_mode": "executed"
+      },
+      "runtime": {
+        "backend": "qwen35vl",
+        "model_name": "Qwen/Qwen3.5-9B",
+        "device": "cuda:1",
+        "device_mapping": {
+          "requested_label": "cuda:1",
+          "resolved_label": "cuda:1",
+          "cuda_visible_devices": "0,1",
+          "cuda_device_order": null,
+          "local_index": 1,
+          "physical_index_hint": "1",
+          "mapping_source": "CUDA_VISIBLE_DEVICES"
+        },
+        "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+        "resolved_model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--Qwen--Qwen3.5-9B/snapshots/c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "model_resolution_status": "ok",
+        "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+        "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/8rdIuLhEQso/20260428T182349Z_cb834f30/_scratch/generic_purpose",
+        "extra": {
+          "backend_name": "qwen35vl",
+          "attn_implementation": "flash_attention_2",
+          "temperature": 0.0,
+          "do_sample": false
+        }
+      },
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_060_00_180_00",
+          "kind": "clip",
+          "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "reason": "refine_speaker_attribution_for_message_vs_rebuke",
+            "video_id": "8rdIuLhEQso",
+            "start_s": 53.0,
+            "end_s": 166.5
+          }
+        }
+      ],
+      "observations": [
+        {
+          "observation_id": "obs_b17eb83c28c7b0d9",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "Brunette if she received her message",
+          "object_type": "communication",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde asked Brunette, \"T'as reçu mon message ?\"",
+          "metadata": {
+            "observation_id": "obs_b17eb83c28c7b0d9"
+          }
+        },
+        {
+          "observation_id": "obs_a404c75af1bb180b",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she received the message",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Ouais j'ai reçu ouais...\"",
+          "metadata": {
+            "observation_id": "obs_a404c75af1bb180b"
+          }
+        },
+        {
+          "observation_id": "obs_6f9bb58deb6db8a0",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she is not telepathic",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde said, \"je suis pas télépathe\"",
+          "metadata": {
+            "observation_id": "obs_6f9bb58deb6db8a0"
+          }
+        },
+        {
+          "observation_id": "obs_4266ab1a4c959051",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she could not have guessed Brunette would be exactly there at 11",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde said she could not have guessed that Brunette would be \"pile poil ici à 11h\"",
+          "metadata": {
+            "observation_id": "obs_4266ab1a4c959051"
+          }
+        },
+        {
+          "observation_id": "obs_0400836e4df6b1ae",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she is happy to see Brunette",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde said, \"Je suis contente de te voir\"",
+          "metadata": {
+            "observation_id": "obs_0400836e4df6b1ae"
+          }
+        },
+        {
+          "observation_id": "obs_89da5ca8d8da1df7",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "what Brunette is playing at",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde asked, \"En quoi tu joues là ?\"",
+          "metadata": {
+            "observation_id": "obs_89da5ca8d8da1df7"
+          }
+        },
+        {
+          "observation_id": "obs_f10cdf63dea417c5",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she is not playing",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Je joue pas\"",
+          "metadata": {
+            "observation_id": "obs_f10cdf63dea417c5"
+          }
+        },
+        {
+          "observation_id": "obs_59d5e3032e02d50d",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "told",
+          "object_text": "Brunette to stop her drama",
+          "object_type": "directive",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde said, \"Mais arrête ton cinéma\"",
+          "metadata": {
+            "observation_id": "obs_59d5e3032e02d50d"
+          }
+        },
+        {
+          "observation_id": "obs_59bc13da18f3134e",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Brunette's drama does not work on her",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde said, \"ça fonctionne pas avec moi\"",
+          "metadata": {
+            "observation_id": "obs_59bc13da18f3134e"
+          }
+        },
+        {
+          "observation_id": "obs_c52c434451563c08",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "what this is",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde asked, \"Donc c'est quoi là ?\"",
+          "metadata": {
+            "observation_id": "obs_c52c434451563c08"
+          }
+        },
+        {
+          "observation_id": "obs_02c3af0916ccb801",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "what Brunette is doing",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde asked, \"Tu fais quoi ?\"",
+          "metadata": {
+            "observation_id": "obs_02c3af0916ccb801"
+          }
+        },
+        {
+          "observation_id": "obs_5568c1ca80bc51a2",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "whether this is suicide blackmail",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette asked, \"C'est un chantage au suicide ? C'est ça ?\"",
+          "metadata": {
+            "observation_id": "obs_5568c1ca80bc51a2"
+          }
+        },
+        {
+          "observation_id": "obs_e7e15415942dbb94",
+          "subject": "Blonde",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "whether it is here",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Blonde asked, \"Ici là ?\"",
+          "metadata": {
+            "observation_id": "obs_e7e15415942dbb94"
+          }
+        },
+        {
+          "observation_id": "obs_ae58f3cb82c80046",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "whether Blonde did not find anything less cliché",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette asked, \"Et t'as pas trouvé plus cliché ?\"",
+          "metadata": {
+            "observation_id": "obs_ae58f3cb82c80046"
+          }
+        },
+        {
+          "observation_id": "obs_5d02c3d1c31ff5c6",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she is married to Jean Blanc",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Elle est mariée à Jean Blanc\"",
+          "metadata": {
+            "observation_id": "obs_5d02c3d1c31ff5c6"
+          }
+        },
+        {
+          "observation_id": "obs_80f8e53585259d9e",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "whether that is not cliché",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette asked, \"c'est pas cliché ?\"",
+          "metadata": {
+            "observation_id": "obs_80f8e53585259d9e"
+          }
+        },
+        {
+          "observation_id": "obs_bf9e04e9a44c9673",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "that is her story",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"ça c'est mon histoire\"",
+          "metadata": {
+            "observation_id": "obs_bf9e04e9a44c9673"
+          }
+        },
+        {
+          "observation_id": "obs_88b1f40175ae7bd5",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "it does not concern Blonde",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"ça te regarde pas\"",
+          "metadata": {
+            "observation_id": "obs_88b1f40175ae7bd5"
+          }
+        },
+        {
+          "observation_id": "obs_6f0689b195c70d5a",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "why Blonde is there",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette asked, \"Bah pourquoi t'es là alors ?\"",
+          "metadata": {
+            "observation_id": "obs_6f0689b195c70d5a"
+          }
+        },
+        {
+          "observation_id": "obs_e72716fa04cc76ea",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she is there to watch Blonde jump",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Bah pour te regarder sauter\"",
+          "metadata": {
+            "observation_id": "obs_e72716fa04cc76ea"
+          }
+        },
+        {
+          "observation_id": "obs_c9ecd681066c5fdd",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Blonde wants to see her die",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Tu veux me voir mourir\"",
+          "metadata": {
+            "observation_id": "obs_c9ecd681066c5fdd"
+          }
+        },
+        {
+          "observation_id": "obs_4edebab7bc7dc46c",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "told",
+          "object_text": "someone to jump",
+          "object_type": "directive",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Vas-y saute\"",
+          "metadata": {
+            "observation_id": "obs_4edebab7bc7dc46c"
+          }
+        },
+        {
+          "observation_id": "obs_6486ff42402328a6",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she wants to get married in peace",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Que j'aille me marier tranquille\"",
+          "metadata": {
+            "observation_id": "obs_6486ff42402328a6"
+          }
+        },
+        {
+          "observation_id": "obs_e35165c617abbf20",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "whether it would be with her death on Blonde's conscience",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette asked, \"Avec ma mort sur la conscience ?\"",
+          "metadata": {
+            "observation_id": "obs_e35165c617abbf20"
+          }
+        },
+        {
+          "observation_id": "obs_b9df00dd07dca742",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "she does not have a conscience",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"J'ai pas de conscience\"",
+          "metadata": {
+            "observation_id": "obs_b9df00dd07dca742"
+          }
+        },
+        {
+          "observation_id": "obs_6982c029720e1a7a",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "there are no morals",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Ah bah pas de morale\"",
+          "metadata": {
+            "observation_id": "obs_6982c029720e1a7a"
+          }
+        },
+        {
+          "observation_id": "obs_44ceba149a1553a7",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "zero morals",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Ah non, zéro\"",
+          "metadata": {
+            "observation_id": "obs_44ceba149a1553a7"
+          }
+        },
+        {
+          "observation_id": "obs_071e5a9c417dc6be",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "ok",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Ok\"",
+          "metadata": {
+            "observation_id": "obs_071e5a9c417dc6be"
+          }
+        },
+        {
+          "observation_id": "obs_63b583bb58889c4a",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "insulted",
+          "object_text": "Blonde as stupid",
+          "object_type": "insult",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"mais t'es naze comme meuf !\"",
+          "metadata": {
+            "observation_id": "obs_63b583bb58889c4a"
+          }
+        },
+        {
+          "observation_id": "obs_e114260ca5fe7939",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "insulted",
+          "object_text": "Blonde as stupid",
+          "object_type": "insult",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"T'es naze !\"",
+          "metadata": {
+            "observation_id": "obs_e114260ca5fe7939"
+          }
+        },
+        {
+          "observation_id": "obs_6a84f90dda77cf1d",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "said",
+          "object_text": "Blonde comes there and is useless",
+          "object_type": "statement",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette said, \"Tu viens ici, tu sers à rien !\"",
+          "metadata": {
+            "observation_id": "obs_6a84f90dda77cf1d"
+          }
+        },
+        {
+          "observation_id": "obs_3c259962bff12fa0",
+          "subject": "Brunette",
+          "subject_type": "person",
+          "predicate": "asked",
+          "object_text": "whether she is useless",
+          "object_type": "question",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "clip_060_00_180_00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Brunette asked, \"Moi je sers à rien ?\"",
+          "metadata": {
+            "observation_id": "obs_3c259962bff12fa0"
+          }
+        }
+      ],
+      "request_path": "round_02/tools/02_generic_purpose/request.json",
+      "result_path": "round_02/tools/02_generic_purpose/result.json",
+      "timing_path": "round_02/tools/02_generic_purpose/timing.json",
+      "runtime_path": "round_02/tools/02_generic_purpose/runtime.json",
+      "observations_path": "round_02/tools/02_generic_purpose/observations.json",
+      "artifact_refs_path": "round_02/tools/02_generic_purpose/artifact_refs.json"
+    }
+  ]
+}

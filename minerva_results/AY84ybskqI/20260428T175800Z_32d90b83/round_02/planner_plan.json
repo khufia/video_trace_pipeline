@@ -1,0 +1,106 @@
+{
+  "strategy": "Reuse the retrieved frame sequences and directly verify whether the later water-bottle holder matches the main player grounded in the earlier action sequence, then map the verified object to an option.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "generic_purpose",
+      "purpose": "Compare the earlier main-player action sequence with the later group-scene sequence to determine whether the water-bottle holder is the same person as the main character, and identify which listed object is actually briefly held by the main character.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [
+          "ev_01_f58e9ff5",
+          "ev_02_0c328ed9"
+        ],
+        "frames": [
+          {
+            "video_id": "-AY84ybskqI",
+            "timestamp_s": 6.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_6.00",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_6.00.png"
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "timestamp_s": 7.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_7.00",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_7.00.png"
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "timestamp_s": 8.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_8.00",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_8.00.png"
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "timestamp_s": 9.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_9.00",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_9.00.png"
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "timestamp_s": 10.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_10.00",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_10.00.png"
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "timestamp_s": 60.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_60.00",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_60.00.png"
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "timestamp_s": 61.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_61.00",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_61.00.png"
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "timestamp_s": 62.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_62.00",
+            "relpath": "artifacts/AY84ybskqI/frames/frame_62.00.png"
+          }
+        ],
+        "query": "Use the chronological frames from 6s-10s to identify the main female tennis player and her stable appearance cues, then compare against the chronological frames from 60s-62s to determine whether the person drinking/holding the water bottle is the same person. Explicitly assess each option (water bottle, wristband, sunglasses, towel, energy bar) and state which listed object, if any, is briefly held by the main character besides a tennis ball and racket. If the later water-bottle holder is the same person, say so clearly; if not, reject water bottle for the main character.",
+        "text_contexts": [
+          "Audit gap: determine whether the person holding the water bottle is the main character.",
+          "Preprocess context: 3.0-8.0s shows a montage of young female tennis players; first a group of girls smiles and talks, then a player in a white visor and tank top hits on a green court.",
+          "Preprocess context: 60.0-62.0s shows a group of young female tennis players standing on a court talking and laughing.",
+          "Prior trace claim: the main character is best grounded by the action sequence at 7s-10s, while 60s-62s are a separate later group scene."
+        ],
+        "transcripts": []
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "verified identity comparison and the listed object held by the main character, if any",
+        "supporting_points": "appearance-based evidence comparing the 7s-10s main player and the 60s-62s water-bottle holder",
+        "analysis": "explicit option-by-option rejection or confirmation needed for final mapping"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the prior grounded anchor that the main character is the repeatedly centered player in the 7s-10s action sequence unless the new frame comparison clearly overturns it. Use the new comparison to resolve the audit gap directly: either confirm that the 60s-62s water-bottle holder is the same person and select water bottle, or state that she is different and reject water bottle for the main character. Do not rely on provisional artifact-context prose as final proof; cite the visual comparison from the retrieved frames. In the final trace, explicitly mention why sunglasses, towel, wristband, and energy bar are unsupported in the verified main-character frames, then map the surviving supported option to the answer choice."
+}

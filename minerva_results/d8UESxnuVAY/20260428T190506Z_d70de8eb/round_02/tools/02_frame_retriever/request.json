@@ -1,0 +1,70 @@
+{
+  "tool_name": "frame_retriever",
+  "clips": [
+    {
+      "video_id": "d8UESxnuVAY",
+      "start_s": 45.0,
+      "end_s": 52.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "d8UESxnuVAY",
+      "start_s": 88.0,
+      "end_s": 90.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "d8UESxnuVAY",
+      "start_s": 156.0,
+      "end_s": 161.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "d8UESxnuVAY",
+      "start_s": 209.0,
+      "end_s": 212.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "d8UESxnuVAY",
+      "start_s": 240.0,
+      "end_s": 242.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    }
+  ],
+  "time_hints": [
+    "earliest candidate only",
+    "need evaluation display and clock visible together"
+  ],
+  "query": "frames showing the evaluation display and chess clock around the first moment Black's advantage exceeds 4",
+  "num_frames": 6,
+  "sequence_mode": "anchor_window",
+  "neighbor_radius_s": 2.0,
+  "include_anchor_neighbors": true,
+  "sort_order": "chronological"
+}

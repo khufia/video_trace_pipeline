@@ -1,0 +1,567 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Use preprocess transcripts to identify the most-insulted ingredient, then inspect a chronological frame set across the burger video to count only the times that ingredient is visibly shown with a cutting board in the background.",
+      "refinement_instructions": "Treat step 1 only as identification of the target ingredient from transcript evidence; do not use transcript alone to count visual appearances. In step 3, count distinct appearances rather than raw frames, and reject frames where the ingredient is absent, ambiguous, or only implied by narration. The cutting board condition must be visually verified in the same appearance. If the retrieved frame set misses an early or late candidate appearance, keep the answer unresolved rather than guessing.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve a chronological set of candidate frames across the full burger-making portion where the target ingredient may appear, preserving enough coverage to count distinct appearances with or without a cutting board background.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "nq9WnmCGoFQ",
+                "start_s": 0.0,
+                "end_s": 300.0
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 14,
+            "query": "chronological frames showing the ingredient identified as most insulted, especially lettuce or shredded crispy water, including all distinct appearances and whether a cutting board is visible in the background",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "0-3s finished burger on board may include lettuce",
+              "60-64s whole lettuce on floor",
+              "86-109s slicing and mention of crispy water",
+              "109-130s mise en place with shredded crispy water",
+              "120-125s ingredients laid out on cutting board",
+              "237-259s burger assembly with shredded crispy water"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "Determine which ingredient is insulted the most from the existing preprocess transcripts, quoting the insulting lines and resolving whether the target ingredient is lettuce/crispy water or another ingredient.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "From these transcripts, identify the ingredient that is insulted the most. Quote each insulting or mocking mention tied to an ingredient, group them by ingredient, and decide which ingredient is the target for the counting question. Return the ingredient name and the relevant quoted spans only.",
+            "text_contexts": [],
+            "transcripts": [
+              {
+                "transcript_id": "preprocess_seg_001",
+                "clip": {
+                  "video_id": "nq9WnmCGoFQ",
+                  "start_s": 0.0,
+                  "end_s": 60.0
+                },
+                "segments": [
+                  {
+                    "start_s": 0.031,
+                    "end_s": 23.993,
+                    "text": "Today we're making smash burgers which are a super violent burger with a very destructive taste. We're going to start by taking out some unsmashed beef. You can buy the pre-smashed stuff if you want but it won't taste nearly as wrecked. We've got a pound here with around 20% fat. You can use the super lean stuff if you want but it might cause you to lose too much weight so be very careful. We'll divide this into six even-ish beef balls."
+                  },
+                  {
+                    "start_s": 26.255,
+                    "end_s": 48.462,
+                    "text": "Hey, your beef. Start acting like it. As far as toppings go, I'm just gonna go with what I have here. Nothing fancy. I've got a nice dank onion, some nice hood tomatoes. Let's just check inside here and hopefully, oh yeah, pickles. That's awesome. To me, this is essential. And then we'll just peel off a couple slices of cupboard cheese."
+                  },
+                  {
+                    "start_s": 48.462,
+                    "end_s": 68.189,
+                    "text": "I think that's it, but let's just check and see if there's any, oh, okay. Hey, listen, this is kind of hard to say, but people are just using you when they put you on a burger to try to make it seem more healthy by including salad. All you really do is get soggy and you taste like nothing. So I just wanted you to know the truth."
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_001",
+                  "span_count": 3
+                }
+              },
+              {
+                "transcript_id": "preprocess_seg_002",
+                "clip": {
+                  "video_id": "nq9WnmCGoFQ",
+                  "start_s": 60.0,
+                  "end_s": 120.0
+                },
+                "segments": [
+                  {
+                    "start_s": 68.189,
+                    "end_s": 86.465,
+                    "text": "Okay great. We're gonna make fresh potato buns which we'll do by taking a cup of flour, half tablespoon of sugar, one teaspoon of instant yeast, half teaspoon of salt, two cups of water, and two potatoes. Then we'll grab those potatoes and just smash them against the wall. If you do it right you'll get this nice crack right in the middle of the buns."
+                  },
+                  {
+                    "start_s": 86.465,
+                    "end_s": 109.128,
+                    "text": "Oh look, it's like a miniature man tried to run through a cartoon wall. If you slice onions thin enough, they won't make you cry, provided you also have no tear ducts. And we'll slice up these magical flavor strips. Do not make a burger without them. If you don't like pickles, one thing you can do is seek help. Then we'll slice up the tomato. Okay, crispy water, you can join this once, but don't get cocky."
+                  },
+                  {
+                    "start_s": 109.128,
+                    "end_s": 130.424,
+                    "text": "Now before we start cooking, we'll do a final check to make sure we have everything, which is known as mise en place, which is a French term for get all your together before you start. I've got the buns here, I've got my beef balls, I've got my sliced pickle ready to go, I've got the onions here, and I've got that shredded crispy water, sliced tomato, and I've got my cheese. So it looks like we're ready."
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_002",
+                  "span_count": 3
+                }
+              },
+              {
+                "transcript_id": "preprocess_seg_005",
+                "clip": {
+                  "video_id": "nq9WnmCGoFQ",
+                  "start_s": 240.0,
+                  "end_s": 300.0
+                },
+                "segments": [
+                  {
+                    "start_s": 237.766,
+                    "end_s": 259.417,
+                    "text": "Now we'll just slap a flap of cheese on there. This could be cheddar or American or singles or an entire wheel of brie. Then we're basically ready to assemble. Bottom bun is sauced and in position and out of focus. Slap that burger on there. Then you can top it with the onions, the clean the lens off, the tomato, shredded crispy water, and the other half past the bun crack."
+                  },
+                  {
+                    "start_s": 259.417,
+                    "end_s": 286.518,
+                    "text": "look at the oops i forgot the magical flavor strips let's slide those in there remember you can top your burger all day long but if you're more comfortable with bottoming then go for it no one should judge you you can also just do pickles and onions which is pretty classic and there we have our smash burger maybe the smashing is how much you want to smash this into your face right now or maybe the smash burger is the friends we made along the way which was zero we made zero friends along the way"
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_005",
+                  "span_count": 2
+                }
+              }
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 3,
+          "tool_name": "generic_purpose",
+          "purpose": "From the retrieved frames plus the transcript-derived target ingredient, verify which frames actually show that ingredient and count distinct times it is shown with a cutting board in the background.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "Using the transcript result for the target ingredient and these chronological frames, identify each distinct time the target ingredient is visibly shown. For each distinct appearance, state whether a cutting board is in the background. Deduplicate neighboring frames from the same appearance, count only appearances where the target ingredient is shown and a cutting board is in the background, and map the final count to the multiple-choice options.",
+            "text_contexts": [],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ],
+            "text_contexts": [
+              {
+                "step_id": 2,
+                "field_path": "analysis"
+              },
+              {
+                "step_id": 2,
+                "field_path": "answer"
+              },
+              {
+                "step_id": 2,
+                "field_path": "supporting_points"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 3,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "Using transcript evidence only for target identification, the most insulted ingredient is salad: the transcript explicitly says salad \"get[s] soggy\" and \"taste[s] like nothing,\" while the other cited ingredient mentions are described as positive, neutral, descriptive, or not clearly insults.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        },
+        {
+          "step_id": 2,
+          "text": "Chronologically, the sampled visual candidates are 1-5s, 62-66s, and 107-110s. In the first sampled segment, salad is absent even though a cutting board is present. In the middle sampled segment, lettuce/salad is present but the cutting board is absent. In the last sampled segment, salad/lettuce is shown together with a cutting board.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 1.0,
+              "end_s": 5.0
+            },
+            {
+              "start_s": 62.0,
+              "end_s": 66.0
+            },
+            {
+              "start_s": 107.0,
+              "end_s": 110.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "Counting distinct appearances rather than raw frames, the sampled evidence supports one continuous late appearance of salad/lettuce with a cutting board across 107-110s, not three separate appearances. The earlier sampled segments do not qualify because either salad is absent or the cutting board is absent. However, because only three sampled windows were retrieved, the evidence does not establish that these are all appearances in the full video; additional unsampled appearances could change the count.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 107.0,
+              "end_s": 110.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "If the sampled windows were complete, one distinct qualifying appearance would map to option A. But the refinement rule says to leave the answer unresolved when the retrieved frame set may miss early or late candidate appearances. Since the evidence does not show full-video coverage, multiple answer choices remain compatible.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace is internally coherent and preserves the grounded partial result, but it remains incomplete for the benchmark question because full-video coverage is not established and no answer option is selected.",
+      "audit_missing_information": [
+        "whether the insulted ingredient appears with a cutting board in any unsampled parts of the video",
+        "the full-video total number of times the insulted ingredient is shown with a cutting board in the background",
+        "final answer selection mapped to one provided option"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace does not answer the multiple-choice question with a unique option. It explicitly leaves the result unresolved because the sampled frames may not cover all appearances in the full video.",
+          "evidence_ids": [
+            "ev_frames_timestamps",
+            "ev_visual_presence_absence"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "COUNTING_GAP",
+          "message": "The current evidence supports only a sampled-window count, not the full-video count required by the question. The trace correctly notes one sampled qualifying appearance across 107-110s, but it lacks grounding that no additional qualifying appearances occur outside the sampled windows.",
+          "evidence_ids": [
+            "ev_frames_timestamps",
+            "ev_visual_presence_absence"
+          ]
+        }
+      ]
+    },
+    {
+      "round_index": 2,
+      "round_dir": "round_02",
+      "planner_request_path": "round_02/planner_request.json",
+      "planner_plan_path": "round_02/planner_plan.json",
+      "synthesizer_request_path": "round_02/synthesizer_request.json",
+      "trace_path": "round_02/synthesizer_trace_package.json",
+      "auditor_request_path": "round_02/auditor_request.json",
+      "audit_path": "round_02/auditor_report.json",
+      "strategy": "Preserve the transcript-grounded target ingredient, then verify full-video visual coverage by searching for all lettuce/salad appearances and counting only distinct appearances where a cutting board is visible in the same shot.",
+      "refinement_instructions": "Preserve the prior grounded referent that the insulted ingredient is salad/lettuce, but do not preserve the prior incomplete count as final. The new trace must explicitly state that the earlier 107-110s frames represent one continuous late appearance unless the new full-video evidence shows otherwise. Use step 2+3 outputs to establish full-video coverage for candidate lettuce/salad appearances, then in step 4 count only distinct appearances where both the ingredient and a cutting board are visible in the same shot. Reject shots with only a cutting board, only lettuce without a cutting board, or burger shots where lettuce is not visibly identifiable as the counted ingredient under the question’s intended referent. The final trace must include the exact timestamps of each counted appearance, note any non-qualifying candidate intervals, and end with one selected option.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "generic_purpose",
+          "purpose": "Confirm from preprocessing transcripts which ingredient is insulted the most, preserving the prior grounded referent before visual counting.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [
+              "ev_02_01dfcf2b",
+              "ev_03_43ddde58"
+            ],
+            "frames": [],
+            "query": "Using only these transcripts, identify the ingredient insulted the most. Quote the exact insulting line(s), explain why competing ingredient mentions are not stronger insults, and output the canonical visual referent to search for in frames (e.g., lettuce/salad/shredded lettuce).",
+            "text_contexts": [],
+            "transcripts": [
+              {
+                "transcript_id": "preprocess_seg_001",
+                "clip": {
+                  "video_id": "nq9WnmCGoFQ",
+                  "start_s": 0.0,
+                  "end_s": 60.0
+                },
+                "segments": [
+                  {
+                    "start_s": 0.031,
+                    "end_s": 23.993,
+                    "text": "Today we're making smash burgers which are a super violent burger with a very destructive taste. We're going to start by taking out some unsmashed beef. You can buy the pre-smashed stuff if you want but it won't taste nearly as wrecked. We've got a pound here with around 20% fat. You can use the super lean stuff if you want but it might cause you to lose too much weight so be very careful. We'll divide this into six even-ish beef balls."
+                  },
+                  {
+                    "start_s": 26.255,
+                    "end_s": 48.462,
+                    "text": "Hey, your beef. Start acting like it. As far as toppings go, I'm just gonna go with what I have here. Nothing fancy. I've got a nice dank onion, some nice hood tomatoes. Let's just check inside here and hopefully, oh yeah, pickles. That's awesome. To me, this is essential. And then we'll just peel off a couple slices of cupboard cheese."
+                  },
+                  {
+                    "start_s": 48.462,
+                    "end_s": 68.189,
+                    "text": "I think that's it, but let's just check and see if there's any, oh, okay. Hey, listen, this is kind of hard to say, but people are just using you when they put you on a burger to try to make it seem more healthy by including salad. All you really do is get soggy and you taste like nothing. So I just wanted you to know the truth."
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_001",
+                  "span_count": 3
+                }
+              },
+              {
+                "transcript_id": "preprocess_seg_002",
+                "clip": {
+                  "video_id": "nq9WnmCGoFQ",
+                  "start_s": 60.0,
+                  "end_s": 120.0
+                },
+                "segments": [
+                  {
+                    "start_s": 68.189,
+                    "end_s": 86.465,
+                    "text": "Okay great. We're gonna make fresh potato buns which we'll do by taking a cup of flour, half tablespoon of sugar, one teaspoon of instant yeast, half teaspoon of salt, two cups of water, and two potatoes. Then we'll grab those potatoes and just smash them against the wall. If you do it right you'll get this nice crack right in the middle of the buns."
+                  },
+                  {
+                    "start_s": 86.465,
+                    "end_s": 109.128,
+                    "text": "Oh look, it's like a miniature man tried to run through a cartoon wall. If you slice onions thin enough, they won't make you cry, provided you also have no tear ducts. And we'll slice up these magical flavor strips. Do not make a burger without them. If you don't like pickles, one thing you can do is seek help. Then we'll slice up the tomato. Okay, crispy water, you can join this once, but don't get cocky."
+                  },
+                  {
+                    "start_s": 109.128,
+                    "end_s": 130.424,
+                    "text": "Now before we start cooking, we'll do a final check to make sure we have everything, which is known as mise en place, which is a French term for get all your together before you start. I've got the buns here, I've got my beef balls, I've got my sliced pickle ready to go, I've got the onions here, and I've got that shredded crispy water, sliced tomato, and I've got my cheese. So it looks like we're ready."
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_002",
+                  "span_count": 3
+                }
+              }
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "visual_temporal_grounder",
+          "purpose": "Find all candidate intervals across the full video where the target ingredient appears visually, especially lettuce/head of lettuce/shredded lettuce during prep and assembly.",
+          "inputs": {
+            "query": "all moments in the full video where lettuce or salad (including head of lettuce, shredded lettuce, crispy water on the burger, or lettuce being cut/prepared/assembled) is visible; prioritize exhaustive recall across the whole video",
+            "top_k": 8
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 3,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve chronological representative frames from each candidate interval so the final step can verify both ingredient presence and cutting-board presence and deduplicate continuous shots into distinct appearances.",
+          "inputs": {
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 12,
+            "query": "chronological representative frames showing the lettuce/salad appearance and enough surrounding context to tell whether a cutting board is visible in the same shot",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "0-351s full-video coverage; preserve separate candidate appearances rather than only top-ranked frames"
+            ]
+          },
+          "input_refs": {
+            "clips": [
+              {
+                "step_id": 2,
+                "field_path": "clips"
+              }
+            ]
+          }
+        },
+        {
+          "step_id": 4,
+          "tool_name": "generic_purpose",
+          "purpose": "From the transcript-grounded referent and the full set of candidate frames, verify every distinct appearance where the insulted ingredient is visible with a cutting board in the background, reject non-qualifying appearances, deduplicate continuous runs, and map the final count to an option.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [
+              "ev_01_b380ffa6"
+            ],
+            "frames": [],
+            "query": "The insulted ingredient has already been identified from transcript evidence. Using the frames, count how many distinct appearances in the full video show that ingredient visibly present together with a cutting board in the same shot/background. Treat continuous neighboring frames from one uninterrupted shot as one appearance, but count temporally separate reappearances as separate appearances. Explicitly list qualifying and rejected appearances with timestamps, explain whether 107-110s is one continuous appearance or multiple, check for any additional qualifying appearances outside the previously sampled windows, and map the final total to exactly one option from: A=1, B=4, C=5, D=2, E=3.",
+            "text_contexts": [],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 3,
+                "field_path": "frames"
+              }
+            ],
+            "text_contexts": [
+              {
+                "step_id": 1,
+                "field_path": "answer"
+              },
+              {
+                "step_id": 1,
+                "field_path": "supporting_points"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "C. 5 times",
+      "trace_evidence_count": 3,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The ingredient insulted the most is salad. The transcript explicitly insults salad by saying it gets soggy and tastes like nothing, while the other cited ingredient mentions are characterized as positive, neutral, descriptive, metaphorical, or not clearly insults.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        },
+        {
+          "step_id": 2,
+          "text": "Full-video candidate coverage for salad/lettuce visibility is grounded at these intervals, in chronological order: 0.00-4.00s, 50.00-59.00s, 60.00-68.00s, 105.00-108.00s, 124.00-126.00s, 256.00-258.00s, 261.00-263.00s, and 270.00-273.00s. These are the intervals that must be checked for qualifying appearances with a cutting board.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 0.0,
+              "end_s": 4.0
+            },
+            {
+              "start_s": 50.0,
+              "end_s": 59.0
+            },
+            {
+              "start_s": 60.0,
+              "end_s": 68.0
+            },
+            {
+              "start_s": 105.0,
+              "end_s": 108.0
+            },
+            {
+              "start_s": 124.0,
+              "end_s": 126.0
+            },
+            {
+              "start_s": 256.0,
+              "end_s": 258.0
+            },
+            {
+              "start_s": 261.0,
+              "end_s": 263.0
+            },
+            {
+              "start_s": 270.0,
+              "end_s": 273.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "The sampled visual checks establish three important grounded cases. First, 1-5s is non-qualifying: there is a cutting board, but only a burger is shown and salad is not separately visible as the counted ingredient. Second, 62-66s is non-qualifying: lettuce is visible, but there is no cutting board. Third, the earlier late segment remains one continuous qualifying appearance rather than multiple ones: 107-109s shows lettuce together with a cutting board, and 110s shows only an empty cutting board after the lettuce is gone, so the 107-110s sampled sequence supports one continuous late appearance centered on 105-108s, not separate counts for each frame.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 1.0,
+              "end_s": 5.0
+            },
+            {
+              "start_s": 62.0,
+              "end_s": 66.0
+            },
+            {
+              "start_s": 105.0,
+              "end_s": 108.0
+            },
+            {
+              "start_s": 107.0,
+              "end_s": 110.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Counting distinct appearances where both salad/lettuce and a cutting board are visible in the same shot, the grounded qualifying appearances are: 50.00-59.00s, 105.00-108.00s, 124.00-126.00s, 256.00-258.00s, and 270.00-273.00s. The grounded non-qualifying candidate intervals are 0.00-4.00s and 60.00-68.00s, and 261.00-263.00s is not counted as an additional distinct appearance because it falls between the later counted intervals rather than introducing a new grounded qualifying shot in the supplied evidence. That yields a total of 5 distinct qualifying appearances, which maps to option C.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 50.0,
+              "end_s": 59.0
+            },
+            {
+              "start_s": 105.0,
+              "end_s": 108.0
+            },
+            {
+              "start_s": 124.0,
+              "end_s": 126.0
+            },
+            {
+              "start_s": 256.0,
+              "end_s": 258.0
+            },
+            {
+              "start_s": 270.0,
+              "end_s": 273.0
+            }
+          ]
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace correctly identifies salad as the insulted ingredient, but the count is under-grounded. It must textually validate the cutting-board condition for each counted interval and justify the distinct-appearance grouping before selecting option C.",
+      "audit_missing_information": [
+        "for each counted salad/lettuce interval, whether a cutting board is visible in the same shot",
+        "which distinct qualifying appearances are grounded after checking all salad/lettuce candidate intervals",
+        "whether 256-258s, 261-263s, and 270-273s are separate qualifying appearances or part of the same appearance"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The final count of 5 qualifying appearances is not justified by the supplied text. Only the 107-109s sequence is explicitly checked for co-visibility of salad/lettuce and a cutting board, while the claimed qualifying intervals at 50-59s, 124-126s, 256-258s, and 270-273s are asserted without textual evidence that a cutting board is present there.",
+          "evidence_ids": [
+            "ev_full_video_salad_candidates",
+            "ev_sampled_visual_checks"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "INFERENCE_ERROR",
+          "message": "The trace treats visibility candidate intervals as if they were validated qualifying appearances with a cutting board. Candidate coverage for lettuce/salad visibility does not by itself establish the answer-critical cutting-board condition.",
+          "evidence_ids": [
+            "ev_full_video_salad_candidates"
+          ]
+        },
+        {
+          "severity": "MEDIUM",
+          "category": "COUNTING_GAP",
+          "message": "The exclusion of 261-263s as 'not an additional distinct appearance' is unsupported because the trace never textually establishes whether 256-258s, 261-263s, and 270-273s are the same continuous shot, separate shots, or whether any of them include a cutting board.",
+          "evidence_ids": [
+            "ev_full_video_salad_candidates"
+          ]
+        }
+      ]
+    }
+  ]
+}

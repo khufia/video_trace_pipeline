@@ -1,0 +1,42 @@
+{
+  "action": "retrieve",
+  "rationale": "Need existing transcript spans to identify which ingredient is insulted most and dense-caption spans to count its appearances with a cutting board background before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "insulted_ingredient_asr",
+      "target": "asr_transcripts",
+      "need": "Transcript spans where ingredients are insulted, to determine which ingredient receives the most insults",
+      "query": "beef lettuce potatoes onions pickles tomato cheese insult joke mocked soggy taste like nothing crispy water seek help hood tomatoes dank onion magical flavor strips",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {},
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 20
+    },
+    {
+      "request_id": "cutting_board_dense_caps",
+      "target": "dense_captions",
+      "need": "Dense-caption spans showing the most-insulted ingredient and whether a cutting board is in the background, to count occurrences",
+      "query": "lettuce ingredient cutting board background top-down countertop burger assembly shredded crispy water salad soggy taste like nothing",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {},
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 30
+    }
+  ]
+}

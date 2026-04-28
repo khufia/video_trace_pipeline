@@ -1,0 +1,27 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "c85d0a69397e9dc274ad0b47",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "91ub3om9Fg0",
+        "start_s": 12.0,
+        "end_s": 22.0,
+        "artifact_id": "clip_000_00_060_00",
+        "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4",
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "around 15.9s to 18.6s, especially near the phrase 'but look'"
+    ],
+    "query": "chronological frames showing the man presenting the object and the object face where the words TIME MACHINE become readable and in focus",
+    "num_frames": 8,
+    "sequence_mode": "anchor_window",
+    "neighbor_radius_s": 3.0,
+    "include_anchor_neighbors": true,
+    "sort_order": "chronological"
+  }
+}

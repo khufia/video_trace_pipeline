@@ -1,0 +1,41 @@
+{
+  "inputs": {
+    "clips": [],
+    "evidence_ids": [
+      "ev_01_76b82af6",
+      "ev_02_16e6df6f"
+    ],
+    "frames": [],
+    "query": "From these chronological frames, determine whether this is the overall last time the guy uses his smartphone in the video. Then identify the highlighted onscreen option at that moment. Prefer direct readable text from OCR if present; otherwise use the localized UI appearance and standard camera/gallery semantics only if the visual evidence clearly supports one option over the others. Explicitly reject unsupported alternatives.",
+    "text_contexts": [],
+    "transcripts": []
+  },
+  "input_refs": {
+    "clips": [
+      {
+        "step_id": 1,
+        "field_path": "clips"
+      }
+    ],
+    "frames": [
+      {
+        "step_id": 2,
+        "field_path": "frames"
+      },
+      {
+        "step_id": 3,
+        "field_path": "regions[].frame"
+      }
+    ],
+    "text_contexts": [
+      {
+        "step_id": 3,
+        "field_path": "spatial_description"
+      },
+      {
+        "step_id": 4,
+        "field_path": "text"
+      }
+    ]
+  }
+}

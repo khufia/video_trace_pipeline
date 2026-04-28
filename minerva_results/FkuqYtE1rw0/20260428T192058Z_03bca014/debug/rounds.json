@@ -1,0 +1,414 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Use the preprocess transcript to anchor the Wild Shuffle Hands explanation, then inspect a chronological frame sequence around that interval to count how many cards are dealt to the player on the left.",
+      "refinement_instructions": "Treat the preprocess transcript as the temporal anchor only. The final answer must be grounded in the retrieved chronological frames showing the redistribution outcome for the left-side player. Do not answer from default Uno knowledge such as seven-card starting hands. If the sequence does not clearly show the left player's final received-card count, keep the result uncertain rather than guessing.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve a chronological local sequence around the Wild Shuffle Hands dealing demonstration so the number of cards dealt to the left player can be counted from the visual sequence rather than inferred from transcript alone.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 180.0,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4"
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 10,
+            "query": "chronological frames showing the four-player table during the Wild Shuffle Hands redistribution, especially the player on the left receiving cards",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "119.827-143.333",
+              "around the dealing sequence immediately after the shuffle hands card explanation"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "Use the existing preprocess transcript span to identify the exact Wild Shuffle Hands interval and the dealing moment after the narrator says players may end up with more or fewer cards.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "From this transcript, identify the exact interval for the Wild Shuffle Hands explanation, especially the portion containing 'Starting with the player to your left, deal out all the cards to all the players' and 'Players may end up with more or fewer cards than what they started with.' Return the relevant quoted lines and the best timestamp window to inspect visually for the dealing/count outcome.",
+            "text_contexts": [],
+            "transcripts": [
+              {
+                "transcript_id": "preprocess_seg_003",
+                "clip": {
+                  "video_id": "FkuqYtE1rw0",
+                  "start_s": 120.0,
+                  "end_s": 180.0
+                },
+                "segments": [
+                  {
+                    "start_s": 119.827,
+                    "end_s": 143.333,
+                    "text": "Wild Shuffle Hands. This card is a wild and can be played on anything. Once played, collect every card from all the players' hands and shuffle them together. Starting with the player to your left, deal out all the cards to all the players. Players may end up with more or fewer cards than what they started with. Play continues in the current direction of play with you picking the color."
+                  },
+                  {
+                    "start_s": 144.565,
+                    "end_s": 163.043,
+                    "text": "Wild draw four. This card is a wild and can be played on anything. However, you are only allowed to play this card if you do not have any other cards in your hand with the same color as the top card in the discard. Once played, the next player may either draw four cards and lose their turn,"
+                  },
+                  {
+                    "start_s": 163.043,
+                    "end_s": 189.217,
+                    "text": "or they may challenge. If you challenge a wild draw four, then the player who played it must reveal their hand. If they do not have the color in their hand that matches the discard pile they played to, then you must draw six cards and lose your turn. If they do have the color, then they must draw four cards instead, and it is your turn. Regardless of the outcome of the challenge, that player picks the color that continues play."
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_003",
+                  "span_count": 3
+                }
+              }
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 3,
+          "tool_name": "generic_purpose",
+          "purpose": "Determine which hand/player is on the left in the top-down layout and count how many cards that player ends up receiving during the Wild Shuffle Hands redistribution, then map to the answer option.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 180.0,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4"
+              }
+            ],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "Using the transcript anchor and the chronological frames, identify the player on the left side of the table and count how many cards are dealt to that player during the Wild Shuffle Hands redistribution. Base the answer on visible dealt/held cards in the sequence, not on default Uno rules. Return the final count and the matching multiple-choice option.",
+            "text_contexts": [],
+            "transcripts": [
+              {
+                "transcript_id": "preprocess_seg_003",
+                "clip": {
+                  "video_id": "FkuqYtE1rw0",
+                  "start_s": 120.0,
+                  "end_s": 180.0
+                },
+                "segments": [
+                  {
+                    "start_s": 119.827,
+                    "end_s": 143.333,
+                    "text": "Wild Shuffle Hands. This card is a wild and can be played on anything. Once played, collect every card from all the players' hands and shuffle them together. Starting with the player to your left, deal out all the cards to all the players. Players may end up with more or fewer cards than what they started with. Play continues in the current direction of play with you picking the color."
+                  },
+                  {
+                    "start_s": 144.565,
+                    "end_s": 163.043,
+                    "text": "Wild draw four. This card is a wild and can be played on anything. However, you are only allowed to play this card if you do not have any other cards in your hand with the same color as the top card in the discard. Once played, the next player may either draw four cards and lose their turn,"
+                  },
+                  {
+                    "start_s": 163.043,
+                    "end_s": 189.217,
+                    "text": "or they may challenge. If you challenge a wild draw four, then the player who played it must reveal their hand. If they do not have the color in their hand that matches the discard pile they played to, then you must draw six cards and lose your turn. If they do have the color, then they must draw four cards instead, and it is your turn. Regardless of the outcome of the challenge, that player picks the color that continues play."
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_003",
+                  "span_count": 3
+                }
+              }
+            ]
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ],
+            "text_contexts": [
+              {
+                "step_id": 2,
+                "field_path": "analysis"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 3,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The transcript provides the temporal anchor for the Wild Shuffle Hands explanation and states that dealing starts with the player to the left and that players may end up with more or fewer cards, but it does not state a numeric count for the left-side player.",
+          "time_start_s": 119.827,
+          "time_end_s": 143.333,
+          "frame_ts_s": null,
+          "time_intervals": []
+        },
+        {
+          "step_id": 2,
+          "text": "Chronologically, the available visual evidence to inspect the redistribution outcome comes later, at 148s through 152s, after the Wild Shuffle Hands explanation has ended.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 148.0,
+              "end_s": 152.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "Those later frames show a hand with 4 visible cards consistently across the inspected sequence, but the evidence does not ground that hand as the left-side player and does not establish that the visible 4 cards are the final cards that player received from the redistribution.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 148.0,
+              "end_s": 152.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Because the answer choices require a specific card count for the player on the left, and the retrieved frames do not clearly identify that player's final received-card count, none of the options can be selected with grounded support.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.97,
+      "audit_feedback": "The trace is orderly and appropriately cautious, but it does not complete the benchmark task because no grounded option is selected. The missing support is the left-player identification and that player's final received-card count after Wild Shuffle Hands.",
+      "audit_missing_information": [
+        "which visible hand corresponds to the player on the left after Wild Shuffle Hands",
+        "the final number of cards received by the player on the left after the redistribution",
+        "the mapping from that grounded count to one provided answer option"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace correctly notes that the transcript and inspected frames do not ground a specific received-card count for the player on the left, but it leaves the multiple-choice question unresolved instead of justifying one provided option.",
+          "evidence_ids": [
+            "ev_anchor_transcript",
+            "ev_visible_cards_sequence"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "ATTRIBUTION_GAP",
+          "message": "The only numeric visual candidate is 4 visible cards in a hand after the anchor, but the evidence explicitly does not establish that this hand belongs to the player on the left or that the 4 visible cards are that player's final redistributed cards.",
+          "evidence_ids": [
+            "ev_visible_cards_sequence"
+          ]
+        }
+      ]
+    },
+    {
+      "round_index": 2,
+      "round_dir": "round_02",
+      "planner_request_path": "round_02/planner_request.json",
+      "planner_plan_path": "round_02/planner_plan.json",
+      "synthesizer_request_path": "round_02/synthesizer_request.json",
+      "trace_path": "round_02/synthesizer_trace_package.json",
+      "auditor_request_path": "round_02/auditor_request.json",
+      "audit_path": "round_02/auditor_report.json",
+      "strategy": "Preserve the transcript anchor and directly verify the missing visual facts: which hand is the left-side player after Wild Shuffle Hands, and how many cards that hand ends up with in the post-redistribution sequence.",
+      "refinement_instructions": "Preserve the existing transcript anchor and the fact that earlier analysis found 4 visible cards but lacked referent grounding. In the trace, do not treat the prior 4-card observation as sufficient by itself. Instead, require the new synthesis to explicitly establish table orientation, identify which hand is the left-side player, and state why the 148s-152s sequence represents that player's post-redistribution count. If the tool still cannot ground left-player identity or finality from these frames, keep the answer unresolved rather than promoting the prior unsupported 4-card claim.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "generic_purpose",
+          "purpose": "Use the anchored transcript plus the retrieved post-anchor frame sequence to identify table orientation, determine which visible hand corresponds to the player on the left of the Wild Shuffle Hands player, and count that player's final redistributed cards from the local sequence.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 180.0,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4"
+              }
+            ],
+            "evidence_ids": [
+              "ev_03_de6343c9"
+            ],
+            "frames": [
+              {
+                "video_id": "FkuqYtE1rw0",
+                "timestamp_s": 148.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_148.00",
+                "relpath": "artifacts/FkuqYtE1rw0/frames/frame_148.00.png"
+              },
+              {
+                "video_id": "FkuqYtE1rw0",
+                "timestamp_s": 149.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_149.00",
+                "relpath": "artifacts/FkuqYtE1rw0/frames/frame_149.00.png"
+              },
+              {
+                "video_id": "FkuqYtE1rw0",
+                "timestamp_s": 150.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_150.00",
+                "relpath": "artifacts/FkuqYtE1rw0/frames/frame_150.00.png"
+              },
+              {
+                "video_id": "FkuqYtE1rw0",
+                "timestamp_s": 151.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_151.00",
+                "relpath": "artifacts/FkuqYtE1rw0/frames/frame_151.00.png"
+              },
+              {
+                "video_id": "FkuqYtE1rw0",
+                "timestamp_s": 152.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_152.00",
+                "relpath": "artifacts/FkuqYtE1rw0/frames/frame_152.00.png"
+              }
+            ],
+            "query": "Using the transcript rule explanation and the chronological frames after it, determine: (1) who is the 'player to your left' relative to the player who played Wild Shuffle Hands, based on table orientation and dealing order visible in the sequence; (2) which visible hand in these frames corresponds to that left-side player; (3) how many cards that player has after the redistribution in the shown sequence; and (4) which answer option A-E matches that count. Do not rely on prior unsupported claims; verify from the frames and transcript together.",
+            "text_contexts": [
+              "Audit gaps to resolve: which visible hand corresponds to the player on the left after Wild Shuffle Hands; the final number of cards received by that player; map that grounded count to one answer option.",
+              "Known anchor: the Wild Shuffle Hands explanation is at 119.827s-143.333s, and the retrieved visual sequence is later at 148s-152s."
+            ],
+            "transcripts": [
+              {
+                "transcript_id": "preprocess_seg_003",
+                "clip": {
+                  "video_id": "FkuqYtE1rw0",
+                  "start_s": 120.0,
+                  "end_s": 180.0
+                },
+                "segments": [
+                  {
+                    "start_s": 119.827,
+                    "end_s": 143.333,
+                    "text": "Wild Shuffle Hands. This card is a wild and can be played on anything. Once played, collect every card from all the players' hands and shuffle them together. Starting with the player to your left, deal out all the cards to all the players. Players may end up with more or fewer cards than what they started with. Play continues in the current direction of play with you picking the color."
+                  },
+                  {
+                    "start_s": 144.565,
+                    "end_s": 163.043,
+                    "text": "Wild draw four. This card is a wild and can be played on anything. However, you are only allowed to play this card if you do not have any other cards in your hand with the same color as the top card in the discard. Once played, the next player may either draw four cards and lose their turn,"
+                  },
+                  {
+                    "start_s": 163.043,
+                    "end_s": 189.217,
+                    "text": "or they may challenge. If you challenge a wild draw four, then the player who played it must reveal their hand. If they do not have the color in their hand that matches the discard pile they played to, then you must draw six cards and lose your turn. If they do have the color, then they must draw four cards instead, and it is your turn. Regardless of the outcome of the challenge, that player picks the color that continues play."
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_003",
+                  "span_count": 3
+                }
+              }
+            ]
+          },
+          "input_refs": {}
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 4,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The transcript anchors the relevant Wild Shuffle Hands explanation at 119.827s-143.333s and states that dealing starts with the player to the left and that players may end up with more or fewer cards, but it does not give a numeric count for the left-side player.",
+          "time_start_s": 119.827,
+          "time_end_s": 143.333,
+          "frame_ts_s": null,
+          "time_intervals": []
+        },
+        {
+          "step_id": 2,
+          "text": "Chronologically, the inspected visual sequence comes later at 148s, 149s, 150s, 151s, and 152s, so these frames are the only available post-explanation visuals for a possible redistribution outcome.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 148.0,
+              "end_s": 152.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "Those later frames consistently show one hand with 4 visible cards, but that observation alone is not enough to answer the question because the evidence does not establish table orientation, does not identify that hand as the player on the left, and does not show that this is the final received-card count after redistribution.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 148.0,
+              "end_s": 152.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Because the answer requires the specific number of cards received by the player on the left, and the available evidence never grounds which visible hand is that player or whether the shown 4 cards are the final redistributed total, no answer option can be selected with support.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.96,
+      "audit_feedback": "The trace correctly preserves the grounding limits, but it cannot pass as a completed multiple-choice answer. The unresolved gaps are the left-player identification and whether any shown card count is that player's final received total after redistribution.",
+      "audit_missing_information": [
+        "which visible hand, if any, corresponds to the player on the left",
+        "the final number of cards received by that left-side player after Wild Shuffle Hands",
+        "which answer option matches that grounded final count"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace is internally sound but does not complete the benchmark task: it leaves the multiple-choice answer unresolved instead of justifying one provided option. The cited evidence explicitly says the visible 4-card hand is not grounded as the player on the left and not grounded as that player's final received-card total.",
+          "evidence_ids": [
+            "ev_visible_cards_sequence",
+            "ev_missing_left_player_grounding"
+          ]
+        }
+      ]
+    }
+  ]
+}

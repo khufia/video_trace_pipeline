@@ -1,0 +1,4826 @@
+{
+  "query_terms": [
+    "ocr",
+    "observations",
+    "81s",
+    "82s",
+    "contain",
+    "product",
+    "names",
+    "nearby",
+    "price",
+    "like",
+    "text",
+    "planner",
+    "ground",
+    "item",
+    "pairings",
+    "counted",
+    "general",
+    "supplies",
+    "dixie",
+    "swpeet",
+    "airtite",
+    "slime",
+    "119",
+    "171",
+    "1612",
+    "1192",
+    "visual",
+    "all",
+    "83s",
+    "indicating",
+    "items",
+    "visible",
+    "prices",
+    "versus",
+    "verify",
+    "whether",
+    "any",
+    "priced",
+    "beyond",
+    "top",
+    "row",
+    "set",
+    "included",
+    "nordic",
+    "pure",
+    "youtube",
+    "gear",
+    "plumbing",
+    "artifact",
+    "anchored",
+    "context",
+    "linked",
+    "around",
+    "grid",
+    "concrete",
+    "records",
+    "rather",
+    "than",
+    "prior",
+    "prose"
+  ],
+  "retrieval_requests": [
+    {
+      "request_id": "ocr_item_price_pairs_81_82",
+      "target": "existing_evidence",
+      "need": "Existing OCR observations from frames 81s-82s that contain product names and nearby price-like text so the planner can ground item-to-price pairings for each counted item.",
+      "query": "81 82 General Supplies Dixie Swpeet A AIRTITE GE Slime price OCR 119 11 17 16 12 92 171 1612 1192",
+      "source_tools": [
+        "ocr"
+      ],
+      "evidence_status": "provisional",
+      "artifact_ids": [
+        "frame_81.00",
+        "frame_82.00"
+      ],
+      "evidence_ids": [
+        "ev_02_ccd065aa"
+      ],
+      "limit": 50
+    },
+    {
+      "request_id": "all_priced_items_interval_81_83",
+      "target": "observations",
+      "need": "All existing observations for frames 81s-83s indicating which items have visible prices versus not visible, to verify whether any priced items beyond the top-row set should be included.",
+      "query": "81 82 83 visible price not visible Nordic Pure YouTube Gear Plumbing General Supplies counted items",
+      "time_range": {
+        "start_s": 81.0,
+        "end_s": 83.0
+      },
+      "source_tools": [
+        "ocr",
+        "generic_purpose"
+      ],
+      "evidence_status": "provisional",
+      "limit": 50
+    },
+    {
+      "request_id": "artifact_context_81_82_candidates",
+      "target": "artifact_context",
+      "need": "Artifact-anchored text context for frames 81s-82s with linked observations/evidence around the product grid, to use the concrete frame records rather than prior-trace prose.",
+      "query": "frame 81 82 General Supplies product grid visible prices linked observations",
+      "source_tools": [
+        "ocr",
+        "generic_purpose"
+      ],
+      "artifact_ids": [
+        "frame_81.00",
+        "frame_82.00"
+      ],
+      "limit": 20
+    }
+  ],
+  "lookup_records": [
+    {
+      "record_id": "ev_02_ccd065aa",
+      "evidence_id": "ev_02_ccd065aa",
+      "tool_name": "ocr",
+      "text": "OCR completed for 6 input item(s).",
+      "evidence_text": "OCR completed for 6 input item(s).",
+      "atomic_text": "OCR completed for 6 input item(s).",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "confidence": 0.9999,
+      "status": "provisional",
+      "observation_ids": [
+        "obs_09478ec4dfb80fd5",
+        "obs_5aeeb7731866bcc9",
+        "obs_81c90d1562a3e5a2",
+        "obs_7ce275425ef4381e",
+        "obs_64c9f04db8c66026",
+        "obs_68113a9fdcdff180",
+        "obs_83f87890f5f1eba2",
+        "obs_181b508c475fe10e",
+        "obs_67b47923fb67c9f2",
+        "obs_cfddb3978c06b161",
+        "obs_b04236160a651efa",
+        "obs_d7b763f31f3826c4",
+        "obs_320fa9fc765dc0ad",
+        "obs_3074185ddf92efc7",
+        "obs_627ed4e8942c0eee",
+        "obs_34bc8c26143ce290",
+        "obs_e4fd06653d05f297",
+        "obs_57bf7b87a39a22f3",
+        "obs_bf5e75fe37cf9769",
+        "obs_c61b3028eda53068",
+        "obs_a6d90fc02d7b2f01",
+        "obs_de23d954f4f27f9d",
+        "obs_d6d04333fc37a142",
+        "obs_5a90af86b8288ea6",
+        "obs_dcd3a52c999c9038",
+        "obs_48eb37cec8db5079",
+        "obs_abd02a89e8a678a3",
+        "obs_b480a6957ef8dbe1",
+        "obs_8bc18998bb2408d7",
+        "obs_7d4d4c3b14a1b5a4",
+        "obs_0d250f786e38673f",
+        "obs_9e41427adf9aa726",
+        "obs_6af2c35bcdabcbb9",
+        "obs_2c3e6304227f5e61",
+        "obs_a3a0a46cefc7ccb7",
+        "obs_dd5c27eb5ced5d2a",
+        "obs_21c6c9bbbef00347",
+        "obs_e0b1eb2548ce056e",
+        "obs_5570470bf61d64e6",
+        "obs_8fcc15c3b1b7ddd5",
+        "obs_86c4e940288ec253",
+        "obs_6cdf48f562e4e803",
+        "obs_67fd3a6fbcf63222",
+        "obs_90f997fe6008ef26",
+        "obs_60ed892e68af2ca4",
+        "obs_fb72439928372f1b",
+        "obs_ca004ee515ee4127",
+        "obs_e61df44360a9579e",
+        "obs_a4688ed6e1e617c9",
+        "obs_f33ec1b4b393f5c2",
+        "obs_6f7ee8b154d70e3a",
+        "obs_7b9a88b6da487bc9",
+        "obs_e6cbece4d650f077",
+        "obs_eed5f0c12a4ae76b",
+        "obs_aa0f0bf6a99d575c",
+        "obs_d676f86e61b45af8",
+        "obs_aff415862c4661fc",
+        "obs_746e40030f0bda9e",
+        "obs_0f9472936db28092",
+        "obs_d35e69f2ebd1260a",
+        "obs_4b9d0642eaf01ab7",
+        "obs_826ef505ba9ee7d5",
+        "obs_03167cad338152a2",
+        "obs_79cac953469dc16b",
+        "obs_b10f1554e2ec4722",
+        "obs_090c272d83b6056f",
+        "obs_fd985431ab6c856a",
+        "obs_7a70b4179eacf6b5",
+        "obs_ebfacf70082096c5",
+        "obs_70ce11cd559c3617",
+        "obs_c7f0e256e3f5a1ea",
+        "obs_1b2dd7c1bc2626bc",
+        "obs_50a9fc35fbeec3d2",
+        "obs_aeddee69cab95d29",
+        "obs_f0a77a43eda0eab1",
+        "obs_741f83f85ec1f144",
+        "obs_b41efcb2500a3dc7",
+        "obs_f88854d415885fe5",
+        "obs_5f9b90dd52397887",
+        "obs_e202d8afce9e41d7",
+        "obs_e82e7f0d9064cc45",
+        "obs_0eb7ff6c2364e930",
+        "obs_136c98612a23ad59",
+        "obs_104bdbff9ad33a15",
+        "obs_b8c22bd5a4369b8f",
+        "obs_b40506678951192b",
+        "obs_23c7d323edb78d3e",
+        "obs_9cf3182f9e5bcc1e",
+        "obs_92240725e2f4ecb6",
+        "obs_b217bca376af8b28",
+        "obs_67f91ada22be20da",
+        "obs_86d3ea2f4395f6b4",
+        "obs_6d6f2a89d39a2ec4",
+        "obs_d8e463068db824be",
+        "obs_639abbf18dd6c4bc",
+        "obs_16d060edfa14d5cc",
+        "obs_1108f22aacb5db09",
+        "obs_87ce14579cb37eae",
+        "obs_7189b17369a3a8ef",
+        "obs_ccda9e2fd0722a32",
+        "obs_4cdb422cdf65f1ce",
+        "obs_e69902c06c18d1da",
+        "obs_269626a739ef4a4c",
+        "obs_846f553a17160a14",
+        "obs_9d7da000099ee31b",
+        "obs_c0565bfd5c895f65",
+        "obs_9f72471c0d2cb582",
+        "obs_03bda6ffa5288ee2",
+        "obs_e0841b34032a1533",
+        "obs_f3e1d2c03ee6cda9",
+        "obs_0888a42cfc7cd83d",
+        "obs_d2e456c11b9f618f",
+        "obs_decda9c9c5bad288",
+        "obs_a4c5f57394ecd755",
+        "obs_cdb84f0df5501448",
+        "obs_f99afe6d29387c3b",
+        "obs_323e61aa643692fa",
+        "obs_64febe7b47f56550",
+        "obs_47d8fddef6396c69",
+        "obs_1747fec2482e76f5",
+        "obs_9abb88042e6be5e6",
+        "obs_baaa9ad1ae1d5827",
+        "obs_774e2e4616012d43",
+        "obs_6d154d62c118885a",
+        "obs_7a5431e1bab72ab1",
+        "obs_1b45ddbf0e60847f",
+        "obs_2a873d917769f6f8",
+        "obs_29c07a7a8d318a56",
+        "obs_a78df93adc9aecb2",
+        "obs_c020f019548d850e",
+        "obs_2b0c120e050e11c0",
+        "obs_a66462415d0e2902",
+        "obs_954bf02e7841e047"
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_78.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_78.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_78.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 175492
+          }
+        },
+        {
+          "artifact_id": "frame_79.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_79.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_79.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178228
+          }
+        },
+        {
+          "artifact_id": "frame_80.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_80.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_80.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178194
+          }
+        },
+        {
+          "artifact_id": "frame_81.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_81.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155592
+          }
+        },
+        {
+          "artifact_id": "frame_82.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_82.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155665
+          }
+        },
+        {
+          "artifact_id": "frame_83.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_83.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_83.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 37551
+          }
+        }
+      ],
+      "source_artifact_refs": [
+        {
+          "artifact_id": "frame_78.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_78.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_78.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 175492
+          }
+        },
+        {
+          "artifact_id": "frame_79.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_79.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_79.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178228
+          }
+        },
+        {
+          "artifact_id": "frame_80.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_80.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_80.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178194
+          }
+        },
+        {
+          "artifact_id": "frame_81.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_81.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155592
+          }
+        },
+        {
+          "artifact_id": "frame_82.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_82.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155665
+          }
+        },
+        {
+          "artifact_id": "frame_83.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_83.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_83.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 37551
+          }
+        }
+      ],
+      "metadata": {
+        "request_hash": "ccd065aa000e6ea7db1a9b4d",
+        "cache_hit": false
+      }
+    },
+    {
+      "observation_id": "obs_09478ec4dfb80fd5",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "See reporting",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"See reporting\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_09478ec4dfb80fd5"
+      }
+    },
+    {
+      "observation_id": "obs_5aeeb7731866bcc9",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Manage contient",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Manage contient\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_5aeeb7731866bcc9"
+      }
+    },
+    {
+      "observation_id": "obs_81c90d1562a3e5a2",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Home",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Home\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_81c90d1562a3e5a2"
+      }
+    },
+    {
+      "observation_id": "obs_7ce275425ef4381e",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Repairs\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_7ce275425ef4381e"
+      }
+    },
+    {
+      "observation_id": "obs_64c9f04db8c66026",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "O",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"O\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_64c9f04db8c66026"
+      }
+    },
+    {
+      "observation_id": "obs_68113a9fdcdff180",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Update background photo",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Update background photo\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_68113a9fdcdff180"
+      }
+    },
+    {
+      "observation_id": "obs_83f87890f5f1eba2",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Everyday Home Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Everyday Home Repairs\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_83f87890f5f1eba2"
+      }
+    },
+    {
+      "observation_id": "obs_181b508c475fe10e",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "c",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"c\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_181b508c475fe10e"
+      }
+    },
+    {
+      "observation_id": "obs_67b47923fb67c9f2",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "quick refferertces to all of our recommended toaols that have served uis well ovnwr the years",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"quick refferertces to all of our recommended toaols that have served uis well ovnwr the years\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_67b47923fb67c9f2"
+      }
+    },
+    {
+      "observation_id": "obs_cfddb3978c06b161",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "My earnse is Scortt and welicomnne to dur Evieryday Hore Repairs Amazon Stone. Belcw you wsill fland",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"My earnse is Scortt and welicomnne to dur Evieryday Hore Repairs Amazon Stone. Belcw you wsill fland\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_cfddb3978c06b161"
+      }
+    },
+    {
+      "observation_id": "obs_b04236160a651efa",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Adiea Lisits",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Adiea Lisits\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_b04236160a651efa"
+      }
+    },
+    {
+      "observation_id": "obs_d7b763f31f3826c4",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Videos",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Videos\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_d7b763f31f3826c4"
+      }
+    },
+    {
+      "observation_id": "obs_320fa9fc765dc0ad",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Lvestratarns",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Lvestratarns\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_320fa9fc765dc0ad"
+      }
+    },
+    {
+      "observation_id": "obs_3074185ddf92efc7",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "asi fs all 2.2 po",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"asi fs all 2.2 po\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_3074185ddf92efc7"
+      }
+    },
+    {
+      "observation_id": "obs_627ed4e8942c0eee",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Search",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Search\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_627ed4e8942c0eee"
+      }
+    },
+    {
+      "observation_id": "obs_34bc8c26143ce290",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Everyday Home Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Everyday Home Repairs\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_34bc8c26143ce290"
+      }
+    },
+    {
+      "observation_id": "obs_e4fd06653d05f297",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "G",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"G\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_e4fd06653d05f297"
+      }
+    },
+    {
+      "observation_id": "obs_57bf7b87a39a22f3",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "My rurne is Scatt and welicome to our Everydiay Horne Repairs Aunazorn Store. Below ytu will find",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"My rurne is Scatt and welicome to our Everydiay Horne Repairs Aunazorn Store. Below ytu will find\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_57bf7b87a39a22f3"
+      }
+    },
+    {
+      "observation_id": "obs_bf5e75fe37cf9769",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "ces to all of our recormmtended tools that have served us well over the years.",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"ces to all of our recormmtended tools that have served us well over the years.\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_bf5e75fe37cf9769"
+      }
+    },
+    {
+      "observation_id": "obs_c61b3028eda53068",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Iidea Lists",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Iidea Lists\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_c61b3028eda53068"
+      }
+    },
+    {
+      "observation_id": "obs_a6d90fc02d7b2f01",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Videcs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Videcs\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_a6d90fc02d7b2f01"
+      }
+    },
+    {
+      "observation_id": "obs_de23d954f4f27f9d",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Livestreams",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Livestreams\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_de23d954f4f27f9d"
+      }
+    },
+    {
+      "observation_id": "obs_d6d04333fc37a142",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Q Search ail 72 ports",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Q Search ail 72 ports\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_d6d04333fc37a142"
+      }
+    },
+    {
+      "observation_id": "obs_5a90af86b8288ea6",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Seanch",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Seanch\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_5a90af86b8288ea6"
+      }
+    },
+    {
+      "observation_id": "obs_dcd3a52c999c9038",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "12MEM",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"12MEM\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_dcd3a52c999c9038"
+      }
+    },
+    {
+      "observation_id": "obs_48eb37cec8db5079",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "TIOM",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"TIOM\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_48eb37cec8db5079"
+      }
+    },
+    {
+      "observation_id": "obs_abd02a89e8a678a3",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "LaciUp Pomer",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"LaciUp Pomer\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_abd02a89e8a678a3"
+      }
+    },
+    {
+      "observation_id": "obs_b480a6957ef8dbe1",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "flectriead",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"flectriead\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_b480a6957ef8dbe1"
+      }
+    },
+    {
+      "observation_id": "obs_8bc18998bb2408d7",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "NAITEMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"NAITEMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_8bc18998bb2408d7"
+      }
+    },
+    {
+      "observation_id": "obs_7d4d4c3b14a1b5a4",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "SOTEMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"SOTEMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_7d4d4c3b14a1b5a4"
+      }
+    },
+    {
+      "observation_id": "obs_0d250f786e38673f",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "17ITPMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"17ITPMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_0d250f786e38673f"
+      }
+    },
+    {
+      "observation_id": "obs_9e41427adf9aa726",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "20 ITEMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"20 ITEMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_9e41427adf9aa726"
+      }
+    },
+    {
+      "observation_id": "obs_6af2c35bcdabcbb9",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Genterai Teals",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Genterai Teals\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_6af2c35bcdabcbb9"
+      }
+    },
+    {
+      "observation_id": "obs_2c3e6304227f5e61",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "YouTube Gear",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"YouTube Gear\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_2c3e6304227f5e61"
+      }
+    },
+    {
+      "observation_id": "obs_a3a0a46cefc7ccb7",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "lumbing (Shaurkbite)",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"lumbing (Shaurkbite)\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_a3a0a46cefc7ccb7"
+      }
+    },
+    {
+      "observation_id": "obs_dd5c27eb5ced5d2a",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Everyday Home Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Everyday Home Repairs\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_dd5c27eb5ced5d2a"
+      }
+    },
+    {
+      "observation_id": "obs_21c6c9bbbef00347",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "G",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"G\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_21c6c9bbbef00347"
+      }
+    },
+    {
+      "observation_id": "obs_e0b1eb2548ce056e",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "My rurne is Scatt and welicome to our Everydiay Horne Repairs Aurnazorn Store. Below ytu will find",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"My rurne is Scatt and welicome to our Everydiay Horne Repairs Aurnazorn Store. Below ytu will find\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_e0b1eb2548ce056e"
+      }
+    },
+    {
+      "observation_id": "obs_5570470bf61d64e6",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "ces to all of our recornmtended tools that have served us well over the years.",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"ces to all of our recornmtended tools that have served us well over the years.\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_5570470bf61d64e6"
+      }
+    },
+    {
+      "observation_id": "obs_8fcc15c3b1b7ddd5",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Iidea Lists",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Iidea Lists\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_8fcc15c3b1b7ddd5"
+      }
+    },
+    {
+      "observation_id": "obs_86c4e940288ec253",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Videcs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Videcs\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_86c4e940288ec253"
+      }
+    },
+    {
+      "observation_id": "obs_6cdf48f562e4e803",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Livestreams",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Livestreams\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_6cdf48f562e4e803"
+      }
+    },
+    {
+      "observation_id": "obs_67fd3a6fbcf63222",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Q Search ail 72 ports",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Q Search ail 72 ports\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_67fd3a6fbcf63222"
+      }
+    },
+    {
+      "observation_id": "obs_90f997fe6008ef26",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Seanch",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Seanch\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_90f997fe6008ef26"
+      }
+    },
+    {
+      "observation_id": "obs_60ed892e68af2ca4",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "4",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"4\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_60ed892e68af2ca4"
+      }
+    },
+    {
+      "observation_id": "obs_fb72439928372f1b",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "12TEM",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"12TEM\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_fb72439928372f1b"
+      }
+    },
+    {
+      "observation_id": "obs_ca004ee515ee4127",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "TITMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"TITMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_ca004ee515ee4127"
+      }
+    },
+    {
+      "observation_id": "obs_e61df44360a9579e",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "BackUp Pomer",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"BackUp Pomer\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_e61df44360a9579e"
+      }
+    },
+    {
+      "observation_id": "obs_a4688ed6e1e617c9",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Blinds And Wie",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Blinds And Wie\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_a4688ed6e1e617c9"
+      }
+    },
+    {
+      "observation_id": "obs_f33ec1b4b393f5c2",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "flactrical",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"flactrical\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_f33ec1b4b393f5c2"
+      }
+    },
+    {
+      "observation_id": "obs_6f7ee8b154d70e3a",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "NATEMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"NATEMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_6f7ee8b154d70e3a"
+      }
+    },
+    {
+      "observation_id": "obs_7b9a88b6da487bc9",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "SOTEMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"SOTEMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_7b9a88b6da487bc9"
+      }
+    },
+    {
+      "observation_id": "obs_e6cbece4d650f077",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "1ITPMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"1ITPMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_e6cbece4d650f077"
+      }
+    },
+    {
+      "observation_id": "obs_eed5f0c12a4ae76b",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "20 ITTMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"20 ITTMS\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_eed5f0c12a4ae76b"
+      }
+    },
+    {
+      "observation_id": "obs_aa0f0bf6a99d575c",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Genteral Teals",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Genteral Teals\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_aa0f0bf6a99d575c"
+      }
+    },
+    {
+      "observation_id": "obs_d676f86e61b45af8",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "nibing (General)",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"nibing (General)\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_d676f86e61b45af8"
+      }
+    },
+    {
+      "observation_id": "obs_aff415862c4661fc",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "LOORLNTTWSTHAET",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"LOORLNTTWSTHAET\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_aff415862c4661fc"
+      }
+    },
+    {
+      "observation_id": "obs_746e40030f0bda9e",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Pet Supplies",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Pet Supplies\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_746e40030f0bda9e"
+      }
+    },
+    {
+      "observation_id": "obs_0f9472936db28092",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Shop By Iinterent",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Shop By Iinterent\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_0f9472936db28092"
+      }
+    },
+    {
+      "observation_id": "obs_d35e69f2ebd1260a",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Heatth & Housnthold",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Heatth & Housnthold\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_d35e69f2ebd1260a"
+      }
+    },
+    {
+      "observation_id": "obs_4b9d0642eaf01ab7",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Find a Gift",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Find a Gift\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_4b9d0642eaf01ab7"
+      }
+    },
+    {
+      "observation_id": "obs_826ef505ba9ee7d5",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Haredasadia",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Haredasadia\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_826ef505ba9ee7d5"
+      }
+    },
+    {
+      "observation_id": "obs_03167cad338152a2",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Livestream",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Livestream\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_03167cad338152a2"
+      }
+    },
+    {
+      "observation_id": "obs_79cac953469dc16b",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Everyday Home Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Everyday Home Repairs\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_79cac953469dc16b"
+      }
+    },
+    {
+      "observation_id": "obs_b10f1554e2ec4722",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "c",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"c\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_b10f1554e2ec4722"
+      }
+    },
+    {
+      "observation_id": "obs_090c272d83b6056f",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "General Supplies",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"General Supplies\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_090c272d83b6056f"
+      }
+    },
+    {
+      "observation_id": "obs_fd985431ab6c856a",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Dixie",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Dixie\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_fd985431ab6c856a"
+      }
+    },
+    {
+      "observation_id": "obs_7a70b4179eacf6b5",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Swpeet",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Swpeet\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_7a70b4179eacf6b5"
+      }
+    },
+    {
+      "observation_id": "obs_ebfacf70082096c5",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "A AIRTITE",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"A AIRTITE\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_ebfacf70082096c5"
+      }
+    },
+    {
+      "observation_id": "obs_70ce11cd559c3617",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "GE",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"GE\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_70ce11cd559c3617"
+      }
+    },
+    {
+      "observation_id": "obs_c7f0e256e3f5a1ea",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Slime",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Slime\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_c7f0e256e3f5a1ea"
+      }
+    },
+    {
+      "observation_id": "obs_1b2dd7c1bc2626bc",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "ITW Brands 25316 50PK#50",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"ITW Brands 25316 50PK#50\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_1b2dd7c1bc2626bc"
+      }
+    },
+    {
+      "observation_id": "obs_50a9fc35fbeec3d2",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Swpeet Assorted 24 Pcs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Swpeet Assorted 24 Pcs\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_50a9fc35fbeec3d2"
+      }
+    },
+    {
+      "observation_id": "obs_aeddee69cab95d29",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "AirTite - Preserves Open",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"AirTite - Preserves Open\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_aeddee69cab95d29"
+      }
+    },
+    {
+      "observation_id": "obs_f0a77a43eda0eab1",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "GE Ms0016 Supreme",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"GE Ms0016 Supreme\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_f0a77a43eda0eab1"
+      }
+    },
+    {
+      "observation_id": "obs_741f83f85ec1f144",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Slime Tire Repair Kit Delucee",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Slime Tire Repair Kit Delucee\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_741f83f85ec1f144"
+      }
+    },
+    {
+      "observation_id": "obs_b41efcb2500a3dc7",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Stud Dry Anchor",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Stud Dry Anchor\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_b41efcb2500a3dc7"
+      }
+    },
+    {
+      "observation_id": "obs_f88854d415885fe5",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Togglie Bolt and Wing Nut",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Togglie Bolt and Wing Nut\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_f88854d415885fe5"
+      }
+    },
+    {
+      "observation_id": "obs_5f9b90dd52397887",
+      "evidence_id": "ev_02_ccd065aa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Caulking Tubes",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Caulking Tubes\".",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_5f9b90dd52397887"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "obs_090c272d83b6056f",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "General Supplies",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"General Supplies\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_090c272d83b6056f"
+      }
+    },
+    {
+      "observation_id": "obs_0eb7ff6c2364e930",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "1192",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"1192\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_0eb7ff6c2364e930"
+      }
+    },
+    {
+      "observation_id": "obs_b40506678951192b",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Faest delivery Tuenday, June 20 or",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Faest delivery Tuenday, June 20 or\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_b40506678951192b"
+      }
+    },
+    {
+      "observation_id": "obs_9d7da000099ee31b",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "General Supplies",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"General Supplies\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_9d7da000099ee31b"
+      }
+    },
+    {
+      "observation_id": "obs_774e2e4616012d43",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "1192",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"1192\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_774e2e4616012d43"
+      }
+    },
+    {
+      "observation_id": "obs_68113a9fdcdff180",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Update background photo",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Update background photo\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_68113a9fdcdff180"
+      }
+    },
+    {
+      "observation_id": "obs_8bc18998bb2408d7",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "NAITEMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"NAITEMS\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_8bc18998bb2408d7"
+      }
+    },
+    {
+      "observation_id": "obs_9e41427adf9aa726",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "20 ITEMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"20 ITEMS\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_9e41427adf9aa726"
+      }
+    },
+    {
+      "observation_id": "obs_d676f86e61b45af8",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "nibing (General)",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"nibing (General)\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_d676f86e61b45af8"
+      }
+    },
+    {
+      "observation_id": "obs_746e40030f0bda9e",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Pet Supplies",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Pet Supplies\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_746e40030f0bda9e"
+      }
+    },
+    {
+      "observation_id": "obs_fd985431ab6c856a",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Dixie",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Dixie\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_fd985431ab6c856a"
+      }
+    },
+    {
+      "observation_id": "obs_7a70b4179eacf6b5",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Swpeet",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Swpeet\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_7a70b4179eacf6b5"
+      }
+    },
+    {
+      "observation_id": "obs_ebfacf70082096c5",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "A AIRTITE",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"A AIRTITE\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_ebfacf70082096c5"
+      }
+    },
+    {
+      "observation_id": "obs_c7f0e256e3f5a1ea",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Slime",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Slime\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_c7f0e256e3f5a1ea"
+      }
+    },
+    {
+      "observation_id": "obs_50a9fc35fbeec3d2",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Swpeet Assorted 24 Pcs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Swpeet Assorted 24 Pcs\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_50a9fc35fbeec3d2"
+      }
+    },
+    {
+      "observation_id": "obs_aeddee69cab95d29",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "AirTite - Preserves Open",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"AirTite - Preserves Open\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_aeddee69cab95d29"
+      }
+    },
+    {
+      "observation_id": "obs_741f83f85ec1f144",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Slime Tire Repair Kit Delucee",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Slime Tire Repair Kit Delucee\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_741f83f85ec1f144"
+      }
+    },
+    {
+      "observation_id": "obs_e82e7f0d9064cc45",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "1612",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"1612\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_e82e7f0d9064cc45"
+      }
+    },
+    {
+      "observation_id": "obs_b8c22bd5a4369b8f",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "$171",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"$171\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_b8c22bd5a4369b8f"
+      }
+    },
+    {
+      "observation_id": "obs_6d6f2a89d39a2ec4",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Pet Supplies",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Pet Supplies\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_6d6f2a89d39a2ec4"
+      }
+    },
+    {
+      "observation_id": "obs_846f553a17160a14",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "13 eTEMS × Updated today",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"13 eTEMS × Updated today\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_846f553a17160a14"
+      }
+    },
+    {
+      "observation_id": "obs_9f72471c0d2cb582",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Swpeet",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Swpeet\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_9f72471c0d2cb582"
+      }
+    },
+    {
+      "observation_id": "obs_03bda6ffa5288ee2",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "A AIRTITE",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"A AIRTITE\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_03bda6ffa5288ee2"
+      }
+    },
+    {
+      "observation_id": "obs_f3e1d2c03ee6cda9",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Slime",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Slime\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_f3e1d2c03ee6cda9"
+      }
+    },
+    {
+      "observation_id": "obs_d2e456c11b9f618f",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Swpeet Assorted 24 Pcs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Swpeet Assorted 24 Pcs\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_d2e456c11b9f618f"
+      }
+    },
+    {
+      "observation_id": "obs_decda9c9c5bad288",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "AirTite - Preserves Open",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"AirTite - Preserves Open\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_decda9c9c5bad288"
+      }
+    },
+    {
+      "observation_id": "obs_cdb84f0df5501448",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Slime Tire Repair Kit Deluxe",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Slime Tire Repair Kit Deluxe\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_cdb84f0df5501448"
+      }
+    },
+    {
+      "observation_id": "obs_9abb88042e6be5e6",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "$171",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"$171\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_9abb88042e6be5e6"
+      }
+    },
+    {
+      "observation_id": "obs_baaa9ad1ae1d5827",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "1612",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"1612\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_baaa9ad1ae1d5827"
+      }
+    },
+    {
+      "observation_id": "obs_09478ec4dfb80fd5",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "See reporting",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"See reporting\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_09478ec4dfb80fd5"
+      }
+    },
+    {
+      "observation_id": "obs_5aeeb7731866bcc9",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Manage contient",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Manage contient\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_5aeeb7731866bcc9"
+      }
+    },
+    {
+      "observation_id": "obs_81c90d1562a3e5a2",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Home",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Home\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_81c90d1562a3e5a2"
+      }
+    },
+    {
+      "observation_id": "obs_7ce275425ef4381e",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Repairs\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_7ce275425ef4381e"
+      }
+    },
+    {
+      "observation_id": "obs_64c9f04db8c66026",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "O",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"O\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_64c9f04db8c66026"
+      }
+    },
+    {
+      "observation_id": "obs_83f87890f5f1eba2",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Everyday Home Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Everyday Home Repairs\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_83f87890f5f1eba2"
+      }
+    },
+    {
+      "observation_id": "obs_181b508c475fe10e",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "c",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"c\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_181b508c475fe10e"
+      }
+    },
+    {
+      "observation_id": "obs_67b47923fb67c9f2",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "quick refferertces to all of our recommended toaols that have served uis well ovnwr the years",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"quick refferertces to all of our recommended toaols that have served uis well ovnwr the years\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_67b47923fb67c9f2"
+      }
+    },
+    {
+      "observation_id": "obs_cfddb3978c06b161",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "My earnse is Scortt and welicomnne to dur Evieryday Hore Repairs Amazon Stone. Belcw you wsill fland",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"My earnse is Scortt and welicomnne to dur Evieryday Hore Repairs Amazon Stone. Belcw you wsill fland\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_cfddb3978c06b161"
+      }
+    },
+    {
+      "observation_id": "obs_b04236160a651efa",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Adiea Lisits",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Adiea Lisits\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_b04236160a651efa"
+      }
+    },
+    {
+      "observation_id": "obs_d7b763f31f3826c4",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Videos",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Videos\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_d7b763f31f3826c4"
+      }
+    },
+    {
+      "observation_id": "obs_320fa9fc765dc0ad",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Lvestratarns",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Lvestratarns\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_320fa9fc765dc0ad"
+      }
+    },
+    {
+      "observation_id": "obs_3074185ddf92efc7",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "asi fs all 2.2 po",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"asi fs all 2.2 po\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_3074185ddf92efc7"
+      }
+    },
+    {
+      "observation_id": "obs_627ed4e8942c0eee",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Search",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 78.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Search\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_78.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_627ed4e8942c0eee"
+      }
+    },
+    {
+      "observation_id": "obs_34bc8c26143ce290",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Everyday Home Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Everyday Home Repairs\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_34bc8c26143ce290"
+      }
+    },
+    {
+      "observation_id": "obs_e4fd06653d05f297",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "G",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"G\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_e4fd06653d05f297"
+      }
+    },
+    {
+      "observation_id": "obs_57bf7b87a39a22f3",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "My rurne is Scatt and welicome to our Everydiay Horne Repairs Aunazorn Store. Below ytu will find",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"My rurne is Scatt and welicome to our Everydiay Horne Repairs Aunazorn Store. Below ytu will find\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_57bf7b87a39a22f3"
+      }
+    },
+    {
+      "observation_id": "obs_bf5e75fe37cf9769",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "ces to all of our recormmtended tools that have served us well over the years.",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"ces to all of our recormmtended tools that have served us well over the years.\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_bf5e75fe37cf9769"
+      }
+    },
+    {
+      "observation_id": "obs_c61b3028eda53068",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Iidea Lists",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Iidea Lists\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_c61b3028eda53068"
+      }
+    },
+    {
+      "observation_id": "obs_a6d90fc02d7b2f01",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Videcs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Videcs\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_a6d90fc02d7b2f01"
+      }
+    },
+    {
+      "observation_id": "obs_de23d954f4f27f9d",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Livestreams",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Livestreams\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_de23d954f4f27f9d"
+      }
+    },
+    {
+      "observation_id": "obs_2c3e6304227f5e61",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "YouTube Gear",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"YouTube Gear\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_2c3e6304227f5e61"
+      }
+    },
+    {
+      "observation_id": "obs_67f91ada22be20da",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Nordic Pure",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 81.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Nordic Pure\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_81.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_67f91ada22be20da"
+      }
+    },
+    {
+      "observation_id": "obs_c020f019548d850e",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Nordic Pure",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 82.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Nordic Pure\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_82.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_c020f019548d850e"
+      }
+    },
+    {
+      "observation_id": "obs_5570470bf61d64e6",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "ces to all of our recornmtended tools that have served us well over the years.",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"ces to all of our recornmtended tools that have served us well over the years.\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_5570470bf61d64e6"
+      }
+    },
+    {
+      "observation_id": "obs_d6d04333fc37a142",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Q Search ail 72 ports",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Q Search ail 72 ports\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_d6d04333fc37a142"
+      }
+    },
+    {
+      "observation_id": "obs_5a90af86b8288ea6",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Seanch",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Seanch\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_5a90af86b8288ea6"
+      }
+    },
+    {
+      "observation_id": "obs_dcd3a52c999c9038",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "12MEM",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"12MEM\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_dcd3a52c999c9038"
+      }
+    },
+    {
+      "observation_id": "obs_48eb37cec8db5079",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "TIOM",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"TIOM\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_48eb37cec8db5079"
+      }
+    },
+    {
+      "observation_id": "obs_abd02a89e8a678a3",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "LaciUp Pomer",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"LaciUp Pomer\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_abd02a89e8a678a3"
+      }
+    },
+    {
+      "observation_id": "obs_b480a6957ef8dbe1",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "flectriead",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"flectriead\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_b480a6957ef8dbe1"
+      }
+    },
+    {
+      "observation_id": "obs_7d4d4c3b14a1b5a4",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "SOTEMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"SOTEMS\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_7d4d4c3b14a1b5a4"
+      }
+    },
+    {
+      "observation_id": "obs_0d250f786e38673f",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "17ITPMS",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"17ITPMS\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_0d250f786e38673f"
+      }
+    },
+    {
+      "observation_id": "obs_6af2c35bcdabcbb9",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Genterai Teals",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Genterai Teals\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_6af2c35bcdabcbb9"
+      }
+    },
+    {
+      "observation_id": "obs_a3a0a46cefc7ccb7",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "lumbing (Shaurkbite)",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 79.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"lumbing (Shaurkbite)\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_79.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_a3a0a46cefc7ccb7"
+      }
+    },
+    {
+      "observation_id": "obs_dd5c27eb5ced5d2a",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Everyday Home Repairs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Everyday Home Repairs\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_dd5c27eb5ced5d2a"
+      }
+    },
+    {
+      "observation_id": "obs_21c6c9bbbef00347",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "G",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"G\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_21c6c9bbbef00347"
+      }
+    },
+    {
+      "observation_id": "obs_e0b1eb2548ce056e",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "My rurne is Scatt and welicome to our Everydiay Horne Repairs Aurnazorn Store. Below ytu will find",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"My rurne is Scatt and welicome to our Everydiay Horne Repairs Aurnazorn Store. Below ytu will find\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_e0b1eb2548ce056e"
+      }
+    },
+    {
+      "observation_id": "obs_8fcc15c3b1b7ddd5",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Iidea Lists",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Iidea Lists\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_8fcc15c3b1b7ddd5"
+      }
+    },
+    {
+      "observation_id": "obs_86c4e940288ec253",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Videcs",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Videcs\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_86c4e940288ec253"
+      }
+    },
+    {
+      "observation_id": "obs_6cdf48f562e4e803",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Livestreams",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Livestreams\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_6cdf48f562e4e803"
+      }
+    },
+    {
+      "observation_id": "obs_67fd3a6fbcf63222",
+      "subject": "screen",
+      "subject_type": "frame",
+      "predicate": "contains_text",
+      "object_text": "Q Search ail 72 ports",
+      "object_type": "text",
+      "numeric_value": null,
+      "unit": null,
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 80.0,
+      "speaker_id": null,
+      "confidence": null,
+      "source_tool": "ocr",
+      "direct_or_derived": "direct",
+      "atomic_text": "OCR detected text: \"Q Search ail 72 ports\".",
+      "evidence_id": "ev_02_ccd065aa",
+      "evidence_status": "provisional",
+      "bbox": null,
+      "source_artifact_refs": [
+        "frame_80.00"
+      ],
+      "metadata": {
+        "observation_id": "obs_67fd3a6fbcf63222"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev_02_ccd065aa",
+      "tool_name": "ocr",
+      "evidence_text": "OCR completed for 6 input item(s).",
+      "inference_hint": null,
+      "confidence": 0.9999,
+      "status": "provisional",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 78.0,
+          "end_s": 78.0
+        },
+        {
+          "start_s": 79.0,
+          "end_s": 79.0
+        },
+        {
+          "start_s": 80.0,
+          "end_s": 80.0
+        },
+        {
+          "start_s": 81.0,
+          "end_s": 81.0
+        },
+        {
+          "start_s": 82.0,
+          "end_s": 82.0
+        },
+        {
+          "start_s": 83.0,
+          "end_s": 83.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_78.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_78.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_78.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 175492
+          }
+        },
+        {
+          "artifact_id": "frame_79.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_79.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_79.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178228
+          }
+        },
+        {
+          "artifact_id": "frame_80.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_80.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_80.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178194
+          }
+        },
+        {
+          "artifact_id": "frame_81.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_81.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155592
+          }
+        },
+        {
+          "artifact_id": "frame_82.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_82.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155665
+          }
+        },
+        {
+          "artifact_id": "frame_83.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_83.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_83.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 37551
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_09478ec4dfb80fd5",
+        "obs_5aeeb7731866bcc9",
+        "obs_81c90d1562a3e5a2",
+        "obs_7ce275425ef4381e",
+        "obs_64c9f04db8c66026",
+        "obs_68113a9fdcdff180",
+        "obs_83f87890f5f1eba2",
+        "obs_181b508c475fe10e",
+        "obs_67b47923fb67c9f2",
+        "obs_cfddb3978c06b161",
+        "obs_b04236160a651efa",
+        "obs_d7b763f31f3826c4",
+        "obs_320fa9fc765dc0ad",
+        "obs_3074185ddf92efc7",
+        "obs_627ed4e8942c0eee",
+        "obs_34bc8c26143ce290",
+        "obs_e4fd06653d05f297",
+        "obs_57bf7b87a39a22f3",
+        "obs_bf5e75fe37cf9769",
+        "obs_c61b3028eda53068",
+        "obs_a6d90fc02d7b2f01",
+        "obs_de23d954f4f27f9d",
+        "obs_d6d04333fc37a142",
+        "obs_5a90af86b8288ea6",
+        "obs_dcd3a52c999c9038",
+        "obs_48eb37cec8db5079",
+        "obs_abd02a89e8a678a3",
+        "obs_b480a6957ef8dbe1",
+        "obs_8bc18998bb2408d7",
+        "obs_7d4d4c3b14a1b5a4",
+        "obs_0d250f786e38673f",
+        "obs_9e41427adf9aa726",
+        "obs_6af2c35bcdabcbb9",
+        "obs_2c3e6304227f5e61",
+        "obs_a3a0a46cefc7ccb7",
+        "obs_dd5c27eb5ced5d2a",
+        "obs_21c6c9bbbef00347",
+        "obs_e0b1eb2548ce056e",
+        "obs_5570470bf61d64e6",
+        "obs_8fcc15c3b1b7ddd5",
+        "obs_86c4e940288ec253",
+        "obs_6cdf48f562e4e803",
+        "obs_67fd3a6fbcf63222",
+        "obs_90f997fe6008ef26",
+        "obs_60ed892e68af2ca4",
+        "obs_fb72439928372f1b",
+        "obs_ca004ee515ee4127",
+        "obs_e61df44360a9579e",
+        "obs_a4688ed6e1e617c9",
+        "obs_f33ec1b4b393f5c2",
+        "obs_6f7ee8b154d70e3a",
+        "obs_7b9a88b6da487bc9",
+        "obs_e6cbece4d650f077",
+        "obs_eed5f0c12a4ae76b",
+        "obs_aa0f0bf6a99d575c",
+        "obs_d676f86e61b45af8",
+        "obs_aff415862c4661fc",
+        "obs_746e40030f0bda9e",
+        "obs_0f9472936db28092",
+        "obs_d35e69f2ebd1260a",
+        "obs_4b9d0642eaf01ab7",
+        "obs_826ef505ba9ee7d5",
+        "obs_03167cad338152a2",
+        "obs_79cac953469dc16b",
+        "obs_b10f1554e2ec4722",
+        "obs_090c272d83b6056f",
+        "obs_fd985431ab6c856a",
+        "obs_7a70b4179eacf6b5",
+        "obs_ebfacf70082096c5",
+        "obs_70ce11cd559c3617",
+        "obs_c7f0e256e3f5a1ea",
+        "obs_1b2dd7c1bc2626bc",
+        "obs_50a9fc35fbeec3d2",
+        "obs_aeddee69cab95d29",
+        "obs_f0a77a43eda0eab1",
+        "obs_741f83f85ec1f144",
+        "obs_b41efcb2500a3dc7",
+        "obs_f88854d415885fe5",
+        "obs_5f9b90dd52397887",
+        "obs_e202d8afce9e41d7",
+        "obs_e82e7f0d9064cc45",
+        "obs_0eb7ff6c2364e930",
+        "obs_136c98612a23ad59",
+        "obs_104bdbff9ad33a15",
+        "obs_b8c22bd5a4369b8f",
+        "obs_b40506678951192b",
+        "obs_23c7d323edb78d3e",
+        "obs_9cf3182f9e5bcc1e",
+        "obs_92240725e2f4ecb6",
+        "obs_b217bca376af8b28",
+        "obs_67f91ada22be20da",
+        "obs_86d3ea2f4395f6b4",
+        "obs_6d6f2a89d39a2ec4",
+        "obs_d8e463068db824be",
+        "obs_639abbf18dd6c4bc",
+        "obs_16d060edfa14d5cc",
+        "obs_1108f22aacb5db09",
+        "obs_87ce14579cb37eae",
+        "obs_7189b17369a3a8ef",
+        "obs_ccda9e2fd0722a32",
+        "obs_4cdb422cdf65f1ce",
+        "obs_e69902c06c18d1da",
+        "obs_269626a739ef4a4c",
+        "obs_846f553a17160a14",
+        "obs_9d7da000099ee31b",
+        "obs_c0565bfd5c895f65",
+        "obs_9f72471c0d2cb582",
+        "obs_03bda6ffa5288ee2",
+        "obs_e0841b34032a1533",
+        "obs_f3e1d2c03ee6cda9",
+        "obs_0888a42cfc7cd83d",
+        "obs_d2e456c11b9f618f",
+        "obs_decda9c9c5bad288",
+        "obs_a4c5f57394ecd755",
+        "obs_cdb84f0df5501448",
+        "obs_f99afe6d29387c3b",
+        "obs_323e61aa643692fa",
+        "obs_64febe7b47f56550",
+        "obs_47d8fddef6396c69",
+        "obs_1747fec2482e76f5",
+        "obs_9abb88042e6be5e6",
+        "obs_baaa9ad1ae1d5827",
+        "obs_774e2e4616012d43",
+        "obs_6d154d62c118885a",
+        "obs_7a5431e1bab72ab1",
+        "obs_1b45ddbf0e60847f",
+        "obs_2a873d917769f6f8",
+        "obs_29c07a7a8d318a56",
+        "obs_a78df93adc9aecb2",
+        "obs_c020f019548d850e",
+        "obs_2b0c120e050e11c0",
+        "obs_a66462415d0e2902",
+        "obs_954bf02e7841e047"
+      ],
+      "metadata": {
+        "request_hash": "ccd065aa000e6ea7db1a9b4d",
+        "cache_hit": false
+      }
+    }
+  ],
+  "artifact_context": [
+    {
+      "artifact_id": "frame_82.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+      "time": {
+        "timestamp_s": 82.0
+      },
+      "contains": [
+        "OCR detected text: \"General Supplies\".",
+        "OCR detected text: \"Pet Supplies\".",
+        "OCR detected text: \"Stud Dry Anchor\".",
+        "OCR detected text: \"Amaron Basics\".",
+        "OCR detected text: \"Beauity & Personal Cars\".",
+        "OCR detected text: \"Coupons\".",
+        "OCR detected text: \"Shep By Interent\".",
+        "OCR detected text: \"Health & Household\".",
+        "OCR detected text: \"Find a Gih\".",
+        "OCR detected text: \"Handrade\".",
+        "OCR detected text: \"Livestream\".",
+        "OCR detected text: \"Everyday Home Repairs\"."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_9d7da000099ee31b",
+          "source_tool": "ocr",
+          "text": "OCR detected text: \"General Supplies\"."
+        },
+        {
+          "observation_id": "obs_6d6f2a89d39a2ec4",
+          "source_tool": "ocr",
+          "text": "OCR detected text: \"Pet Supplies\"."
+        },
+        {
+          "observation_id": "obs_f99afe6d29387c3b",
+          "source_tool": "ocr",
+          "text": "OCR detected text: \"Stud Dry Anchor\"."
+        },
+        {
+          "observation_id": "obs_0818b7443f6eeed5",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 has no visible prices."
+        },
+        {
+          "observation_id": "obs_e761131dde6303c1",
+          "source_tool": "generic_purpose",
+          "text": "Image 2 has no visible prices."
+        },
+        {
+          "observation_id": "obs_fd373d960db2edae",
+          "source_tool": "generic_purpose",
+          "text": "Image 3 has no visible prices."
+        },
+        {
+          "observation_id": "obs_8d574f44a0ee4a77",
+          "source_tool": "generic_purpose",
+          "text": "Image 4 shows an Amazon page titled \"General Supplies\"."
+        },
+        {
+          "observation_id": "obs_55dd08189242c4f5",
+          "source_tool": "generic_purpose",
+          "text": "The price of Dixie ITW Brands 25316 50PK#50 Stud Dry Anchor is $119."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_36a8c315",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 6 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_ccd065aa",
+          "tool_name": "ocr",
+          "summary": "OCR completed for 6 input item(s).",
+          "observation_texts": [
+            "OCR detected text: \"Pet Supplies\".",
+            "OCR detected text: \"Amaron Basics\".",
+            "OCR detected text: \"Beauity & Personal Cars\".",
+            "OCR detected text: \"Coupons\"."
+          ]
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_81.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+      "time": {
+        "timestamp_s": 81.0
+      },
+      "contains": [
+        "OCR detected text: \"General Supplies\".",
+        "OCR detected text: \"Pet Supplies\".",
+        "OCR detected text: \"Stud Dry Anchor\".",
+        "Image 1 has no visible prices.",
+        "Image 2 has no visible prices.",
+        "OCR detected text: \"Shop By Iinterent\".",
+        "OCR detected text: \"Heatth & Housnthold\".",
+        "OCR detected text: \"Find a Gift\".",
+        "OCR detected text: \"Haredasadia\".",
+        "OCR detected text: \"Livestream\".",
+        "OCR detected text: \"Everyday Home Repairs\".",
+        "OCR detected text: \"c\"."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_090c272d83b6056f",
+          "source_tool": "ocr",
+          "text": "OCR detected text: \"General Supplies\"."
+        },
+        {
+          "observation_id": "obs_746e40030f0bda9e",
+          "source_tool": "ocr",
+          "text": "OCR detected text: \"Pet Supplies\"."
+        },
+        {
+          "observation_id": "obs_b41efcb2500a3dc7",
+          "source_tool": "ocr",
+          "text": "OCR detected text: \"Stud Dry Anchor\"."
+        },
+        {
+          "observation_id": "obs_0818b7443f6eeed5",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 has no visible prices."
+        },
+        {
+          "observation_id": "obs_e761131dde6303c1",
+          "source_tool": "generic_purpose",
+          "text": "Image 2 has no visible prices."
+        },
+        {
+          "observation_id": "obs_fd373d960db2edae",
+          "source_tool": "generic_purpose",
+          "text": "Image 3 has no visible prices."
+        },
+        {
+          "observation_id": "obs_8d574f44a0ee4a77",
+          "source_tool": "generic_purpose",
+          "text": "Image 4 shows an Amazon page titled \"General Supplies\"."
+        },
+        {
+          "observation_id": "obs_55dd08189242c4f5",
+          "source_tool": "generic_purpose",
+          "text": "The price of Dixie ITW Brands 25316 50PK#50 Stud Dry Anchor is $119."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_36a8c315",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 6 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_ccd065aa",
+          "tool_name": "ocr",
+          "summary": "OCR completed for 6 input item(s).",
+          "observation_texts": [
+            "OCR detected text: \"General Supplies\".",
+            "OCR detected text: \"Pet Supplies\".",
+            "OCR detected text: \"Shop By Iinterent\".",
+            "OCR detected text: \"Heatth & Housnthold\"."
+          ]
+        }
+      ]
+    }
+  ]
+}

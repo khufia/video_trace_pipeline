@@ -1,0 +1,49 @@
+{
+  "action": "retrieve",
+  "rationale": "Need existing text describing the final board state or resignation moment to infer captured-piece totals before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "final_segment_captions",
+      "target": "dense_captions",
+      "need": "Dense-caption text for the concluding phase showing the final board position and any visible remaining pieces near game end",
+      "query": "final board position remaining pieces resignation game end chess",
+      "modalities": [
+        "visual",
+        "ocr"
+      ],
+      "time_range": {
+        "start_s": 300.0,
+        "end_s": 344.267
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "final_asr_span",
+      "target": "asr_transcripts",
+      "need": "Transcript around the conclusion in case the speaker states the result or material count",
+      "query": "game end resignation final position pieces material count",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 300.0,
+        "end_s": 344.267
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

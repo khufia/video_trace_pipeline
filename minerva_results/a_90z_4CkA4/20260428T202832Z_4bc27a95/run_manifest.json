@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "a_90z_4CkA4__cb167ae07765",
+  "video_id": "a_90z_4CkA4",
+  "run_id": "20260428T202832Z_4bc27a95",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "a_90z_4CkA4__cb167ae07765",
+    "question": "How many times does the woman in white hit into the net?",
+    "options": [
+      "A. 0.",
+      "B. 4.",
+      "C. 3.",
+      "D. 1.",
+      "E. 2."
+    ],
+    "video_id": "a_90z_4CkA4",
+    "question_id": null,
+    "gold_answer": "2.",
+    "initial_trace_steps": [
+      "I counted each occurrence of the woman in white hitting the ball into the net. The first occurrence was at 00:33. The second occurrence was at 00:52. I noticed that the final ball hit the top of the net at 01:18, but it went over so I didn't count this. There were no more occurrences in the remainder of the video, so I counted 2."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/a_90z_4CkA4",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

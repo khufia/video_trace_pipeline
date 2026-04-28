@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "FkuqYtE1rw0__780a22047879",
+  "video_id": "FkuqYtE1rw0",
+  "run_id": "20260428T192058Z_03bca014",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "FkuqYtE1rw0__780a22047879",
+    "question": "After the wild shuffle hands card is played, and the narrator mentions players may have more or fewer cards, how many cards does the player on the left receive?",
+    "options": [
+      "A. 6.",
+      "B. 2.",
+      "C. 3.",
+      "D. 4.",
+      "E. 5."
+    ],
+    "video_id": "FkuqYtE1rw0",
+    "question_id": null,
+    "gold_answer": "5.",
+    "initial_trace_steps": [
+      "I watched the video and saw the gameplay demonstration. At 02:03, I saw a player put down a card that says \"shuffle hands\". At 02:05-02:11, the narrator explains that after that card is played, all remaining cards are gathered, shuffled, and dealt out again. As a player starts dealing out the cards again to the other players at 02:10, I continued watching, and saw the player on the left received 5 cards at 02:16. Therefore, the answer is 5."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/FkuqYtE1rw0",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

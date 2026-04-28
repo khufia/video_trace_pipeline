@@ -1,0 +1,27 @@
+{
+  "backend": "paddleocr",
+  "model_name": "PaddleOCR",
+  "device": "cuda:1",
+  "device_mapping": {
+    "requested_label": "cuda:1",
+    "resolved_label": "cuda:1",
+    "cuda_visible_devices": "0,1",
+    "cuda_device_order": null,
+    "local_index": 1,
+    "physical_index_hint": "1",
+    "mapping_source": "CUDA_VISIBLE_DEVICES"
+  },
+  "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+  "resolved_model_path": null,
+  "model_resolution_status": "missing",
+  "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+  "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/ODflyuHFr0/20260428T182321Z_6ef64d54/_scratch/ocr",
+  "extra": {
+    "backend_name": "paddleocr",
+    "lang": "en",
+    "ocr_version": "PP-OCRv5",
+    "require_gpu": false,
+    "use_textline_orientation": false,
+    "max_longest_dim": 1600
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.93,
+  "scores": {
+    "logical_coherence": 2,
+    "completeness": 2,
+    "factual_correctness": 3,
+    "reasoning_order": 3
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The trace does not ground the answer-critical fact that the last move delivering checkmate was made by a queen. The provided text supports that a queen is present and that dialogue mentions 'another queen' near 'A checkmate,' but it does not textually establish the actual final move or directly link the queen mention to the mating move rather than general commentary.",
+      "evidence_ids": [
+        "ev_02_edfbcd81"
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "TEMPORAL_GAP",
+      "message": "The question asks for the last piece black moves to deliver checkmate, which requires before/after move validation around the mating moment. The trace cites a late-game window and static piece-presence observations, but does not identify the move transition or confirm that the queen is the piece moved at the decisive moment.",
+      "evidence_ids": [
+        "ev_01_6391ba4e",
+        "ev_02_edfbcd81"
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "INFERENCE_ERROR",
+      "message": "The reasoning relies on elimination by lack of equally grounded evidence for other options. For this multiple-choice question, absence of support for rook, bishop, knight, or pawn is not sufficient to prove queen unless the queen move itself is grounded.",
+      "evidence_ids": [
+        "ev_02_edfbcd81"
+      ]
+    }
+  ],
+  "feedback": "Preserve queen as a candidate, but the current trace overreaches from queen mention/presence to queen-as-final-move. The answer needs grounded validation of which black piece actually makes the last move that results in checkmate.",
+  "missing_information": [
+    "the piece black actually moves on the final move before checkmate",
+    "a grounded temporal link between the checkmate moment and that specific move",
+    "option mapping based on the validated mating move rather than piece presence or dialogue mention alone"
+  ],
+  "diagnostics": {
+    "referent_alignment": "Partial: the trace identifies a black queen on the board/display, but does not establish that this is the piece black moved to mate.",
+    "temporal_alignment": "Insufficient: frames and transcript are near the checkmate moment, but the move transition immediately before checkmate is not textually resolved.",
+    "option_alignment": "The trace selects a provided option, but uniqueness is not justified from the supplied text alone.",
+    "evidence_sufficiency": "Insufficient for PASS: evidence supports queen salience, not the answer-critical final mating move."
+  }
+}

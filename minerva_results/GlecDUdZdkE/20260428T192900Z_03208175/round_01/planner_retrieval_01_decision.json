@@ -1,0 +1,28 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries suggest the sticker appears early and likely yellow, but we need existing dense-caption text for the final on-screen occurrence before planning new visual tools.",
+  "requests": [
+    {
+      "request_id": "last_mahalo_dense_caps",
+      "target": "dense_captions",
+      "need": "Dense-caption spans that mention the physical 'Mahalo my dude' sticker and its appearance near its last on-screen occurrence",
+      "query": "Mahalo my dude sticker yellow bike frame close-up last on-screen physical sticker",
+      "modalities": [
+        "visual",
+        "ocr"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 60.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "GlecDUdZdkE__abf1b87ae639",
+  "video_id": "GlecDUdZdkE",
+  "run_id": "20260428T193849Z_420ed9c8",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "GlecDUdZdkE__abf1b87ae639",
+    "question": "After the guy uses his smartphone for the last time, what onscreen option is highlighted?",
+    "options": [
+      "A. \"Decline\".",
+      "B. \"Open in Photos\".",
+      "C. \"Download\".",
+      "D. \"Accept\".",
+      "E. \"Open in new window\"."
+    ],
+    "video_id": "GlecDUdZdkE",
+    "question_id": null,
+    "gold_answer": "\"Accept\".",
+    "initial_trace_steps": [
+      "I searched the video to determine each time the guy was shown using his smartphone. The first time was at 01:13 when he snapped a photo of the \"DIRT SURFIN'\" sticker. He used his smartphone again at 01:15 when he uploaded the sticker to Adobe Photoshop, the app he mentioned at 01:16. This was inferred when the photo was then visible on the screen at 01:16, confirming a successful upload. A message appeared on screen at the top of a black dialog box that read, \"Andrew Santos's iPhone wants to send you a photo\". The \"Accept\" option was highlighted in blue."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/GlecDUdZdkE",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

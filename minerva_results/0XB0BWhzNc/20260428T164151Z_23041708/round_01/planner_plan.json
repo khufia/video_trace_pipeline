@@ -1,0 +1,38 @@
+{
+  "strategy": "Use the retrieved end-of-third-quarter scoreboard frames directly and verify the final visible score/leader from the latest stable frame, avoiding redundant retrieval.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "generic_purpose",
+      "purpose": "Inspect the retrieved end-of-third-quarter scoreboard frame and determine the exact score and which team is leading, then map that result to the provided options.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [
+          {
+            "video_id": "-0XB0BWhzNc",
+            "timestamp_s": 126.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_126.00",
+            "relpath": "artifacts/0XB0BWhzNc/frames/frame_126.00.png"
+          }
+        ],
+        "query": "Using the provided scoreboard frame from the end of the 3rd quarter, identify the exact visible score for BRISTOL CENT. and E. CATHOLIC, determine who is leading, and state which answer option matches. Ignore earlier-quarter frames and rely on the end-of-third-quarter display.",
+        "text_contexts": [
+          "Options include 55-40 Bristol Central leading, 52-52 tied, 55-40 East Catholic leading, 64-32 Bristol Central leading, and 64-32 East Catholic leading.",
+          "Question asks: What is the score at the end of the third quarter?"
+        ],
+        "transcripts": []
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "exact score, leader, and matching option",
+        "supporting_points": "scoreboard readings from the frame",
+        "analysis": "brief justification that the frame is the end-of-third-quarter display"
+      }
+    }
+  ],
+  "refinement_instructions": "Base the trace on the visual scoreboard reading from frame_126.00. Treat retrieved artifact-context text as provisional guidance only; the proof should come from the frame inspection. State both team scores and the leader, then map to the option. If the frame is unexpectedly unreadable, mention that and fall back to the neighboring retrieved frames 124.00 and 125.00 only as corroboration, not to unrelated earlier frames."
+}

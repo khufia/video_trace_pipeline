@@ -1,0 +1,28 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "3d296eaf1a407668bb6a4158",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "ZF4T833lln4",
+        "start_s": 300.0,
+        "end_s": 344.267,
+        "artifact_id": "clip_300_00_344_27",
+        "relpath": "artifacts/ZF4T833lln4/clips/clip_300_00_344_27.mp4",
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "308-320s final board before and during resignation popup",
+      "latest visible stable board state before the congratulations popup obscures squares"
+    ],
+    "query": "final chessboard position showing all remaining white and black pieces as clearly as possible near resignation",
+    "num_frames": 6,
+    "sequence_mode": "anchor_window",
+    "neighbor_radius_s": 6.0,
+    "include_anchor_neighbors": true,
+    "sort_order": "chronological"
+  }
+}

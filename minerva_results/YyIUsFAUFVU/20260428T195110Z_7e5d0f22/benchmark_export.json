@@ -1,0 +1,78 @@
+{
+  "sample_key": "YyIUsFAUFVU__c17d4ee05b76",
+  "trace": {
+    "inference_steps": [
+      "[37.004s to 61.793s] The quoted intro lineup sentence is the key evidence because it explicitly lists who is featured in the show.",
+      "From that sentence, six distinct named comedians are explicitly listed: Nicky Beardy, Daniel Taylor, Aziz Abraham, Christiana Backer, Andin Minocha, and Dave Cohen.",
+      "The transcript then adds the phrase \"a fi,\" translated as \"and me,\" after the six named people.",
+      "Because the speaker is identified separately from the six named people and says \"and me\" while introducing the show's lineup, the best-supported reading is that the speaker adds themself as an additional featured comedian. That yields 7 total featured comedians. The exact spelling of \"Andin Minocha\" may normalize to Inder Manocha, but that does not change the count.",
+      "Among the answer choices, 7 matches option E. Option D (6) would fit only if \"and me\" were excluded, but the transcript wording better supports inclusion."
+    ],
+    "evidence": [
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "In transcript segment 37.004s-61.793s, the speaker says: \"Mae gennym Nicky Beardy, Daniel Taylor, Aziz Abraham, Christiana Backer, Andin Minocha, Dave Cohen a fi.\" The provided translation renders this as: \"We have Nicky Beardy, Daniel Taylor, Aziz Abraham, Christiana Backer, Andin Minocha, Dave Cohen and me.\"",
+        "observation_ids": [
+          "obs_fa6e191b228cacc7",
+          "obs_8eb1a286ec76ecc5",
+          "obs_896e2a4f74d21378",
+          "obs_54a620cd72b43a1e",
+          "obs_9024bf1b8fa13d97"
+        ],
+        "time_start_s": 37.004,
+        "time_end_s": 61.793,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 37.004,
+            "end_s": 61.793
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "The lineup sentence explicitly names six people: Nicky Beardy, Daniel Taylor, Aziz Abraham, Christiana Backer, Andin Minocha, and Dave Cohen.",
+        "observation_ids": [
+          "obs_97975285289ee1c5",
+          "obs_700070546cde58a7",
+          "obs_fa8cd16e8f25765b",
+          "obs_bec6212743671181",
+          "obs_58770265b778cf29",
+          "obs_f449889ea18a9286"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "A context note says a later segment explicitly identifies \"INDER MANOCHA, COMEDIAN,\" and that the intro transcript rendering \"Andin Minocha\" likely refers to Inder Manocha. This supports normalization uncertainty for that one name, but still indicates it is one comedian in the lineup.",
+        "observation_ids": [
+          "obs_b7d25101a296d526",
+          "obs_bc9849ae9c117b61",
+          "obs_7fae4a9538a9b744"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Separate context notes identify the speaker as Sajila Kirsi, state that the speaker is introducing the show, and note that the speaker says \"and me.\"",
+        "observation_ids": [
+          "obs_e286dfefdd140441",
+          "obs_439214d7c83fd310",
+          "obs_6464486182fc64fb",
+          "obs_ccfcca7d838ec0e9"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      }
+    ]
+  },
+  "answer": "E. 7."
+}

@@ -1,0 +1,1677 @@
+{
+  "run_dir": "runs/8rdIuLhEQso/20260428T182349Z_cb834f30",
+  "trace_package": {
+    "task_key": "8rdIuLhEQso__339786e8f248",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_msg_meeting_anchor",
+        "tool_name": "generic_purpose",
+        "evidence_text": "The transcript establishes that the blonde sent a message and that the brunette came to a specific place/time because of it. The blonde asks, \"Did you get my message?\" / \"T'as reçu mon message ?\" The brunette confirms receipt, and the blonde adds that she is not telepathic and could not have guessed the brunette would be \"exactly here at 11h\" / \"pile poil ici à 11h.\"",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 53.474,
+            "end_s": 79.495
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "clip_060_00_180_00",
+            "kind": "clip",
+            "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "planner_combined_from_preprocess_segments",
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 180.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_b17eb83c28c7b0d9",
+          "obs_a404c75af1bb180b",
+          "obs_6f9bb58deb6db8a0",
+          "obs_4266ab1a4c959051"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_cliff_context",
+        "tool_name": "generic_purpose",
+        "evidence_text": "After that message-arranged arrival, the confrontation is clearly in a suicide/jump setting at the cliffs. In the 81.352s-110.883s exchange, the brunette asks why the blonde is there, and the blonde answers, \"To watch you jump\" / \"pour te regarder sauter.\" Nearby lines include \"You want to see me die,\" \"Go ahead jump,\" and \"Let me get married in peace.\"",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 81.352,
+            "end_s": 110.883
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "clip_060_00_180_00",
+            "kind": "clip",
+            "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "planner_combined_from_preprocess_segments",
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 180.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_6f0689b195c70d5a",
+          "obs_e72716fa04cc76ea",
+          "obs_c9ecd681066c5fdd",
+          "obs_4edebab7bc7dc46c",
+          "obs_6486ff42402328a6"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_relationship_conflict",
+        "tool_name": "generic_purpose",
+        "evidence_text": "A later argument frames the broader conflict as romantic/relationship conflict. The blonde says the brunette has been bothering her for months and trying to mess up her relationship: \"You've been annoying me for months\" / \"ça fait des mois que tu me fais chier\" and \"It's much more classy to try to screw up my couple!\" The brunette counters with lines such as \"Your shit couple that you don't even love your guy!\" and \"You don't love him, it's me you love!\" followed by \"I don't love you!\" and \"I left Pierre anyway.\"",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 115.777,
+            "end_s": 143.468
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "clip_060_00_180_00",
+            "kind": "clip",
+            "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_180_00.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "planner_combined_from_preprocess_segments",
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 180.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_172a1ebc693d5b7b",
+          "obs_e3b48486138a204c",
+          "obs_92bdf72d6d3ca202",
+          "obs_7cf14a43fd612180",
+          "obs_445c06666b1317e7",
+          "obs_27ed37d93dd6078d"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "Chronologically, the first relevant exchange is at 53.474s-79.495s. It directly shows that the blonde sent a message and that the brunette came because of it: the blonde asks whether she got the message, the brunette says yes, and the blonde says she could not have guessed the brunette would be exactly there at 11. This grounds that the text arranged or caused the meeting.",
+        "supporting_observation_ids": [
+          "obs_b17eb83c28c7b0d9",
+          "obs_a404c75af1bb180b",
+          "obs_6f9bb58deb6db8a0",
+          "obs_4266ab1a4c959051"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 53.474,
+            "end_s": 79.495
+          }
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The next exchange, at 81.352s-110.883s, shows what kind of meeting it was: a cliffside suicide/jump confrontation. In that exchange, the brunette asks why the blonde is there, and the blonde answers that she is there \"to watch you jump,\" with nearby lines about dying, jumping, and getting married in peace. This grounds the setting and immediate purpose of the confrontation after the text-arranged meeting.",
+        "supporting_observation_ids": [
+          "obs_6f0689b195c70d5a",
+          "obs_e72716fa04cc76ea",
+          "obs_c9ecd681066c5fdd",
+          "obs_4edebab7bc7dc46c",
+          "obs_6486ff42402328a6"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 81.352,
+            "end_s": 110.883
+          }
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "Only later, at 115.777s-143.468s, does the harsh rebuke become explicit: the blonde says the brunette has been bothering her for months and trying to ruin her relationship. Because these rebuking lines occur after the brunette has already arrived, they support the broader conflict but are weaker evidence that the original text was sent for the purpose of rebuking her.",
+        "supporting_observation_ids": [
+          "obs_172a1ebc693d5b7b",
+          "obs_e3b48486138a204c",
+          "obs_92bdf72d6d3ca202",
+          "obs_7cf14a43fd612180",
+          "obs_445c06666b1317e7"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 115.777,
+            "end_s": 143.468
+          }
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "The evidence does not explicitly say, in so many words, that the text was sent 'to lure the brunette to the cliffs.' What it does directly support is: the text brought the brunette to a specific place/time, and that meeting is then shown to be at the cliffs in a jump/suicide context. Among the answer choices, this makes D the closest supported mapping. Option B is weaker because the explicit rebuke is grounded later during the confrontation rather than as the stated purpose of the text itself. The other options are not supported by the transcript.",
+        "supporting_observation_ids": [
+          "obs_b17eb83c28c7b0d9",
+          "obs_a404c75af1bb180b",
+          "obs_4266ab1a4c959051",
+          "obs_e72716fa04cc76ea",
+          "obs_172a1ebc693d5b7b",
+          "obs_e3b48486138a204c"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 53.474,
+            "end_s": 79.495
+          },
+          {
+            "start_s": 81.352,
+            "end_s": 110.883
+          },
+          {
+            "start_s": 115.777,
+            "end_s": 143.468
+          }
+        ]
+      }
+    ],
+    "final_answer": "D. To lure the brunette to the cliffs.",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "8rdIuLhEQso__339786e8f248",
+        "trace": {
+          "inference_steps": [
+            "[53.474s to 79.495s] Chronologically, the first relevant exchange is at 53.474s-79.495s. It directly shows that the blonde sent a message and that the brunette came because of it: the blonde asks whether she got the message, the brunette says yes, and the blonde says she could not have guessed the brunette would be exactly there at 11. This grounds that the text arranged or caused the meeting.",
+            "[81.352s to 110.883s] The next exchange, at 81.352s-110.883s, shows what kind of meeting it was: a cliffside suicide/jump confrontation. In that exchange, the brunette asks why the blonde is there, and the blonde answers that she is there \"to watch you jump,\" with nearby lines about dying, jumping, and getting married in peace. This grounds the setting and immediate purpose of the confrontation after the text-arranged meeting.",
+            "[115.777s to 143.468s] Only later, at 115.777s-143.468s, does the harsh rebuke become explicit: the blonde says the brunette has been bothering her for months and trying to ruin her relationship. Because these rebuking lines occur after the brunette has already arrived, they support the broader conflict but are weaker evidence that the original text was sent for the purpose of rebuking her.",
+            "[53.474s to 79.495s; 81.352s to 110.883s; 115.777s to 143.468s] The evidence does not explicitly say, in so many words, that the text was sent 'to lure the brunette to the cliffs.' What it does directly support is: the text brought the brunette to a specific place/time, and that meeting is then shown to be at the cliffs in a jump/suicide context. Among the answer choices, this makes D the closest supported mapping. Option B is weaker because the explicit rebuke is grounded later during the confrontation rather than as the stated purpose of the text itself. The other options are not supported by the transcript."
+          ],
+          "evidence": [
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "The transcript establishes that the blonde sent a message and that the brunette came to a specific place/time because of it. The blonde asks, \"Did you get my message?\" / \"T'as reçu mon message ?\" The brunette confirms receipt, and the blonde adds that she is not telepathic and could not have guessed the brunette would be \"exactly here at 11h\" / \"pile poil ici à 11h.\"",
+              "observation_ids": [
+                "obs_b17eb83c28c7b0d9",
+                "obs_a404c75af1bb180b",
+                "obs_6f9bb58deb6db8a0",
+                "obs_4266ab1a4c959051"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 53.474,
+                  "end_s": 79.495
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "After that message-arranged arrival, the confrontation is clearly in a suicide/jump setting at the cliffs. In the 81.352s-110.883s exchange, the brunette asks why the blonde is there, and the blonde answers, \"To watch you jump\" / \"pour te regarder sauter.\" Nearby lines include \"You want to see me die,\" \"Go ahead jump,\" and \"Let me get married in peace.\"",
+              "observation_ids": [
+                "obs_6f0689b195c70d5a",
+                "obs_e72716fa04cc76ea",
+                "obs_c9ecd681066c5fdd",
+                "obs_4edebab7bc7dc46c",
+                "obs_6486ff42402328a6"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 81.352,
+                  "end_s": 110.883
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "A later argument frames the broader conflict as romantic/relationship conflict. The blonde says the brunette has been bothering her for months and trying to mess up her relationship: \"You've been annoying me for months\" / \"ça fait des mois que tu me fais chier\" and \"It's much more classy to try to screw up my couple!\" The brunette counters with lines such as \"Your shit couple that you don't even love your guy!\" and \"You don't love him, it's me you love!\" followed by \"I don't love you!\" and \"I left Pierre anyway.\"",
+              "observation_ids": [
+                "obs_172a1ebc693d5b7b",
+                "obs_e3b48486138a204c",
+                "obs_92bdf72d6d3ca202",
+                "obs_7cf14a43fd612180",
+                "obs_445c06666b1317e7",
+                "obs_27ed37d93dd6078d"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 115.777,
+                  "end_s": 143.468
+                }
+              ]
+            }
+          ]
+        },
+        "answer": "D. To lure the brunette to the cliffs."
+      }
+    },
+    "metadata": {}
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.93,
+    "scores": {
+      "logical_coherence": 3,
+      "completeness": 2,
+      "factual_correctness": 2,
+      "reasoning_order": 4
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "ATTRIBUTION_GAP",
+        "message": "The trace relies on dialogue content whose speaker attribution is unstable in the supplied text. In the evidence entries, key lines are attributed to the blonde, but the atomic observations in the summary attribute several of those same lines to the brunette, including 'why are you here,' 'to watch you jump,' and 'let me get married in peace.' Because the answer depends on who said what and why, the option mapping is not securely grounded.",
+        "evidence_ids": [
+          "ev_msg_meeting_anchor",
+          "ev_cliff_context",
+          "ev_relationship_conflict",
+          "ev_02_406725b1"
+        ]
+      },
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace itself admits the text does not explicitly state that the message was sent 'to lure the brunette to the cliffs' and then selects option D as only the 'closest supported mapping.' For a multiple-choice question, that is not enough unless the grounded evidence uniquely discriminates D from the alternatives.",
+        "evidence_ids": [
+          "ev_msg_meeting_anchor",
+          "ev_cliff_context"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "INFERENCE_ERROR",
+        "message": "The evidence supports that the message arranged a meeting at a specific place/time and that the confrontation occurs at cliffs, but it does not directly establish the blonde's purpose in sending the text as 'to lure the brunette to the cliffs' rather than another motive tied to the confrontation.",
+        "evidence_ids": [
+          "ev_msg_meeting_anchor",
+          "ev_cliff_context",
+          "ev_relationship_conflict"
+        ]
+      }
+    ],
+    "feedback": "The root problem is not chronology but answer-critical grounding: speaker attribution for the confrontation lines is inconsistent across the supplied text, and the trace chooses D even while admitting that purpose is only an approximate option mapping rather than explicitly established.",
+    "missing_information": [
+      "who speaks the key confrontation lines about why the other is there, watching the jump, and getting married in peace",
+      "the grounded purpose of the text message itself, not just that it caused the brunette to arrive at the cliffs",
+      "a unique option discriminator showing why D is better supported than B and the other choices"
+    ],
+    "diagnostics": {
+      "referent_alignment": "fail: the answer depends on blonde/brunette speaker roles, but the supplied evidence text and atomic observations disagree on attribution for crucial lines.",
+      "temporal_alignment": "pass: the trace orders the meeting-arrangement exchange before the cliff confrontation and later relationship argument coherently.",
+      "option_alignment": "fail: the final answer is a provided option, but the trace presents it as merely the closest fit rather than a uniquely justified choice.",
+      "evidence_sufficiency": "fail: current text supports meeting causation and cliff context, but not a securely grounded motive for sending the text."
+    }
+  },
+  "benchmark_export": {
+    "sample_key": "8rdIuLhEQso__339786e8f248",
+    "trace": {
+      "inference_steps": [
+        "[53.474s to 79.495s] Chronologically, the first relevant exchange is at 53.474s-79.495s. It directly shows that the blonde sent a message and that the brunette came because of it: the blonde asks whether she got the message, the brunette says yes, and the blonde says she could not have guessed the brunette would be exactly there at 11. This grounds that the text arranged or caused the meeting.",
+        "[81.352s to 110.883s] The next exchange, at 81.352s-110.883s, shows what kind of meeting it was: a cliffside suicide/jump confrontation. In that exchange, the brunette asks why the blonde is there, and the blonde answers that she is there \"to watch you jump,\" with nearby lines about dying, jumping, and getting married in peace. This grounds the setting and immediate purpose of the confrontation after the text-arranged meeting.",
+        "[115.777s to 143.468s] Only later, at 115.777s-143.468s, does the harsh rebuke become explicit: the blonde says the brunette has been bothering her for months and trying to ruin her relationship. Because these rebuking lines occur after the brunette has already arrived, they support the broader conflict but are weaker evidence that the original text was sent for the purpose of rebuking her.",
+        "[53.474s to 79.495s; 81.352s to 110.883s; 115.777s to 143.468s] The evidence does not explicitly say, in so many words, that the text was sent 'to lure the brunette to the cliffs.' What it does directly support is: the text brought the brunette to a specific place/time, and that meeting is then shown to be at the cliffs in a jump/suicide context. Among the answer choices, this makes D the closest supported mapping. Option B is weaker because the explicit rebuke is grounded later during the confrontation rather than as the stated purpose of the text itself. The other options are not supported by the transcript."
+      ],
+      "evidence": [
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "The transcript establishes that the blonde sent a message and that the brunette came to a specific place/time because of it. The blonde asks, \"Did you get my message?\" / \"T'as reçu mon message ?\" The brunette confirms receipt, and the blonde adds that she is not telepathic and could not have guessed the brunette would be \"exactly here at 11h\" / \"pile poil ici à 11h.\"",
+          "observation_ids": [
+            "obs_b17eb83c28c7b0d9",
+            "obs_a404c75af1bb180b",
+            "obs_6f9bb58deb6db8a0",
+            "obs_4266ab1a4c959051"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 53.474,
+              "end_s": 79.495
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "After that message-arranged arrival, the confrontation is clearly in a suicide/jump setting at the cliffs. In the 81.352s-110.883s exchange, the brunette asks why the blonde is there, and the blonde answers, \"To watch you jump\" / \"pour te regarder sauter.\" Nearby lines include \"You want to see me die,\" \"Go ahead jump,\" and \"Let me get married in peace.\"",
+          "observation_ids": [
+            "obs_6f0689b195c70d5a",
+            "obs_e72716fa04cc76ea",
+            "obs_c9ecd681066c5fdd",
+            "obs_4edebab7bc7dc46c",
+            "obs_6486ff42402328a6"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 81.352,
+              "end_s": 110.883
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "A later argument frames the broader conflict as romantic/relationship conflict. The blonde says the brunette has been bothering her for months and trying to mess up her relationship: \"You've been annoying me for months\" / \"ça fait des mois que tu me fais chier\" and \"It's much more classy to try to screw up my couple!\" The brunette counters with lines such as \"Your shit couple that you don't even love your guy!\" and \"You don't love him, it's me you love!\" followed by \"I don't love you!\" and \"I left Pierre anyway.\"",
+          "observation_ids": [
+            "obs_172a1ebc693d5b7b",
+            "obs_e3b48486138a204c",
+            "obs_92bdf72d6d3ca202",
+            "obs_7cf14a43fd612180",
+            "obs_445c06666b1317e7",
+            "obs_27ed37d93dd6078d"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 115.777,
+              "end_s": 143.468
+            }
+          ]
+        }
+      ]
+    },
+    "answer": "D. To lure the brunette to the cliffs."
+  },
+  "preprocess": {
+    "cache_hit": false,
+    "cache_dir": "preprocess/8rdIuLhEQso",
+    "manifest": {
+      "video_id": "8rdIuLhEQso",
+      "video_fingerprint": "342445d47dc3113294c1c83bd0430e0e6c0a48cbfbff37d32ebcf75588f237d8",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "26503208b9ce",
+      "segment_count": 5,
+      "planner_segment_count": 5,
+      "dense_caption_span_count": 11,
+      "transcript_segment_count": 5,
+      "transcript_count": 1,
+      "include_asr": true
+    },
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The opening credits begin with the production company's name, 'Des Gens BienProd présente,' appearing over a blurry, out-of-focus shot of green cliffs and the sea. The scene then cuts to a view from inside a dark, wet cave, looking out onto a stunning coastal landscape. A woman with long blonde hair, wearing a brown coat, is seen from behind, standing at the cave's entrance. The text 'avec Laura Giudice' appears as she stands still, looking out at the sea and cliffs.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play.; s name, | s entrance. The text; attributes: camera_state: The initial shot is a blurry, handheld-style shot. It then cuts to a static, wide shot from inside the cave, framed by the cave's entrance to create a natural vignette., video_background: The setting is a dramatic coastal scene with white cliffs, a green coastline, and a grey, overcast sky. The interior is a dark, wet cave., storyline: This segment introduces the production company and the lead actress, establishing a mysterious and somber tone for the film., shooting_style: This is the beginning of the opening credits sequence, using text overlays on establishing shots. A high-angle shot shows the turquoise water of the sea churning at the base of the cliffs. The scene cuts back to a close-up of the blonde woman's face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text 'et Magali Lange' appears. The scene returns to the wide shot of the woman standing in the cave, with the text 'dans un film de Franck Victor' appearing.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The melancholic piano music continues, swelling slightly to enhance the dramatic tension.; s face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text | appears. The scene returns to the wide shot of the woman standing in the cave, with the text; attributes: camera_state: The sequence uses a high-angle shot looking down on the sea, followed by a close-up on the woman's face, and then returns to the previous wide shot from inside the cave., video_background: The background alternates between the churning sea and the interior of the dark cave, with the coastal landscape visible through the entrance., storyline: This segment introduces the second lead actress and the director, while reinforcing the protagonist's emotional state of anxiety and concern., shooting_style: The sequence continues the opening credits, intercutting different shots and text overlays to introduce the key creative team.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 7.0,
+              "visual": "The opening credits begin with the production company's name, 'Des Gens BienProd présente,' appearing over a blurry, out-of-focus shot of green cliffs and the sea. The scene then cuts to a view from inside a dark, wet cave, looking out onto a stunning coastal landscape. A woman with long blonde hair, wearing a brown coat, is seen from behind, standing at the cave's entrance. The text 'avec Laura Giudice' appears as she stands still, looking out at the sea and cliffs.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play.",
+              "on_screen_text": [
+                "s name,",
+                "s entrance. The text"
+              ],
+              "attributes": [
+                "camera_state: The initial shot is a blurry, handheld-style shot. It then cuts to a static, wide shot from inside the cave, framed by the cave's entrance to create a natural vignette.",
+                "video_background: The setting is a dramatic coastal scene with white cliffs, a green coastline, and a grey, overcast sky. The interior is a dark, wet cave.",
+                "storyline: This segment introduces the production company and the lead actress, establishing a mysterious and somber tone for the film.",
+                "shooting_style: This is the beginning of the opening credits sequence, using text overlays on establishing shots."
+              ]
+            },
+            {
+              "start_s": 8.0,
+              "end_s": 16.0,
+              "visual": "A high-angle shot shows the turquoise water of the sea churning at the base of the cliffs. The scene cuts back to a close-up of the blonde woman's face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text 'et Magali Lange' appears. The scene returns to the wide shot of the woman standing in the cave, with the text 'dans un film de Franck Victor' appearing.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The melancholic piano music continues, swelling slightly to enhance the dramatic tension.",
+              "on_screen_text": [
+                "s face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text",
+                "appears. The scene returns to the wide shot of the woman standing in the cave, with the text"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a high-angle shot looking down on the sea, followed by a close-up on the woman's face, and then returns to the previous wide shot from inside the cave.",
+                "video_background: The background alternates between the churning sea and the interior of the dark cave, with the coastal landscape visible through the entrance.",
+                "storyline: This segment introduces the second lead actress and the director, while reinforcing the protagonist's emotional state of anxiety and concern.",
+                "shooting_style: The sequence continues the opening credits, intercutting different shots and text overlays to introduce the key creative team."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 24.044,
+            "end_s": 50.639,
+            "text": "Qu'est-ce que tu fais, Léa ? Je me promène. Ah, tu te promènes au bord de la falaise ? Ouais."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "Two women stand on a grassy cliff overlooking a vast, grey sea under a cloudy sky. One woman, with long blonde hair and a brown coat, looks at the other woman, who has long dark hair and a beige trench coat. The blonde woman's expression is sad and pleading, while the dark-haired woman's is stern and unwavering.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The faint sound of wind and distant waves.; s expression is sad and pleading, while the dark-haired woman; attributes: camera_state: The scene opens with a wide shot of the two women on the cliff. It then cuts to a medium close-up of the blonde woman, followed by a close-up of the dark-haired woman's stern face., video_background: The setting is a dramatic, moody seascape with a green, grassy cliff. The ocean is grey and expansive, and the sky is filled with heavy, overcast clouds. White cliffs are visible in the distance., storyline: The scene establishes a tense and emotional confrontation between two women. Their contrasting body language and expressions suggest a deep, complicated history and a current conflict., shooting_style: The scene uses a combination of wide shots to establish the setting and close-ups to emphasize the characters' emotional states. The camera alternates between close-ups of the two women's faces. The blonde woman's expression is filled with sadness and desperation, her eyes welling up with tears. The dark-haired woman maintains a cold, intense, and unyielding gaze, her face remaining stoic and unreadable.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind continues.; s faces. The blonde woman; attributes: camera_state: The camera uses a series of tight close-ups, cutting back and forth between the two women's faces to highlight their emotional exchange. The focus is shallow, blurring the background., video_background: The background is a soft-focus view of the grey sea and sky, keeping the focus entirely on the characters' expressions., storyline: The emotional intensity of the confrontation is heightened. The blonde woman's vulnerability is contrasted with the dark-haired woman's cold resolve, creating a palpable sense of unresolved tension., shooting_style: This segment is a montage of close-ups, emphasizing the emotional contrast between the two characters.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0,
+              "visual": "Two women stand on a grassy cliff overlooking a vast, grey sea under a cloudy sky. One woman, with long blonde hair and a brown coat, looks at the other woman, who has long dark hair and a beige trench coat. The blonde woman's expression is sad and pleading, while the dark-haired woman's is stern and unwavering.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The faint sound of wind and distant waves.",
+              "on_screen_text": [
+                "s expression is sad and pleading, while the dark-haired woman"
+              ],
+              "attributes": [
+                "camera_state: The scene opens with a wide shot of the two women on the cliff. It then cuts to a medium close-up of the blonde woman, followed by a close-up of the dark-haired woman's stern face.",
+                "video_background: The setting is a dramatic, moody seascape with a green, grassy cliff. The ocean is grey and expansive, and the sky is filled with heavy, overcast clouds. White cliffs are visible in the distance.",
+                "storyline: The scene establishes a tense and emotional confrontation between two women. Their contrasting body language and expressions suggest a deep, complicated history and a current conflict.",
+                "shooting_style: The scene uses a combination of wide shots to establish the setting and close-ups to emphasize the characters' emotional states."
+              ]
+            },
+            {
+              "start_s": 66.0,
+              "end_s": 75.0,
+              "visual": "The camera alternates between close-ups of the two women's faces. The blonde woman's expression is filled with sadness and desperation, her eyes welling up with tears. The dark-haired woman maintains a cold, intense, and unyielding gaze, her face remaining stoic and unreadable.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind continues.",
+              "on_screen_text": [
+                "s faces. The blonde woman"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of tight close-ups, cutting back and forth between the two women's faces to highlight their emotional exchange. The focus is shallow, blurring the background.",
+                "video_background: The background is a soft-focus view of the grey sea and sky, keeping the focus entirely on the characters' expressions.",
+                "storyline: The emotional intensity of the confrontation is heightened. The blonde woman's vulnerability is contrasted with the dark-haired woman's cold resolve, creating a palpable sense of unresolved tension.",
+                "shooting_style: This segment is a montage of close-ups, emphasizing the emotional contrast between the two characters."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 53.474,
+            "end_s": 79.495,
+            "text": "T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ?"
+          },
+          {
+            "start_s": 81.352,
+            "end_s": 110.883,
+            "text": "Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A young blonde woman with a distressed and tearful expression confronts another woman on a cliffside. The blonde woman, wearing a brown suede jacket, has her hair blowing in the wind. The other woman, with long dark hair and a beige coat, stands with her arms crossed, looking down at the blonde woman with a stern, unyielding expression. The scene is set against a backdrop of green cliffs and the ocean.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and distant waves crashing.; attributes: camera_state: The camera is positioned over the shoulder of the dark-haired woman, focusing on the blonde woman's face in a medium close-up. The shot is handheld and slightly shaky, adding to the scene's tension., video_background: The setting is a bleak, overcast day on a grassy cliff overlooking the ocean. The sea is grey and choppy, and a stone wall is visible in the background., storyline: The scene opens on a tense confrontation between two women. The blonde woman is clearly distressed and emotional, while the dark-haired woman appears cold and dominant, establishing a power imbalance and conflict., shooting_style: The scene uses a shot-reverse-shot technique, cutting between the two women to emphasize their emotional states and the tension between them. The dark-haired woman reaches out and gently touches the blonde woman's chin and neck. The blonde woman's expression shifts from distress to a more subdued, almost resigned sadness as she looks up at the other woman. The dark-haired woman maintains a serious, intense gaze.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and the ocean continues.; s chin and neck. The blonde woman; attributes: camera_state: The camera alternates between a close-up on the dark-haired woman's hand touching the blonde woman's face and a medium close-up of the blonde woman's reaction. The focus is tight on their faces and the physical contact., video_background: The background remains the same, with the grey sea and green cliffs providing a somber and moody atmosphere., storyline: The physical touch is ambiguous—it could be a gesture of comfort or a form of control. The blonde woman's reaction suggests it is a complex and possibly painful interaction, deepening the mystery of their relationship., shooting_style: The shot-reverse-shot continues, with the camera focusing on the subtle facial expressions and the physical interaction between the two characters.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "A young blonde woman with a distressed and tearful expression confronts another woman on a cliffside. The blonde woman, wearing a brown suede jacket, has her hair blowing in the wind. The other woman, with long dark hair and a beige coat, stands with her arms crossed, looking down at the blonde woman with a stern, unyielding expression. The scene is set against a backdrop of green cliffs and the ocean.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and distant waves crashing.",
+              "attributes": [
+                "camera_state: The camera is positioned over the shoulder of the dark-haired woman, focusing on the blonde woman's face in a medium close-up. The shot is handheld and slightly shaky, adding to the scene's tension.",
+                "video_background: The setting is a bleak, overcast day on a grassy cliff overlooking the ocean. The sea is grey and choppy, and a stone wall is visible in the background.",
+                "storyline: The scene opens on a tense confrontation between two women. The blonde woman is clearly distressed and emotional, while the dark-haired woman appears cold and dominant, establishing a power imbalance and conflict.",
+                "shooting_style: The scene uses a shot-reverse-shot technique, cutting between the two women to emphasize their emotional states and the tension between them."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 132.0,
+              "visual": "The dark-haired woman reaches out and gently touches the blonde woman's chin and neck. The blonde woman's expression shifts from distress to a more subdued, almost resigned sadness as she looks up at the other woman. The dark-haired woman maintains a serious, intense gaze.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and the ocean continues.",
+              "on_screen_text": [
+                "s chin and neck. The blonde woman"
+              ],
+              "attributes": [
+                "camera_state: The camera alternates between a close-up on the dark-haired woman's hand touching the blonde woman's face and a medium close-up of the blonde woman's reaction. The focus is tight on their faces and the physical contact.",
+                "video_background: The background remains the same, with the grey sea and green cliffs providing a somber and moody atmosphere.",
+                "storyline: The physical touch is ambiguous—it could be a gesture of comfort or a form of control. The blonde woman's reaction suggests it is a complex and possibly painful interaction, deepening the mystery of their relationship.",
+                "shooting_style: The shot-reverse-shot continues, with the camera focusing on the subtle facial expressions and the physical interaction between the two characters."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 115.777,
+            "end_s": 143.468,
+            "text": "Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même."
+          },
+          {
+            "start_s": 149.594,
+            "end_s": 166.402,
+            "text": "C'est toi, petite conne. On arrête ton connerie, s'il te plaît."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "A montage of intimate moments begins. A blonde woman with red-painted nails gently covers her face with her hands, revealing a sparkling diamond ring on her finger. The scene then cuts to a close-up of a brunette woman with a turquoise ring, her head buried in the blonde woman's shoulder as they embrace.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play, setting a romantic and somber mood.; attributes: camera_state: The camera uses a series of extreme close-ups, focusing on the women's faces, hands, and the rings on their fingers. The shots are handheld and slightly shaky, creating a sense of intimacy and emotional intensity., video_background: The background is blurred and indistinct, keeping the focus entirely on the two women and their emotional connection. The lighting is soft and warm., storyline: This opening montage establishes a deep, romantic, and possibly troubled relationship between the two women, hinting at themes of love, commitment, and intimacy., shooting_style: This is a montage of quick, intimate close-ups, intercutting different moments to build an emotional atmosphere. The two women are shown in a tender, romantic moment, their foreheads touching as they gaze into each other's eyes. The setting sun creates a warm, golden lens flare between them, backlighting their hair. The opening credits for the film begin to appear in a handwritten-style font.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues, swelling slightly as the credits appear, enhancing the romantic and emotional tone of the scene.; attributes: camera_state: The camera is in a close-up, focusing on the profiles of the two women as they touch foreheads. The shot is steady, emphasizing the intimacy of the moment., video_background: The background is a blurry outdoor setting at dusk, with the warm light of the setting sun creating a strong backlight and a prominent lens flare., storyline: This scene solidifies the romantic connection between the two women, portraying a moment of pure intimacy and affection as the film's credits start to roll., shooting_style: This is a single, steady shot that serves as the backdrop for the opening credits.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A montage of intimate moments begins. A blonde woman with red-painted nails gently covers her face with her hands, revealing a sparkling diamond ring on her finger. The scene then cuts to a close-up of a brunette woman with a turquoise ring, her head buried in the blonde woman's shoulder as they embrace.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play, setting a romantic and somber mood.",
+              "attributes": [
+                "camera_state: The camera uses a series of extreme close-ups, focusing on the women's faces, hands, and the rings on their fingers. The shots are handheld and slightly shaky, creating a sense of intimacy and emotional intensity.",
+                "video_background: The background is blurred and indistinct, keeping the focus entirely on the two women and their emotional connection. The lighting is soft and warm.",
+                "storyline: This opening montage establishes a deep, romantic, and possibly troubled relationship between the two women, hinting at themes of love, commitment, and intimacy.",
+                "shooting_style: This is a montage of quick, intimate close-ups, intercutting different moments to build an emotional atmosphere."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 192.0,
+              "visual": "The two women are shown in a tender, romantic moment, their foreheads touching as they gaze into each other's eyes. The setting sun creates a warm, golden lens flare between them, backlighting their hair. The opening credits for the film begin to appear in a handwritten-style font.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues, swelling slightly as the credits appear, enhancing the romantic and emotional tone of the scene.",
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the profiles of the two women as they touch foreheads. The shot is steady, emphasizing the intimacy of the moment.",
+                "video_background: The background is a blurry outdoor setting at dusk, with the warm light of the setting sun creating a strong backlight and a prominent lens flare.",
+                "storyline: This scene solidifies the romantic connection between the two women, portraying a moment of pure intimacy and affection as the film's credits start to roll.",
+                "shooting_style: This is a single, steady shot that serves as the backdrop for the opening credits."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 256.8,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 240.0,
+              "end_s": 256.8,
+              "artifact_id": "clip_240_00_256_80",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_240_00_256_80.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 256.8
+          },
+          "overall_summary": "The end credits begin to roll over a close-up shot of a young woman with blonde hair gently touching the face of a young man. They are standing very close, sharing an intimate and tender moment. The man closes his eyes, and the woman smiles softly as she holds his face.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody plays.; attributes: camera_state: The camera is in a close-up, focusing on the profiles of the two individuals. The shot is static., video_background: The background is dark and out of focus, keeping the attention solely on the couple's interaction., storyline: This is the beginning of the end credits sequence, set against a romantic and intimate scene from the film., shooting_style: This is a standard shot with text overlay for the credits. The credits continue to scroll upwards, displaying the names of the production company, 'Des Gens BienProd,' the year '2018,' and the website 'lesfilmssurmesure.com.' The background image of the couple remains visible but is slightly blurred as the text comes into focus.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues.; Des Gens BienProd, | 2018, | lesfilmssurmesure.com.; attributes: camera_state: The camera remains in a static close-up on the couple., video_background: The background is a blurred, dark, and indistinct setting, with the couple's faces being the central focus., storyline: The credits sequence continues, providing production information while maintaining the emotional tone set by the background scene., shooting_style: This is a standard credit roll with a static background image. The background image of the couple fades to complete blackness. The credits, which were scrolling upwards, also disappear, leaving the screen entirely black. The scene is silent.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The piano music fades out completely, leaving silence.; attributes: camera_state: The camera is static, holding on the couple before the fade-out., video_background: The background transitions from a blurred scene to solid black., storyline: The credits sequence officially concludes as both the visual and audio elements fade out., shooting_style: The scene uses a fade-to-black transition to end the credits.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 245.0,
+              "visual": "The end credits begin to roll over a close-up shot of a young woman with blonde hair gently touching the face of a young man. They are standing very close, sharing an intimate and tender moment. The man closes his eyes, and the woman smiles softly as she holds his face.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody plays.",
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the profiles of the two individuals. The shot is static.",
+                "video_background: The background is dark and out of focus, keeping the attention solely on the couple's interaction.",
+                "storyline: This is the beginning of the end credits sequence, set against a romantic and intimate scene from the film.",
+                "shooting_style: This is a standard shot with text overlay for the credits."
+              ]
+            },
+            {
+              "start_s": 246.0,
+              "end_s": 250.0,
+              "visual": "The credits continue to scroll upwards, displaying the names of the production company, 'Des Gens BienProd,' the year '2018,' and the website 'lesfilmssurmesure.com.' The background image of the couple remains visible but is slightly blurred as the text comes into focus.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues.",
+              "on_screen_text": [
+                "Des Gens BienProd,",
+                "lesfilmssurmesure.com."
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static close-up on the couple.",
+                "video_background: The background is a blurred, dark, and indistinct setting, with the couple's faces being the central focus.",
+                "storyline: The credits sequence continues, providing production information while maintaining the emotional tone set by the background scene.",
+                "shooting_style: This is a standard credit roll with a static background image."
+              ]
+            },
+            {
+              "start_s": 251.0,
+              "end_s": 256.0,
+              "visual": "The background image of the couple fades to complete blackness. The credits, which were scrolling upwards, also disappear, leaving the screen entirely black. The scene is silent.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The piano music fades out completely, leaving silence.",
+              "attributes": [
+                "camera_state: The camera is static, holding on the couple before the fade-out.",
+                "video_background: The background transitions from a blurred scene to solid black.",
+                "storyline: The credits sequence officially concludes as both the visual and audio elements fade out.",
+                "shooting_style: The scene uses a fade-to-black transition to end the credits."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The opening credits begin with the production company's name, 'Des Gens BienProd présente,' appearing over a blurry, out-of-focus shot of green cliffs and the sea. The scene then cuts to a view from inside a dark, wet cave, looking out onto a stunning coastal landscape. A woman with long blonde hair, wearing a brown coat, is seen from behind, standing at the cave's entrance. The text 'avec Laura Giudice' appears as she stands still, looking out at the sea and cliffs.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play.; s name, | s entrance. The text; attributes: camera_state: The initial shot is a blurry, handheld-style shot. It then cuts to a static, wide shot from inside the cave, framed by the cave's entrance to create a natural vignette., video_background: The setting is a dramatic coastal scene with white cliffs, a green coastline, and a grey, overcast sky. The interior is a dark, wet cave., storyline: This segment introduces the production company and the lead actress, establishing a mysterious and somber tone for the film., shooting_style: This is the beginning of the opening credits sequence, using text overlays on establishing shots. A high-angle shot shows the turquoise water of the sea churning at the base of the cliffs. The scene cuts back to a close-up of the blonde woman's face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text 'et Magali Lange' appears. The scene returns to the wide shot of the woman standing in the cave, with the text 'dans un film de Franck Victor' appearing.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The melancholic piano music continues, swelling slightly to enhance the dramatic tension.; s face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text | appears. The scene returns to the wide shot of the woman standing in the cave, with the text; attributes: camera_state: The sequence uses a high-angle shot looking down on the sea, followed by a close-up on the woman's face, and then returns to the previous wide shot from inside the cave., video_background: The background alternates between the churning sea and the interior of the dark cave, with the coastal landscape visible through the entrance., storyline: This segment introduces the second lead actress and the director, while reinforcing the protagonist's emotional state of anxiety and concern., shooting_style: The sequence continues the opening credits, intercutting different shots and text overlays to introduce the key creative team.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 7.0,
+              "visual": "The opening credits begin with the production company's name, 'Des Gens BienProd présente,' appearing over a blurry, out-of-focus shot of green cliffs and the sea. The scene then cuts to a view from inside a dark, wet cave, looking out onto a stunning coastal landscape. A woman with long blonde hair, wearing a brown coat, is seen from behind, standing at the cave's entrance. The text 'avec Laura Giudice' appears as she stands still, looking out at the sea and cliffs.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play.",
+              "on_screen_text": [
+                "s name,",
+                "s entrance. The text"
+              ],
+              "attributes": [
+                "camera_state: The initial shot is a blurry, handheld-style shot. It then cuts to a static, wide shot from inside the cave, framed by the cave's entrance to create a natural vignette.",
+                "video_background: The setting is a dramatic coastal scene with white cliffs, a green coastline, and a grey, overcast sky. The interior is a dark, wet cave.",
+                "storyline: This segment introduces the production company and the lead actress, establishing a mysterious and somber tone for the film.",
+                "shooting_style: This is the beginning of the opening credits sequence, using text overlays on establishing shots."
+              ]
+            },
+            {
+              "start_s": 8.0,
+              "end_s": 16.0,
+              "visual": "A high-angle shot shows the turquoise water of the sea churning at the base of the cliffs. The scene cuts back to a close-up of the blonde woman's face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text 'et Magali Lange' appears. The scene returns to the wide shot of the woman standing in the cave, with the text 'dans un film de Franck Victor' appearing.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The melancholic piano music continues, swelling slightly to enhance the dramatic tension.",
+              "on_screen_text": [
+                "s face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text",
+                "appears. The scene returns to the wide shot of the woman standing in the cave, with the text"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a high-angle shot looking down on the sea, followed by a close-up on the woman's face, and then returns to the previous wide shot from inside the cave.",
+                "video_background: The background alternates between the churning sea and the interior of the dark cave, with the coastal landscape visible through the entrance.",
+                "storyline: This segment introduces the second lead actress and the director, while reinforcing the protagonist's emotional state of anxiety and concern.",
+                "shooting_style: The sequence continues the opening credits, intercutting different shots and text overlays to introduce the key creative team."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 24.044,
+            "end_s": 50.639,
+            "text": "Qu'est-ce que tu fais, Léa ? Je me promène. Ah, tu te promènes au bord de la falaise ? Ouais."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "Two women stand on a grassy cliff overlooking a vast, grey sea under a cloudy sky. One woman, with long blonde hair and a brown coat, looks at the other woman, who has long dark hair and a beige trench coat. The blonde woman's expression is sad and pleading, while the dark-haired woman's is stern and unwavering.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The faint sound of wind and distant waves.; s expression is sad and pleading, while the dark-haired woman; attributes: camera_state: The scene opens with a wide shot of the two women on the cliff. It then cuts to a medium close-up of the blonde woman, followed by a close-up of the dark-haired woman's stern face., video_background: The setting is a dramatic, moody seascape with a green, grassy cliff. The ocean is grey and expansive, and the sky is filled with heavy, overcast clouds. White cliffs are visible in the distance., storyline: The scene establishes a tense and emotional confrontation between two women. Their contrasting body language and expressions suggest a deep, complicated history and a current conflict., shooting_style: The scene uses a combination of wide shots to establish the setting and close-ups to emphasize the characters' emotional states. The camera alternates between close-ups of the two women's faces. The blonde woman's expression is filled with sadness and desperation, her eyes welling up with tears. The dark-haired woman maintains a cold, intense, and unyielding gaze, her face remaining stoic and unreadable.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind continues.; s faces. The blonde woman; attributes: camera_state: The camera uses a series of tight close-ups, cutting back and forth between the two women's faces to highlight their emotional exchange. The focus is shallow, blurring the background., video_background: The background is a soft-focus view of the grey sea and sky, keeping the focus entirely on the characters' expressions., storyline: The emotional intensity of the confrontation is heightened. The blonde woman's vulnerability is contrasted with the dark-haired woman's cold resolve, creating a palpable sense of unresolved tension., shooting_style: This segment is a montage of close-ups, emphasizing the emotional contrast between the two characters.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0,
+              "visual": "Two women stand on a grassy cliff overlooking a vast, grey sea under a cloudy sky. One woman, with long blonde hair and a brown coat, looks at the other woman, who has long dark hair and a beige trench coat. The blonde woman's expression is sad and pleading, while the dark-haired woman's is stern and unwavering.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The faint sound of wind and distant waves.",
+              "on_screen_text": [
+                "s expression is sad and pleading, while the dark-haired woman"
+              ],
+              "attributes": [
+                "camera_state: The scene opens with a wide shot of the two women on the cliff. It then cuts to a medium close-up of the blonde woman, followed by a close-up of the dark-haired woman's stern face.",
+                "video_background: The setting is a dramatic, moody seascape with a green, grassy cliff. The ocean is grey and expansive, and the sky is filled with heavy, overcast clouds. White cliffs are visible in the distance.",
+                "storyline: The scene establishes a tense and emotional confrontation between two women. Their contrasting body language and expressions suggest a deep, complicated history and a current conflict.",
+                "shooting_style: The scene uses a combination of wide shots to establish the setting and close-ups to emphasize the characters' emotional states."
+              ]
+            },
+            {
+              "start_s": 66.0,
+              "end_s": 75.0,
+              "visual": "The camera alternates between close-ups of the two women's faces. The blonde woman's expression is filled with sadness and desperation, her eyes welling up with tears. The dark-haired woman maintains a cold, intense, and unyielding gaze, her face remaining stoic and unreadable.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind continues.",
+              "on_screen_text": [
+                "s faces. The blonde woman"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of tight close-ups, cutting back and forth between the two women's faces to highlight their emotional exchange. The focus is shallow, blurring the background.",
+                "video_background: The background is a soft-focus view of the grey sea and sky, keeping the focus entirely on the characters' expressions.",
+                "storyline: The emotional intensity of the confrontation is heightened. The blonde woman's vulnerability is contrasted with the dark-haired woman's cold resolve, creating a palpable sense of unresolved tension.",
+                "shooting_style: This segment is a montage of close-ups, emphasizing the emotional contrast between the two characters."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 53.474,
+            "end_s": 79.495,
+            "text": "T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ?"
+          },
+          {
+            "start_s": 81.352,
+            "end_s": 110.883,
+            "text": "Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A young blonde woman with a distressed and tearful expression confronts another woman on a cliffside. The blonde woman, wearing a brown suede jacket, has her hair blowing in the wind. The other woman, with long dark hair and a beige coat, stands with her arms crossed, looking down at the blonde woman with a stern, unyielding expression. The scene is set against a backdrop of green cliffs and the ocean.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and distant waves crashing.; attributes: camera_state: The camera is positioned over the shoulder of the dark-haired woman, focusing on the blonde woman's face in a medium close-up. The shot is handheld and slightly shaky, adding to the scene's tension., video_background: The setting is a bleak, overcast day on a grassy cliff overlooking the ocean. The sea is grey and choppy, and a stone wall is visible in the background., storyline: The scene opens on a tense confrontation between two women. The blonde woman is clearly distressed and emotional, while the dark-haired woman appears cold and dominant, establishing a power imbalance and conflict., shooting_style: The scene uses a shot-reverse-shot technique, cutting between the two women to emphasize their emotional states and the tension between them. The dark-haired woman reaches out and gently touches the blonde woman's chin and neck. The blonde woman's expression shifts from distress to a more subdued, almost resigned sadness as she looks up at the other woman. The dark-haired woman maintains a serious, intense gaze.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and the ocean continues.; s chin and neck. The blonde woman; attributes: camera_state: The camera alternates between a close-up on the dark-haired woman's hand touching the blonde woman's face and a medium close-up of the blonde woman's reaction. The focus is tight on their faces and the physical contact., video_background: The background remains the same, with the grey sea and green cliffs providing a somber and moody atmosphere., storyline: The physical touch is ambiguous—it could be a gesture of comfort or a form of control. The blonde woman's reaction suggests it is a complex and possibly painful interaction, deepening the mystery of their relationship., shooting_style: The shot-reverse-shot continues, with the camera focusing on the subtle facial expressions and the physical interaction between the two characters.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "A young blonde woman with a distressed and tearful expression confronts another woman on a cliffside. The blonde woman, wearing a brown suede jacket, has her hair blowing in the wind. The other woman, with long dark hair and a beige coat, stands with her arms crossed, looking down at the blonde woman with a stern, unyielding expression. The scene is set against a backdrop of green cliffs and the ocean.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and distant waves crashing.",
+              "attributes": [
+                "camera_state: The camera is positioned over the shoulder of the dark-haired woman, focusing on the blonde woman's face in a medium close-up. The shot is handheld and slightly shaky, adding to the scene's tension.",
+                "video_background: The setting is a bleak, overcast day on a grassy cliff overlooking the ocean. The sea is grey and choppy, and a stone wall is visible in the background.",
+                "storyline: The scene opens on a tense confrontation between two women. The blonde woman is clearly distressed and emotional, while the dark-haired woman appears cold and dominant, establishing a power imbalance and conflict.",
+                "shooting_style: The scene uses a shot-reverse-shot technique, cutting between the two women to emphasize their emotional states and the tension between them."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 132.0,
+              "visual": "The dark-haired woman reaches out and gently touches the blonde woman's chin and neck. The blonde woman's expression shifts from distress to a more subdued, almost resigned sadness as she looks up at the other woman. The dark-haired woman maintains a serious, intense gaze.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and the ocean continues.",
+              "on_screen_text": [
+                "s chin and neck. The blonde woman"
+              ],
+              "attributes": [
+                "camera_state: The camera alternates between a close-up on the dark-haired woman's hand touching the blonde woman's face and a medium close-up of the blonde woman's reaction. The focus is tight on their faces and the physical contact.",
+                "video_background: The background remains the same, with the grey sea and green cliffs providing a somber and moody atmosphere.",
+                "storyline: The physical touch is ambiguous—it could be a gesture of comfort or a form of control. The blonde woman's reaction suggests it is a complex and possibly painful interaction, deepening the mystery of their relationship.",
+                "shooting_style: The shot-reverse-shot continues, with the camera focusing on the subtle facial expressions and the physical interaction between the two characters."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 115.777,
+            "end_s": 143.468,
+            "text": "Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même."
+          },
+          {
+            "start_s": 149.594,
+            "end_s": 166.402,
+            "text": "C'est toi, petite conne. On arrête ton connerie, s'il te plaît."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "A montage of intimate moments begins. A blonde woman with red-painted nails gently covers her face with her hands, revealing a sparkling diamond ring on her finger. The scene then cuts to a close-up of a brunette woman with a turquoise ring, her head buried in the blonde woman's shoulder as they embrace.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play, setting a romantic and somber mood.; attributes: camera_state: The camera uses a series of extreme close-ups, focusing on the women's faces, hands, and the rings on their fingers. The shots are handheld and slightly shaky, creating a sense of intimacy and emotional intensity., video_background: The background is blurred and indistinct, keeping the focus entirely on the two women and their emotional connection. The lighting is soft and warm., storyline: This opening montage establishes a deep, romantic, and possibly troubled relationship between the two women, hinting at themes of love, commitment, and intimacy., shooting_style: This is a montage of quick, intimate close-ups, intercutting different moments to build an emotional atmosphere. The two women are shown in a tender, romantic moment, their foreheads touching as they gaze into each other's eyes. The setting sun creates a warm, golden lens flare between them, backlighting their hair. The opening credits for the film begin to appear in a handwritten-style font.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues, swelling slightly as the credits appear, enhancing the romantic and emotional tone of the scene.; attributes: camera_state: The camera is in a close-up, focusing on the profiles of the two women as they touch foreheads. The shot is steady, emphasizing the intimacy of the moment., video_background: The background is a blurry outdoor setting at dusk, with the warm light of the setting sun creating a strong backlight and a prominent lens flare., storyline: This scene solidifies the romantic connection between the two women, portraying a moment of pure intimacy and affection as the film's credits start to roll., shooting_style: This is a single, steady shot that serves as the backdrop for the opening credits.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A montage of intimate moments begins. A blonde woman with red-painted nails gently covers her face with her hands, revealing a sparkling diamond ring on her finger. The scene then cuts to a close-up of a brunette woman with a turquoise ring, her head buried in the blonde woman's shoulder as they embrace.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play, setting a romantic and somber mood.",
+              "attributes": [
+                "camera_state: The camera uses a series of extreme close-ups, focusing on the women's faces, hands, and the rings on their fingers. The shots are handheld and slightly shaky, creating a sense of intimacy and emotional intensity.",
+                "video_background: The background is blurred and indistinct, keeping the focus entirely on the two women and their emotional connection. The lighting is soft and warm.",
+                "storyline: This opening montage establishes a deep, romantic, and possibly troubled relationship between the two women, hinting at themes of love, commitment, and intimacy.",
+                "shooting_style: This is a montage of quick, intimate close-ups, intercutting different moments to build an emotional atmosphere."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 192.0,
+              "visual": "The two women are shown in a tender, romantic moment, their foreheads touching as they gaze into each other's eyes. The setting sun creates a warm, golden lens flare between them, backlighting their hair. The opening credits for the film begin to appear in a handwritten-style font.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues, swelling slightly as the credits appear, enhancing the romantic and emotional tone of the scene.",
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the profiles of the two women as they touch foreheads. The shot is steady, emphasizing the intimacy of the moment.",
+                "video_background: The background is a blurry outdoor setting at dusk, with the warm light of the setting sun creating a strong backlight and a prominent lens flare.",
+                "storyline: This scene solidifies the romantic connection between the two women, portraying a moment of pure intimacy and affection as the film's credits start to roll.",
+                "shooting_style: This is a single, steady shot that serves as the backdrop for the opening credits."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 256.8,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 240.0,
+              "end_s": 256.8,
+              "artifact_id": "clip_240_00_256_80",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_240_00_256_80.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 256.8
+          },
+          "overall_summary": "The end credits begin to roll over a close-up shot of a young woman with blonde hair gently touching the face of a young man. They are standing very close, sharing an intimate and tender moment. The man closes his eyes, and the woman smiles softly as she holds his face.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody plays.; attributes: camera_state: The camera is in a close-up, focusing on the profiles of the two individuals. The shot is static., video_background: The background is dark and out of focus, keeping the attention solely on the couple's interaction., storyline: This is the beginning of the end credits sequence, set against a romantic and intimate scene from the film., shooting_style: This is a standard shot with text overlay for the credits. The credits continue to scroll upwards, displaying the names of the production company, 'Des Gens BienProd,' the year '2018,' and the website 'lesfilmssurmesure.com.' The background image of the couple remains visible but is slightly blurred as the text comes into focus.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues.; Des Gens BienProd, | 2018, | lesfilmssurmesure.com.; attributes: camera_state: The camera remains in a static close-up on the couple., video_background: The background is a blurred, dark, and indistinct setting, with the couple's faces being the central focus., storyline: The credits sequence continues, providing production information while maintaining the emotional tone set by the background scene., shooting_style: This is a standard credit roll with a static background image. The background image of the couple fades to complete blackness. The credits, which were scrolling upwards, also disappear, leaving the screen entirely black. The scene is silent.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The piano music fades out completely, leaving silence.; attributes: camera_state: The camera is static, holding on the couple before the fade-out., video_background: The background transitions from a blurred scene to solid black., storyline: The credits sequence officially concludes as both the visual and audio elements fade out., shooting_style: The scene uses a fade-to-black transition to end the credits.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 245.0,
+              "visual": "The end credits begin to roll over a close-up shot of a young woman with blonde hair gently touching the face of a young man. They are standing very close, sharing an intimate and tender moment. The man closes his eyes, and the woman smiles softly as she holds his face.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody plays.",
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the profiles of the two individuals. The shot is static.",
+                "video_background: The background is dark and out of focus, keeping the attention solely on the couple's interaction.",
+                "storyline: This is the beginning of the end credits sequence, set against a romantic and intimate scene from the film.",
+                "shooting_style: This is a standard shot with text overlay for the credits."
+              ]
+            },
+            {
+              "start_s": 246.0,
+              "end_s": 250.0,
+              "visual": "The credits continue to scroll upwards, displaying the names of the production company, 'Des Gens BienProd,' the year '2018,' and the website 'lesfilmssurmesure.com.' The background image of the couple remains visible but is slightly blurred as the text comes into focus.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues.",
+              "on_screen_text": [
+                "Des Gens BienProd,",
+                "lesfilmssurmesure.com."
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static close-up on the couple.",
+                "video_background: The background is a blurred, dark, and indistinct setting, with the couple's faces being the central focus.",
+                "storyline: The credits sequence continues, providing production information while maintaining the emotional tone set by the background scene.",
+                "shooting_style: This is a standard credit roll with a static background image."
+              ]
+            },
+            {
+              "start_s": 251.0,
+              "end_s": 256.0,
+              "visual": "The background image of the couple fades to complete blackness. The credits, which were scrolling upwards, also disappear, leaving the screen entirely black. The scene is silent.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The piano music fades out completely, leaving silence.",
+              "attributes": [
+                "camera_state: The camera is static, holding on the couple before the fade-out.",
+                "video_background: The background transitions from a blurred scene to solid black.",
+                "storyline: The credits sequence officially concludes as both the visual and audio elements fade out.",
+                "shooting_style: The scene uses a fade-to-black transition to end the credits."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The opening credits begin with the production company's name, 'Des Gens BienProd présente,' appearing over a blurry, out-of-focus shot of green cliffs and the sea. The scene then cuts to a view from inside a dark, wet cave, looking out onto a stunning coastal landscape. A woman with long blonde hair, wearing a brown coat, is seen from behind, standing at the cave's entrance. The text 'avec Laura Giudice' appears as she stands still, looking out at the sea and cliffs.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play.; s name, | s entrance. The text; attributes: camera_state: The initial shot is a blurry, handheld-style shot. It then cuts to a static, wide shot from inside the cave, framed by the cave's entrance to create a natural vignette., video_background: The setting is a dramatic coastal scene with white cliffs, a green coastline, and a grey, overcast sky. The interior is a dark, wet cave., storyline: This segment introduces the production company and the lead actress, establishing a mysterious and somber tone for the film., shooting_style: This is the beginning of the opening credits sequence, using text overlays on establishing shots. A high-angle shot shows the turquoise water of the sea churning at the base of the cliffs. The scene cuts back to a close-up of the blonde woman's face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text 'et Magali Lange' appears. The scene returns to the wide shot of the woman standing in the cave, with the text 'dans un film de Franck Victor' appearing.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The melancholic piano music continues, swelling slightly to enhance the dramatic tension.; s face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text | appears. The scene returns to the wide shot of the woman standing in the cave, with the text; attributes: camera_state: The sequence uses a high-angle shot looking down on the sea, followed by a close-up on the woman's face, and then returns to the previous wide shot from inside the cave., video_background: The background alternates between the churning sea and the interior of the dark cave, with the coastal landscape visible through the entrance., storyline: This segment introduces the second lead actress and the director, while reinforcing the protagonist's emotional state of anxiety and concern., shooting_style: The sequence continues the opening credits, intercutting different shots and text overlays to introduce the key creative team.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 7.0,
+              "visual": "The opening credits begin with the production company's name, 'Des Gens BienProd présente,' appearing over a blurry, out-of-focus shot of green cliffs and the sea. The scene then cuts to a view from inside a dark, wet cave, looking out onto a stunning coastal landscape. A woman with long blonde hair, wearing a brown coat, is seen from behind, standing at the cave's entrance. The text 'avec Laura Giudice' appears as she stands still, looking out at the sea and cliffs.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play.",
+              "on_screen_text": [
+                "s name,",
+                "s entrance. The text"
+              ],
+              "attributes": [
+                "camera_state: The initial shot is a blurry, handheld-style shot. It then cuts to a static, wide shot from inside the cave, framed by the cave's entrance to create a natural vignette.",
+                "video_background: The setting is a dramatic coastal scene with white cliffs, a green coastline, and a grey, overcast sky. The interior is a dark, wet cave.",
+                "storyline: This segment introduces the production company and the lead actress, establishing a mysterious and somber tone for the film.",
+                "shooting_style: This is the beginning of the opening credits sequence, using text overlays on establishing shots."
+              ]
+            },
+            {
+              "start_s": 8.0,
+              "end_s": 16.0,
+              "visual": "A high-angle shot shows the turquoise water of the sea churning at the base of the cliffs. The scene cuts back to a close-up of the blonde woman's face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text 'et Magali Lange' appears. The scene returns to the wide shot of the woman standing in the cave, with the text 'dans un film de Franck Victor' appearing.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The melancholic piano music continues, swelling slightly to enhance the dramatic tension.",
+              "on_screen_text": [
+                "s face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text",
+                "appears. The scene returns to the wide shot of the woman standing in the cave, with the text"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a high-angle shot looking down on the sea, followed by a close-up on the woman's face, and then returns to the previous wide shot from inside the cave.",
+                "video_background: The background alternates between the churning sea and the interior of the dark cave, with the coastal landscape visible through the entrance.",
+                "storyline: This segment introduces the second lead actress and the director, while reinforcing the protagonist's emotional state of anxiety and concern.",
+                "shooting_style: The sequence continues the opening credits, intercutting different shots and text overlays to introduce the key creative team."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "Two women stand on a grassy cliff overlooking a vast, grey sea under a cloudy sky. One woman, with long blonde hair and a brown coat, looks at the other woman, who has long dark hair and a beige trench coat. The blonde woman's expression is sad and pleading, while the dark-haired woman's is stern and unwavering.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The faint sound of wind and distant waves.; s expression is sad and pleading, while the dark-haired woman; attributes: camera_state: The scene opens with a wide shot of the two women on the cliff. It then cuts to a medium close-up of the blonde woman, followed by a close-up of the dark-haired woman's stern face., video_background: The setting is a dramatic, moody seascape with a green, grassy cliff. The ocean is grey and expansive, and the sky is filled with heavy, overcast clouds. White cliffs are visible in the distance., storyline: The scene establishes a tense and emotional confrontation between two women. Their contrasting body language and expressions suggest a deep, complicated history and a current conflict., shooting_style: The scene uses a combination of wide shots to establish the setting and close-ups to emphasize the characters' emotional states. The camera alternates between close-ups of the two women's faces. The blonde woman's expression is filled with sadness and desperation, her eyes welling up with tears. The dark-haired woman maintains a cold, intense, and unyielding gaze, her face remaining stoic and unreadable.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind continues.; s faces. The blonde woman; attributes: camera_state: The camera uses a series of tight close-ups, cutting back and forth between the two women's faces to highlight their emotional exchange. The focus is shallow, blurring the background., video_background: The background is a soft-focus view of the grey sea and sky, keeping the focus entirely on the characters' expressions., storyline: The emotional intensity of the confrontation is heightened. The blonde woman's vulnerability is contrasted with the dark-haired woman's cold resolve, creating a palpable sense of unresolved tension., shooting_style: This segment is a montage of close-ups, emphasizing the emotional contrast between the two characters.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0,
+              "visual": "Two women stand on a grassy cliff overlooking a vast, grey sea under a cloudy sky. One woman, with long blonde hair and a brown coat, looks at the other woman, who has long dark hair and a beige trench coat. The blonde woman's expression is sad and pleading, while the dark-haired woman's is stern and unwavering.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The faint sound of wind and distant waves.",
+              "on_screen_text": [
+                "s expression is sad and pleading, while the dark-haired woman"
+              ],
+              "attributes": [
+                "camera_state: The scene opens with a wide shot of the two women on the cliff. It then cuts to a medium close-up of the blonde woman, followed by a close-up of the dark-haired woman's stern face.",
+                "video_background: The setting is a dramatic, moody seascape with a green, grassy cliff. The ocean is grey and expansive, and the sky is filled with heavy, overcast clouds. White cliffs are visible in the distance.",
+                "storyline: The scene establishes a tense and emotional confrontation between two women. Their contrasting body language and expressions suggest a deep, complicated history and a current conflict.",
+                "shooting_style: The scene uses a combination of wide shots to establish the setting and close-ups to emphasize the characters' emotional states."
+              ]
+            },
+            {
+              "start_s": 66.0,
+              "end_s": 75.0,
+              "visual": "The camera alternates between close-ups of the two women's faces. The blonde woman's expression is filled with sadness and desperation, her eyes welling up with tears. The dark-haired woman maintains a cold, intense, and unyielding gaze, her face remaining stoic and unreadable.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind continues.",
+              "on_screen_text": [
+                "s faces. The blonde woman"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of tight close-ups, cutting back and forth between the two women's faces to highlight their emotional exchange. The focus is shallow, blurring the background.",
+                "video_background: The background is a soft-focus view of the grey sea and sky, keeping the focus entirely on the characters' expressions.",
+                "storyline: The emotional intensity of the confrontation is heightened. The blonde woman's vulnerability is contrasted with the dark-haired woman's cold resolve, creating a palpable sense of unresolved tension.",
+                "shooting_style: This segment is a montage of close-ups, emphasizing the emotional contrast between the two characters."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A young blonde woman with a distressed and tearful expression confronts another woman on a cliffside. The blonde woman, wearing a brown suede jacket, has her hair blowing in the wind. The other woman, with long dark hair and a beige coat, stands with her arms crossed, looking down at the blonde woman with a stern, unyielding expression. The scene is set against a backdrop of green cliffs and the ocean.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and distant waves crashing.; attributes: camera_state: The camera is positioned over the shoulder of the dark-haired woman, focusing on the blonde woman's face in a medium close-up. The shot is handheld and slightly shaky, adding to the scene's tension., video_background: The setting is a bleak, overcast day on a grassy cliff overlooking the ocean. The sea is grey and choppy, and a stone wall is visible in the background., storyline: The scene opens on a tense confrontation between two women. The blonde woman is clearly distressed and emotional, while the dark-haired woman appears cold and dominant, establishing a power imbalance and conflict., shooting_style: The scene uses a shot-reverse-shot technique, cutting between the two women to emphasize their emotional states and the tension between them. The dark-haired woman reaches out and gently touches the blonde woman's chin and neck. The blonde woman's expression shifts from distress to a more subdued, almost resigned sadness as she looks up at the other woman. The dark-haired woman maintains a serious, intense gaze.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and the ocean continues.; s chin and neck. The blonde woman; attributes: camera_state: The camera alternates between a close-up on the dark-haired woman's hand touching the blonde woman's face and a medium close-up of the blonde woman's reaction. The focus is tight on their faces and the physical contact., video_background: The background remains the same, with the grey sea and green cliffs providing a somber and moody atmosphere., storyline: The physical touch is ambiguous—it could be a gesture of comfort or a form of control. The blonde woman's reaction suggests it is a complex and possibly painful interaction, deepening the mystery of their relationship., shooting_style: The shot-reverse-shot continues, with the camera focusing on the subtle facial expressions and the physical interaction between the two characters.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "A young blonde woman with a distressed and tearful expression confronts another woman on a cliffside. The blonde woman, wearing a brown suede jacket, has her hair blowing in the wind. The other woman, with long dark hair and a beige coat, stands with her arms crossed, looking down at the blonde woman with a stern, unyielding expression. The scene is set against a backdrop of green cliffs and the ocean.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and distant waves crashing.",
+              "attributes": [
+                "camera_state: The camera is positioned over the shoulder of the dark-haired woman, focusing on the blonde woman's face in a medium close-up. The shot is handheld and slightly shaky, adding to the scene's tension.",
+                "video_background: The setting is a bleak, overcast day on a grassy cliff overlooking the ocean. The sea is grey and choppy, and a stone wall is visible in the background.",
+                "storyline: The scene opens on a tense confrontation between two women. The blonde woman is clearly distressed and emotional, while the dark-haired woman appears cold and dominant, establishing a power imbalance and conflict.",
+                "shooting_style: The scene uses a shot-reverse-shot technique, cutting between the two women to emphasize their emotional states and the tension between them."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 132.0,
+              "visual": "The dark-haired woman reaches out and gently touches the blonde woman's chin and neck. The blonde woman's expression shifts from distress to a more subdued, almost resigned sadness as she looks up at the other woman. The dark-haired woman maintains a serious, intense gaze.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and the ocean continues.",
+              "on_screen_text": [
+                "s chin and neck. The blonde woman"
+              ],
+              "attributes": [
+                "camera_state: The camera alternates between a close-up on the dark-haired woman's hand touching the blonde woman's face and a medium close-up of the blonde woman's reaction. The focus is tight on their faces and the physical contact.",
+                "video_background: The background remains the same, with the grey sea and green cliffs providing a somber and moody atmosphere.",
+                "storyline: The physical touch is ambiguous—it could be a gesture of comfort or a form of control. The blonde woman's reaction suggests it is a complex and possibly painful interaction, deepening the mystery of their relationship.",
+                "shooting_style: The shot-reverse-shot continues, with the camera focusing on the subtle facial expressions and the physical interaction between the two characters."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "A montage of intimate moments begins. A blonde woman with red-painted nails gently covers her face with her hands, revealing a sparkling diamond ring on her finger. The scene then cuts to a close-up of a brunette woman with a turquoise ring, her head buried in the blonde woman's shoulder as they embrace.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play, setting a romantic and somber mood.; attributes: camera_state: The camera uses a series of extreme close-ups, focusing on the women's faces, hands, and the rings on their fingers. The shots are handheld and slightly shaky, creating a sense of intimacy and emotional intensity., video_background: The background is blurred and indistinct, keeping the focus entirely on the two women and their emotional connection. The lighting is soft and warm., storyline: This opening montage establishes a deep, romantic, and possibly troubled relationship between the two women, hinting at themes of love, commitment, and intimacy., shooting_style: This is a montage of quick, intimate close-ups, intercutting different moments to build an emotional atmosphere. The two women are shown in a tender, romantic moment, their foreheads touching as they gaze into each other's eyes. The setting sun creates a warm, golden lens flare between them, backlighting their hair. The opening credits for the film begin to appear in a handwritten-style font.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues, swelling slightly as the credits appear, enhancing the romantic and emotional tone of the scene.; attributes: camera_state: The camera is in a close-up, focusing on the profiles of the two women as they touch foreheads. The shot is steady, emphasizing the intimacy of the moment., video_background: The background is a blurry outdoor setting at dusk, with the warm light of the setting sun creating a strong backlight and a prominent lens flare., storyline: This scene solidifies the romantic connection between the two women, portraying a moment of pure intimacy and affection as the film's credits start to roll., shooting_style: This is a single, steady shot that serves as the backdrop for the opening credits.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A montage of intimate moments begins. A blonde woman with red-painted nails gently covers her face with her hands, revealing a sparkling diamond ring on her finger. The scene then cuts to a close-up of a brunette woman with a turquoise ring, her head buried in the blonde woman's shoulder as they embrace.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play, setting a romantic and somber mood.",
+              "attributes": [
+                "camera_state: The camera uses a series of extreme close-ups, focusing on the women's faces, hands, and the rings on their fingers. The shots are handheld and slightly shaky, creating a sense of intimacy and emotional intensity.",
+                "video_background: The background is blurred and indistinct, keeping the focus entirely on the two women and their emotional connection. The lighting is soft and warm.",
+                "storyline: This opening montage establishes a deep, romantic, and possibly troubled relationship between the two women, hinting at themes of love, commitment, and intimacy.",
+                "shooting_style: This is a montage of quick, intimate close-ups, intercutting different moments to build an emotional atmosphere."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 192.0,
+              "visual": "The two women are shown in a tender, romantic moment, their foreheads touching as they gaze into each other's eyes. The setting sun creates a warm, golden lens flare between them, backlighting their hair. The opening credits for the film begin to appear in a handwritten-style font.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues, swelling slightly as the credits appear, enhancing the romantic and emotional tone of the scene.",
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the profiles of the two women as they touch foreheads. The shot is steady, emphasizing the intimacy of the moment.",
+                "video_background: The background is a blurry outdoor setting at dusk, with the warm light of the setting sun creating a strong backlight and a prominent lens flare.",
+                "storyline: This scene solidifies the romantic connection between the two women, portraying a moment of pure intimacy and affection as the film's credits start to roll.",
+                "shooting_style: This is a single, steady shot that serves as the backdrop for the opening credits."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 256.8,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 240.0,
+              "end_s": 256.8,
+              "artifact_id": "clip_240_00_256_80",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_240_00_256_80.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 256.8
+          },
+          "overall_summary": "The end credits begin to roll over a close-up shot of a young woman with blonde hair gently touching the face of a young man. They are standing very close, sharing an intimate and tender moment. The man closes his eyes, and the woman smiles softly as she holds his face.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody plays.; attributes: camera_state: The camera is in a close-up, focusing on the profiles of the two individuals. The shot is static., video_background: The background is dark and out of focus, keeping the attention solely on the couple's interaction., storyline: This is the beginning of the end credits sequence, set against a romantic and intimate scene from the film., shooting_style: This is a standard shot with text overlay for the credits. The credits continue to scroll upwards, displaying the names of the production company, 'Des Gens BienProd,' the year '2018,' and the website 'lesfilmssurmesure.com.' The background image of the couple remains visible but is slightly blurred as the text comes into focus.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues.; Des Gens BienProd, | 2018, | lesfilmssurmesure.com.; attributes: camera_state: The camera remains in a static close-up on the couple., video_background: The background is a blurred, dark, and indistinct setting, with the couple's faces being the central focus., storyline: The credits sequence continues, providing production information while maintaining the emotional tone set by the background scene., shooting_style: This is a standard credit roll with a static background image. The background image of the couple fades to complete blackness. The credits, which were scrolling upwards, also disappear, leaving the screen entirely black. The scene is silent.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The piano music fades out completely, leaving silence.; attributes: camera_state: The camera is static, holding on the couple before the fade-out., video_background: The background transitions from a blurred scene to solid black., storyline: The credits sequence officially concludes as both the visual and audio elements fade out., shooting_style: The scene uses a fade-to-black transition to end the credits.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 245.0,
+              "visual": "The end credits begin to roll over a close-up shot of a young woman with blonde hair gently touching the face of a young man. They are standing very close, sharing an intimate and tender moment. The man closes his eyes, and the woman smiles softly as she holds his face.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody plays.",
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the profiles of the two individuals. The shot is static.",
+                "video_background: The background is dark and out of focus, keeping the attention solely on the couple's interaction.",
+                "storyline: This is the beginning of the end credits sequence, set against a romantic and intimate scene from the film.",
+                "shooting_style: This is a standard shot with text overlay for the credits."
+              ]
+            },
+            {
+              "start_s": 246.0,
+              "end_s": 250.0,
+              "visual": "The credits continue to scroll upwards, displaying the names of the production company, 'Des Gens BienProd,' the year '2018,' and the website 'lesfilmssurmesure.com.' The background image of the couple remains visible but is slightly blurred as the text comes into focus.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues.",
+              "on_screen_text": [
+                "Des Gens BienProd,",
+                "lesfilmssurmesure.com."
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static close-up on the couple.",
+                "video_background: The background is a blurred, dark, and indistinct setting, with the couple's faces being the central focus.",
+                "storyline: The credits sequence continues, providing production information while maintaining the emotional tone set by the background scene.",
+                "shooting_style: This is a standard credit roll with a static background image."
+              ]
+            },
+            {
+              "start_s": 251.0,
+              "end_s": 256.0,
+              "visual": "The background image of the couple fades to complete blackness. The credits, which were scrolling upwards, also disappear, leaving the screen entirely black. The scene is silent.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The piano music fades out completely, leaving silence.",
+              "attributes": [
+                "camera_state: The camera is static, holding on the couple before the fade-out.",
+                "video_background: The background transitions from a blurred scene to solid black.",
+                "storyline: The credits sequence officially concludes as both the visual and audio elements fade out.",
+                "shooting_style: The scene uses a fade-to-black transition to end the credits."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_8a924e4b9c80",
+        "clip": {
+          "video_id": "8rdIuLhEQso",
+          "start_s": 0.0,
+          "end_s": 256.8,
+          "artifact_id": "clip_000_00_256_80",
+          "relpath": "artifacts/8rdIuLhEQso/clips/clip_000_00_256_80.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 24.044,
+            "end_s": 50.639,
+            "text": "Qu'est-ce que tu fais, Léa ? Je me promène. Ah, tu te promènes au bord de la falaise ? Ouais."
+          },
+          {
+            "start_s": 53.474,
+            "end_s": 79.495,
+            "text": "T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ?"
+          },
+          {
+            "start_s": 81.352,
+            "end_s": 110.883,
+            "text": "Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok."
+          },
+          {
+            "start_s": 115.777,
+            "end_s": 143.468,
+            "text": "Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même."
+          },
+          {
+            "start_s": 149.594,
+            "end_s": 166.402,
+            "text": "C'est toi, petite conne. On arrête ton connerie, s'il te plaît."
+          }
+        ]
+      }
+    ],
+    "planner_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The opening credits begin with the production company's name, 'Des Gens BienProd présente,' appearing over a blurry, out-of-focus shot of green cliffs and the sea. The scene then cuts to a view from inside a dark, wet cave, looking out onto a stunning coastal landscape. A woman with long blonde hair, wearing a brown coat, is seen from behind, standing at the cave's entrance. The text 'avec Laura Giudice' appears as she stands still, looking out at the sea and cliffs.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play.; s name, | s entrance. The text; attributes: camera_state: The initial shot is a blurry, handheld-style shot. It then cuts to a static, wide shot from inside the cave, framed by the cave's entrance to create a natural vignette., video_background: The setting is a dramatic coastal scene with white cliffs, a green coastline, and a grey, overcast sky. The interior is a dark, wet cave., storyline: This segment introduces the production company and the lead actress, establishing a mysterious and somber tone for the film., shooting_style: This is the beginning of the opening credits sequence, using text overlays on establishing shots. A high-angle shot shows the turquoise water of the sea churning at the base of the cliffs. The scene cuts back to a close-up of the blonde woman's face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text 'et Magali Lange' appears. The scene returns to the wide shot of the woman standing in the cave, with the text 'dans un film de Franck Victor' appearing.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The melancholic piano music continues, swelling slightly to enhance the dramatic tension.; s face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text | appears. The scene returns to the wide shot of the woman standing in the cave, with the text; attributes: camera_state: The sequence uses a high-angle shot looking down on the sea, followed by a close-up on the woman's face, and then returns to the previous wide shot from inside the cave., video_background: The background alternates between the churning sea and the interior of the dark cave, with the coastal landscape visible through the entrance., storyline: This segment introduces the second lead actress and the director, while reinforcing the protagonist's emotional state of anxiety and concern., shooting_style: The sequence continues the opening credits, intercutting different shots and text overlays to introduce the key creative team.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 7.0,
+              "visual": "The opening credits begin with the production company's name, 'Des Gens BienProd présente,' appearing over a blurry, out-of-focus shot of green cliffs and the sea. The scene then cuts to a view from inside a dark, wet cave, looking out onto a stunning coastal landscape. A woman with long blonde hair, wearing a brown coat, is seen from behind, standing at the cave's entrance. The text 'avec Laura Giudice' appears as she stands still, looking out at the sea and cliffs.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play.",
+              "on_screen_text": [
+                "s name,",
+                "s entrance. The text"
+              ],
+              "attributes": [
+                "camera_state: The initial shot is a blurry, handheld-style shot. It then cuts to a static, wide shot from inside the cave, framed by the cave's entrance to create a natural vignette.",
+                "video_background: The setting is a dramatic coastal scene with white cliffs, a green coastline, and a grey, overcast sky. The interior is a dark, wet cave.",
+                "storyline: This segment introduces the production company and the lead actress, establishing a mysterious and somber tone for the film.",
+                "shooting_style: This is the beginning of the opening credits sequence, using text overlays on establishing shots."
+              ]
+            },
+            {
+              "start_s": 8.0,
+              "end_s": 16.0,
+              "visual": "A high-angle shot shows the turquoise water of the sea churning at the base of the cliffs. The scene cuts back to a close-up of the blonde woman's face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text 'et Magali Lange' appears. The scene returns to the wide shot of the woman standing in the cave, with the text 'dans un film de Franck Victor' appearing.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The melancholic piano music continues, swelling slightly to enhance the dramatic tension.",
+              "on_screen_text": [
+                "s face inside the cave; her hair is blowing across her face as she looks out with a worried and intense expression. The text",
+                "appears. The scene returns to the wide shot of the woman standing in the cave, with the text"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a high-angle shot looking down on the sea, followed by a close-up on the woman's face, and then returns to the previous wide shot from inside the cave.",
+                "video_background: The background alternates between the churning sea and the interior of the dark cave, with the coastal landscape visible through the entrance.",
+                "storyline: This segment introduces the second lead actress and the director, while reinforcing the protagonist's emotional state of anxiety and concern.",
+                "shooting_style: The sequence continues the opening credits, intercutting different shots and text overlays to introduce the key creative team."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 24.044,
+              "end_s": 50.639,
+              "text": "Qu'est-ce que tu fais, Léa ? Je me promène. Ah, tu te promènes au bord de la falaise ? Ouais."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "Two women stand on a grassy cliff overlooking a vast, grey sea under a cloudy sky. One woman, with long blonde hair and a brown coat, looks at the other woman, who has long dark hair and a beige trench coat. The blonde woman's expression is sad and pleading, while the dark-haired woman's is stern and unwavering.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The faint sound of wind and distant waves.; s expression is sad and pleading, while the dark-haired woman; attributes: camera_state: The scene opens with a wide shot of the two women on the cliff. It then cuts to a medium close-up of the blonde woman, followed by a close-up of the dark-haired woman's stern face., video_background: The setting is a dramatic, moody seascape with a green, grassy cliff. The ocean is grey and expansive, and the sky is filled with heavy, overcast clouds. White cliffs are visible in the distance., storyline: The scene establishes a tense and emotional confrontation between two women. Their contrasting body language and expressions suggest a deep, complicated history and a current conflict., shooting_style: The scene uses a combination of wide shots to establish the setting and close-ups to emphasize the characters' emotional states. The camera alternates between close-ups of the two women's faces. The blonde woman's expression is filled with sadness and desperation, her eyes welling up with tears. The dark-haired woman maintains a cold, intense, and unyielding gaze, her face remaining stoic and unreadable.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind continues.; s faces. The blonde woman; attributes: camera_state: The camera uses a series of tight close-ups, cutting back and forth between the two women's faces to highlight their emotional exchange. The focus is shallow, blurring the background., video_background: The background is a soft-focus view of the grey sea and sky, keeping the focus entirely on the characters' expressions., storyline: The emotional intensity of the confrontation is heightened. The blonde woman's vulnerability is contrasted with the dark-haired woman's cold resolve, creating a palpable sense of unresolved tension., shooting_style: This segment is a montage of close-ups, emphasizing the emotional contrast between the two characters.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0,
+              "visual": "Two women stand on a grassy cliff overlooking a vast, grey sea under a cloudy sky. One woman, with long blonde hair and a brown coat, looks at the other woman, who has long dark hair and a beige trench coat. The blonde woman's expression is sad and pleading, while the dark-haired woman's is stern and unwavering.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The faint sound of wind and distant waves.",
+              "on_screen_text": [
+                "s expression is sad and pleading, while the dark-haired woman"
+              ],
+              "attributes": [
+                "camera_state: The scene opens with a wide shot of the two women on the cliff. It then cuts to a medium close-up of the blonde woman, followed by a close-up of the dark-haired woman's stern face.",
+                "video_background: The setting is a dramatic, moody seascape with a green, grassy cliff. The ocean is grey and expansive, and the sky is filled with heavy, overcast clouds. White cliffs are visible in the distance.",
+                "storyline: The scene establishes a tense and emotional confrontation between two women. Their contrasting body language and expressions suggest a deep, complicated history and a current conflict.",
+                "shooting_style: The scene uses a combination of wide shots to establish the setting and close-ups to emphasize the characters' emotional states."
+              ]
+            },
+            {
+              "start_s": 66.0,
+              "end_s": 75.0,
+              "visual": "The camera alternates between close-ups of the two women's faces. The blonde woman's expression is filled with sadness and desperation, her eyes welling up with tears. The dark-haired woman maintains a cold, intense, and unyielding gaze, her face remaining stoic and unreadable.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind continues.",
+              "on_screen_text": [
+                "s faces. The blonde woman"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of tight close-ups, cutting back and forth between the two women's faces to highlight their emotional exchange. The focus is shallow, blurring the background.",
+                "video_background: The background is a soft-focus view of the grey sea and sky, keeping the focus entirely on the characters' expressions.",
+                "storyline: The emotional intensity of the confrontation is heightened. The blonde woman's vulnerability is contrasted with the dark-haired woman's cold resolve, creating a palpable sense of unresolved tension.",
+                "shooting_style: This segment is a montage of close-ups, emphasizing the emotional contrast between the two characters."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 53.474,
+              "end_s": 79.495,
+              "text": "T'as reçu mon message ? Ouais j'ai reçu ouais En même temps je suis pas télépathe donc oui si je suis là j'aurais pas pu deviner que tu serais pile poil ici à 11h Je suis contente de te voir En quoi tu joues là ? Je joue pas Mais arrête ton cinéma ça fonctionne pas avec moi je t'ai déjà dit Donc c'est quoi là ? Tu fais quoi ? C'est un chantage au suicide ? C'est ça ? Ici là ?"
+            },
+            {
+              "start_s": 81.352,
+              "end_s": 110.883,
+              "text": "Et t'as pas trouvé plus cliché ? Elle est mariée à Jean Blanc, c'est pas cliché ? Bon enfin ça c'est mon histoire, ça te regarde pas. Bah pourquoi t'es là alors ? Bah pour te regarder sauter. Tu veux me voir mourir. Vas-y saute. Que j'aille me marier tranquille. Avec ma mort sur la conscience ? J'ai pas de conscience. Ah bah pas de morale. Ah non, zéro. Ok."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A young blonde woman with a distressed and tearful expression confronts another woman on a cliffside. The blonde woman, wearing a brown suede jacket, has her hair blowing in the wind. The other woman, with long dark hair and a beige coat, stands with her arms crossed, looking down at the blonde woman with a stern, unyielding expression. The scene is set against a backdrop of green cliffs and the ocean.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and distant waves crashing.; attributes: camera_state: The camera is positioned over the shoulder of the dark-haired woman, focusing on the blonde woman's face in a medium close-up. The shot is handheld and slightly shaky, adding to the scene's tension., video_background: The setting is a bleak, overcast day on a grassy cliff overlooking the ocean. The sea is grey and choppy, and a stone wall is visible in the background., storyline: The scene opens on a tense confrontation between two women. The blonde woman is clearly distressed and emotional, while the dark-haired woman appears cold and dominant, establishing a power imbalance and conflict., shooting_style: The scene uses a shot-reverse-shot technique, cutting between the two women to emphasize their emotional states and the tension between them. The dark-haired woman reaches out and gently touches the blonde woman's chin and neck. The blonde woman's expression shifts from distress to a more subdued, almost resigned sadness as she looks up at the other woman. The dark-haired woman maintains a serious, intense gaze.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and the ocean continues.; s chin and neck. The blonde woman; attributes: camera_state: The camera alternates between a close-up on the dark-haired woman's hand touching the blonde woman's face and a medium close-up of the blonde woman's reaction. The focus is tight on their faces and the physical contact., video_background: The background remains the same, with the grey sea and green cliffs providing a somber and moody atmosphere., storyline: The physical touch is ambiguous—it could be a gesture of comfort or a form of control. The blonde woman's reaction suggests it is a complex and possibly painful interaction, deepening the mystery of their relationship., shooting_style: The shot-reverse-shot continues, with the camera focusing on the subtle facial expressions and the physical interaction between the two characters.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "A young blonde woman with a distressed and tearful expression confronts another woman on a cliffside. The blonde woman, wearing a brown suede jacket, has her hair blowing in the wind. The other woman, with long dark hair and a beige coat, stands with her arms crossed, looking down at the blonde woman with a stern, unyielding expression. The scene is set against a backdrop of green cliffs and the ocean.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and distant waves crashing.",
+              "attributes": [
+                "camera_state: The camera is positioned over the shoulder of the dark-haired woman, focusing on the blonde woman's face in a medium close-up. The shot is handheld and slightly shaky, adding to the scene's tension.",
+                "video_background: The setting is a bleak, overcast day on a grassy cliff overlooking the ocean. The sea is grey and choppy, and a stone wall is visible in the background.",
+                "storyline: The scene opens on a tense confrontation between two women. The blonde woman is clearly distressed and emotional, while the dark-haired woman appears cold and dominant, establishing a power imbalance and conflict.",
+                "shooting_style: The scene uses a shot-reverse-shot technique, cutting between the two women to emphasize their emotional states and the tension between them."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 132.0,
+              "visual": "The dark-haired woman reaches out and gently touches the blonde woman's chin and neck. The blonde woman's expression shifts from distress to a more subdued, almost resigned sadness as she looks up at the other woman. The dark-haired woman maintains a serious, intense gaze.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of wind and the ocean continues.",
+              "on_screen_text": [
+                "s chin and neck. The blonde woman"
+              ],
+              "attributes": [
+                "camera_state: The camera alternates between a close-up on the dark-haired woman's hand touching the blonde woman's face and a medium close-up of the blonde woman's reaction. The focus is tight on their faces and the physical contact.",
+                "video_background: The background remains the same, with the grey sea and green cliffs providing a somber and moody atmosphere.",
+                "storyline: The physical touch is ambiguous—it could be a gesture of comfort or a form of control. The blonde woman's reaction suggests it is a complex and possibly painful interaction, deepening the mystery of their relationship.",
+                "shooting_style: The shot-reverse-shot continues, with the camera focusing on the subtle facial expressions and the physical interaction between the two characters."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 115.777,
+              "end_s": 143.468,
+              "text": "Mais putain, mais t'es naze comme meuf ! T'es naze ! Tu viens ici, tu sers à rien ! Moi je sers à rien ? Je sers à rien ? Mais c'est toi, ça fait des mois que tu me fais chier, c'est beaucoup plus classe d'essayer de foutre envers mon couple ! Ton couple ? Ton couple de quoi ? Ton couple de merde ? Ton couple de merde que tu l'aimes même pas ton mec ! Tu l'aimes pas, c'est moi que t'aimes ! Je t'aime pas ! Je t'aime pas ! J'ai quitté Pierre quand même."
+            },
+            {
+              "start_s": 149.594,
+              "end_s": 166.402,
+              "text": "C'est toi, petite conne. On arrête ton connerie, s'il te plaît."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "A montage of intimate moments begins. A blonde woman with red-painted nails gently covers her face with her hands, revealing a sparkling diamond ring on her finger. The scene then cuts to a close-up of a brunette woman with a turquoise ring, her head buried in the blonde woman's shoulder as they embrace.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play, setting a romantic and somber mood.; attributes: camera_state: The camera uses a series of extreme close-ups, focusing on the women's faces, hands, and the rings on their fingers. The shots are handheld and slightly shaky, creating a sense of intimacy and emotional intensity., video_background: The background is blurred and indistinct, keeping the focus entirely on the two women and their emotional connection. The lighting is soft and warm., storyline: This opening montage establishes a deep, romantic, and possibly troubled relationship between the two women, hinting at themes of love, commitment, and intimacy., shooting_style: This is a montage of quick, intimate close-ups, intercutting different moments to build an emotional atmosphere. The two women are shown in a tender, romantic moment, their foreheads touching as they gaze into each other's eyes. The setting sun creates a warm, golden lens flare between them, backlighting their hair. The opening credits for the film begin to appear in a handwritten-style font.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues, swelling slightly as the credits appear, enhancing the romantic and emotional tone of the scene.; attributes: camera_state: The camera is in a close-up, focusing on the profiles of the two women as they touch foreheads. The shot is steady, emphasizing the intimacy of the moment., video_background: The background is a blurry outdoor setting at dusk, with the warm light of the setting sun creating a strong backlight and a prominent lens flare., storyline: This scene solidifies the romantic connection between the two women, portraying a moment of pure intimacy and affection as the film's credits start to roll., shooting_style: This is a single, steady shot that serves as the backdrop for the opening credits.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A montage of intimate moments begins. A blonde woman with red-painted nails gently covers her face with her hands, revealing a sparkling diamond ring on her finger. The scene then cuts to a close-up of a brunette woman with a turquoise ring, her head buried in the blonde woman's shoulder as they embrace.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody begins to play, setting a romantic and somber mood.",
+              "attributes": [
+                "camera_state: The camera uses a series of extreme close-ups, focusing on the women's faces, hands, and the rings on their fingers. The shots are handheld and slightly shaky, creating a sense of intimacy and emotional intensity.",
+                "video_background: The background is blurred and indistinct, keeping the focus entirely on the two women and their emotional connection. The lighting is soft and warm.",
+                "storyline: This opening montage establishes a deep, romantic, and possibly troubled relationship between the two women, hinting at themes of love, commitment, and intimacy.",
+                "shooting_style: This is a montage of quick, intimate close-ups, intercutting different moments to build an emotional atmosphere."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 192.0,
+              "visual": "The two women are shown in a tender, romantic moment, their foreheads touching as they gaze into each other's eyes. The setting sun creates a warm, golden lens flare between them, backlighting their hair. The opening credits for the film begin to appear in a handwritten-style font.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues, swelling slightly as the credits appear, enhancing the romantic and emotional tone of the scene.",
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the profiles of the two women as they touch foreheads. The shot is steady, emphasizing the intimacy of the moment.",
+                "video_background: The background is a blurry outdoor setting at dusk, with the warm light of the setting sun creating a strong backlight and a prominent lens flare.",
+                "storyline: This scene solidifies the romantic connection between the two women, portraying a moment of pure intimacy and affection as the film's credits start to roll.",
+                "shooting_style: This is a single, steady shot that serves as the backdrop for the opening credits."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 256.8,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "8rdIuLhEQso",
+              "start_s": 240.0,
+              "end_s": 256.8,
+              "artifact_id": "clip_240_00_256_80",
+              "relpath": "artifacts/8rdIuLhEQso/clips/clip_240_00_256_80.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 256.8
+          },
+          "overall_summary": "The end credits begin to roll over a close-up shot of a young woman with blonde hair gently touching the face of a young man. They are standing very close, sharing an intimate and tender moment. The man closes his eyes, and the woman smiles softly as she holds his face.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody plays.; attributes: camera_state: The camera is in a close-up, focusing on the profiles of the two individuals. The shot is static., video_background: The background is dark and out of focus, keeping the attention solely on the couple's interaction., storyline: This is the beginning of the end credits sequence, set against a romantic and intimate scene from the film., shooting_style: This is a standard shot with text overlay for the credits. The credits continue to scroll upwards, displaying the names of the production company, 'Des Gens BienProd,' the year '2018,' and the website 'lesfilmssurmesure.com.' The background image of the couple remains visible but is slightly blurred as the text comes into focus.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues.; Des Gens BienProd, | 2018, | lesfilmssurmesure.com.; attributes: camera_state: The camera remains in a static close-up on the couple., video_background: The background is a blurred, dark, and indistinct setting, with the couple's faces being the central focus., storyline: The credits sequence continues, providing production information while maintaining the emotional tone set by the background scene., shooting_style: This is a standard credit roll with a static background image. The background image of the couple fades to complete blackness. The credits, which were scrolling upwards, also disappear, leaving the screen entirely black. The scene is silent.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The piano music fades out completely, leaving silence.; attributes: camera_state: The camera is static, holding on the couple before the fade-out., video_background: The background transitions from a blurred scene to solid black., storyline: The credits sequence officially concludes as both the visual and audio elements fade out., shooting_style: The scene uses a fade-to-black transition to end the credits.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 245.0,
+              "visual": "The end credits begin to roll over a close-up shot of a young woman with blonde hair gently touching the face of a young man. They are standing very close, sharing an intimate and tender moment. The man closes his eyes, and the woman smiles softly as she holds his face.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A gentle, melancholic piano melody plays.",
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the profiles of the two individuals. The shot is static.",
+                "video_background: The background is dark and out of focus, keeping the attention solely on the couple's interaction.",
+                "storyline: This is the beginning of the end credits sequence, set against a romantic and intimate scene from the film.",
+                "shooting_style: This is a standard shot with text overlay for the credits."
+              ]
+            },
+            {
+              "start_s": 246.0,
+              "end_s": 250.0,
+              "visual": "The credits continue to scroll upwards, displaying the names of the production company, 'Des Gens BienProd,' the year '2018,' and the website 'lesfilmssurmesure.com.' The background image of the couple remains visible but is slightly blurred as the text comes into focus.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle piano music continues.",
+              "on_screen_text": [
+                "Des Gens BienProd,",
+                "lesfilmssurmesure.com."
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static close-up on the couple.",
+                "video_background: The background is a blurred, dark, and indistinct setting, with the couple's faces being the central focus.",
+                "storyline: The credits sequence continues, providing production information while maintaining the emotional tone set by the background scene.",
+                "shooting_style: This is a standard credit roll with a static background image."
+              ]
+            },
+            {
+              "start_s": 251.0,
+              "end_s": 256.0,
+              "visual": "The background image of the couple fades to complete blackness. The credits, which were scrolling upwards, also disappear, leaving the screen entirely black. The scene is silent.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The piano music fades out completely, leaving silence.",
+              "attributes": [
+                "camera_state: The camera is static, holding on the couple before the fade-out.",
+                "video_background: The background transitions from a blurred scene to solid black.",
+                "storyline: The credits sequence officially concludes as both the visual and audio elements fade out.",
+                "shooting_style: The scene uses a fade-to-black transition to end the credits."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "video_fingerprint": "342445d47dc3113294c1c83bd0430e0e6c0a48cbfbff37d32ebcf75588f237d8"
+  },
+  "rounds_executed": 2
+}

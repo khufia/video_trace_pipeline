@@ -1,0 +1,677 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "person",
+    "accused",
+    "kidnapper",
+    "man",
+    "light",
+    "gray",
+    "jacket",
+    "backwards",
+    "baseball",
+    "cap",
+    "wearing",
+    "glasses",
+    "blonde",
+    "wig",
+    "orange",
+    "puff",
+    "plaid",
+    "shirt",
+    "internally",
+    "cautious",
+    "mostly",
+    "well",
+    "reasoned",
+    "complete",
+    "multiple",
+    "choice",
+    "task",
+    "missing",
+    "repair",
+    "critical"
+  ],
+  "preprocess": {
+    "planner_segment_count": 5,
+    "raw_segment_count": 5,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 5,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "A title card appears on a black screen. The text reads 'EPISODE 3' in a serif font, with 'FRIENDS GO MISSING' written below it in a smaller, italicized font.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.; EPISODE...",
+        "caption_count": 3,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is static, holding a centered shot of the title card.",
+          "video_background: The background is solid black.",
+          "storyline: This title card officially introduces the episode's title, setting the expec...",
+          "shooting_style: This is a standard title card.",
+          "camera_state: The camera is static, capturing a medium shot of the man from the waist u...",
+          "video_background: The setting is a messy garage or workshop, with fishing rods, tools,...",
+          "storyline: This scene introduces one of the main characters in a casual, social setting...",
+          "shooting_style: This is a standard shot.",
+          "camera_state: The camera cuts between two static medium shots: one of the man in plaid,...",
+          "video_background: The background is a cluttered workshop with a workbench, tool chests,...",
+          "storyline: This sequence introduces the other two friends, showing their reactions to t...",
+          "shooting_style: The scene uses intercutting to show the reactions of different characters."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 7.169,
+            "end_s": 26.069,
+            "text": "Thick shot, dude. You actually get more points when it hits the board. Thanks, guys. You guys think you got something? Let me see you do it. It's all about confidence, Taylor. That just happened. No way. Who does that? I do that."
+          },
+          {
+            "start_s": 27.672,
+            "end_s": 45.307,
+            "text": "What's up, brother? I ended up staying at Dave's last night. I just woke up. Now he's missing. Last night was obviously pretty weird. Alex is acting like super, super strange. Yeah, I can't find him. Holy shit. I just seen Dave walking into the woods."
+          },
+          {
+            "start_s": 46.218,
+            "end_s": 66.653,
+            "text": "You saw him in the woods? I'm coming to get you. Be ready. Okay, yeah, just come to Dustin's. Did you change your pants? I don't want that smell on my truck, man. Yeah, I took a shower and changed my pants. Just saying. Well, I'm almost there. Be ready. Yeah, I'll see you soon. Grab lights. Make sure you got lights. Okay, bye."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "5-otljNyRmQ",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/5-otljNyRmQ/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "A man with a beard and a black cap is shown in profile, talking on a phone in a dark, outdoor setting. The scene then cuts to another man in a bright orange puffer jacket, sitting in a cluttered garage and also on the phone. He is surrounded by tools, a wor...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The first shot is a close-up profile of the man in the cap. The second sh...",
+          "video_background: The first scene is dark, with out-of-focus lights in the background....",
+          "storyline: The scene introduces two separate characters in different locations, both en...",
+          "shooting_style: This is an intercut sequence, showing two parallel actions.",
+          "camera_state: The camera is positioned inside the car, looking over the driver's should...",
+          "video_background: The interior of a car at night. The garage with the man in the orange...",
+          "storyline: The two characters are now shown in the same location, suggesting they are a...",
+          "shooting_style: This is a standard shot with a rack focus effect, shifting from the man..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 68.341,
+            "end_s": 93.029,
+            "text": "What's up? What's going on guys? We gotta go. Dude, I'm actually starting to believe Dave is 11. Honestly dude, me too. Last night when I got home, Alex kept saying he was Will. Kept talking about the upside down, Demogorgons. Dude, he puked up a leech. Puked up a leech?"
+          },
+          {
+            "start_s": 93.991,
+            "end_s": 122.847,
+            "text": "Yeah, dude. It's gotta be real. How else could he have made me piss myself? And he made you shit your pants, dude. It's not funny, guys. Dave has powers. Made you shit your pants? Oh, Mr. Poop Pants."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "5-otljNyRmQ",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/5-otljNyRmQ/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "In a dark, rainy night scene, a group of people are walking down a wet, dark road. The headlights of a car illuminate them as they walk away from the camera. One person in a red and black striped shirt is in the foreground, while others follow behind. The s...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The first shot is a static wide shot from behind the group. The second sh...",
+          "video_background: The setting is a dark, wet, and rural road at night during a rainstor...",
+          "storyline: The scene opens with a sense of mystery and tension, establishing a group of...",
+          "shooting_style: The scene uses a hard cut to transition from a wide, establishing shot...",
+          "camera_state: The camera uses a series of medium shots and close-ups, often handheld an...",
+          "video_background: The setting is a dense, dark forest at night, with heavy rain falling...",
+          "storyline: This montage introduces more characters who are also lost or searching in th...",
+          "shooting_style: This is a montage sequence, using rapid cuts between different characte..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 123.556,
+            "end_s": 153.442,
+            "text": "Mike! Dustin! Mike! Mike! Mike! Dustin! Lucas! Mike! Mike! Eleven? It's me!"
+          },
+          {
+            "start_s": 153.982,
+            "end_s": 183.091,
+            "text": "Will! Will? Will! Eleven. What are you doing here? How'd you get out of the Upside Down? Pop saved me. I'm just glad you're here, Will. What the hell are you guys doing? That's the guy that kidnapped me. I... I did not. I didn't."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "5-otljNyRmQ",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/5-otljNyRmQ/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "overall_summary": "In a dark, outdoor setting, a group of men are illuminated by the light of a flashlight. One man in a red puffer jacket and a baseball cap gestures with his hands as he speaks. Another man in a plaid shirt holds a flashlight up, and a third man in a grey ho...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is at a medium distance, capturing the upper bodies of the thr...",
+          "video_background: The scene is set at night in a dark, outdoor location, possibly a bac...",
+          "storyline: The scene opens on a tense group of men, establishing a sense of mystery and...",
+          "shooting_style: The scene is shot in a dark, found-footage style, with the flashlight a...",
+          "camera_state: The camera cuts between a medium shot of the woman and a close-up on the...",
+          "video_background: The setting remains a dark, outdoor area at night. The flashlight bea...",
+          "storyline: A new, mysterious character is introduced, adding to the suspense. The man's...",
+          "shooting_style: The scene uses quick cuts between characters to build suspense and show..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 183.985,
+            "end_s": 212.842,
+            "text": "Let's not do that. Dave. Eleven. We're your friends. Friend? Yes, friends. Will. Friend. What is going on right now? Alright, here's my stop. Alright man, I gotta drop these guys off and I'm coming back. Do not watch Stranger Things."
+          },
+          {
+            "start_s": 213.736,
+            "end_s": 242.12,
+            "text": "Why? Just promise me, dude. I'll be right back. I'm gonna drop these guys off. Okay. Taylor! Mike, come in. It's Lucas. Over. Taylor? Mike! Taylor! Mike! Dude! You watched it, didn't you?"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "5-otljNyRmQ",
+            "start_s": 180.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_180_00_240_00",
+            "relpath": "artifacts/5-otljNyRmQ/clips/clip_180_00_240_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 253.92,
+        "overall_summary": "In a dimly lit room, a man with glasses and a beard holds a yellow slingshot, aiming it off-screen. The scene cuts to a close-up of another man in a black hoodie and backward cap, who looks down with a serious expression. The first man is shown again, still...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The camera uses a series of quick cuts between a medium shot of the man w...",
+          "video_background: The setting is a dark, indoor space, likely a living room or hallway....",
+          "storyline: This opening sequence introduces two characters in a tense, confrontational...",
+          "shooting_style: The scene is intercut, rapidly alternating between the two characters t...",
+          "camera_state: The camera is static, holding a centered shot of the title card.",
+          "video_background: The background is a solid black screen with a faint, dark, textured p...",
+          "storyline: This is a title card, officially announcing the name of the show and its rel...",
+          "shooting_style: This is a standard title card shot."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 244.195,
+            "end_s": 248.347,
+            "text": "God damn it. God damn it."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "5-otljNyRmQ",
+            "start_s": 240.0,
+            "end_s": 253.92,
+            "artifact_id": "clip_240_00_253_92",
+            "relpath": "artifacts/5-otljNyRmQ/clips/clip_240_00_253_92.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 3,
+    "observation_count": 42,
+    "counts_by_status": {
+      "provisional": 3
+    },
+    "counts_by_tool": {
+      "generic_purpose": 2,
+      "frame_retriever": 1
+    },
+    "validated_evidence": [],
+    "recent_evidence": [
+      {
+        "evidence_id": "ev_01_90f2aee5",
+        "tool_name": "frame_retriever",
+        "status": "provisional",
+        "summary": "Retrieved 7 frame(s) across 1 input clip(s).",
+        "observation_ids": [
+          "obs_ab1111540f40ed0e",
+          "obs_feaebc3f83817710",
+          "obs_362f02356946c751",
+          "obs_9132e760be2926db",
+          "obs_5abe77e491ede4f5",
+          "obs_5389e496ace9407e",
+          "obs_c5dfad17a816af78"
+        ]
+      },
+      {
+        "evidence_id": "ev_02_c83aff0c",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "Thinking Process: 1. **Analyze the Request:** * Task: Answer the query using *only* the supplied evidence (transcript, images if any) and sampled media. * Constraint: Do not rely on scene priors or world knowledge. *...",
+        "observation_ids": [
+          "obs_cc7aff6e9d1dd35f",
+          "obs_dd9d5fc69c067718",
+          "obs_81f38a841a7cfea1",
+          "obs_7500efec5335f878",
+          "obs_ded91c365b62cbca",
+          "obs_21d7da65fd9adda9",
+          "obs_4ea4dd28651daac1",
+          "obs_1af64c9d7916a2fb"
+        ]
+      },
+      {
+        "evidence_id": "ev_03_5d0d969a",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "Tool step skipped because a declared input reference could not be resolved: 'Could not resolve transcripts from step 2'"
+      }
+    ],
+    "recent_observations": [
+      {
+        "observation_id": "obs_362f02356946c751",
+        "evidence_id": "ev_01_90f2aee5",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 169.0,
+        "text": "A candidate frame was retrieved at 169.00s."
+      },
+      {
+        "observation_id": "obs_9132e760be2926db",
+        "evidence_id": "ev_01_90f2aee5",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 170.0,
+        "text": "A candidate frame was retrieved at 170.00s."
+      },
+      {
+        "observation_id": "obs_5abe77e491ede4f5",
+        "evidence_id": "ev_01_90f2aee5",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 171.0,
+        "text": "A candidate frame was retrieved at 171.00s."
+      },
+      {
+        "observation_id": "obs_5389e496ace9407e",
+        "evidence_id": "ev_01_90f2aee5",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 172.0,
+        "text": "A candidate frame was retrieved at 172.00s."
+      },
+      {
+        "observation_id": "obs_c5dfad17a816af78",
+        "evidence_id": "ev_01_90f2aee5",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 173.0,
+        "text": "A candidate frame was retrieved at 173.00s."
+      },
+      {
+        "observation_id": "obs_cc7aff6e9d1dd35f",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The task is to answer the query using only the supplied evidence and sampled media."
+      },
+      {
+        "observation_id": "obs_dd9d5fc69c067718",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions forbid relying on scene priors or world knowledge."
+      },
+      {
+        "observation_id": "obs_81f38a841a7cfea1",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions require treating query wording as instructions, not evidence."
+      },
+      {
+        "observation_id": "obs_7500efec5335f878",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions require answering indeterminate if the state is not visible or stated."
+      },
+      {
+        "observation_id": "obs_ded91c365b62cbca",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions require collapsing near-synonymous labels for sound-count."
+      },
+      {
+        "observation_id": "obs_21d7da65fd9adda9",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions require preferring directly grounded phenomenon for cause or inference."
+      },
+      {
+        "observation_id": "obs_4ea4dd28651daac1",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions require identifying the earliest validated candidate for earliest or first questions."
+      },
+      {
+        "observation_id": "obs_1af64c9d7916a2fb",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions require comparing full surface forms for repeated text."
+      },
+      {
+        "observation_id": "obs_41b6da675011ff2d",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions require returning JSON only with keys answer, supporting_points, confidence, analysis."
+      },
+      {
+        "observation_id": "obs_9d7c62f165752523",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions forbid a preamble."
+      },
+      {
+        "observation_id": "obs_06d21a48868d7acb",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions forbid markdown."
+      },
+      {
+        "observation_id": "obs_9c5b46e58d74d2c4",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The instructions forbid hidden reasoning."
+      },
+      {
+        "observation_id": "obs_263d6780d81da4b7",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The confidence score ranges from 0.0 to 1.0."
+      },
+      {
+        "observation_id": "obs_0c053158819189f7",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The specific query asks, \"Which person is accused of being a kidnapper by the man in the light gray jacket?\""
+      },
+      {
+        "observation_id": "obs_9c6591be1723c4e2",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The specific task requires identifying who says 'That's the guy that kidnapped me' versus who replies 'I... I did not. I didn't.'"
+      },
+      {
+        "observation_id": "obs_1ac4c23fb1513f25",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The specific task requires determining the local accusation window."
+      },
+      {
+        "observation_id": "obs_f81683a1b8ed0486",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The specific task requires describing visual referent slot (1) as the man in the light gray jacket."
+      },
+      {
+        "observation_id": "obs_b2c63b2f58ca3f59",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The specific task requires describing visual referent slot (2) as the person he is accusing."
+      },
+      {
+        "observation_id": "obs_d72ca15d2324d52b",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The specific task requires quoting the relevant transcript lines."
+      },
+      {
+        "observation_id": "obs_417e6dfe39ca953f",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The specific task requires keeping speaker attribution tentative if the transcript alone cannot prove it."
+      },
+      {
+        "observation_id": "obs_af5362c4b6f5b93b",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The answer options are A, B, C, D, and E."
+      },
+      {
+        "observation_id": "obs_b9eedbea2c5d109f",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The answer options include descriptions of people."
+      },
+      {
+        "observation_id": "obs_c082d397a311a192",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The evidence provided includes Transcript 1 [120s-180s]."
+      },
+      {
+        "observation_id": "obs_93a055121272bd1b",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "No images are provided in the input."
+      },
+      {
+        "observation_id": "obs_9361af44e1f84d44",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The available evidence is limited to the transcript."
+      },
+      {
+        "observation_id": "obs_6ec7cff55453327e",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The transcript contains the quote, 'That's the guy that kidnapped me.'"
+      },
+      {
+        "observation_id": "obs_bbb955a3583d1220",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The transcript contains the quote, 'I... I did not. I didn't.'"
+      },
+      {
+        "observation_id": "obs_be373083815e31fe",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The query asks to identify the person accused based on the transcript and visual referents."
+      },
+      {
+        "observation_id": "obs_fd6bbb37b2c83a7b",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The transcript does not contain visual descriptions such as 'man in light gray jacket'."
+      },
+      {
+        "observation_id": "obs_7114716c6babb843",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The transcript does not contain visual descriptions such as 'man with backwards baseball cap'."
+      },
+      {
+        "observation_id": "obs_85c419f71a302d3f",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The transcript identifies an accuser saying, 'That's the guy that kidnapped me.'"
+      },
+      {
+        "observation_id": "obs_5ead9ebaf519f56e",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The transcript identifies an accused speaker replying, 'I... I did not. I didn't.'"
+      },
+      {
+        "observation_id": "obs_1f467c6e5a088d49",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The answer options describe clothing."
+      },
+      {
+        "observation_id": "obs_68c13bbf531d6210",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The available evidence does not link the dialogue to clothing descriptions."
+      },
+      {
+        "observation_id": "obs_2df0fa07af98a1a6",
+        "evidence_id": "ev_02_c83aff0c",
+        "source_tool": "generic_purpose",
+        "text": "The correct option cannot be determined from the supplied evidence alone."
+      }
+    ]
+  },
+  "artifact_context": {
+    "record_count": 7,
+    "counts_by_type": {
+      "frame": 7
+    },
+    "records": [
+      {
+        "artifact_id": "frame_167.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/5-otljNyRmQ/frames/frame_167.00.png",
+        "time": {
+          "timestamp_s": 167.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_90f2aee5"
+        ]
+      },
+      {
+        "artifact_id": "frame_168.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/5-otljNyRmQ/frames/frame_168.00.png",
+        "time": {
+          "timestamp_s": 168.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_90f2aee5"
+        ]
+      },
+      {
+        "artifact_id": "frame_169.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/5-otljNyRmQ/frames/frame_169.00.png",
+        "time": {
+          "timestamp_s": 169.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_90f2aee5"
+        ]
+      },
+      {
+        "artifact_id": "frame_170.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/5-otljNyRmQ/frames/frame_170.00.png",
+        "time": {
+          "timestamp_s": 170.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_90f2aee5"
+        ]
+      },
+      {
+        "artifact_id": "frame_171.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/5-otljNyRmQ/frames/frame_171.00.png",
+        "time": {
+          "timestamp_s": 171.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_90f2aee5"
+        ]
+      },
+      {
+        "artifact_id": "frame_172.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/5-otljNyRmQ/frames/frame_172.00.png",
+        "time": {
+          "timestamp_s": 172.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_90f2aee5"
+        ]
+      },
+      {
+        "artifact_id": "frame_173.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/5-otljNyRmQ/frames/frame_173.00.png",
+        "time": {
+          "timestamp_s": 173.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_90f2aee5"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 3,
+    "claims": [
+      {
+        "step_id": 1,
+        "text": "Chronologically, the available local visual window is 167.00s, 168.00s, 169.00s, 170.00s, 171.00s, 172.00s, and 173.00s. However, the grounded observations for those frames only confirm that frames were retrieved at those times; they do not identify which person is the man in the light gray jacket or which other person he is pointing to or addressing.",
+        "supporting_observation_ids": [
+          "obs_ab1111540f40ed0e",
+          "obs_feaebc3f83817710",
+          "obs_362f02356946c751",
+          "obs_9132e760be2926db",
+          "obs_5abe77e491ede4f5",
+          "obs_5389e496ace9407e",
+          "obs_c5dfad17a816af78"
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The transcript grounds that an accusation occurs: one speaker says, \"That's the guy that kidnapped me,\" and another replies, \"I... I did not. I didn't.\" This establishes that someone is accused of being the kidnapper, but the transcript alone does not visually identify the accuser as the man in the light gray jacket or identify the accused person by any clothing description matching the options.",
+        "supporting_observation_ids": [
+          "obs_6ec7cff55453327e",
+          "obs_bbb955a3583d1220",
+          "obs_fd6bbb37b2c83a7b",
+          "obs_7114716c6babb843",
+          "obs_68c13bbf531d6210",
+          "obs_85c419f71a302d3f",
+          "obs_5ead9ebaf519f56e"
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "Because the answer choices are visual identity descriptions and the grounded evidence here does not connect the accusation exchange to any specific clothing-based referent, none of options A-E is uniquely supported. The answer therefore remains unresolved from the supplied evidence.",
+        "supporting_observation_ids": [
+          "obs_68c13bbf531d6210",
+          "obs_2df0fa07af98a1a6"
+        ]
+      }
+    ]
+  },
+  "audit_gaps": [
+    "which speaker in the accusation exchange is the man in the light gray jacket",
+    "which visually identified person is being accused in that exchange",
+    "which answer option matches the accused person"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess text likely already contains the lineup count, so retrieve the relevant ASR/preprocess span before planning new tool use.",
+  "requests": [
+    {
+      "request_id": "lineup_count_intro",
+      "target": "mixed",
+      "need": "The explicit lineup/list of comedians featured in the show and enough surrounding text to count them reliably",
+      "query": "line-up lovely we have Nicky Bedi Daniel Taylor Aziz Abraham Christiana Backer Inder Manocha Dave Cohen and me comedians featured show",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 30.0,
+        "end_s": 70.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "show_summary_entities",
+      "target": "preprocess",
+      "need": "Any preprocess summary or caption text that states how many comedians/panelists are featured in the show",
+      "query": "comedians featured in the show lineup panelists performers immigrant diaries",
+      "modalities": [],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 120.0
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

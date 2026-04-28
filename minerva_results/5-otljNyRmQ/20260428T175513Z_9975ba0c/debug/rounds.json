@@ -1,0 +1,172 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Verify the rainy vehicle-exit sequence with a chronological frame window and use preprocess transcript context only as temporal support, then map the immediate next event to the options.",
+      "refinement_instructions": "Base the final trace on the chronological visual sequence, not on preprocess captions alone. The key discriminator is the first visible event after the friends are out of the vehicle. Explicitly note whether the sequence shows a lantern-bearing person appearing versus any car-door slam, gunshot, rifle-cocking, or slip/fall. Use the preprocess transcript only as scene alignment/context, not as proof of the visual event.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve a chronological local sequence around the rainy road scene where the friends have just exited the vehicle, so the immediate next visible action can be verified rather than inferred from captions.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "5-otljNyRmQ",
+                "start_s": 120.0,
+                "end_s": 132.0,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/5-otljNyRmQ/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "rainy vehicle-exit and immediate aftermath window"
+                }
+              }
+            ],
+            "include_anchor_neighbors": true,
+            "neighbor_radius_s": 6.0,
+            "num_frames": 8,
+            "query": "chronological frames showing the friends just after exiting the vehicle in the rain and what happens immediately next; include any lantern appearance, gun/rifle action, door slam context, or slipping/falling",
+            "sequence_mode": "anchor_window",
+            "sort_order": "chronological",
+            "time_hints": [
+              "120-124s group walking away from car headlights on wet road",
+              "124-132s immediate next action after exiting vehicle"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "Determine the immediate next event after the friends exit the vehicle by inspecting the chronological frames and using transcript context only to align the scene and reject unsupported options.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "5-otljNyRmQ",
+                "start_s": 120.0,
+                "end_s": 132.0,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/5-otljNyRmQ/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "same bounded local sequence"
+                }
+              }
+            ],
+            "evidence_ids": [],
+            "query": "In this rainy sequence, after the friends exit the vehicle, what happens immediately next? Compare only the visible immediate-next event against these options: A someone slams a car door, B someone shoots a gun at the friends standing in front of the car, C someone appears holding a lantern, D someone cocks their rifle, E someone slips and falls on the wet terrain. Identify the first answer-critical event after the exit, reject options not visibly shown in the local sequence, and map to the best option.",
+            "text_contexts": [
+              "Preprocess dense caption for 120-124s: group walking down a wet dark road in rain with car headlights behind them, then cut to a distressed man shouting.",
+              "Preprocess dense caption for 125-132s: montage in dark rainy forest where a man in a black jacket and cap holds a lantern high, and another man in a grey hoodie and Columbia cap also holds a lantern."
+            ],
+            "transcripts": [
+              {
+                "transcript_id": "preprocess_seg_003",
+                "clip": {
+                  "video_id": "5-otljNyRmQ",
+                  "start_s": 120.0,
+                  "end_s": 180.0
+                },
+                "segments": [
+                  {
+                    "start_s": 123.556,
+                    "end_s": 153.442,
+                    "text": "Mike! Dustin! Mike! Mike! Mike! Dustin! Lucas! Mike! Mike! Eleven? It's me!"
+                  },
+                  {
+                    "start_s": 153.982,
+                    "end_s": 183.091,
+                    "text": "Will! Will? Will! Eleven. What are you doing here? How'd you get out of the Upside Down? Pop saved me. I'm just glad you're here, Will. What the hell are you guys doing? That's the guy that kidnapped me. I... I did not. I didn't."
+                  }
+                ],
+                "metadata": {
+                  "source": "preprocess",
+                  "segment_id": "seg_003",
+                  "span_count": 2
+                }
+              }
+            ]
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "C. Someone appears holding a lantern.",
+      "trace_evidence_count": 4,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "In chronological order, the visible sequence begins with the friends by the car in the rain at 120s-122s, including a person moving away from the car.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 120.0,
+              "end_s": 122.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "The first visible event after that car-side sequence is a cut at 123s to a man holding a lantern, which continues in the following frames.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 123.0,
+              "end_s": 127.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "The sequence does not visibly show any of the competing events: no car-door slam, no gun or shooting, no rifle-cocking, and no slip/fall.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 120.0,
+              "end_s": 127.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Therefore the best-supported option is the lantern-bearing person appearing. The transcript around 123.556s provides scene alignment only, while the answer is grounded by the visual cut and subsequent frames.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 123.0,
+              "end_s": 123.556
+            }
+          ]
+        }
+      ],
+      "audit_verdict": "PASS",
+      "audit_confidence": 0.94,
+      "audit_feedback": "The trace is well aligned to the multiple-choice question, grounds the temporal transition from the car-exit sequence to the next visible event, and maps that grounded event to option C without relying on unsupported transcript claims.",
+      "audit_missing_information": [],
+      "audit_findings": []
+    }
+  ]
+}

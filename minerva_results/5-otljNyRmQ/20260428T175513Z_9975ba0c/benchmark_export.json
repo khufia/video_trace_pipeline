@@ -1,0 +1,95 @@
+{
+  "sample_key": "5-otljNyRmQ__803cdc7dc426",
+  "trace": {
+    "inference_steps": [
+      "[120s to 122s] In chronological order, the visible sequence begins with the friends by the car in the rain at 120s-122s, including a person moving away from the car.",
+      "[123s to 127s] The first visible event after that car-side sequence is a cut at 123s to a man holding a lantern, which continues in the following frames.",
+      "[120s to 127s] The sequence does not visibly show any of the competing events: no car-door slam, no gun or shooting, no rifle-cocking, and no slip/fall.",
+      "[123s to 123.556s] Therefore the best-supported option is the lantern-bearing person appearing. The transcript around 123.556s provides scene alignment only, while the answer is grounded by the visual cut and subsequent frames."
+    ],
+    "evidence": [
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Chronological visual sequence: at 120s the car is in the rain with headlights on and a person stands near the front left; at 121s the scene remains similar; at 122s the person in the orange jacket is walking away from the car.",
+        "observation_ids": [
+          "obs_6a662dd72e817c6f",
+          "obs_f3c499eedc2713ee",
+          "obs_a37dd19b172039ed",
+          "obs_6a5ac8e7ca4b7970",
+          "obs_7f922fc0b38c0ad2",
+          "obs_ac7406663d4a455c"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 120.0,
+            "end_s": 122.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Immediately after the car-side sequence, the scene cuts at 123s to a man holding a lantern, and frames at 123s-127s continue to show him with the lantern.",
+        "observation_ids": [
+          "obs_0a91825c45386368",
+          "obs_43fac31f81518f56",
+          "obs_2b78d94bbc0c49d1",
+          "obs_709e1ede28766939",
+          "obs_40c94847485be6ce",
+          "obs_b896c7503da2f293",
+          "obs_6dce3b56f1f4823b"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.0,
+            "end_s": 127.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "The visual evidence does not show a car door slam, a gun or shooting, a rifle, or someone falling in this sequence.",
+        "observation_ids": [
+          "obs_e7fc3becf55190b6",
+          "obs_597793ec240fadc6",
+          "obs_b4181e1f5e04ac33",
+          "obs_17779f6f44065d68",
+          "obs_b964743ee5714b4f"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 120.0,
+            "end_s": 127.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Transcript alignment/context: around 123.556s someone calls out names including 'Mike,' 'Dustin,' 'Lucas,' and 'Eleven? It's me!' This helps align the cut but does not itself prove the visual event.",
+        "observation_ids": [
+          "obs_fdb684e701a5fadb",
+          "obs_ed059d463822a33c",
+          "obs_34bbd3c7c04b42e3"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 123.556,
+            "end_s": 123.556
+          }
+        ]
+      }
+    ]
+  },
+  "answer": "C. Someone appears holding a lantern."
+}

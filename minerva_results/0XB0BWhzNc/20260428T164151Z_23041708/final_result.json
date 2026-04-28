@@ -1,0 +1,1376 @@
+{
+  "run_dir": "runs/0XB0BWhzNc/20260428T164151Z_23041708",
+  "trace_package": {
+    "task_key": "0XB0BWhzNc__7f54fa7b6dfe",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_frame126_scoreboard",
+        "tool_name": "generic_purpose",
+        "evidence_text": "In frame_126.00, the bottom scoreboard overlay shows BRISTOL CENT. with 52, E. CATHOLIC with 40, the quarter indicator as 3rd, and the clock as 0:00.0.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 126.0,
+        "time_intervals": [],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_126.00",
+            "kind": "frame",
+            "relpath": "artifacts/0XB0BWhzNc/frames/frame_126.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "video_id": "-0XB0BWhzNc",
+              "timestamp_s": 126.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_e5e0e2a1d8b30e15",
+          "obs_bad0c9e73bf66cbc",
+          "obs_297ea422defefa53",
+          "obs_4ca5f4324e908e0f",
+          "obs_66c6e86d315b676a",
+          "obs_3457cf0e4b5c594f"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_frames124_126_scoreboard_sequence",
+        "tool_name": "generic_purpose",
+        "evidence_text": "Across retrieved frames near the end of the quarter, the scoreboard remains consistent: frame_124.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.8; frame_125.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.0; frame_126.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.0.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": 124.0,
+        "time_end_s": 126.0,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 124.0,
+            "end_s": 126.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_124.00",
+            "kind": "frame",
+            "relpath": "artifacts/0XB0BWhzNc/frames/frame_124.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "video_id": "-0XB0BWhzNc",
+              "timestamp_s": 124.0
+            }
+          },
+          {
+            "artifact_id": "frame_125.00",
+            "kind": "frame",
+            "relpath": "artifacts/0XB0BWhzNc/frames/frame_125.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "video_id": "-0XB0BWhzNc",
+              "timestamp_s": 125.0
+            }
+          },
+          {
+            "artifact_id": "frame_126.00",
+            "kind": "frame",
+            "relpath": "artifacts/0XB0BWhzNc/frames/frame_126.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "video_id": "-0XB0BWhzNc",
+              "timestamp_s": 126.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_bccd3aa1adb1c847",
+          "obs_e74503724c3bcfaa",
+          "obs_8ca7c0b17c7b6185",
+          "obs_96455e189af1f51b",
+          "obs_0e4fb82f01f69f7c",
+          "obs_bd6bf8deccbc7f06",
+          "obs_0eeedee45cef85e3",
+          "obs_82f790c599cf624b",
+          "obs_c5c83648904708a9",
+          "obs_f8c2acf6562cb30d",
+          "obs_01a5018ad7e89743",
+          "obs_c669009c71e56f57",
+          "obs_97e0bf7df12cc13e"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_options_text",
+        "tool_name": "generic_purpose",
+        "evidence_text": "The answer options are: A = 55 to 40, Bristol Central leading; B = 52 to 52, tied; C = 55 to 40, East Catholic leading; D = 64 to 32, Bristol Central leading; E = 64 to 32, East Catholic leading.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [],
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_f5dc8b4fa14e01d5",
+          "obs_88ecff69e3e2434c",
+          "obs_4e006f552343a599",
+          "obs_a55777f8bd0d96e0",
+          "obs_4ed261ba8031f851"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The retrieved end-of-quarter frames directly verify the scoreboard state. Around 124-126s, the overlay shows the 3rd quarter; at 124.0s the clock is 0:00.8, and at 125.0s and 126.0s the clock is 0:00.0. In those same frames, BRISTOL CENT. has 52 and E. CATHOLIC has 40.",
+        "supporting_observation_ids": [
+          "obs_bccd3aa1adb1c847",
+          "obs_e74503724c3bcfaa",
+          "obs_8ca7c0b17c7b6185",
+          "obs_96455e189af1f51b",
+          "obs_0e4fb82f01f69f7c",
+          "obs_bd6bf8deccbc7f06",
+          "obs_0eeedee45cef85e3",
+          "obs_82f790c599cf624b",
+          "obs_c5c83648904708a9",
+          "obs_f8c2acf6562cb30d",
+          "obs_01a5018ad7e89743",
+          "obs_c669009c71e56f57"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": 124.0,
+        "time_end_s": 126.0,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 124.0,
+            "end_s": 126.0
+          }
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "Because 52 is greater than 40, Bristol Central is leading East Catholic at the end of the third quarter.",
+        "supporting_observation_ids": [
+          "obs_e5e0e2a1d8b30e15",
+          "obs_bad0c9e73bf66cbc",
+          "obs_97e0bf7df12cc13e"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": 125.0,
+        "time_end_s": 126.0,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 125.0,
+            "end_s": 126.0
+          }
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "Comparing the verified scoreline to the listed choices: the visual evidence gives 52 to 40 with Bristol Central leading, while option A says 55 to 40, option B says 52 to 52 tied, option C says 55 to 40 with East Catholic leading, and options D and E say 64 to 32. Therefore no provided option exactly matches the grounded scoreboard reading.",
+        "supporting_observation_ids": [
+          "obs_66c6e86d315b676a",
+          "obs_f5dc8b4fa14e01d5",
+          "obs_88ecff69e3e2434c",
+          "obs_4e006f552343a599",
+          "obs_a55777f8bd0d96e0",
+          "obs_4ed261ba8031f851"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 126.0,
+        "time_intervals": []
+      },
+      {
+        "step_id": 4,
+        "text": "Since the options are inconsistent with the visually verified end-of-third-quarter score, the multiple-choice answer cannot be resolved from the provided choices without inventing a best fit.",
+        "supporting_observation_ids": [
+          "obs_66c6e86d315b676a",
+          "obs_f5dc8b4fa14e01d5",
+          "obs_88ecff69e3e2434c",
+          "obs_4e006f552343a599",
+          "obs_a55777f8bd0d96e0",
+          "obs_4ed261ba8031f851"
+        ],
+        "answer_relevance": "critical",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "0XB0BWhzNc__7f54fa7b6dfe",
+        "trace": {
+          "inference_steps": [
+            "[124s to 126s] The retrieved end-of-quarter frames directly verify the scoreboard state. Around 124-126s, the overlay shows the 3rd quarter; at 124.0s the clock is 0:00.8, and at 125.0s and 126.0s the clock is 0:00.0. In those same frames, BRISTOL CENT. has 52 and E. CATHOLIC has 40.",
+            "[125s to 126s] Because 52 is greater than 40, Bristol Central is leading East Catholic at the end of the third quarter.",
+            "[126s] Comparing the verified scoreline to the listed choices: the visual evidence gives 52 to 40 with Bristol Central leading, while option A says 55 to 40, option B says 52 to 52 tied, option C says 55 to 40 with East Catholic leading, and options D and E say 64 to 32. Therefore no provided option exactly matches the grounded scoreboard reading.",
+            "Since the options are inconsistent with the visually verified end-of-third-quarter score, the multiple-choice answer cannot be resolved from the provided choices without inventing a best fit."
+          ],
+          "evidence": [
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "In frame_126.00, the bottom scoreboard overlay shows BRISTOL CENT. with 52, E. CATHOLIC with 40, the quarter indicator as 3rd, and the clock as 0:00.0.",
+              "observation_ids": [
+                "obs_e5e0e2a1d8b30e15",
+                "obs_bad0c9e73bf66cbc",
+                "obs_297ea422defefa53",
+                "obs_4ca5f4324e908e0f",
+                "obs_66c6e86d315b676a",
+                "obs_3457cf0e4b5c594f"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": 126.0,
+              "time_intervals": []
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "Across retrieved frames near the end of the quarter, the scoreboard remains consistent: frame_124.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.8; frame_125.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.0; frame_126.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.0.",
+              "observation_ids": [
+                "obs_bccd3aa1adb1c847",
+                "obs_e74503724c3bcfaa",
+                "obs_8ca7c0b17c7b6185",
+                "obs_96455e189af1f51b",
+                "obs_0e4fb82f01f69f7c",
+                "obs_bd6bf8deccbc7f06",
+                "obs_0eeedee45cef85e3",
+                "obs_82f790c599cf624b",
+                "obs_c5c83648904708a9",
+                "obs_f8c2acf6562cb30d",
+                "obs_01a5018ad7e89743",
+                "obs_c669009c71e56f57",
+                "obs_97e0bf7df12cc13e"
+              ],
+              "time_start_s": 124.0,
+              "time_end_s": 126.0,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 124.0,
+                  "end_s": 126.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "The answer options are: A = 55 to 40, Bristol Central leading; B = 52 to 52, tied; C = 55 to 40, East Catholic leading; D = 64 to 32, Bristol Central leading; E = 64 to 32, East Catholic leading.",
+              "observation_ids": [
+                "obs_f5dc8b4fa14e01d5",
+                "obs_88ecff69e3e2434c",
+                "obs_4e006f552343a599",
+                "obs_a55777f8bd0d96e0",
+                "obs_4ed261ba8031f851"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": []
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {
+      "answer_status": "unresolved_due_to_option_mismatch",
+      "primary_frame_ts_s": 126.0
+    }
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.97,
+    "scores": {
+      "logical_coherence": 4,
+      "completeness": 2,
+      "factual_correctness": 4,
+      "reasoning_order": 5
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace grounds a scoreboard reading of 52 to 40 with Bristol Central leading at 0:00.0 in the 3rd quarter, but it does not produce a final multiple-choice selection. For this benchmark format, leaving the answer blank and concluding that no option matches is not a complete resolution.",
+        "evidence_ids": [
+          "ev_frame126_scoreboard",
+          "ev_frames124_126_scoreboard_sequence",
+          "ev_options_text"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "ANSWER_ERROR",
+        "message": "The trace answers a different question ('no option matches') instead of selecting one of the provided options or explicitly grounding why benchmark completion is impossible from the task data.",
+        "evidence_ids": [
+          "ev_options_text"
+        ]
+      }
+    ],
+    "feedback": "The trace is internally consistent about the grounded score (52-40, Bristol Central leading) and its mismatch with the listed choices, but it remains incomplete because the benchmark question requires a final option-level answer or a clearly framed task-data issue resolution.",
+    "missing_information": [
+      "final answer selection from the provided options, or explicit answer-level resolution of the option mismatch"
+    ],
+    "diagnostics": {
+      "referent_alignment": "pass: the trace consistently maps BRISTOL CENT. and E. CATHOLIC to the compared teams.",
+      "temporal_alignment": "pass: frames 124-126 are explicitly tied to the end of the 3rd quarter via 0:00.8 then 0:00.0 with quarter indicator 3rd.",
+      "option_alignment": "fail: the grounded scoreline is 52 to 40 with Bristol Central leading, and the trace states that none of options A-E exactly match; however, no benchmark-compatible final selection is made.",
+      "evidence_sufficiency": "mixed: sufficient to ground the scoreboard state and compare against options, insufficient for a completed multiple-choice answer under the current trace."
+    }
+  },
+  "benchmark_export": {
+    "sample_key": "0XB0BWhzNc__7f54fa7b6dfe",
+    "trace": {
+      "inference_steps": [
+        "[124s to 126s] The retrieved end-of-quarter frames directly verify the scoreboard state. Around 124-126s, the overlay shows the 3rd quarter; at 124.0s the clock is 0:00.8, and at 125.0s and 126.0s the clock is 0:00.0. In those same frames, BRISTOL CENT. has 52 and E. CATHOLIC has 40.",
+        "[125s to 126s] Because 52 is greater than 40, Bristol Central is leading East Catholic at the end of the third quarter.",
+        "[126s] Comparing the verified scoreline to the listed choices: the visual evidence gives 52 to 40 with Bristol Central leading, while option A says 55 to 40, option B says 52 to 52 tied, option C says 55 to 40 with East Catholic leading, and options D and E say 64 to 32. Therefore no provided option exactly matches the grounded scoreboard reading.",
+        "Since the options are inconsistent with the visually verified end-of-third-quarter score, the multiple-choice answer cannot be resolved from the provided choices without inventing a best fit."
+      ],
+      "evidence": [
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "In frame_126.00, the bottom scoreboard overlay shows BRISTOL CENT. with 52, E. CATHOLIC with 40, the quarter indicator as 3rd, and the clock as 0:00.0.",
+          "observation_ids": [
+            "obs_e5e0e2a1d8b30e15",
+            "obs_bad0c9e73bf66cbc",
+            "obs_297ea422defefa53",
+            "obs_4ca5f4324e908e0f",
+            "obs_66c6e86d315b676a",
+            "obs_3457cf0e4b5c594f"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 126.0,
+          "time_intervals": []
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "Across retrieved frames near the end of the quarter, the scoreboard remains consistent: frame_124.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.8; frame_125.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.0; frame_126.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.0.",
+          "observation_ids": [
+            "obs_bccd3aa1adb1c847",
+            "obs_e74503724c3bcfaa",
+            "obs_8ca7c0b17c7b6185",
+            "obs_96455e189af1f51b",
+            "obs_0e4fb82f01f69f7c",
+            "obs_bd6bf8deccbc7f06",
+            "obs_0eeedee45cef85e3",
+            "obs_82f790c599cf624b",
+            "obs_c5c83648904708a9",
+            "obs_f8c2acf6562cb30d",
+            "obs_01a5018ad7e89743",
+            "obs_c669009c71e56f57",
+            "obs_97e0bf7df12cc13e"
+          ],
+          "time_start_s": 124.0,
+          "time_end_s": 126.0,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 124.0,
+              "end_s": 126.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "The answer options are: A = 55 to 40, Bristol Central leading; B = 52 to 52, tied; C = 55 to 40, East Catholic leading; D = 64 to 32, Bristol Central leading; E = 64 to 32, East Catholic leading.",
+          "observation_ids": [
+            "obs_f5dc8b4fa14e01d5",
+            "obs_88ecff69e3e2434c",
+            "obs_4e006f552343a599",
+            "obs_a55777f8bd0d96e0",
+            "obs_4ed261ba8031f851"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": false,
+    "cache_dir": "preprocess/0XB0BWhzNc",
+    "manifest": {
+      "video_id": "-0XB0BWhzNc",
+      "video_fingerprint": "add33af3b4b1527dda374ed5fc6b07fc85dc62f2c94290bc8b44357fcef857a6",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "26503208b9ce",
+      "segment_count": 4,
+      "planner_segment_count": 4,
+      "dense_caption_span_count": 8,
+      "transcript_segment_count": 7,
+      "transcript_count": 1,
+      "include_asr": true
+    },
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The scoreboard shows Bristol Central with 2 points and East Catholic with 3. The score then updates to show Bristol Central with 3 points.; acoustics: 1) Neutral. 2) The ambient sound of a basketball game, including the squeak of sneakers, the swish of the net, and the murmur of the crowd.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the basketball court. It pans to follow the action as the play develops., video_background: The scene is a large, crowded basketball arena. The stands are filled with spectators, and advertising banners are visible behind the court. The court has a large logo in the center., storyline: The game begins with East Catholic making the first basket, giving them a 3-2 lead over Bristol Central. The score is tied 3-3 after the shot., shooting_style: This is a standard live sports broadcast shot, following the live action of the game. A fast break occurs as a player in a white jersey sprints down the court. A player in a maroon jersey, number 11, catches up with him and leaps high to dunk the ball. The referee raises his arm to signal the successful dunk. The score updates on the scoreboard to show Bristol Central with 5 points and East Catholic with 3.; acoustics: 1) Neutral. 2) The sound of the ball being dunked and the referee's whistle.; attributes: camera_state: The camera maintains a high, wide angle, panning quickly to follow the fast break from one end of the court to the other., video_background: The basketball arena is filled with spectators. The scoreboard is visible at the bottom of the screen, showing the live score., storyline: Bristol Central extends their lead with a fast-break dunk, making the score 5-3 and putting some distance between them and East Catholic., shooting_style: This is a continuous shot following the live action.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 4.0,
+              "visual": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The scoreboard shows Bristol Central with 2 points and East Catholic with 3. The score then updates to show Bristol Central with 3 points.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of a basketball game, including the squeak of sneakers, the swish of the net, and the murmur of the crowd.",
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the basketball court. It pans to follow the action as the play develops.",
+                "video_background: The scene is a large, crowded basketball arena. The stands are filled with spectators, and advertising banners are visible behind the court. The court has a large logo in the center.",
+                "storyline: The game begins with East Catholic making the first basket, giving them a 3-2 lead over Bristol Central. The score is tied 3-3 after the shot.",
+                "shooting_style: This is a standard live sports broadcast shot, following the live action of the game."
+              ]
+            },
+            {
+              "start_s": 5.0,
+              "end_s": 7.0,
+              "visual": "A fast break occurs as a player in a white jersey sprints down the court. A player in a maroon jersey, number 11, catches up with him and leaps high to dunk the ball. The referee raises his arm to signal the successful dunk. The score updates on the scoreboard to show Bristol Central with 5 points and East Catholic with 3.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the ball being dunked and the referee's whistle.",
+              "attributes": [
+                "camera_state: The camera maintains a high, wide angle, panning quickly to follow the fast break from one end of the court to the other.",
+                "video_background: The basketball arena is filled with spectators. The scoreboard is visible at the bottom of the screen, showing the live score.",
+                "storyline: Bristol Central extends their lead with a fast-break dunk, making the score 5-3 and putting some distance between them and East Catholic.",
+                "shooting_style: This is a continuous shot following the live action."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 1.263,
+            "end_s": 28.28,
+            "text": "East Catholic will set. And a three. Buried from Glasper. Nice job by East Catholic getting back on D. Three. Got it. Another dump down to Klingin. They got a double team. He spins into it. Little running hook. And Klingin says, uh-uh. You ain't coming in here. He is not backing away. Not on my watch is the big fella."
+          },
+          {
+            "start_s": 29.512,
+            "end_s": 56.613,
+            "text": "Klingin demands it at the foul line, gets it. Spins, strong left-handed finish at the rim. That's a drop step, that's a big man move. Glasper gave up the three, drives, hangs, lefty flip. Little fancy from Damian Glasper. Yeah, he's tough. With active guards. Glasper for three, got it. He's feeling it. That's his third triple tonight. There you go. Turn the corner, the delivery and the rejection."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard shows Bristol Central leading East Catholic 36-23 with 12.9 seconds left in the 2nd quarter.; acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net is audible.; attributes: camera_state: The camera is positioned high, providing a wide shot of the half-court. It zooms in slightly as the shot is taken., video_background: The scene is a basketball arena with a large crowd in the stands. The court has a green center circle and black lines. The scoreboard is visible in the background., storyline: The player in the white jersey scores a crucial basket for his team, Bristol Central, extending their lead late in the 2nd quarter., shooting_style: This is a standard live sports broadcast shot. A player in a white jersey with the number 30 catches the ball on the right wing. He takes a long-range shot, which misses. The ball is immediately tipped by a player in a maroon jersey, leading to a scramble under the basket. The ball is tipped again, and a player in a white jersey grabs the offensive rebound and scores. The score is now 38-27.; acoustics: 1) Neutral. 2) The ambient sound of the arena and the ball being played is present.; attributes: camera_state: The camera is at a high, wide angle, showing the full half-court. It remains static., video_background: The basketball game is in progress, with players from both teams on the court. The stands are filled with spectators., storyline: Bristol Central secures an offensive rebound and scores on the putback, increasing their lead over East Catholic., shooting_style: This is a standard live sports broadcast shot.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 63.0,
+              "visual": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard shows Bristol Central leading East Catholic 36-23 with 12.9 seconds left in the 2nd quarter.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net is audible.",
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide shot of the half-court. It zooms in slightly as the shot is taken.",
+                "video_background: The scene is a basketball arena with a large crowd in the stands. The court has a green center circle and black lines. The scoreboard is visible in the background.",
+                "storyline: The player in the white jersey scores a crucial basket for his team, Bristol Central, extending their lead late in the 2nd quarter.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            },
+            {
+              "start_s": 64.0,
+              "end_s": 69.0,
+              "visual": "A player in a white jersey with the number 30 catches the ball on the right wing. He takes a long-range shot, which misses. The ball is immediately tipped by a player in a maroon jersey, leading to a scramble under the basket. The ball is tipped again, and a player in a white jersey grabs the offensive rebound and scores. The score is now 38-27.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of the arena and the ball being played is present.",
+              "attributes": [
+                "camera_state: The camera is at a high, wide angle, showing the full half-court. It remains static.",
+                "video_background: The basketball game is in progress, with players from both teams on the court. The stands are filled with spectators.",
+                "storyline: Bristol Central secures an offensive rebound and scores on the putback, increasing their lead over East Catholic.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 56.984,
+            "end_s": 79.867,
+            "text": "There are block shots. And a stare down to Boone. Pump fake now. Riley drives baseline. Hangs. Klingin with another block. All the way in the basket. Left hand is good. What a nice move, Alan Wright. Kicks. Riley drives. And scores over the top of Klingin. Basket is good. And a foul. And a little smack talk. Smack talk, yeah."
+          },
+          {
+            "start_s": 82.297,
+            "end_s": 111.743,
+            "text": "Riley, nice job to the cutting Elliott. Reverse layup is good. Gout Klingin, glass grip for three. No good. And there it comes. The rebound and the putback for the big guy. Oh, good look. Sanchez over the top of Klingin. Basket is good. And the foul. And Klingin says, I didn't touch him. Great defense from Wright. Ahead it goes. And Riley, Sam Riley will knock it down."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with players wearing face masks. One player with blonde hair and a white headband looks intensely at the camera before the scene transitions.; acoustics: 1) Neutral. 2) The ambient sound of a basketball arena, including the ball bouncing and the murmur of the crowd.; attributes: camera_state: The first shot is a high, wide angle of the basketball court. The second shot is a medium close-up, panning across the faces of the players on the court., video_background: The game is being played in a large, dark arena with spectators visible in the stands. The court has a large logo in the center., storyline: The scene sets up a tense moment in a basketball game, showing the score and the remaining time, followed by a focus on the players' determination., shooting_style: This is a montage of two different shots: a wide shot of the game and a close-up of the players. In a different game, a player in a maroon jersey with the number 22 jumps high to catch and shoot the basketball. He successfully makes a layup as the white-jerseyed defense tries to block him. The scoreboard in the background shows the score is 62-44 with 5 minutes left in the 4th quarter.; acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net and the ambient noise of the arena.; attributes: camera_state: The camera is positioned at a high angle, looking down at the basket, and zooms in slightly as the shot is made., video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the court. The stands are filled with spectators., storyline: A player from the maroon team scores a crucial basket in the final minutes of the game, putting his team ahead., shooting_style: This is a single, continuous shot of a game highlight.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with players wearing face masks. One player with blonde hair and a white headband looks intensely at the camera before the scene transitions.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of a basketball arena, including the ball bouncing and the murmur of the crowd.",
+              "attributes": [
+                "camera_state: The first shot is a high, wide angle of the basketball court. The second shot is a medium close-up, panning across the faces of the players on the court.",
+                "video_background: The game is being played in a large, dark arena with spectators visible in the stands. The court has a large logo in the center.",
+                "storyline: The scene sets up a tense moment in a basketball game, showing the score and the remaining time, followed by a focus on the players' determination.",
+                "shooting_style: This is a montage of two different shots: a wide shot of the game and a close-up of the players."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 130.0,
+              "visual": "In a different game, a player in a maroon jersey with the number 22 jumps high to catch and shoot the basketball. He successfully makes a layup as the white-jerseyed defense tries to block him. The scoreboard in the background shows the score is 62-44 with 5 minutes left in the 4th quarter.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net and the ambient noise of the arena.",
+              "attributes": [
+                "camera_state: The camera is positioned at a high angle, looking down at the basket, and zooms in slightly as the shot is made.",
+                "video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the court. The stands are filled with spectators.",
+                "storyline: A player from the maroon team scores a crucial basket in the final minutes of the game, putting his team ahead.",
+                "shooting_style: This is a single, continuous shot of a game highlight."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 112.402,
+            "end_s": 140.617,
+            "text": "In the third period. Great look underneath and Jones off a beautiful pass. Glasper pump fake at the buzzer. Got it! Oh, a dagger from Damian Glasper at the end of period three. He wants it back. He's been out a while. There he goes up and throws it down with authority. Send it in, big fella. It's been..."
+          },
+          {
+            "start_s": 142.388,
+            "end_s": 168.308,
+            "text": "Catholic up ahead it goes, Rosa ahead of the pack. And that's a nice way to break the press. A lot of hands on. Nice pass from Klingin underneath, basket by Revorick, good and a foul. Lob inside, Klingin, and an easy dunk for Donovan Klingin."
+          },
+          {
+            "start_s": 169.388,
+            "end_s": 183.665,
+            "text": "He's tied now. He needs one more to finish. And there it is. Offensive rebound. He'll go to the line. Round of applause for Donnelly Klingin."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 186.333,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 180.0,
+              "end_s": 186.333,
+              "artifact_id": "clip_180_00_186_33",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_180_00_186_33.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 186.333
+          },
+          "overall_summary": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise of the arena.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the basketball court from the perspective of the stands., video_background: The scene is a basketball arena with a wooden court. The stands are mostly empty, with a few spectators visible. The scoreboard is red and white., storyline: The scene is set for the final moments of a basketball game, establishing the teams, the score, and the time remaining., shooting_style: This is a standard wide shot establishing the scene. A close-up focuses on two players from the red team, Bristol Central. One player, wearing number 32, has his hands on his hips and looks forward with a serious expression. The other player, wearing number 17, stands beside him.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise.; attributes: camera_state: The camera is at a medium-close angle, focusing on the two players from the waist up., video_background: The background consists of empty red seats in the arena, with the basketball hoop and backboard visible behind the players., storyline: The focus shifts to the players from the leading team, capturing a moment of intensity or contemplation before the game ends., shooting_style: This is a standard close-up shot to focus on the players' expressions and body language.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 182.0,
+              "visual": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise of the arena.",
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the basketball court from the perspective of the stands.",
+                "video_background: The scene is a basketball arena with a wooden court. The stands are mostly empty, with a few spectators visible. The scoreboard is red and white.",
+                "storyline: The scene is set for the final moments of a basketball game, establishing the teams, the score, and the time remaining.",
+                "shooting_style: This is a standard wide shot establishing the scene."
+              ]
+            },
+            {
+              "start_s": 183.0,
+              "end_s": 186.0,
+              "visual": "A close-up focuses on two players from the red team, Bristol Central. One player, wearing number 32, has his hands on his hips and looks forward with a serious expression. The other player, wearing number 17, stands beside him.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise.",
+              "attributes": [
+                "camera_state: The camera is at a medium-close angle, focusing on the two players from the waist up.",
+                "video_background: The background consists of empty red seats in the arena, with the basketball hoop and backboard visible behind the players.",
+                "storyline: The focus shifts to the players from the leading team, capturing a moment of intensity or contemplation before the game ends.",
+                "shooting_style: This is a standard close-up shot to focus on the players' expressions and body language."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The scoreboard shows Bristol Central with 2 points and East Catholic with 3. The score then updates to show Bristol Central with 3 points.; acoustics: 1) Neutral. 2) The ambient sound of a basketball game, including the squeak of sneakers, the swish of the net, and the murmur of the crowd.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the basketball court. It pans to follow the action as the play develops., video_background: The scene is a large, crowded basketball arena. The stands are filled with spectators, and advertising banners are visible behind the court. The court has a large logo in the center., storyline: The game begins with East Catholic making the first basket, giving them a 3-2 lead over Bristol Central. The score is tied 3-3 after the shot., shooting_style: This is a standard live sports broadcast shot, following the live action of the game. A fast break occurs as a player in a white jersey sprints down the court. A player in a maroon jersey, number 11, catches up with him and leaps high to dunk the ball. The referee raises his arm to signal the successful dunk. The score updates on the scoreboard to show Bristol Central with 5 points and East Catholic with 3.; acoustics: 1) Neutral. 2) The sound of the ball being dunked and the referee's whistle.; attributes: camera_state: The camera maintains a high, wide angle, panning quickly to follow the fast break from one end of the court to the other., video_background: The basketball arena is filled with spectators. The scoreboard is visible at the bottom of the screen, showing the live score., storyline: Bristol Central extends their lead with a fast-break dunk, making the score 5-3 and putting some distance between them and East Catholic., shooting_style: This is a continuous shot following the live action.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 4.0,
+              "visual": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The scoreboard shows Bristol Central with 2 points and East Catholic with 3. The score then updates to show Bristol Central with 3 points.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of a basketball game, including the squeak of sneakers, the swish of the net, and the murmur of the crowd.",
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the basketball court. It pans to follow the action as the play develops.",
+                "video_background: The scene is a large, crowded basketball arena. The stands are filled with spectators, and advertising banners are visible behind the court. The court has a large logo in the center.",
+                "storyline: The game begins with East Catholic making the first basket, giving them a 3-2 lead over Bristol Central. The score is tied 3-3 after the shot.",
+                "shooting_style: This is a standard live sports broadcast shot, following the live action of the game."
+              ]
+            },
+            {
+              "start_s": 5.0,
+              "end_s": 7.0,
+              "visual": "A fast break occurs as a player in a white jersey sprints down the court. A player in a maroon jersey, number 11, catches up with him and leaps high to dunk the ball. The referee raises his arm to signal the successful dunk. The score updates on the scoreboard to show Bristol Central with 5 points and East Catholic with 3.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the ball being dunked and the referee's whistle.",
+              "attributes": [
+                "camera_state: The camera maintains a high, wide angle, panning quickly to follow the fast break from one end of the court to the other.",
+                "video_background: The basketball arena is filled with spectators. The scoreboard is visible at the bottom of the screen, showing the live score.",
+                "storyline: Bristol Central extends their lead with a fast-break dunk, making the score 5-3 and putting some distance between them and East Catholic.",
+                "shooting_style: This is a continuous shot following the live action."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 1.263,
+            "end_s": 28.28,
+            "text": "East Catholic will set. And a three. Buried from Glasper. Nice job by East Catholic getting back on D. Three. Got it. Another dump down to Klingin. They got a double team. He spins into it. Little running hook. And Klingin says, uh-uh. You ain't coming in here. He is not backing away. Not on my watch is the big fella."
+          },
+          {
+            "start_s": 29.512,
+            "end_s": 56.613,
+            "text": "Klingin demands it at the foul line, gets it. Spins, strong left-handed finish at the rim. That's a drop step, that's a big man move. Glasper gave up the three, drives, hangs, lefty flip. Little fancy from Damian Glasper. Yeah, he's tough. With active guards. Glasper for three, got it. He's feeling it. That's his third triple tonight. There you go. Turn the corner, the delivery and the rejection."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard shows Bristol Central leading East Catholic 36-23 with 12.9 seconds left in the 2nd quarter.; acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net is audible.; attributes: camera_state: The camera is positioned high, providing a wide shot of the half-court. It zooms in slightly as the shot is taken., video_background: The scene is a basketball arena with a large crowd in the stands. The court has a green center circle and black lines. The scoreboard is visible in the background., storyline: The player in the white jersey scores a crucial basket for his team, Bristol Central, extending their lead late in the 2nd quarter., shooting_style: This is a standard live sports broadcast shot. A player in a white jersey with the number 30 catches the ball on the right wing. He takes a long-range shot, which misses. The ball is immediately tipped by a player in a maroon jersey, leading to a scramble under the basket. The ball is tipped again, and a player in a white jersey grabs the offensive rebound and scores. The score is now 38-27.; acoustics: 1) Neutral. 2) The ambient sound of the arena and the ball being played is present.; attributes: camera_state: The camera is at a high, wide angle, showing the full half-court. It remains static., video_background: The basketball game is in progress, with players from both teams on the court. The stands are filled with spectators., storyline: Bristol Central secures an offensive rebound and scores on the putback, increasing their lead over East Catholic., shooting_style: This is a standard live sports broadcast shot.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 63.0,
+              "visual": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard shows Bristol Central leading East Catholic 36-23 with 12.9 seconds left in the 2nd quarter.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net is audible.",
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide shot of the half-court. It zooms in slightly as the shot is taken.",
+                "video_background: The scene is a basketball arena with a large crowd in the stands. The court has a green center circle and black lines. The scoreboard is visible in the background.",
+                "storyline: The player in the white jersey scores a crucial basket for his team, Bristol Central, extending their lead late in the 2nd quarter.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            },
+            {
+              "start_s": 64.0,
+              "end_s": 69.0,
+              "visual": "A player in a white jersey with the number 30 catches the ball on the right wing. He takes a long-range shot, which misses. The ball is immediately tipped by a player in a maroon jersey, leading to a scramble under the basket. The ball is tipped again, and a player in a white jersey grabs the offensive rebound and scores. The score is now 38-27.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of the arena and the ball being played is present.",
+              "attributes": [
+                "camera_state: The camera is at a high, wide angle, showing the full half-court. It remains static.",
+                "video_background: The basketball game is in progress, with players from both teams on the court. The stands are filled with spectators.",
+                "storyline: Bristol Central secures an offensive rebound and scores on the putback, increasing their lead over East Catholic.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 56.984,
+            "end_s": 79.867,
+            "text": "There are block shots. And a stare down to Boone. Pump fake now. Riley drives baseline. Hangs. Klingin with another block. All the way in the basket. Left hand is good. What a nice move, Alan Wright. Kicks. Riley drives. And scores over the top of Klingin. Basket is good. And a foul. And a little smack talk. Smack talk, yeah."
+          },
+          {
+            "start_s": 82.297,
+            "end_s": 111.743,
+            "text": "Riley, nice job to the cutting Elliott. Reverse layup is good. Gout Klingin, glass grip for three. No good. And there it comes. The rebound and the putback for the big guy. Oh, good look. Sanchez over the top of Klingin. Basket is good. And the foul. And Klingin says, I didn't touch him. Great defense from Wright. Ahead it goes. And Riley, Sam Riley will knock it down."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with players wearing face masks. One player with blonde hair and a white headband looks intensely at the camera before the scene transitions.; acoustics: 1) Neutral. 2) The ambient sound of a basketball arena, including the ball bouncing and the murmur of the crowd.; attributes: camera_state: The first shot is a high, wide angle of the basketball court. The second shot is a medium close-up, panning across the faces of the players on the court., video_background: The game is being played in a large, dark arena with spectators visible in the stands. The court has a large logo in the center., storyline: The scene sets up a tense moment in a basketball game, showing the score and the remaining time, followed by a focus on the players' determination., shooting_style: This is a montage of two different shots: a wide shot of the game and a close-up of the players. In a different game, a player in a maroon jersey with the number 22 jumps high to catch and shoot the basketball. He successfully makes a layup as the white-jerseyed defense tries to block him. The scoreboard in the background shows the score is 62-44 with 5 minutes left in the 4th quarter.; acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net and the ambient noise of the arena.; attributes: camera_state: The camera is positioned at a high angle, looking down at the basket, and zooms in slightly as the shot is made., video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the court. The stands are filled with spectators., storyline: A player from the maroon team scores a crucial basket in the final minutes of the game, putting his team ahead., shooting_style: This is a single, continuous shot of a game highlight.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with players wearing face masks. One player with blonde hair and a white headband looks intensely at the camera before the scene transitions.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of a basketball arena, including the ball bouncing and the murmur of the crowd.",
+              "attributes": [
+                "camera_state: The first shot is a high, wide angle of the basketball court. The second shot is a medium close-up, panning across the faces of the players on the court.",
+                "video_background: The game is being played in a large, dark arena with spectators visible in the stands. The court has a large logo in the center.",
+                "storyline: The scene sets up a tense moment in a basketball game, showing the score and the remaining time, followed by a focus on the players' determination.",
+                "shooting_style: This is a montage of two different shots: a wide shot of the game and a close-up of the players."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 130.0,
+              "visual": "In a different game, a player in a maroon jersey with the number 22 jumps high to catch and shoot the basketball. He successfully makes a layup as the white-jerseyed defense tries to block him. The scoreboard in the background shows the score is 62-44 with 5 minutes left in the 4th quarter.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net and the ambient noise of the arena.",
+              "attributes": [
+                "camera_state: The camera is positioned at a high angle, looking down at the basket, and zooms in slightly as the shot is made.",
+                "video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the court. The stands are filled with spectators.",
+                "storyline: A player from the maroon team scores a crucial basket in the final minutes of the game, putting his team ahead.",
+                "shooting_style: This is a single, continuous shot of a game highlight."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 112.402,
+            "end_s": 140.617,
+            "text": "In the third period. Great look underneath and Jones off a beautiful pass. Glasper pump fake at the buzzer. Got it! Oh, a dagger from Damian Glasper at the end of period three. He wants it back. He's been out a while. There he goes up and throws it down with authority. Send it in, big fella. It's been..."
+          },
+          {
+            "start_s": 142.388,
+            "end_s": 168.308,
+            "text": "Catholic up ahead it goes, Rosa ahead of the pack. And that's a nice way to break the press. A lot of hands on. Nice pass from Klingin underneath, basket by Revorick, good and a foul. Lob inside, Klingin, and an easy dunk for Donovan Klingin."
+          },
+          {
+            "start_s": 169.388,
+            "end_s": 183.665,
+            "text": "He's tied now. He needs one more to finish. And there it is. Offensive rebound. He'll go to the line. Round of applause for Donnelly Klingin."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 186.333,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 180.0,
+              "end_s": 186.333,
+              "artifact_id": "clip_180_00_186_33",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_180_00_186_33.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 186.333
+          },
+          "overall_summary": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise of the arena.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the basketball court from the perspective of the stands., video_background: The scene is a basketball arena with a wooden court. The stands are mostly empty, with a few spectators visible. The scoreboard is red and white., storyline: The scene is set for the final moments of a basketball game, establishing the teams, the score, and the time remaining., shooting_style: This is a standard wide shot establishing the scene. A close-up focuses on two players from the red team, Bristol Central. One player, wearing number 32, has his hands on his hips and looks forward with a serious expression. The other player, wearing number 17, stands beside him.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise.; attributes: camera_state: The camera is at a medium-close angle, focusing on the two players from the waist up., video_background: The background consists of empty red seats in the arena, with the basketball hoop and backboard visible behind the players., storyline: The focus shifts to the players from the leading team, capturing a moment of intensity or contemplation before the game ends., shooting_style: This is a standard close-up shot to focus on the players' expressions and body language.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 182.0,
+              "visual": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise of the arena.",
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the basketball court from the perspective of the stands.",
+                "video_background: The scene is a basketball arena with a wooden court. The stands are mostly empty, with a few spectators visible. The scoreboard is red and white.",
+                "storyline: The scene is set for the final moments of a basketball game, establishing the teams, the score, and the time remaining.",
+                "shooting_style: This is a standard wide shot establishing the scene."
+              ]
+            },
+            {
+              "start_s": 183.0,
+              "end_s": 186.0,
+              "visual": "A close-up focuses on two players from the red team, Bristol Central. One player, wearing number 32, has his hands on his hips and looks forward with a serious expression. The other player, wearing number 17, stands beside him.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise.",
+              "attributes": [
+                "camera_state: The camera is at a medium-close angle, focusing on the two players from the waist up.",
+                "video_background: The background consists of empty red seats in the arena, with the basketball hoop and backboard visible behind the players.",
+                "storyline: The focus shifts to the players from the leading team, capturing a moment of intensity or contemplation before the game ends.",
+                "shooting_style: This is a standard close-up shot to focus on the players' expressions and body language."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The scoreboard shows Bristol Central with 2 points and East Catholic with 3. The score then updates to show Bristol Central with 3 points.; acoustics: 1) Neutral. 2) The ambient sound of a basketball game, including the squeak of sneakers, the swish of the net, and the murmur of the crowd.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the basketball court. It pans to follow the action as the play develops., video_background: The scene is a large, crowded basketball arena. The stands are filled with spectators, and advertising banners are visible behind the court. The court has a large logo in the center., storyline: The game begins with East Catholic making the first basket, giving them a 3-2 lead over Bristol Central. The score is tied 3-3 after the shot., shooting_style: This is a standard live sports broadcast shot, following the live action of the game. A fast break occurs as a player in a white jersey sprints down the court. A player in a maroon jersey, number 11, catches up with him and leaps high to dunk the ball. The referee raises his arm to signal the successful dunk. The score updates on the scoreboard to show Bristol Central with 5 points and East Catholic with 3.; acoustics: 1) Neutral. 2) The sound of the ball being dunked and the referee's whistle.; attributes: camera_state: The camera maintains a high, wide angle, panning quickly to follow the fast break from one end of the court to the other., video_background: The basketball arena is filled with spectators. The scoreboard is visible at the bottom of the screen, showing the live score., storyline: Bristol Central extends their lead with a fast-break dunk, making the score 5-3 and putting some distance between them and East Catholic., shooting_style: This is a continuous shot following the live action.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 4.0,
+              "visual": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The scoreboard shows Bristol Central with 2 points and East Catholic with 3. The score then updates to show Bristol Central with 3 points.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of a basketball game, including the squeak of sneakers, the swish of the net, and the murmur of the crowd.",
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the basketball court. It pans to follow the action as the play develops.",
+                "video_background: The scene is a large, crowded basketball arena. The stands are filled with spectators, and advertising banners are visible behind the court. The court has a large logo in the center.",
+                "storyline: The game begins with East Catholic making the first basket, giving them a 3-2 lead over Bristol Central. The score is tied 3-3 after the shot.",
+                "shooting_style: This is a standard live sports broadcast shot, following the live action of the game."
+              ]
+            },
+            {
+              "start_s": 5.0,
+              "end_s": 7.0,
+              "visual": "A fast break occurs as a player in a white jersey sprints down the court. A player in a maroon jersey, number 11, catches up with him and leaps high to dunk the ball. The referee raises his arm to signal the successful dunk. The score updates on the scoreboard to show Bristol Central with 5 points and East Catholic with 3.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the ball being dunked and the referee's whistle.",
+              "attributes": [
+                "camera_state: The camera maintains a high, wide angle, panning quickly to follow the fast break from one end of the court to the other.",
+                "video_background: The basketball arena is filled with spectators. The scoreboard is visible at the bottom of the screen, showing the live score.",
+                "storyline: Bristol Central extends their lead with a fast-break dunk, making the score 5-3 and putting some distance between them and East Catholic.",
+                "shooting_style: This is a continuous shot following the live action."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard shows Bristol Central leading East Catholic 36-23 with 12.9 seconds left in the 2nd quarter.; acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net is audible.; attributes: camera_state: The camera is positioned high, providing a wide shot of the half-court. It zooms in slightly as the shot is taken., video_background: The scene is a basketball arena with a large crowd in the stands. The court has a green center circle and black lines. The scoreboard is visible in the background., storyline: The player in the white jersey scores a crucial basket for his team, Bristol Central, extending their lead late in the 2nd quarter., shooting_style: This is a standard live sports broadcast shot. A player in a white jersey with the number 30 catches the ball on the right wing. He takes a long-range shot, which misses. The ball is immediately tipped by a player in a maroon jersey, leading to a scramble under the basket. The ball is tipped again, and a player in a white jersey grabs the offensive rebound and scores. The score is now 38-27.; acoustics: 1) Neutral. 2) The ambient sound of the arena and the ball being played is present.; attributes: camera_state: The camera is at a high, wide angle, showing the full half-court. It remains static., video_background: The basketball game is in progress, with players from both teams on the court. The stands are filled with spectators., storyline: Bristol Central secures an offensive rebound and scores on the putback, increasing their lead over East Catholic., shooting_style: This is a standard live sports broadcast shot.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 63.0,
+              "visual": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard shows Bristol Central leading East Catholic 36-23 with 12.9 seconds left in the 2nd quarter.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net is audible.",
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide shot of the half-court. It zooms in slightly as the shot is taken.",
+                "video_background: The scene is a basketball arena with a large crowd in the stands. The court has a green center circle and black lines. The scoreboard is visible in the background.",
+                "storyline: The player in the white jersey scores a crucial basket for his team, Bristol Central, extending their lead late in the 2nd quarter.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            },
+            {
+              "start_s": 64.0,
+              "end_s": 69.0,
+              "visual": "A player in a white jersey with the number 30 catches the ball on the right wing. He takes a long-range shot, which misses. The ball is immediately tipped by a player in a maroon jersey, leading to a scramble under the basket. The ball is tipped again, and a player in a white jersey grabs the offensive rebound and scores. The score is now 38-27.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of the arena and the ball being played is present.",
+              "attributes": [
+                "camera_state: The camera is at a high, wide angle, showing the full half-court. It remains static.",
+                "video_background: The basketball game is in progress, with players from both teams on the court. The stands are filled with spectators.",
+                "storyline: Bristol Central secures an offensive rebound and scores on the putback, increasing their lead over East Catholic.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with players wearing face masks. One player with blonde hair and a white headband looks intensely at the camera before the scene transitions.; acoustics: 1) Neutral. 2) The ambient sound of a basketball arena, including the ball bouncing and the murmur of the crowd.; attributes: camera_state: The first shot is a high, wide angle of the basketball court. The second shot is a medium close-up, panning across the faces of the players on the court., video_background: The game is being played in a large, dark arena with spectators visible in the stands. The court has a large logo in the center., storyline: The scene sets up a tense moment in a basketball game, showing the score and the remaining time, followed by a focus on the players' determination., shooting_style: This is a montage of two different shots: a wide shot of the game and a close-up of the players. In a different game, a player in a maroon jersey with the number 22 jumps high to catch and shoot the basketball. He successfully makes a layup as the white-jerseyed defense tries to block him. The scoreboard in the background shows the score is 62-44 with 5 minutes left in the 4th quarter.; acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net and the ambient noise of the arena.; attributes: camera_state: The camera is positioned at a high angle, looking down at the basket, and zooms in slightly as the shot is made., video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the court. The stands are filled with spectators., storyline: A player from the maroon team scores a crucial basket in the final minutes of the game, putting his team ahead., shooting_style: This is a single, continuous shot of a game highlight.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with players wearing face masks. One player with blonde hair and a white headband looks intensely at the camera before the scene transitions.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of a basketball arena, including the ball bouncing and the murmur of the crowd.",
+              "attributes": [
+                "camera_state: The first shot is a high, wide angle of the basketball court. The second shot is a medium close-up, panning across the faces of the players on the court.",
+                "video_background: The game is being played in a large, dark arena with spectators visible in the stands. The court has a large logo in the center.",
+                "storyline: The scene sets up a tense moment in a basketball game, showing the score and the remaining time, followed by a focus on the players' determination.",
+                "shooting_style: This is a montage of two different shots: a wide shot of the game and a close-up of the players."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 130.0,
+              "visual": "In a different game, a player in a maroon jersey with the number 22 jumps high to catch and shoot the basketball. He successfully makes a layup as the white-jerseyed defense tries to block him. The scoreboard in the background shows the score is 62-44 with 5 minutes left in the 4th quarter.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net and the ambient noise of the arena.",
+              "attributes": [
+                "camera_state: The camera is positioned at a high angle, looking down at the basket, and zooms in slightly as the shot is made.",
+                "video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the court. The stands are filled with spectators.",
+                "storyline: A player from the maroon team scores a crucial basket in the final minutes of the game, putting his team ahead.",
+                "shooting_style: This is a single, continuous shot of a game highlight."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 186.333,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 180.0,
+              "end_s": 186.333,
+              "artifact_id": "clip_180_00_186_33",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_180_00_186_33.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 186.333
+          },
+          "overall_summary": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise of the arena.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the basketball court from the perspective of the stands., video_background: The scene is a basketball arena with a wooden court. The stands are mostly empty, with a few spectators visible. The scoreboard is red and white., storyline: The scene is set for the final moments of a basketball game, establishing the teams, the score, and the time remaining., shooting_style: This is a standard wide shot establishing the scene. A close-up focuses on two players from the red team, Bristol Central. One player, wearing number 32, has his hands on his hips and looks forward with a serious expression. The other player, wearing number 17, stands beside him.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise.; attributes: camera_state: The camera is at a medium-close angle, focusing on the two players from the waist up., video_background: The background consists of empty red seats in the arena, with the basketball hoop and backboard visible behind the players., storyline: The focus shifts to the players from the leading team, capturing a moment of intensity or contemplation before the game ends., shooting_style: This is a standard close-up shot to focus on the players' expressions and body language.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 182.0,
+              "visual": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise of the arena.",
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the basketball court from the perspective of the stands.",
+                "video_background: The scene is a basketball arena with a wooden court. The stands are mostly empty, with a few spectators visible. The scoreboard is red and white.",
+                "storyline: The scene is set for the final moments of a basketball game, establishing the teams, the score, and the time remaining.",
+                "shooting_style: This is a standard wide shot establishing the scene."
+              ]
+            },
+            {
+              "start_s": 183.0,
+              "end_s": 186.0,
+              "visual": "A close-up focuses on two players from the red team, Bristol Central. One player, wearing number 32, has his hands on his hips and looks forward with a serious expression. The other player, wearing number 17, stands beside him.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise.",
+              "attributes": [
+                "camera_state: The camera is at a medium-close angle, focusing on the two players from the waist up.",
+                "video_background: The background consists of empty red seats in the arena, with the basketball hoop and backboard visible behind the players.",
+                "storyline: The focus shifts to the players from the leading team, capturing a moment of intensity or contemplation before the game ends.",
+                "shooting_style: This is a standard close-up shot to focus on the players' expressions and body language."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_ca206d301ad0",
+        "clip": {
+          "video_id": "-0XB0BWhzNc",
+          "start_s": 0.0,
+          "end_s": 186.333,
+          "artifact_id": "clip_000_00_186_33",
+          "relpath": "artifacts/0XB0BWhzNc/clips/clip_000_00_186_33.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 1.263,
+            "end_s": 28.28,
+            "text": "East Catholic will set. And a three. Buried from Glasper. Nice job by East Catholic getting back on D. Three. Got it. Another dump down to Klingin. They got a double team. He spins into it. Little running hook. And Klingin says, uh-uh. You ain't coming in here. He is not backing away. Not on my watch is the big fella."
+          },
+          {
+            "start_s": 29.512,
+            "end_s": 56.613,
+            "text": "Klingin demands it at the foul line, gets it. Spins, strong left-handed finish at the rim. That's a drop step, that's a big man move. Glasper gave up the three, drives, hangs, lefty flip. Little fancy from Damian Glasper. Yeah, he's tough. With active guards. Glasper for three, got it. He's feeling it. That's his third triple tonight. There you go. Turn the corner, the delivery and the rejection."
+          },
+          {
+            "start_s": 56.984,
+            "end_s": 79.867,
+            "text": "There are block shots. And a stare down to Boone. Pump fake now. Riley drives baseline. Hangs. Klingin with another block. All the way in the basket. Left hand is good. What a nice move, Alan Wright. Kicks. Riley drives. And scores over the top of Klingin. Basket is good. And a foul. And a little smack talk. Smack talk, yeah."
+          },
+          {
+            "start_s": 82.297,
+            "end_s": 111.743,
+            "text": "Riley, nice job to the cutting Elliott. Reverse layup is good. Gout Klingin, glass grip for three. No good. And there it comes. The rebound and the putback for the big guy. Oh, good look. Sanchez over the top of Klingin. Basket is good. And the foul. And Klingin says, I didn't touch him. Great defense from Wright. Ahead it goes. And Riley, Sam Riley will knock it down."
+          },
+          {
+            "start_s": 112.402,
+            "end_s": 140.617,
+            "text": "In the third period. Great look underneath and Jones off a beautiful pass. Glasper pump fake at the buzzer. Got it! Oh, a dagger from Damian Glasper at the end of period three. He wants it back. He's been out a while. There he goes up and throws it down with authority. Send it in, big fella. It's been..."
+          },
+          {
+            "start_s": 142.388,
+            "end_s": 168.308,
+            "text": "Catholic up ahead it goes, Rosa ahead of the pack. And that's a nice way to break the press. A lot of hands on. Nice pass from Klingin underneath, basket by Revorick, good and a foul. Lob inside, Klingin, and an easy dunk for Donovan Klingin."
+          },
+          {
+            "start_s": 169.388,
+            "end_s": 183.665,
+            "text": "He's tied now. He needs one more to finish. And there it is. Offensive rebound. He'll go to the line. Round of applause for Donnelly Klingin."
+          }
+        ]
+      }
+    ],
+    "planner_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The scoreboard shows Bristol Central with 2 points and East Catholic with 3. The score then updates to show Bristol Central with 3 points.; acoustics: 1) Neutral. 2) The ambient sound of a basketball game, including the squeak of sneakers, the swish of the net, and the murmur of the crowd.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the basketball court. It pans to follow the action as the play develops., video_background: The scene is a large, crowded basketball arena. The stands are filled with spectators, and advertising banners are visible behind the court. The court has a large logo in the center., storyline: The game begins with East Catholic making the first basket, giving them a 3-2 lead over Bristol Central. The score is tied 3-3 after the shot., shooting_style: This is a standard live sports broadcast shot, following the live action of the game. A fast break occurs as a player in a white jersey sprints down the court. A player in a maroon jersey, number 11, catches up with him and leaps high to dunk the ball. The referee raises his arm to signal the successful dunk. The score updates on the scoreboard to show Bristol Central with 5 points and East Catholic with 3.; acoustics: 1) Neutral. 2) The sound of the ball being dunked and the referee's whistle.; attributes: camera_state: The camera maintains a high, wide angle, panning quickly to follow the fast break from one end of the court to the other., video_background: The basketball arena is filled with spectators. The scoreboard is visible at the bottom of the screen, showing the live score., storyline: Bristol Central extends their lead with a fast-break dunk, making the score 5-3 and putting some distance between them and East Catholic., shooting_style: This is a continuous shot following the live action.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 4.0,
+              "visual": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The scoreboard shows Bristol Central with 2 points and East Catholic with 3. The score then updates to show Bristol Central with 3 points.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of a basketball game, including the squeak of sneakers, the swish of the net, and the murmur of the crowd.",
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the basketball court. It pans to follow the action as the play develops.",
+                "video_background: The scene is a large, crowded basketball arena. The stands are filled with spectators, and advertising banners are visible behind the court. The court has a large logo in the center.",
+                "storyline: The game begins with East Catholic making the first basket, giving them a 3-2 lead over Bristol Central. The score is tied 3-3 after the shot.",
+                "shooting_style: This is a standard live sports broadcast shot, following the live action of the game."
+              ]
+            },
+            {
+              "start_s": 5.0,
+              "end_s": 7.0,
+              "visual": "A fast break occurs as a player in a white jersey sprints down the court. A player in a maroon jersey, number 11, catches up with him and leaps high to dunk the ball. The referee raises his arm to signal the successful dunk. The score updates on the scoreboard to show Bristol Central with 5 points and East Catholic with 3.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the ball being dunked and the referee's whistle.",
+              "attributes": [
+                "camera_state: The camera maintains a high, wide angle, panning quickly to follow the fast break from one end of the court to the other.",
+                "video_background: The basketball arena is filled with spectators. The scoreboard is visible at the bottom of the screen, showing the live score.",
+                "storyline: Bristol Central extends their lead with a fast-break dunk, making the score 5-3 and putting some distance between them and East Catholic.",
+                "shooting_style: This is a continuous shot following the live action."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 1.263,
+              "end_s": 28.28,
+              "text": "East Catholic will set. And a three. Buried from Glasper. Nice job by East Catholic getting back on D. Three. Got it. Another dump down to Klingin. They got a double team. He spins into it. Little running hook. And Klingin says, uh-uh. You ain't coming in here. He is not backing away. Not on my watch is the big fella."
+            },
+            {
+              "start_s": 29.512,
+              "end_s": 56.613,
+              "text": "Klingin demands it at the foul line, gets it. Spins, strong left-handed finish at the rim. That's a drop step, that's a big man move. Glasper gave up the three, drives, hangs, lefty flip. Little fancy from Damian Glasper. Yeah, he's tough. With active guards. Glasper for three, got it. He's feeling it. That's his third triple tonight. There you go. Turn the corner, the delivery and the rejection."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard shows Bristol Central leading East Catholic 36-23 with 12.9 seconds left in the 2nd quarter.; acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net is audible.; attributes: camera_state: The camera is positioned high, providing a wide shot of the half-court. It zooms in slightly as the shot is taken., video_background: The scene is a basketball arena with a large crowd in the stands. The court has a green center circle and black lines. The scoreboard is visible in the background., storyline: The player in the white jersey scores a crucial basket for his team, Bristol Central, extending their lead late in the 2nd quarter., shooting_style: This is a standard live sports broadcast shot. A player in a white jersey with the number 30 catches the ball on the right wing. He takes a long-range shot, which misses. The ball is immediately tipped by a player in a maroon jersey, leading to a scramble under the basket. The ball is tipped again, and a player in a white jersey grabs the offensive rebound and scores. The score is now 38-27.; acoustics: 1) Neutral. 2) The ambient sound of the arena and the ball being played is present.; attributes: camera_state: The camera is at a high, wide angle, showing the full half-court. It remains static., video_background: The basketball game is in progress, with players from both teams on the court. The stands are filled with spectators., storyline: Bristol Central secures an offensive rebound and scores on the putback, increasing their lead over East Catholic., shooting_style: This is a standard live sports broadcast shot.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 63.0,
+              "visual": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard shows Bristol Central leading East Catholic 36-23 with 12.9 seconds left in the 2nd quarter.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net is audible.",
+              "attributes": [
+                "camera_state: The camera is positioned high, providing a wide shot of the half-court. It zooms in slightly as the shot is taken.",
+                "video_background: The scene is a basketball arena with a large crowd in the stands. The court has a green center circle and black lines. The scoreboard is visible in the background.",
+                "storyline: The player in the white jersey scores a crucial basket for his team, Bristol Central, extending their lead late in the 2nd quarter.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            },
+            {
+              "start_s": 64.0,
+              "end_s": 69.0,
+              "visual": "A player in a white jersey with the number 30 catches the ball on the right wing. He takes a long-range shot, which misses. The ball is immediately tipped by a player in a maroon jersey, leading to a scramble under the basket. The ball is tipped again, and a player in a white jersey grabs the offensive rebound and scores. The score is now 38-27.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of the arena and the ball being played is present.",
+              "attributes": [
+                "camera_state: The camera is at a high, wide angle, showing the full half-court. It remains static.",
+                "video_background: The basketball game is in progress, with players from both teams on the court. The stands are filled with spectators.",
+                "storyline: Bristol Central secures an offensive rebound and scores on the putback, increasing their lead over East Catholic.",
+                "shooting_style: This is a standard live sports broadcast shot."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 56.984,
+              "end_s": 79.867,
+              "text": "There are block shots. And a stare down to Boone. Pump fake now. Riley drives baseline. Hangs. Klingin with another block. All the way in the basket. Left hand is good. What a nice move, Alan Wright. Kicks. Riley drives. And scores over the top of Klingin. Basket is good. And a foul. And a little smack talk. Smack talk, yeah."
+            },
+            {
+              "start_s": 82.297,
+              "end_s": 111.743,
+              "text": "Riley, nice job to the cutting Elliott. Reverse layup is good. Gout Klingin, glass grip for three. No good. And there it comes. The rebound and the putback for the big guy. Oh, good look. Sanchez over the top of Klingin. Basket is good. And the foul. And Klingin says, I didn't touch him. Great defense from Wright. Ahead it goes. And Riley, Sam Riley will knock it down."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with players wearing face masks. One player with blonde hair and a white headband looks intensely at the camera before the scene transitions.; acoustics: 1) Neutral. 2) The ambient sound of a basketball arena, including the ball bouncing and the murmur of the crowd.; attributes: camera_state: The first shot is a high, wide angle of the basketball court. The second shot is a medium close-up, panning across the faces of the players on the court., video_background: The game is being played in a large, dark arena with spectators visible in the stands. The court has a large logo in the center., storyline: The scene sets up a tense moment in a basketball game, showing the score and the remaining time, followed by a focus on the players' determination., shooting_style: This is a montage of two different shots: a wide shot of the game and a close-up of the players. In a different game, a player in a maroon jersey with the number 22 jumps high to catch and shoot the basketball. He successfully makes a layup as the white-jerseyed defense tries to block him. The scoreboard in the background shows the score is 62-44 with 5 minutes left in the 4th quarter.; acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net and the ambient noise of the arena.; attributes: camera_state: The camera is positioned at a high angle, looking down at the basket, and zooms in slightly as the shot is made., video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the court. The stands are filled with spectators., storyline: A player from the maroon team scores a crucial basket in the final minutes of the game, putting his team ahead., shooting_style: This is a single, continuous shot of a game highlight.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with players wearing face masks. One player with blonde hair and a white headband looks intensely at the camera before the scene transitions.",
+              "audio": "acoustics: 1) Neutral. 2) The ambient sound of a basketball arena, including the ball bouncing and the murmur of the crowd.",
+              "attributes": [
+                "camera_state: The first shot is a high, wide angle of the basketball court. The second shot is a medium close-up, panning across the faces of the players on the court.",
+                "video_background: The game is being played in a large, dark arena with spectators visible in the stands. The court has a large logo in the center.",
+                "storyline: The scene sets up a tense moment in a basketball game, showing the score and the remaining time, followed by a focus on the players' determination.",
+                "shooting_style: This is a montage of two different shots: a wide shot of the game and a close-up of the players."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 130.0,
+              "visual": "In a different game, a player in a maroon jersey with the number 22 jumps high to catch and shoot the basketball. He successfully makes a layup as the white-jerseyed defense tries to block him. The scoreboard in the background shows the score is 62-44 with 5 minutes left in the 4th quarter.",
+              "audio": "acoustics: 1) Neutral. 2) The sound of the basketball swishing through the net and the ambient noise of the arena.",
+              "attributes": [
+                "camera_state: The camera is positioned at a high angle, looking down at the basket, and zooms in slightly as the shot is made.",
+                "video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the court. The stands are filled with spectators.",
+                "storyline: A player from the maroon team scores a crucial basket in the final minutes of the game, putting his team ahead.",
+                "shooting_style: This is a single, continuous shot of a game highlight."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 112.402,
+              "end_s": 140.617,
+              "text": "In the third period. Great look underneath and Jones off a beautiful pass. Glasper pump fake at the buzzer. Got it! Oh, a dagger from Damian Glasper at the end of period three. He wants it back. He's been out a while. There he goes up and throws it down with authority. Send it in, big fella. It's been..."
+            },
+            {
+              "start_s": 142.388,
+              "end_s": 168.308,
+              "text": "Catholic up ahead it goes, Rosa ahead of the pack. And that's a nice way to break the press. A lot of hands on. Nice pass from Klingin underneath, basket by Revorick, good and a foul. Lob inside, Klingin, and an easy dunk for Donovan Klingin."
+            },
+            {
+              "start_s": 169.388,
+              "end_s": 183.665,
+              "text": "He's tied now. He needs one more to finish. And there it is. Offensive rebound. He'll go to the line. Round of applause for Donnelly Klingin."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 186.333,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-0XB0BWhzNc",
+              "start_s": 180.0,
+              "end_s": 186.333,
+              "artifact_id": "clip_180_00_186_33",
+              "relpath": "artifacts/0XB0BWhzNc/clips/clip_180_00_186_33.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 186.333
+          },
+          "overall_summary": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise of the arena.; attributes: camera_state: The camera is positioned high up, providing a wide shot of the basketball court from the perspective of the stands., video_background: The scene is a basketball arena with a wooden court. The stands are mostly empty, with a few spectators visible. The scoreboard is red and white., storyline: The scene is set for the final moments of a basketball game, establishing the teams, the score, and the time remaining., shooting_style: This is a standard wide shot establishing the scene. A close-up focuses on two players from the red team, Bristol Central. One player, wearing number 32, has his hands on his hips and looks forward with a serious expression. The other player, wearing number 17, stands beside him.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise.; attributes: camera_state: The camera is at a medium-close angle, focusing on the two players from the waist up., video_background: The background consists of empty red seats in the arena, with the basketball hoop and backboard visible behind the players., storyline: The focus shifts to the players from the leading team, capturing a moment of intensity or contemplation before the game ends., shooting_style: This is a standard close-up shot to focus on the players' expressions and body language.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 182.0,
+              "visual": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise of the arena.",
+              "attributes": [
+                "camera_state: The camera is positioned high up, providing a wide shot of the basketball court from the perspective of the stands.",
+                "video_background: The scene is a basketball arena with a wooden court. The stands are mostly empty, with a few spectators visible. The scoreboard is red and white.",
+                "storyline: The scene is set for the final moments of a basketball game, establishing the teams, the score, and the time remaining.",
+                "shooting_style: This is a standard wide shot establishing the scene."
+              ]
+            },
+            {
+              "start_s": 183.0,
+              "end_s": 186.0,
+              "visual": "A close-up focuses on two players from the red team, Bristol Central. One player, wearing number 32, has his hands on his hips and looks forward with a serious expression. The other player, wearing number 17, stands beside him.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient noise.",
+              "attributes": [
+                "camera_state: The camera is at a medium-close angle, focusing on the two players from the waist up.",
+                "video_background: The background consists of empty red seats in the arena, with the basketball hoop and backboard visible behind the players.",
+                "storyline: The focus shifts to the players from the leading team, capturing a moment of intensity or contemplation before the game ends.",
+                "shooting_style: This is a standard close-up shot to focus on the players' expressions and body language."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "video_fingerprint": "add33af3b4b1527dda374ed5fc6b07fc85dc62f2c94290bc8b44357fcef857a6"
+  },
+  "rounds_executed": 2
+}

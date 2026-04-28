@@ -1,0 +1,123 @@
+{
+  "tool_name": "generic_purpose",
+  "query": "From these transcripts, identify the ingredient that is insulted the most. Quote each insulting or mocking mention tied to an ingredient, group them by ingredient, and decide which ingredient is the target for the counting question. Return the ingredient name and the relevant quoted spans only.",
+  "clips": [],
+  "frames": [],
+  "transcripts": [
+    {
+      "transcript_id": "preprocess_seg_001",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "relpath": null,
+      "segments": [
+        {
+          "start_s": 0.031,
+          "end_s": 23.993,
+          "text": "Today we're making smash burgers which are a super violent burger with a very destructive taste. We're going to start by taking out some unsmashed beef. You can buy the pre-smashed stuff if you want but it won't taste nearly as wrecked. We've got a pound here with around 20% fat. You can use the super lean stuff if you want but it might cause you to lose too much weight so be very careful. We'll divide this into six even-ish beef balls.",
+          "speaker_id": null,
+          "confidence": null
+        },
+        {
+          "start_s": 26.255,
+          "end_s": 48.462,
+          "text": "Hey, your beef. Start acting like it. As far as toppings go, I'm just gonna go with what I have here. Nothing fancy. I've got a nice dank onion, some nice hood tomatoes. Let's just check inside here and hopefully, oh yeah, pickles. That's awesome. To me, this is essential. And then we'll just peel off a couple slices of cupboard cheese.",
+          "speaker_id": null,
+          "confidence": null
+        },
+        {
+          "start_s": 48.462,
+          "end_s": 68.189,
+          "text": "I think that's it, but let's just check and see if there's any, oh, okay. Hey, listen, this is kind of hard to say, but people are just using you when they put you on a burger to try to make it seem more healthy by including salad. All you really do is get soggy and you taste like nothing. So I just wanted you to know the truth.",
+          "speaker_id": null,
+          "confidence": null
+        }
+      ],
+      "metadata": {
+        "source": "preprocess",
+        "segment_id": "seg_001",
+        "span_count": 3
+      }
+    },
+    {
+      "transcript_id": "preprocess_seg_002",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "relpath": null,
+      "segments": [
+        {
+          "start_s": 68.189,
+          "end_s": 86.465,
+          "text": "Okay great. We're gonna make fresh potato buns which we'll do by taking a cup of flour, half tablespoon of sugar, one teaspoon of instant yeast, half teaspoon of salt, two cups of water, and two potatoes. Then we'll grab those potatoes and just smash them against the wall. If you do it right you'll get this nice crack right in the middle of the buns.",
+          "speaker_id": null,
+          "confidence": null
+        },
+        {
+          "start_s": 86.465,
+          "end_s": 109.128,
+          "text": "Oh look, it's like a miniature man tried to run through a cartoon wall. If you slice onions thin enough, they won't make you cry, provided you also have no tear ducts. And we'll slice up these magical flavor strips. Do not make a burger without them. If you don't like pickles, one thing you can do is seek help. Then we'll slice up the tomato. Okay, crispy water, you can join this once, but don't get cocky.",
+          "speaker_id": null,
+          "confidence": null
+        },
+        {
+          "start_s": 109.128,
+          "end_s": 130.424,
+          "text": "Now before we start cooking, we'll do a final check to make sure we have everything, which is known as mise en place, which is a French term for get all your together before you start. I've got the buns here, I've got my beef balls, I've got my sliced pickle ready to go, I've got the onions here, and I've got that shredded crispy water, sliced tomato, and I've got my cheese. So it looks like we're ready.",
+          "speaker_id": null,
+          "confidence": null
+        }
+      ],
+      "metadata": {
+        "source": "preprocess",
+        "segment_id": "seg_002",
+        "span_count": 3
+      }
+    },
+    {
+      "transcript_id": "preprocess_seg_005",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "relpath": null,
+      "segments": [
+        {
+          "start_s": 237.766,
+          "end_s": 259.417,
+          "text": "Now we'll just slap a flap of cheese on there. This could be cheddar or American or singles or an entire wheel of brie. Then we're basically ready to assemble. Bottom bun is sauced and in position and out of focus. Slap that burger on there. Then you can top it with the onions, the clean the lens off, the tomato, shredded crispy water, and the other half past the bun crack.",
+          "speaker_id": null,
+          "confidence": null
+        },
+        {
+          "start_s": 259.417,
+          "end_s": 286.518,
+          "text": "look at the oops i forgot the magical flavor strips let's slide those in there remember you can top your burger all day long but if you're more comfortable with bottoming then go for it no one should judge you you can also just do pickles and onions which is pretty classic and there we have our smash burger maybe the smashing is how much you want to smash this into your face right now or maybe the smash burger is the friends we made along the way which was zero we made zero friends along the way",
+          "speaker_id": null,
+          "confidence": null
+        }
+      ],
+      "metadata": {
+        "source": "preprocess",
+        "segment_id": "seg_005",
+        "span_count": 2
+      }
+    }
+  ],
+  "text_contexts": [],
+  "evidence_ids": []
+}

@@ -1,0 +1,30 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.96,
+  "scores": {
+    "logical_coherence": 4,
+    "completeness": 2,
+    "factual_correctness": 4,
+    "reasoning_order": 5
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The trace grounds a score of 52 to 40 with Bristol Central leading, then concludes that none of the provided options matches and leaves the final answer empty. For a multiple-choice question, the trace does not justify one unique provided option or resolve the option mismatch.",
+      "evidence_ids": [
+        "ev_frame126_scoreboard",
+        "ev_options_text"
+      ]
+    }
+  ],
+  "feedback": "The trace is internally coherent about the grounded scoreboard reading, but it does not complete the multiple-choice task because no option is selected and the option mismatch remains unresolved.",
+  "missing_information": [
+    "which provided option should be selected despite the grounded scoreboard reading of 52 to 40 with Bristol Central leading, or whether the task data/options are incorrect"
+  ],
+  "diagnostics": {
+    "temporal_alignment": "Supported: the cited frame is anchored as end of the third quarter by '3rd' and '0:00.0'.",
+    "option_alignment": "Failed: grounded scoreline is 52 to 40 with Bristol Central leading, while options list 55 to 40, 52 to 52, and 64 to 32 variants only.",
+    "evidence_sufficiency": "Sufficient to ground the visible score and leader at the end of the third quarter, insufficient to justify any listed answer option from the provided text alone."
+  }
+}

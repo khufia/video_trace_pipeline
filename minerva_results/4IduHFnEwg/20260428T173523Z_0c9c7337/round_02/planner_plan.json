@@ -1,0 +1,188 @@
+{
+  "strategy": "Reuse the retrieved frame sequences around 358-362s and 425-429s to verify the shot ordering, then retrieve a denser local sequence around the target shot to count complete flag-wave cycles without guessing.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a denser chronological local sequence around the target shot so complete flag-wave cycles can be counted rather than inferred from sparse stills.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "-4IduHFnEwg",
+            "start_s": 356.0,
+            "end_s": 364.0
+          }
+        ],
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 0.5,
+        "num_frames": 12,
+        "query": "chronological frames showing the spectator near the boundary with the flag or cloth while the ball lands near him; include enough before and after to count complete wave cycles",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "358s",
+          "359s",
+          "360s",
+          "361s",
+          "362s"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "dense chronological target-shot frames spanning the ball landing and spectator motion"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Verify which retrieved frame sequence corresponds to the second reviewed play and which earlier sequence is the target shot two shots before it, using the already retrieved frames plus preserved textual evidence.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [
+          "ev_01_c88bf880",
+          "ev_02_f9051cdf"
+        ],
+        "frames": [
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 358.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_358.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_358.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 359.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_359.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_359.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 360.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_360.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_360.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 361.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_361.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_361.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 362.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_362.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_362.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 425.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_425.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_425.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 426.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_426.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_426.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 427.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_427.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_427.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 428.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_428.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_428.00.png"
+          },
+          {
+            "video_id": "-4IduHFnEwg",
+            "timestamp_s": 429.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_429.00",
+            "relpath": "artifacts/4IduHFnEwg/frames/frame_429.00.png"
+          }
+        ],
+        "query": "Using these two chronological frame sequences and the preserved evidence, identify: (a) which sequence is the second reviewed play, (b) which specific earlier shot is two shots before that reviewed play, and (c) whether the 358-362s sequence is the target shot. Do not count flag waves yet; focus on shot ordering and target-shot identification.",
+        "text_contexts": [
+          "Preprocess indicates a reviewed play at 0-60s and another reviewed play beginning around 427-467s.",
+          "The second reviewed play starts around 427s.",
+          "The sequence before the second reviewed play is Images 1-5 at 358s-362s."
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "grounded identification of the target shot and confirmation that the 358-362s sequence is the relevant shot window",
+        "analysis": "explicit reasoning about shot ordering to preserve in the trace"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "Count the exact number of complete visible flag-wave cycles by the spectator in the target shot while the ball lands near him, and map that count to the provided option.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "-4IduHFnEwg",
+            "start_s": 356.0,
+            "end_s": 364.0
+          }
+        ],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "In this chronological frame sequence, identify the spectator near the boundary holding the flag or cloth, determine the interval while the ball lands near him, count only complete visible flag-wave cycles within that interval, reject partial/incomplete motions, and map the final count to one of the options: A=2, B=1, C=5, D=4, E=3.",
+        "text_contexts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ],
+        "text_contexts": [
+          {
+            "step_id": 2,
+            "field_path": "analysis"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "exact wave count and option letter",
+        "supporting_points": "counted wave-cycle evidence with inclusion/exclusion rationale"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the prior anchor that the later reviewed play begins around 427s, but do not rely on prior prose alone for the count. In the trace, first state whether step 1 confirms the 358-362s sequence as the target shot two shots before the second reviewed play. Then use only the dense chronological frames from step 2 to count complete flag-wave cycles during the ball-near-spectator interval. Do not count a held-up flag, a partial raise, or motion continuing off-sequence as a full wave. If the dense sequence still does not show enough motion to distinguish among 1/2/3/4/5, explicitly say the count remains unresolved rather than guessing."
+}

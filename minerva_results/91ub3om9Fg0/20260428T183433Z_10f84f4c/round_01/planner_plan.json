@@ -1,0 +1,120 @@
+{
+  "strategy": "Use the retrieved preprocess context to anchor the conflict near 180s, then inspect a chronological local frame sequence to verify the machine's visible outcome and map it to the options.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological sequence around the argument/control struggle and button moment so the downstream tool can verify what physically happens to the friends and the machine.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 180.0,
+            "end_s": 225.88,
+            "artifact_id": "clip_180_00_225_88",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 6.0,
+        "num_frames": 8,
+        "query": "chronological frames before during and after the friends argue over control of the machine, including the struggle, button press, portal formation, and the immediate consequence to the people and device",
+        "sequence_mode": "anchor_window",
+        "sort_order": "chronological",
+        "time_hints": [
+          "182.18-198.295 struggle over the machine and 'what is this button?'",
+          "180-191 portal begins forming while group struggles with black box"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological local visual sequence around the control struggle and machine outcome"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine the direct outcome of the argument over control by jointly using the local frame sequence and the available transcript context, then map that grounded outcome to the correct option.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 180.0,
+            "end_s": 225.88,
+            "artifact_id": "clip_180_00_225_88",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4",
+            "metadata": {}
+          }
+        ],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From this local sequence and transcript context, what happens when the friends argue over control of the machine? Focus on the direct visible result after the struggle/button interaction. Distinguish among: being sucked into it, freezing themselves, the machine splitting in two, the machine recording their image, or agreeing to share. State which option is supported and reject unsupported alternatives.",
+        "text_contexts": [
+          "Question asks for the outcome when the friends argue over control of the machine; answer must be grounded in the immediate consequence, not just the setup.",
+          "Retrieved preprocess context says the group struggles to hold a black box with a glass dome while a bright blue-white portal begins to form inside."
+        ],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_003",
+            "clip": {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0
+            },
+            "segments": [
+              {
+                "start_s": 120.164,
+                "end_s": 148.345,
+                "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+              },
+              {
+                "start_s": 149.982,
+                "end_s": 177.05,
+                "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_003",
+              "span_count": 2
+            }
+          },
+          {
+            "transcript_id": "preprocess_seg_004",
+            "clip": {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88
+            },
+            "segments": [
+              {
+                "start_s": 182.18,
+                "end_s": 198.295,
+                "text": "what is this button?"
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_004",
+              "span_count": 1
+            }
+          }
+        ]
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "grounded option mapping for what happens after the argument over control",
+        "supporting_points": "brief evidence-based reasons rejecting the distractor options"
+      }
+    }
+  ],
+  "refinement_instructions": "Use preprocess text only as context and the retrieved frame sequence as the answer-critical proof. Base the final choice on the immediate visible consequence after the struggle/button moment, not on earlier exposition that the device is a 'time freezing machine.' If the frames show a portal-like effect involving the people, prefer that over dialogue-based assumptions. Explicitly reject options about sharing, recording, or splitting unless those states are visibly shown in the local sequence."
+}

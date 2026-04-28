@@ -1,0 +1,49 @@
+{
+  "action": "retrieve",
+  "rationale": "Need existing dense-caption and ASR text around the likely introduction of the object to estimate when it is shown and when the words are in focus before planning new tool use.",
+  "requests": [
+    {
+      "request_id": "intro_object_focus_window",
+      "target": "dense_captions",
+      "need": "Caption spans describing when the man in blue shows the object to the man in green and when the words 'TIME MACHINE' are visible/in focus",
+      "query": "man in blue sweater zip-up shows object to man in green hoodie time machine words visible in focus",
+      "modalities": [
+        "visual",
+        "ocr"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 120.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "dialogue_intro_window",
+      "target": "asr_transcripts",
+      "need": "Transcript spans around the showing event to anchor the timing of when the object is presented",
+      "query": "there's only one but look time machine show object",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 10.0,
+        "end_s": 30.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

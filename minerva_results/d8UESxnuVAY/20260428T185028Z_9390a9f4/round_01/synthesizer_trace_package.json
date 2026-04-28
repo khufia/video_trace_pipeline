@@ -1,0 +1,367 @@
+{
+  "task_key": "d8UESxnuVAY__205f02dd40b5",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_6391ba4e",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved six chronological frames at 217s, 218s, 219s, 220s, 221s, and 222s around the checkmate moment.",
+      "inference_hint": null,
+      "confidence": 0.99,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 217.0,
+          "end_s": 217.0
+        },
+        {
+          "start_s": 218.0,
+          "end_s": 218.0
+        },
+        {
+          "start_s": 219.0,
+          "end_s": 219.0
+        },
+        {
+          "start_s": 220.0,
+          "end_s": 220.0
+        },
+        {
+          "start_s": 221.0,
+          "end_s": 221.0
+        },
+        {
+          "start_s": 222.0,
+          "end_s": 222.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_217.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_217.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_217.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 367822
+          }
+        },
+        {
+          "artifact_id": "frame_218.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_218.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_218.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 363154
+          }
+        },
+        {
+          "artifact_id": "frame_219.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_219.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_219.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 365912
+          }
+        },
+        {
+          "artifact_id": "frame_220.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_220.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_220.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 360151
+          }
+        },
+        {
+          "artifact_id": "frame_221.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_221.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_221.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 364735
+          }
+        },
+        {
+          "artifact_id": "frame_222.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_222.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_222.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 361425
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_3d31ff60e7d8e1e5",
+        "obs_c16eb796e1943eeb",
+        "obs_163d8e2dcc9b4fce",
+        "obs_bf10066ba0ba33b9",
+        "obs_b136319ff468a323",
+        "obs_6db94889721ddf85"
+      ],
+      "metadata": {
+        "request_hash": "6391ba4ea9f7a33fff50d445",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_edfbcd81",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Around the checkmate sequence, the transcript includes 'another queen' and 'A checkmate,' while the analyzed frames describe a black queen visible on the board/display and no equally grounded visual evidence that the final mating move was by a rook, bishop, knight, or pawn.",
+      "inference_hint": null,
+      "confidence": 0.56,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_180_00_240_00",
+          "kind": "clip",
+          "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 180.0,
+            "end_s": 240.0
+          }
+        },
+        {
+          "artifact_id": "frame_217.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_217.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 217.0
+          }
+        },
+        {
+          "artifact_id": "frame_220.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_220.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 220.0
+          }
+        },
+        {
+          "artifact_id": "frame_221.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_221.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 221.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_30c20d29a2eea6d4",
+        "obs_fc161c67016d9895",
+        "obs_b640270e595351a8",
+        "obs_8e7a1944a3ac0df0",
+        "obs_db61cceae8689288",
+        "obs_863b67b90a650ce8",
+        "obs_a33f6c90f2507b86",
+        "obs_43f591db3485391f",
+        "obs_9792ea6ae1354c51"
+      ],
+      "metadata": {
+        "request_hash": "edfbcd81ceff3a045430189b",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The relevant sequence is the late-game window at 217s through 222s, so the answer should be based on the last move near that interval rather than on earlier moves elsewhere in the clip.",
+      "supporting_observation_ids": [
+        "obs_3d31ff60e7d8e1e5",
+        "obs_c16eb796e1943eeb",
+        "obs_163d8e2dcc9b4fce",
+        "obs_bf10066ba0ba33b9",
+        "obs_b136319ff468a323",
+        "obs_6db94889721ddf85"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 217.0,
+          "end_s": 222.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "Within that window, the dialogue explicitly references 'another queen' and then 'A checkmate,' which makes a queen the only piece type directly tied to the mating moment in the provided evidence.",
+      "supporting_observation_ids": [
+        "obs_30c20d29a2eea6d4",
+        "obs_fc161c67016d9895",
+        "obs_b640270e595351a8",
+        "obs_8e7a1944a3ac0df0"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 212.0,
+          "end_s": 231.0
+        },
+        {
+          "start_s": 220.0,
+          "end_s": 221.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "The visual analysis in the same sequence identifies a black queen on the board/display, and although the exact square-by-square move is not fully resolved from these observations, there is no comparably grounded visual indication that the final mating piece was a rook, bishop, knight, or pawn. A knight is mentioned only as another piece present on the board, not as the mating move.",
+      "supporting_observation_ids": [
+        "obs_db61cceae8689288",
+        "obs_863b67b90a650ce8",
+        "obs_a33f6c90f2507b86",
+        "obs_43f591db3485391f",
+        "obs_9792ea6ae1354c51"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 217.0,
+      "time_intervals": []
+    },
+    {
+      "step_id": 4,
+      "text": "Given the options, the best-supported mapping is that black's last move to deliver checkmate was by the queen.",
+      "supporting_observation_ids": [
+        "obs_fc161c67016d9895",
+        "obs_db61cceae8689288",
+        "obs_863b67b90a650ce8",
+        "obs_a33f6c90f2507b86"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "D. The queen.",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "d8UESxnuVAY__205f02dd40b5",
+      "trace": {
+        "inference_steps": [
+          "[217s to 222s] The relevant sequence is the late-game window at 217s through 222s, so the answer should be based on the last move near that interval rather than on earlier moves elsewhere in the clip.",
+          "[212s to 231s; 220s to 221s] Within that window, the dialogue explicitly references 'another queen' and then 'A checkmate,' which makes a queen the only piece type directly tied to the mating moment in the provided evidence.",
+          "[217s] The visual analysis in the same sequence identifies a black queen on the board/display, and although the exact square-by-square move is not fully resolved from these observations, there is no comparably grounded visual indication that the final mating piece was a rook, bishop, knight, or pawn. A knight is mentioned only as another piece present on the board, not as the mating move.",
+          "Given the options, the best-supported mapping is that black's last move to deliver checkmate was by the queen."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved six chronological frames at 217s, 218s, 219s, 220s, 221s, and 222s around the checkmate moment.",
+            "observation_ids": [
+              "obs_3d31ff60e7d8e1e5",
+              "obs_c16eb796e1943eeb",
+              "obs_163d8e2dcc9b4fce",
+              "obs_bf10066ba0ba33b9",
+              "obs_b136319ff468a323",
+              "obs_6db94889721ddf85"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 217.0,
+                "end_s": 217.0
+              },
+              {
+                "start_s": 218.0,
+                "end_s": 218.0
+              },
+              {
+                "start_s": 219.0,
+                "end_s": 219.0
+              },
+              {
+                "start_s": 220.0,
+                "end_s": 220.0
+              },
+              {
+                "start_s": 221.0,
+                "end_s": 221.0
+              },
+              {
+                "start_s": 222.0,
+                "end_s": 222.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Around the checkmate sequence, the transcript includes 'another queen' and 'A checkmate,' while the analyzed frames describe a black queen visible on the board/display and no equally grounded visual evidence that the final mating move was by a rook, bishop, knight, or pawn.",
+            "observation_ids": [
+              "obs_30c20d29a2eea6d4",
+              "obs_fc161c67016d9895",
+              "obs_b640270e595351a8",
+              "obs_8e7a1944a3ac0df0",
+              "obs_db61cceae8689288",
+              "obs_863b67b90a650ce8",
+              "obs_a33f6c90f2507b86",
+              "obs_43f591db3485391f",
+              "obs_9792ea6ae1354c51"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          }
+        ]
+      },
+      "answer": "D. The queen."
+    }
+  },
+  "metadata": {
+    "answer_type": "multiple_choice",
+    "selection_confidence": 0.56,
+    "note": "The evidence is not a perfect before/after digital-board move trace, but queen is the uniquely best-supported option from the provided chronological frames plus dialogue."
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "many",
+    "times",
+    "woman",
+    "white",
+    "hit",
+    "net"
+  ],
+  "preprocess": {
+    "planner_segment_count": 2,
+    "raw_segment_count": 2,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 2,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "A female tennis player in a white shirt and bright turquoise skirt stands on a blue and green tennis court. She bounces the ball a few times, then performs a powerful overhand serve, sending the ball high and deep into the opponent's court.; speech: None.;...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is positioned at a wide angle from the baseline, capturing the...",
+          "video_background: The scene is an outdoor tennis court with a blue surface and green ou...",
+          "storyline: The segment begins with the player initiating a point with a serve, setting...",
+          "shooting_style: This is a standard, continuous shot.",
+          "camera_state: The camera is now positioned behind the player, looking over her shoulder...",
+          "video_background: The background is the same tennis court, with the back of a man in a...",
+          "storyline: This segment shows the player engaging in a rally, returning shots from her...",
+          "shooting_style: This is a standard, continuous shot with a cut from the previous scene."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 11.843,
+            "end_s": 38.945,
+            "text": "I don't know what's going on."
+          },
+          {
+            "start_s": 46.387,
+            "end_s": 66.923,
+            "text": "That's the thing though, I wasn't trying to lose."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/a_90z_4CkA4/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 80.467,
+        "overall_summary": "A woman in a white t-shirt and a bright turquoise skirt stands on a green and blue tennis court, holding a tennis racket. She is facing a man in a grey t-shirt, red cap, and grey shorts, who is holding a white towel. They are in the middle of the court, pre...",
+        "caption_count": 3,
+        "asr_span_count": 0,
+        "attributes": [
+          "camera_state: The camera is at a medium distance, positioned behind the man, looking to...",
+          "video_background: The scene is an outdoor tennis court with a green surface and a blue...",
+          "storyline: The scene is set for a tennis match. The two players are positioned on oppos...",
+          "shooting_style: This is a standard establishing shot.",
+          "camera_state: The camera remains in a static, medium-wide shot, capturing the woman's f...",
+          "video_background: The tennis court, with its green and blue surface, is the primary bac...",
+          "storyline: The server begins her preparation for the serve, moving the game from the pr...",
+          "shooting_style: This is a continuous shot following the action.",
+          "camera_state: The camera is static and wide, panning slightly to the left to follow the...",
+          "video_background: The tennis court and surrounding trees are visible as the serve is ma...",
+          "storyline: The serve is executed, officially starting the point. The fade to black tran...",
+          "shooting_style: The scene ends with a fade-to-black transition."
+        ],
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 60.0,
+            "end_s": 80.467,
+            "artifact_id": "clip_060_00_080_47",
+            "relpath": "artifacts/a_90z_4CkA4/clips/clip_060_00_080_47.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 0,
+    "observation_count": 0,
+    "counts_by_status": {},
+    "counts_by_tool": {},
+    "validated_evidence": [],
+    "recent_evidence": [],
+    "recent_observations": []
+  },
+  "artifact_context": {
+    "record_count": 0,
+    "counts_by_type": {},
+    "records": [],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 0,
+    "claims": []
+  }
+}

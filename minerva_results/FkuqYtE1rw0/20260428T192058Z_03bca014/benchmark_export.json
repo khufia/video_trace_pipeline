@@ -1,0 +1,98 @@
+{
+  "sample_key": "FkuqYtE1rw0__780a22047879",
+  "trace": {
+    "inference_steps": [
+      "[119.827s to 143.333s] The transcript anchors the relevant Wild Shuffle Hands explanation at 119.827s-143.333s and states that dealing starts with the player to the left and that players may end up with more or fewer cards, but it does not give a numeric count for the left-side player.",
+      "[148s to 152s] Chronologically, the inspected visual sequence comes later at 148s, 149s, 150s, 151s, and 152s, so these frames are the only available post-explanation visuals for a possible redistribution outcome.",
+      "[148s to 152s] Those later frames consistently show one hand with 4 visible cards, but that observation alone is not enough to answer the question because the evidence does not establish table orientation, does not identify that hand as the player on the left, and does not show that this is the final received-card count after redistribution.",
+      "Because the answer requires the specific number of cards received by the player on the left, and the available evidence never grounds which visible hand is that player or whether the shown 4 cards are the final redistributed total, no answer option can be selected with support."
+    ],
+    "evidence": [
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Transcript anchor for the Wild Shuffle Hands explanation: the segment describing the card runs from 119.827s to 143.333s and includes the lines \"Starting with the player to your left, deal out all the cards to all the players\" and \"Players may end up with more or fewer cards than what they started with.\"",
+        "observation_ids": [
+          "obs_a243c77157a1c576",
+          "obs_09902cdbf771ca04",
+          "obs_e39b87f884f1a10d",
+          "obs_92bde786da673638",
+          "obs_cd002687a4c90d70",
+          "obs_2195ebda458b51da",
+          "obs_be22f6e17cb2a6c0",
+          "obs_2e74416d0559b35b"
+        ],
+        "time_start_s": 119.827,
+        "time_end_s": 143.333,
+        "frame_ts_s": null,
+        "time_intervals": []
+      },
+      {
+        "tool_name": "frame_retriever",
+        "evidence_text": "Chronological retrieved frames for visual inspection occur at 148s, 149s, 150s, 151s, and 152s, which are after the Wild Shuffle Hands transcript segment.",
+        "observation_ids": [
+          "obs_d1b2fa5c9f3aa479",
+          "obs_a8ee150dbd01a118",
+          "obs_ff8d5d8024f9005c",
+          "obs_b5f5b46643a04a15",
+          "obs_43049f4bf1bef183",
+          "obs_96295d4ce0584986"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 148.0,
+            "end_s": 152.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "In the inspected post-anchor frames, one hand is shown with 4 visible cards at 148s, and the later frames show the same hand with the same cards. However, the evidence does not establish table orientation, does not identify that hand as the player on the left, and does not establish that these 4 visible cards are the final redistributed cards received after Wild Shuffle Hands.",
+        "observation_ids": [
+          "obs_06200d7d7d4074ea",
+          "obs_2be37aaf62739b5b",
+          "obs_a63dc30f5dfc9f7a",
+          "obs_7455085067856ec1",
+          "obs_887125d4a004ef54",
+          "obs_2f41610b197ebf0b",
+          "obs_24c1386d47ebb96c"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 148.0,
+            "end_s": 152.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "The available transcript and inspected frames do not provide a grounded table-orientation cue or player-identity cue that would let the visible hand be assigned to the player on the narrator's left, and they also do not show a clearly marked final redistribution endpoint for that player's received-card count.",
+        "observation_ids": [
+          "obs_7bd276536344aeea",
+          "obs_ee2639f6304e821d",
+          "obs_96295d4ce0584986",
+          "obs_24c1386d47ebb96c"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 119.827,
+            "end_s": 143.333
+          },
+          {
+            "start_s": 148.0,
+            "end_s": 152.0
+          }
+        ]
+      }
+    ]
+  },
+  "answer": ""
+}

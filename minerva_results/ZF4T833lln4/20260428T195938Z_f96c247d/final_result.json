@@ -1,0 +1,2313 @@
+{
+  "run_dir": "runs/ZF4T833lln4/20260428T195938Z_f96c247d",
+  "trace_package": {
+    "task_key": "ZF4T833lln4__db2737f0d79b",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_final_frame_sequence",
+        "tool_name": "frame_retriever",
+        "evidence_text": "Retrieved frames at 317s, 318s, 319s, 320s, 321s, and 322s for the end of the match sequence.",
+        "inference_hint": null,
+        "confidence": 0.93,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 317.0,
+            "end_s": 322.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_317.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_317.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_317.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 195932
+            }
+          },
+          {
+            "artifact_id": "frame_318.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_318.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 196159
+            }
+          },
+          {
+            "artifact_id": "frame_319.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_319.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_319.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 187754
+            }
+          },
+          {
+            "artifact_id": "frame_320.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_320.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 189973
+            }
+          },
+          {
+            "artifact_id": "frame_321.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_321.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_321.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 191419
+            }
+          },
+          {
+            "artifact_id": "frame_322.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_322.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_322.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 191834
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_76937256cc75bff0",
+          "obs_a4d9893723cffc01",
+          "obs_1d74473cf823cbc0",
+          "obs_68db22aa6da6095b",
+          "obs_bfd7079ac34c18e9",
+          "obs_b612b5f396db4edc"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_conclusion_and_clear_board",
+        "tool_name": "generic_purpose",
+        "evidence_text": "At 319s the popup \"Congratulations, you won! Your opponent resigned\" marks the conclusion and obscures the board. The unobscured final board is therefore taken from 318s, with 320s showing the same board again after the popup disappears.",
+        "inference_hint": null,
+        "confidence": 0.88,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 318.0,
+            "end_s": 320.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_318.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 318.0
+            }
+          },
+          {
+            "artifact_id": "frame_319.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_319.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 319.0
+            }
+          },
+          {
+            "artifact_id": "frame_320.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 320.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_eeb510b3fbca89e5",
+          "obs_b353840d7967f2ea",
+          "obs_addb4b0027dd5fc2",
+          "obs_2a3e811e1341c7f1",
+          "obs_ff9298003152da90",
+          "obs_d0fdf48a07b203ff",
+          "obs_90c2ce6efbe4dada",
+          "obs_c064fccdc8297d3d",
+          "obs_693515fb5759ab78",
+          "obs_dbc94c41158e0c1b"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_white_remaining_count",
+        "tool_name": "generic_purpose",
+        "evidence_text": "In the final unobscured board state, White has a king at e8, rook at f8, and pawns at e7, a5, b5, c5, g5, and h5, for 8 remaining pieces total.",
+        "inference_hint": null,
+        "confidence": 0.8,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 317.0,
+        "time_intervals": [
+          {
+            "start_s": 317.0,
+            "end_s": 320.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_317.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_317.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 317.0
+            }
+          },
+          {
+            "artifact_id": "frame_318.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 318.0
+            }
+          },
+          {
+            "artifact_id": "frame_320.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 320.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_35081669ae575918",
+          "obs_a33b576b0affc2b7",
+          "obs_1465f23ccede5083",
+          "obs_f53bd97054664ad3",
+          "obs_170fb6b8c9f4ee9b",
+          "obs_249e3d12745eabb6",
+          "obs_b1d22f37a924108d",
+          "obs_bdbe11edf4048dd8",
+          "obs_f22da045660a34c1"
+        ],
+        "metadata": {}
+      },
+      {
+        "evidence_id": "ev_black_remaining_count_refined",
+        "tool_name": "generic_purpose",
+        "evidence_text": "In the same final board state, Black's surviving pieces are explicitly grounded as a king at d6, a rook, and at least two pawns mentioned at a7 and b7. The round evidence does not provide a complete visually grounded enumeration of all Black survivors beyond those pieces, so an exact final Black count still cannot be computed from the supplied atomic observations alone.",
+        "inference_hint": null,
+        "confidence": 0.56,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 317.0,
+        "time_intervals": [
+          {
+            "start_s": 317.0,
+            "end_s": 320.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_317.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_317.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 317.0
+            }
+          },
+          {
+            "artifact_id": "frame_318.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 318.0
+            }
+          },
+          {
+            "artifact_id": "frame_320.00",
+            "kind": "frame",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 320.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_82a1fc119cfed19d",
+          "obs_0687225b6b57896f",
+          "obs_89eb3676b5d181e4",
+          "obs_1304696327886892",
+          "obs_d3a20878543f30a3",
+          "obs_a468adc127dd19db"
+        ],
+        "metadata": {}
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "Chronologically, the retrieved end-sequence frames are 317s, 318s, 319s, 320s, 321s, and 322s.",
+        "supporting_observation_ids": [
+          "obs_76937256cc75bff0",
+          "obs_a4d9893723cffc01",
+          "obs_1d74473cf823cbc0",
+          "obs_68db22aa6da6095b",
+          "obs_bfd7079ac34c18e9",
+          "obs_b612b5f396db4edc"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 317.0,
+            "end_s": 322.0
+          }
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The match conclusion is marked by the resignation popup at 319s, which obscures the board. Using the instructed end-state anchor, 318s is the final unobscured board state, and 320s shows the same board again after the popup disappears.",
+        "supporting_observation_ids": [
+          "obs_b353840d7967f2ea",
+          "obs_addb4b0027dd5fc2",
+          "obs_2a3e811e1341c7f1",
+          "obs_ff9298003152da90",
+          "obs_d0fdf48a07b203ff",
+          "obs_90c2ce6efbe4dada",
+          "obs_c064fccdc8297d3d",
+          "obs_693515fb5759ab78",
+          "obs_dbc94c41158e0c1b"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 318.0,
+            "end_s": 320.0
+          }
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "White's surviving pieces in that final board state are fully grounded: king at e8, rook at f8, and pawns at e7, a5, b5, c5, g5, and h5. That is 8 remaining White pieces, so White lost 16 - 8 = 8 pieces.",
+        "supporting_observation_ids": [
+          "obs_35081669ae575918",
+          "obs_a33b576b0affc2b7",
+          "obs_1465f23ccede5083",
+          "obs_f53bd97054664ad3",
+          "obs_170fb6b8c9f4ee9b",
+          "obs_249e3d12745eabb6",
+          "obs_b1d22f37a924108d",
+          "obs_bdbe11edf4048dd8",
+          "obs_f22da045660a34c1",
+          "obs_fe974098ce6ea141"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 317.0,
+        "time_intervals": [
+          {
+            "start_s": 317.0,
+            "end_s": 320.0
+          }
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "For Black, the refined evidence explicitly enumerates only these grounded survivors from the final board: king at d6, a rook, and pawns including at least a7 and b7. That establishes some surviving Black pieces, but it still does not provide a complete exact Black remaining count from the supplied observations.",
+        "supporting_observation_ids": [
+          "obs_82a1fc119cfed19d",
+          "obs_0687225b6b57896f",
+          "obs_1304696327886892",
+          "obs_d3a20878543f30a3",
+          "obs_a468adc127dd19db",
+          "obs_89eb3676b5d181e4"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 317.0,
+        "time_intervals": [
+          {
+            "start_s": 317.0,
+            "end_s": 320.0
+          }
+        ]
+      },
+      {
+        "step_id": 5,
+        "text": "The requested total is (16 - White remaining) + (16 - Black remaining), equivalently 32 - (White remaining + Black remaining). White remaining is grounded as 8, but Black remaining is still not exactly grounded, so the total pieces lost by both players cannot be mapped uniquely to one of the answer options without overclaiming.",
+        "supporting_observation_ids": [
+          "obs_fe974098ce6ea141",
+          "obs_30de7552977f927e",
+          "obs_77c5968f7adeef2f",
+          "obs_f22da045660a34c1",
+          "obs_82a1fc119cfed19d",
+          "obs_0687225b6b57896f",
+          "obs_d3a20878543f30a3",
+          "obs_a468adc127dd19db"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "ZF4T833lln4__db2737f0d79b",
+        "trace": {
+          "inference_steps": [
+            "[317s to 322s] Chronologically, the retrieved end-sequence frames are 317s, 318s, 319s, 320s, 321s, and 322s.",
+            "[318s to 320s] The match conclusion is marked by the resignation popup at 319s, which obscures the board. Using the instructed end-state anchor, 318s is the final unobscured board state, and 320s shows the same board again after the popup disappears.",
+            "[317s to 320s] White's surviving pieces in that final board state are fully grounded: king at e8, rook at f8, and pawns at e7, a5, b5, c5, g5, and h5. That is 8 remaining White pieces, so White lost 16 - 8 = 8 pieces.",
+            "[317s to 320s] For Black, the refined evidence explicitly enumerates only these grounded survivors from the final board: king at d6, a rook, and pawns including at least a7 and b7. That establishes some surviving Black pieces, but it still does not provide a complete exact Black remaining count from the supplied observations.",
+            "The requested total is (16 - White remaining) + (16 - Black remaining), equivalently 32 - (White remaining + Black remaining). White remaining is grounded as 8, but Black remaining is still not exactly grounded, so the total pieces lost by both players cannot be mapped uniquely to one of the answer options without overclaiming."
+          ],
+          "evidence": [
+            {
+              "tool_name": "frame_retriever",
+              "evidence_text": "Retrieved frames at 317s, 318s, 319s, 320s, 321s, and 322s for the end of the match sequence.",
+              "observation_ids": [
+                "obs_76937256cc75bff0",
+                "obs_a4d9893723cffc01",
+                "obs_1d74473cf823cbc0",
+                "obs_68db22aa6da6095b",
+                "obs_bfd7079ac34c18e9",
+                "obs_b612b5f396db4edc"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 317.0,
+                  "end_s": 322.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "At 319s the popup \"Congratulations, you won! Your opponent resigned\" marks the conclusion and obscures the board. The unobscured final board is therefore taken from 318s, with 320s showing the same board again after the popup disappears.",
+              "observation_ids": [
+                "obs_eeb510b3fbca89e5",
+                "obs_b353840d7967f2ea",
+                "obs_addb4b0027dd5fc2",
+                "obs_2a3e811e1341c7f1",
+                "obs_ff9298003152da90",
+                "obs_d0fdf48a07b203ff",
+                "obs_90c2ce6efbe4dada",
+                "obs_c064fccdc8297d3d",
+                "obs_693515fb5759ab78",
+                "obs_dbc94c41158e0c1b"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 318.0,
+                  "end_s": 320.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "In the final unobscured board state, White has a king at e8, rook at f8, and pawns at e7, a5, b5, c5, g5, and h5, for 8 remaining pieces total.",
+              "observation_ids": [
+                "obs_35081669ae575918",
+                "obs_a33b576b0affc2b7",
+                "obs_1465f23ccede5083",
+                "obs_f53bd97054664ad3",
+                "obs_170fb6b8c9f4ee9b",
+                "obs_249e3d12745eabb6",
+                "obs_b1d22f37a924108d",
+                "obs_bdbe11edf4048dd8",
+                "obs_f22da045660a34c1"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": 317.0,
+              "time_intervals": [
+                {
+                  "start_s": 317.0,
+                  "end_s": 320.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "In the same final board state, Black's surviving pieces are explicitly grounded as a king at d6, a rook, and at least two pawns mentioned at a7 and b7. The round evidence does not provide a complete visually grounded enumeration of all Black survivors beyond those pieces, so an exact final Black count still cannot be computed from the supplied atomic observations alone.",
+              "observation_ids": [
+                "obs_82a1fc119cfed19d",
+                "obs_0687225b6b57896f",
+                "obs_89eb3676b5d181e4",
+                "obs_1304696327886892",
+                "obs_d3a20878543f30a3",
+                "obs_a468adc127dd19db"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": 317.0,
+              "time_intervals": [
+                {
+                  "start_s": 317.0,
+                  "end_s": 320.0
+                }
+              ]
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {
+      "answer_status": "unresolved_due_to_incomplete_black_count",
+      "note": "Preserved the prior 318s/320s end-state anchor and White count. Refined Black reasoning by explicitly enumerating the grounded surviving Black pieces from the supplied observations, but the evidence still does not yield an exact Black final count, so no option can be selected without overclaiming."
+    }
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.95,
+    "scores": {
+      "logical_coherence": 4,
+      "completeness": 1,
+      "factual_correctness": 3,
+      "reasoning_order": 4
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace does not answer the multiple-choice question with one justified option. It explicitly leaves the result unresolved because Black's exact surviving-piece count is not grounded, so the total pieces lost by both players cannot be computed from the supplied text alone.",
+        "evidence_ids": [
+          "ev_black_remaining_count_refined",
+          "ev_white_remaining_count"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "category": "OPTION_ALIGNMENT",
+        "message": "For a benchmark multiple-choice task, an empty final answer is incomplete even though part of the derivation is grounded. The trace preserves White's count but never maps to any provided option.",
+        "evidence_ids": [
+          "ev_white_remaining_count",
+          "ev_black_remaining_count_refined"
+        ]
+      },
+      {
+        "severity": "LOW",
+        "category": "TEMPORAL_GAP",
+        "message": "The end-state anchoring is mostly coherent, but the White-count evidence is tagged to 317s while the trace says the final unobscured board is anchored at 318s and confirmed again at 320s. This does not by itself break the trace, but the answer still depends on the unresolved Black count.",
+        "evidence_ids": [
+          "ev_conclusion_and_clear_board",
+          "ev_white_remaining_count"
+        ]
+      }
+    ],
+    "feedback": "The trace correctly identifies the end-state window and grounds White's remaining pieces, but it remains incomplete because Black's exact final survivor count is not textually grounded, so no unique answer option is justified.",
+    "missing_information": [
+      "exact final count of Black's surviving pieces in the concluding board state",
+      "unique option mapping for the total pieces lost by both players once Black's final count is grounded"
+    ],
+    "diagnostics": {
+      "temporal_alignment": "Partial pass: the conclusion popup at 319s and unobscured board at 318s/320s are coherently used, though one White-count evidence entry is labeled from 317s within the same end-state span.",
+      "option_alignment": "Fail: no final option selected from A-E.",
+      "evidence_sufficiency": "Insufficient for PASS because White remaining = 8 is grounded, but Black remaining is explicitly not fully enumerated in the supplied evidence.",
+      "referent_alignment": "Pass: the trace consistently refers to White and Black surviving pieces on the final board state."
+    }
+  },
+  "benchmark_export": {
+    "sample_key": "ZF4T833lln4__db2737f0d79b",
+    "trace": {
+      "inference_steps": [
+        "[317s to 322s] Chronologically, the retrieved end-sequence frames are 317s, 318s, 319s, 320s, 321s, and 322s.",
+        "[318s to 320s] The match conclusion is marked by the resignation popup at 319s, which obscures the board. Using the instructed end-state anchor, 318s is the final unobscured board state, and 320s shows the same board again after the popup disappears.",
+        "[317s to 320s] White's surviving pieces in that final board state are fully grounded: king at e8, rook at f8, and pawns at e7, a5, b5, c5, g5, and h5. That is 8 remaining White pieces, so White lost 16 - 8 = 8 pieces.",
+        "[317s to 320s] For Black, the refined evidence explicitly enumerates only these grounded survivors from the final board: king at d6, a rook, and pawns including at least a7 and b7. That establishes some surviving Black pieces, but it still does not provide a complete exact Black remaining count from the supplied observations.",
+        "The requested total is (16 - White remaining) + (16 - Black remaining), equivalently 32 - (White remaining + Black remaining). White remaining is grounded as 8, but Black remaining is still not exactly grounded, so the total pieces lost by both players cannot be mapped uniquely to one of the answer options without overclaiming."
+      ],
+      "evidence": [
+        {
+          "tool_name": "frame_retriever",
+          "evidence_text": "Retrieved frames at 317s, 318s, 319s, 320s, 321s, and 322s for the end of the match sequence.",
+          "observation_ids": [
+            "obs_76937256cc75bff0",
+            "obs_a4d9893723cffc01",
+            "obs_1d74473cf823cbc0",
+            "obs_68db22aa6da6095b",
+            "obs_bfd7079ac34c18e9",
+            "obs_b612b5f396db4edc"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 317.0,
+              "end_s": 322.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "At 319s the popup \"Congratulations, you won! Your opponent resigned\" marks the conclusion and obscures the board. The unobscured final board is therefore taken from 318s, with 320s showing the same board again after the popup disappears.",
+          "observation_ids": [
+            "obs_eeb510b3fbca89e5",
+            "obs_b353840d7967f2ea",
+            "obs_addb4b0027dd5fc2",
+            "obs_2a3e811e1341c7f1",
+            "obs_ff9298003152da90",
+            "obs_d0fdf48a07b203ff",
+            "obs_90c2ce6efbe4dada",
+            "obs_c064fccdc8297d3d",
+            "obs_693515fb5759ab78",
+            "obs_dbc94c41158e0c1b"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 318.0,
+              "end_s": 320.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "In the final unobscured board state, White has a king at e8, rook at f8, and pawns at e7, a5, b5, c5, g5, and h5, for 8 remaining pieces total.",
+          "observation_ids": [
+            "obs_35081669ae575918",
+            "obs_a33b576b0affc2b7",
+            "obs_1465f23ccede5083",
+            "obs_f53bd97054664ad3",
+            "obs_170fb6b8c9f4ee9b",
+            "obs_249e3d12745eabb6",
+            "obs_b1d22f37a924108d",
+            "obs_bdbe11edf4048dd8",
+            "obs_f22da045660a34c1"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 317.0,
+          "time_intervals": [
+            {
+              "start_s": 317.0,
+              "end_s": 320.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "In the same final board state, Black's surviving pieces are explicitly grounded as a king at d6, a rook, and at least two pawns mentioned at a7 and b7. The round evidence does not provide a complete visually grounded enumeration of all Black survivors beyond those pieces, so an exact final Black count still cannot be computed from the supplied atomic observations alone.",
+          "observation_ids": [
+            "obs_82a1fc119cfed19d",
+            "obs_0687225b6b57896f",
+            "obs_89eb3676b5d181e4",
+            "obs_1304696327886892",
+            "obs_d3a20878543f30a3",
+            "obs_a468adc127dd19db"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 317.0,
+          "time_intervals": [
+            {
+              "start_s": 317.0,
+              "end_s": 320.0
+            }
+          ]
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": false,
+    "cache_dir": "preprocess/ZF4T833lln4",
+    "manifest": {
+      "video_id": "ZF4T833lln4",
+      "video_fingerprint": "a2da1020c06fac04780ea08cb94d1e702e91bbcb25ab9694082908d7f729cb94",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "26503208b9ce",
+      "segment_count": 6,
+      "planner_segment_count": 6,
+      "dense_caption_span_count": 12,
+      "transcript_segment_count": 14,
+      "transcript_count": 1,
+      "include_asr": true
+    },
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboard, which is set up for a game between 'Zhansay' (white) and 'IM 2541' (black). The player's cursor moves around the board, highlighting different pieces and squares as he contemplates his next move.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; absolutechess | Zhansay | IM 2541; attributes: camera_state: The camera is static, showing a screen recording of a computer interface. The main view is a wide shot of the chessboard, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player from the chest up., video_background: The player is in a modern living room with a white couch and a decorative screen or partition behind him. The main background is the purple interface of the 'absolutechess' website., storyline: The video begins by establishing the setting: a live chess game. The player is introduced, and he is shown analyzing the position on the board, setting a tense and focused mood., shooting_style: This is a screen recording with a picture-in-picture overlay, showing both the game and the player's reaction simultaneously. The player moves his white pawn forward two squares to e4. The black player's cursor then moves to highlight the black knight on d2, and the knight is selected. The player's cursor follows, highlighting the white knight on a1, and it is also selected. The player then moves his white knight to c3.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor then moves to highlight the black knight on d2, and the knight is selected. The player; attributes: camera_state: The camera remains static, maintaining the screen recording with the picture-in-picture view of the player., video_background: The player's living room background is unchanged. The chessboard interface is the primary focus., storyline: The game progresses as the player makes his first move, followed by the opponent's response. The player's analysis continues as he selects and moves his own knight, preparing for the next phase of the game., shooting_style: The screen recording style continues, with the action on the board driving the narrative.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 17.0,
+              "visual": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboard, which is set up for a game between 'Zhansay' (white) and 'IM 2541' (black). The player's cursor moves around the board, highlighting different pieces and squares as he contemplates his next move.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "absolutechess",
+                "Zhansay",
+                "IM 2541"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a screen recording of a computer interface. The main view is a wide shot of the chessboard, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player from the chest up.",
+                "video_background: The player is in a modern living room with a white couch and a decorative screen or partition behind him. The main background is the purple interface of the 'absolutechess' website.",
+                "storyline: The video begins by establishing the setting: a live chess game. The player is introduced, and he is shown analyzing the position on the board, setting a tense and focused mood.",
+                "shooting_style: This is a screen recording with a picture-in-picture overlay, showing both the game and the player's reaction simultaneously."
+              ]
+            },
+            {
+              "start_s": 18.0,
+              "end_s": 30.0,
+              "visual": "The player moves his white pawn forward two squares to e4. The black player's cursor then moves to highlight the black knight on d2, and the knight is selected. The player's cursor follows, highlighting the white knight on a1, and it is also selected. The player then moves his white knight to c3.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor then moves to highlight the black knight on d2, and the knight is selected. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the screen recording with the picture-in-picture view of the player.",
+                "video_background: The player's living room background is unchanged. The chessboard interface is the primary focus.",
+                "storyline: The game progresses as the player makes his first move, followed by the opponent's response. The player's analysis continues as he selects and moves his own knight, preparing for the next phase of the game.",
+                "shooting_style: The screen recording style continues, with the action on the board driving the narrative."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 2.343,
+            "end_s": 26.322,
+            "text": "um okay so now we have uh zhanjaya abdumalik from kazakhstan uh she's uh uh women's or girls junior world champion a few years ago uh and uh i think she's rated uh well well above uh"
+          },
+          {
+            "start_s": 26.322,
+            "end_s": 45.408,
+            "text": "well about 2400 at least I think almost 2500 in classical so she's evidently a strong player and I get my first white game so I'm gonna go for e4 and see what she does because I'm not really sure what her report you are is and"
+          },
+          {
+            "start_s": 46.724,
+            "end_s": 71.294,
+            "text": "yeah we're back to back to team polgar uh and it's not a theme that all of the girls are going to be to be for team polgar and all of all of the guys are going to be for for team kramnik that's not how it's constituted i think there's uh there's a mix it just happens to be that way for the first couple of games and we have a pretty uh traditional"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bottom left, a man with headphones, the player, is seen concentrating. The clock on the right shows the game is in the 2nd move, with the player's time at 2:52 and the opponent's at 2:49. The player moves his white knight from a2 to c3.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s time at 2:52 and the opponent; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom-left corner., video_background: The player is in a modern living room with a couch and a floor lamp visible behind him. The chess game interface has a solid purple background., storyline: The game begins with the player, who is the white knight, making the first move. He chooses to move his knight to c3, initiating the game., shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed. The player, still looking focused, moves his white knight from c3 to d1. The clock shows his time decreasing to 2:48. He then moves his white knight again, from d1 to c3. The opponent's time is now 2:39. The player's time is 2:47. He then moves his white knight to b4, and the opponent's time is 2:38. The player's time is 2:46.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s time is now 2:39. The player | s time is 2:38. The player; attributes: camera_state: The camera remains static, maintaining the split-screen view of the chess game and the player's webcam feed., video_background: The player's background remains a modern living room. The chess game interface is consistent., storyline: The player continues his opening sequence, moving his knights around the board. He appears to be methodically exploring different moves, keeping his time management in check., shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 68.0,
+              "visual": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bottom left, a man with headphones, the player, is seen concentrating. The clock on the right shows the game is in the 2nd move, with the player's time at 2:52 and the opponent's at 2:49. The player moves his white knight from a2 to c3.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s time at 2:52 and the opponent"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom-left corner.",
+                "video_background: The player is in a modern living room with a couch and a floor lamp visible behind him. The chess game interface has a solid purple background.",
+                "storyline: The game begins with the player, who is the white knight, making the first move. He chooses to move his knight to c3, initiating the game.",
+                "shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed."
+              ]
+            },
+            {
+              "start_s": 69.0,
+              "end_s": 79.0,
+              "visual": "The player, still looking focused, moves his white knight from c3 to d1. The clock shows his time decreasing to 2:48. He then moves his white knight again, from d1 to c3. The opponent's time is now 2:39. The player's time is 2:47. He then moves his white knight to b4, and the opponent's time is 2:38. The player's time is 2:46.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s time is now 2:39. The player",
+                "s time is 2:38. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view of the chess game and the player's webcam feed.",
+                "video_background: The player's background remains a modern living room. The chess game interface is consistent.",
+                "storyline: The player continues his opening sequence, moving his knights around the board. He appears to be methodically exploring different moves, keeping his time management in check.",
+                "shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 72.728,
+            "end_s": 101.618,
+            "text": "Closed Ruy Lopez. She has gone for Bb7, which is a bit surprising. Which line should I choose here? I don't know. Let's go for this one and then Nc3 next. Maybe this wasn't very good. B4, Nd5, there's Na5."
+          },
+          {
+            "start_s": 105.55,
+            "end_s": 131.538,
+            "text": "b4, knight e2, maybe? Oh, there's knight a5 immediately as well. Okay, then she doesn't give me a lot of choice, because I could take on b5 and win a pawn, but I don't think it would be worth it with my scuffed pawn structure. Let's go c3."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the player's cursor highlighting the white knight on a6 and then moving it to c3. The player's timer is visible on the right, counting down.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; absolutechess, | s cursor highlighting the white knight on a6 and then moving it to c3. The player; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player., video_background: The player is in a room with a couch and a fan visible behind him. The main screen has a solid purple background with a 'chess' logo and the handle '@absolutec chess'., storyline: The scene is set, showing a professional chess player, 'absolutechess,' in the middle of a game. He is contemplating his next move, which involves moving his white knight., shooting_style: This is a screen recording of a live chess game stream, featuring a picture-in-picture view of the player. The player, absolutechess, scratches his head with his right hand, looking thoughtful. The game continues as the cursor highlights the white knight on a6, moves it to c3, and then the black knight on b1 is highlighted before it moves to c2. The timer continues to count down.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera remains static, maintaining the split-screen view of the player and the chessboard., video_background: The player's room with a couch and fan is visible in the background of the small window. The main screen's purple background and chess interface remain unchanged., storyline: The player's thoughtful gesture suggests he is deeply analyzing the position. The game's moves are played out, showing a standard exchange of knights., shooting_style: The scene continues as a screen recording of a live chess game stream.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the player's cursor highlighting the white knight on a6 and then moving it to c3. The player's timer is visible on the right, counting down.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "absolutechess,",
+                "s cursor highlighting the white knight on a6 and then moving it to c3. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player.",
+                "video_background: The player is in a room with a couch and a fan visible behind him. The main screen has a solid purple background with a 'chess' logo and the handle '@absolutec chess'.",
+                "storyline: The scene is set, showing a professional chess player, 'absolutechess,' in the middle of a game. He is contemplating his next move, which involves moving his white knight.",
+                "shooting_style: This is a screen recording of a live chess game stream, featuring a picture-in-picture view of the player."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 131.0,
+              "visual": "The player, absolutechess, scratches his head with his right hand, looking thoughtful. The game continues as the cursor highlights the white knight on a6, moves it to c3, and then the black knight on b1 is highlighted before it moves to c2. The timer continues to count down.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view of the player and the chessboard.",
+                "video_background: The player's room with a couch and fan is visible in the background of the small window. The main screen's purple background and chess interface remain unchanged.",
+                "storyline: The player's thoughtful gesture suggests he is deeply analyzing the position. The game's moves are played out, showing a standard exchange of knights.",
+                "shooting_style: The scene continues as a screen recording of a live chess game stream."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 132.112,
+            "end_s": 141.916,
+            "text": "I think b3 is a reasonable option here, giving up a pawn for some... This, I think I'm fairly happy to give up the bishop."
+          },
+          {
+            "start_s": 143.755,
+            "end_s": 172.797,
+            "text": "just play on the fact that hopefully my bishop is going to be strong and once she tries to do something about that well first of all I can win a pawn with queen b4 I think d4 maybe even stronger if she takes I take back there's d5 but then knight c6 looks very promising for me"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows appear, indicating a potential move for the white knight from c3 to e4, and then the black king from g1 to f1. The player's timer is visible on the right, showing he has over a minute left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom left corner., video_background: The player is in a room with a couch and a small, decorative metal structure behind him. The chess game interface has a purple background with a yellow logo., storyline: The player is analyzing a complex position in a chess game. The on-screen graphics highlight a key potential move, guiding the viewer's attention to a critical decision point in the game., shooting_style: This is a screen recording of a live stream or video analysis session, featuring a picture-in-picture webcam feed. The player's cursor moves across the chessboard, highlighting different moves and potential counter-moves. He selects the white knight on c3, moves it to e4, and then immediately moves the black king from g1 to f1. The on-screen timer continues to count down, showing the player's time is dwindling as he analyzes the position.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera remains static, maintaining the split-screen view with the player's webcam in the corner and the chessboard as the main focus., video_background: The player's room and the purple-themed chess game interface remain the background elements., storyline: The player is simulating moves to see how they affect the position. By moving the king, he is likely assessing the king's safety or the king's attacking potential, a common consideration in endgame or midgame positions., shooting_style: The scene continues as a screen recording of a live stream or video analysis session.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 192.0,
+              "visual": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows appear, indicating a potential move for the white knight from c3 to e4, and then the black king from g1 to f1. The player's timer is visible on the right, showing he has over a minute left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom left corner.",
+                "video_background: The player is in a room with a couch and a small, decorative metal structure behind him. The chess game interface has a purple background with a yellow logo.",
+                "storyline: The player is analyzing a complex position in a chess game. The on-screen graphics highlight a key potential move, guiding the viewer's attention to a critical decision point in the game.",
+                "shooting_style: This is a screen recording of a live stream or video analysis session, featuring a picture-in-picture webcam feed."
+              ]
+            },
+            {
+              "start_s": 193.0,
+              "end_s": 210.0,
+              "visual": "The player's cursor moves across the chessboard, highlighting different moves and potential counter-moves. He selects the white knight on c3, moves it to e4, and then immediately moves the black king from g1 to f1. The on-screen timer continues to count down, showing the player's time is dwindling as he analyzes the position.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view with the player's webcam in the corner and the chessboard as the main focus.",
+                "video_background: The player's room and the purple-themed chess game interface remain the background elements.",
+                "storyline: The player is simulating moves to see how they affect the position. By moving the king, he is likely assessing the king's safety or the king's attacking potential, a common consideration in endgame or midgame positions.",
+                "shooting_style: The scene continues as a screen recording of a live stream or video analysis session."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 178.163,
+            "end_s": 195.494,
+            "text": "Maybe there's Rfc8, because I was thinking Ra8, and then Ed. Maybe that would be strong. I think now after a5, I don't think she should be concerned with b4. I have a lot of good options here, like Rd1, e5."
+          },
+          {
+            "start_s": 197.3,
+            "end_s": 216.723,
+            "text": "um also ed probably forcing i'll still ed5 knight f5 it's not so clear i'll go e5 seems uh seems very logical we'll go h3 i guess bring the knight around"
+          },
+          {
+            "start_s": 220.03,
+            "end_s": 248.785,
+            "text": "Take on e7. Now she could take with a knight. I didn't need to give her that opportunity. But I think regardless I'm better here. But I probably haven't made the most of my chances. Knight h4 looks suspicious to me. Put the knight in the center and I can meet queen g5 with queen g3. I think this was at the very least an inaccuracy."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": "clip_240_00_300_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_240_00_300_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces on the top. The player's cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player's timer is visible on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player; attributes: camera_state: The camera is static, showing a wide shot of the digital chess interface. A small, fixed picture-in-picture window in the bottom left corner shows a medium close-up of the player's face., video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left., storyline: The game begins with the player, who is white, making the first move. He moves his knight from e4 to g5, initiating the chess match., shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction. The player's cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king's potential moves to e5, e6, and g5. The player's timer is visible on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king; attributes: camera_state: The camera remains static, maintaining the wide shot of the digital chess interface with the player's face in the corner., video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left., storyline: The black player, who is the opponent, responds to the white knight's move by moving his king to f6. The animation highlights the king's defensive options., shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 246.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces on the top. The player's cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player's timer is visible on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a wide shot of the digital chess interface. A small, fixed picture-in-picture window in the bottom left corner shows a medium close-up of the player's face.",
+                "video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left.",
+                "storyline: The game begins with the player, who is white, making the first move. He moves his knight from e4 to g5, initiating the chess match.",
+                "shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction."
+              ]
+            },
+            {
+              "start_s": 247.0,
+              "end_s": 253.0,
+              "visual": "The player's cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king's potential moves to e5, e6, and g5. The player's timer is visible on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the wide shot of the digital chess interface with the player's face in the corner.",
+                "video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left.",
+                "storyline: The black player, who is the opponent, responds to the white knight's move by moving his king to f6. The animation highlights the king's defensive options.",
+                "shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 253.527,
+            "end_s": 273.743,
+            "text": "we have a possible line here queen g5 queen g3 takes takes takes takes knight f5 takes takes king e2 and i should be better in the rick ending let's see if that happens i think she has to take now otherwise e6 just falls"
+          },
+          {
+            "start_s": 281.708,
+            "end_s": 303.848,
+            "text": "Maybe Rf8 first. Okay, and this exact line happened. Wow. Oh, that was a bad pre-move, because she could have gone Rook. But now I think I'm, at the very least, much better. I'm probably winning. Rd6, Rd7, then Rf7 and e7, and I just win."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 344.267,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 300.0,
+              "end_s": 344.267,
+              "artifact_id": "clip_300_00_344_27",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_300_00_344_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 344.267
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player's cursor moves around the board, highlighting different squares and pieces, analyzing the position. The game is a blitz match, indicated by the timer on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player; attributes: camera_state: The camera is static, showing a split-screen view. The main view is a screen recording of a chess game, with a smaller, fixed camera shot of the player in the bottom-left corner., video_background: The player is in a modern room with a couch and a floor lamp visible behind him. The main screen is a digital chessboard interface with a purple background., storyline: The scene is set, showing a chess player in the middle of a high-stakes online chess game. He is carefully considering his next move, with the timer adding pressure., shooting_style: This is a standard split-screen shot, combining a live-action webcam feed with a screen recording of a game. The player's opponent resigns, and a 'Congratulations, you won!' pop-up appears in the center of the screen. The player looks down, slightly to his right, and reacts with a subtle, almost disappointed expression. He then looks back at the screen, processing his victory. The game state updates to show the final score: 1-0.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s opponent resigns, and a; attributes: camera_state: The camera remains static, maintaining the split-screen view. The focus is on the player's reaction to the game's conclusion., video_background: The player's room and the digital chessboard interface remain the same., storyline: The player wins the game by his opponent's resignation. His reaction suggests he may not have expected to win so easily, adding a layer of surprise to his victory., shooting_style: The split-screen format continues, effectively capturing both the on-screen action and the player's emotional reaction simultaneously.",
+          "captions": [
+            {
+              "start_s": 300.0,
+              "end_s": 309.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player's cursor moves around the board, highlighting different squares and pieces, analyzing the position. The game is a blitz match, indicated by the timer on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen view. The main view is a screen recording of a chess game, with a smaller, fixed camera shot of the player in the bottom-left corner.",
+                "video_background: The player is in a modern room with a couch and a floor lamp visible behind him. The main screen is a digital chessboard interface with a purple background.",
+                "storyline: The scene is set, showing a chess player in the middle of a high-stakes online chess game. He is carefully considering his next move, with the timer adding pressure.",
+                "shooting_style: This is a standard split-screen shot, combining a live-action webcam feed with a screen recording of a game."
+              ]
+            },
+            {
+              "start_s": 310.0,
+              "end_s": 320.0,
+              "visual": "The player's opponent resigns, and a 'Congratulations, you won!' pop-up appears in the center of the screen. The player looks down, slightly to his right, and reacts with a subtle, almost disappointed expression. He then looks back at the screen, processing his victory. The game state updates to show the final score: 1-0.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s opponent resigns, and a"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view. The focus is on the player's reaction to the game's conclusion.",
+                "video_background: The player's room and the digital chessboard interface remain the same.",
+                "storyline: The player wins the game by his opponent's resignation. His reaction suggests he may not have expected to win so easily, adding a layer of surprise to his victory.",
+                "shooting_style: The split-screen format continues, effectively capturing both the on-screen action and the player's emotional reaction simultaneously."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 308.303,
+            "end_s": 313.552,
+            "text": "because she has no counterplay and I'm just running to e8 and then f8."
+          },
+          {
+            "start_s": 321.483,
+            "end_s": 344.298,
+            "text": "There you go, all those arrows and it actually happens in the game. Okay, I feel like that was the best game so far. She played very well up to some point, but yeah, I think Night Age 4 was bad since I got to centralize in such a good way."
+          }
+        ]
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboard, which is set up for a game between 'Zhansay' (white) and 'IM 2541' (black). The player's cursor moves around the board, highlighting different pieces and squares as he contemplates his next move.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; absolutechess | Zhansay | IM 2541; attributes: camera_state: The camera is static, showing a screen recording of a computer interface. The main view is a wide shot of the chessboard, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player from the chest up., video_background: The player is in a modern living room with a white couch and a decorative screen or partition behind him. The main background is the purple interface of the 'absolutechess' website., storyline: The video begins by establishing the setting: a live chess game. The player is introduced, and he is shown analyzing the position on the board, setting a tense and focused mood., shooting_style: This is a screen recording with a picture-in-picture overlay, showing both the game and the player's reaction simultaneously. The player moves his white pawn forward two squares to e4. The black player's cursor then moves to highlight the black knight on d2, and the knight is selected. The player's cursor follows, highlighting the white knight on a1, and it is also selected. The player then moves his white knight to c3.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor then moves to highlight the black knight on d2, and the knight is selected. The player; attributes: camera_state: The camera remains static, maintaining the screen recording with the picture-in-picture view of the player., video_background: The player's living room background is unchanged. The chessboard interface is the primary focus., storyline: The game progresses as the player makes his first move, followed by the opponent's response. The player's analysis continues as he selects and moves his own knight, preparing for the next phase of the game., shooting_style: The screen recording style continues, with the action on the board driving the narrative.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 17.0,
+              "visual": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboard, which is set up for a game between 'Zhansay' (white) and 'IM 2541' (black). The player's cursor moves around the board, highlighting different pieces and squares as he contemplates his next move.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "absolutechess",
+                "Zhansay",
+                "IM 2541"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a screen recording of a computer interface. The main view is a wide shot of the chessboard, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player from the chest up.",
+                "video_background: The player is in a modern living room with a white couch and a decorative screen or partition behind him. The main background is the purple interface of the 'absolutechess' website.",
+                "storyline: The video begins by establishing the setting: a live chess game. The player is introduced, and he is shown analyzing the position on the board, setting a tense and focused mood.",
+                "shooting_style: This is a screen recording with a picture-in-picture overlay, showing both the game and the player's reaction simultaneously."
+              ]
+            },
+            {
+              "start_s": 18.0,
+              "end_s": 30.0,
+              "visual": "The player moves his white pawn forward two squares to e4. The black player's cursor then moves to highlight the black knight on d2, and the knight is selected. The player's cursor follows, highlighting the white knight on a1, and it is also selected. The player then moves his white knight to c3.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor then moves to highlight the black knight on d2, and the knight is selected. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the screen recording with the picture-in-picture view of the player.",
+                "video_background: The player's living room background is unchanged. The chessboard interface is the primary focus.",
+                "storyline: The game progresses as the player makes his first move, followed by the opponent's response. The player's analysis continues as he selects and moves his own knight, preparing for the next phase of the game.",
+                "shooting_style: The screen recording style continues, with the action on the board driving the narrative."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 2.343,
+            "end_s": 26.322,
+            "text": "um okay so now we have uh zhanjaya abdumalik from kazakhstan uh she's uh uh women's or girls junior world champion a few years ago uh and uh i think she's rated uh well well above uh"
+          },
+          {
+            "start_s": 26.322,
+            "end_s": 45.408,
+            "text": "well about 2400 at least I think almost 2500 in classical so she's evidently a strong player and I get my first white game so I'm gonna go for e4 and see what she does because I'm not really sure what her report you are is and"
+          },
+          {
+            "start_s": 46.724,
+            "end_s": 71.294,
+            "text": "yeah we're back to back to team polgar uh and it's not a theme that all of the girls are going to be to be for team polgar and all of all of the guys are going to be for for team kramnik that's not how it's constituted i think there's uh there's a mix it just happens to be that way for the first couple of games and we have a pretty uh traditional"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bottom left, a man with headphones, the player, is seen concentrating. The clock on the right shows the game is in the 2nd move, with the player's time at 2:52 and the opponent's at 2:49. The player moves his white knight from a2 to c3.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s time at 2:52 and the opponent; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom-left corner., video_background: The player is in a modern living room with a couch and a floor lamp visible behind him. The chess game interface has a solid purple background., storyline: The game begins with the player, who is the white knight, making the first move. He chooses to move his knight to c3, initiating the game., shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed. The player, still looking focused, moves his white knight from c3 to d1. The clock shows his time decreasing to 2:48. He then moves his white knight again, from d1 to c3. The opponent's time is now 2:39. The player's time is 2:47. He then moves his white knight to b4, and the opponent's time is 2:38. The player's time is 2:46.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s time is now 2:39. The player | s time is 2:38. The player; attributes: camera_state: The camera remains static, maintaining the split-screen view of the chess game and the player's webcam feed., video_background: The player's background remains a modern living room. The chess game interface is consistent., storyline: The player continues his opening sequence, moving his knights around the board. He appears to be methodically exploring different moves, keeping his time management in check., shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 68.0,
+              "visual": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bottom left, a man with headphones, the player, is seen concentrating. The clock on the right shows the game is in the 2nd move, with the player's time at 2:52 and the opponent's at 2:49. The player moves his white knight from a2 to c3.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s time at 2:52 and the opponent"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom-left corner.",
+                "video_background: The player is in a modern living room with a couch and a floor lamp visible behind him. The chess game interface has a solid purple background.",
+                "storyline: The game begins with the player, who is the white knight, making the first move. He chooses to move his knight to c3, initiating the game.",
+                "shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed."
+              ]
+            },
+            {
+              "start_s": 69.0,
+              "end_s": 79.0,
+              "visual": "The player, still looking focused, moves his white knight from c3 to d1. The clock shows his time decreasing to 2:48. He then moves his white knight again, from d1 to c3. The opponent's time is now 2:39. The player's time is 2:47. He then moves his white knight to b4, and the opponent's time is 2:38. The player's time is 2:46.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s time is now 2:39. The player",
+                "s time is 2:38. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view of the chess game and the player's webcam feed.",
+                "video_background: The player's background remains a modern living room. The chess game interface is consistent.",
+                "storyline: The player continues his opening sequence, moving his knights around the board. He appears to be methodically exploring different moves, keeping his time management in check.",
+                "shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 72.728,
+            "end_s": 101.618,
+            "text": "Closed Ruy Lopez. She has gone for Bb7, which is a bit surprising. Which line should I choose here? I don't know. Let's go for this one and then Nc3 next. Maybe this wasn't very good. B4, Nd5, there's Na5."
+          },
+          {
+            "start_s": 105.55,
+            "end_s": 131.538,
+            "text": "b4, knight e2, maybe? Oh, there's knight a5 immediately as well. Okay, then she doesn't give me a lot of choice, because I could take on b5 and win a pawn, but I don't think it would be worth it with my scuffed pawn structure. Let's go c3."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the player's cursor highlighting the white knight on a6 and then moving it to c3. The player's timer is visible on the right, counting down.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; absolutechess, | s cursor highlighting the white knight on a6 and then moving it to c3. The player; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player., video_background: The player is in a room with a couch and a fan visible behind him. The main screen has a solid purple background with a 'chess' logo and the handle '@absolutec chess'., storyline: The scene is set, showing a professional chess player, 'absolutechess,' in the middle of a game. He is contemplating his next move, which involves moving his white knight., shooting_style: This is a screen recording of a live chess game stream, featuring a picture-in-picture view of the player. The player, absolutechess, scratches his head with his right hand, looking thoughtful. The game continues as the cursor highlights the white knight on a6, moves it to c3, and then the black knight on b1 is highlighted before it moves to c2. The timer continues to count down.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera remains static, maintaining the split-screen view of the player and the chessboard., video_background: The player's room with a couch and fan is visible in the background of the small window. The main screen's purple background and chess interface remain unchanged., storyline: The player's thoughtful gesture suggests he is deeply analyzing the position. The game's moves are played out, showing a standard exchange of knights., shooting_style: The scene continues as a screen recording of a live chess game stream.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the player's cursor highlighting the white knight on a6 and then moving it to c3. The player's timer is visible on the right, counting down.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "absolutechess,",
+                "s cursor highlighting the white knight on a6 and then moving it to c3. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player.",
+                "video_background: The player is in a room with a couch and a fan visible behind him. The main screen has a solid purple background with a 'chess' logo and the handle '@absolutec chess'.",
+                "storyline: The scene is set, showing a professional chess player, 'absolutechess,' in the middle of a game. He is contemplating his next move, which involves moving his white knight.",
+                "shooting_style: This is a screen recording of a live chess game stream, featuring a picture-in-picture view of the player."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 131.0,
+              "visual": "The player, absolutechess, scratches his head with his right hand, looking thoughtful. The game continues as the cursor highlights the white knight on a6, moves it to c3, and then the black knight on b1 is highlighted before it moves to c2. The timer continues to count down.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view of the player and the chessboard.",
+                "video_background: The player's room with a couch and fan is visible in the background of the small window. The main screen's purple background and chess interface remain unchanged.",
+                "storyline: The player's thoughtful gesture suggests he is deeply analyzing the position. The game's moves are played out, showing a standard exchange of knights.",
+                "shooting_style: The scene continues as a screen recording of a live chess game stream."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 132.112,
+            "end_s": 141.916,
+            "text": "I think b3 is a reasonable option here, giving up a pawn for some... This, I think I'm fairly happy to give up the bishop."
+          },
+          {
+            "start_s": 143.755,
+            "end_s": 172.797,
+            "text": "just play on the fact that hopefully my bishop is going to be strong and once she tries to do something about that well first of all I can win a pawn with queen b4 I think d4 maybe even stronger if she takes I take back there's d5 but then knight c6 looks very promising for me"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows appear, indicating a potential move for the white knight from c3 to e4, and then the black king from g1 to f1. The player's timer is visible on the right, showing he has over a minute left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom left corner., video_background: The player is in a room with a couch and a small, decorative metal structure behind him. The chess game interface has a purple background with a yellow logo., storyline: The player is analyzing a complex position in a chess game. The on-screen graphics highlight a key potential move, guiding the viewer's attention to a critical decision point in the game., shooting_style: This is a screen recording of a live stream or video analysis session, featuring a picture-in-picture webcam feed. The player's cursor moves across the chessboard, highlighting different moves and potential counter-moves. He selects the white knight on c3, moves it to e4, and then immediately moves the black king from g1 to f1. The on-screen timer continues to count down, showing the player's time is dwindling as he analyzes the position.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera remains static, maintaining the split-screen view with the player's webcam in the corner and the chessboard as the main focus., video_background: The player's room and the purple-themed chess game interface remain the background elements., storyline: The player is simulating moves to see how they affect the position. By moving the king, he is likely assessing the king's safety or the king's attacking potential, a common consideration in endgame or midgame positions., shooting_style: The scene continues as a screen recording of a live stream or video analysis session.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 192.0,
+              "visual": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows appear, indicating a potential move for the white knight from c3 to e4, and then the black king from g1 to f1. The player's timer is visible on the right, showing he has over a minute left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom left corner.",
+                "video_background: The player is in a room with a couch and a small, decorative metal structure behind him. The chess game interface has a purple background with a yellow logo.",
+                "storyline: The player is analyzing a complex position in a chess game. The on-screen graphics highlight a key potential move, guiding the viewer's attention to a critical decision point in the game.",
+                "shooting_style: This is a screen recording of a live stream or video analysis session, featuring a picture-in-picture webcam feed."
+              ]
+            },
+            {
+              "start_s": 193.0,
+              "end_s": 210.0,
+              "visual": "The player's cursor moves across the chessboard, highlighting different moves and potential counter-moves. He selects the white knight on c3, moves it to e4, and then immediately moves the black king from g1 to f1. The on-screen timer continues to count down, showing the player's time is dwindling as he analyzes the position.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view with the player's webcam in the corner and the chessboard as the main focus.",
+                "video_background: The player's room and the purple-themed chess game interface remain the background elements.",
+                "storyline: The player is simulating moves to see how they affect the position. By moving the king, he is likely assessing the king's safety or the king's attacking potential, a common consideration in endgame or midgame positions.",
+                "shooting_style: The scene continues as a screen recording of a live stream or video analysis session."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 178.163,
+            "end_s": 195.494,
+            "text": "Maybe there's Rfc8, because I was thinking Ra8, and then Ed. Maybe that would be strong. I think now after a5, I don't think she should be concerned with b4. I have a lot of good options here, like Rd1, e5."
+          },
+          {
+            "start_s": 197.3,
+            "end_s": 216.723,
+            "text": "um also ed probably forcing i'll still ed5 knight f5 it's not so clear i'll go e5 seems uh seems very logical we'll go h3 i guess bring the knight around"
+          },
+          {
+            "start_s": 220.03,
+            "end_s": 248.785,
+            "text": "Take on e7. Now she could take with a knight. I didn't need to give her that opportunity. But I think regardless I'm better here. But I probably haven't made the most of my chances. Knight h4 looks suspicious to me. Put the knight in the center and I can meet queen g5 with queen g3. I think this was at the very least an inaccuracy."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": "clip_240_00_300_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_240_00_300_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces on the top. The player's cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player's timer is visible on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player; attributes: camera_state: The camera is static, showing a wide shot of the digital chess interface. A small, fixed picture-in-picture window in the bottom left corner shows a medium close-up of the player's face., video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left., storyline: The game begins with the player, who is white, making the first move. He moves his knight from e4 to g5, initiating the chess match., shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction. The player's cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king's potential moves to e5, e6, and g5. The player's timer is visible on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king; attributes: camera_state: The camera remains static, maintaining the wide shot of the digital chess interface with the player's face in the corner., video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left., storyline: The black player, who is the opponent, responds to the white knight's move by moving his king to f6. The animation highlights the king's defensive options., shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 246.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces on the top. The player's cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player's timer is visible on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a wide shot of the digital chess interface. A small, fixed picture-in-picture window in the bottom left corner shows a medium close-up of the player's face.",
+                "video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left.",
+                "storyline: The game begins with the player, who is white, making the first move. He moves his knight from e4 to g5, initiating the chess match.",
+                "shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction."
+              ]
+            },
+            {
+              "start_s": 247.0,
+              "end_s": 253.0,
+              "visual": "The player's cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king's potential moves to e5, e6, and g5. The player's timer is visible on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the wide shot of the digital chess interface with the player's face in the corner.",
+                "video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left.",
+                "storyline: The black player, who is the opponent, responds to the white knight's move by moving his king to f6. The animation highlights the king's defensive options.",
+                "shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 253.527,
+            "end_s": 273.743,
+            "text": "we have a possible line here queen g5 queen g3 takes takes takes takes knight f5 takes takes king e2 and i should be better in the rick ending let's see if that happens i think she has to take now otherwise e6 just falls"
+          },
+          {
+            "start_s": 281.708,
+            "end_s": 303.848,
+            "text": "Maybe Rf8 first. Okay, and this exact line happened. Wow. Oh, that was a bad pre-move, because she could have gone Rook. But now I think I'm, at the very least, much better. I'm probably winning. Rd6, Rd7, then Rf7 and e7, and I just win."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 344.267,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 300.0,
+              "end_s": 344.267,
+              "artifact_id": "clip_300_00_344_27",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_300_00_344_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 344.267
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player's cursor moves around the board, highlighting different squares and pieces, analyzing the position. The game is a blitz match, indicated by the timer on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player; attributes: camera_state: The camera is static, showing a split-screen view. The main view is a screen recording of a chess game, with a smaller, fixed camera shot of the player in the bottom-left corner., video_background: The player is in a modern room with a couch and a floor lamp visible behind him. The main screen is a digital chessboard interface with a purple background., storyline: The scene is set, showing a chess player in the middle of a high-stakes online chess game. He is carefully considering his next move, with the timer adding pressure., shooting_style: This is a standard split-screen shot, combining a live-action webcam feed with a screen recording of a game. The player's opponent resigns, and a 'Congratulations, you won!' pop-up appears in the center of the screen. The player looks down, slightly to his right, and reacts with a subtle, almost disappointed expression. He then looks back at the screen, processing his victory. The game state updates to show the final score: 1-0.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s opponent resigns, and a; attributes: camera_state: The camera remains static, maintaining the split-screen view. The focus is on the player's reaction to the game's conclusion., video_background: The player's room and the digital chessboard interface remain the same., storyline: The player wins the game by his opponent's resignation. His reaction suggests he may not have expected to win so easily, adding a layer of surprise to his victory., shooting_style: The split-screen format continues, effectively capturing both the on-screen action and the player's emotional reaction simultaneously.",
+          "captions": [
+            {
+              "start_s": 300.0,
+              "end_s": 309.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player's cursor moves around the board, highlighting different squares and pieces, analyzing the position. The game is a blitz match, indicated by the timer on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen view. The main view is a screen recording of a chess game, with a smaller, fixed camera shot of the player in the bottom-left corner.",
+                "video_background: The player is in a modern room with a couch and a floor lamp visible behind him. The main screen is a digital chessboard interface with a purple background.",
+                "storyline: The scene is set, showing a chess player in the middle of a high-stakes online chess game. He is carefully considering his next move, with the timer adding pressure.",
+                "shooting_style: This is a standard split-screen shot, combining a live-action webcam feed with a screen recording of a game."
+              ]
+            },
+            {
+              "start_s": 310.0,
+              "end_s": 320.0,
+              "visual": "The player's opponent resigns, and a 'Congratulations, you won!' pop-up appears in the center of the screen. The player looks down, slightly to his right, and reacts with a subtle, almost disappointed expression. He then looks back at the screen, processing his victory. The game state updates to show the final score: 1-0.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s opponent resigns, and a"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view. The focus is on the player's reaction to the game's conclusion.",
+                "video_background: The player's room and the digital chessboard interface remain the same.",
+                "storyline: The player wins the game by his opponent's resignation. His reaction suggests he may not have expected to win so easily, adding a layer of surprise to his victory.",
+                "shooting_style: The split-screen format continues, effectively capturing both the on-screen action and the player's emotional reaction simultaneously."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 308.303,
+            "end_s": 313.552,
+            "text": "because she has no counterplay and I'm just running to e8 and then f8."
+          },
+          {
+            "start_s": 321.483,
+            "end_s": 344.298,
+            "text": "There you go, all those arrows and it actually happens in the game. Okay, I feel like that was the best game so far. She played very well up to some point, but yeah, I think Night Age 4 was bad since I got to centralize in such a good way."
+          }
+        ]
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboard, which is set up for a game between 'Zhansay' (white) and 'IM 2541' (black). The player's cursor moves around the board, highlighting different pieces and squares as he contemplates his next move.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; absolutechess | Zhansay | IM 2541; attributes: camera_state: The camera is static, showing a screen recording of a computer interface. The main view is a wide shot of the chessboard, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player from the chest up., video_background: The player is in a modern living room with a white couch and a decorative screen or partition behind him. The main background is the purple interface of the 'absolutechess' website., storyline: The video begins by establishing the setting: a live chess game. The player is introduced, and he is shown analyzing the position on the board, setting a tense and focused mood., shooting_style: This is a screen recording with a picture-in-picture overlay, showing both the game and the player's reaction simultaneously. The player moves his white pawn forward two squares to e4. The black player's cursor then moves to highlight the black knight on d2, and the knight is selected. The player's cursor follows, highlighting the white knight on a1, and it is also selected. The player then moves his white knight to c3.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor then moves to highlight the black knight on d2, and the knight is selected. The player; attributes: camera_state: The camera remains static, maintaining the screen recording with the picture-in-picture view of the player., video_background: The player's living room background is unchanged. The chessboard interface is the primary focus., storyline: The game progresses as the player makes his first move, followed by the opponent's response. The player's analysis continues as he selects and moves his own knight, preparing for the next phase of the game., shooting_style: The screen recording style continues, with the action on the board driving the narrative.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 17.0,
+              "visual": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboard, which is set up for a game between 'Zhansay' (white) and 'IM 2541' (black). The player's cursor moves around the board, highlighting different pieces and squares as he contemplates his next move.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "absolutechess",
+                "Zhansay",
+                "IM 2541"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a screen recording of a computer interface. The main view is a wide shot of the chessboard, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player from the chest up.",
+                "video_background: The player is in a modern living room with a white couch and a decorative screen or partition behind him. The main background is the purple interface of the 'absolutechess' website.",
+                "storyline: The video begins by establishing the setting: a live chess game. The player is introduced, and he is shown analyzing the position on the board, setting a tense and focused mood.",
+                "shooting_style: This is a screen recording with a picture-in-picture overlay, showing both the game and the player's reaction simultaneously."
+              ]
+            },
+            {
+              "start_s": 18.0,
+              "end_s": 30.0,
+              "visual": "The player moves his white pawn forward two squares to e4. The black player's cursor then moves to highlight the black knight on d2, and the knight is selected. The player's cursor follows, highlighting the white knight on a1, and it is also selected. The player then moves his white knight to c3.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor then moves to highlight the black knight on d2, and the knight is selected. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the screen recording with the picture-in-picture view of the player.",
+                "video_background: The player's living room background is unchanged. The chessboard interface is the primary focus.",
+                "storyline: The game progresses as the player makes his first move, followed by the opponent's response. The player's analysis continues as he selects and moves his own knight, preparing for the next phase of the game.",
+                "shooting_style: The screen recording style continues, with the action on the board driving the narrative."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bottom left, a man with headphones, the player, is seen concentrating. The clock on the right shows the game is in the 2nd move, with the player's time at 2:52 and the opponent's at 2:49. The player moves his white knight from a2 to c3.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s time at 2:52 and the opponent; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom-left corner., video_background: The player is in a modern living room with a couch and a floor lamp visible behind him. The chess game interface has a solid purple background., storyline: The game begins with the player, who is the white knight, making the first move. He chooses to move his knight to c3, initiating the game., shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed. The player, still looking focused, moves his white knight from c3 to d1. The clock shows his time decreasing to 2:48. He then moves his white knight again, from d1 to c3. The opponent's time is now 2:39. The player's time is 2:47. He then moves his white knight to b4, and the opponent's time is 2:38. The player's time is 2:46.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s time is now 2:39. The player | s time is 2:38. The player; attributes: camera_state: The camera remains static, maintaining the split-screen view of the chess game and the player's webcam feed., video_background: The player's background remains a modern living room. The chess game interface is consistent., storyline: The player continues his opening sequence, moving his knights around the board. He appears to be methodically exploring different moves, keeping his time management in check., shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 68.0,
+              "visual": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bottom left, a man with headphones, the player, is seen concentrating. The clock on the right shows the game is in the 2nd move, with the player's time at 2:52 and the opponent's at 2:49. The player moves his white knight from a2 to c3.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s time at 2:52 and the opponent"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom-left corner.",
+                "video_background: The player is in a modern living room with a couch and a floor lamp visible behind him. The chess game interface has a solid purple background.",
+                "storyline: The game begins with the player, who is the white knight, making the first move. He chooses to move his knight to c3, initiating the game.",
+                "shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed."
+              ]
+            },
+            {
+              "start_s": 69.0,
+              "end_s": 79.0,
+              "visual": "The player, still looking focused, moves his white knight from c3 to d1. The clock shows his time decreasing to 2:48. He then moves his white knight again, from d1 to c3. The opponent's time is now 2:39. The player's time is 2:47. He then moves his white knight to b4, and the opponent's time is 2:38. The player's time is 2:46.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s time is now 2:39. The player",
+                "s time is 2:38. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view of the chess game and the player's webcam feed.",
+                "video_background: The player's background remains a modern living room. The chess game interface is consistent.",
+                "storyline: The player continues his opening sequence, moving his knights around the board. He appears to be methodically exploring different moves, keeping his time management in check.",
+                "shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the player's cursor highlighting the white knight on a6 and then moving it to c3. The player's timer is visible on the right, counting down.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; absolutechess, | s cursor highlighting the white knight on a6 and then moving it to c3. The player; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player., video_background: The player is in a room with a couch and a fan visible behind him. The main screen has a solid purple background with a 'chess' logo and the handle '@absolutec chess'., storyline: The scene is set, showing a professional chess player, 'absolutechess,' in the middle of a game. He is contemplating his next move, which involves moving his white knight., shooting_style: This is a screen recording of a live chess game stream, featuring a picture-in-picture view of the player. The player, absolutechess, scratches his head with his right hand, looking thoughtful. The game continues as the cursor highlights the white knight on a6, moves it to c3, and then the black knight on b1 is highlighted before it moves to c2. The timer continues to count down.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera remains static, maintaining the split-screen view of the player and the chessboard., video_background: The player's room with a couch and fan is visible in the background of the small window. The main screen's purple background and chess interface remain unchanged., storyline: The player's thoughtful gesture suggests he is deeply analyzing the position. The game's moves are played out, showing a standard exchange of knights., shooting_style: The scene continues as a screen recording of a live chess game stream.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the player's cursor highlighting the white knight on a6 and then moving it to c3. The player's timer is visible on the right, counting down.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "absolutechess,",
+                "s cursor highlighting the white knight on a6 and then moving it to c3. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player.",
+                "video_background: The player is in a room with a couch and a fan visible behind him. The main screen has a solid purple background with a 'chess' logo and the handle '@absolutec chess'.",
+                "storyline: The scene is set, showing a professional chess player, 'absolutechess,' in the middle of a game. He is contemplating his next move, which involves moving his white knight.",
+                "shooting_style: This is a screen recording of a live chess game stream, featuring a picture-in-picture view of the player."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 131.0,
+              "visual": "The player, absolutechess, scratches his head with his right hand, looking thoughtful. The game continues as the cursor highlights the white knight on a6, moves it to c3, and then the black knight on b1 is highlighted before it moves to c2. The timer continues to count down.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view of the player and the chessboard.",
+                "video_background: The player's room with a couch and fan is visible in the background of the small window. The main screen's purple background and chess interface remain unchanged.",
+                "storyline: The player's thoughtful gesture suggests he is deeply analyzing the position. The game's moves are played out, showing a standard exchange of knights.",
+                "shooting_style: The scene continues as a screen recording of a live chess game stream."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows appear, indicating a potential move for the white knight from c3 to e4, and then the black king from g1 to f1. The player's timer is visible on the right, showing he has over a minute left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom left corner., video_background: The player is in a room with a couch and a small, decorative metal structure behind him. The chess game interface has a purple background with a yellow logo., storyline: The player is analyzing a complex position in a chess game. The on-screen graphics highlight a key potential move, guiding the viewer's attention to a critical decision point in the game., shooting_style: This is a screen recording of a live stream or video analysis session, featuring a picture-in-picture webcam feed. The player's cursor moves across the chessboard, highlighting different moves and potential counter-moves. He selects the white knight on c3, moves it to e4, and then immediately moves the black king from g1 to f1. The on-screen timer continues to count down, showing the player's time is dwindling as he analyzes the position.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera remains static, maintaining the split-screen view with the player's webcam in the corner and the chessboard as the main focus., video_background: The player's room and the purple-themed chess game interface remain the background elements., storyline: The player is simulating moves to see how they affect the position. By moving the king, he is likely assessing the king's safety or the king's attacking potential, a common consideration in endgame or midgame positions., shooting_style: The scene continues as a screen recording of a live stream or video analysis session.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 192.0,
+              "visual": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows appear, indicating a potential move for the white knight from c3 to e4, and then the black king from g1 to f1. The player's timer is visible on the right, showing he has over a minute left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom left corner.",
+                "video_background: The player is in a room with a couch and a small, decorative metal structure behind him. The chess game interface has a purple background with a yellow logo.",
+                "storyline: The player is analyzing a complex position in a chess game. The on-screen graphics highlight a key potential move, guiding the viewer's attention to a critical decision point in the game.",
+                "shooting_style: This is a screen recording of a live stream or video analysis session, featuring a picture-in-picture webcam feed."
+              ]
+            },
+            {
+              "start_s": 193.0,
+              "end_s": 210.0,
+              "visual": "The player's cursor moves across the chessboard, highlighting different moves and potential counter-moves. He selects the white knight on c3, moves it to e4, and then immediately moves the black king from g1 to f1. The on-screen timer continues to count down, showing the player's time is dwindling as he analyzes the position.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view with the player's webcam in the corner and the chessboard as the main focus.",
+                "video_background: The player's room and the purple-themed chess game interface remain the background elements.",
+                "storyline: The player is simulating moves to see how they affect the position. By moving the king, he is likely assessing the king's safety or the king's attacking potential, a common consideration in endgame or midgame positions.",
+                "shooting_style: The scene continues as a screen recording of a live stream or video analysis session."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": "clip_240_00_300_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_240_00_300_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces on the top. The player's cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player's timer is visible on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player; attributes: camera_state: The camera is static, showing a wide shot of the digital chess interface. A small, fixed picture-in-picture window in the bottom left corner shows a medium close-up of the player's face., video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left., storyline: The game begins with the player, who is white, making the first move. He moves his knight from e4 to g5, initiating the chess match., shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction. The player's cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king's potential moves to e5, e6, and g5. The player's timer is visible on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king; attributes: camera_state: The camera remains static, maintaining the wide shot of the digital chess interface with the player's face in the corner., video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left., storyline: The black player, who is the opponent, responds to the white knight's move by moving his king to f6. The animation highlights the king's defensive options., shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 246.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces on the top. The player's cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player's timer is visible on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a wide shot of the digital chess interface. A small, fixed picture-in-picture window in the bottom left corner shows a medium close-up of the player's face.",
+                "video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left.",
+                "storyline: The game begins with the player, who is white, making the first move. He moves his knight from e4 to g5, initiating the chess match.",
+                "shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction."
+              ]
+            },
+            {
+              "start_s": 247.0,
+              "end_s": 253.0,
+              "visual": "The player's cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king's potential moves to e5, e6, and g5. The player's timer is visible on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the wide shot of the digital chess interface with the player's face in the corner.",
+                "video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left.",
+                "storyline: The black player, who is the opponent, responds to the white knight's move by moving his king to f6. The animation highlights the king's defensive options.",
+                "shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 344.267,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 300.0,
+              "end_s": 344.267,
+              "artifact_id": "clip_300_00_344_27",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_300_00_344_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 344.267
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player's cursor moves around the board, highlighting different squares and pieces, analyzing the position. The game is a blitz match, indicated by the timer on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player; attributes: camera_state: The camera is static, showing a split-screen view. The main view is a screen recording of a chess game, with a smaller, fixed camera shot of the player in the bottom-left corner., video_background: The player is in a modern room with a couch and a floor lamp visible behind him. The main screen is a digital chessboard interface with a purple background., storyline: The scene is set, showing a chess player in the middle of a high-stakes online chess game. He is carefully considering his next move, with the timer adding pressure., shooting_style: This is a standard split-screen shot, combining a live-action webcam feed with a screen recording of a game. The player's opponent resigns, and a 'Congratulations, you won!' pop-up appears in the center of the screen. The player looks down, slightly to his right, and reacts with a subtle, almost disappointed expression. He then looks back at the screen, processing his victory. The game state updates to show the final score: 1-0.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s opponent resigns, and a; attributes: camera_state: The camera remains static, maintaining the split-screen view. The focus is on the player's reaction to the game's conclusion., video_background: The player's room and the digital chessboard interface remain the same., storyline: The player wins the game by his opponent's resignation. His reaction suggests he may not have expected to win so easily, adding a layer of surprise to his victory., shooting_style: The split-screen format continues, effectively capturing both the on-screen action and the player's emotional reaction simultaneously.",
+          "captions": [
+            {
+              "start_s": 300.0,
+              "end_s": 309.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player's cursor moves around the board, highlighting different squares and pieces, analyzing the position. The game is a blitz match, indicated by the timer on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen view. The main view is a screen recording of a chess game, with a smaller, fixed camera shot of the player in the bottom-left corner.",
+                "video_background: The player is in a modern room with a couch and a floor lamp visible behind him. The main screen is a digital chessboard interface with a purple background.",
+                "storyline: The scene is set, showing a chess player in the middle of a high-stakes online chess game. He is carefully considering his next move, with the timer adding pressure.",
+                "shooting_style: This is a standard split-screen shot, combining a live-action webcam feed with a screen recording of a game."
+              ]
+            },
+            {
+              "start_s": 310.0,
+              "end_s": 320.0,
+              "visual": "The player's opponent resigns, and a 'Congratulations, you won!' pop-up appears in the center of the screen. The player looks down, slightly to his right, and reacts with a subtle, almost disappointed expression. He then looks back at the screen, processing his victory. The game state updates to show the final score: 1-0.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s opponent resigns, and a"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view. The focus is on the player's reaction to the game's conclusion.",
+                "video_background: The player's room and the digital chessboard interface remain the same.",
+                "storyline: The player wins the game by his opponent's resignation. His reaction suggests he may not have expected to win so easily, adding a layer of surprise to his victory.",
+                "shooting_style: The split-screen format continues, effectively capturing both the on-screen action and the player's emotional reaction simultaneously."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_3f527c695a2e",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 0.0,
+          "end_s": 344.267,
+          "artifact_id": "clip_000_00_344_27",
+          "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_344_27.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 2.343,
+            "end_s": 26.322,
+            "text": "um okay so now we have uh zhanjaya abdumalik from kazakhstan uh she's uh uh women's or girls junior world champion a few years ago uh and uh i think she's rated uh well well above uh"
+          },
+          {
+            "start_s": 26.322,
+            "end_s": 45.408,
+            "text": "well about 2400 at least I think almost 2500 in classical so she's evidently a strong player and I get my first white game so I'm gonna go for e4 and see what she does because I'm not really sure what her report you are is and"
+          },
+          {
+            "start_s": 46.724,
+            "end_s": 71.294,
+            "text": "yeah we're back to back to team polgar uh and it's not a theme that all of the girls are going to be to be for team polgar and all of all of the guys are going to be for for team kramnik that's not how it's constituted i think there's uh there's a mix it just happens to be that way for the first couple of games and we have a pretty uh traditional"
+          },
+          {
+            "start_s": 72.728,
+            "end_s": 101.618,
+            "text": "Closed Ruy Lopez. She has gone for Bb7, which is a bit surprising. Which line should I choose here? I don't know. Let's go for this one and then Nc3 next. Maybe this wasn't very good. B4, Nd5, there's Na5."
+          },
+          {
+            "start_s": 105.55,
+            "end_s": 131.538,
+            "text": "b4, knight e2, maybe? Oh, there's knight a5 immediately as well. Okay, then she doesn't give me a lot of choice, because I could take on b5 and win a pawn, but I don't think it would be worth it with my scuffed pawn structure. Let's go c3."
+          },
+          {
+            "start_s": 132.112,
+            "end_s": 141.916,
+            "text": "I think b3 is a reasonable option here, giving up a pawn for some... This, I think I'm fairly happy to give up the bishop."
+          },
+          {
+            "start_s": 143.755,
+            "end_s": 172.797,
+            "text": "just play on the fact that hopefully my bishop is going to be strong and once she tries to do something about that well first of all I can win a pawn with queen b4 I think d4 maybe even stronger if she takes I take back there's d5 but then knight c6 looks very promising for me"
+          },
+          {
+            "start_s": 178.163,
+            "end_s": 195.494,
+            "text": "Maybe there's Rfc8, because I was thinking Ra8, and then Ed. Maybe that would be strong. I think now after a5, I don't think she should be concerned with b4. I have a lot of good options here, like Rd1, e5."
+          },
+          {
+            "start_s": 197.3,
+            "end_s": 216.723,
+            "text": "um also ed probably forcing i'll still ed5 knight f5 it's not so clear i'll go e5 seems uh seems very logical we'll go h3 i guess bring the knight around"
+          },
+          {
+            "start_s": 220.03,
+            "end_s": 248.785,
+            "text": "Take on e7. Now she could take with a knight. I didn't need to give her that opportunity. But I think regardless I'm better here. But I probably haven't made the most of my chances. Knight h4 looks suspicious to me. Put the knight in the center and I can meet queen g5 with queen g3. I think this was at the very least an inaccuracy."
+          },
+          {
+            "start_s": 253.527,
+            "end_s": 273.743,
+            "text": "we have a possible line here queen g5 queen g3 takes takes takes takes knight f5 takes takes king e2 and i should be better in the rick ending let's see if that happens i think she has to take now otherwise e6 just falls"
+          },
+          {
+            "start_s": 281.708,
+            "end_s": 303.848,
+            "text": "Maybe Rf8 first. Okay, and this exact line happened. Wow. Oh, that was a bad pre-move, because she could have gone Rook. But now I think I'm, at the very least, much better. I'm probably winning. Rd6, Rd7, then Rf7 and e7, and I just win."
+          },
+          {
+            "start_s": 308.303,
+            "end_s": 313.552,
+            "text": "because she has no counterplay and I'm just running to e8 and then f8."
+          },
+          {
+            "start_s": 321.483,
+            "end_s": 344.298,
+            "text": "There you go, all those arrows and it actually happens in the game. Okay, I feel like that was the best game so far. She played very well up to some point, but yeah, I think Night Age 4 was bad since I got to centralize in such a good way."
+          }
+        ]
+      }
+    ],
+    "planner_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboard, which is set up for a game between 'Zhansay' (white) and 'IM 2541' (black). The player's cursor moves around the board, highlighting different pieces and squares as he contemplates his next move.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; absolutechess | Zhansay | IM 2541; attributes: camera_state: The camera is static, showing a screen recording of a computer interface. The main view is a wide shot of the chessboard, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player from the chest up., video_background: The player is in a modern living room with a white couch and a decorative screen or partition behind him. The main background is the purple interface of the 'absolutechess' website., storyline: The video begins by establishing the setting: a live chess game. The player is introduced, and he is shown analyzing the position on the board, setting a tense and focused mood., shooting_style: This is a screen recording with a picture-in-picture overlay, showing both the game and the player's reaction simultaneously. The player moves his white pawn forward two squares to e4. The black player's cursor then moves to highlight the black knight on d2, and the knight is selected. The player's cursor follows, highlighting the white knight on a1, and it is also selected. The player then moves his white knight to c3.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor then moves to highlight the black knight on d2, and the knight is selected. The player; attributes: camera_state: The camera remains static, maintaining the screen recording with the picture-in-picture view of the player., video_background: The player's living room background is unchanged. The chessboard interface is the primary focus., storyline: The game progresses as the player makes his first move, followed by the opponent's response. The player's analysis continues as he selects and moves his own knight, preparing for the next phase of the game., shooting_style: The screen recording style continues, with the action on the board driving the narrative.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 17.0,
+              "visual": "The scene opens on a chess game in progress on the 'absolutechess' platform. The interface is purple, with a small window in the bottom left showing a man with headphones, the player, looking intently at the screen. The main view is of the digital chessboard, which is set up for a game between 'Zhansay' (white) and 'IM 2541' (black). The player's cursor moves around the board, highlighting different pieces and squares as he contemplates his next move.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "absolutechess",
+                "Zhansay",
+                "IM 2541"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a screen recording of a computer interface. The main view is a wide shot of the chessboard, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player from the chest up.",
+                "video_background: The player is in a modern living room with a white couch and a decorative screen or partition behind him. The main background is the purple interface of the 'absolutechess' website.",
+                "storyline: The video begins by establishing the setting: a live chess game. The player is introduced, and he is shown analyzing the position on the board, setting a tense and focused mood.",
+                "shooting_style: This is a screen recording with a picture-in-picture overlay, showing both the game and the player's reaction simultaneously."
+              ]
+            },
+            {
+              "start_s": 18.0,
+              "end_s": 30.0,
+              "visual": "The player moves his white pawn forward two squares to e4. The black player's cursor then moves to highlight the black knight on d2, and the knight is selected. The player's cursor follows, highlighting the white knight on a1, and it is also selected. The player then moves his white knight to c3.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor then moves to highlight the black knight on d2, and the knight is selected. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the screen recording with the picture-in-picture view of the player.",
+                "video_background: The player's living room background is unchanged. The chessboard interface is the primary focus.",
+                "storyline: The game progresses as the player makes his first move, followed by the opponent's response. The player's analysis continues as he selects and moves his own knight, preparing for the next phase of the game.",
+                "shooting_style: The screen recording style continues, with the action on the board driving the narrative."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 2.343,
+              "end_s": 26.322,
+              "text": "um okay so now we have uh zhanjaya abdumalik from kazakhstan uh she's uh uh women's or girls junior world champion a few years ago uh and uh i think she's rated uh well well above uh"
+            },
+            {
+              "start_s": 26.322,
+              "end_s": 45.408,
+              "text": "well about 2400 at least I think almost 2500 in classical so she's evidently a strong player and I get my first white game so I'm gonna go for e4 and see what she does because I'm not really sure what her report you are is and"
+            },
+            {
+              "start_s": 46.724,
+              "end_s": 71.294,
+              "text": "yeah we're back to back to team polgar uh and it's not a theme that all of the girls are going to be to be for team polgar and all of all of the guys are going to be for for team kramnik that's not how it's constituted i think there's uh there's a mix it just happens to be that way for the first couple of games and we have a pretty uh traditional"
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bottom left, a man with headphones, the player, is seen concentrating. The clock on the right shows the game is in the 2nd move, with the player's time at 2:52 and the opponent's at 2:49. The player moves his white knight from a2 to c3.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s time at 2:52 and the opponent; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom-left corner., video_background: The player is in a modern living room with a couch and a floor lamp visible behind him. The chess game interface has a solid purple background., storyline: The game begins with the player, who is the white knight, making the first move. He chooses to move his knight to c3, initiating the game., shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed. The player, still looking focused, moves his white knight from c3 to d1. The clock shows his time decreasing to 2:48. He then moves his white knight again, from d1 to c3. The opponent's time is now 2:39. The player's time is 2:47. He then moves his white knight to b4, and the opponent's time is 2:38. The player's time is 2:46.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s time is now 2:39. The player | s time is 2:38. The player; attributes: camera_state: The camera remains static, maintaining the split-screen view of the chess game and the player's webcam feed., video_background: The player's background remains a modern living room. The chess game interface is consistent., storyline: The player continues his opening sequence, moving his knights around the board. He appears to be methodically exploring different moves, keeping his time management in check., shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 68.0,
+              "visual": "A chess game is shown on a purple-themed interface. In the top left, the handle @absolutechess and a horse logo are displayed. The main screen shows a chessboard with black pieces on the top half and white pieces on the bottom. In a small window in the bottom left, a man with headphones, the player, is seen concentrating. The clock on the right shows the game is in the 2nd move, with the player's time at 2:52 and the opponent's at 2:49. The player moves his white knight from a2 to c3.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s time at 2:52 and the opponent"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom-left corner.",
+                "video_background: The player is in a modern living room with a couch and a floor lamp visible behind him. The chess game interface has a solid purple background.",
+                "storyline: The game begins with the player, who is the white knight, making the first move. He chooses to move his knight to c3, initiating the game.",
+                "shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed."
+              ]
+            },
+            {
+              "start_s": 69.0,
+              "end_s": 79.0,
+              "visual": "The player, still looking focused, moves his white knight from c3 to d1. The clock shows his time decreasing to 2:48. He then moves his white knight again, from d1 to c3. The opponent's time is now 2:39. The player's time is 2:47. He then moves his white knight to b4, and the opponent's time is 2:38. The player's time is 2:46.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s time is now 2:39. The player",
+                "s time is 2:38. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view of the chess game and the player's webcam feed.",
+                "video_background: The player's background remains a modern living room. The chess game interface is consistent.",
+                "storyline: The player continues his opening sequence, moving his knights around the board. He appears to be methodically exploring different moves, keeping his time management in check.",
+                "shooting_style: This is a standard screen recording of a chess game with a picture-in-picture webcam feed."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 72.728,
+              "end_s": 101.618,
+              "text": "Closed Ruy Lopez. She has gone for Bb7, which is a bit surprising. Which line should I choose here? I don't know. Let's go for this one and then Nc3 next. Maybe this wasn't very good. B4, Nd5, there's Na5."
+            },
+            {
+              "start_s": 105.55,
+              "end_s": 131.538,
+              "text": "b4, knight e2, maybe? Oh, there's knight a5 immediately as well. Okay, then she doesn't give me a lot of choice, because I could take on b5 and win a pawn, but I don't think it would be worth it with my scuffed pawn structure. Let's go c3."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the player's cursor highlighting the white knight on a6 and then moving it to c3. The player's timer is visible on the right, counting down.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; absolutechess, | s cursor highlighting the white knight on a6 and then moving it to c3. The player; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player., video_background: The player is in a room with a couch and a fan visible behind him. The main screen has a solid purple background with a 'chess' logo and the handle '@absolutec chess'., storyline: The scene is set, showing a professional chess player, 'absolutechess,' in the middle of a game. He is contemplating his next move, which involves moving his white knight., shooting_style: This is a screen recording of a live chess game stream, featuring a picture-in-picture view of the player. The player, absolutechess, scratches his head with his right hand, looking thoughtful. The game continues as the cursor highlights the white knight on a6, moves it to c3, and then the black knight on b1 is highlighted before it moves to c2. The timer continues to count down.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera remains static, maintaining the split-screen view of the player and the chessboard., video_background: The player's room with a couch and fan is visible in the background of the small window. The main screen's purple background and chess interface remain unchanged., storyline: The player's thoughtful gesture suggests he is deeply analyzing the position. The game's moves are played out, showing a standard exchange of knights., shooting_style: The scene continues as a screen recording of a live chess game stream.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left, a small window shows a man with headphones, the player 'absolutechess,' looking intently at the board. The main screen displays the chess game in progress, with the player's cursor highlighting the white knight on a6 and then moving it to c3. The player's timer is visible on the right, counting down.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "absolutechess,",
+                "s cursor highlighting the white knight on a6 and then moving it to c3. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a small picture-in-picture window in the bottom left corner showing a medium shot of the player.",
+                "video_background: The player is in a room with a couch and a fan visible behind him. The main screen has a solid purple background with a 'chess' logo and the handle '@absolutec chess'.",
+                "storyline: The scene is set, showing a professional chess player, 'absolutechess,' in the middle of a game. He is contemplating his next move, which involves moving his white knight.",
+                "shooting_style: This is a screen recording of a live chess game stream, featuring a picture-in-picture view of the player."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 131.0,
+              "visual": "The player, absolutechess, scratches his head with his right hand, looking thoughtful. The game continues as the cursor highlights the white knight on a6, moves it to c3, and then the black knight on b1 is highlighted before it moves to c2. The timer continues to count down.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view of the player and the chessboard.",
+                "video_background: The player's room with a couch and fan is visible in the background of the small window. The main screen's purple background and chess interface remain unchanged.",
+                "storyline: The player's thoughtful gesture suggests he is deeply analyzing the position. The game's moves are played out, showing a standard exchange of knights.",
+                "shooting_style: The scene continues as a screen recording of a live chess game stream."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 132.112,
+              "end_s": 141.916,
+              "text": "I think b3 is a reasonable option here, giving up a pawn for some... This, I think I'm fairly happy to give up the bishop."
+            },
+            {
+              "start_s": 143.755,
+              "end_s": 172.797,
+              "text": "just play on the fact that hopefully my bishop is going to be strong and once she tries to do something about that well first of all I can win a pawn with queen b4 I think d4 maybe even stronger if she takes I take back there's d5 but then knight c6 looks very promising for me"
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows appear, indicating a potential move for the white knight from c3 to e4, and then the black king from g1 to f1. The player's timer is visible on the right, showing he has over a minute left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom left corner., video_background: The player is in a room with a couch and a small, decorative metal structure behind him. The chess game interface has a purple background with a yellow logo., storyline: The player is analyzing a complex position in a chess game. The on-screen graphics highlight a key potential move, guiding the viewer's attention to a critical decision point in the game., shooting_style: This is a screen recording of a live stream or video analysis session, featuring a picture-in-picture webcam feed. The player's cursor moves across the chessboard, highlighting different moves and potential counter-moves. He selects the white knight on c3, moves it to e4, and then immediately moves the black king from g1 to f1. The on-screen timer continues to count down, showing the player's time is dwindling as he analyzes the position.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; attributes: camera_state: The camera remains static, maintaining the split-screen view with the player's webcam in the corner and the chessboard as the main focus., video_background: The player's room and the purple-themed chess game interface remain the background elements., storyline: The player is simulating moves to see how they affect the position. By moving the king, he is likely assessing the king's safety or the king's attacking potential, a common consideration in endgame or midgame positions., shooting_style: The scene continues as a screen recording of a live stream or video analysis session.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 192.0,
+              "visual": "The scene opens on a chess game in progress, with the player's webcam feed in the bottom left corner. The player, a man with headphones, is focused on the screen. The main view is of the chessboard, showing a position with white to move. Animated arrows appear, indicating a potential move for the white knight from c3 to e4, and then the black king from g1 to f1. The player's timer is visible on the right, showing he has over a minute left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen layout. The main view is a screen recording of a chess game, with a smaller, fixed webcam shot of the player in the bottom left corner.",
+                "video_background: The player is in a room with a couch and a small, decorative metal structure behind him. The chess game interface has a purple background with a yellow logo.",
+                "storyline: The player is analyzing a complex position in a chess game. The on-screen graphics highlight a key potential move, guiding the viewer's attention to a critical decision point in the game.",
+                "shooting_style: This is a screen recording of a live stream or video analysis session, featuring a picture-in-picture webcam feed."
+              ]
+            },
+            {
+              "start_s": 193.0,
+              "end_s": 210.0,
+              "visual": "The player's cursor moves across the chessboard, highlighting different moves and potential counter-moves. He selects the white knight on c3, moves it to e4, and then immediately moves the black king from g1 to f1. The on-screen timer continues to count down, showing the player's time is dwindling as he analyzes the position.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view with the player's webcam in the corner and the chessboard as the main focus.",
+                "video_background: The player's room and the purple-themed chess game interface remain the background elements.",
+                "storyline: The player is simulating moves to see how they affect the position. By moving the king, he is likely assessing the king's safety or the king's attacking potential, a common consideration in endgame or midgame positions.",
+                "shooting_style: The scene continues as a screen recording of a live stream or video analysis session."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 178.163,
+              "end_s": 195.494,
+              "text": "Maybe there's Rfc8, because I was thinking Ra8, and then Ed. Maybe that would be strong. I think now after a5, I don't think she should be concerned with b4. I have a lot of good options here, like Rd1, e5."
+            },
+            {
+              "start_s": 197.3,
+              "end_s": 216.723,
+              "text": "um also ed probably forcing i'll still ed5 knight f5 it's not so clear i'll go e5 seems uh seems very logical we'll go h3 i guess bring the knight around"
+            },
+            {
+              "start_s": 220.03,
+              "end_s": 248.785,
+              "text": "Take on e7. Now she could take with a knight. I didn't need to give her that opportunity. But I think regardless I'm better here. But I probably haven't made the most of my chances. Knight h4 looks suspicious to me. Put the knight in the center and I can meet queen g5 with queen g3. I think this was at the very least an inaccuracy."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": "clip_240_00_300_00",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_240_00_300_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces on the top. The player's cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player's timer is visible on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player; attributes: camera_state: The camera is static, showing a wide shot of the digital chess interface. A small, fixed picture-in-picture window in the bottom left corner shows a medium close-up of the player's face., video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left., storyline: The game begins with the player, who is white, making the first move. He moves his knight from e4 to g5, initiating the chess match., shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction. The player's cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king's potential moves to e5, e6, and g5. The player's timer is visible on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king; attributes: camera_state: The camera remains static, maintaining the wide shot of the digital chess interface with the player's face in the corner., video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left., storyline: The black player, who is the opponent, responds to the white knight's move by moving his king to f6. The animation highlights the king's defensive options., shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 246.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a small window displays the face of a man with headphones, who is the player. The main screen shows the chessboard with white pieces on the bottom and black pieces on the top. The player's cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player's timer is visible on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor moves the white knight from e4 to g5, and a green arrow animates the move. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a wide shot of the digital chess interface. A small, fixed picture-in-picture window in the bottom left corner shows a medium close-up of the player's face.",
+                "video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left.",
+                "storyline: The game begins with the player, who is white, making the first move. He moves his knight from e4 to g5, initiating the chess match.",
+                "shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction."
+              ]
+            },
+            {
+              "start_s": 247.0,
+              "end_s": 253.0,
+              "visual": "The player's cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king's potential moves to e5, e6, and g5. The player's timer is visible on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s cursor moves the black king from g7 to f6. As this happens, green arrows animate on the board, showing the king"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the wide shot of the digital chess interface with the player's face in the corner.",
+                "video_background: The player is in a room with a couch and a white screen or partition behind him. The main background is a solid purple color with the 'absolutechess' logo in the top left.",
+                "storyline: The black player, who is the opponent, responds to the white knight's move by moving his king to f6. The animation highlights the king's defensive options.",
+                "shooting_style: This is a screen recording of a chess game, with a picture-in-picture overlay showing the player's reaction."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 253.527,
+              "end_s": 273.743,
+              "text": "we have a possible line here queen g5 queen g3 takes takes takes takes knight f5 takes takes king e2 and i should be better in the rick ending let's see if that happens i think she has to take now otherwise e6 just falls"
+            },
+            {
+              "start_s": 281.708,
+              "end_s": 303.848,
+              "text": "Maybe Rf8 first. Okay, and this exact line happened. Wow. Oh, that was a bad pre-move, because she could have gone Rook. But now I think I'm, at the very least, much better. I'm probably winning. Rd6, Rd7, then Rf7 and e7, and I just win."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 344.267,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "ZF4T833lln4",
+              "start_s": 300.0,
+              "end_s": 344.267,
+              "artifact_id": "clip_300_00_344_27",
+              "relpath": "artifacts/ZF4T833lln4/clips/clip_300_00_344_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 344.267
+          },
+          "overall_summary": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player's cursor moves around the board, highlighting different squares and pieces, analyzing the position. The game is a blitz match, indicated by the timer on the right side of the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player; attributes: camera_state: The camera is static, showing a split-screen view. The main view is a screen recording of a chess game, with a smaller, fixed camera shot of the player in the bottom-left corner., video_background: The player is in a modern room with a couch and a floor lamp visible behind him. The main screen is a digital chessboard interface with a purple background., storyline: The scene is set, showing a chess player in the middle of a high-stakes online chess game. He is carefully considering his next move, with the timer adding pressure., shooting_style: This is a standard split-screen shot, combining a live-action webcam feed with a screen recording of a game. The player's opponent resigns, and a 'Congratulations, you won!' pop-up appears in the center of the screen. The player looks down, slightly to his right, and reacts with a subtle, almost disappointed expression. He then looks back at the screen, processing his victory. The game state updates to show the final score: 1-0.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.; s opponent resigns, and a; attributes: camera_state: The camera remains static, maintaining the split-screen view. The focus is on the player's reaction to the game's conclusion., video_background: The player's room and the digital chessboard interface remain the same., storyline: The player wins the game by his opponent's resignation. His reaction suggests he may not have expected to win so easily, adding a layer of surprise to his victory., shooting_style: The split-screen format continues, effectively capturing both the on-screen action and the player's emotional reaction simultaneously.",
+          "captions": [
+            {
+              "start_s": 300.0,
+              "end_s": 309.0,
+              "visual": "A chess game is shown on a digital board with a purple background. In the bottom left corner, a man with headphones, identified as the player, watches intently. The game is in progress, with the player's turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player's cursor moves around the board, highlighting different squares and pieces, analyzing the position. The game is a blitz match, indicated by the timer on the right side of the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s turn. The white pieces are on the top half of the board, and the black pieces are on the bottom. The player"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, showing a split-screen view. The main view is a screen recording of a chess game, with a smaller, fixed camera shot of the player in the bottom-left corner.",
+                "video_background: The player is in a modern room with a couch and a floor lamp visible behind him. The main screen is a digital chessboard interface with a purple background.",
+                "storyline: The scene is set, showing a chess player in the middle of a high-stakes online chess game. He is carefully considering his next move, with the timer adding pressure.",
+                "shooting_style: This is a standard split-screen shot, combining a live-action webcam feed with a screen recording of a game."
+              ]
+            },
+            {
+              "start_s": 310.0,
+              "end_s": 320.0,
+              "visual": "The player's opponent resigns, and a 'Congratulations, you won!' pop-up appears in the center of the screen. The player looks down, slightly to his right, and reacts with a subtle, almost disappointed expression. He then looks back at the screen, processing his victory. The game state updates to show the final score: 1-0.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: None.",
+              "on_screen_text": [
+                "s opponent resigns, and a"
+              ],
+              "attributes": [
+                "camera_state: The camera remains static, maintaining the split-screen view. The focus is on the player's reaction to the game's conclusion.",
+                "video_background: The player's room and the digital chessboard interface remain the same.",
+                "storyline: The player wins the game by his opponent's resignation. His reaction suggests he may not have expected to win so easily, adding a layer of surprise to his victory.",
+                "shooting_style: The split-screen format continues, effectively capturing both the on-screen action and the player's emotional reaction simultaneously."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 308.303,
+              "end_s": 313.552,
+              "text": "because she has no counterplay and I'm just running to e8 and then f8."
+            },
+            {
+              "start_s": 321.483,
+              "end_s": 344.298,
+              "text": "There you go, all those arrows and it actually happens in the game. Okay, I feel like that was the best game so far. She played very well up to some point, but yeah, I think Night Age 4 was bad since I got to centralize in such a good way."
+            }
+          ]
+        }
+      }
+    ],
+    "video_fingerprint": "a2da1020c06fac04780ea08cb94d1e702e91bbcb25ab9694082908d7f729cb94"
+  },
+  "rounds_executed": 2
+}

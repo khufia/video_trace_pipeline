@@ -1,0 +1,187 @@
+{
+  "tool_name": "generic_purpose",
+  "request_hash": "16e6df6f655e6cbbf7ec1b6f",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "generic_purpose",
+    "query": "Inspect this chronological frame sequence. Identify the last time the guy is using his smartphone, then determine which on-screen option is highlighted at that moment or immediately after. Choose only among: Decline, Open in Photos, Download, Accept, Open in new window. Base the answer on visible UI highlighting, not narration.",
+    "clips": [],
+    "frames": [
+      {
+        "video_id": "GlecDUdZdkE",
+        "timestamp_s": 70.0,
+        "artifact_id": "frame_70.00",
+        "relpath": "artifacts/GlecDUdZdkE/frames/frame_70.00.png",
+        "clip": {
+          "video_id": "GlecDUdZdkE",
+          "start_s": 60.0,
+          "end_s": 120.0,
+          "artifact_id": "clip_060_00_120_00",
+          "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4",
+          "metadata": {
+            "source": "preprocess_seg_002",
+            "reason": "segment containing the only described smartphone use before transition to laptop screen"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 60.0,
+          "clip_end_s": 120.0,
+          "frame_pool_start_s": 58.0,
+          "frame_pool_end_s": 122.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 72.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "GlecDUdZdkE",
+        "timestamp_s": 71.0,
+        "artifact_id": "frame_71.00",
+        "relpath": "artifacts/GlecDUdZdkE/frames/frame_71.00.png",
+        "clip": {
+          "video_id": "GlecDUdZdkE",
+          "start_s": 60.0,
+          "end_s": 120.0,
+          "artifact_id": "clip_060_00_120_00",
+          "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4",
+          "metadata": {
+            "source": "preprocess_seg_002",
+            "reason": "segment containing the only described smartphone use before transition to laptop screen"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 60.0,
+          "clip_end_s": 120.0,
+          "frame_pool_start_s": 58.0,
+          "frame_pool_end_s": 122.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 72.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "GlecDUdZdkE",
+        "timestamp_s": 72.0,
+        "artifact_id": "frame_72.00",
+        "relpath": "artifacts/GlecDUdZdkE/frames/frame_72.00.png",
+        "clip": {
+          "video_id": "GlecDUdZdkE",
+          "start_s": 60.0,
+          "end_s": 120.0,
+          "artifact_id": "clip_060_00_120_00",
+          "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4",
+          "metadata": {
+            "source": "preprocess_seg_002",
+            "reason": "segment containing the only described smartphone use before transition to laptop screen"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 60.0,
+          "clip_end_s": 120.0,
+          "frame_pool_start_s": 58.0,
+          "frame_pool_end_s": 122.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 72.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 2,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "GlecDUdZdkE",
+        "timestamp_s": 73.0,
+        "artifact_id": "frame_73.00",
+        "relpath": "artifacts/GlecDUdZdkE/frames/frame_73.00.png",
+        "clip": {
+          "video_id": "GlecDUdZdkE",
+          "start_s": 60.0,
+          "end_s": 120.0,
+          "artifact_id": "clip_060_00_120_00",
+          "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4",
+          "metadata": {
+            "source": "preprocess_seg_002",
+            "reason": "segment containing the only described smartphone use before transition to laptop screen"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 60.0,
+          "clip_end_s": 120.0,
+          "frame_pool_start_s": 58.0,
+          "frame_pool_end_s": 122.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 72.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 3,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "GlecDUdZdkE",
+        "timestamp_s": 74.0,
+        "artifact_id": "frame_74.00",
+        "relpath": "artifacts/GlecDUdZdkE/frames/frame_74.00.png",
+        "clip": {
+          "video_id": "GlecDUdZdkE",
+          "start_s": 60.0,
+          "end_s": 120.0,
+          "artifact_id": "clip_060_00_120_00",
+          "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4",
+          "metadata": {
+            "source": "preprocess_seg_002",
+            "reason": "segment containing the only described smartphone use before transition to laptop screen"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 60.0,
+          "clip_end_s": 120.0,
+          "frame_pool_start_s": 58.0,
+          "frame_pool_end_s": 122.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 72.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 4,
+          "sequence_sort_order": "chronological"
+        }
+      }
+    ],
+    "transcripts": [],
+    "text_contexts": [
+      "These frames are a chronological sequence centered on timestamp 72s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 70s, 71s, 72s, 73s, 74s."
+    ],
+    "evidence_ids": []
+  }
+}

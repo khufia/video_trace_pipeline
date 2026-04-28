@@ -1,0 +1,59 @@
+{
+  "strategy": "Use preprocess to anchor the likely interval, then retrieve a small chronological frame set around the last visible physical 'Mahalo my dude' sticker and verify its color directly from frames.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve the earliest sequence where the physical 'Mahalo my dude' sticker appears, including the later close-up that is likely its last on-screen occurrence within that opening montage.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "GlecDUdZdkE",
+            "start_s": 0.0,
+            "end_s": 6.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/GlecDUdZdkE/clips/clip_000_00_060_00.mp4",
+            "metadata": {
+              "source": "preprocess_anchor",
+              "reason": "dense captions mention the physical 'Mahalo my dude' sticker at 0-2s and nearby montage through 6s"
+            }
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 6,
+        "query": "chronological frames showing the physical 'Mahalo my dude' sticker, especially its latest visible appearance in the opening montage",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "0.0-2.0s close-up of the physical 'Mahalo my dude' sticker on a dark purple bicycle; verify the later visible moment within this opening sequence"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological candidate frames spanning the sticker's appearance and latest visible moment in the opening sequence"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Identify which retrieved frame contains the last physical on-screen appearance of the 'Mahalo my dude' sticker and determine the sticker color from that frame sequence.",
+      "inputs": {
+        "query": "From these chronological frames, find the last frame where the physical sticker reading 'Mahalo my dude' is visible on-screen. Report the sticker's color at that last physical appearance and map it to one of: green, black, white, red, yellow."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "identified last appearance color with option mapping",
+        "supporting_points": "frame-based justification for which frame is last and what color the sticker is"
+      }
+    }
+  ],
+  "refinement_instructions": "Treat preprocess captions as only an anchor, not final proof. In the frame sequence, explicitly determine the last physical on-screen occurrence of the 'Mahalo my dude' sticker rather than assuming the first mention is the answer. Base the color on direct visual evidence from the selected last frame in the chronological set. If the text on the sticker is not readable enough to confirm identity, state that ambiguity instead of guessing from preprocess."
+}

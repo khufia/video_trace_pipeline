@@ -1,0 +1,25 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries already indicate title-card subsections, but the exact count is missing; retrieve dense-caption/preprocess text spans mentioning on-screen titles before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "title_cards_count",
+      "target": "mixed",
+      "need": "All existing text spans that mention on-screen title cards or titled subsection headings, to count how many distinct titled subsections appear in the video.",
+      "query": "title card titled subsection heading on-screen text montage overlay reads",
+      "modalities": [
+        "visual",
+        "ocr"
+      ],
+      "time_range": {},
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 20
+    }
+  ]
+}

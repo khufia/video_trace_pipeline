@@ -1,0 +1,49 @@
+{
+  "action": "retrieve",
+  "rationale": "Existing preprocess ASR and captions likely already indicate the game outcome, so retrieve those text spans before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "game_result_asr",
+      "target": "asr_transcripts",
+      "need": "Transcript spans stating who won the game or describing the post-game result",
+      "query": "fourth time's the charm matters most unbelievable team proud of the girls defense carried us through the game beat good teams state result won",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 120.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "game_result_captions",
+      "target": "dense_captions",
+      "need": "Caption summaries or on-screen text indicating which team won or whether it was a victory celebration",
+      "query": "victory celebration winning team black jersey white jersey game result scoreboard champion",
+      "modalities": [
+        "visual",
+        "ocr"
+      ],
+      "time_range": {
+        "start_s": 60.0,
+        "end_s": 141.867
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

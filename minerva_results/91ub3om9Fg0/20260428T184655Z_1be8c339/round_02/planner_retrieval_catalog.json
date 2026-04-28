@@ -1,0 +1,460 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "long",
+    "take",
+    "word",
+    "time",
+    "machine",
+    "focus",
+    "once",
+    "man",
+    "blue",
+    "sweater",
+    "shows",
+    "green",
+    "hoodie",
+    "rough",
+    "transcript",
+    "anchor",
+    "timestamps",
+    "descriptions",
+    "showing",
+    "event",
+    "first",
+    "must",
+    "justify",
+    "exact",
+    "option",
+    "both",
+    "endpoints",
+    "elapsed",
+    "especially",
+    "discriminator"
+  ],
+  "preprocess": {
+    "planner_segment_count": 4,
+    "raw_segment_count": 4,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 4,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black backgro...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The camera is static, holding a centered, medium shot on the loading whee...",
+          "video_background: The background is entirely black, creating a sense of digital space o...",
+          "storyline: This segment serves as the title sequence, establishing the name of the show...",
+          "shooting_style: This is a title sequence featuring a simple animation and glitch effects.",
+          "camera_state: The camera is static, holding a medium shot of the two men as they intera...",
+          "video_background: The setting is a dark, modern-looking room with a grey couch. The lig...",
+          "storyline: This scene introduces two main characters and establishes a casual, slightly...",
+          "shooting_style: This is a standard dialogue scene with a static camera."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 15.893,
+            "end_s": 18.61,
+            "text": "Oh, there's only one. Yeah, there's only one, but look."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: A medium shot, framed from the side, focusing on the two men on the couch...",
+          "video_background: The scene is set in a dark, modern-looking room with a plain wall beh...",
+          "storyline: The scene introduces two characters who are reacting to something happening...",
+          "shooting_style: This is a standard shot establishing the characters and their initial r...",
+          "camera_state: The camera cuts between a medium shot of the person in the hazmat suit an...",
+          "video_background: The background is a simple, out-of-focus room with some indistinct po...",
+          "storyline: The central plot device, a homemade time machine, is introduced. The person...",
+          "shooting_style: The scene uses intercutting between the speaker and the listeners to sh..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 50.032,
+            "end_s": 75.749,
+            "text": "What are you talking about? Are you crazy? Wait. Is it like the one we see in a movie? Can we time travel?"
+          },
+          {
+            "start_s": 80.187,
+            "end_s": 98.092,
+            "text": "It is based on quantum physics. There's a quasi-stable antimatter inside. It's placed with the fabric of the space-time. It's starting into a complex. How do we know this works? Wait and watch. Setting the radius to one meter north. Geo coordinates intact."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then r...",
+        "caption_count": 1,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The scene starts with a close-up on the wooden object, then cuts to a med...",
+          "video_background: The setting appears to be a dimly lit room or office with dark walls....",
+          "storyline: The scene introduces a mysterious time machine and its inventor, who is expl...",
+          "shooting_style: The scene uses intercutting between the inventor and the two onlookers..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 120.164,
+            "end_s": 148.345,
+            "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+          },
+          {
+            "start_s": 149.982,
+            "end_s": 177.05,
+            "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium...",
+          "video_background: The first shot is in a dimly lit room with a dark, blurry background....",
+          "storyline: The scene introduces a conflict where a group is trying to contain or contro...",
+          "shooting_style: This is a montage of quick, intercutting shots to build tension and int...",
+          "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a...",
+          "video_background: The background is dark and indistinct, keeping the focus entirely on...",
+          "storyline: The tension escalates as the portal's power seems to increase, causing fear...",
+          "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 182.18,
+            "end_s": 198.295,
+            "text": "what is this button?"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 180.0,
+            "end_s": 225.88,
+            "artifact_id": "clip_180_00_225_88",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 3,
+    "observation_count": 14,
+    "counts_by_status": {
+      "provisional": 3
+    },
+    "counts_by_tool": {
+      "generic_purpose": 2,
+      "frame_retriever": 1
+    },
+    "validated_evidence": [],
+    "recent_evidence": [
+      {
+        "evidence_id": "ev_01_c85d0a69",
+        "tool_name": "frame_retriever",
+        "status": "provisional",
+        "summary": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.",
+        "observation_ids": [
+          "obs_c7d1f0b35df411fa",
+          "obs_e21dc2d7633fc78d",
+          "obs_3baabfc7d86e073f",
+          "obs_e7766e2ff0290146",
+          "obs_a32885a7c1779ccd",
+          "obs_6063d470b05201f4"
+        ]
+      },
+      {
+        "evidence_id": "ev_02_95e7b11e",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "Thinking Process: 1. **Analyze the Request:** * Task: Answer a query about video timing based on supplied evidence (transcript) and media (none provided in the prompt, only transcript). * Query: \"From this transcript...",
+        "observation_ids": [
+          "obs_e1a2e05913e62313",
+          "obs_f9f21de0b68f5cdd",
+          "obs_a1d735622f411a7b",
+          "obs_b01cb365479faed3",
+          "obs_6ce5628c3b29f79b",
+          "obs_b2932114e183c0a3",
+          "obs_e7f76325ae252ed5",
+          "obs_140c7e602a951512"
+        ]
+      },
+      {
+        "evidence_id": "ev_03_f068c76a",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "Tool step skipped because a declared input reference could not be resolved: 'Could not resolve transcripts from step 2'"
+      }
+    ],
+    "recent_observations": [
+      {
+        "observation_id": "obs_c7d1f0b35df411fa",
+        "evidence_id": "ev_01_c85d0a69",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 13.0,
+        "text": "A candidate frame was retrieved at 13.00s."
+      },
+      {
+        "observation_id": "obs_e21dc2d7633fc78d",
+        "evidence_id": "ev_01_c85d0a69",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 14.0,
+        "text": "A candidate frame was retrieved at 14.00s."
+      },
+      {
+        "observation_id": "obs_3baabfc7d86e073f",
+        "evidence_id": "ev_01_c85d0a69",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 15.0,
+        "text": "A candidate frame was retrieved at 15.00s."
+      },
+      {
+        "observation_id": "obs_e7766e2ff0290146",
+        "evidence_id": "ev_01_c85d0a69",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 16.0,
+        "text": "A candidate frame was retrieved at 16.00s."
+      },
+      {
+        "observation_id": "obs_a32885a7c1779ccd",
+        "evidence_id": "ev_01_c85d0a69",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 17.0,
+        "text": "A candidate frame was retrieved at 17.00s."
+      },
+      {
+        "observation_id": "obs_6063d470b05201f4",
+        "evidence_id": "ev_01_c85d0a69",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 18.0,
+        "text": "A candidate frame was retrieved at 18.00s."
+      },
+      {
+        "observation_id": "obs_e1a2e05913e62313",
+        "evidence_id": "ev_02_95e7b11e",
+        "source_tool": "generic_purpose",
+        "text": "Transcript 1 has clip ID 91ub3om9Fg0."
+      },
+      {
+        "observation_id": "obs_f9f21de0b68f5cdd",
+        "evidence_id": "ev_02_95e7b11e",
+        "source_tool": "generic_purpose",
+        "text": "Transcript 1 spans 0s-60s."
+      },
+      {
+        "observation_id": "obs_a1d735622f411a7b",
+        "evidence_id": "ev_02_95e7b11e",
+        "source_tool": "generic_purpose",
+        "text": "The transcript span is 15.893s-18.61s."
+      },
+      {
+        "observation_id": "obs_b01cb365479faed3",
+        "evidence_id": "ev_02_95e7b11e",
+        "source_tool": "generic_purpose",
+        "text": "The transcript span contains the quote: \"Oh, there's only one. Yeah, there's only one, but look.\""
+      },
+      {
+        "observation_id": "obs_6ce5628c3b29f79b",
+        "evidence_id": "ev_02_95e7b11e",
+        "source_tool": "generic_purpose",
+        "text": "The query asks for the likely anchor moment for when the object is being shown."
+      },
+      {
+        "observation_id": "obs_b2932114e183c0a3",
+        "evidence_id": "ev_02_95e7b11e",
+        "source_tool": "generic_purpose",
+        "text": "The query especially emphasizes the moment corresponding to \"but look.\""
+      },
+      {
+        "observation_id": "obs_e7f76325ae252ed5",
+        "evidence_id": "ev_02_95e7b11e",
+        "source_tool": "generic_purpose",
+        "text": "The query requests the relevant quoted phrase."
+      },
+      {
+        "observation_id": "obs_140c7e602a951512",
+        "evidence_id": "ev_02_95e7b11e",
+        "source_tool": "generic_purpose",
+        "text": "The query requests approximate anchor timing within the clip."
+      }
+    ]
+  },
+  "artifact_context": {
+    "record_count": 6,
+    "counts_by_type": {
+      "frame": 6
+    },
+    "records": [
+      {
+        "artifact_id": "frame_13.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/91ub3om9Fg0/frames/frame_13.00.png",
+        "time": {
+          "timestamp_s": 13.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_c85d0a69"
+        ]
+      },
+      {
+        "artifact_id": "frame_14.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/91ub3om9Fg0/frames/frame_14.00.png",
+        "time": {
+          "timestamp_s": 14.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_c85d0a69"
+        ]
+      },
+      {
+        "artifact_id": "frame_15.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/91ub3om9Fg0/frames/frame_15.00.png",
+        "time": {
+          "timestamp_s": 15.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_c85d0a69"
+        ]
+      },
+      {
+        "artifact_id": "frame_16.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/91ub3om9Fg0/frames/frame_16.00.png",
+        "time": {
+          "timestamp_s": 16.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_c85d0a69"
+        ]
+      },
+      {
+        "artifact_id": "frame_17.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/91ub3om9Fg0/frames/frame_17.00.png",
+        "time": {
+          "timestamp_s": 17.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_c85d0a69"
+        ]
+      },
+      {
+        "artifact_id": "frame_18.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/91ub3om9Fg0/frames/frame_18.00.png",
+        "time": {
+          "timestamp_s": 18.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_01_c85d0a69"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 4,
+    "claims": [
+      {
+        "step_id": 1,
+        "text": "The available visual evidence is a chronological frame sequence at 13s, 14s, 15s, 16s, 17s, and 18s, so any duration estimate must be based on 1-second sampling rather than continuous frame-by-frame timing.",
+        "supporting_observation_ids": [
+          "obs_c7d1f0b35df411fa",
+          "obs_e21dc2d7633fc78d",
+          "obs_3baabfc7d86e073f",
+          "obs_e7766e2ff0290146",
+          "obs_a32885a7c1779ccd",
+          "obs_6063d470b05201f4"
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The transcript phrase ending with \"but look\" occurs from 15.893s to 18.61s, which anchors the likely showing event to roughly the 16-18s region, but the transcript alone does not prove the exact start or end frame for the visual question.",
+        "supporting_observation_ids": [
+          "obs_a1d735622f411a7b",
+          "obs_b01cb365479faed3",
+          "obs_b2932114e183c0a3"
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "Because the discriminator must come from the chronological frames, the relevant candidate interval is around 16s to 18s. With only 1-second-spaced frames, the sequence is too sparse to cleanly distinguish whether the elapsed time from first showing to first readable focus is exactly 1 second or 2 seconds if those events happen between sampled frames.",
+        "supporting_observation_ids": [
+          "obs_e7766e2ff0290146",
+          "obs_a32885a7c1779ccd",
+          "obs_6063d470b05201f4",
+          "obs_a1d735622f411a7b"
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "Given that the anchor phrase begins near 15.9s and the inspected frames continue through 18s, longer options such as 4s, 6s, or 7s are not well supported by the anchored window. The shortest plausible option consistent with a showing moment near 16-17s and readable focus by 17-18s is 2 seconds, but this remains somewhat uncertain because the frame sequence is sparse.",
+        "supporting_observation_ids": [
+          "obs_e7766e2ff0290146",
+          "obs_a32885a7c1779ccd",
+          "obs_6063d470b05201f4",
+          "obs_a1d735622f411a7b",
+          "obs_b01cb365479faed3"
+        ]
+      }
+    ]
+  },
+  "audit_gaps": [
+    "when the man in the blue sweater shows the item to the man in the green hoodie",
+    "when the words \"TIME MACHINE\" are first in focus",
+    "the grounded elapsed time between those two events, sufficient to distinguish 00:01 from 00:02 and rule out the other options"
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "sample_key": "a_90z_4CkA4__cb167ae07765",
+  "trace": {
+    "inference_steps": [
+      "[2s to 6s; 13s; 15s; 71s to 75s] Chronologically, the distinct swings already anchored in the evidence are: one early serve around 2-6s, one forehand at 13s, one backhand at 15s, and one later serve around 71-75s. Neighboring frames around each action are treated as the same swing rather than separate hits.",
+      "[2s to 6s; 13s; 15s; 71s to 75s] For those four anchored swings: the early serve is grounded as non-net; the 13s forehand remains unresolved for net contact because the frames do not clearly show net contact; the 15s backhand is not grounded as a net hit and is described as looking like a clean hit; and the later serve is grounded as non-net.",
+      "[2s to 6s; 13s; 15s; 70s to 73s; 75s to 78s] The follow-up full-video candidate search does not add any clearly grounded new hit interval beyond the known late-serve region, and it also fails to recover the already known early serve and middle-rally hits. Therefore it cannot be treated as a complete set of all answer-relevant hit events across the video.",
+      "Because the evidence does not establish complete coverage of every distinct hit by the woman in white across the full question-relevant span, the total number of times she hits into the net cannot be selected reliably from the options. The sampled non-net evidence is insufficient to convert the answer to 0 for the whole video."
+    ],
+    "evidence": [
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Early sequence around 0-6s shows one serve by the woman in white. The provided context states this serve goes high/deep into the opponent's court and is not a net hit.",
+        "observation_ids": [
+          "obs_6e0c949d5a4b84f0",
+          "obs_50879ef8a4924c1c",
+          "obs_60eb0e3ff853b5a2",
+          "obs_97d07568afcafcc4",
+          "obs_6d1aaa3f6a05025f",
+          "obs_651d92dda0759246",
+          "obs_1b1a895b5986a4ed",
+          "obs_b019b92354fbb8ca"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 2.0,
+            "end_s": 6.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Middle sequence around 12-16s shows a rally with two distinct swings by the woman in white: a forehand at 13s and a backhand at 15s. The available observations say exact net contacts must be visually verified, but there is no clear visual of the ball hitting the net in these frames; the 15s hit is described as looking like a clean hit.",
+        "observation_ids": [
+          "obs_bf8f40948c267619",
+          "obs_ed6bac86b1273980",
+          "obs_799b7376ec1304fa",
+          "obs_4661882d7e894b5d",
+          "obs_9637093b0c98c0c3",
+          "obs_ab2b3bb511b3df23",
+          "obs_e3d0a1af8b4be639",
+          "obs_77dd74e517b02d7a",
+          "obs_437015fae73e10ee",
+          "obs_cd6359f1e1cfc306",
+          "obs_d5d3fb0bcb1ff086",
+          "obs_bdad6fb2787ed5b9"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 12.0,
+            "end_s": 16.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Late sequence around 71-75s shows another serve by the woman in white. The provided context states this serve flies over the net and is not a net hit.",
+        "observation_ids": [
+          "obs_f4252d42fd03aceb",
+          "obs_585366259a8600f9",
+          "obs_2ca72d056e513202",
+          "obs_e5a1388e6ef303d4",
+          "obs_859de2fdd6128dc0",
+          "obs_b7e6a85058579567",
+          "obs_857f5870dd0f58eb",
+          "obs_d7900fc2919feded"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 71.0,
+            "end_s": 75.0
+          }
+        ]
+      },
+      {
+        "tool_name": "visual_temporal_grounder",
+        "evidence_text": "A follow-up full-video candidate search for all moments where the woman in white hits or serves the ball returned only late intervals at 70.00-73.00s and 75.00-78.00s. This does not recover the already anchored early serve or middle-rally hits, so it does not establish complete coverage of all answer-relevant hit events across the video.",
+        "observation_ids": [
+          "obs_20f812598b16c47f",
+          "obs_005dd8429f80587b"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 70.0,
+            "end_s": 73.0
+          },
+          {
+            "start_s": 75.0,
+            "end_s": 78.0
+          }
+        ]
+      }
+    ]
+  },
+  "answer": ""
+}

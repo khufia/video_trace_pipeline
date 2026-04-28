@@ -1,0 +1,47 @@
+{
+  "action": "retrieve",
+  "rationale": "Existing preprocess summaries suggest tennis rallies/serves, but they do not answer the count of net hits; retrieve dense-caption and preprocess text spans for the rally portions before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "rally_dense_captions",
+      "target": "dense_captions",
+      "need": "Text spans describing each rally/serve outcome, especially whether the woman in white hits the ball into the net and how many times this occurs",
+      "query": "tennis woman in white hits into the net serve rally outcome net fault netted shot",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 80.467
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 20
+    },
+    {
+      "request_id": "segment_preprocess_details",
+      "target": "preprocess",
+      "need": "Detailed preprocess text for segments covering the tennis points to identify any mention of shots going into the net",
+      "query": "tennis woman white net hit rally serve outcome",
+      "modalities": [
+        "visual",
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 80.467
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

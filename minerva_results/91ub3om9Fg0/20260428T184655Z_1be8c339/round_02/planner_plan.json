@@ -1,0 +1,114 @@
+{
+  "strategy": "Reuse the retrieved 13s-18s frame sequence and the preprocess transcript anchor, then verify both visual endpoints and the elapsed-time discriminator in one grounded visual reasoning pass.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "generic_purpose",
+      "purpose": "Inspect the chronological retrieved frames together with the transcript anchor to identify (a) when the blue-sweater man is showing the item to the green-hoodie man and (b) the first frame where the words TIME MACHINE are actually in focus, then compute which option best matches the elapsed time.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4"
+          }
+        ],
+        "evidence_ids": [
+          "ev_01_c85d0a69",
+          "ev_02_95e7b11e"
+        ],
+        "frames": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 13.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_13.00",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_13.00.png"
+          },
+          {
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 14.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_14.00",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_14.00.png"
+          },
+          {
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 15.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_15.00",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_15.00.png"
+          },
+          {
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 16.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_16.00",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_16.00.png"
+          },
+          {
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 17.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_17.00",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_17.00.png"
+          },
+          {
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 18.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_18.00",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_18.00.png"
+          }
+        ],
+        "query": "Using the chronological frames and transcript anchor, determine the earliest frame in which the man in the blue sweater/blue zip-up is showing the item/device to the man in the green hoodie, and the earliest frame in which the words 'TIME MACHINE' are visibly in focus on that item. Report the specific timestamps for both endpoints, explain what is visible in each relevant frame from 13s through 18s, and state whether the grounded elapsed time is better supported as 1 second or 2 seconds. Also rule out 4, 6, and 7 seconds from the inspected sequence.",
+        "text_contexts": [
+          "Audit gap to resolve: ground the exact showing moment, ground the first in-focus TIME MACHINE moment, and distinguish 00:01 from 00:02 using the 13s-18s chronological frame sequence."
+        ],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_001",
+            "clip": {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 0.0,
+              "end_s": 60.0
+            },
+            "segments": [
+              {
+                "start_s": 15.893,
+                "end_s": 18.61,
+                "text": "Oh, there's only one. Yeah, there's only one, but look."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_001",
+              "span_count": 1
+            }
+          }
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "grounded option mapping with elapsed time",
+        "supporting_points": "frame-by-frame endpoint observations and option elimination",
+        "analysis": "explicit justification for the showing frame, first in-focus frame, and 1s vs 2s discriminator"
+      }
+    }
+  ],
+  "refinement_instructions": "Do not reuse the prior speculative 2-second claim unless step 1 explicitly grounds both endpoints from the frames. In the trace, quote the transcript phrase 'but look' only as an anchor, not as proof of the visual event. Summarize what each relevant frame at 13s, 14s, 15s, 16s, 17s, and 18s shows about the item handoff/presentation and text focus. The final answer must name the earliest grounded showing timestamp and the earliest grounded in-focus TIME MACHINE timestamp, then compute the elapsed time and map it to A/C only if the frame evidence resolves that discriminator. If the frames remain too sparse to distinguish 1s from 2s, state that explicitly rather than pretending certainty."
+}

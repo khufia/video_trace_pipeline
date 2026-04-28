@@ -1,0 +1,44 @@
+{
+  "action": "retrieve",
+  "rationale": "Current text is insufficient to ground the counts; retrieve existing dense-caption/preprocess text for the Inner City Tennis activity span to see if the action sequence already states side-step and toss counts more fully than the sampled frames.",
+  "requests": [
+    {
+      "request_id": "inner_city_activity_captions",
+      "target": "dense_captions",
+      "need": "Existing caption spans covering the woman in gray volunteering at Inner City Tennis, especially any text describing repeated side steps and ball tosses in the teaching/demo sequence",
+      "query": "Inner City Tennis woman in gray instructor side steps ball tosses teaching demo repeated actions",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 129.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "inner_city_preprocess_segment",
+      "target": "preprocess",
+      "need": "Canonical preprocess text for the relevant segment to confirm whether the activity sequence includes countable side-step and toss actions beyond the currently summarized frames",
+      "query": "seg_003 Inner City Tennis instructor grey t-shirt tosses ball prepares to hit side steps counts",
+      "modalities": [],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 129.0
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

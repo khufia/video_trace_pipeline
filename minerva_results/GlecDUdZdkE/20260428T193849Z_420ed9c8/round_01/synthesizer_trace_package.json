@@ -1,0 +1,403 @@
+{
+  "task_key": "GlecDUdZdkE__abf1b87ae639",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_76b82af6",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved chronological candidate frames at 70s, 71s, 72s, 73s, and 74s for the local smartphone-use sequence.",
+      "inference_hint": null,
+      "confidence": 1.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 70.0,
+          "end_s": 70.0
+        },
+        {
+          "start_s": 71.0,
+          "end_s": 71.0
+        },
+        {
+          "start_s": 72.0,
+          "end_s": 72.0
+        },
+        {
+          "start_s": 73.0,
+          "end_s": 73.0
+        },
+        {
+          "start_s": 74.0,
+          "end_s": 74.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_70.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_70.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_70.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 302463
+          }
+        },
+        {
+          "artifact_id": "frame_71.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_71.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_71.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 300478
+          }
+        },
+        {
+          "artifact_id": "frame_72.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_72.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_72.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 285290
+          }
+        },
+        {
+          "artifact_id": "frame_73.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_73.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_73.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 241537
+          }
+        },
+        {
+          "artifact_id": "frame_74.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_74.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_74.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 228395
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_d6193e553656f6f6",
+        "obs_c7378bbfd883d1c2",
+        "obs_aa979fa2082e5dba",
+        "obs_3629ccf85fae92dc",
+        "obs_1aaf1318bbefe132"
+      ],
+      "metadata": {
+        "request_hash": "76b82af6c19520e3d0327d4f",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_16e6df6f",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Within the retrieved sequence, frames at 70-72s show no smartphone. Frame 73s shows a smartphone camera viewfinder. Frame 74s still shows the smartphone camera viewfinder, with a highlighted small square icon at the bottom-right that looks like a photo/gallery icon.",
+      "inference_hint": null,
+      "confidence": 0.72,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 70.0,
+          "end_s": 72.0
+        },
+        {
+          "start_s": 73.0,
+          "end_s": 74.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_060_00_120_00",
+          "kind": "clip",
+          "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "preprocess_seg_002",
+            "reason": "segment containing the only described smartphone use before transition to laptop screen",
+            "video_id": "GlecDUdZdkE",
+            "start_s": 60.0,
+            "end_s": 120.0
+          }
+        },
+        {
+          "artifact_id": "frame_70.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_70.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 70.0
+          }
+        },
+        {
+          "artifact_id": "frame_71.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_71.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 71.0
+          }
+        },
+        {
+          "artifact_id": "frame_72.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_72.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 72.0
+          }
+        },
+        {
+          "artifact_id": "frame_73.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_73.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 73.0
+          }
+        },
+        {
+          "artifact_id": "frame_74.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_74.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 74.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_dc018aaa64bf5693",
+        "obs_8c3a557ec3d126c4",
+        "obs_4fc0ef9d28776d93",
+        "obs_f8277eb81f427fef",
+        "obs_8d220b61c1dbadf3",
+        "obs_8bcfa92592544fd9",
+        "obs_ed7b8ed26ba1ec78",
+        "obs_3cd4d23220ddf4cf",
+        "obs_107096ca88f5db98",
+        "obs_9b1fd3d408def3b9",
+        "obs_6166a26e954e7490",
+        "obs_70b513dc212cde99",
+        "obs_105fd528ca94aee4",
+        "obs_a4ae00330307918b"
+      ],
+      "metadata": {
+        "request_hash": "16e6df6f655e6cbbf7ec1b6f",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "Chronologically, the retrieved local sequence is 70s, 71s, 72s, 73s, then 74s.",
+      "supporting_observation_ids": [
+        "obs_d6193e553656f6f6",
+        "obs_c7378bbfd883d1c2",
+        "obs_aa979fa2082e5dba",
+        "obs_3629ccf85fae92dc",
+        "obs_1aaf1318bbefe132"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 70.0,
+          "end_s": 74.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "In that sequence, no smartphone is visible at 70s, 71s, or 72s, while a smartphone is visible at 73s and still visible at 74s. Therefore the last smartphone-use frame within the retrieved sequence is 74s.",
+      "supporting_observation_ids": [
+        "obs_dc018aaa64bf5693",
+        "obs_8c3a557ec3d126c4",
+        "obs_4fc0ef9d28776d93",
+        "obs_8d220b61c1dbadf3",
+        "obs_ed7b8ed26ba1ec78",
+        "obs_3cd4d23220ddf4cf"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 70.0,
+          "end_s": 72.0
+        },
+        {
+          "start_s": 73.0,
+          "end_s": 74.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "At 74s, the highlighted onscreen element is a small square icon at the bottom-right of the phone screen. It looks like a photo/gallery-style icon, but the visible evidence identifies it by appearance rather than readable text.",
+      "supporting_observation_ids": [
+        "obs_107096ca88f5db98",
+        "obs_9b1fd3d408def3b9",
+        "obs_6166a26e954e7490",
+        "obs_70b513dc212cde99",
+        "obs_105fd528ca94aee4",
+        "obs_a4ae00330307918b"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 74.0,
+      "time_intervals": [
+        {
+          "start_s": 74.0,
+          "end_s": 74.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Among the answer choices, the only option that matches a highlighted photo/gallery-style square icon is \"Open in Photos.\" The alternatives \"Decline,\" \"Download,\" \"Accept,\" and \"Open in new window\" are not supported by any visible text or icon evidence in this frame.",
+      "supporting_observation_ids": [
+        "obs_6166a26e954e7490",
+        "obs_70b513dc212cde99",
+        "obs_105fd528ca94aee4"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 74.0,
+      "time_intervals": [
+        {
+          "start_s": 74.0,
+          "end_s": 74.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "B. \"Open in Photos\".",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "GlecDUdZdkE__abf1b87ae639",
+      "trace": {
+        "inference_steps": [
+          "[70s to 74s] Chronologically, the retrieved local sequence is 70s, 71s, 72s, 73s, then 74s.",
+          "[70s to 72s; 73s to 74s] In that sequence, no smartphone is visible at 70s, 71s, or 72s, while a smartphone is visible at 73s and still visible at 74s. Therefore the last smartphone-use frame within the retrieved sequence is 74s.",
+          "[74s] At 74s, the highlighted onscreen element is a small square icon at the bottom-right of the phone screen. It looks like a photo/gallery-style icon, but the visible evidence identifies it by appearance rather than readable text.",
+          "[74s] Among the answer choices, the only option that matches a highlighted photo/gallery-style square icon is \"Open in Photos.\" The alternatives \"Decline,\" \"Download,\" \"Accept,\" and \"Open in new window\" are not supported by any visible text or icon evidence in this frame."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved chronological candidate frames at 70s, 71s, 72s, 73s, and 74s for the local smartphone-use sequence.",
+            "observation_ids": [
+              "obs_d6193e553656f6f6",
+              "obs_c7378bbfd883d1c2",
+              "obs_aa979fa2082e5dba",
+              "obs_3629ccf85fae92dc",
+              "obs_1aaf1318bbefe132"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 70.0,
+                "end_s": 70.0
+              },
+              {
+                "start_s": 71.0,
+                "end_s": 71.0
+              },
+              {
+                "start_s": 72.0,
+                "end_s": 72.0
+              },
+              {
+                "start_s": 73.0,
+                "end_s": 73.0
+              },
+              {
+                "start_s": 74.0,
+                "end_s": 74.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Within the retrieved sequence, frames at 70-72s show no smartphone. Frame 73s shows a smartphone camera viewfinder. Frame 74s still shows the smartphone camera viewfinder, with a highlighted small square icon at the bottom-right that looks like a photo/gallery icon.",
+            "observation_ids": [
+              "obs_dc018aaa64bf5693",
+              "obs_8c3a557ec3d126c4",
+              "obs_4fc0ef9d28776d93",
+              "obs_f8277eb81f427fef",
+              "obs_8d220b61c1dbadf3",
+              "obs_8bcfa92592544fd9",
+              "obs_ed7b8ed26ba1ec78",
+              "obs_3cd4d23220ddf4cf",
+              "obs_107096ca88f5db98",
+              "obs_9b1fd3d408def3b9",
+              "obs_6166a26e954e7490",
+              "obs_70b513dc212cde99",
+              "obs_105fd528ca94aee4",
+              "obs_a4ae00330307918b"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 70.0,
+                "end_s": 72.0
+              },
+              {
+                "start_s": 73.0,
+                "end_s": 74.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": "B. \"Open in Photos\"."
+    }
+  },
+  "metadata": {
+    "notes": "Used preprocess-derived clip only as a temporal anchor for the smartphone-use segment, not as proof of the option label. Final mapping remains somewhat uncertain because the option text itself is not directly readable in-frame; the choice is based on the highlighted bottom-right photo/gallery-style icon."
+  }
+}

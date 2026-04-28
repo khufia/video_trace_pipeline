@@ -1,0 +1,58 @@
+{
+  "strategy": "Inspect the final board state near resignation with a chronological frame sequence, then count remaining pieces for both sides and convert that to total pieces lost.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve the final board-state frames around the resignation so the remaining material can be visually verified from the local sequence rather than from captions alone.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 300.0,
+            "end_s": 344.267,
+            "artifact_id": "clip_300_00_344_27",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_300_00_344_27.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 6.0,
+        "num_frames": 6,
+        "query": "final chessboard position showing all remaining white and black pieces as clearly as possible near resignation",
+        "sequence_mode": "anchor_window",
+        "sort_order": "chronological",
+        "time_hints": [
+          "308-320s final board before and during resignation popup",
+          "latest visible stable board state before the congratulations popup obscures squares"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological final-board frames around the game conclusion"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "From the final-board frame sequence, identify the last usable board state, count remaining pieces for white and black by type if possible, compute how many pieces each side has lost from the standard starting 16, sum the losses, and map to the answer options.",
+      "inputs": {
+        "query": "Using the chronological final-board frames, determine the last clearly visible board state before the popup blocks the board. Count the remaining pieces for White and for Black from that state, preferably by piece type. Then compute pieces lost by each side from the standard starting count of 16 pieces each, sum the two losses, and state which option matches. If exact per-type identification is hard, still determine the total remaining pieces per side from the visible board. Do not rely on dense captions as proof; use the frames."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "total pieces lost by both players with option mapping",
+        "supporting_points": "remaining-piece counts and loss arithmetic",
+        "analysis": "which frame was used as the final unobscured board state"
+      }
+    }
+  ],
+  "refinement_instructions": "Base the trace on the final unobscured board frame(s) from step 1, not on preprocess summaries. Explicitly report the remaining piece counts for White and Black, then show the arithmetic: 16 minus each remaining count, then the combined total lost. If the popup obscures the latest frame, use the immediately preceding clear frame in the retrieved sequence and say so. Keep uncertainty explicit if any piece is ambiguous."
+}

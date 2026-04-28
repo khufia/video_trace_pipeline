@@ -1,0 +1,400 @@
+{
+  "task_key": "d8UESxnuVAY__205f02dd40b5",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_6391ba4e",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved six chronological frames at 217s, 218s, 219s, 220s, 221s, and 222s around the checkmate moment.",
+      "inference_hint": null,
+      "confidence": 0.99,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 217.0,
+          "end_s": 217.0
+        },
+        {
+          "start_s": 218.0,
+          "end_s": 218.0
+        },
+        {
+          "start_s": 219.0,
+          "end_s": 219.0
+        },
+        {
+          "start_s": 220.0,
+          "end_s": 220.0
+        },
+        {
+          "start_s": 221.0,
+          "end_s": 221.0
+        },
+        {
+          "start_s": 222.0,
+          "end_s": 222.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_217.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_217.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_217.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 367822
+          }
+        },
+        {
+          "artifact_id": "frame_218.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_218.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_218.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 363154
+          }
+        },
+        {
+          "artifact_id": "frame_219.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_219.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_219.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 365912
+          }
+        },
+        {
+          "artifact_id": "frame_220.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_220.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_220.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 360151
+          }
+        },
+        {
+          "artifact_id": "frame_221.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_221.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_221.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 364735
+          }
+        },
+        {
+          "artifact_id": "frame_222.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_222.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_222.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 361425
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_3d31ff60e7d8e1e5",
+        "obs_c16eb796e1943eeb",
+        "obs_163d8e2dcc9b4fce",
+        "obs_bf10066ba0ba33b9",
+        "obs_b136319ff468a323",
+        "obs_6db94889721ddf85"
+      ],
+      "metadata": {
+        "request_hash": "6391ba4ea9f7a33fff50d445",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_edfbcd81",
+      "tool_name": "generic_purpose",
+      "evidence_text": "In the late-game transcript span around 212s-231s, the dialogue says \"another queen\" and \"A checkmate,\" and the 220s-221s frames show matching text overlays. In the 217s frame, a black queen is visible on the board/display and the woman's hand is on or near a black piece. However, these observations do not clearly show a before/during/after move transition that identifies which black piece was actually moved on the final mating move.",
+      "inference_hint": null,
+      "confidence": 0.56,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 212.217,
+          "end_s": 231.016
+        },
+        {
+          "start_s": 217.0,
+          "end_s": 222.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_180_00_240_00",
+          "kind": "clip",
+          "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 180.0,
+            "end_s": 240.0
+          }
+        },
+        {
+          "artifact_id": "frame_217.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_217.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 217.0
+          }
+        },
+        {
+          "artifact_id": "frame_220.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_220.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 220.0
+          }
+        },
+        {
+          "artifact_id": "frame_221.00",
+          "kind": "frame",
+          "relpath": "artifacts/d8UESxnuVAY/frames/frame_221.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 221.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_30c20d29a2eea6d4",
+        "obs_fc161c67016d9895",
+        "obs_b640270e595351a8",
+        "obs_8e7a1944a3ac0df0",
+        "obs_db61cceae8689288",
+        "obs_863b67b90a650ce8",
+        "obs_a33f6c90f2507b86",
+        "obs_43f591db3485391f",
+        "obs_5bfbaafd9ed33507",
+        "obs_f7b9c76dfd854caa",
+        "obs_5080b0bb37ccd05a"
+      ],
+      "metadata": {
+        "request_hash": "edfbcd81ceff3a045430189b",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "Chronologically, the relevant visual window is 217s, 218s, 219s, 220s, 221s, and 222s, and the transcript context for the mating moment spans about 212.217s-231.016s.",
+      "supporting_observation_ids": [
+        "obs_3d31ff60e7d8e1e5",
+        "obs_c16eb796e1943eeb",
+        "obs_163d8e2dcc9b4fce",
+        "obs_bf10066ba0ba33b9",
+        "obs_b136319ff468a323",
+        "obs_6db94889721ddf85",
+        "obs_30c20d29a2eea6d4"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 217.0,
+          "end_s": 222.0
+        },
+        {
+          "start_s": 212.217,
+          "end_s": 231.016
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The transcript and overlays establish that this is the checkmate sequence: the dialogue says \"another queen\" and \"A checkmate,\" and frames at 220s and 221s show matching \"a checkmate?\" and \"a checkmate\" text. This grounds when checkmate is being discussed, but by itself it does not prove which piece made the final move.",
+      "supporting_observation_ids": [
+        "obs_fc161c67016d9895",
+        "obs_b640270e595351a8",
+        "obs_8e7a1944a3ac0df0"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 212.217,
+          "end_s": 231.016
+        },
+        {
+          "start_s": 220.0,
+          "end_s": 221.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Visually, the 217s frame shows a black queen on the board/display, and the woman's hand is on or near a black piece in that frame. But the available observations do not provide a clear before-versus-after board change across 217s-222s that identifies the exact black piece moved on the final mating move.",
+      "supporting_observation_ids": [
+        "obs_db61cceae8689288",
+        "obs_863b67b90a650ce8",
+        "obs_a33f6c90f2507b86",
+        "obs_5bfbaafd9ed33507",
+        "obs_f7b9c76dfd854caa",
+        "obs_5080b0bb37ccd05a"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 217.0,
+      "time_intervals": [
+        {
+          "start_s": 217.0,
+          "end_s": 222.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Because the answer-critical move transition is not visually resolved, the evidence does not uniquely determine whether the last black move was by the queen, rook, bishop, knight, or pawn. The answer should therefore remain unresolved rather than selecting queen from salience alone.",
+      "supporting_observation_ids": [
+        "obs_fc161c67016d9895",
+        "obs_db61cceae8689288",
+        "obs_863b67b90a650ce8",
+        "obs_a33f6c90f2507b86",
+        "obs_5bfbaafd9ed33507"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "d8UESxnuVAY__205f02dd40b5",
+      "trace": {
+        "inference_steps": [
+          "[217s to 222s; 212.217s to 231.016s] Chronologically, the relevant visual window is 217s, 218s, 219s, 220s, 221s, and 222s, and the transcript context for the mating moment spans about 212.217s-231.016s.",
+          "[212.217s to 231.016s; 220s to 221s] The transcript and overlays establish that this is the checkmate sequence: the dialogue says \"another queen\" and \"A checkmate,\" and frames at 220s and 221s show matching \"a checkmate?\" and \"a checkmate\" text. This grounds when checkmate is being discussed, but by itself it does not prove which piece made the final move.",
+          "[217s to 222s] Visually, the 217s frame shows a black queen on the board/display, and the woman's hand is on or near a black piece in that frame. But the available observations do not provide a clear before-versus-after board change across 217s-222s that identifies the exact black piece moved on the final mating move.",
+          "Because the answer-critical move transition is not visually resolved, the evidence does not uniquely determine whether the last black move was by the queen, rook, bishop, knight, or pawn. The answer should therefore remain unresolved rather than selecting queen from salience alone."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved six chronological frames at 217s, 218s, 219s, 220s, 221s, and 222s around the checkmate moment.",
+            "observation_ids": [
+              "obs_3d31ff60e7d8e1e5",
+              "obs_c16eb796e1943eeb",
+              "obs_163d8e2dcc9b4fce",
+              "obs_bf10066ba0ba33b9",
+              "obs_b136319ff468a323",
+              "obs_6db94889721ddf85"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 217.0,
+                "end_s": 217.0
+              },
+              {
+                "start_s": 218.0,
+                "end_s": 218.0
+              },
+              {
+                "start_s": 219.0,
+                "end_s": 219.0
+              },
+              {
+                "start_s": 220.0,
+                "end_s": 220.0
+              },
+              {
+                "start_s": 221.0,
+                "end_s": 221.0
+              },
+              {
+                "start_s": 222.0,
+                "end_s": 222.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "In the late-game transcript span around 212s-231s, the dialogue says \"another queen\" and \"A checkmate,\" and the 220s-221s frames show matching text overlays. In the 217s frame, a black queen is visible on the board/display and the woman's hand is on or near a black piece. However, these observations do not clearly show a before/during/after move transition that identifies which black piece was actually moved on the final mating move.",
+            "observation_ids": [
+              "obs_30c20d29a2eea6d4",
+              "obs_fc161c67016d9895",
+              "obs_b640270e595351a8",
+              "obs_8e7a1944a3ac0df0",
+              "obs_db61cceae8689288",
+              "obs_863b67b90a650ce8",
+              "obs_a33f6c90f2507b86",
+              "obs_43f591db3485391f",
+              "obs_5bfbaafd9ed33507",
+              "obs_f7b9c76dfd854caa",
+              "obs_5080b0bb37ccd05a"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 212.217,
+                "end_s": 231.016
+              },
+              {
+                "start_s": 217.0,
+                "end_s": 222.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_type": "multiple_choice",
+    "selection_confidence": 0.22,
+    "note": "Refined to remove unsupported queen-as-final-move claim. The late-game anchor and transcript span are preserved, but the decisive black move is not visually resolved from the provided frames."
+  }
+}

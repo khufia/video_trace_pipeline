@@ -1,0 +1,364 @@
+{
+  "task_key": "GlecDUdZdkE__6a613da3ac3d",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_87c7011d",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Chronological frame sequence was retrieved at 0.00s, 1.00s, 2.00s, 3.00s, and 4.00s for checking when the physical sticker last appears on-screen.",
+      "inference_hint": null,
+      "confidence": 0.86,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 0.0
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 1.0
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 2.0
+        },
+        {
+          "start_s": 3.0,
+          "end_s": 3.0
+        },
+        {
+          "start_s": 4.0,
+          "end_s": 4.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_0.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_0.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_0.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 191280
+          }
+        },
+        {
+          "artifact_id": "frame_1.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_1.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_1.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 224738
+          }
+        },
+        {
+          "artifact_id": "frame_2.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_2.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_2.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 189283
+          }
+        },
+        {
+          "artifact_id": "frame_3.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_3.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_3.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 189601
+          }
+        },
+        {
+          "artifact_id": "frame_4.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_4.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_4.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 295996
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_28b25e1f0d8f6412",
+        "obs_287207b77fd468e3",
+        "obs_2412291926a594b3",
+        "obs_e57a69fd41be2d82",
+        "obs_8146e931865f27f0"
+      ],
+      "metadata": {
+        "request_hash": "87c7011d0069014fa9e7e627",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_b8d44db3",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Direct frame observations indicate: at 2s the sticker text reads \"Mahalo my dude\" and is yellow; at 3s the sticker is still visible, still reads \"Mahalo my dude,\" and its text is yellow; at 4s the visible sticker on the table reads \"LOLLY POP PARK,\" which is a different sticker. Thus the last on-screen physical occurrence of the \"Mahalo my dude\" sticker in this chronological set is the one visible at 3s, and its color is yellow.",
+      "inference_hint": null,
+      "confidence": 0.84,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 2.0,
+          "end_s": 2.0
+        },
+        {
+          "start_s": 3.0,
+          "end_s": 3.0
+        },
+        {
+          "start_s": 4.0,
+          "end_s": 4.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_2.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_2.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 2.0
+          }
+        },
+        {
+          "artifact_id": "frame_3.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_3.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 3.0
+          }
+        },
+        {
+          "artifact_id": "frame_4.00",
+          "kind": "frame",
+          "relpath": "artifacts/GlecDUdZdkE/frames/frame_4.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 4.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_7f8ff161ef08b907",
+        "obs_628067c97b104f68",
+        "obs_fb19d08141354b82",
+        "obs_45c3a5760473f84a",
+        "obs_37f6e9643d7e78cc",
+        "obs_a38eb46cd92e2e32",
+        "obs_e2652d3def8448b3",
+        "obs_c857ab84f2393849"
+      ],
+      "metadata": {
+        "request_hash": "b8d44db3e3d84a6cc6db9945",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The retrieved frames are ordered chronologically at 0s, 1s, 2s, 3s, and 4s, so the last occurrence must be determined by checking the latest frame in that order where the target sticker is still visible.",
+      "supporting_observation_ids": [
+        "obs_28b25e1f0d8f6412",
+        "obs_287207b77fd468e3",
+        "obs_2412291926a594b3",
+        "obs_e57a69fd41be2d82",
+        "obs_8146e931865f27f0",
+        "obs_c857ab84f2393849"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "At 2s, the sticker is confirmed as the target because its text reads \"Mahalo my dude,\" and at 3s that same sticker is still visible and still reads \"Mahalo my dude.\"",
+      "supporting_observation_ids": [
+        "obs_7f8ff161ef08b907",
+        "obs_fb19d08141354b82",
+        "obs_45c3a5760473f84a"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 2.0,
+          "end_s": 2.0
+        },
+        {
+          "start_s": 3.0,
+          "end_s": 3.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "At 4s, the visible sticker reads \"LOLLY POP PARK,\" which is identified as a different sticker, so the target \"Mahalo my dude\" sticker's last on-screen physical appearance is the one at 3s.",
+      "supporting_observation_ids": [
+        "obs_a38eb46cd92e2e32",
+        "obs_e2652d3def8448b3",
+        "obs_45c3a5760473f84a"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 3.0,
+          "end_s": 3.0
+        },
+        {
+          "start_s": 4.0,
+          "end_s": 4.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "In that last confirmed target frame at 3s, the \"Mahalo my dude\" sticker text is yellow. Among the options, this maps to E. Yellow.",
+      "supporting_observation_ids": [
+        "obs_37f6e9643d7e78cc"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 3.0,
+          "end_s": 3.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "E. Yellow",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "GlecDUdZdkE__6a613da3ac3d",
+      "trace": {
+        "inference_steps": [
+          "[0s to 4s] The retrieved frames are ordered chronologically at 0s, 1s, 2s, 3s, and 4s, so the last occurrence must be determined by checking the latest frame in that order where the target sticker is still visible.",
+          "[2s; 3s] At 2s, the sticker is confirmed as the target because its text reads \"Mahalo my dude,\" and at 3s that same sticker is still visible and still reads \"Mahalo my dude.\"",
+          "[3s; 4s] At 4s, the visible sticker reads \"LOLLY POP PARK,\" which is identified as a different sticker, so the target \"Mahalo my dude\" sticker's last on-screen physical appearance is the one at 3s.",
+          "[3s] In that last confirmed target frame at 3s, the \"Mahalo my dude\" sticker text is yellow. Among the options, this maps to E. Yellow."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Chronological frame sequence was retrieved at 0.00s, 1.00s, 2.00s, 3.00s, and 4.00s for checking when the physical sticker last appears on-screen.",
+            "observation_ids": [
+              "obs_28b25e1f0d8f6412",
+              "obs_287207b77fd468e3",
+              "obs_2412291926a594b3",
+              "obs_e57a69fd41be2d82",
+              "obs_8146e931865f27f0"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 0.0,
+                "end_s": 0.0
+              },
+              {
+                "start_s": 1.0,
+                "end_s": 1.0
+              },
+              {
+                "start_s": 2.0,
+                "end_s": 2.0
+              },
+              {
+                "start_s": 3.0,
+                "end_s": 3.0
+              },
+              {
+                "start_s": 4.0,
+                "end_s": 4.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Direct frame observations indicate: at 2s the sticker text reads \"Mahalo my dude\" and is yellow; at 3s the sticker is still visible, still reads \"Mahalo my dude,\" and its text is yellow; at 4s the visible sticker on the table reads \"LOLLY POP PARK,\" which is a different sticker. Thus the last on-screen physical occurrence of the \"Mahalo my dude\" sticker in this chronological set is the one visible at 3s, and its color is yellow.",
+            "observation_ids": [
+              "obs_7f8ff161ef08b907",
+              "obs_628067c97b104f68",
+              "obs_fb19d08141354b82",
+              "obs_45c3a5760473f84a",
+              "obs_37f6e9643d7e78cc",
+              "obs_a38eb46cd92e2e32",
+              "obs_e2652d3def8448b3",
+              "obs_c857ab84f2393849"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 2.0,
+                "end_s": 2.0
+              },
+              {
+                "start_s": 3.0,
+                "end_s": 3.0
+              },
+              {
+                "start_s": 4.0,
+                "end_s": 4.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": "E. Yellow"
+    }
+  },
+  "metadata": {
+    "answer_type": "multiple_choice",
+    "selection_basis": "last confirmed on-screen physical occurrence in chronological frames",
+    "notes": "Used direct visual observations from the selected last frame rather than preprocess summary alone."
+  }
+}

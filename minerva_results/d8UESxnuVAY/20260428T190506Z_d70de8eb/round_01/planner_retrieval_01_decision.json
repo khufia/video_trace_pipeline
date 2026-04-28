@@ -1,0 +1,45 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries suggest the answer depends on when the evaluation overlay first exceeds +4 and the corresponding black clock time; retrieve dense-caption/preprocess text around the likely late-game interval before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "late_game_overlay_text",
+      "target": "dense_captions",
+      "need": "On-screen chess overlay details indicating when black first gains an advantage over 4 points and the black clock time shown then",
+      "query": "chess evaluation advantage over 4 black clock on-screen overlay score time",
+      "modalities": [
+        "visual",
+        "ocr"
+      ],
+      "time_range": {
+        "start_s": 150.0,
+        "end_s": 240.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 20
+    },
+    {
+      "request_id": "late_game_preprocess_segments",
+      "target": "preprocess",
+      "need": "Segment-level summaries or text hints for the interval where the evaluation likely swings above +4 for black",
+      "query": "black advantage over 4 points clock chess overlay late game",
+      "modalities": [],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 240.0
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

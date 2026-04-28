@@ -1,0 +1,510 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Use preprocess to bound the tennis-action intervals, then inspect chronological frame sequences across the full video to count only verified netted shots by the woman in white.",
+      "refinement_instructions": "Do not answer from preprocess summaries alone. Use the retrieved chronological frames to enumerate each distinct hit by the woman in white and explicitly mark whether the ball reaches the net or clears it. Treat the serves at 0-4s and 69-73s as likely non-net examples unless the frames contradict preprocess. Avoid double-counting neighboring frames from the same swing. If any rally hit outcome remains visually ambiguous, keep that uncertainty explicit rather than forcing a count.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve a chronological visual sequence spanning the full tennis footage so the downstream model can verify each shot outcome and count only the woman's hits that go into the net.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "a_90z_4CkA4",
+                "start_s": 0.0,
+                "end_s": 60.0,
+                "artifact_id": "clip_000_00_060_00",
+                "relpath": "artifacts/a_90z_4CkA4/clips/clip_000_00_060_00.mp4",
+                "metadata": {}
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "start_s": 60.0,
+                "end_s": 80.467,
+                "artifact_id": "clip_060_00_080_47",
+                "relpath": "artifacts/a_90z_4CkA4/clips/clip_060_00_080_47.mp4",
+                "metadata": {}
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 16,
+            "query": "chronological frames covering each time the woman in white strikes the tennis ball and whether the ball goes into the net or clears it",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "0-4s serve",
+              "5-14s rally groundstrokes",
+              "64-73s serve sequence"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "From the chronological frame sequence and bounded clips, identify each distinct hit by the woman in white, determine which hits go into the net, deduplicate repeated views of the same hit, and map the verified count to the answer option.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "Count how many distinct times the woman in white hits the tennis ball into the net. Use the chronological sequence to separate different hits, verify the ball outcome for each hit, exclude shots that clear the net, and return the matching option letter and count.",
+            "text_contexts": [
+              "Preprocess context: 0-4s shows a serve that is described as going high and deep into the opponent's court, not into the net.",
+              "Preprocess context: 5-14s shows a rally with a series of groundstrokes from behind the player; exact net contacts are not specified and must be visually verified.",
+              "Preprocess context: 69-73s shows a serve whose trajectory flies over the net, not into the net."
+            ],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "A. 0.",
+      "trace_evidence_count": 3,
+      "trace_inference_count": 5,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "Chronologically, the distinct hits by the woman in white evidenced here are: an early serve around 0-6s, a forehand during the rally at 13s, a backhand during the rally at 15s, and a later serve at 73s. Neighboring frames around each action are treated as the same swing rather than separate hits.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 2.0,
+              "end_s": 6.0
+            },
+            {
+              "start_s": 13.0,
+              "end_s": 13.0
+            },
+            {
+              "start_s": 15.0,
+              "end_s": 15.0
+            },
+            {
+              "start_s": 71.0,
+              "end_s": 75.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "The early serve is supported as a non-net shot: the provided context says it goes high/deep into the opponent's court, and the derived outcome marks it as not a net hit.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 2.0,
+              "end_s": 6.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "For the rally segment, two hits are visible at 13s and 15s, but the evidence does not clearly show either ball contacting the net. The observations explicitly say exact net contacts must be visually verified, there is no clear visual of the ball hitting the net, and the 15s shot looks like a clean hit. So these rally hits do not provide grounded evidence of any net hit.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 12.0,
+              "end_s": 16.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "The later serve is also supported as a non-net shot: the provided context says its trajectory flies over the net, and the derived outcome marks it as not a net hit.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 71.0,
+              "end_s": 75.0
+            }
+          ]
+        },
+        {
+          "step_id": 5,
+          "text": "Across the four distinct hits evidenced here, none is grounded as reaching the net. That maps to option A (0).",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.89,
+      "audit_feedback": "The trace is orderly, but it answers a total-count question from only a few sampled hit events. It needs grounded confirmation that all answer-relevant hits have been covered, not just that the checked examples are non-net or unconfirmed.",
+      "audit_missing_information": [
+        "whether the sampled early, middle, and late intervals cover all answer-relevant hits by the woman in white in the video",
+        "the total number of grounded net-hit events by the woman in white across the full question-relevant span"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "COUNTING_GAP",
+          "message": "The trace counts only four evidenced hits from three sampled intervals and concludes zero net hits from those checked events, but the question asks for the total number of times the woman in white hits into the net. The provided text does not justify that these are all relevant hits in the video, so the total-count answer is incomplete.",
+          "evidence_ids": [
+            "ev_serve_early",
+            "ev_rally_middle",
+            "ev_serve_late"
+          ]
+        },
+        {
+          "severity": "MEDIUM",
+          "category": "INCOMPLETE_TRACE",
+          "message": "For the middle rally, the evidence supports only that there is no clear visual confirmation of a net contact in the sampled frames. That is insufficient to convert the segment into a grounded count of zero net hits for the whole question without broader coverage or explicit exclusion of other candidate net-hit moments.",
+          "evidence_ids": [
+            "ev_rally_middle"
+          ]
+        }
+      ]
+    },
+    {
+      "round_index": 2,
+      "round_dir": "round_02",
+      "planner_request_path": "round_02/planner_request.json",
+      "planner_plan_path": "round_02/planner_plan.json",
+      "synthesizer_request_path": "round_02/synthesizer_request.json",
+      "trace_path": "round_02/synthesizer_trace_package.json",
+      "auditor_request_path": "round_02/auditor_request.json",
+      "audit_path": "round_02/auditor_report.json",
+      "strategy": "Preserve the prior anchored hits, then search the full video for any additional woman-in-white hit events and verify net-contact outcomes from chronological local sequences before counting.",
+      "refinement_instructions": "Preserve the prior anchored hits and their provisional non-net interpretations, but do not treat them as complete coverage. In the final trace, explicitly state whether step 1 found any additional hit intervals beyond the known early serve, rally shots, and late serve. Count only distinct swings by the woman in white after deduplicating neighboring frames from the same action. For each distinct hit, report timestamp/interval and whether the local sequence grounds a net hit, grounds a non-net hit, or remains unresolved. Only choose an option if the retrieved full-video candidate set supports a complete total; otherwise keep the answer unresolved rather than converting sampled non-net evidence into a full-video zero.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "visual_temporal_grounder",
+          "purpose": "Find all candidate moments across the full video where the woman in white strikes the tennis ball, especially any shots that could go into the net, so the count is not limited to previously sampled intervals.",
+          "inputs": {
+            "query": "all moments across the video where the woman in white hits or serves the tennis ball, including rally shots and any shots that go into or toward the net",
+            "top_k": 8
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve chronological neighboring frames around each grounded candidate hit so each possible strike can be visually checked for whether the ball reaches the net.",
+          "inputs": {
+            "include_anchor_neighbors": true,
+            "neighbor_radius_s": 1.5,
+            "num_frames": 6,
+            "query": "frames before during and after each woman-in-white tennis hit showing racket-ball contact and whether the ball goes into the net",
+            "sequence_mode": "anchor_window",
+            "sort_order": "chronological"
+          },
+          "input_refs": {
+            "clips": [
+              {
+                "step_id": 1,
+                "field_path": "clips"
+              }
+            ]
+          }
+        },
+        {
+          "step_id": 3,
+          "tool_name": "generic_purpose",
+          "purpose": "Combine the newly retrieved full-video candidate-hit sequences with the previously retrieved anchored sequences to deduplicate all distinct hits by the woman in white, determine which ones are grounded net hits versus clear non-net hits or unresolved, and map the verified total to an option.",
+          "inputs": {
+            "evidence_ids": [
+              "ev_01_8db5fd97",
+              "ev_02_f90a135d"
+            ],
+            "frames": [
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 2.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_2.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_2.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 3.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_3.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_3.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 4.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_4.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_4.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 5.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_5.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_5.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 6.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_6.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_6.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 12.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_12.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_12.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 13.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_13.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_13.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 14.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_14.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_14.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 15.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_15.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_15.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 16.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_16.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_16.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 71.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_71.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_71.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 72.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_72.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_72.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 73.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_73.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_73.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 74.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_74.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_74.00.png"
+              },
+              {
+                "video_id": "a_90z_4CkA4",
+                "timestamp_s": 75.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_75.00",
+                "relpath": "artifacts/a_90z_4CkA4/frames/frame_75.00.png"
+              }
+            ],
+            "query": "Across all provided chronological frame sequences, identify every distinct hit by the woman in white over the full video, deduplicate repeated neighboring frames from the same swing, and for each hit decide whether it is a grounded net hit, a grounded non-net hit, or unresolved. Use the prior evidence only as provisional anchors for already known hits around 0-6s, 12-16s, and 71-75s, but do not assume coverage is complete unless the new retrieval confirms no additional hit intervals. Return the total number of grounded net-hit events and the matching answer option.",
+            "text_contexts": [
+              "Prior provisional anchors: early serve around 0-6s, rally hits around 13s and 15s, and later serve around 71-75s. Audit gap: these sampled intervals may not cover all answer-relevant hits, so full-video coverage must be established before counting."
+            ]
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 2,
+                "field_path": "frames"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 4,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "Chronologically, the distinct swings already anchored in the evidence are: one early serve around 2-6s, one forehand at 13s, one backhand at 15s, and one later serve around 71-75s. Neighboring frames around each action are treated as the same swing rather than separate hits.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 2.0,
+              "end_s": 6.0
+            },
+            {
+              "start_s": 13.0,
+              "end_s": 13.0
+            },
+            {
+              "start_s": 15.0,
+              "end_s": 15.0
+            },
+            {
+              "start_s": 71.0,
+              "end_s": 75.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "For those four anchored swings: the early serve is grounded as non-net; the 13s forehand remains unresolved for net contact because the frames do not clearly show net contact; the 15s backhand is not grounded as a net hit and is described as looking like a clean hit; and the later serve is grounded as non-net.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 2.0,
+              "end_s": 6.0
+            },
+            {
+              "start_s": 13.0,
+              "end_s": 13.0
+            },
+            {
+              "start_s": 15.0,
+              "end_s": 15.0
+            },
+            {
+              "start_s": 71.0,
+              "end_s": 75.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "The follow-up full-video candidate search does not add any clearly grounded new hit interval beyond the known late-serve region, and it also fails to recover the already known early serve and middle-rally hits. Therefore it cannot be treated as a complete set of all answer-relevant hit events across the video.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 2.0,
+              "end_s": 6.0
+            },
+            {
+              "start_s": 13.0,
+              "end_s": 13.0
+            },
+            {
+              "start_s": 15.0,
+              "end_s": 15.0
+            },
+            {
+              "start_s": 70.0,
+              "end_s": 73.0
+            },
+            {
+              "start_s": 75.0,
+              "end_s": 78.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Because the evidence does not establish complete coverage of every distinct hit by the woman in white across the full question-relevant span, the total number of times she hits into the net cannot be selected reliably from the options. The sampled non-net evidence is insufficient to convert the answer to 0 for the whole video.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace is appropriately cautious about incomplete event coverage, but it fails the benchmark because it does not ground the full set of hit events or select one option.",
+      "audit_missing_information": [
+        "complete grounded coverage of all distinct hits by the woman in white across the question-relevant video span",
+        "for each grounded hit, whether it goes into the net",
+        "final answer selection mapped to one provided option"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace does not produce a final multiple-choice answer. It stops at 'cannot be selected reliably,' which is not a justified completion for this benchmark question.",
+          "evidence_ids": [
+            "ev_serve_early",
+            "ev_rally_middle",
+            "ev_serve_late",
+            "ev_full_video_candidate_search"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "COUNTING_GAP",
+          "message": "The trace explicitly says coverage of all answer-relevant hit events is incomplete, so it has not established the full set of the woman in white's hits needed to count how many went into the net.",
+          "evidence_ids": [
+            "ev_full_video_candidate_search"
+          ]
+        }
+      ]
+    }
+  ]
+}

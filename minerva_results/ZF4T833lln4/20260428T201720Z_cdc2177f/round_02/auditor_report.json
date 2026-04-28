@@ -1,0 +1,52 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.95,
+  "scores": {
+    "logical_coherence": 2,
+    "completeness": 2,
+    "factual_correctness": 3,
+    "reasoning_order": 3
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The trace selects option C by elimination, but it does not provide grounded evidence that the two white knights are within 1 square of each other during 03:40-03:59. The cited evidence only supports negatives for parts of E, D, and B.",
+      "evidence_ids": [
+        "ev_board_early",
+        "ev_board_mid_not_close",
+        "ev_board_235_241_not_close",
+        "ev_frame_coverage_updated"
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "category": "TEMPORAL_GAP",
+      "message": "Option C is answer-critical, yet the trace gives no board-state characterization for 220s-239s or any explicit confirmation inside 03:40-03:59. Coverage metadata mentions 218s-222s, but no evidence entry states where the knights are or that they are adjacent there.",
+      "evidence_ids": [
+        "ev_frame_coverage_updated"
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "INFERENCE_ERROR",
+      "message": "Ruling out B, D, and E at sampled moments does not logically establish that the remaining option C is correct unless A is also ruled out or C is directly confirmed. The final step overclaims uniqueness from partial elimination.",
+      "evidence_ids": [
+        "ev_board_early",
+        "ev_board_mid_not_close",
+        "ev_board_235_241_not_close"
+      ]
+    }
+  ],
+  "feedback": "The trace has grounded negatives for several intervals, but the final answer is not justified because option C is never directly validated and option A is not explicitly ruled out.",
+  "missing_information": [
+    "whether the two white knights are within 1 square of each other during option C (03:40-03:59)",
+    "the board-state relation for the white knights in the sampled 218s-222s span inside option C",
+    "whether option A (04:25-04:30) is ruled out or confirmed"
+  ],
+  "diagnostics": {
+    "option_alignment": "Multiple-choice task requires one uniquely justified option. Current trace only eliminates some options and does not directly ground the chosen option C.",
+    "temporal_alignment": "Negative evidence is grounded at 28s-32s, 113s-117s, and 235s-241s. No answer-facing evidence grounds adjacency during 220s-239s as required for C.",
+    "evidence_sufficiency": "Insufficient for PASS because answer-critical positive validation is missing for the selected interval."
+  }
+}

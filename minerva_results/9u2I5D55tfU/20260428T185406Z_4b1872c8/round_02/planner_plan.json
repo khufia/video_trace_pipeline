@@ -1,0 +1,70 @@
+{
+  "strategy": "Preserve the failed 183-187s anchor as a rejected candidate, then broaden visual search to find the actual slide-accompaniment moment and verify the option-character identity from a local chronological sequence.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "visual_temporal_grounder",
+      "purpose": "Find candidate moments anywhere in the video where a child is going down a slide with one of the listed mascot characters nearby or accompanying them.",
+      "inputs": {
+        "query": "all moments where a child goes down a slide and is accompanied by a mascot or character, especially Donald Duck, Daisy, Goofy, Mickey Mouse, or Pluto",
+        "top_k": 5
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "clips": "candidate slide-accompaniment intervals across the video"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve chronological neighboring frames for each candidate interval so the trace can verify actual sliding and identify the accompanying character.",
+      "inputs": {
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 1.5,
+        "num_frames": 6,
+        "query": "frames before during and after the child going down the slide with the accompanying character visible",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological"
+      },
+      "input_refs": {
+        "clips": [
+          {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "frames": "chronological candidate slide-event frames"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "From the candidate clips and chronological frames, determine which interval truly shows a child going down a slide with an accompanying character, identify that character among the options, and reject false candidates such as the prior 183-187s ribbon/bridge sequence.",
+      "inputs": {
+        "query": "Which retrieved interval actually shows a child going down a slide with an accompanying character? For each candidate, state whether sliding is visible, whether the character is accompanying the child down the slide, identify the character using only these options {Donald Duck, Daisy, Goofy, Mickey Mouse, Pluto}, reject non-matching or non-slide scenes, and output the single best-supported option if one interval clearly matches."
+      },
+      "input_refs": {
+        "clips": [
+          {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        ],
+        "frames": [
+          {
+            "step_id": 2,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "best-supported option character",
+        "supporting_points": "per-candidate verification of slide action and character identity",
+        "analysis": "explicit rejection of the prior 183-187s non-slide candidate if it reappears"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the prior finding that frames 183-187 do not ground the answer-critical slide event; treat that window as a rejected candidate, not as final evidence. In the new trace, require explicit visual proof of both parts of the discriminator: (1) the child is going down a slide, and (2) one listed character is accompanying the child in that same local sequence. Do not answer from preprocess summaries alone. Base the final option only on the newly grounded clip/frame sequence returned by the tools, and explicitly note rejected candidates that show ribbon-cutting, bridge interaction, or a non-option princess-like character instead of the queried slide event."
+}

@@ -1,0 +1,3549 @@
+{
+  "tool_steps": [
+    {
+      "round_index": 1,
+      "tool_dir": "round_01/tools/01_frame_retriever",
+      "tool_name": "frame_retriever",
+      "request": {
+        "tool_name": "frame_retriever",
+        "clips": [
+          {
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 120.0,
+            "end_s": 143.5,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+            "metadata": {
+              "source": "preprocess_seg_003",
+              "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+            }
+          }
+        ],
+        "time_hints": [
+          "120-121s card shown",
+          "122-129s four players dealing/discarding",
+          "129-133s immediately after redeal / first post-shuffle hand views"
+        ],
+        "query": "chronological frames showing the four players' hands after the shuffle hands card is played and cards are dealt back out, with card colors visible enough to tell whether each player has any red card",
+        "num_frames": 8,
+        "sequence_mode": "chronological",
+        "neighbor_radius_s": 0.0,
+        "include_anchor_neighbors": false,
+        "sort_order": "chronological"
+      },
+      "result": {
+        "tool_name": "frame_retriever",
+        "ok": true,
+        "data": {
+          "query": "chronological frames showing the four players' hands after the shuffle hands card is played and cards are dealt back out, with card colors visible enough to tell whether each player has any red card",
+          "clips": [
+            {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            }
+          ],
+          "frames": [
+            {
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 119.0,
+              "artifact_id": "frame_119.00",
+              "relpath": "artifacts/FkuqYtE1rw0/frames/frame_119.00.png",
+              "clip": {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 143.5,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                }
+              },
+              "metadata": {
+                "relevance_score": 0.0,
+                "device": "cuda:1",
+                "clip_start_s": 120.0,
+                "clip_end_s": 143.5,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "temporal_score": 0.0,
+                "anchor_distance_s": 2.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 121.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "before",
+                "sequence_index": 0,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 120.0,
+              "artifact_id": "frame_120.00",
+              "relpath": "artifacts/FkuqYtE1rw0/frames/frame_120.00.png",
+              "clip": {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 143.5,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                }
+              },
+              "metadata": {
+                "relevance_score": 0.0,
+                "device": "cuda:1",
+                "clip_start_s": 120.0,
+                "clip_end_s": 143.5,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "temporal_score": 0.0,
+                "anchor_distance_s": 1.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 121.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "before",
+                "sequence_index": 1,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 121.0,
+              "artifact_id": "frame_121.00",
+              "relpath": "artifacts/FkuqYtE1rw0/frames/frame_121.00.png",
+              "clip": {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 143.5,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                }
+              },
+              "metadata": {
+                "relevance_score": 0.0,
+                "device": "cuda:1",
+                "clip_start_s": 120.0,
+                "clip_end_s": 143.5,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "temporal_score": 0.0,
+                "anchor_distance_s": 0.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 121.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "anchor",
+                "sequence_index": 2,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 122.0,
+              "artifact_id": "frame_122.00",
+              "relpath": "artifacts/FkuqYtE1rw0/frames/frame_122.00.png",
+              "clip": {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 143.5,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                }
+              },
+              "metadata": {
+                "relevance_score": 0.0,
+                "device": "cuda:1",
+                "clip_start_s": 120.0,
+                "clip_end_s": 143.5,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "temporal_score": 0.0,
+                "anchor_distance_s": 1.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 121.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "after",
+                "sequence_index": 3,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 123.0,
+              "artifact_id": "frame_123.00",
+              "relpath": "artifacts/FkuqYtE1rw0/frames/frame_123.00.png",
+              "clip": {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 143.5,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                }
+              },
+              "metadata": {
+                "relevance_score": 0.0,
+                "device": "cuda:1",
+                "clip_start_s": 120.0,
+                "clip_end_s": 143.5,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "temporal_score": 0.0,
+                "anchor_distance_s": 2.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 121.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "after",
+                "sequence_index": 4,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 128.0,
+              "artifact_id": "frame_128.00",
+              "relpath": "artifacts/FkuqYtE1rw0/frames/frame_128.00.png",
+              "clip": {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 143.5,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                }
+              },
+              "metadata": {
+                "relevance_score": 0.0,
+                "device": "cuda:1",
+                "clip_start_s": 120.0,
+                "clip_end_s": 143.5,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "temporal_score": 0.0,
+                "anchor_distance_s": 1.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 129.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "before",
+                "sequence_index": 5,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 129.0,
+              "artifact_id": "frame_129.00",
+              "relpath": "artifacts/FkuqYtE1rw0/frames/frame_129.00.png",
+              "clip": {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 143.5,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                }
+              },
+              "metadata": {
+                "relevance_score": 0.0,
+                "device": "cuda:1",
+                "clip_start_s": 120.0,
+                "clip_end_s": 143.5,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "temporal_score": 0.0,
+                "anchor_distance_s": 0.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 129.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "anchor",
+                "sequence_index": 6,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 130.0,
+              "artifact_id": "frame_130.00",
+              "relpath": "artifacts/FkuqYtE1rw0/frames/frame_130.00.png",
+              "clip": {
+                "video_id": "FkuqYtE1rw0",
+                "start_s": 120.0,
+                "end_s": 143.5,
+                "artifact_id": "clip_120_00_180_00",
+                "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                "metadata": {
+                  "source": "preprocess_seg_003",
+                  "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                }
+              },
+              "metadata": {
+                "relevance_score": 0.0,
+                "device": "cuda:1",
+                "clip_start_s": 120.0,
+                "clip_end_s": 143.5,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "temporal_score": 0.0,
+                "anchor_distance_s": 1.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 129.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "after",
+                "sequence_index": 7,
+                "sequence_sort_order": "chronological"
+              }
+            }
+          ],
+          "frame_groups": [
+            {
+              "clips": [
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "start_s": 120.0,
+                  "end_s": 143.5,
+                  "artifact_id": "clip_120_00_180_00",
+                  "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                  "metadata": {
+                    "source": "preprocess_seg_003",
+                    "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                  }
+                }
+              ],
+              "time_hints": [
+                "120-121s card shown"
+              ],
+              "frames": [
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 119.0,
+                  "artifact_id": "frame_119.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_119.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.0,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.0,
+                    "anchor_distance_s": 2.0,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 121.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "before",
+                    "sequence_index": 0,
+                    "sequence_sort_order": "chronological"
+                  }
+                },
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 120.0,
+                  "artifact_id": "frame_120.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_120.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.0,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.0,
+                    "anchor_distance_s": 1.0,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 121.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "before",
+                    "sequence_index": 1,
+                    "sequence_sort_order": "chronological"
+                  }
+                },
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 121.0,
+                  "artifact_id": "frame_121.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_121.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.0,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.0,
+                    "anchor_distance_s": 0.0,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 121.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "anchor",
+                    "sequence_index": 2,
+                    "sequence_sort_order": "chronological"
+                  }
+                },
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 122.0,
+                  "artifact_id": "frame_122.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_122.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.0,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.0,
+                    "anchor_distance_s": 1.0,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 121.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "after",
+                    "sequence_index": 3,
+                    "sequence_sort_order": "chronological"
+                  }
+                },
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 123.0,
+                  "artifact_id": "frame_123.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_123.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.0,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.0,
+                    "anchor_distance_s": 2.0,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 121.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "after",
+                    "sequence_index": 4,
+                    "sequence_sort_order": "chronological"
+                  }
+                },
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 128.0,
+                  "artifact_id": "frame_128.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_128.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.0,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.0,
+                    "anchor_distance_s": 1.0,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 129.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "before",
+                    "sequence_index": 5,
+                    "sequence_sort_order": "chronological"
+                  }
+                },
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 129.0,
+                  "artifact_id": "frame_129.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_129.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.0,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.0,
+                    "anchor_distance_s": 0.0,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 129.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "anchor",
+                    "sequence_index": 6,
+                    "sequence_sort_order": "chronological"
+                  }
+                },
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 130.0,
+                  "artifact_id": "frame_130.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_130.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.0,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.0,
+                    "anchor_distance_s": 1.0,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 129.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "after",
+                    "sequence_index": 7,
+                    "sequence_sort_order": "chronological"
+                  }
+                },
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "timestamp_s": 143.0,
+                  "artifact_id": "frame_143.00",
+                  "relpath": "artifacts/FkuqYtE1rw0/frames/frame_143.00.png",
+                  "clip": {
+                    "video_id": "FkuqYtE1rw0",
+                    "start_s": 120.0,
+                    "end_s": 143.5,
+                    "artifact_id": "clip_120_00_180_00",
+                    "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                    "metadata": {
+                      "source": "preprocess_seg_003",
+                      "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                    }
+                  },
+                  "metadata": {
+                    "relevance_score": 0.6204593181610107,
+                    "device": "cuda:1",
+                    "clip_start_s": 120.0,
+                    "clip_end_s": 143.5,
+                    "frame_pool_start_s": 118.0,
+                    "frame_pool_end_s": 145.5,
+                    "temporal_score": 0.6204593181610107,
+                    "anchor_distance_s": 0.5,
+                    "selection_reason": "anchor_window_sequence",
+                    "requested_timestamp_s": 143.5,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "anchor",
+                    "sequence_index": 8,
+                    "sequence_sort_order": "chronological"
+                  }
+                }
+              ],
+              "cache_metadata": {
+                "dense_frame_cache_hit": false,
+                "dense_frame_count": 239,
+                "bounded_frame_count": 28,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "expanded_frame_pool_for_anchor_window": true,
+                "embedding_cache_ready": false,
+                "embedding_cache_scope": "none",
+                "persist_cache_on_bounded_request": false,
+                "time_hints_applied": true,
+                "sequence_mode": "anchor_window",
+                "anchor_window_applied": true,
+                "requested_anchor_timestamps_s": [
+                  121.0,
+                  129.0,
+                  143.5
+                ],
+                "neighbor_radius_s": 2.0,
+                "timings": {
+                  "total_s": 37.8843
+                },
+                "embedder": {
+                  "requested_attn_implementation": "flash_attention_2",
+                  "loaded_attn_implementation": "flash_attention_2",
+                  "fallback_attn_implementations": [],
+                  "embed_call_count": 3,
+                  "retry_count": 0,
+                  "batch_attempt_count": 2,
+                  "batch_failure_count": 1,
+                  "single_item_fallback_count": 0,
+                  "zero_embedding_fallback_count": 24,
+                  "dense_frame_embed_batch": 24,
+                  "cache_load_error": null,
+                  "cache_build_error": null,
+                  "cache_write_error": null,
+                  "query_error": null,
+                  "frame_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.16 GiB. GPU 1 has a total capacity of 39.49 GiB of which 234.25 MiB is free. Process 4096227 has 530.00 MiB memory in use. Including non-PyTorch memory, this process has 38.74 GiB memory in use. Of the allocated memory 37.91 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)",
+                  "cache_load_s": 0.0,
+                  "cache_build_s": 0.0,
+                  "query_embed_s": 0.46008885093033314,
+                  "frame_embed_s": 13.463410216849297,
+                  "embedding_cache_ready": false
+                }
+              },
+              "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+            }
+          ],
+          "cache_groups": [
+            {
+              "clips": [
+                {
+                  "video_id": "FkuqYtE1rw0",
+                  "start_s": 120.0,
+                  "end_s": 143.5,
+                  "artifact_id": "clip_120_00_180_00",
+                  "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+                  "metadata": {
+                    "source": "preprocess_seg_003",
+                    "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+                  }
+                }
+              ],
+              "time_hints": [
+                "120-121s card shown"
+              ],
+              "cache_metadata": {
+                "dense_frame_cache_hit": false,
+                "dense_frame_count": 239,
+                "bounded_frame_count": 28,
+                "frame_pool_start_s": 118.0,
+                "frame_pool_end_s": 145.5,
+                "expanded_frame_pool_for_anchor_window": true,
+                "embedding_cache_ready": false,
+                "embedding_cache_scope": "none",
+                "persist_cache_on_bounded_request": false,
+                "time_hints_applied": true,
+                "sequence_mode": "anchor_window",
+                "anchor_window_applied": true,
+                "requested_anchor_timestamps_s": [
+                  121.0,
+                  129.0,
+                  143.5
+                ],
+                "neighbor_radius_s": 2.0,
+                "timings": {
+                  "total_s": 37.8843
+                },
+                "embedder": {
+                  "requested_attn_implementation": "flash_attention_2",
+                  "loaded_attn_implementation": "flash_attention_2",
+                  "fallback_attn_implementations": [],
+                  "embed_call_count": 3,
+                  "retry_count": 0,
+                  "batch_attempt_count": 2,
+                  "batch_failure_count": 1,
+                  "single_item_fallback_count": 0,
+                  "zero_embedding_fallback_count": 24,
+                  "dense_frame_embed_batch": 24,
+                  "cache_load_error": null,
+                  "cache_build_error": null,
+                  "cache_write_error": null,
+                  "query_error": null,
+                  "frame_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 3.16 GiB. GPU 1 has a total capacity of 39.49 GiB of which 234.25 MiB is free. Process 4096227 has 530.00 MiB memory in use. Including non-PyTorch memory, this process has 38.74 GiB memory in use. Of the allocated memory 37.91 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)",
+                  "cache_load_s": 0.0,
+                  "cache_build_s": 0.0,
+                  "query_embed_s": 0.46008885093033314,
+                  "frame_embed_s": 13.463410216849297,
+                  "embedding_cache_ready": false
+                }
+              }
+            }
+          ],
+          "cache_metadata": {
+            "dense_frame_cache_hit": false,
+            "dense_frame_count": 239,
+            "bounded_frame_count": 28,
+            "embedding_cache_ready": false
+          },
+          "mode": "multi_clip_bounded",
+          "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+        },
+        "raw_output_text": "{\"query\": \"chronological frames showing the four players' hands after the shuffle hands card is played and cards are dealt back out, with card colors visible enough to tell whether each player has any red card\", \"frames\": [{\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_119.00.png\", \"timestamp_s\": 119.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 121.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 0, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_120.00.png\", \"timestamp_s\": 120.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 121.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 1, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_121.00.png\", \"timestamp_s\": 121.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.0, \"anchor_distance_s\": 0.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 121.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 2, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_122.00.png\", \"timestamp_s\": 122.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 121.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 3, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_123.00.png\", \"timestamp_s\": 123.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 121.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 4, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_128.00.png\", \"timestamp_s\": 128.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 129.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 5, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_129.00.png\", \"timestamp_s\": 129.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.0, \"anchor_distance_s\": 0.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 129.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 6, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_130.00.png\", \"timestamp_s\": 130.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 129.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 7, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_143.00.png\", \"timestamp_s\": 143.0, \"relevance_score\": 0.6204593181610107, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 120.0, \"clip_end_s\": 143.5, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"temporal_score\": 0.6204593181610107, \"anchor_distance_s\": 0.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 143.5, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 8, \"sequence_sort_order\": \"chronological\"}}], \"mode\": \"clip_bounded\", \"cache_metadata\": {\"dense_frame_cache_hit\": false, \"dense_frame_count\": 239, \"bounded_frame_count\": 28, \"frame_pool_start_s\": 118.0, \"frame_pool_end_s\": 145.5, \"expanded_frame_pool_for_anchor_window\": true, \"embedding_cache_ready\": false, \"embedding_cache_scope\": \"none\", \"persist_cache_on_bounded_request\": false, \"time_hints_applied\": true, \"sequence_mode\": \"anchor_window\", \"anchor_window_applied\": true, \"requested_anchor_timestamps_s\": [121.0, 129.0, 143.5], \"neighbor_radius_s\": 2.0, \"timings\": {\"total_s\": 37.8843}, \"embedder\": {\"requested_attn_implementation\": \"flash_attention_2\", \"loaded_attn_implementation\": \"flash_attention_2\", \"fallback_attn_implementations\": [], \"embed_call_count\": 3, \"retry_count\": 0, \"batch_attempt_count\": 2, \"batch_failure_count\": 1, \"single_item_fallback_count\": 0, \"zero_embedding_fallback_count\": 24, \"dense_frame_embed_batch\": 24, \"cache_load_error\": null, \"cache_build_error\": null, \"cache_write_error\": null, \"query_error\": null, \"frame_error\": \"OutOfMemoryError: CUDA out of memory. Tried to allocate 3.16 GiB. GPU 1 has a total capacity of 39.49 GiB of which 234.25 MiB is free. Process 4096227 has 530.00 MiB memory in use. Including non-PyTorch memory, this process has 38.74 GiB memory in use. Of the allocated memory 37.91 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)\", \"cache_load_s\": 0.0, \"cache_build_s\": 0.0, \"query_embed_s\": 0.46008885093033314, \"frame_embed_s\": 13.463410216849297, \"embedding_cache_ready\": false}}, \"rationale\": \"Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\"}",
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_119.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_119.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_119.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 256961
+            }
+          },
+          {
+            "artifact_id": "frame_120.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_120.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_120.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 275284
+            }
+          },
+          {
+            "artifact_id": "frame_121.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_121.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_121.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 275280
+            }
+          },
+          {
+            "artifact_id": "frame_122.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_122.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_122.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 237241
+            }
+          },
+          {
+            "artifact_id": "frame_123.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_123.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_123.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 244739
+            }
+          },
+          {
+            "artifact_id": "frame_128.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_128.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_128.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 222670
+            }
+          },
+          {
+            "artifact_id": "frame_129.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_129.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_129.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 209024
+            }
+          },
+          {
+            "artifact_id": "frame_130.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_130.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_130.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 210919
+            }
+          },
+          {
+            "artifact_id": "frame_143.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_143.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_143.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 252115
+            }
+          }
+        ],
+        "request_hash": "dda360b32c0a2f8ca1488417",
+        "cache_hit": false,
+        "summary": "Retrieved 8 frame(s) across 1 input clip(s).",
+        "metadata": {
+          "backend": "Qwen/Qwen3-VL-Embedding-8B",
+          "group_count": 1,
+          "confidence": 0.0,
+          "confidence_avg": 0.0,
+          "confidence_count": 8,
+          "confidence_kind": "frame_relevance",
+          "dense_frame_cache_hit": false,
+          "dense_frame_count": 239,
+          "bounded_frame_count": 28,
+          "embedding_cache_ready": false,
+          "timing": {
+            "started_at_utc": "2026-04-28T19:17:50.385709+00:00",
+            "finished_at_utc": "2026-04-28T19:18:39.731081+00:00",
+            "duration_s": 49.3454,
+            "cache_wait_s": 0.0007,
+            "execution_mode": "executed"
+          },
+          "observation_ids": [
+            "obs_bd690a7387950557",
+            "obs_84b653501ac90d05",
+            "obs_6fc1eb3a303351e0",
+            "obs_4166535374bc1580",
+            "obs_40621d81d1533575",
+            "obs_338e4d47d345479d",
+            "obs_cdf91975c35f8e4a",
+            "obs_e0130ec777c753f6"
+          ]
+        }
+      },
+      "timing": {
+        "started_at_utc": "2026-04-28T19:17:50.385709+00:00",
+        "finished_at_utc": "2026-04-28T19:18:39.731081+00:00",
+        "duration_s": 49.3454,
+        "cache_wait_s": 0.0007,
+        "execution_mode": "executed"
+      },
+      "runtime": {
+        "backend": "qwen_frame_retriever",
+        "model_name": "Qwen/Qwen3-VL-Embedding-8B",
+        "device": "cuda:1",
+        "device_mapping": {
+          "requested_label": "cuda:1",
+          "resolved_label": "cuda:1",
+          "cuda_visible_devices": "0,1",
+          "cuda_device_order": null,
+          "local_index": 1,
+          "physical_index_hint": "1",
+          "mapping_source": "CUDA_VISIBLE_DEVICES"
+        },
+        "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+        "resolved_model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/hub/models--Qwen--Qwen3-VL-Embedding-8B/snapshots/418d03899aeb9d954e776dfa762006616519a914",
+        "model_resolution_status": "ok",
+        "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+        "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/FkuqYtE1rw0/20260428T191220Z_3cb006d8/_scratch/frame_retriever",
+        "extra": {
+          "backend_name": "qwen_frame_retriever",
+          "reranker_model": "Qwen/Qwen3-VL-Reranker-8B",
+          "use_reranker": true,
+          "candidate_frames": 12,
+          "dense_frame_embed_batch": 24,
+          "attn_implementation": "flash_attention_2",
+          "temperature": 0.0,
+          "do_sample": false
+        }
+      },
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_119.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_119.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_119.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 256961
+          }
+        },
+        {
+          "artifact_id": "frame_120.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_120.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_120.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 275284
+          }
+        },
+        {
+          "artifact_id": "frame_121.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_121.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_121.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 275280
+          }
+        },
+        {
+          "artifact_id": "frame_122.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_122.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_122.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 237241
+          }
+        },
+        {
+          "artifact_id": "frame_123.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_123.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_123.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 244739
+          }
+        },
+        {
+          "artifact_id": "frame_128.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_128.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_128.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 222670
+          }
+        },
+        {
+          "artifact_id": "frame_129.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_129.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_129.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 209024
+          }
+        },
+        {
+          "artifact_id": "frame_130.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_130.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_130.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 210919
+          }
+        },
+        {
+          "artifact_id": "frame_143.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_143.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_143.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 252115
+          }
+        }
+      ],
+      "observations": [
+        {
+          "observation_id": "obs_bd690a7387950557",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "119.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 119.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 119.00s.",
+          "metadata": {
+            "observation_id": "obs_bd690a7387950557"
+          }
+        },
+        {
+          "observation_id": "obs_84b653501ac90d05",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "120.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 120.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_120.00",
+            "clip_120_00_180_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 120.00s.",
+          "metadata": {
+            "observation_id": "obs_84b653501ac90d05"
+          }
+        },
+        {
+          "observation_id": "obs_6fc1eb3a303351e0",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "121.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 121.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_121.00",
+            "clip_120_00_180_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 121.00s.",
+          "metadata": {
+            "observation_id": "obs_6fc1eb3a303351e0"
+          }
+        },
+        {
+          "observation_id": "obs_4166535374bc1580",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "122.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 122.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_122.00",
+            "clip_120_00_180_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 122.00s.",
+          "metadata": {
+            "observation_id": "obs_4166535374bc1580"
+          }
+        },
+        {
+          "observation_id": "obs_40621d81d1533575",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "123.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 123.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_123.00",
+            "clip_120_00_180_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 123.00s.",
+          "metadata": {
+            "observation_id": "obs_40621d81d1533575"
+          }
+        },
+        {
+          "observation_id": "obs_338e4d47d345479d",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "128.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 128.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_128.00",
+            "clip_120_00_180_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 128.00s.",
+          "metadata": {
+            "observation_id": "obs_338e4d47d345479d"
+          }
+        },
+        {
+          "observation_id": "obs_cdf91975c35f8e4a",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "129.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 129.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_129.00",
+            "clip_120_00_180_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 129.00s.",
+          "metadata": {
+            "observation_id": "obs_cdf91975c35f8e4a"
+          }
+        },
+        {
+          "observation_id": "obs_e0130ec777c753f6",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "130.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 130.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_130.00",
+            "clip_120_00_180_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 130.00s.",
+          "metadata": {
+            "observation_id": "obs_e0130ec777c753f6"
+          }
+        }
+      ],
+      "request_path": "round_01/tools/01_frame_retriever/request.json",
+      "result_path": "round_01/tools/01_frame_retriever/result.json",
+      "timing_path": "round_01/tools/01_frame_retriever/timing.json",
+      "runtime_path": "round_01/tools/01_frame_retriever/runtime.json",
+      "observations_path": "round_01/tools/01_frame_retriever/observations.json",
+      "artifact_refs_path": "round_01/tools/01_frame_retriever/artifact_refs.json"
+    },
+    {
+      "round_index": 1,
+      "tool_dir": "round_01/tools/02_generic_purpose",
+      "tool_name": "generic_purpose",
+      "request": {
+        "tool_name": "generic_purpose",
+        "query": "Inspect these chronological frames from the Wild Shuffle Hands demonstration. Determine the state after the shuffle-hands card has been played and the cards have been dealt back out. Count the four distinct players who end up with at least one red UNO card visible in their hands. Use only post-shuffle evidence, not the earlier simultaneous discard of red cards. If multiple frames show different players separately, aggregate across the sequence and deduplicate players.",
+        "clips": [],
+        "frames": [
+          {
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 119.0,
+            "artifact_id": "frame_119.00",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_119.00.png",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_119.00.png",
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 120.0,
+            "artifact_id": "frame_120.00",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_120.00.png",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_120.00.png",
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 121.0,
+            "artifact_id": "frame_121.00",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_121.00.png",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_121.00.png",
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 122.0,
+            "artifact_id": "frame_122.00",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_122.00.png",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_122.00.png",
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 3,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 123.0,
+            "artifact_id": "frame_123.00",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_123.00.png",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_123.00.png",
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 4,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 128.0,
+            "artifact_id": "frame_128.00",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_128.00.png",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_128.00.png",
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 129.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 5,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 129.0,
+            "artifact_id": "frame_129.00",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_129.00.png",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_129.00.png",
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 129.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 6,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 130.0,
+            "artifact_id": "frame_130.00",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_130.00.png",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+              "metadata": {
+                "source": "preprocess_seg_003",
+                "reason": "Wild Shuffle Hands explanation and visual demonstration interval"
+              }
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_130.00.png",
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 129.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 7,
+              "sequence_sort_order": "chronological"
+            }
+          }
+        ],
+        "transcripts": [],
+        "text_contexts": [
+          "These frames are a chronological sequence centered on timestamp 121s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 119s, 120s, 121s, 122s, 123s, 128s, 129s, 130s."
+        ],
+        "evidence_ids": []
+      },
+      "result": {
+        "tool_name": "generic_purpose",
+        "ok": true,
+        "data": {
+          "response": "The user wants to know how many players have a red UNO card in their hands after the \"shuffle hands\" card is played.\n\n1.  **Identify the \"shuffle hands\" card:** Image 2 and Image 3 show a card with \"shuffle hands\" written on it.\n2.  **Identify the moment it is played:** Image 4 shows the table setup before the card is played. Image 5 shows a hand placing the \"shuffle hands\" card onto the table.\n3.  **Identify the aftermath:** Image 6, 7, and 8 show the cards being dealt back out.\n    *   Image 6: Hands are gathering cards.\n    *   Image 7: Hands are sorting cards.\n    *   Image 8: Hands are holding cards. Let's look closely at the cards in the hands in Image 8.\n    *   Wait, let's look at the sequence.\n    *   Image 4: Four players are visible.\n        *   Top player: Green cards.\n        *   Left player: Yellow card (looks like a 0 or similar).\n        *   Right player: Pink/Red card (looks like a 7 or similar).\n        *   Bottom player: Blue, Green, Red cards.\n    *   Image 5: The bottom player plays the \"shuffle hands\" card.\n    *   Image 6: The cards are being mixed up. The hands are grabbing cards from the table.\n    *   Image 7: The hands are organizing the cards.\n    *   Image 8: The hands are holding the cards. Let's count the red UNO cards visible in the hands.\n        *   Top player: Holding green cards. No red visible.\n        *   Left player: Holding a yellow card. No red visible.\n        *   Right player: Holding a pink/red card. Wait, let's look closer. It looks like a pink/red card.\n        *   Bottom player: Holding blue, green, red cards.\n    *   Wait, the prompt asks to count players who end up with *at least one* red UNO card.\n    *   Let's re-examine Image 8.\n        *   Top hand: Green cards.\n        *   Left hand: Yellow card.\n        *   Right hand: Pink/Red card.\n        *   Bottom hand: Blue, Green, Red cards.\n    *   This interpretation seems wrong because the \"shuffle hands\" mechanic usually means everyone gets a random hand. The cards on the table in Image 6/7/8 are mostly red UNO cards (the back of the card).\n    *   Let's look at Image 6 again. The hands are grabbing cards from the table. The cards on the table are red UNO cards (backs).\n    *   Let's look at Image 7. The hands are holding red UNO cards.\n    *   Let's look at Image 8. The hands are holding red UNO cards.\n    *   Wait, the question asks \"how many of the players ended up with a red UNO card in their hands?\".\n    *   Let's look at the cards in the hands in Image 8.\n        *   Top player: Green cards.\n        *   Left player: Yellow card.\n        *   Right player: Pink/Red card.\n        *   Bottom player: Blue, Green, Red cards.\n    *   This doesn't look like a \"shuffle hands\" result where everyone gets red cards.\n    *   Let's re-read the prompt. \"",
+          "answer": "The user wants to know how many players have a red UNO card in their hands after the \"shuffle hands\" card is played.\n\n1.  **Identify the \"shuffle hands\" card:** Image 2 and Image 3 show a card with \"shuffle hands\" written on it.\n2.  **Identify the moment it is played:** Image 4 shows the table setup before the card is played. Image 5 shows a hand placing the \"shuffle hands\" card onto the table.\n3.  **Identify the aftermath:** Image 6, 7, and 8 show the cards being dealt back out.\n    *   Image 6: Hands are gathering cards.\n    *   Image 7: Hands are sorting cards.\n    *   Image 8: Hands are holding cards. Let's look closely at the cards in the hands in Image 8.\n    *   Wait, let's look at the sequence.\n    *   Image 4: Four players are visible.\n        *   Top player: Green cards.\n        *   Left player: Yellow card (looks like a 0 or similar).\n        *   Right player: Pink/Red card (looks like a 7 or similar).\n        *   Bottom player: Blue, Green, Red cards.\n    *   Image 5: The bottom player plays the \"shuffle hands\" card.\n    *   Image 6: The cards are being mixed up. The hands are grabbing cards from the table.\n    *   Image 7: The hands are organizing the cards.\n    *   Image 8: The hands are holding the cards. Let's count the red UNO cards visible in the hands.\n        *   Top player: Holding green cards. No red visible.\n        *   Left player: Holding a yellow card. No red visible.\n        *   Right player: Holding a pink/red card. Wait, let's look closer. It looks like a pink/red card.\n        *   Bottom player: Holding blue, green, red cards.\n    *   Wait, the prompt asks to count players who end up with *at least one* red UNO card.\n    *   Let's re-examine Image 8.\n        *   Top hand: Green cards.\n        *   Left hand: Yellow card.\n        *   Right hand: Pink/Red card.\n        *   Bottom hand: Blue, Green, Red cards.\n    *   This interpretation seems wrong because the \"shuffle hands\" mechanic usually means everyone gets a random hand. The cards on the table in Image 6/7/8 are mostly red UNO cards (the back of the card).\n    *   Let's look at Image 6 again. The hands are grabbing cards from the table. The cards on the table are red UNO cards (backs).\n    *   Let's look at Image 7. The hands are holding red UNO cards.\n    *   Let's look at Image 8. The hands are holding red UNO cards.\n    *   Wait, the question asks \"how many of the players ended up with a red UNO card in their hands?\".\n    *   Let's look at the cards in the hands in Image 8.\n        *   Top player: Green cards.\n        *   Left player: Yellow card.\n        *   Right player: Pink/Red card.\n        *   Bottom player: Blue, Green, Red cards.\n    *   This doesn't look like a \"shuffle hands\" result where everyone gets red cards.\n    *   Let's re-read the prompt. \"",
+          "analysis": "The user wants to know how many players have a red UNO card in their hands after the \"shuffle hands\" card is played.\n\n1.  **Identify the \"shuffle hands\" card:** Image 2 and Image 3 show a card with \"shuffle hands\" written on it.\n2.  **Identify the moment it is played:** Image 4 shows the table setup before the card is played. Image 5 shows a hand placing the \"shuffle hands\" card onto the table.\n3.  **Identify the aftermath:** Image 6, 7, and 8 show the cards being dealt back out.\n    *   Image 6: Hands are gathering cards.\n    *   Image 7: Hands are sorting cards.\n    *   Image 8: Hands are holding cards. Let's look closely at the cards in the hands in Image 8.\n    *   Wait, let's look at the sequence.\n    *   Image 4: Four players are visible.\n        *   Top player: Green cards.\n        *   Left player: Yellow card (looks like a 0 or similar).\n        *   Right player: Pink/Red card (looks like a 7 or similar).\n        *   Bottom player: Blue, Green, Red cards.\n    *   Image 5: The bottom player plays the \"shuffle hands\" card.\n    *   Image 6: The cards are being mixed up. The hands are grabbing cards from the table.\n    *   Image 7: The hands are organizing the cards.\n    *   Image 8: The hands are holding the cards. Let's count the red UNO cards visible in the hands.\n        *   Top player: Holding green cards. No red visible.\n        *   Left player: Holding a yellow card. No red visible.\n        *   Right player: Holding a pink/red card. Wait, let's look closer. It looks like a pink/red card.\n        *   Bottom player: Holding blue, green, red cards.\n    *   Wait, the prompt asks to count players who end up with *at least one* red UNO card.\n    *   Let's re-examine Image 8.\n        *   Top hand: Green cards.\n        *   Left hand: Yellow card.\n        *   Right hand: Pink/Red card.\n        *   Bottom hand: Blue, Green, Red cards.\n    *   This interpretation seems wrong because the \"shuffle hands\" mechanic usually means everyone gets a random hand. The cards on the table in Image 6/7/8 are mostly red UNO cards (the back of the card).\n    *   Let's look at Image 6 again. The hands are grabbing cards from the table. The cards on the table are red UNO cards (backs).\n    *   Let's look at Image 7. The hands are holding red UNO cards.\n    *   Let's look at Image 8. The hands are holding red UNO cards.\n    *   Wait, the question asks \"how many of the players ended up with a red UNO card in their hands?\".\n    *   Let's look at the cards in the hands in Image 8.\n        *   Top player: Green cards.\n        *   Left player: Yellow card.\n        *   Right player: Pink/Red card.\n        *   Bottom player: Blue, Green, Red cards.\n    *   This doesn't look like a \"shuffle hands\" result where everyone gets red cards.\n    *   Let's re-read the prompt. \"",
+          "supporting_points": [],
+          "confidence": null
+        },
+        "raw_output_text": "{\"answer\": \"The user wants to know how many players have a red UNO card in their hands after the \\\"shuffle hands\\\" card is played.\\n\\n1.  **Identify the \\\"shuffle hands\\\" card:** Image 2 and Image 3 show a card with \\\"shuffle hands\\\" written on it.\\n2.  **Identify the moment it is played:** Image 4 shows the table setup before the card is played. Image 5 shows a hand placing the \\\"shuffle hands\\\" card onto the table.\\n3.  **Identify the aftermath:** Image 6, 7, and 8 show the cards being dealt back out.\\n    *   Image 6: Hands are gathering cards.\\n    *   Image 7: Hands are sorting cards.\\n    *   Image 8: Hands are holding cards. Let's look closely at the cards in the hands in Image 8.\\n    *   Wait, let's look at the sequence.\\n    *   Image 4: Four players are visible.\\n        *   Top player: Green cards.\\n        *   Left player: Yellow card (looks like a 0 or similar).\\n        *   Right player: Pink/Red card (looks like a 7 or similar).\\n        *   Bottom player: Blue, Green, Red cards.\\n    *   Image 5: The bottom player plays the \\\"shuffle hands\\\" card.\\n    *   Image 6: The cards are being mixed up. The hands are grabbing cards from the table.\\n    *   Image 7: The hands are organizing the cards.\\n    *   Image 8: The hands are holding the cards. Let's count the red UNO cards visible in the hands.\\n        *   Top player: Holding green cards. No red visible.\\n        *   Left player: Holding a yellow card. No red visible.\\n        *   Right player: Holding a pink/red card. Wait, let's look closer. It looks like a pink/red card.\\n        *   Bottom player: Holding blue, green, red cards.\\n    *   Wait, the prompt asks to count players who end up with *at least one* red UNO card.\\n    *   Let's re-examine Image 8.\\n        *   Top hand: Green cards.\\n        *   Left hand: Yellow card.\\n        *   Right hand: Pink/Red card.\\n        *   Bottom hand: Blue, Green, Red cards.\\n    *   This interpretation seems wrong because the \\\"shuffle hands\\\" mechanic usually means everyone gets a random hand. The cards on the table in Image 6/7/8 are mostly red UNO cards (the back of the card).\\n    *   Let's look at Image 6 again. The hands are grabbing cards from the table. The cards on the table are red UNO cards (backs).\\n    *   Let's look at Image 7. The hands are holding red UNO cards.\\n    *   Let's look at Image 8. The hands are holding red UNO cards.\\n    *   Wait, the question asks \\\"how many of the players ended up with a red UNO card in their hands?\\\".\\n    *   Let's look at the cards in the hands in Image 8.\\n        *   Top player: Green cards.\\n        *   Left player: Yellow card.\\n        *   Right player: Pink/Red card.\\n        *   Bottom player: Blue, Green, Red cards.\\n    *   This doesn't look like a \\\"shuffle hands\\\" result where everyone gets red cards.\\n    *   Let's re-read the prompt. \\\"\", \"supporting_points\": [], \"confidence\": null, \"analysis\": \"The user wants to know how many players have a red UNO card in their hands after the \\\"shuffle hands\\\" card is played.\\n\\n1.  **Identify the \\\"shuffle hands\\\" card:** Image 2 and Image 3 show a card with \\\"shuffle hands\\\" written on it.\\n2.  **Identify the moment it is played:** Image 4 shows the table setup before the card is played. Image 5 shows a hand placing the \\\"shuffle hands\\\" card onto the table.\\n3.  **Identify the aftermath:** Image 6, 7, and 8 show the cards being dealt back out.\\n    *   Image 6: Hands are gathering cards.\\n    *   Image 7: Hands are sorting cards.\\n    *   Image 8: Hands are holding cards. Let's look closely at the cards in the hands in Image 8.\\n    *   Wait, let's look at the sequence.\\n    *   Image 4: Four players are visible.\\n        *   Top player: Green cards.\\n        *   Left player: Yellow card (looks like a 0 or similar).\\n        *   Right player: Pink/Red card (looks like a 7 or similar).\\n        *   Bottom player: Blue, Green, Red cards.\\n    *   Image 5: The bottom player plays the \\\"shuffle hands\\\" card.\\n    *   Image 6: The cards are being mixed up. The hands are grabbing cards from the table.\\n    *   Image 7: The hands are organizing the cards.\\n    *   Image 8: The hands are holding the cards. Let's count the red UNO cards visible in the hands.\\n        *   Top player: Holding green cards. No red visible.\\n        *   Left player: Holding a yellow card. No red visible.\\n        *   Right player: Holding a pink/red card. Wait, let's look closer. It looks like a pink/red card.\\n        *   Bottom player: Holding blue, green, red cards.\\n    *   Wait, the prompt asks to count players who end up with *at least one* red UNO card.\\n    *   Let's re-examine Image 8.\\n        *   Top hand: Green cards.\\n        *   Left hand: Yellow card.\\n        *   Right hand: Pink/Red card.\\n        *   Bottom hand: Blue, Green, Red cards.\\n    *   This interpretation seems wrong because the \\\"shuffle hands\\\" mechanic usually means everyone gets a random hand. The cards on the table in Image 6/7/8 are mostly red UNO cards (the back of the card).\\n    *   Let's look at Image 6 again. The hands are grabbing cards from the table. The cards on the table are red UNO cards (backs).\\n    *   Let's look at Image 7. The hands are holding red UNO cards.\\n    *   Let's look at Image 8. The hands are holding red UNO cards.\\n    *   Wait, the question asks \\\"how many of the players ended up with a red UNO card in their hands?\\\".\\n    *   Let's look at the cards in the hands in Image 8.\\n        *   Top player: Green cards.\\n        *   Left player: Yellow card.\\n        *   Right player: Pink/Red card.\\n        *   Bottom player: Blue, Green, Red cards.\\n    *   This doesn't look like a \\\"shuffle hands\\\" result where everyone gets red cards.\\n    *   Let's re-read the prompt. \\\"\"}\n",
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_119.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_119.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological",
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 119.0
+            }
+          },
+          {
+            "artifact_id": "clip_120_00_180_00",
+            "kind": "clip",
+            "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "preprocess_seg_003",
+              "reason": "Wild Shuffle Hands explanation and visual demonstration interval",
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 143.5
+            }
+          },
+          {
+            "artifact_id": "frame_120.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_120.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological",
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 120.0
+            }
+          },
+          {
+            "artifact_id": "frame_121.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_121.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological",
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 121.0
+            }
+          },
+          {
+            "artifact_id": "frame_122.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_122.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 3,
+              "sequence_sort_order": "chronological",
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 122.0
+            }
+          },
+          {
+            "artifact_id": "frame_123.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_123.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 121.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 4,
+              "sequence_sort_order": "chronological",
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 123.0
+            }
+          },
+          {
+            "artifact_id": "frame_128.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_128.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 129.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 5,
+              "sequence_sort_order": "chronological",
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 128.0
+            }
+          },
+          {
+            "artifact_id": "frame_129.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_129.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 129.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 6,
+              "sequence_sort_order": "chronological",
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 129.0
+            }
+          },
+          {
+            "artifact_id": "frame_130.00",
+            "kind": "frame",
+            "relpath": "artifacts/FkuqYtE1rw0/frames/frame_130.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 120.0,
+              "clip_end_s": 143.5,
+              "frame_pool_start_s": 118.0,
+              "frame_pool_end_s": 145.5,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 129.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 7,
+              "sequence_sort_order": "chronological",
+              "video_id": "FkuqYtE1rw0",
+              "timestamp_s": 130.0
+            }
+          }
+        ],
+        "request_hash": "0ec3cdb21b89cd380ce85ce1",
+        "cache_hit": false,
+        "summary": "The user wants to know how many players have a red UNO card in their hands after the \"shuffle hands\" card is played.\n\n1.  **Identify the \"shuffle hands\" card:** Image 2 and Image 3 show a card with \"shuffle hands\" written on it.\n2.  **Identify the moment it is played:** Image 4 shows the table setup before the card is played. Image 5 shows a hand placing the \"shuffle hands\" card onto the table.\n3.  **Identify the aftermath:** Image 6, 7, and 8 show the cards being dealt back out.\n    *   Image 6: Hands are gathering cards.\n    *   Image 7: Hands are sorting cards.\n    *   Image 8: Hands are holding cards. Let's look closely at the cards in the hands in Image 8.\n    *   Wait, let's look at the sequence.\n    *   Image 4: Four players are visible.\n        *   Top player: Green cards.\n        *   Left player: Yellow card (looks like a 0 or similar).\n        *   Right player: Pink/Red card (looks like a 7 or similar).\n        *   Bottom player: Blue, Green, Red cards.\n    *   Image 5: The bottom player plays the \"shuffle hands\" card.\n    *   Image 6: The cards are being mixed up. The hands are grabbing cards from the table.\n    *   Image 7: The hands are organizing the cards.\n    *   Image 8: The hands are holding the cards. Let's count the red UNO cards visible in the hands.\n        *   Top player: Holding green cards. No red visible.\n        *   Left player: Holding a yellow card. No red visible.\n        *   Right player: Holding a pink/red card. Wait, let's look closer. It looks like a pink/red card.\n        *   Bottom player: Holding blue, green, red cards.\n    *   Wait, the prompt asks to count players who end up with *at least one* red UNO card.\n    *   Let's re-examine Image 8.\n        *   Top hand: Green cards.\n        *   Left hand: Yellow card.\n        *   Right hand: Pink/Red card.\n        *   Bottom hand: Blue, Green, Red cards.\n    *   This interpretation seems wrong because the \"shuffle hands\" mechanic usually means everyone gets a random hand. The cards on",
+        "metadata": {
+          "backend": "Qwen/Qwen3.5-9B",
+          "low_signal_output": false,
+          "timing": {
+            "started_at_utc": "2026-04-28T19:18:39.765847+00:00",
+            "finished_at_utc": "2026-04-28T19:20:00.880032+00:00",
+            "duration_s": 81.1142,
+            "cache_wait_s": 0.0006,
+            "execution_mode": "executed"
+          },
+          "observation_ids": [
+            "obs_2e51200a2b2a50f5",
+            "obs_276777d318182465",
+            "obs_ed6c53059a4c04fb",
+            "obs_b6e0bc5aab0c3028",
+            "obs_6b57c36ef4a05056",
+            "obs_d22d7d7eb2d659f4",
+            "obs_5461d5ec2385d9a7",
+            "obs_1374713f2829abe1",
+            "obs_f907b55392076b59",
+            "obs_6bad91233a7ac11b",
+            "obs_62219a8f72d1d086",
+            "obs_6852afc2403e550f",
+            "obs_fd826cc79755968f",
+            "obs_ab6417f84ece2b4e",
+            "obs_3031f7c69463e904",
+            "obs_633aa47760c92e50",
+            "obs_4e6780d904a0951d",
+            "obs_04d1dc8fcde6d095",
+            "obs_ab7dc75f6d58bab6",
+            "obs_35a8d387e608347d",
+            "obs_c87635e8cfe578c0",
+            "obs_9ac549bf5cb6d009",
+            "obs_8ef4e30dc344d371",
+            "obs_5d2be39c66a920ee",
+            "obs_e438e94a1c97688a",
+            "obs_d24a080a51a640c8",
+            "obs_6255293a8a421611",
+            "obs_aa8299943b24f153",
+            "obs_1c2d52c5e08e2e65",
+            "obs_73b8c156dae5e673",
+            "obs_b0457ce5abce72ba",
+            "obs_baf6de614f05d6e5",
+            "obs_612301fa3b31a8d6",
+            "obs_73c3ebe973d0667f",
+            "obs_d7a45ef3e450a62d",
+            "obs_29016c6aeaabe577",
+            "obs_3942fa4caef5504e",
+            "obs_078047f910d14478",
+            "obs_903c4cb1a638785f",
+            "obs_802d7f7b7a88b150",
+            "obs_bbe2d877177f0a75",
+            "obs_f8a776bfdb0af0c7"
+          ]
+        }
+      },
+      "timing": {
+        "started_at_utc": "2026-04-28T19:18:39.765847+00:00",
+        "finished_at_utc": "2026-04-28T19:20:00.880032+00:00",
+        "duration_s": 81.1142,
+        "cache_wait_s": 0.0006,
+        "execution_mode": "executed"
+      },
+      "runtime": {
+        "backend": "qwen35vl",
+        "model_name": "Qwen/Qwen3.5-9B",
+        "device": "cuda:1",
+        "device_mapping": {
+          "requested_label": "cuda:1",
+          "resolved_label": "cuda:1",
+          "cuda_visible_devices": "0,1",
+          "cuda_device_order": null,
+          "local_index": 1,
+          "physical_index_hint": "1",
+          "mapping_source": "CUDA_VISIBLE_DEVICES"
+        },
+        "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+        "resolved_model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--Qwen--Qwen3.5-9B/snapshots/c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "model_resolution_status": "ok",
+        "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+        "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/FkuqYtE1rw0/20260428T191220Z_3cb006d8/_scratch/generic_purpose",
+        "extra": {
+          "backend_name": "qwen35vl",
+          "attn_implementation": "flash_attention_2",
+          "temperature": 0.0,
+          "do_sample": false
+        }
+      },
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_119.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_119.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_119.00.png",
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 120.0,
+            "clip_end_s": 143.5,
+            "frame_pool_start_s": 118.0,
+            "frame_pool_end_s": 145.5,
+            "temporal_score": 0.0,
+            "anchor_distance_s": 2.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 121.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "before",
+            "sequence_index": 0,
+            "sequence_sort_order": "chronological",
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 119.0
+          }
+        },
+        {
+          "artifact_id": "clip_120_00_180_00",
+          "kind": "clip",
+          "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "preprocess_seg_003",
+            "reason": "Wild Shuffle Hands explanation and visual demonstration interval",
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 120.0,
+            "end_s": 143.5
+          }
+        },
+        {
+          "artifact_id": "frame_120.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_120.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_120.00.png",
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 120.0,
+            "clip_end_s": 143.5,
+            "frame_pool_start_s": 118.0,
+            "frame_pool_end_s": 145.5,
+            "temporal_score": 0.0,
+            "anchor_distance_s": 1.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 121.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "before",
+            "sequence_index": 1,
+            "sequence_sort_order": "chronological",
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 120.0
+          }
+        },
+        {
+          "artifact_id": "frame_121.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_121.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_121.00.png",
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 120.0,
+            "clip_end_s": 143.5,
+            "frame_pool_start_s": 118.0,
+            "frame_pool_end_s": 145.5,
+            "temporal_score": 0.0,
+            "anchor_distance_s": 0.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 121.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "anchor",
+            "sequence_index": 2,
+            "sequence_sort_order": "chronological",
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 121.0
+          }
+        },
+        {
+          "artifact_id": "frame_122.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_122.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_122.00.png",
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 120.0,
+            "clip_end_s": 143.5,
+            "frame_pool_start_s": 118.0,
+            "frame_pool_end_s": 145.5,
+            "temporal_score": 0.0,
+            "anchor_distance_s": 1.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 121.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "after",
+            "sequence_index": 3,
+            "sequence_sort_order": "chronological",
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 122.0
+          }
+        },
+        {
+          "artifact_id": "frame_123.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_123.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_123.00.png",
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 120.0,
+            "clip_end_s": 143.5,
+            "frame_pool_start_s": 118.0,
+            "frame_pool_end_s": 145.5,
+            "temporal_score": 0.0,
+            "anchor_distance_s": 2.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 121.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "after",
+            "sequence_index": 4,
+            "sequence_sort_order": "chronological",
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 123.0
+          }
+        },
+        {
+          "artifact_id": "frame_128.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_128.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_128.00.png",
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 120.0,
+            "clip_end_s": 143.5,
+            "frame_pool_start_s": 118.0,
+            "frame_pool_end_s": 145.5,
+            "temporal_score": 0.0,
+            "anchor_distance_s": 1.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 129.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "before",
+            "sequence_index": 5,
+            "sequence_sort_order": "chronological",
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 128.0
+          }
+        },
+        {
+          "artifact_id": "frame_129.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_129.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_129.00.png",
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 120.0,
+            "clip_end_s": 143.5,
+            "frame_pool_start_s": 118.0,
+            "frame_pool_end_s": 145.5,
+            "temporal_score": 0.0,
+            "anchor_distance_s": 0.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 129.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "anchor",
+            "sequence_index": 6,
+            "sequence_sort_order": "chronological",
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 129.0
+          }
+        },
+        {
+          "artifact_id": "frame_130.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_130.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/FkuqYtE1rw0/dense_frames/FkuqYtE1rw0/frame_130.00.png",
+            "relevance_score": 0.0,
+            "device": "cuda:1",
+            "clip_start_s": 120.0,
+            "clip_end_s": 143.5,
+            "frame_pool_start_s": 118.0,
+            "frame_pool_end_s": 145.5,
+            "temporal_score": 0.0,
+            "anchor_distance_s": 1.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 129.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "after",
+            "sequence_index": 7,
+            "sequence_sort_order": "chronological",
+            "video_id": "FkuqYtE1rw0",
+            "timestamp_s": 130.0
+          }
+        }
+      ],
+      "observations": [
+        {
+          "observation_id": "obs_2e51200a2b2a50f5",
+          "subject": "Image 2",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "a card with \"shuffle hands\" written on it",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 shows a card with \"shuffle hands\" written on it.",
+          "metadata": {
+            "observation_id": "obs_2e51200a2b2a50f5"
+          }
+        },
+        {
+          "observation_id": "obs_276777d318182465",
+          "subject": "Image 3",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "a card with \"shuffle hands\" written on it",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 3 shows a card with \"shuffle hands\" written on it.",
+          "metadata": {
+            "observation_id": "obs_276777d318182465"
+          }
+        },
+        {
+          "observation_id": "obs_ed6c53059a4c04fb",
+          "subject": "Image 4",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "the table setup before the card is played",
+          "object_type": "scene",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 4 shows the table setup before the card is played.",
+          "metadata": {
+            "observation_id": "obs_ed6c53059a4c04fb"
+          }
+        },
+        {
+          "observation_id": "obs_b6e0bc5aab0c3028",
+          "subject": "Image 5",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "a hand placing the \"shuffle hands\" card onto the table",
+          "object_type": "event",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 5 shows a hand placing the \"shuffle hands\" card onto the table.",
+          "metadata": {
+            "observation_id": "obs_b6e0bc5aab0c3028"
+          }
+        },
+        {
+          "observation_id": "obs_6b57c36ef4a05056",
+          "subject": "Image 6",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "the cards being dealt back out",
+          "object_type": "event",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 6 shows the cards being dealt back out.",
+          "metadata": {
+            "observation_id": "obs_6b57c36ef4a05056"
+          }
+        },
+        {
+          "observation_id": "obs_d22d7d7eb2d659f4",
+          "subject": "Image 7",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "the cards being dealt back out",
+          "object_type": "event",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 7 shows the cards being dealt back out.",
+          "metadata": {
+            "observation_id": "obs_d22d7d7eb2d659f4"
+          }
+        },
+        {
+          "observation_id": "obs_5461d5ec2385d9a7",
+          "subject": "Image 8",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "the cards being dealt back out",
+          "object_type": "event",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 8 shows the cards being dealt back out.",
+          "metadata": {
+            "observation_id": "obs_5461d5ec2385d9a7"
+          }
+        },
+        {
+          "observation_id": "obs_1374713f2829abe1",
+          "subject": "Image 6",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "hands gathering cards",
+          "object_type": "event",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 6 shows hands gathering cards.",
+          "metadata": {
+            "observation_id": "obs_1374713f2829abe1"
+          }
+        },
+        {
+          "observation_id": "obs_f907b55392076b59",
+          "subject": "Image 7",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "hands sorting cards",
+          "object_type": "event",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 7 shows hands sorting cards.",
+          "metadata": {
+            "observation_id": "obs_f907b55392076b59"
+          }
+        },
+        {
+          "observation_id": "obs_6bad91233a7ac11b",
+          "subject": "Image 8",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "hands holding cards",
+          "object_type": "event",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 8 shows hands holding cards.",
+          "metadata": {
+            "observation_id": "obs_6bad91233a7ac11b"
+          }
+        },
+        {
+          "observation_id": "obs_62219a8f72d1d086",
+          "subject": "Image 4",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "four players visible",
+          "object_type": "count",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 4 shows four players visible.",
+          "metadata": {
+            "observation_id": "obs_62219a8f72d1d086"
+          }
+        },
+        {
+          "observation_id": "obs_6852afc2403e550f",
+          "subject": "Top player in Image 4",
+          "subject_type": "player",
+          "predicate": "has",
+          "object_text": "green cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The top player in Image 4 has green cards.",
+          "metadata": {
+            "observation_id": "obs_6852afc2403e550f"
+          }
+        },
+        {
+          "observation_id": "obs_fd826cc79755968f",
+          "subject": "Left player in Image 4",
+          "subject_type": "player",
+          "predicate": "has",
+          "object_text": "a yellow card",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The left player in Image 4 has a yellow card.",
+          "metadata": {
+            "observation_id": "obs_fd826cc79755968f"
+          }
+        },
+        {
+          "observation_id": "obs_ab6417f84ece2b4e",
+          "subject": "Left player's card in Image 4",
+          "subject_type": "card",
+          "predicate": "looks like",
+          "object_text": "a 0 or similar",
+          "object_type": "appearance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The left player's card in Image 4 looks like a 0 or similar.",
+          "metadata": {
+            "observation_id": "obs_ab6417f84ece2b4e"
+          }
+        },
+        {
+          "observation_id": "obs_3031f7c69463e904",
+          "subject": "Right player in Image 4",
+          "subject_type": "player",
+          "predicate": "has",
+          "object_text": "a pink/red card",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The right player in Image 4 has a pink/red card.",
+          "metadata": {
+            "observation_id": "obs_3031f7c69463e904"
+          }
+        },
+        {
+          "observation_id": "obs_633aa47760c92e50",
+          "subject": "Right player's card in Image 4",
+          "subject_type": "card",
+          "predicate": "looks like",
+          "object_text": "a 7 or similar",
+          "object_type": "appearance",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The right player's card in Image 4 looks like a 7 or similar.",
+          "metadata": {
+            "observation_id": "obs_633aa47760c92e50"
+          }
+        },
+        {
+          "observation_id": "obs_4e6780d904a0951d",
+          "subject": "Bottom player in Image 4",
+          "subject_type": "player",
+          "predicate": "has",
+          "object_text": "blue cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom player in Image 4 has blue cards.",
+          "metadata": {
+            "observation_id": "obs_4e6780d904a0951d"
+          }
+        },
+        {
+          "observation_id": "obs_04d1dc8fcde6d095",
+          "subject": "Bottom player in Image 4",
+          "subject_type": "player",
+          "predicate": "has",
+          "object_text": "green cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom player in Image 4 has green cards.",
+          "metadata": {
+            "observation_id": "obs_04d1dc8fcde6d095"
+          }
+        },
+        {
+          "observation_id": "obs_ab7dc75f6d58bab6",
+          "subject": "Bottom player in Image 4",
+          "subject_type": "player",
+          "predicate": "has",
+          "object_text": "red cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom player in Image 4 has red cards.",
+          "metadata": {
+            "observation_id": "obs_ab7dc75f6d58bab6"
+          }
+        },
+        {
+          "observation_id": "obs_35a8d387e608347d",
+          "subject": "Bottom player",
+          "subject_type": "player",
+          "predicate": "plays in Image 5",
+          "object_text": "the \"shuffle hands\" card",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom player plays the \"shuffle hands\" card in Image 5.",
+          "metadata": {
+            "observation_id": "obs_35a8d387e608347d"
+          }
+        },
+        {
+          "observation_id": "obs_c87635e8cfe578c0",
+          "subject": "Image 6",
+          "subject_type": "image",
+          "predicate": "shows",
+          "object_text": "the cards being mixed up",
+          "object_type": "event",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 6 shows the cards being mixed up.",
+          "metadata": {
+            "observation_id": "obs_c87635e8cfe578c0"
+          }
+        },
+        {
+          "observation_id": "obs_9ac549bf5cb6d009",
+          "subject": "Hands in Image 6",
+          "subject_type": "hands",
+          "predicate": "are grabbing",
+          "object_text": "cards from the table",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Hands in Image 6 are grabbing cards from the table.",
+          "metadata": {
+            "observation_id": "obs_9ac549bf5cb6d009"
+          }
+        },
+        {
+          "observation_id": "obs_8ef4e30dc344d371",
+          "subject": "Hands in Image 7",
+          "subject_type": "hands",
+          "predicate": "are organizing",
+          "object_text": "the cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Hands in Image 7 are organizing the cards.",
+          "metadata": {
+            "observation_id": "obs_8ef4e30dc344d371"
+          }
+        },
+        {
+          "observation_id": "obs_5d2be39c66a920ee",
+          "subject": "Top player in Image 8",
+          "subject_type": "player",
+          "predicate": "is holding",
+          "object_text": "green cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The top player in Image 8 is holding green cards.",
+          "metadata": {
+            "observation_id": "obs_5d2be39c66a920ee"
+          }
+        },
+        {
+          "observation_id": "obs_e438e94a1c97688a",
+          "subject": "Top player in Image 8",
+          "subject_type": "player",
+          "predicate": "has visible red cards",
+          "object_text": "none",
+          "object_type": "count",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The top player in Image 8 has no visible red cards.",
+          "metadata": {
+            "observation_id": "obs_e438e94a1c97688a"
+          }
+        },
+        {
+          "observation_id": "obs_d24a080a51a640c8",
+          "subject": "Left player in Image 8",
+          "subject_type": "player",
+          "predicate": "is holding",
+          "object_text": "a yellow card",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The left player in Image 8 is holding a yellow card.",
+          "metadata": {
+            "observation_id": "obs_d24a080a51a640c8"
+          }
+        },
+        {
+          "observation_id": "obs_6255293a8a421611",
+          "subject": "Left player in Image 8",
+          "subject_type": "player",
+          "predicate": "has visible red cards",
+          "object_text": "none",
+          "object_type": "count",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The left player in Image 8 has no visible red cards.",
+          "metadata": {
+            "observation_id": "obs_6255293a8a421611"
+          }
+        },
+        {
+          "observation_id": "obs_aa8299943b24f153",
+          "subject": "Right player in Image 8",
+          "subject_type": "player",
+          "predicate": "is holding",
+          "object_text": "a pink/red card",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The right player in Image 8 is holding a pink/red card.",
+          "metadata": {
+            "observation_id": "obs_aa8299943b24f153"
+          }
+        },
+        {
+          "observation_id": "obs_1c2d52c5e08e2e65",
+          "subject": "Bottom player in Image 8",
+          "subject_type": "player",
+          "predicate": "is holding",
+          "object_text": "blue cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom player in Image 8 is holding blue cards.",
+          "metadata": {
+            "observation_id": "obs_1c2d52c5e08e2e65"
+          }
+        },
+        {
+          "observation_id": "obs_73b8c156dae5e673",
+          "subject": "Bottom player in Image 8",
+          "subject_type": "player",
+          "predicate": "is holding",
+          "object_text": "green cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom player in Image 8 is holding green cards.",
+          "metadata": {
+            "observation_id": "obs_73b8c156dae5e673"
+          }
+        },
+        {
+          "observation_id": "obs_b0457ce5abce72ba",
+          "subject": "Bottom player in Image 8",
+          "subject_type": "player",
+          "predicate": "is holding",
+          "object_text": "red cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom player in Image 8 is holding red cards.",
+          "metadata": {
+            "observation_id": "obs_b0457ce5abce72ba"
+          }
+        },
+        {
+          "observation_id": "obs_baf6de614f05d6e5",
+          "subject": "The prompt",
+          "subject_type": "prompt",
+          "predicate": "asks to count",
+          "object_text": "players who end up with at least one red UNO card",
+          "object_type": "task",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The prompt asks to count players who end up with at least one red UNO card.",
+          "metadata": {
+            "observation_id": "obs_baf6de614f05d6e5"
+          }
+        },
+        {
+          "observation_id": "obs_612301fa3b31a8d6",
+          "subject": "Top hand in Image 8",
+          "subject_type": "hand",
+          "predicate": "has",
+          "object_text": "green cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The top hand in Image 8 has green cards.",
+          "metadata": {
+            "observation_id": "obs_612301fa3b31a8d6"
+          }
+        },
+        {
+          "observation_id": "obs_73c3ebe973d0667f",
+          "subject": "Left hand in Image 8",
+          "subject_type": "hand",
+          "predicate": "has",
+          "object_text": "a yellow card",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The left hand in Image 8 has a yellow card.",
+          "metadata": {
+            "observation_id": "obs_73c3ebe973d0667f"
+          }
+        },
+        {
+          "observation_id": "obs_d7a45ef3e450a62d",
+          "subject": "Right hand in Image 8",
+          "subject_type": "hand",
+          "predicate": "has",
+          "object_text": "a pink/red card",
+          "object_type": "card",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The right hand in Image 8 has a pink/red card.",
+          "metadata": {
+            "observation_id": "obs_d7a45ef3e450a62d"
+          }
+        },
+        {
+          "observation_id": "obs_29016c6aeaabe577",
+          "subject": "Bottom hand in Image 8",
+          "subject_type": "hand",
+          "predicate": "has",
+          "object_text": "blue cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom hand in Image 8 has blue cards.",
+          "metadata": {
+            "observation_id": "obs_29016c6aeaabe577"
+          }
+        },
+        {
+          "observation_id": "obs_3942fa4caef5504e",
+          "subject": "Bottom hand in Image 8",
+          "subject_type": "hand",
+          "predicate": "has",
+          "object_text": "green cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom hand in Image 8 has green cards.",
+          "metadata": {
+            "observation_id": "obs_3942fa4caef5504e"
+          }
+        },
+        {
+          "observation_id": "obs_078047f910d14478",
+          "subject": "Bottom hand in Image 8",
+          "subject_type": "hand",
+          "predicate": "has",
+          "object_text": "red cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The bottom hand in Image 8 has red cards.",
+          "metadata": {
+            "observation_id": "obs_078047f910d14478"
+          }
+        },
+        {
+          "observation_id": "obs_903c4cb1a638785f",
+          "subject": "The cards on the table in Image 6",
+          "subject_type": "cards",
+          "predicate": "are",
+          "object_text": "red UNO cards (backs)",
+          "object_type": "card backs",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The cards on the table in Image 6 are red UNO cards (backs).",
+          "metadata": {
+            "observation_id": "obs_903c4cb1a638785f"
+          }
+        },
+        {
+          "observation_id": "obs_802d7f7b7a88b150",
+          "subject": "Hands in Image 7",
+          "subject_type": "hands",
+          "predicate": "are holding",
+          "object_text": "red UNO cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Hands in Image 7 are holding red UNO cards.",
+          "metadata": {
+            "observation_id": "obs_802d7f7b7a88b150"
+          }
+        },
+        {
+          "observation_id": "obs_bbe2d877177f0a75",
+          "subject": "Hands in Image 8",
+          "subject_type": "hands",
+          "predicate": "are holding",
+          "object_text": "red UNO cards",
+          "object_type": "cards",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Hands in Image 8 are holding red UNO cards.",
+          "metadata": {
+            "observation_id": "obs_bbe2d877177f0a75"
+          }
+        },
+        {
+          "observation_id": "obs_f8a776bfdb0af0c7",
+          "subject": "The question",
+          "subject_type": "question",
+          "predicate": "asks",
+          "object_text": "how many of the players ended up with a red UNO card in their hands",
+          "object_type": "task",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_119.00",
+            "clip_120_00_180_00",
+            "frame_120.00",
+            "frame_121.00",
+            "frame_122.00",
+            "frame_123.00",
+            "frame_128.00",
+            "frame_129.00",
+            "frame_130.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The question asks how many of the players ended up with a red UNO card in their hands.",
+          "metadata": {
+            "observation_id": "obs_f8a776bfdb0af0c7"
+          }
+        }
+      ],
+      "request_path": "round_01/tools/02_generic_purpose/request.json",
+      "result_path": "round_01/tools/02_generic_purpose/result.json",
+      "timing_path": "round_01/tools/02_generic_purpose/timing.json",
+      "runtime_path": "round_01/tools/02_generic_purpose/runtime.json",
+      "observations_path": "round_01/tools/02_generic_purpose/observations.json",
+      "artifact_refs_path": "round_01/tools/02_generic_purpose/artifact_refs.json"
+    }
+  ]
+}

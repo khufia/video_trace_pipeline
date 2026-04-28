@@ -1,0 +1,344 @@
+{
+  "task_key": "5-otljNyRmQ__4eb94d541d13",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_90f2aee5",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved candidate frames at 167.00s through 173.00s for the local accusation window, but the provided atomic observations only confirm retrieval timestamps and do not describe the people visible in those frames.",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 167.0,
+          "end_s": 167.0
+        },
+        {
+          "start_s": 168.0,
+          "end_s": 168.0
+        },
+        {
+          "start_s": 169.0,
+          "end_s": 169.0
+        },
+        {
+          "start_s": 170.0,
+          "end_s": 170.0
+        },
+        {
+          "start_s": 171.0,
+          "end_s": 171.0
+        },
+        {
+          "start_s": 172.0,
+          "end_s": 172.0
+        },
+        {
+          "start_s": 173.0,
+          "end_s": 173.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_167.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_167.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_167.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 273316
+          }
+        },
+        {
+          "artifact_id": "frame_168.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_168.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_168.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 265259
+          }
+        },
+        {
+          "artifact_id": "frame_169.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_169.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_169.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 271342
+          }
+        },
+        {
+          "artifact_id": "frame_170.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_170.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_170.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 258541
+          }
+        },
+        {
+          "artifact_id": "frame_171.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_171.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_171.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 254507
+          }
+        },
+        {
+          "artifact_id": "frame_172.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_172.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_172.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 266129
+          }
+        },
+        {
+          "artifact_id": "frame_173.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_173.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_173.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 239120
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_ab1111540f40ed0e",
+        "obs_feaebc3f83817710",
+        "obs_362f02356946c751",
+        "obs_9132e760be2926db",
+        "obs_5abe77e491ede4f5",
+        "obs_5389e496ace9407e",
+        "obs_c5dfad17a816af78"
+      ],
+      "metadata": {
+        "request_hash": "90f2aee5898209ee8e4a8671",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_c83aff0c",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The quoted preprocess transcript includes the accusation line \"That's the guy that kidnapped me.\" and the denial line \"I... I did not. I didn't.\" It also states that the transcript does not contain the needed visual clothing descriptions and does not link the dialogue to the answer-option identities.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_c082d397a311a192",
+        "obs_6ec7cff55453327e",
+        "obs_bbb955a3583d1220",
+        "obs_fd6bbb37b2c83a7b",
+        "obs_7114716c6babb843",
+        "obs_68c13bbf531d6210",
+        "obs_85c419f71a302d3f",
+        "obs_5ead9ebaf519f56e"
+      ],
+      "metadata": {
+        "request_hash": "c83aff0cbf7c0aa10583d403",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "Chronologically, the available local visual window is 167.00s, 168.00s, 169.00s, 170.00s, 171.00s, 172.00s, and 173.00s. However, the grounded observations for those frames only confirm that frames were retrieved at those times; they do not identify which person is the man in the light gray jacket or which other person he is pointing to or addressing.",
+      "supporting_observation_ids": [
+        "obs_ab1111540f40ed0e",
+        "obs_feaebc3f83817710",
+        "obs_362f02356946c751",
+        "obs_9132e760be2926db",
+        "obs_5abe77e491ede4f5",
+        "obs_5389e496ace9407e",
+        "obs_c5dfad17a816af78"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 167.0,
+          "end_s": 167.0
+        },
+        {
+          "start_s": 168.0,
+          "end_s": 168.0
+        },
+        {
+          "start_s": 169.0,
+          "end_s": 169.0
+        },
+        {
+          "start_s": 170.0,
+          "end_s": 170.0
+        },
+        {
+          "start_s": 171.0,
+          "end_s": 171.0
+        },
+        {
+          "start_s": 172.0,
+          "end_s": 172.0
+        },
+        {
+          "start_s": 173.0,
+          "end_s": 173.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The transcript grounds that an accusation occurs: one speaker says, \"That's the guy that kidnapped me,\" and another replies, \"I... I did not. I didn't.\" This establishes that someone is accused of being the kidnapper, but the transcript alone does not visually identify the accuser as the man in the light gray jacket or identify the accused person by any clothing description matching the options.",
+      "supporting_observation_ids": [
+        "obs_6ec7cff55453327e",
+        "obs_bbb955a3583d1220",
+        "obs_fd6bbb37b2c83a7b",
+        "obs_7114716c6babb843",
+        "obs_68c13bbf531d6210",
+        "obs_85c419f71a302d3f",
+        "obs_5ead9ebaf519f56e"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 3,
+      "text": "Because the answer choices are visual identity descriptions and the grounded evidence here does not connect the accusation exchange to any specific clothing-based referent, none of options A-E is uniquely supported. The answer therefore remains unresolved from the supplied evidence.",
+      "supporting_observation_ids": [
+        "obs_68c13bbf531d6210",
+        "obs_2df0fa07af98a1a6"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "5-otljNyRmQ__4eb94d541d13",
+      "trace": {
+        "inference_steps": [
+          "[167s; 168s; 169s; 170s; 171s; 172s; 173s] Chronologically, the available local visual window is 167.00s, 168.00s, 169.00s, 170.00s, 171.00s, 172.00s, and 173.00s. However, the grounded observations for those frames only confirm that frames were retrieved at those times; they do not identify which person is the man in the light gray jacket or which other person he is pointing to or addressing.",
+          "The transcript grounds that an accusation occurs: one speaker says, \"That's the guy that kidnapped me,\" and another replies, \"I... I did not. I didn't.\" This establishes that someone is accused of being the kidnapper, but the transcript alone does not visually identify the accuser as the man in the light gray jacket or identify the accused person by any clothing description matching the options.",
+          "Because the answer choices are visual identity descriptions and the grounded evidence here does not connect the accusation exchange to any specific clothing-based referent, none of options A-E is uniquely supported. The answer therefore remains unresolved from the supplied evidence."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved candidate frames at 167.00s through 173.00s for the local accusation window, but the provided atomic observations only confirm retrieval timestamps and do not describe the people visible in those frames.",
+            "observation_ids": [
+              "obs_ab1111540f40ed0e",
+              "obs_feaebc3f83817710",
+              "obs_362f02356946c751",
+              "obs_9132e760be2926db",
+              "obs_5abe77e491ede4f5",
+              "obs_5389e496ace9407e",
+              "obs_c5dfad17a816af78"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 167.0,
+                "end_s": 167.0
+              },
+              {
+                "start_s": 168.0,
+                "end_s": 168.0
+              },
+              {
+                "start_s": 169.0,
+                "end_s": 169.0
+              },
+              {
+                "start_s": 170.0,
+                "end_s": 170.0
+              },
+              {
+                "start_s": 171.0,
+                "end_s": 171.0
+              },
+              {
+                "start_s": 172.0,
+                "end_s": 172.0
+              },
+              {
+                "start_s": 173.0,
+                "end_s": 173.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "The quoted preprocess transcript includes the accusation line \"That's the guy that kidnapped me.\" and the denial line \"I... I did not. I didn't.\" It also states that the transcript does not contain the needed visual clothing descriptions and does not link the dialogue to the answer-option identities.",
+            "observation_ids": [
+              "obs_c082d397a311a192",
+              "obs_6ec7cff55453327e",
+              "obs_bbb955a3583d1220",
+              "obs_fd6bbb37b2c83a7b",
+              "obs_7114716c6babb843",
+              "obs_68c13bbf531d6210",
+              "obs_85c419f71a302d3f",
+              "obs_5ead9ebaf519f56e"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved",
+    "reason": "The transcript confirms an accusation and denial, but the provided grounded observations do not visually identify the man in the light gray jacket or the accused person among the clothing-based options."
+  }
+}

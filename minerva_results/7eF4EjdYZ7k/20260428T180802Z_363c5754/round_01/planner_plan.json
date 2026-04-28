@@ -1,0 +1,99 @@
+{
+  "strategy": "Inspect the 01:20-01:25 screen-recording interval with a small chronological frame set, OCR any visible price-bearing items, then extract all item-price pairs and compute the total against the options.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological set of frames spanning 01:20-01:25 so the agent can verify whether any price-bearing items are still visible in that exact interval and preserve any changing screen state.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "7eF4EjdYZ7k",
+            "start_s": 80.0,
+            "end_s": 85.0
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 6,
+        "query": "frames in 01:20-01:25 showing any visible on-screen items with price points, if present",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "01:20",
+          "01:21",
+          "01:22",
+          "01:23",
+          "01:24",
+          "01:25"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological frames from the exact interval for visual verification of visible priced items"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "ocr",
+      "purpose": "Read all visible on-screen text in those frames, especially dollar amounts and nearby item names or labels.",
+      "inputs": {
+        "clips": [],
+        "frames": [],
+        "query": "read all visible item names, labels, and dollar prices on the screen; preserve exact dollar amounts and nearby product text",
+        "regions": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "text": "raw OCR text from the interval",
+        "lines": "OCR lines containing item labels and price amounts"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "From the frames and OCR, determine every distinct visible item that has a visible price point during 01:20-01:25, deduplicate repeated appearances across frames, sum the prices, and map to the answer option.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "7eF4EjdYZ7k",
+            "start_s": 80.0,
+            "end_s": 85.0
+          }
+        ],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Using the exact 01:20-01:25 frames and OCR, identify every distinct visible item that has a visible price point during this interval. For each item, extract the item name and exact price, deduplicate the same item across multiple frames, exclude anything without a visible price in this interval, compute the total cost, and state which option matches.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ],
+        "text_contexts": [
+          {
+            "step_id": 2,
+            "field_path": "text"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "total cost and matching option",
+        "supporting_points": "list of item-price pairs included and any exclusions",
+        "analysis": "deduplication and summation rationale"
+      }
+    }
+  ],
+  "refinement_instructions": "Do not trust preprocess summaries as proof of prices. Base the final reasoning on the retrieved 01:20-01:25 frames plus OCR. If no priced items are actually visible in that exact interval, say so rather than borrowing prices from 01:08-01:13. If multiple frames show the same product page, count each distinct item once. Preserve exact item-price pairings and reject OCR fragments that are not clearly attached to an item or are not dollar prices."
+}

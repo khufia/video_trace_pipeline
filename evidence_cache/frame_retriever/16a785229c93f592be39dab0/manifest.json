@@ -1,0 +1,39 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "16a785229c93f592be39dab0",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "d8UESxnuVAY",
+        "start_s": 120.0,
+        "end_s": 240.0,
+        "artifact_id": "clip_120_00_180_00",
+        "relpath": "artifacts/d8UESxnuVAY/clips/clip_120_00_180_00.mp4",
+        "metadata": {}
+      },
+      {
+        "video_id": "d8UESxnuVAY",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "artifact_id": "clip_180_00_240_00",
+        "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4",
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "150s",
+      "170s",
+      "190s",
+      "210s",
+      "225s"
+    ],
+    "query": "readable frames showing the chess broadcast overlay with evaluation bar or score and both player clocks, especially around the first strong black advantage",
+    "num_frames": 10,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

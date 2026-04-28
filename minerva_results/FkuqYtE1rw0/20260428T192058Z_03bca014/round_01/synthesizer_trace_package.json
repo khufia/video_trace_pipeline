@@ -1,0 +1,360 @@
+{
+  "task_key": "FkuqYtE1rw0__780a22047879",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_anchor_transcript",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Transcript anchor for the Wild Shuffle Hands explanation: the segment describing the card runs from 119.827s to 143.333s and includes the lines \"Starting with the player to your left, deal out all the cards to all the players\" and \"Players may end up with more or fewer cards than what they started with.\"",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": 119.827,
+      "time_end_s": 143.333,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_120_00_180_00",
+          "kind": "clip",
+          "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 120.0,
+            "end_s": 180.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_a243c77157a1c576",
+        "obs_09902cdbf771ca04",
+        "obs_e39b87f884f1a10d",
+        "obs_92bde786da673638"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_frames_after_anchor",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Chronological retrieved frames for visual inspection occur at 148s, 149s, 150s, 151s, and 152s, which are after the Wild Shuffle Hands transcript segment.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 148.0,
+          "end_s": 152.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_148.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_148.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_148.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 283340
+          }
+        },
+        {
+          "artifact_id": "frame_149.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_149.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_149.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 279102
+          }
+        },
+        {
+          "artifact_id": "frame_150.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_150.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_150.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 281236
+          }
+        },
+        {
+          "artifact_id": "frame_151.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_151.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_151.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 278177
+          }
+        },
+        {
+          "artifact_id": "frame_152.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_152.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_152.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 290898
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_90f0f255d9bab112",
+        "obs_e1ac9f02f0502395",
+        "obs_e500dc12a424b367",
+        "obs_99a50d42e78fc2d4",
+        "obs_a577e3525bc44a1c",
+        "obs_96295d4ce0584986"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_visible_cards_sequence",
+      "tool_name": "generic_purpose",
+      "evidence_text": "In the inspected post-anchor frames, one hand is shown with 4 visible cards at 148s, and the later frames show the same hand with the same cards. However, the evidence does not establish that this hand is the left-side player or that these 4 visible cards are the final redistributed cards received after Wild Shuffle Hands.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 148.0,
+          "end_s": 152.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_148.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_148.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 148.0
+          }
+        },
+        {
+          "artifact_id": "frame_149.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_149.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 149.0
+          }
+        },
+        {
+          "artifact_id": "frame_150.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_150.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 150.0
+          }
+        },
+        {
+          "artifact_id": "frame_151.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_151.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 151.0
+          }
+        },
+        {
+          "artifact_id": "frame_152.00",
+          "kind": "frame",
+          "relpath": "artifacts/FkuqYtE1rw0/frames/frame_152.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 152.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_06200d7d7d4074ea",
+        "obs_2be37aaf62739b5b",
+        "obs_a63dc30f5dfc9f7a",
+        "obs_7455085067856ec1",
+        "obs_887125d4a004ef54",
+        "obs_24c1386d47ebb96c"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The transcript provides the temporal anchor for the Wild Shuffle Hands explanation and states that dealing starts with the player to the left and that players may end up with more or fewer cards, but it does not state a numeric count for the left-side player.",
+      "supporting_observation_ids": [
+        "obs_09902cdbf771ca04",
+        "obs_e39b87f884f1a10d",
+        "obs_ee2639f6304e821d"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": 119.827,
+      "time_end_s": 143.333,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 2,
+      "text": "Chronologically, the available visual evidence to inspect the redistribution outcome comes later, at 148s through 152s, after the Wild Shuffle Hands explanation has ended.",
+      "supporting_observation_ids": [
+        "obs_92bde786da673638",
+        "obs_90f0f255d9bab112",
+        "obs_e1ac9f02f0502395",
+        "obs_e500dc12a424b367",
+        "obs_99a50d42e78fc2d4",
+        "obs_a577e3525bc44a1c",
+        "obs_96295d4ce0584986"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 148.0,
+          "end_s": 152.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Those later frames show a hand with 4 visible cards consistently across the inspected sequence, but the evidence does not ground that hand as the left-side player and does not establish that the visible 4 cards are the final cards that player received from the redistribution.",
+      "supporting_observation_ids": [
+        "obs_06200d7d7d4074ea",
+        "obs_2be37aaf62739b5b",
+        "obs_a63dc30f5dfc9f7a",
+        "obs_7455085067856ec1",
+        "obs_887125d4a004ef54",
+        "obs_24c1386d47ebb96c"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 148.0,
+          "end_s": 152.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Because the answer choices require a specific card count for the player on the left, and the retrieved frames do not clearly identify that player's final received-card count, none of the options can be selected with grounded support.",
+      "supporting_observation_ids": [
+        "obs_ee2639f6304e821d",
+        "obs_24c1386d47ebb96c"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "FkuqYtE1rw0__780a22047879",
+      "trace": {
+        "inference_steps": [
+          "[119.827s to 143.333s] The transcript provides the temporal anchor for the Wild Shuffle Hands explanation and states that dealing starts with the player to the left and that players may end up with more or fewer cards, but it does not state a numeric count for the left-side player.",
+          "[148s to 152s] Chronologically, the available visual evidence to inspect the redistribution outcome comes later, at 148s through 152s, after the Wild Shuffle Hands explanation has ended.",
+          "[148s to 152s] Those later frames show a hand with 4 visible cards consistently across the inspected sequence, but the evidence does not ground that hand as the left-side player and does not establish that the visible 4 cards are the final cards that player received from the redistribution.",
+          "Because the answer choices require a specific card count for the player on the left, and the retrieved frames do not clearly identify that player's final received-card count, none of the options can be selected with grounded support."
+        ],
+        "evidence": [
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Transcript anchor for the Wild Shuffle Hands explanation: the segment describing the card runs from 119.827s to 143.333s and includes the lines \"Starting with the player to your left, deal out all the cards to all the players\" and \"Players may end up with more or fewer cards than what they started with.\"",
+            "observation_ids": [
+              "obs_a243c77157a1c576",
+              "obs_09902cdbf771ca04",
+              "obs_e39b87f884f1a10d",
+              "obs_92bde786da673638"
+            ],
+            "time_start_s": 119.827,
+            "time_end_s": 143.333,
+            "frame_ts_s": null,
+            "time_intervals": []
+          },
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Chronological retrieved frames for visual inspection occur at 148s, 149s, 150s, 151s, and 152s, which are after the Wild Shuffle Hands transcript segment.",
+            "observation_ids": [
+              "obs_90f0f255d9bab112",
+              "obs_e1ac9f02f0502395",
+              "obs_e500dc12a424b367",
+              "obs_99a50d42e78fc2d4",
+              "obs_a577e3525bc44a1c",
+              "obs_96295d4ce0584986"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 148.0,
+                "end_s": 152.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "In the inspected post-anchor frames, one hand is shown with 4 visible cards at 148s, and the later frames show the same hand with the same cards. However, the evidence does not establish that this hand is the left-side player or that these 4 visible cards are the final redistributed cards received after Wild Shuffle Hands.",
+            "observation_ids": [
+              "obs_06200d7d7d4074ea",
+              "obs_2be37aaf62739b5b",
+              "obs_a63dc30f5dfc9f7a",
+              "obs_7455085067856ec1",
+              "obs_887125d4a004ef54",
+              "obs_24c1386d47ebb96c"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 148.0,
+                "end_s": 152.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved_due_to_insufficient_grounded_visual_identification"
+  }
+}

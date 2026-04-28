@@ -1,0 +1,369 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Use preprocess to anchor the likely playground/character montage, then retrieve a small chronological frame set and visually identify which named character goes down the slide with the child.",
+      "refinement_instructions": "Ground the final choice in the retrieved frames, not in preprocess prose alone. Confirm both parts of the discriminator: a child is going down a slide, and a named character is accompanying the child. In the trace, cite visible identity cues such as ears, muzzle/beak, outfit colors, or body shape that distinguish Mickey, Donald, Daisy, Goofy, and Pluto. If the first frame set does not clearly show the slide action or character identity, keep the answer unresolved rather than overcommitting.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve chronological frames from the most likely montage interval so the slide action and accompanying character can be visually verified.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "9u2I5D55tfU",
+                "start_s": 180.0,
+                "end_s": 240.0,
+                "artifact_id": "clip_180_00_240_00",
+                "relpath": "artifacts/9u2I5D55tfU/clips/clip_180_00_240_00.mp4",
+                "metadata": {
+                  "source": "preprocess_match",
+                  "segment_id": "seg_004"
+                }
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 8,
+            "query": "child going down a slide with one of these characters: Donald Duck, Daisy, Goofy, Mickey Mouse, or Pluto",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "180-185s playground montage with character interaction; inspect for child going down a slide with a mascot/character"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "Inspect the retrieved frame sequence to determine whether a child goes down a slide with a character and identify which option matches.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "From these chronological frames, determine whether a child is accompanied down a slide by a recognizable character. Identify the character among Donald Duck, Daisy, Goofy, Mickey Mouse, and Pluto. Use only visible character design cues from the frames and map to the correct option; if the slide scene is absent or unclear, say so.",
+            "text_contexts": [
+              "Preprocess anchor: seg_004 overall summary mentions a children's amusement park montage and character interactions in a playground-like setting around 180-185s, but the exact slide companion must be visually verified."
+            ],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 2,
+      "trace_inference_count": 6,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The retrieved evidence is a chronological frame sequence from 183s through 187s, so the answer must be grounded in what these frames visibly show.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 183.0,
+              "end_s": 187.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "Frames 183s, 184s, 185s, and 186s do not show a slide; they show ribbon-cutting scenes instead, so they do not ground the queried slide event.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 183.0,
+              "end_s": 186.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "Frame 187s is the only retrieved frame showing both a character and a child. In that frame, the visible character has blue hair, a blue crown, and a blue-and-white dress, while holding hands with a toddler girl.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 187.0,
+          "time_intervals": []
+        },
+        {
+          "step_id": 4,
+          "text": "Those visible identity cues do not match any of the answer choices: they do not show Mickey's round black ears, Donald's duck beak and sailor outfit, Daisy's duck features and bow, Goofy's tall dog-like muzzle and hat, or Pluto's quadruped dog body. The provided observations also explicitly say the frame-187 character does not match Donald Duck, Daisy, Goofy, Mickey Mouse, or Pluto.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 187.0,
+          "time_intervals": []
+        },
+        {
+          "step_id": 5,
+          "text": "The slide requirement is also not confirmed. At 187s there is only a slide-like red-and-white structure in the background, and the child is described as standing on the ground while holding the character's hands, not visibly going down the slide with the character.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 187.0,
+          "time_intervals": []
+        },
+        {
+          "step_id": 6,
+          "text": "Because the retrieved frames do not clearly show a child going down a slide with a named option character, and the only visible character does not match any listed option, the multiple-choice answer remains unresolved from this evidence.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 187.0,
+              "end_s": 187.0
+            }
+          ]
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace is orderly and preserves uncertainty, but it fails the benchmark task because no option is selected and the cited frames do not ground the slide-accompaniment event needed to discriminate among the choices.",
+      "audit_missing_information": [
+        "which character from the provided options accompanies a child down a slide",
+        "grounded evidence of the child going down the slide with that character"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace does not complete the multiple-choice task. It concludes the evidence is unresolved and leaves final_answer empty instead of justifying one provided option.",
+          "evidence_ids": [
+            "ev_01_3b9989e7",
+            "ev_02_93f3c06a"
+          ]
+        },
+        {
+          "severity": "MEDIUM",
+          "category": "TEMPORAL_GAP",
+          "message": "The retrieved evidence only covers frames 183s-187s and explicitly says the slide action is not confirmed there, so the answer-critical event 'accompanies a child down a slide' is not grounded within the cited window.",
+          "evidence_ids": [
+            "ev_01_3b9989e7",
+            "ev_02_93f3c06a"
+          ]
+        }
+      ]
+    },
+    {
+      "round_index": 2,
+      "round_dir": "round_02",
+      "planner_request_path": "round_02/planner_request.json",
+      "planner_plan_path": "round_02/planner_plan.json",
+      "synthesizer_request_path": "round_02/synthesizer_request.json",
+      "trace_path": "round_02/synthesizer_trace_package.json",
+      "auditor_request_path": "round_02/auditor_request.json",
+      "audit_path": "round_02/auditor_report.json",
+      "strategy": "Preserve the failed 183-187s anchor as a rejected candidate, then broaden visual search to find the actual slide-accompaniment moment and verify the option-character identity from a local chronological sequence.",
+      "refinement_instructions": "Preserve the prior finding that frames 183-187 do not ground the answer-critical slide event; treat that window as a rejected candidate, not as final evidence. In the new trace, require explicit visual proof of both parts of the discriminator: (1) the child is going down a slide, and (2) one listed character is accompanying the child in that same local sequence. Do not answer from preprocess summaries alone. Base the final option only on the newly grounded clip/frame sequence returned by the tools, and explicitly note rejected candidates that show ribbon-cutting, bridge interaction, or a non-option princess-like character instead of the queried slide event.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "visual_temporal_grounder",
+          "purpose": "Find candidate moments anywhere in the video where a child is going down a slide with one of the listed mascot characters nearby or accompanying them.",
+          "inputs": {
+            "query": "all moments where a child goes down a slide and is accompanied by a mascot or character, especially Donald Duck, Daisy, Goofy, Mickey Mouse, or Pluto",
+            "top_k": 5
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve chronological neighboring frames for each candidate interval so the trace can verify actual sliding and identify the accompanying character.",
+          "inputs": {
+            "include_anchor_neighbors": true,
+            "neighbor_radius_s": 1.5,
+            "num_frames": 6,
+            "query": "frames before during and after the child going down the slide with the accompanying character visible",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological"
+          },
+          "input_refs": {
+            "clips": [
+              {
+                "step_id": 1,
+                "field_path": "clips"
+              }
+            ]
+          }
+        },
+        {
+          "step_id": 3,
+          "tool_name": "generic_purpose",
+          "purpose": "From the candidate clips and chronological frames, determine which interval truly shows a child going down a slide with an accompanying character, identify that character among the options, and reject false candidates such as the prior 183-187s ribbon/bridge sequence.",
+          "inputs": {
+            "query": "Which retrieved interval actually shows a child going down a slide with an accompanying character? For each candidate, state whether sliding is visible, whether the character is accompanying the child down the slide, identify the character using only these options {Donald Duck, Daisy, Goofy, Mickey Mouse, Pluto}, reject non-matching or non-slide scenes, and output the single best-supported option if one interval clearly matches."
+          },
+          "input_refs": {
+            "clips": [
+              {
+                "step_id": 1,
+                "field_path": "clips"
+              }
+            ],
+            "frames": [
+              {
+                "step_id": 2,
+                "field_path": "frames"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "E. Pluto.",
+      "trace_evidence_count": 5,
+      "trace_inference_count": 6,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The earlier 183s-187s window remains a rejected candidate. Chronologically, frames 183s-186s show ribbon-cutting rather than a slide scene, so they do not ground the queried event.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 183.0,
+              "end_s": 186.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "Frame 187s is also not the answer-critical event: it shows a child with a blue-haired, blue-crowned, blue-and-white-dressed character on the ground, with only a slide-like structure in the background, and that character is explicitly described as not matching Donald Duck, Daisy, Goofy, Mickey Mouse, or Pluto.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 187.0,
+          "time_intervals": [
+            {
+              "start_s": 187.0,
+              "end_s": 187.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "A separate visual-temporal grounding pass identifies three candidate intervals for the queried event: 62s-64s, 215s-218s, and 273s-275s. These are the relevant windows to inspect instead of the rejected 183s-187s sequence.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 62.0,
+              "end_s": 64.0
+            },
+            {
+              "start_s": 215.0,
+              "end_s": 218.0
+            },
+            {
+              "start_s": 273.0,
+              "end_s": 275.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Frames were then retrieved from the grounded event windows, including 62s, 63s, 64s, 215s, 216s, and 217s, providing local visual evidence for the slide-accompaniment event.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 62.0,
+              "end_s": 64.0
+            },
+            {
+              "start_s": 215.0,
+              "end_s": 217.0
+            }
+          ]
+        },
+        {
+          "step_id": 5,
+          "text": "In the newly grounded 62s-64s local sequence, the visual evidence shows a large brown dog character at the bottom of a slide structure with children present. This is the only new evidence that directly ties a listed character to the slide scene.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 62.0,
+              "end_s": 64.0
+            }
+          ]
+        },
+        {
+          "step_id": 6,
+          "text": "That dog character is identified as Pluto, which maps uniquely to option E among the choices. The rejected 187s candidate does not match any option, whereas the grounded slide-scene character does.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 62.0,
+              "end_s": 64.0
+            },
+            {
+              "start_s": 187.0,
+              "end_s": 187.0
+            }
+          ]
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.91,
+      "audit_feedback": "The trace has the right overall structure, but it does not yet justify a unique multiple-choice answer. It needs grounded confirmation that the identified character is the one accompanying a child down the slide, and it must address the other grounded candidate intervals before committing to Pluto.",
+      "audit_missing_information": [
+        "which character is textually grounded as accompanying a child down the slide, not merely standing near the slide with children present",
+        "answer-critical characterization of the 215.00s-218.00s candidate interval",
+        "answer-critical characterization of the 273.00s-275.00s candidate interval",
+        "a non-circular grounded basis for identifying the slide-scene character as Pluto among the listed options"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The final answer relies on a single summarized claim that a brown dog at the bottom of a slide is Pluto, but the provided text does not ground the answer-critical relation that this character accompanies a child down the slide. Presence near a slide with children is weaker than the asked accompaniment event.",
+          "evidence_ids": [
+            "ev_03_76fa77cb"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "TEMPORAL_GAP",
+          "message": "The trace acknowledges three candidate intervals for the queried event, but only the 62s-64s interval is characterized. The 215s-218s and 273s-275s candidates are not textually inspected or ruled out before selecting a unique option.",
+          "evidence_ids": [
+            "ev_01_8720624f",
+            "ev_02_7f1b99e3",
+            "ev_03_76fa77cb"
+          ]
+        },
+        {
+          "severity": "MEDIUM",
+          "category": "INFERENCE_ERROR",
+          "message": "The option mapping is overconfident. The evidence summary for the decisive entry is partly circular and includes unsupported derived statements about the options; it does not provide a robust textual discriminator beyond 'dog character identified as Pluto.'",
+          "evidence_ids": [
+            "ev_03_76fa77cb"
+          ]
+        }
+      ]
+    }
+  ]
+}

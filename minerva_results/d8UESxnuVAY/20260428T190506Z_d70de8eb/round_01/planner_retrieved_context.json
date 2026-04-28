@@ -1,0 +1,802 @@
+{
+  "query_terms": [
+    "much",
+    "time",
+    "black",
+    "clock",
+    "first",
+    "achieved",
+    "advantage",
+    "points",
+    "screen",
+    "chess",
+    "overlay",
+    "details",
+    "indicating",
+    "gains",
+    "shown",
+    "evaluation",
+    "score",
+    "visual",
+    "ocr",
+    "segment",
+    "summaries",
+    "text",
+    "hints",
+    "interval",
+    "likely",
+    "swings",
+    "above",
+    "late",
+    "game"
+  ],
+  "retrieval_requests": [
+    {
+      "request_id": "late_game_overlay_text",
+      "target": "dense_captions",
+      "need": "On-screen chess overlay details indicating when black first gains an advantage over 4 points and the black clock time shown then",
+      "query": "chess evaluation advantage over 4 black clock on-screen overlay score time",
+      "time_range": {
+        "start_s": 150.0,
+        "end_s": 240.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "limit": 20
+    },
+    {
+      "request_id": "late_game_preprocess_segments",
+      "target": "preprocess",
+      "need": "Segment-level summaries or text hints for the interval where the evaluation likely swings above +4 for black",
+      "query": "black advantage over 4 points clock chess overlay late game",
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 240.0
+      },
+      "limit": 10
+    }
+  ],
+  "preprocess_matches": {
+    "planner_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a black hoodie and a woman in a neon yellow hoodie are playing a game of chess. The man, with a serious expression, rests his chin on his clasped hands, deep in thought. The woman, on the other hand, smiles and laughs, looking amused by the game. A digital clock and a large screen showing the chessboard are visible between them.; speech: Woman: I have so many things. I wanna do... there is so much stuff here. I know it is. You know what I'm saying?; acoustics: 1) Tone of speech: The woman's tone is cheerful and conversational. 2) Background sounds or music: Faint ambient room noise.; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table., video_background: The scene is set indoors, with a stone fireplace wall on the right and a window with blinds on the left. A digital clock and a large, illuminated chessboard graphic are displayed on the wall behind the players., storyline: The scene is established, showing a chess game in progress. The contrasting demeanors of the two players are introduced: the man is focused and serious, while the woman is lighthearted and amused., shooting_style: This is a standard, continuous shot focusing on the two main subjects. The woman points at the chessboard, making a playful challenge. The man, still looking thoughtful, considers her words. The digital clock in the background shows the time is 0:15 for the woman's turn.; speech: Woman: My game's been like, 'Miss, I'm the strongest player.' You're 750? That's kind of hot. I'm sticking to that.; acoustics: 1) Tone of speech: The woman's tone is playful and confident. 2) Background sounds or music: None.; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the stone wall, window, and digital chessboard screen visible. The clock's timer is a key element., storyline: The woman initiates a lighthearted challenge, suggesting she is a strong player. The man's reaction shows he is taking her challenge seriously, setting up a playful rivalry., shooting_style: This is a continuous shot.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 127.0,
+              "visual": "A man in a black hoodie and a woman in a neon yellow hoodie are playing a game of chess. The man, with a serious expression, rests his chin on his clasped hands, deep in thought. The woman, on the other hand, smiles and laughs, looking amused by the game. A digital clock and a large screen showing the chessboard are visible between them.",
+              "audio": "speech: Woman: I have so many things. I wanna do... there is so much stuff here. I know it is. You know what I'm saying?; acoustics: 1) Tone of speech: The woman's tone is cheerful and conversational. 2) Background sounds or music: Faint ambient room noise.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table.",
+                "video_background: The scene is set indoors, with a stone fireplace wall on the right and a window with blinds on the left. A digital clock and a large, illuminated chessboard graphic are displayed on the wall behind the players.",
+                "storyline: The scene is established, showing a chess game in progress. The contrasting demeanors of the two players are introduced: the man is focused and serious, while the woman is lighthearted and amused.",
+                "shooting_style: This is a standard, continuous shot focusing on the two main subjects."
+              ]
+            },
+            {
+              "start_s": 128.0,
+              "end_s": 134.0,
+              "visual": "The woman points at the chessboard, making a playful challenge. The man, still looking thoughtful, considers her words. The digital clock in the background shows the time is 0:15 for the woman's turn.",
+              "audio": "speech: Woman: My game's been like, 'Miss, I'm the strongest player.' You're 750? That's kind of hot. I'm sticking to that.; acoustics: 1) Tone of speech: The woman's tone is playful and confident. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the stone wall, window, and digital chessboard screen visible. The clock's timer is a key element.",
+                "storyline: The woman initiates a lighthearted challenge, suggesting she is a strong player. The man's reaction shows he is taking her challenge seriously, setting up a playful rivalry.",
+                "shooting_style: This is a continuous shot."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 127.707,
+              "end_s": 149.881,
+              "text": "Oh, there's so much stuff here. I know it is. I know it is. You know it. Yeah, you're thinking long and hard. It makes me glad my game has been the worst. I'm the strongest 750 player you'll ever meet. You're 750? 750. That's kind of high. Hey, man, I'm just telling it like it is, man. I'm 750, bro. I'm sticking to that. What the heck? What the heck? What was I doing? What? What the?"
+            },
+            {
+              "start_s": 150.539,
+              "end_s": 178.754,
+              "text": "What are you doing? I don't know. I'm getting away from you. You're getting away from me? Yeah. Alright, well let me get to you. Is that how you feel it? Yeah, that's how I'm feeling. That's not good. It's perfect. You're going back? I gotta go back. You gotta go back. That's true. I know there's a lot of stuff I want to do. I bet it is. We're gonna go for it. We're gonna go sheer."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 245.267,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 240.0,
+              "end_s": 245.267,
+              "artifact_id": "clip_240_00_245_27",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_240_00_245_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 245.267
+          },
+          "overall_summary": "A woman with blonde hair, wearing a bright green cardigan, smiles warmly at the camera. She is seated at a table with a green and white chessboard. On the table, a digital clock shows the time as 03:03:14. Next to the clock are several bottles of water and two cups. A man in a black and white varsity jacket stands behind the table, and another person in a purple hoodie is partially visible on the far left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor or semi-outdoor space.; attributes: camera_state: The camera is positioned at a medium distance, capturing the upper bodies of the people and the chessboard on the table. The shot is static., video_background: The scene is set on a patio with a brick wall on the right and a window with green blinds in the background. The lighting is bright and natural, suggesting it's daytime., storyline: The scene is established, introducing a casual chess game in progress. The woman's smile suggests a friendly and relaxed atmosphere., shooting_style: This is a standard establishing shot. The woman in the green cardigan laughs and covers her mouth with her hand, reacting to something happening off-screen. The man in the varsity jacket gestures with his hands as if he is explaining a move or making a point. The chessboard shows a standard game in progress, with the white pieces on the right and black pieces on the left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The woman's laughter is audible.; attributes: camera_state: The camera remains in a static medium shot, keeping the focus on the interaction between the two people at the table., video_background: The background remains the same, with the brick wall and window visible. The focus is on the characters' interaction., storyline: The interaction between the two players is highlighted, showing the woman's amusement and the man's animated explanation, which adds a layer of social dynamics to the chess game., shooting_style: This is a continuation of the previous shot.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 245.0,
+              "visual": "A woman with blonde hair, wearing a bright green cardigan, smiles warmly at the camera. She is seated at a table with a green and white chessboard. On the table, a digital clock shows the time as 03:03:14. Next to the clock are several bottles of water and two cups. A man in a black and white varsity jacket stands behind the table, and another person in a purple hoodie is partially visible on the far left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor or semi-outdoor space.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing the upper bodies of the people and the chessboard on the table. The shot is static.",
+                "video_background: The scene is set on a patio with a brick wall on the right and a window with green blinds in the background. The lighting is bright and natural, suggesting it's daytime.",
+                "storyline: The scene is established, introducing a casual chess game in progress. The woman's smile suggests a friendly and relaxed atmosphere.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 240.0,
+              "end_s": 240.0,
+              "visual": "The woman in the green cardigan laughs and covers her mouth with her hand, reacting to something happening off-screen. The man in the varsity jacket gestures with his hands as if he is explaining a move or making a point. The chessboard shows a standard game in progress, with the white pieces on the right and black pieces on the left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The woman's laughter is audible.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping the focus on the interaction between the two people at the table.",
+                "video_background: The background remains the same, with the brick wall and window visible. The focus is on the characters' interaction.",
+                "storyline: The interaction between the two players is highlighted, showing the woman's amusement and the man's animated explanation, which adds a layer of social dynamics to the chess game.",
+                "shooting_style: This is a continuation of the previous shot."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "A young woman in a bright green hoodie sits across from a man in a black hoodie at a chess table. She gestures with her right hand towards his king, asking what he's going to do. The man, looking serious, tells her she's trying to be slick and should use her brain. She smiles and retorts that he almost fell for it.; speech: Woman: what are you gonna do? Man: oh you're trying to be slick. use your brain. no but seriously bro. you almost fell for it. Woman: almost did.; acoustics: 1) Tone of speech: The woman's tone is playful and confident; the man's is serious and slightly exasperated. 2) Background sounds or music: Faint ambient room noise.; s going to do. The man, looking serious, tells her she; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at the chess table. The shot is static., video_background: The scene is set indoors, likely a cafe or community center. Behind the players is a window with green blinds and a brick wall. A digital chessboard graphic is superimposed on the screen, showing the current game state., storyline: The scene opens on a chess game in progress. The woman is putting the man on the defensive, and he is trying to play mind games with her, but she is unfazed and seems to be in control., shooting_style: This is a standard shot with a digital graphic overlay showing the chessboard. The woman thanks the man, who jokes that he has a cheerleader. She playfully dismisses his comment and asks what he's going to do now. He dismisses her, saying he could use that too, and then moves his black knight, preparing his next move.; speech: Woman: thanks Mike. I got a cheerleader here. Man: you don't have one. woman: thank you. Man: what are you gonna do now? oh I could use that too. that out of here. what you see?; acoustics: 1) Tone of speech: The woman is cheerful and teasing; the man is dismissive and a bit cocky. 2) Background sounds or music: None.; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the window, blinds, and brick wall visible. The digital chessboard graphic is still present., storyline: The man continues his attempt to distract the woman with jokes, but she remains focused on her game. He then makes a move, shifting the game's dynamic., shooting_style: This is a continuous shot with a digital graphic overlay.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 188.0,
+              "visual": "A young woman in a bright green hoodie sits across from a man in a black hoodie at a chess table. She gestures with her right hand towards his king, asking what he's going to do. The man, looking serious, tells her she's trying to be slick and should use her brain. She smiles and retorts that he almost fell for it.",
+              "audio": "speech: Woman: what are you gonna do? Man: oh you're trying to be slick. use your brain. no but seriously bro. you almost fell for it. Woman: almost did.; acoustics: 1) Tone of speech: The woman's tone is playful and confident; the man's is serious and slightly exasperated. 2) Background sounds or music: Faint ambient room noise.",
+              "on_screen_text": [
+                "s going to do. The man, looking serious, tells her she"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at the chess table. The shot is static.",
+                "video_background: The scene is set indoors, likely a cafe or community center. Behind the players is a window with green blinds and a brick wall. A digital chessboard graphic is superimposed on the screen, showing the current game state.",
+                "storyline: The scene opens on a chess game in progress. The woman is putting the man on the defensive, and he is trying to play mind games with her, but she is unfazed and seems to be in control.",
+                "shooting_style: This is a standard shot with a digital graphic overlay showing the chessboard."
+              ]
+            },
+            {
+              "start_s": 189.0,
+              "end_s": 197.0,
+              "visual": "The woman thanks the man, who jokes that he has a cheerleader. She playfully dismisses his comment and asks what he's going to do now. He dismisses her, saying he could use that too, and then moves his black knight, preparing his next move.",
+              "audio": "speech: Woman: thanks Mike. I got a cheerleader here. Man: you don't have one. woman: thank you. Man: what are you gonna do now? oh I could use that too. that out of here. what you see?; acoustics: 1) Tone of speech: The woman is cheerful and teasing; the man is dismissive and a bit cocky. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the window, blinds, and brick wall visible. The digital chessboard graphic is still present.",
+                "storyline: The man continues his attempt to distract the woman with jokes, but she remains focused on her game. He then makes a move, shifting the game's dynamic.",
+                "shooting_style: This is a continuous shot with a digital graphic overlay."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 181.522,
+              "end_s": 211.458,
+              "text": "What are we gonna do? Going there? Oh, no, you can't. Oh, you're trying to be slick. You're trying to use your brain. Of course I am. No, I can't do that, bro. You almost fell for it. I actually almost did. Go in and go in. Thanks, Mike. What kind of cheerleading crap is this, man? I got a cheerleader here. That's right. You don't have one, but she does. Thank you. Now we go here. What are we gonna do now? Oh, I can take that, too. That was free, so I gotta get that out of there."
+            },
+            {
+              "start_s": 212.217,
+              "end_s": 231.016,
+              "text": "But you know what's also free? Yeah, another queen. A checkmate. Oh! Oh! A checkmate? A checkmate. Drew, I'm still on your side. And a beautiful one. Oh! Oh!"
+            },
+            {
+              "start_s": 232.788,
+              "end_s": 245.292,
+              "text": "She got this thing! She got it! It is what it is! It is what it is! That was almost two in one thing. Thank you! Wow! Oh my gosh!"
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A man in a black hoodie and a woman in a lime green hoodie are playing a game of chess. The man, looking confused, asks a question. The woman, who is playing as Black, looks at her board, then at him, and makes a move with her knight, exclaiming in surprise.; speech: Man: what is my knight doing there? Woman: well I'm asking you. woah.; acoustics: 1) Tone of speech: The man's tone is questioning and slightly confused. The woman's tone is dismissive and then surprised. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table. The shot is static., video_background: The scene is set on an outdoor patio with a brick wall and green blinds in the background. A digital clock and a water bottle are visible on the table., storyline: The scene opens on a chess game in progress. The man is questioning a move he has just made, and the woman is about to respond with a surprising move of her own., shooting_style: This is a standard shot with a digital chessboard overlay to show the current state of the game. The woman continues to question the man's move, pointing at the board. The man, looking increasingly frustrated, explains that he is 'drugging' the game, implying he is cheating. The woman ignores his excuse and continues to play.; speech: Woman: that's kind of... man: well I'm drugging. Woman: just gonna put your queen in that? man: Grandmaster's games.; acoustics: 1) Tone of speech: The woman's tone is sarcastic. The man's tone is defensive and exasperated. 2) Background sounds or music: Ambient outdoor sounds.; s move, pointing at the board. The man, looking increasingly frustrated, explains that he is; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the brick wall and blinds. Another person in a purple hoodie is partially visible behind the main players., storyline: The man's frustration grows as he tries to justify his moves, claiming to be cheating. The woman dismisses his excuse, maintaining her focus on the game., shooting_style: The scene continues with the static shot and the digital chessboard overlay.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0,
+              "visual": "A man in a black hoodie and a woman in a lime green hoodie are playing a game of chess. The man, looking confused, asks a question. The woman, who is playing as Black, looks at her board, then at him, and makes a move with her knight, exclaiming in surprise.",
+              "audio": "speech: Man: what is my knight doing there? Woman: well I'm asking you. woah.; acoustics: 1) Tone of speech: The man's tone is questioning and slightly confused. The woman's tone is dismissive and then surprised. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table. The shot is static.",
+                "video_background: The scene is set on an outdoor patio with a brick wall and green blinds in the background. A digital clock and a water bottle are visible on the table.",
+                "storyline: The scene opens on a chess game in progress. The man is questioning a move he has just made, and the woman is about to respond with a surprising move of her own.",
+                "shooting_style: This is a standard shot with a digital chessboard overlay to show the current state of the game."
+              ]
+            },
+            {
+              "start_s": 66.0,
+              "end_s": 73.0,
+              "visual": "The woman continues to question the man's move, pointing at the board. The man, looking increasingly frustrated, explains that he is 'drugging' the game, implying he is cheating. The woman ignores his excuse and continues to play.",
+              "audio": "speech: Woman: that's kind of... man: well I'm drugging. Woman: just gonna put your queen in that? man: Grandmaster's games.; acoustics: 1) Tone of speech: The woman's tone is sarcastic. The man's tone is defensive and exasperated. 2) Background sounds or music: Ambient outdoor sounds.",
+              "on_screen_text": [
+                "s move, pointing at the board. The man, looking increasingly frustrated, explains that he is"
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the brick wall and blinds. Another person in a purple hoodie is partially visible behind the main players.",
+                "storyline: The man's frustration grows as he tries to justify his moves, claiming to be cheating. The woman dismisses his excuse, maintaining her focus on the game.",
+                "shooting_style: The scene continues with the static shot and the digital chessboard overlay."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 74.247,
+              "end_s": 97.973,
+              "text": "Well, I'm bringing my A game, so. Just going to put your queen in that? Yeah. I'm going to put my queen. That's what I think about Grandmaster's games. Just taking calculator a lot means nothing to me. All right. Whoa, boy, got to go. You're going to go? Got to go. Got to go. Got to go. Well, I got to go, too. I know."
+            },
+            {
+              "start_s": 98.429,
+              "end_s": 127.1,
+              "text": "You know what I'm going to do, right? I have not a damn clue. I'm not a grandmaster. You're not? Okay. No. Well, I'm going to be kind to you. I'm going to start by doing this. Don't be kind. Don't be doing other kind stuff. Okay. What? No. Leave me alone. You want me to leave you alone? I don't want to. It's not like personal problem. I have so many things I want to do. I bet you do. I do. I bet. Yeah. Yeah, my corporate voice."
+            }
+          ]
+        }
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A man in a black hoodie and a woman in a lime green hoodie are playing a game of chess. The man, looking confused, asks a question. The woman, who is playing as Black, looks at her board, then at him, and makes a move with her knight, exclaiming in surprise.; speech: Man: what is my knight doing there? Woman: well I'm asking you. woah.; acoustics: 1) Tone of speech: The man's tone is questioning and slightly confused. The woman's tone is dismissive and then surprised. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table. The shot is static., video_background: The scene is set on an outdoor patio with a brick wall and green blinds in the background. A digital clock and a water bottle are visible on the table., storyline: The scene opens on a chess game in progress. The man is questioning a move he has just made, and the woman is about to respond with a surprising move of her own., shooting_style: This is a standard shot with a digital chessboard overlay to show the current state of the game. The woman continues to question the man's move, pointing at the board. The man, looking increasingly frustrated, explains that he is 'drugging' the game, implying he is cheating. The woman ignores his excuse and continues to play.; speech: Woman: that's kind of... man: well I'm drugging. Woman: just gonna put your queen in that? man: Grandmaster's games.; acoustics: 1) Tone of speech: The woman's tone is sarcastic. The man's tone is defensive and exasperated. 2) Background sounds or music: Ambient outdoor sounds.; s move, pointing at the board. The man, looking increasingly frustrated, explains that he is; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the brick wall and blinds. Another person in a purple hoodie is partially visible behind the main players., storyline: The man's frustration grows as he tries to justify his moves, claiming to be cheating. The woman dismisses his excuse, maintaining her focus on the game., shooting_style: The scene continues with the static shot and the digital chessboard overlay.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0,
+              "visual": "A man in a black hoodie and a woman in a lime green hoodie are playing a game of chess. The man, looking confused, asks a question. The woman, who is playing as Black, looks at her board, then at him, and makes a move with her knight, exclaiming in surprise.",
+              "audio": "speech: Man: what is my knight doing there? Woman: well I'm asking you. woah.; acoustics: 1) Tone of speech: The man's tone is questioning and slightly confused. The woman's tone is dismissive and then surprised. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table. The shot is static.",
+                "video_background: The scene is set on an outdoor patio with a brick wall and green blinds in the background. A digital clock and a water bottle are visible on the table.",
+                "storyline: The scene opens on a chess game in progress. The man is questioning a move he has just made, and the woman is about to respond with a surprising move of her own.",
+                "shooting_style: This is a standard shot with a digital chessboard overlay to show the current state of the game."
+              ]
+            },
+            {
+              "start_s": 66.0,
+              "end_s": 73.0,
+              "visual": "The woman continues to question the man's move, pointing at the board. The man, looking increasingly frustrated, explains that he is 'drugging' the game, implying he is cheating. The woman ignores his excuse and continues to play.",
+              "audio": "speech: Woman: that's kind of... man: well I'm drugging. Woman: just gonna put your queen in that? man: Grandmaster's games.; acoustics: 1) Tone of speech: The woman's tone is sarcastic. The man's tone is defensive and exasperated. 2) Background sounds or music: Ambient outdoor sounds.",
+              "on_screen_text": [
+                "s move, pointing at the board. The man, looking increasingly frustrated, explains that he is"
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the brick wall and blinds. Another person in a purple hoodie is partially visible behind the main players.",
+                "storyline: The man's frustration grows as he tries to justify his moves, claiming to be cheating. The woman dismisses his excuse, maintaining her focus on the game.",
+                "shooting_style: The scene continues with the static shot and the digital chessboard overlay."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 74.247,
+            "end_s": 97.973,
+            "text": "Well, I'm bringing my A game, so. Just going to put your queen in that? Yeah. I'm going to put my queen. That's what I think about Grandmaster's games. Just taking calculator a lot means nothing to me. All right. Whoa, boy, got to go. You're going to go? Got to go. Got to go. Got to go. Well, I got to go, too. I know."
+          },
+          {
+            "start_s": 98.429,
+            "end_s": 127.1,
+            "text": "You know what I'm going to do, right? I have not a damn clue. I'm not a grandmaster. You're not? Okay. No. Well, I'm going to be kind to you. I'm going to start by doing this. Don't be kind. Don't be doing other kind stuff. Okay. What? No. Leave me alone. You want me to leave you alone? I don't want to. It's not like personal problem. I have so many things I want to do. I bet you do. I do. I bet. Yeah. Yeah, my corporate voice."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a black hoodie and a woman in a neon yellow hoodie are playing a game of chess. The man, with a serious expression, rests his chin on his clasped hands, deep in thought. The woman, on the other hand, smiles and laughs, looking amused by the game. A digital clock and a large screen showing the chessboard are visible between them.; speech: Woman: I have so many things. I wanna do... there is so much stuff here. I know it is. You know what I'm saying?; acoustics: 1) Tone of speech: The woman's tone is cheerful and conversational. 2) Background sounds or music: Faint ambient room noise.; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table., video_background: The scene is set indoors, with a stone fireplace wall on the right and a window with blinds on the left. A digital clock and a large, illuminated chessboard graphic are displayed on the wall behind the players., storyline: The scene is established, showing a chess game in progress. The contrasting demeanors of the two players are introduced: the man is focused and serious, while the woman is lighthearted and amused., shooting_style: This is a standard, continuous shot focusing on the two main subjects. The woman points at the chessboard, making a playful challenge. The man, still looking thoughtful, considers her words. The digital clock in the background shows the time is 0:15 for the woman's turn.; speech: Woman: My game's been like, 'Miss, I'm the strongest player.' You're 750? That's kind of hot. I'm sticking to that.; acoustics: 1) Tone of speech: The woman's tone is playful and confident. 2) Background sounds or music: None.; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the stone wall, window, and digital chessboard screen visible. The clock's timer is a key element., storyline: The woman initiates a lighthearted challenge, suggesting she is a strong player. The man's reaction shows he is taking her challenge seriously, setting up a playful rivalry., shooting_style: This is a continuous shot.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 127.0,
+              "visual": "A man in a black hoodie and a woman in a neon yellow hoodie are playing a game of chess. The man, with a serious expression, rests his chin on his clasped hands, deep in thought. The woman, on the other hand, smiles and laughs, looking amused by the game. A digital clock and a large screen showing the chessboard are visible between them.",
+              "audio": "speech: Woman: I have so many things. I wanna do... there is so much stuff here. I know it is. You know what I'm saying?; acoustics: 1) Tone of speech: The woman's tone is cheerful and conversational. 2) Background sounds or music: Faint ambient room noise.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table.",
+                "video_background: The scene is set indoors, with a stone fireplace wall on the right and a window with blinds on the left. A digital clock and a large, illuminated chessboard graphic are displayed on the wall behind the players.",
+                "storyline: The scene is established, showing a chess game in progress. The contrasting demeanors of the two players are introduced: the man is focused and serious, while the woman is lighthearted and amused.",
+                "shooting_style: This is a standard, continuous shot focusing on the two main subjects."
+              ]
+            },
+            {
+              "start_s": 128.0,
+              "end_s": 134.0,
+              "visual": "The woman points at the chessboard, making a playful challenge. The man, still looking thoughtful, considers her words. The digital clock in the background shows the time is 0:15 for the woman's turn.",
+              "audio": "speech: Woman: My game's been like, 'Miss, I'm the strongest player.' You're 750? That's kind of hot. I'm sticking to that.; acoustics: 1) Tone of speech: The woman's tone is playful and confident. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the stone wall, window, and digital chessboard screen visible. The clock's timer is a key element.",
+                "storyline: The woman initiates a lighthearted challenge, suggesting she is a strong player. The man's reaction shows he is taking her challenge seriously, setting up a playful rivalry.",
+                "shooting_style: This is a continuous shot."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 127.707,
+            "end_s": 149.881,
+            "text": "Oh, there's so much stuff here. I know it is. I know it is. You know it. Yeah, you're thinking long and hard. It makes me glad my game has been the worst. I'm the strongest 750 player you'll ever meet. You're 750? 750. That's kind of high. Hey, man, I'm just telling it like it is, man. I'm 750, bro. I'm sticking to that. What the heck? What the heck? What was I doing? What? What the?"
+          },
+          {
+            "start_s": 150.539,
+            "end_s": 178.754,
+            "text": "What are you doing? I don't know. I'm getting away from you. You're getting away from me? Yeah. Alright, well let me get to you. Is that how you feel it? Yeah, that's how I'm feeling. That's not good. It's perfect. You're going back? I gotta go back. You gotta go back. That's true. I know there's a lot of stuff I want to do. I bet it is. We're gonna go for it. We're gonna go sheer."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 245.267,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 240.0,
+              "end_s": 245.267,
+              "artifact_id": "clip_240_00_245_27",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_240_00_245_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 245.267
+          },
+          "overall_summary": "A woman with blonde hair, wearing a bright green cardigan, smiles warmly at the camera. She is seated at a table with a green and white chessboard. On the table, a digital clock shows the time as 03:03:14. Next to the clock are several bottles of water and two cups. A man in a black and white varsity jacket stands behind the table, and another person in a purple hoodie is partially visible on the far left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor or semi-outdoor space.; attributes: camera_state: The camera is positioned at a medium distance, capturing the upper bodies of the people and the chessboard on the table. The shot is static., video_background: The scene is set on a patio with a brick wall on the right and a window with green blinds in the background. The lighting is bright and natural, suggesting it's daytime., storyline: The scene is established, introducing a casual chess game in progress. The woman's smile suggests a friendly and relaxed atmosphere., shooting_style: This is a standard establishing shot. The woman in the green cardigan laughs and covers her mouth with her hand, reacting to something happening off-screen. The man in the varsity jacket gestures with his hands as if he is explaining a move or making a point. The chessboard shows a standard game in progress, with the white pieces on the right and black pieces on the left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The woman's laughter is audible.; attributes: camera_state: The camera remains in a static medium shot, keeping the focus on the interaction between the two people at the table., video_background: The background remains the same, with the brick wall and window visible. The focus is on the characters' interaction., storyline: The interaction between the two players is highlighted, showing the woman's amusement and the man's animated explanation, which adds a layer of social dynamics to the chess game., shooting_style: This is a continuation of the previous shot.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 245.0,
+              "visual": "A woman with blonde hair, wearing a bright green cardigan, smiles warmly at the camera. She is seated at a table with a green and white chessboard. On the table, a digital clock shows the time as 03:03:14. Next to the clock are several bottles of water and two cups. A man in a black and white varsity jacket stands behind the table, and another person in a purple hoodie is partially visible on the far left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor or semi-outdoor space.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing the upper bodies of the people and the chessboard on the table. The shot is static.",
+                "video_background: The scene is set on a patio with a brick wall on the right and a window with green blinds in the background. The lighting is bright and natural, suggesting it's daytime.",
+                "storyline: The scene is established, introducing a casual chess game in progress. The woman's smile suggests a friendly and relaxed atmosphere.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 240.0,
+              "end_s": 240.0,
+              "visual": "The woman in the green cardigan laughs and covers her mouth with her hand, reacting to something happening off-screen. The man in the varsity jacket gestures with his hands as if he is explaining a move or making a point. The chessboard shows a standard game in progress, with the white pieces on the right and black pieces on the left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The woman's laughter is audible.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping the focus on the interaction between the two people at the table.",
+                "video_background: The background remains the same, with the brick wall and window visible. The focus is on the characters' interaction.",
+                "storyline: The interaction between the two players is highlighted, showing the woman's amusement and the man's animated explanation, which adds a layer of social dynamics to the chess game.",
+                "shooting_style: This is a continuation of the previous shot."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "A young woman in a bright green hoodie sits across from a man in a black hoodie at a chess table. She gestures with her right hand towards his king, asking what he's going to do. The man, looking serious, tells her she's trying to be slick and should use her brain. She smiles and retorts that he almost fell for it.; speech: Woman: what are you gonna do? Man: oh you're trying to be slick. use your brain. no but seriously bro. you almost fell for it. Woman: almost did.; acoustics: 1) Tone of speech: The woman's tone is playful and confident; the man's is serious and slightly exasperated. 2) Background sounds or music: Faint ambient room noise.; s going to do. The man, looking serious, tells her she; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at the chess table. The shot is static., video_background: The scene is set indoors, likely a cafe or community center. Behind the players is a window with green blinds and a brick wall. A digital chessboard graphic is superimposed on the screen, showing the current game state., storyline: The scene opens on a chess game in progress. The woman is putting the man on the defensive, and he is trying to play mind games with her, but she is unfazed and seems to be in control., shooting_style: This is a standard shot with a digital graphic overlay showing the chessboard. The woman thanks the man, who jokes that he has a cheerleader. She playfully dismisses his comment and asks what he's going to do now. He dismisses her, saying he could use that too, and then moves his black knight, preparing his next move.; speech: Woman: thanks Mike. I got a cheerleader here. Man: you don't have one. woman: thank you. Man: what are you gonna do now? oh I could use that too. that out of here. what you see?; acoustics: 1) Tone of speech: The woman is cheerful and teasing; the man is dismissive and a bit cocky. 2) Background sounds or music: None.; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the window, blinds, and brick wall visible. The digital chessboard graphic is still present., storyline: The man continues his attempt to distract the woman with jokes, but she remains focused on her game. He then makes a move, shifting the game's dynamic., shooting_style: This is a continuous shot with a digital graphic overlay.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 188.0,
+              "visual": "A young woman in a bright green hoodie sits across from a man in a black hoodie at a chess table. She gestures with her right hand towards his king, asking what he's going to do. The man, looking serious, tells her she's trying to be slick and should use her brain. She smiles and retorts that he almost fell for it.",
+              "audio": "speech: Woman: what are you gonna do? Man: oh you're trying to be slick. use your brain. no but seriously bro. you almost fell for it. Woman: almost did.; acoustics: 1) Tone of speech: The woman's tone is playful and confident; the man's is serious and slightly exasperated. 2) Background sounds or music: Faint ambient room noise.",
+              "on_screen_text": [
+                "s going to do. The man, looking serious, tells her she"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at the chess table. The shot is static.",
+                "video_background: The scene is set indoors, likely a cafe or community center. Behind the players is a window with green blinds and a brick wall. A digital chessboard graphic is superimposed on the screen, showing the current game state.",
+                "storyline: The scene opens on a chess game in progress. The woman is putting the man on the defensive, and he is trying to play mind games with her, but she is unfazed and seems to be in control.",
+                "shooting_style: This is a standard shot with a digital graphic overlay showing the chessboard."
+              ]
+            },
+            {
+              "start_s": 189.0,
+              "end_s": 197.0,
+              "visual": "The woman thanks the man, who jokes that he has a cheerleader. She playfully dismisses his comment and asks what he's going to do now. He dismisses her, saying he could use that too, and then moves his black knight, preparing his next move.",
+              "audio": "speech: Woman: thanks Mike. I got a cheerleader here. Man: you don't have one. woman: thank you. Man: what are you gonna do now? oh I could use that too. that out of here. what you see?; acoustics: 1) Tone of speech: The woman is cheerful and teasing; the man is dismissive and a bit cocky. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the window, blinds, and brick wall visible. The digital chessboard graphic is still present.",
+                "storyline: The man continues his attempt to distract the woman with jokes, but she remains focused on her game. He then makes a move, shifting the game's dynamic.",
+                "shooting_style: This is a continuous shot with a digital graphic overlay."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 181.522,
+            "end_s": 211.458,
+            "text": "What are we gonna do? Going there? Oh, no, you can't. Oh, you're trying to be slick. You're trying to use your brain. Of course I am. No, I can't do that, bro. You almost fell for it. I actually almost did. Go in and go in. Thanks, Mike. What kind of cheerleading crap is this, man? I got a cheerleader here. That's right. You don't have one, but she does. Thank you. Now we go here. What are we gonna do now? Oh, I can take that, too. That was free, so I gotta get that out of there."
+          },
+          {
+            "start_s": 212.217,
+            "end_s": 231.016,
+            "text": "But you know what's also free? Yeah, another queen. A checkmate. Oh! Oh! A checkmate? A checkmate. Drew, I'm still on your side. And a beautiful one. Oh! Oh!"
+          },
+          {
+            "start_s": 232.788,
+            "end_s": 245.292,
+            "text": "She got this thing! She got it! It is what it is! It is what it is! That was almost two in one thing. Thank you! Wow! Oh my gosh!"
+          }
+        ]
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_aadb389b8584",
+        "clip": {
+          "video_id": "d8UESxnuVAY",
+          "start_s": 0.0,
+          "end_s": 245.267,
+          "artifact_id": "clip_000_00_245_27",
+          "relpath": "artifacts/d8UESxnuVAY/clips/clip_000_00_245_27.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 0.031,
+            "end_s": 16.366,
+            "text": "So now you're going to bring your A game. No, I'm going to bring my C game. Your C game? No, I don't need my A game. You don't need your A game. No, I don't need it. No, you needed it before. It's Women's Month. No, I didn't. I gave back to women. It's Women's Month. Okay. I'm being charitable Sunday, too. All right."
+          },
+          {
+            "start_s": 16.366,
+            "end_s": 44.463,
+            "text": "Let's do it. Come on. Show me your C game then. Say it again. You're going to just say the one that didn't work last time. It is what it is. Let me bring this here. It's okay. Let's get that one. What are you doing? I don't know. No idea. Not at all. What are you doing?"
+          },
+          {
+            "start_s": 44.733,
+            "end_s": 73.96,
+            "text": "Taking up the sun. There you go. Just like I did before. It worked. If it worked once, why not do it again, right? I don't know. You don't know. What's your night doing? Huh? What's your night doing there? What is my night doing there? Yeah. Well, I'm asking you. Whoa, bro. Huh? That's kind of..."
+          },
+          {
+            "start_s": 74.247,
+            "end_s": 97.973,
+            "text": "Well, I'm bringing my A game, so. Just going to put your queen in that? Yeah. I'm going to put my queen. That's what I think about Grandmaster's games. Just taking calculator a lot means nothing to me. All right. Whoa, boy, got to go. You're going to go? Got to go. Got to go. Got to go. Well, I got to go, too. I know."
+          },
+          {
+            "start_s": 98.429,
+            "end_s": 127.1,
+            "text": "You know what I'm going to do, right? I have not a damn clue. I'm not a grandmaster. You're not? Okay. No. Well, I'm going to be kind to you. I'm going to start by doing this. Don't be kind. Don't be doing other kind stuff. Okay. What? No. Leave me alone. You want me to leave you alone? I don't want to. It's not like personal problem. I have so many things I want to do. I bet you do. I do. I bet. Yeah. Yeah, my corporate voice."
+          },
+          {
+            "start_s": 127.707,
+            "end_s": 149.881,
+            "text": "Oh, there's so much stuff here. I know it is. I know it is. You know it. Yeah, you're thinking long and hard. It makes me glad my game has been the worst. I'm the strongest 750 player you'll ever meet. You're 750? 750. That's kind of high. Hey, man, I'm just telling it like it is, man. I'm 750, bro. I'm sticking to that. What the heck? What the heck? What was I doing? What? What the?"
+          },
+          {
+            "start_s": 150.539,
+            "end_s": 178.754,
+            "text": "What are you doing? I don't know. I'm getting away from you. You're getting away from me? Yeah. Alright, well let me get to you. Is that how you feel it? Yeah, that's how I'm feeling. That's not good. It's perfect. You're going back? I gotta go back. You gotta go back. That's true. I know there's a lot of stuff I want to do. I bet it is. We're gonna go for it. We're gonna go sheer."
+          },
+          {
+            "start_s": 181.522,
+            "end_s": 211.458,
+            "text": "What are we gonna do? Going there? Oh, no, you can't. Oh, you're trying to be slick. You're trying to use your brain. Of course I am. No, I can't do that, bro. You almost fell for it. I actually almost did. Go in and go in. Thanks, Mike. What kind of cheerleading crap is this, man? I got a cheerleader here. That's right. You don't have one, but she does. Thank you. Now we go here. What are we gonna do now? Oh, I can take that, too. That was free, so I gotta get that out of there."
+          },
+          {
+            "start_s": 212.217,
+            "end_s": 231.016,
+            "text": "But you know what's also free? Yeah, another queen. A checkmate. Oh! Oh! A checkmate? A checkmate. Drew, I'm still on your side. And a beautiful one. Oh! Oh!"
+          },
+          {
+            "start_s": 232.788,
+            "end_s": 245.292,
+            "text": "She got this thing! She got it! It is what it is! It is what it is! That was almost two in one thing. Thank you! Wow! Oh my gosh!"
+          }
+        ]
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a black hoodie and a woman in a neon yellow hoodie are playing a game of chess. The man, with a serious expression, rests his chin on his clasped hands, deep in thought. The woman, on the other hand, smiles and laughs, looking amused by the game. A digital clock and a large screen showing the chessboard are visible between them.; speech: Woman: I have so many things. I wanna do... there is so much stuff here. I know it is. You know what I'm saying?; acoustics: 1) Tone of speech: The woman's tone is cheerful and conversational. 2) Background sounds or music: Faint ambient room noise.; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table., video_background: The scene is set indoors, with a stone fireplace wall on the right and a window with blinds on the left. A digital clock and a large, illuminated chessboard graphic are displayed on the wall behind the players., storyline: The scene is established, showing a chess game in progress. The contrasting demeanors of the two players are introduced: the man is focused and serious, while the woman is lighthearted and amused., shooting_style: This is a standard, continuous shot focusing on the two main subjects. The woman points at the chessboard, making a playful challenge. The man, still looking thoughtful, considers her words. The digital clock in the background shows the time is 0:15 for the woman's turn.; speech: Woman: My game's been like, 'Miss, I'm the strongest player.' You're 750? That's kind of hot. I'm sticking to that.; acoustics: 1) Tone of speech: The woman's tone is playful and confident. 2) Background sounds or music: None.; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the stone wall, window, and digital chessboard screen visible. The clock's timer is a key element., storyline: The woman initiates a lighthearted challenge, suggesting she is a strong player. The man's reaction shows he is taking her challenge seriously, setting up a playful rivalry., shooting_style: This is a continuous shot.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 127.0,
+              "visual": "A man in a black hoodie and a woman in a neon yellow hoodie are playing a game of chess. The man, with a serious expression, rests his chin on his clasped hands, deep in thought. The woman, on the other hand, smiles and laughs, looking amused by the game. A digital clock and a large screen showing the chessboard are visible between them.",
+              "audio": "speech: Woman: I have so many things. I wanna do... there is so much stuff here. I know it is. You know what I'm saying?; acoustics: 1) Tone of speech: The woman's tone is cheerful and conversational. 2) Background sounds or music: Faint ambient room noise.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table.",
+                "video_background: The scene is set indoors, with a stone fireplace wall on the right and a window with blinds on the left. A digital clock and a large, illuminated chessboard graphic are displayed on the wall behind the players.",
+                "storyline: The scene is established, showing a chess game in progress. The contrasting demeanors of the two players are introduced: the man is focused and serious, while the woman is lighthearted and amused.",
+                "shooting_style: This is a standard, continuous shot focusing on the two main subjects."
+              ]
+            },
+            {
+              "start_s": 128.0,
+              "end_s": 134.0,
+              "visual": "The woman points at the chessboard, making a playful challenge. The man, still looking thoughtful, considers her words. The digital clock in the background shows the time is 0:15 for the woman's turn.",
+              "audio": "speech: Woman: My game's been like, 'Miss, I'm the strongest player.' You're 750? That's kind of hot. I'm sticking to that.; acoustics: 1) Tone of speech: The woman's tone is playful and confident. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the stone wall, window, and digital chessboard screen visible. The clock's timer is a key element.",
+                "storyline: The woman initiates a lighthearted challenge, suggesting she is a strong player. The man's reaction shows he is taking her challenge seriously, setting up a playful rivalry.",
+                "shooting_style: This is a continuous shot."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 245.267,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 240.0,
+              "end_s": 245.267,
+              "artifact_id": "clip_240_00_245_27",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_240_00_245_27.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 245.267
+          },
+          "overall_summary": "A woman with blonde hair, wearing a bright green cardigan, smiles warmly at the camera. She is seated at a table with a green and white chessboard. On the table, a digital clock shows the time as 03:03:14. Next to the clock are several bottles of water and two cups. A man in a black and white varsity jacket stands behind the table, and another person in a purple hoodie is partially visible on the far left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor or semi-outdoor space.; attributes: camera_state: The camera is positioned at a medium distance, capturing the upper bodies of the people and the chessboard on the table. The shot is static., video_background: The scene is set on a patio with a brick wall on the right and a window with green blinds in the background. The lighting is bright and natural, suggesting it's daytime., storyline: The scene is established, introducing a casual chess game in progress. The woman's smile suggests a friendly and relaxed atmosphere., shooting_style: This is a standard establishing shot. The woman in the green cardigan laughs and covers her mouth with her hand, reacting to something happening off-screen. The man in the varsity jacket gestures with his hands as if he is explaining a move or making a point. The chessboard shows a standard game in progress, with the white pieces on the right and black pieces on the left.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The woman's laughter is audible.; attributes: camera_state: The camera remains in a static medium shot, keeping the focus on the interaction between the two people at the table., video_background: The background remains the same, with the brick wall and window visible. The focus is on the characters' interaction., storyline: The interaction between the two players is highlighted, showing the woman's amusement and the man's animated explanation, which adds a layer of social dynamics to the chess game., shooting_style: This is a continuation of the previous shot.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 245.0,
+              "visual": "A woman with blonde hair, wearing a bright green cardigan, smiles warmly at the camera. She is seated at a table with a green and white chessboard. On the table, a digital clock shows the time as 03:03:14. Next to the clock are several bottles of water and two cups. A man in a black and white varsity jacket stands behind the table, and another person in a purple hoodie is partially visible on the far left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of an outdoor or semi-outdoor space.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing the upper bodies of the people and the chessboard on the table. The shot is static.",
+                "video_background: The scene is set on a patio with a brick wall on the right and a window with green blinds in the background. The lighting is bright and natural, suggesting it's daytime.",
+                "storyline: The scene is established, introducing a casual chess game in progress. The woman's smile suggests a friendly and relaxed atmosphere.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 240.0,
+              "end_s": 240.0,
+              "visual": "The woman in the green cardigan laughs and covers her mouth with her hand, reacting to something happening off-screen. The man in the varsity jacket gestures with his hands as if he is explaining a move or making a point. The chessboard shows a standard game in progress, with the white pieces on the right and black pieces on the left.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The woman's laughter is audible.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping the focus on the interaction between the two people at the table.",
+                "video_background: The background remains the same, with the brick wall and window visible. The focus is on the characters' interaction.",
+                "storyline: The interaction between the two players is highlighted, showing the woman's amusement and the man's animated explanation, which adds a layer of social dynamics to the chess game.",
+                "shooting_style: This is a continuation of the previous shot."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "A young woman in a bright green hoodie sits across from a man in a black hoodie at a chess table. She gestures with her right hand towards his king, asking what he's going to do. The man, looking serious, tells her she's trying to be slick and should use her brain. She smiles and retorts that he almost fell for it.; speech: Woman: what are you gonna do? Man: oh you're trying to be slick. use your brain. no but seriously bro. you almost fell for it. Woman: almost did.; acoustics: 1) Tone of speech: The woman's tone is playful and confident; the man's is serious and slightly exasperated. 2) Background sounds or music: Faint ambient room noise.; s going to do. The man, looking serious, tells her she; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at the chess table. The shot is static., video_background: The scene is set indoors, likely a cafe or community center. Behind the players is a window with green blinds and a brick wall. A digital chessboard graphic is superimposed on the screen, showing the current game state., storyline: The scene opens on a chess game in progress. The woman is putting the man on the defensive, and he is trying to play mind games with her, but she is unfazed and seems to be in control., shooting_style: This is a standard shot with a digital graphic overlay showing the chessboard. The woman thanks the man, who jokes that he has a cheerleader. She playfully dismisses his comment and asks what he's going to do now. He dismisses her, saying he could use that too, and then moves his black knight, preparing his next move.; speech: Woman: thanks Mike. I got a cheerleader here. Man: you don't have one. woman: thank you. Man: what are you gonna do now? oh I could use that too. that out of here. what you see?; acoustics: 1) Tone of speech: The woman is cheerful and teasing; the man is dismissive and a bit cocky. 2) Background sounds or music: None.; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the window, blinds, and brick wall visible. The digital chessboard graphic is still present., storyline: The man continues his attempt to distract the woman with jokes, but she remains focused on her game. He then makes a move, shifting the game's dynamic., shooting_style: This is a continuous shot with a digital graphic overlay.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 188.0,
+              "visual": "A young woman in a bright green hoodie sits across from a man in a black hoodie at a chess table. She gestures with her right hand towards his king, asking what he's going to do. The man, looking serious, tells her she's trying to be slick and should use her brain. She smiles and retorts that he almost fell for it.",
+              "audio": "speech: Woman: what are you gonna do? Man: oh you're trying to be slick. use your brain. no but seriously bro. you almost fell for it. Woman: almost did.; acoustics: 1) Tone of speech: The woman's tone is playful and confident; the man's is serious and slightly exasperated. 2) Background sounds or music: Faint ambient room noise.",
+              "on_screen_text": [
+                "s going to do. The man, looking serious, tells her she"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at the chess table. The shot is static.",
+                "video_background: The scene is set indoors, likely a cafe or community center. Behind the players is a window with green blinds and a brick wall. A digital chessboard graphic is superimposed on the screen, showing the current game state.",
+                "storyline: The scene opens on a chess game in progress. The woman is putting the man on the defensive, and he is trying to play mind games with her, but she is unfazed and seems to be in control.",
+                "shooting_style: This is a standard shot with a digital graphic overlay showing the chessboard."
+              ]
+            },
+            {
+              "start_s": 189.0,
+              "end_s": 197.0,
+              "visual": "The woman thanks the man, who jokes that he has a cheerleader. She playfully dismisses his comment and asks what he's going to do now. He dismisses her, saying he could use that too, and then moves his black knight, preparing his next move.",
+              "audio": "speech: Woman: thanks Mike. I got a cheerleader here. Man: you don't have one. woman: thank you. Man: what are you gonna do now? oh I could use that too. that out of here. what you see?; acoustics: 1) Tone of speech: The woman is cheerful and teasing; the man is dismissive and a bit cocky. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the window, blinds, and brick wall visible. The digital chessboard graphic is still present.",
+                "storyline: The man continues his attempt to distract the woman with jokes, but she remains focused on her game. He then makes a move, shifting the game's dynamic.",
+                "shooting_style: This is a continuous shot with a digital graphic overlay."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/d8UESxnuVAY/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A man in a black hoodie and a woman in a lime green hoodie are playing a game of chess. The man, looking confused, asks a question. The woman, who is playing as Black, looks at her board, then at him, and makes a move with her knight, exclaiming in surprise.; speech: Man: what is my knight doing there? Woman: well I'm asking you. woah.; acoustics: 1) Tone of speech: The man's tone is questioning and slightly confused. The woman's tone is dismissive and then surprised. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.; attributes: camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table. The shot is static., video_background: The scene is set on an outdoor patio with a brick wall and green blinds in the background. A digital clock and a water bottle are visible on the table., storyline: The scene opens on a chess game in progress. The man is questioning a move he has just made, and the woman is about to respond with a surprising move of her own., shooting_style: This is a standard shot with a digital chessboard overlay to show the current state of the game. The woman continues to question the man's move, pointing at the board. The man, looking increasingly frustrated, explains that he is 'drugging' the game, implying he is cheating. The woman ignores his excuse and continues to play.; speech: Woman: that's kind of... man: well I'm drugging. Woman: just gonna put your queen in that? man: Grandmaster's games.; acoustics: 1) Tone of speech: The woman's tone is sarcastic. The man's tone is defensive and exasperated. 2) Background sounds or music: Ambient outdoor sounds.; s move, pointing at the board. The man, looking increasingly frustrated, explains that he is; attributes: camera_state: The camera remains in a static medium shot, keeping both players in the frame., video_background: The background remains the same, with the brick wall and blinds. Another person in a purple hoodie is partially visible behind the main players., storyline: The man's frustration grows as he tries to justify his moves, claiming to be cheating. The woman dismisses his excuse, maintaining her focus on the game., shooting_style: The scene continues with the static shot and the digital chessboard overlay.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 65.0,
+              "visual": "A man in a black hoodie and a woman in a lime green hoodie are playing a game of chess. The man, looking confused, asks a question. The woman, who is playing as Black, looks at her board, then at him, and makes a move with her knight, exclaiming in surprise.",
+              "audio": "speech: Man: what is my knight doing there? Woman: well I'm asking you. woah.; acoustics: 1) Tone of speech: The man's tone is questioning and slightly confused. The woman's tone is dismissive and then surprised. 2) Background sounds or music: Faint ambient sounds of an outdoor setting.",
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, capturing both players from the waist up as they sit at a table. The shot is static.",
+                "video_background: The scene is set on an outdoor patio with a brick wall and green blinds in the background. A digital clock and a water bottle are visible on the table.",
+                "storyline: The scene opens on a chess game in progress. The man is questioning a move he has just made, and the woman is about to respond with a surprising move of her own.",
+                "shooting_style: This is a standard shot with a digital chessboard overlay to show the current state of the game."
+              ]
+            },
+            {
+              "start_s": 66.0,
+              "end_s": 73.0,
+              "visual": "The woman continues to question the man's move, pointing at the board. The man, looking increasingly frustrated, explains that he is 'drugging' the game, implying he is cheating. The woman ignores his excuse and continues to play.",
+              "audio": "speech: Woman: that's kind of... man: well I'm drugging. Woman: just gonna put your queen in that? man: Grandmaster's games.; acoustics: 1) Tone of speech: The woman's tone is sarcastic. The man's tone is defensive and exasperated. 2) Background sounds or music: Ambient outdoor sounds.",
+              "on_screen_text": [
+                "s move, pointing at the board. The man, looking increasingly frustrated, explains that he is"
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, keeping both players in the frame.",
+                "video_background: The background remains the same, with the brick wall and blinds. Another person in a purple hoodie is partially visible behind the main players.",
+                "storyline: The man's frustration grows as he tries to justify his moves, claiming to be cheating. The woman dismisses his excuse, maintaining her focus on the game.",
+                "shooting_style: The scene continues with the static shot and the digital chessboard overlay."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

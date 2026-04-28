@@ -1,0 +1,907 @@
+{
+  "query_terms": [
+    "sum",
+    "year",
+    "town",
+    "founder",
+    "died",
+    "narrator",
+    "describe",
+    "bedrooms",
+    "3775",
+    "3777",
+    "3769",
+    "3762",
+    "3773",
+    "transcript",
+    "span",
+    "stating",
+    "tombstone",
+    "sheflin",
+    "nearby",
+    "context",
+    "may",
+    "identify",
+    "relevant",
+    "historical",
+    "death",
+    "asr",
+    "describes",
+    "rooms",
+    "mentions",
+    "style",
+    "decorated",
+    "1880s",
+    "flair",
+    "state",
+    "art"
+  ],
+  "retrieval_requests": [
+    {
+      "request_id": "founder_death_year",
+      "target": "preprocess",
+      "need": "Transcript span stating when Tombstone founder Ed Sheflin died or nearby context that may identify the founder and relevant historical year",
+      "query": "Ed Sheflin founder died death year Tombstone founder Ed Sheflin",
+      "time_range": {
+        "start_s": 150.0,
+        "end_s": 203.403
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "limit": 10
+    },
+    {
+      "request_id": "bedrooms_year_phrase",
+      "target": "preprocess",
+      "need": "Transcript span where the narrator describes the rooms/bedrooms and mentions the historical year/style",
+      "query": "bedrooms rooms decorated year 1880s flair state-of-the-art rooms narrator",
+      "time_range": {
+        "start_s": 40.0,
+        "end_s": 80.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "limit": 10
+    }
+  ],
+  "preprocess_matches": {
+    "planner_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A montage shows people riding mules and horses down a dusty, unpaved road in a classic Old West town. The first shot is a medium shot of a man in a pink shirt riding a mule. The next shot is a point-of-view shot from a moving horse, looking down a main street lined with adobe-style buildings and bare trees.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, adventurous Western-style music with a prominent fiddle.; attributes: camera_state: The first shot is a medium shot tracking the riders. The second shot is a point-of-view (POV) shot from the back of a horse, moving forward., video_background: The setting is a dusty, unpaved street in a Western-themed town, with adobe buildings, wooden fences, and sparse vegetation under a clear blue sky., storyline: This segment establishes the setting and introduces the main activity of the video: horseback riding in a historical, Old West location., shooting_style: This is a montage of two different shots to quickly establish the scene. A series of shots showcase the Old Trappmann Saloon. The first shot is a close-up of a painted sign on a window, reading 'OLD TRAPPANN SALOON' in stylized yellow and red letters. This is followed by a shot of two saddled horses tied to a wooden fence, and then a low-angle shot of the saloon's exterior, which has a rustic, gray wooden facade.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The adventurous Western-style music continues.; OLD TRAPPANN SALOON; attributes: camera_state: The sequence uses a close-up on the sign, a medium shot of the horses, and a low-angle wide shot of the saloon's exterior., video_background: The background features the exterior of the Old Trappmann Saloon, a dusty street, and a clear blue sky with a few clouds., storyline: This segment highlights a key location in the Old West town, the saloon, reinforcing the historical theme of the location., shooting_style: This is a montage of three distinct shots focusing on a single location.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A montage shows people riding mules and horses down a dusty, unpaved road in a classic Old West town. The first shot is a medium shot of a man in a pink shirt riding a mule. The next shot is a point-of-view shot from a moving horse, looking down a main street lined with adobe-style buildings and bare trees.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, adventurous Western-style music with a prominent fiddle.",
+              "attributes": [
+                "camera_state: The first shot is a medium shot tracking the riders. The second shot is a point-of-view (POV) shot from the back of a horse, moving forward.",
+                "video_background: The setting is a dusty, unpaved street in a Western-themed town, with adobe buildings, wooden fences, and sparse vegetation under a clear blue sky.",
+                "storyline: This segment establishes the setting and introduces the main activity of the video: horseback riding in a historical, Old West location.",
+                "shooting_style: This is a montage of two different shots to quickly establish the scene."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 130.0,
+              "visual": "A series of shots showcase the Old Trappmann Saloon. The first shot is a close-up of a painted sign on a window, reading 'OLD TRAPPANN SALOON' in stylized yellow and red letters. This is followed by a shot of two saddled horses tied to a wooden fence, and then a low-angle shot of the saloon's exterior, which has a rustic, gray wooden facade.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The adventurous Western-style music continues.",
+              "on_screen_text": [
+                "OLD TRAPPANN SALOON"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a close-up on the sign, a medium shot of the horses, and a low-angle wide shot of the saloon's exterior.",
+                "video_background: The background features the exterior of the Old Trappmann Saloon, a dusty street, and a clear blue sky with a few clouds.",
+                "storyline: This segment highlights a key location in the Old West town, the saloon, reinforcing the historical theme of the location.",
+                "shooting_style: This is a montage of three distinct shots focusing on a single location."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 123.05,
+              "end_s": 150.539,
+              "text": "Most every horseback trek begins with a ride down Main Street, past the authentic-looking buildings and the family-friendly Trapman Saloon. The Old West ambiance is really cool. The ranch is built on the site of the historic Trapman Ranch, which once included the stagecoach stop where history tells us Doc Holliday boarded the stage when he left Tombstone for good. So anyway, there's a lot of history right here around this ranch. When you're walking around, you'll feel it, and it's just like walking the streets of Tombstone."
+            },
+            {
+              "start_s": 150.539,
+              "end_s": 170.84,
+              "text": "That famous town is just two miles away. We'll take you for a visit in just a bit. But even closer stands the namesake of Tombstone Monument Ranch, the 25-foot tall stone monument to Tombstone founder Ed Sheflin. The Apaches ruled this country when the prospector came here looking for gold. Friends warned all he'd find in the desert would be his own tombstone."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 203.403,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 180.0,
+              "end_s": 203.403,
+              "artifact_id": "clip_180_00_203_40",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_180_00_203_40.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 203.403
+          },
+          "overall_summary": "A close-up shot reveals a weathered, light-colored granite tombstone. Engraved into its surface is a handwritten inscription, with the letters 'S.O.S.' faintly visible at the top. The text below appears to be a dedication or epitaph.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and slightly melancholic musical score begins to play.; S.O.S.; attributes: camera_state: The camera is in a static, close-up shot, focusing on the engraved text of the tombstone., video_background: The tombstone is set against a rough, textured rock wall, suggesting it is part of a cemetery or memorial site., storyline: This opening shot establishes a somber and mysterious tone, introducing a key element of the story: a tombstone with an unusual and distressing inscription., shooting_style: This is a simple, static establishing shot of a key object. A woman, seen from behind, sits atop a horse. She wears a black cowboy hat, a blue long-sleeved shirt, and jeans. She looks out towards a tall, conical cairn made of stacked rocks, which stands prominently in the desert landscape under a cloudy sky.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous, atmospheric music continues.; attributes: camera_state: The camera is positioned behind the woman in a medium shot, focusing on her and the distant cairn., video_background: The setting is a dry, arid desert with sparse vegetation, rocky terrain, and a large, man-made rock cairn on a small hill., storyline: This scene introduces a character and a significant landmark, linking the narrative to the American West and suggesting a journey or investigation is underway., shooting_style: This is a static shot that establishes the character and setting. The camera focuses on a white wooden sign with black, hand-painted text. The sign reads: 'HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.' The camera slowly pans down the sign, revealing more text below that is partially obscured.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The somber, atmospheric music continues.; HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.; attributes: camera_state: The camera starts with a medium shot of the sign and slowly tilts down to follow the text., video_background: The sign is placed on a gravelly, rocky ground with sparse green plants and dry brush in the background., storyline: This segment provides crucial exposition, revealing the tragic and ironic story of George Johnson. It explains the origin of the tombstone seen earlier., shooting_style: A slow camera tilt is used to guide the viewer's attention down the sign, emphasizing the story.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 182.0,
+              "visual": "A close-up shot reveals a weathered, light-colored granite tombstone. Engraved into its surface is a handwritten inscription, with the letters 'S.O.S.' faintly visible at the top. The text below appears to be a dedication or epitaph.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and slightly melancholic musical score begins to play.",
+              "on_screen_text": [
+                "S.O.S."
+              ],
+              "attributes": [
+                "camera_state: The camera is in a static, close-up shot, focusing on the engraved text of the tombstone.",
+                "video_background: The tombstone is set against a rough, textured rock wall, suggesting it is part of a cemetery or memorial site.",
+                "storyline: This opening shot establishes a somber and mysterious tone, introducing a key element of the story: a tombstone with an unusual and distressing inscription.",
+                "shooting_style: This is a simple, static establishing shot of a key object."
+              ]
+            },
+            {
+              "start_s": 183.0,
+              "end_s": 184.0,
+              "visual": "A woman, seen from behind, sits atop a horse. She wears a black cowboy hat, a blue long-sleeved shirt, and jeans. She looks out towards a tall, conical cairn made of stacked rocks, which stands prominently in the desert landscape under a cloudy sky.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous, atmospheric music continues.",
+              "attributes": [
+                "camera_state: The camera is positioned behind the woman in a medium shot, focusing on her and the distant cairn.",
+                "video_background: The setting is a dry, arid desert with sparse vegetation, rocky terrain, and a large, man-made rock cairn on a small hill.",
+                "storyline: This scene introduces a character and a significant landmark, linking the narrative to the American West and suggesting a journey or investigation is underway.",
+                "shooting_style: This is a static shot that establishes the character and setting."
+              ]
+            },
+            {
+              "start_s": 185.0,
+              "end_s": 189.0,
+              "visual": "The camera focuses on a white wooden sign with black, hand-painted text. The sign reads: 'HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.' The camera slowly pans down the sign, revealing more text below that is partially obscured.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The somber, atmospheric music continues.",
+              "on_screen_text": [
+                "HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882."
+              ],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot of the sign and slowly tilts down to follow the text.",
+                "video_background: The sign is placed on a gravelly, rocky ground with sparse green plants and dry brush in the background.",
+                "storyline: This segment provides crucial exposition, revealing the tragic and ironic story of George Johnson. It explains the origin of the tombstone seen earlier.",
+                "shooting_style: A slow camera tilt is used to guide the viewer's attention down the sign, emphasizing the story."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 170.84,
+              "end_s": 199.713,
+              "text": "And he came close one day when he hid out from an Apache war party in some rocks where that monument now stands, which you can visit on a trail ride. But when Sheflin discovered the silver strike that made him rich, he had the last laugh, naming his new town Tombstone, which would prove to be a fitting name. Here lies George Johnson, hanged by mistake, 1882. He was right, we was wrong, but we strung him up, and now he's gone."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A group of people in cowboy hats ride horses down a dusty, unpaved street in a classic Western town. The buildings are made of wood and stone, with a prominent covered porch. A lower-third graphic appears, identifying the location as 'TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA'. The riders, including a woman in a green top, slow their horses to a stop near a wooden fence.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, twangy Western-style music plays, accompanied by the sound of horse hooves clattering on the dirt road.; TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA; attributes: camera_state: The camera starts with a medium shot, panning to follow the riders as they approach. It then cuts to a closer shot of the horses and riders as they stop., video_background: The setting is a Western-themed town with wooden storefronts, a covered porch, and a clear blue sky. The ground is a dusty, reddish-brown dirt road., storyline: This segment introduces the setting of Tombstone, Arizona, establishing the Western theme of the location through the use of horseback riding and period-appropriate attire., shooting_style: This is a standard establishing shot sequence, cutting between different angles to show the riders and their destination. A woman in a green plaid top and a white cowboy hat dismounts her horse. She holds the reins and walks up a small wooden ramp into a covered porch. The camera follows her as she enters the building, revealing a rustic interior with patterned wallpaper, a chandelier made of antlers, and warm lighting.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The Western-style music continues, with the sound of the horse's hooves fading as it stops.; attributes: camera_state: The camera is positioned at a low angle, focusing on the woman's legs as she dismounts. It then pans up to follow her as she walks into the building, transitioning to an interior shot., video_background: The exterior is a wooden porch. The interior is decorated in a classic Western style with patterned wallpaper, a fireplace, and rustic furniture., storyline: The scene transitions from the exterior of the ranch to the interior of a saloon or lodge, setting the stage for the activities inside., shooting_style: The segment uses a smooth transition from an exterior to an interior shot, following the character's movement.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 6.0,
+              "visual": "A group of people in cowboy hats ride horses down a dusty, unpaved street in a classic Western town. The buildings are made of wood and stone, with a prominent covered porch. A lower-third graphic appears, identifying the location as 'TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA'. The riders, including a woman in a green top, slow their horses to a stop near a wooden fence.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, twangy Western-style music plays, accompanied by the sound of horse hooves clattering on the dirt road.",
+              "on_screen_text": [
+                "TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA"
+              ],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot, panning to follow the riders as they approach. It then cuts to a closer shot of the horses and riders as they stop.",
+                "video_background: The setting is a Western-themed town with wooden storefronts, a covered porch, and a clear blue sky. The ground is a dusty, reddish-brown dirt road.",
+                "storyline: This segment introduces the setting of Tombstone, Arizona, establishing the Western theme of the location through the use of horseback riding and period-appropriate attire.",
+                "shooting_style: This is a standard establishing shot sequence, cutting between different angles to show the riders and their destination."
+              ]
+            },
+            {
+              "start_s": 7.0,
+              "end_s": 12.0,
+              "visual": "A woman in a green plaid top and a white cowboy hat dismounts her horse. She holds the reins and walks up a small wooden ramp into a covered porch. The camera follows her as she enters the building, revealing a rustic interior with patterned wallpaper, a chandelier made of antlers, and warm lighting.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The Western-style music continues, with the sound of the horse's hooves fading as it stops.",
+              "attributes": [
+                "camera_state: The camera is positioned at a low angle, focusing on the woman's legs as she dismounts. It then pans up to follow her as she walks into the building, transitioning to an interior shot.",
+                "video_background: The exterior is a wooden porch. The interior is decorated in a classic Western style with patterned wallpaper, a fireplace, and rustic furniture.",
+                "storyline: The scene transitions from the exterior of the ranch to the interior of a saloon or lodge, setting the stage for the activities inside.",
+                "shooting_style: The segment uses a smooth transition from an exterior to an interior shot, following the character's movement."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 3.575,
+              "end_s": 11.776,
+              "text": "Riders coming. On a hot day in the Arizona desert, horseback strangers ride into an old west town. They tie up their mounts."
+            },
+            {
+              "start_s": 15.05,
+              "end_s": 42.134,
+              "text": "Then spurs jingle as boots clomp on the wooden sidewalk as the strangers head for the saloon. Push through the swinging doors. How about a cold round, you guys? Pull up a seat at the big bar and order up a cold one. Looks like a scene out of the 1800s or maybe some Western movie. But this is real life in the 21st century. Just another fun day at Tombstone Monument Ranch. The only bar in the middle of the desert for miles."
+            },
+            {
+              "start_s": 44.277,
+              "end_s": 72.509,
+              "text": "This most unique member of the Dude Ranchers Association is laid out to look just like a town out of the Old West. But behind the doors of what appears to be the mining office, Miss Kitty's bordello, or Doc Holliday's dentist chair, are state-of-the-art rooms, decorated in an 1880s flair. We live in the newspaper. Juergen von Wolf and his wife Karen were here from Germany on a springtime visit to the ranch, their seventh in just five years, with plans for two more trips by the end of the year."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A man in a tan cowboy hat, sunglasses, a blue shirt, and a tan vest stands on the porch of a western-style building. He points off-screen to his right with his right hand while speaking.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of the outdoors.; attributes: camera_state: The camera is at a medium distance, focusing on the man from the waist up. The shot is static., video_background: The background shows a wooden porch with a red door frame. Behind him are wooden buildings with covered porches, suggesting a western movie set or town., storyline: The scene opens with a character, likely a host or narrator, introducing the setting or pointing out something of interest to the audience., shooting_style: This is a standard establishing shot of a character. A man and a woman, both dressed in western attire, walk through a dusty, open gate. The woman wears a white shirt, a dark vest, and a straw cowboy hat, holding a beer bottle. The man wears a plaid shirt and a dark cowboy hat.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient outdoor sounds.; attributes: camera_state: The camera is positioned behind the gate, capturing the couple as they walk away from the camera and into the pen. The shot is static., video_background: The setting is a rustic, dusty ranch with wooden fences, dry brush, and a clear blue sky. A red sign with 'COWBOY' is visible in the background., storyline: The two main characters are introduced as they enter a corral, setting the scene for an activity involving horses., shooting_style: This is a standard shot showing the characters' arrival. Three men in cowboy hats stand by a rusty metal fence, talking. The man on the left, wearing a white shirt and a black vest, casually leans his leg over the top rail. The man in the middle holds a hat to his head, and the man on the right gestures with his hand.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient sounds of the ranch.; attributes: camera_state: The camera is at a medium distance, capturing the three men from the waist up. The shot is static., video_background: The men are in a dusty pen with a rusty metal fence. In the background, there are dry, leafless trees and a wooden structure., storyline: The three men are shown in a casual, conversational moment, likely discussing the horses or their plans., shooting_style: This is a standard group shot.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "A man in a tan cowboy hat, sunglasses, a blue shirt, and a tan vest stands on the porch of a western-style building. He points off-screen to his right with his right hand while speaking.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of the outdoors.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, focusing on the man from the waist up. The shot is static.",
+                "video_background: The background shows a wooden porch with a red door frame. Behind him are wooden buildings with covered porches, suggesting a western movie set or town.",
+                "storyline: The scene opens with a character, likely a host or narrator, introducing the setting or pointing out something of interest to the audience.",
+                "shooting_style: This is a standard establishing shot of a character."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 66.0,
+              "visual": "A man and a woman, both dressed in western attire, walk through a dusty, open gate. The woman wears a white shirt, a dark vest, and a straw cowboy hat, holding a beer bottle. The man wears a plaid shirt and a dark cowboy hat.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient outdoor sounds.",
+              "attributes": [
+                "camera_state: The camera is positioned behind the gate, capturing the couple as they walk away from the camera and into the pen. The shot is static.",
+                "video_background: The setting is a rustic, dusty ranch with wooden fences, dry brush, and a clear blue sky. A red sign with 'COWBOY' is visible in the background.",
+                "storyline: The two main characters are introduced as they enter a corral, setting the scene for an activity involving horses.",
+                "shooting_style: This is a standard shot showing the characters' arrival."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 70.0,
+              "visual": "Three men in cowboy hats stand by a rusty metal fence, talking. The man on the left, wearing a white shirt and a black vest, casually leans his leg over the top rail. The man in the middle holds a hat to his head, and the man on the right gestures with his hand.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient sounds of the ranch.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, capturing the three men from the waist up. The shot is static.",
+                "video_background: The men are in a dusty pen with a rusty metal fence. In the background, there are dry, leafless trees and a wooden structure.",
+                "storyline: The three men are shown in a casual, conversational moment, likely discussing the horses or their plans.",
+                "shooting_style: This is a standard group shot."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 72.61,
+              "end_s": 97.737,
+              "text": "It's the people. It's the scenery. It's the surroundings. It's the horses. It's the personnel. A lot of people ask us, isn't it boring coming over to the same place? And I say, no, because we like horseback riding. We like the area. We like to go out. And that's it. We love it. The couple have been to a dozen dude ranches over the years, but this place is like no other."
+            },
+            {
+              "start_s": 97.973,
+              "end_s": 122.24,
+              "text": "Coming out here is something for my wife and me to come back home. The horseback riding is what keeps them coming back on trails that explore some 30,000 acres of pristine Arizona desert. Whether it's a gentle walking ride, or my favorite, those fast lopes offered for experienced riders,"
+            }
+          ]
+        }
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A montage shows people riding mules and horses down a dusty, unpaved road in a classic Old West town. The first shot is a medium shot of a man in a pink shirt riding a mule. The next shot is a point-of-view shot from a moving horse, looking down a main street lined with adobe-style buildings and bare trees.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, adventurous Western-style music with a prominent fiddle.; attributes: camera_state: The first shot is a medium shot tracking the riders. The second shot is a point-of-view (POV) shot from the back of a horse, moving forward., video_background: The setting is a dusty, unpaved street in a Western-themed town, with adobe buildings, wooden fences, and sparse vegetation under a clear blue sky., storyline: This segment establishes the setting and introduces the main activity of the video: horseback riding in a historical, Old West location., shooting_style: This is a montage of two different shots to quickly establish the scene. A series of shots showcase the Old Trappmann Saloon. The first shot is a close-up of a painted sign on a window, reading 'OLD TRAPPANN SALOON' in stylized yellow and red letters. This is followed by a shot of two saddled horses tied to a wooden fence, and then a low-angle shot of the saloon's exterior, which has a rustic, gray wooden facade.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The adventurous Western-style music continues.; OLD TRAPPANN SALOON; attributes: camera_state: The sequence uses a close-up on the sign, a medium shot of the horses, and a low-angle wide shot of the saloon's exterior., video_background: The background features the exterior of the Old Trappmann Saloon, a dusty street, and a clear blue sky with a few clouds., storyline: This segment highlights a key location in the Old West town, the saloon, reinforcing the historical theme of the location., shooting_style: This is a montage of three distinct shots focusing on a single location.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A montage shows people riding mules and horses down a dusty, unpaved road in a classic Old West town. The first shot is a medium shot of a man in a pink shirt riding a mule. The next shot is a point-of-view shot from a moving horse, looking down a main street lined with adobe-style buildings and bare trees.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, adventurous Western-style music with a prominent fiddle.",
+              "attributes": [
+                "camera_state: The first shot is a medium shot tracking the riders. The second shot is a point-of-view (POV) shot from the back of a horse, moving forward.",
+                "video_background: The setting is a dusty, unpaved street in a Western-themed town, with adobe buildings, wooden fences, and sparse vegetation under a clear blue sky.",
+                "storyline: This segment establishes the setting and introduces the main activity of the video: horseback riding in a historical, Old West location.",
+                "shooting_style: This is a montage of two different shots to quickly establish the scene."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 130.0,
+              "visual": "A series of shots showcase the Old Trappmann Saloon. The first shot is a close-up of a painted sign on a window, reading 'OLD TRAPPANN SALOON' in stylized yellow and red letters. This is followed by a shot of two saddled horses tied to a wooden fence, and then a low-angle shot of the saloon's exterior, which has a rustic, gray wooden facade.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The adventurous Western-style music continues.",
+              "on_screen_text": [
+                "OLD TRAPPANN SALOON"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a close-up on the sign, a medium shot of the horses, and a low-angle wide shot of the saloon's exterior.",
+                "video_background: The background features the exterior of the Old Trappmann Saloon, a dusty street, and a clear blue sky with a few clouds.",
+                "storyline: This segment highlights a key location in the Old West town, the saloon, reinforcing the historical theme of the location.",
+                "shooting_style: This is a montage of three distinct shots focusing on a single location."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 123.05,
+            "end_s": 150.539,
+            "text": "Most every horseback trek begins with a ride down Main Street, past the authentic-looking buildings and the family-friendly Trapman Saloon. The Old West ambiance is really cool. The ranch is built on the site of the historic Trapman Ranch, which once included the stagecoach stop where history tells us Doc Holliday boarded the stage when he left Tombstone for good. So anyway, there's a lot of history right here around this ranch. When you're walking around, you'll feel it, and it's just like walking the streets of Tombstone."
+          },
+          {
+            "start_s": 150.539,
+            "end_s": 170.84,
+            "text": "That famous town is just two miles away. We'll take you for a visit in just a bit. But even closer stands the namesake of Tombstone Monument Ranch, the 25-foot tall stone monument to Tombstone founder Ed Sheflin. The Apaches ruled this country when the prospector came here looking for gold. Friends warned all he'd find in the desert would be his own tombstone."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 203.403,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 180.0,
+              "end_s": 203.403,
+              "artifact_id": "clip_180_00_203_40",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_180_00_203_40.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 203.403
+          },
+          "overall_summary": "A close-up shot reveals a weathered, light-colored granite tombstone. Engraved into its surface is a handwritten inscription, with the letters 'S.O.S.' faintly visible at the top. The text below appears to be a dedication or epitaph.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and slightly melancholic musical score begins to play.; S.O.S.; attributes: camera_state: The camera is in a static, close-up shot, focusing on the engraved text of the tombstone., video_background: The tombstone is set against a rough, textured rock wall, suggesting it is part of a cemetery or memorial site., storyline: This opening shot establishes a somber and mysterious tone, introducing a key element of the story: a tombstone with an unusual and distressing inscription., shooting_style: This is a simple, static establishing shot of a key object. A woman, seen from behind, sits atop a horse. She wears a black cowboy hat, a blue long-sleeved shirt, and jeans. She looks out towards a tall, conical cairn made of stacked rocks, which stands prominently in the desert landscape under a cloudy sky.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous, atmospheric music continues.; attributes: camera_state: The camera is positioned behind the woman in a medium shot, focusing on her and the distant cairn., video_background: The setting is a dry, arid desert with sparse vegetation, rocky terrain, and a large, man-made rock cairn on a small hill., storyline: This scene introduces a character and a significant landmark, linking the narrative to the American West and suggesting a journey or investigation is underway., shooting_style: This is a static shot that establishes the character and setting. The camera focuses on a white wooden sign with black, hand-painted text. The sign reads: 'HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.' The camera slowly pans down the sign, revealing more text below that is partially obscured.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The somber, atmospheric music continues.; HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.; attributes: camera_state: The camera starts with a medium shot of the sign and slowly tilts down to follow the text., video_background: The sign is placed on a gravelly, rocky ground with sparse green plants and dry brush in the background., storyline: This segment provides crucial exposition, revealing the tragic and ironic story of George Johnson. It explains the origin of the tombstone seen earlier., shooting_style: A slow camera tilt is used to guide the viewer's attention down the sign, emphasizing the story.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 182.0,
+              "visual": "A close-up shot reveals a weathered, light-colored granite tombstone. Engraved into its surface is a handwritten inscription, with the letters 'S.O.S.' faintly visible at the top. The text below appears to be a dedication or epitaph.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and slightly melancholic musical score begins to play.",
+              "on_screen_text": [
+                "S.O.S."
+              ],
+              "attributes": [
+                "camera_state: The camera is in a static, close-up shot, focusing on the engraved text of the tombstone.",
+                "video_background: The tombstone is set against a rough, textured rock wall, suggesting it is part of a cemetery or memorial site.",
+                "storyline: This opening shot establishes a somber and mysterious tone, introducing a key element of the story: a tombstone with an unusual and distressing inscription.",
+                "shooting_style: This is a simple, static establishing shot of a key object."
+              ]
+            },
+            {
+              "start_s": 183.0,
+              "end_s": 184.0,
+              "visual": "A woman, seen from behind, sits atop a horse. She wears a black cowboy hat, a blue long-sleeved shirt, and jeans. She looks out towards a tall, conical cairn made of stacked rocks, which stands prominently in the desert landscape under a cloudy sky.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous, atmospheric music continues.",
+              "attributes": [
+                "camera_state: The camera is positioned behind the woman in a medium shot, focusing on her and the distant cairn.",
+                "video_background: The setting is a dry, arid desert with sparse vegetation, rocky terrain, and a large, man-made rock cairn on a small hill.",
+                "storyline: This scene introduces a character and a significant landmark, linking the narrative to the American West and suggesting a journey or investigation is underway.",
+                "shooting_style: This is a static shot that establishes the character and setting."
+              ]
+            },
+            {
+              "start_s": 185.0,
+              "end_s": 189.0,
+              "visual": "The camera focuses on a white wooden sign with black, hand-painted text. The sign reads: 'HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.' The camera slowly pans down the sign, revealing more text below that is partially obscured.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The somber, atmospheric music continues.",
+              "on_screen_text": [
+                "HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882."
+              ],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot of the sign and slowly tilts down to follow the text.",
+                "video_background: The sign is placed on a gravelly, rocky ground with sparse green plants and dry brush in the background.",
+                "storyline: This segment provides crucial exposition, revealing the tragic and ironic story of George Johnson. It explains the origin of the tombstone seen earlier.",
+                "shooting_style: A slow camera tilt is used to guide the viewer's attention down the sign, emphasizing the story."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 170.84,
+            "end_s": 199.713,
+            "text": "And he came close one day when he hid out from an Apache war party in some rocks where that monument now stands, which you can visit on a trail ride. But when Sheflin discovered the silver strike that made him rich, he had the last laugh, naming his new town Tombstone, which would prove to be a fitting name. Here lies George Johnson, hanged by mistake, 1882. He was right, we was wrong, but we strung him up, and now he's gone."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A group of people in cowboy hats ride horses down a dusty, unpaved street in a classic Western town. The buildings are made of wood and stone, with a prominent covered porch. A lower-third graphic appears, identifying the location as 'TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA'. The riders, including a woman in a green top, slow their horses to a stop near a wooden fence.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, twangy Western-style music plays, accompanied by the sound of horse hooves clattering on the dirt road.; TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA; attributes: camera_state: The camera starts with a medium shot, panning to follow the riders as they approach. It then cuts to a closer shot of the horses and riders as they stop., video_background: The setting is a Western-themed town with wooden storefronts, a covered porch, and a clear blue sky. The ground is a dusty, reddish-brown dirt road., storyline: This segment introduces the setting of Tombstone, Arizona, establishing the Western theme of the location through the use of horseback riding and period-appropriate attire., shooting_style: This is a standard establishing shot sequence, cutting between different angles to show the riders and their destination. A woman in a green plaid top and a white cowboy hat dismounts her horse. She holds the reins and walks up a small wooden ramp into a covered porch. The camera follows her as she enters the building, revealing a rustic interior with patterned wallpaper, a chandelier made of antlers, and warm lighting.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The Western-style music continues, with the sound of the horse's hooves fading as it stops.; attributes: camera_state: The camera is positioned at a low angle, focusing on the woman's legs as she dismounts. It then pans up to follow her as she walks into the building, transitioning to an interior shot., video_background: The exterior is a wooden porch. The interior is decorated in a classic Western style with patterned wallpaper, a fireplace, and rustic furniture., storyline: The scene transitions from the exterior of the ranch to the interior of a saloon or lodge, setting the stage for the activities inside., shooting_style: The segment uses a smooth transition from an exterior to an interior shot, following the character's movement.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 6.0,
+              "visual": "A group of people in cowboy hats ride horses down a dusty, unpaved street in a classic Western town. The buildings are made of wood and stone, with a prominent covered porch. A lower-third graphic appears, identifying the location as 'TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA'. The riders, including a woman in a green top, slow their horses to a stop near a wooden fence.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, twangy Western-style music plays, accompanied by the sound of horse hooves clattering on the dirt road.",
+              "on_screen_text": [
+                "TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA"
+              ],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot, panning to follow the riders as they approach. It then cuts to a closer shot of the horses and riders as they stop.",
+                "video_background: The setting is a Western-themed town with wooden storefronts, a covered porch, and a clear blue sky. The ground is a dusty, reddish-brown dirt road.",
+                "storyline: This segment introduces the setting of Tombstone, Arizona, establishing the Western theme of the location through the use of horseback riding and period-appropriate attire.",
+                "shooting_style: This is a standard establishing shot sequence, cutting between different angles to show the riders and their destination."
+              ]
+            },
+            {
+              "start_s": 7.0,
+              "end_s": 12.0,
+              "visual": "A woman in a green plaid top and a white cowboy hat dismounts her horse. She holds the reins and walks up a small wooden ramp into a covered porch. The camera follows her as she enters the building, revealing a rustic interior with patterned wallpaper, a chandelier made of antlers, and warm lighting.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The Western-style music continues, with the sound of the horse's hooves fading as it stops.",
+              "attributes": [
+                "camera_state: The camera is positioned at a low angle, focusing on the woman's legs as she dismounts. It then pans up to follow her as she walks into the building, transitioning to an interior shot.",
+                "video_background: The exterior is a wooden porch. The interior is decorated in a classic Western style with patterned wallpaper, a fireplace, and rustic furniture.",
+                "storyline: The scene transitions from the exterior of the ranch to the interior of a saloon or lodge, setting the stage for the activities inside.",
+                "shooting_style: The segment uses a smooth transition from an exterior to an interior shot, following the character's movement."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 3.575,
+            "end_s": 11.776,
+            "text": "Riders coming. On a hot day in the Arizona desert, horseback strangers ride into an old west town. They tie up their mounts."
+          },
+          {
+            "start_s": 15.05,
+            "end_s": 42.134,
+            "text": "Then spurs jingle as boots clomp on the wooden sidewalk as the strangers head for the saloon. Push through the swinging doors. How about a cold round, you guys? Pull up a seat at the big bar and order up a cold one. Looks like a scene out of the 1800s or maybe some Western movie. But this is real life in the 21st century. Just another fun day at Tombstone Monument Ranch. The only bar in the middle of the desert for miles."
+          },
+          {
+            "start_s": 44.277,
+            "end_s": 72.509,
+            "text": "This most unique member of the Dude Ranchers Association is laid out to look just like a town out of the Old West. But behind the doors of what appears to be the mining office, Miss Kitty's bordello, or Doc Holliday's dentist chair, are state-of-the-art rooms, decorated in an 1880s flair. We live in the newspaper. Juergen von Wolf and his wife Karen were here from Germany on a springtime visit to the ranch, their seventh in just five years, with plans for two more trips by the end of the year."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A man in a tan cowboy hat, sunglasses, a blue shirt, and a tan vest stands on the porch of a western-style building. He points off-screen to his right with his right hand while speaking.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of the outdoors.; attributes: camera_state: The camera is at a medium distance, focusing on the man from the waist up. The shot is static., video_background: The background shows a wooden porch with a red door frame. Behind him are wooden buildings with covered porches, suggesting a western movie set or town., storyline: The scene opens with a character, likely a host or narrator, introducing the setting or pointing out something of interest to the audience., shooting_style: This is a standard establishing shot of a character. A man and a woman, both dressed in western attire, walk through a dusty, open gate. The woman wears a white shirt, a dark vest, and a straw cowboy hat, holding a beer bottle. The man wears a plaid shirt and a dark cowboy hat.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient outdoor sounds.; attributes: camera_state: The camera is positioned behind the gate, capturing the couple as they walk away from the camera and into the pen. The shot is static., video_background: The setting is a rustic, dusty ranch with wooden fences, dry brush, and a clear blue sky. A red sign with 'COWBOY' is visible in the background., storyline: The two main characters are introduced as they enter a corral, setting the scene for an activity involving horses., shooting_style: This is a standard shot showing the characters' arrival. Three men in cowboy hats stand by a rusty metal fence, talking. The man on the left, wearing a white shirt and a black vest, casually leans his leg over the top rail. The man in the middle holds a hat to his head, and the man on the right gestures with his hand.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient sounds of the ranch.; attributes: camera_state: The camera is at a medium distance, capturing the three men from the waist up. The shot is static., video_background: The men are in a dusty pen with a rusty metal fence. In the background, there are dry, leafless trees and a wooden structure., storyline: The three men are shown in a casual, conversational moment, likely discussing the horses or their plans., shooting_style: This is a standard group shot.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "A man in a tan cowboy hat, sunglasses, a blue shirt, and a tan vest stands on the porch of a western-style building. He points off-screen to his right with his right hand while speaking.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of the outdoors.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, focusing on the man from the waist up. The shot is static.",
+                "video_background: The background shows a wooden porch with a red door frame. Behind him are wooden buildings with covered porches, suggesting a western movie set or town.",
+                "storyline: The scene opens with a character, likely a host or narrator, introducing the setting or pointing out something of interest to the audience.",
+                "shooting_style: This is a standard establishing shot of a character."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 66.0,
+              "visual": "A man and a woman, both dressed in western attire, walk through a dusty, open gate. The woman wears a white shirt, a dark vest, and a straw cowboy hat, holding a beer bottle. The man wears a plaid shirt and a dark cowboy hat.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient outdoor sounds.",
+              "attributes": [
+                "camera_state: The camera is positioned behind the gate, capturing the couple as they walk away from the camera and into the pen. The shot is static.",
+                "video_background: The setting is a rustic, dusty ranch with wooden fences, dry brush, and a clear blue sky. A red sign with 'COWBOY' is visible in the background.",
+                "storyline: The two main characters are introduced as they enter a corral, setting the scene for an activity involving horses.",
+                "shooting_style: This is a standard shot showing the characters' arrival."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 70.0,
+              "visual": "Three men in cowboy hats stand by a rusty metal fence, talking. The man on the left, wearing a white shirt and a black vest, casually leans his leg over the top rail. The man in the middle holds a hat to his head, and the man on the right gestures with his hand.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient sounds of the ranch.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, capturing the three men from the waist up. The shot is static.",
+                "video_background: The men are in a dusty pen with a rusty metal fence. In the background, there are dry, leafless trees and a wooden structure.",
+                "storyline: The three men are shown in a casual, conversational moment, likely discussing the horses or their plans.",
+                "shooting_style: This is a standard group shot."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 72.61,
+            "end_s": 97.737,
+            "text": "It's the people. It's the scenery. It's the surroundings. It's the horses. It's the personnel. A lot of people ask us, isn't it boring coming over to the same place? And I say, no, because we like horseback riding. We like the area. We like to go out. And that's it. We love it. The couple have been to a dozen dude ranches over the years, but this place is like no other."
+          },
+          {
+            "start_s": 97.973,
+            "end_s": 122.24,
+            "text": "Coming out here is something for my wife and me to come back home. The horseback riding is what keeps them coming back on trails that explore some 30,000 acres of pristine Arizona desert. Whether it's a gentle walking ride, or my favorite, those fast lopes offered for experienced riders,"
+          }
+        ]
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_ce0715662ece",
+        "clip": {
+          "video_id": "-ywXYEaP8KA",
+          "start_s": 0.0,
+          "end_s": 203.403,
+          "artifact_id": "clip_000_00_203_40",
+          "relpath": "artifacts/ywXYEaP8KA/clips/clip_000_00_203_40.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 3.575,
+            "end_s": 11.776,
+            "text": "Riders coming. On a hot day in the Arizona desert, horseback strangers ride into an old west town. They tie up their mounts."
+          },
+          {
+            "start_s": 15.05,
+            "end_s": 42.134,
+            "text": "Then spurs jingle as boots clomp on the wooden sidewalk as the strangers head for the saloon. Push through the swinging doors. How about a cold round, you guys? Pull up a seat at the big bar and order up a cold one. Looks like a scene out of the 1800s or maybe some Western movie. But this is real life in the 21st century. Just another fun day at Tombstone Monument Ranch. The only bar in the middle of the desert for miles."
+          },
+          {
+            "start_s": 44.277,
+            "end_s": 72.509,
+            "text": "This most unique member of the Dude Ranchers Association is laid out to look just like a town out of the Old West. But behind the doors of what appears to be the mining office, Miss Kitty's bordello, or Doc Holliday's dentist chair, are state-of-the-art rooms, decorated in an 1880s flair. We live in the newspaper. Juergen von Wolf and his wife Karen were here from Germany on a springtime visit to the ranch, their seventh in just five years, with plans for two more trips by the end of the year."
+          },
+          {
+            "start_s": 72.61,
+            "end_s": 97.737,
+            "text": "It's the people. It's the scenery. It's the surroundings. It's the horses. It's the personnel. A lot of people ask us, isn't it boring coming over to the same place? And I say, no, because we like horseback riding. We like the area. We like to go out. And that's it. We love it. The couple have been to a dozen dude ranches over the years, but this place is like no other."
+          },
+          {
+            "start_s": 97.973,
+            "end_s": 122.24,
+            "text": "Coming out here is something for my wife and me to come back home. The horseback riding is what keeps them coming back on trails that explore some 30,000 acres of pristine Arizona desert. Whether it's a gentle walking ride, or my favorite, those fast lopes offered for experienced riders,"
+          },
+          {
+            "start_s": 123.05,
+            "end_s": 150.539,
+            "text": "Most every horseback trek begins with a ride down Main Street, past the authentic-looking buildings and the family-friendly Trapman Saloon. The Old West ambiance is really cool. The ranch is built on the site of the historic Trapman Ranch, which once included the stagecoach stop where history tells us Doc Holliday boarded the stage when he left Tombstone for good. So anyway, there's a lot of history right here around this ranch. When you're walking around, you'll feel it, and it's just like walking the streets of Tombstone."
+          },
+          {
+            "start_s": 150.539,
+            "end_s": 170.84,
+            "text": "That famous town is just two miles away. We'll take you for a visit in just a bit. But even closer stands the namesake of Tombstone Monument Ranch, the 25-foot tall stone monument to Tombstone founder Ed Sheflin. The Apaches ruled this country when the prospector came here looking for gold. Friends warned all he'd find in the desert would be his own tombstone."
+          },
+          {
+            "start_s": 170.84,
+            "end_s": 199.713,
+            "text": "And he came close one day when he hid out from an Apache war party in some rocks where that monument now stands, which you can visit on a trail ride. But when Sheflin discovered the silver strike that made him rich, he had the last laugh, naming his new town Tombstone, which would prove to be a fitting name. Here lies George Johnson, hanged by mistake, 1882. He was right, we was wrong, but we strung him up, and now he's gone."
+          }
+        ]
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A montage shows people riding mules and horses down a dusty, unpaved road in a classic Old West town. The first shot is a medium shot of a man in a pink shirt riding a mule. The next shot is a point-of-view shot from a moving horse, looking down a main street lined with adobe-style buildings and bare trees.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, adventurous Western-style music with a prominent fiddle.; attributes: camera_state: The first shot is a medium shot tracking the riders. The second shot is a point-of-view (POV) shot from the back of a horse, moving forward., video_background: The setting is a dusty, unpaved street in a Western-themed town, with adobe buildings, wooden fences, and sparse vegetation under a clear blue sky., storyline: This segment establishes the setting and introduces the main activity of the video: horseback riding in a historical, Old West location., shooting_style: This is a montage of two different shots to quickly establish the scene. A series of shots showcase the Old Trappmann Saloon. The first shot is a close-up of a painted sign on a window, reading 'OLD TRAPPANN SALOON' in stylized yellow and red letters. This is followed by a shot of two saddled horses tied to a wooden fence, and then a low-angle shot of the saloon's exterior, which has a rustic, gray wooden facade.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The adventurous Western-style music continues.; OLD TRAPPANN SALOON; attributes: camera_state: The sequence uses a close-up on the sign, a medium shot of the horses, and a low-angle wide shot of the saloon's exterior., video_background: The background features the exterior of the Old Trappmann Saloon, a dusty street, and a clear blue sky with a few clouds., storyline: This segment highlights a key location in the Old West town, the saloon, reinforcing the historical theme of the location., shooting_style: This is a montage of three distinct shots focusing on a single location.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A montage shows people riding mules and horses down a dusty, unpaved road in a classic Old West town. The first shot is a medium shot of a man in a pink shirt riding a mule. The next shot is a point-of-view shot from a moving horse, looking down a main street lined with adobe-style buildings and bare trees.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, adventurous Western-style music with a prominent fiddle.",
+              "attributes": [
+                "camera_state: The first shot is a medium shot tracking the riders. The second shot is a point-of-view (POV) shot from the back of a horse, moving forward.",
+                "video_background: The setting is a dusty, unpaved street in a Western-themed town, with adobe buildings, wooden fences, and sparse vegetation under a clear blue sky.",
+                "storyline: This segment establishes the setting and introduces the main activity of the video: horseback riding in a historical, Old West location.",
+                "shooting_style: This is a montage of two different shots to quickly establish the scene."
+              ]
+            },
+            {
+              "start_s": 126.0,
+              "end_s": 130.0,
+              "visual": "A series of shots showcase the Old Trappmann Saloon. The first shot is a close-up of a painted sign on a window, reading 'OLD TRAPPANN SALOON' in stylized yellow and red letters. This is followed by a shot of two saddled horses tied to a wooden fence, and then a low-angle shot of the saloon's exterior, which has a rustic, gray wooden facade.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The adventurous Western-style music continues.",
+              "on_screen_text": [
+                "OLD TRAPPANN SALOON"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a close-up on the sign, a medium shot of the horses, and a low-angle wide shot of the saloon's exterior.",
+                "video_background: The background features the exterior of the Old Trappmann Saloon, a dusty street, and a clear blue sky with a few clouds.",
+                "storyline: This segment highlights a key location in the Old West town, the saloon, reinforcing the historical theme of the location.",
+                "shooting_style: This is a montage of three distinct shots focusing on a single location."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 203.403,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 180.0,
+              "end_s": 203.403,
+              "artifact_id": "clip_180_00_203_40",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_180_00_203_40.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 203.403
+          },
+          "overall_summary": "A close-up shot reveals a weathered, light-colored granite tombstone. Engraved into its surface is a handwritten inscription, with the letters 'S.O.S.' faintly visible at the top. The text below appears to be a dedication or epitaph.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and slightly melancholic musical score begins to play.; S.O.S.; attributes: camera_state: The camera is in a static, close-up shot, focusing on the engraved text of the tombstone., video_background: The tombstone is set against a rough, textured rock wall, suggesting it is part of a cemetery or memorial site., storyline: This opening shot establishes a somber and mysterious tone, introducing a key element of the story: a tombstone with an unusual and distressing inscription., shooting_style: This is a simple, static establishing shot of a key object. A woman, seen from behind, sits atop a horse. She wears a black cowboy hat, a blue long-sleeved shirt, and jeans. She looks out towards a tall, conical cairn made of stacked rocks, which stands prominently in the desert landscape under a cloudy sky.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous, atmospheric music continues.; attributes: camera_state: The camera is positioned behind the woman in a medium shot, focusing on her and the distant cairn., video_background: The setting is a dry, arid desert with sparse vegetation, rocky terrain, and a large, man-made rock cairn on a small hill., storyline: This scene introduces a character and a significant landmark, linking the narrative to the American West and suggesting a journey or investigation is underway., shooting_style: This is a static shot that establishes the character and setting. The camera focuses on a white wooden sign with black, hand-painted text. The sign reads: 'HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.' The camera slowly pans down the sign, revealing more text below that is partially obscured.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The somber, atmospheric music continues.; HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.; attributes: camera_state: The camera starts with a medium shot of the sign and slowly tilts down to follow the text., video_background: The sign is placed on a gravelly, rocky ground with sparse green plants and dry brush in the background., storyline: This segment provides crucial exposition, revealing the tragic and ironic story of George Johnson. It explains the origin of the tombstone seen earlier., shooting_style: A slow camera tilt is used to guide the viewer's attention down the sign, emphasizing the story.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 182.0,
+              "visual": "A close-up shot reveals a weathered, light-colored granite tombstone. Engraved into its surface is a handwritten inscription, with the letters 'S.O.S.' faintly visible at the top. The text below appears to be a dedication or epitaph.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and slightly melancholic musical score begins to play.",
+              "on_screen_text": [
+                "S.O.S."
+              ],
+              "attributes": [
+                "camera_state: The camera is in a static, close-up shot, focusing on the engraved text of the tombstone.",
+                "video_background: The tombstone is set against a rough, textured rock wall, suggesting it is part of a cemetery or memorial site.",
+                "storyline: This opening shot establishes a somber and mysterious tone, introducing a key element of the story: a tombstone with an unusual and distressing inscription.",
+                "shooting_style: This is a simple, static establishing shot of a key object."
+              ]
+            },
+            {
+              "start_s": 183.0,
+              "end_s": 184.0,
+              "visual": "A woman, seen from behind, sits atop a horse. She wears a black cowboy hat, a blue long-sleeved shirt, and jeans. She looks out towards a tall, conical cairn made of stacked rocks, which stands prominently in the desert landscape under a cloudy sky.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous, atmospheric music continues.",
+              "attributes": [
+                "camera_state: The camera is positioned behind the woman in a medium shot, focusing on her and the distant cairn.",
+                "video_background: The setting is a dry, arid desert with sparse vegetation, rocky terrain, and a large, man-made rock cairn on a small hill.",
+                "storyline: This scene introduces a character and a significant landmark, linking the narrative to the American West and suggesting a journey or investigation is underway.",
+                "shooting_style: This is a static shot that establishes the character and setting."
+              ]
+            },
+            {
+              "start_s": 185.0,
+              "end_s": 189.0,
+              "visual": "The camera focuses on a white wooden sign with black, hand-painted text. The sign reads: 'HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882.' The camera slowly pans down the sign, revealing more text below that is partially obscured.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The somber, atmospheric music continues.",
+              "on_screen_text": [
+                "HERE LIES GEORGE JOHNSON HANGED BY MISTAKE 1882."
+              ],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot of the sign and slowly tilts down to follow the text.",
+                "video_background: The sign is placed on a gravelly, rocky ground with sparse green plants and dry brush in the background.",
+                "storyline: This segment provides crucial exposition, revealing the tragic and ironic story of George Johnson. It explains the origin of the tombstone seen earlier.",
+                "shooting_style: A slow camera tilt is used to guide the viewer's attention down the sign, emphasizing the story."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A group of people in cowboy hats ride horses down a dusty, unpaved street in a classic Western town. The buildings are made of wood and stone, with a prominent covered porch. A lower-third graphic appears, identifying the location as 'TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA'. The riders, including a woman in a green top, slow their horses to a stop near a wooden fence.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, twangy Western-style music plays, accompanied by the sound of horse hooves clattering on the dirt road.; TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA; attributes: camera_state: The camera starts with a medium shot, panning to follow the riders as they approach. It then cuts to a closer shot of the horses and riders as they stop., video_background: The setting is a Western-themed town with wooden storefronts, a covered porch, and a clear blue sky. The ground is a dusty, reddish-brown dirt road., storyline: This segment introduces the setting of Tombstone, Arizona, establishing the Western theme of the location through the use of horseback riding and period-appropriate attire., shooting_style: This is a standard establishing shot sequence, cutting between different angles to show the riders and their destination. A woman in a green plaid top and a white cowboy hat dismounts her horse. She holds the reins and walks up a small wooden ramp into a covered porch. The camera follows her as she enters the building, revealing a rustic interior with patterned wallpaper, a chandelier made of antlers, and warm lighting.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The Western-style music continues, with the sound of the horse's hooves fading as it stops.; attributes: camera_state: The camera is positioned at a low angle, focusing on the woman's legs as she dismounts. It then pans up to follow her as she walks into the building, transitioning to an interior shot., video_background: The exterior is a wooden porch. The interior is decorated in a classic Western style with patterned wallpaper, a fireplace, and rustic furniture., storyline: The scene transitions from the exterior of the ranch to the interior of a saloon or lodge, setting the stage for the activities inside., shooting_style: The segment uses a smooth transition from an exterior to an interior shot, following the character's movement.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 6.0,
+              "visual": "A group of people in cowboy hats ride horses down a dusty, unpaved street in a classic Western town. The buildings are made of wood and stone, with a prominent covered porch. A lower-third graphic appears, identifying the location as 'TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA'. The riders, including a woman in a green top, slow their horses to a stop near a wooden fence.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, twangy Western-style music plays, accompanied by the sound of horse hooves clattering on the dirt road.",
+              "on_screen_text": [
+                "TOMBSTONE MONUMENT RANCH, TOMBSTONE, ARIZONA"
+              ],
+              "attributes": [
+                "camera_state: The camera starts with a medium shot, panning to follow the riders as they approach. It then cuts to a closer shot of the horses and riders as they stop.",
+                "video_background: The setting is a Western-themed town with wooden storefronts, a covered porch, and a clear blue sky. The ground is a dusty, reddish-brown dirt road.",
+                "storyline: This segment introduces the setting of Tombstone, Arizona, establishing the Western theme of the location through the use of horseback riding and period-appropriate attire.",
+                "shooting_style: This is a standard establishing shot sequence, cutting between different angles to show the riders and their destination."
+              ]
+            },
+            {
+              "start_s": 7.0,
+              "end_s": 12.0,
+              "visual": "A woman in a green plaid top and a white cowboy hat dismounts her horse. She holds the reins and walks up a small wooden ramp into a covered porch. The camera follows her as she enters the building, revealing a rustic interior with patterned wallpaper, a chandelier made of antlers, and warm lighting.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The Western-style music continues, with the sound of the horse's hooves fading as it stops.",
+              "attributes": [
+                "camera_state: The camera is positioned at a low angle, focusing on the woman's legs as she dismounts. It then pans up to follow her as she walks into the building, transitioning to an interior shot.",
+                "video_background: The exterior is a wooden porch. The interior is decorated in a classic Western style with patterned wallpaper, a fireplace, and rustic furniture.",
+                "storyline: The scene transitions from the exterior of the ranch to the interior of a saloon or lodge, setting the stage for the activities inside.",
+                "shooting_style: The segment uses a smooth transition from an exterior to an interior shot, following the character's movement."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ywXYEaP8KA",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ywXYEaP8KA/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A man in a tan cowboy hat, sunglasses, a blue shirt, and a tan vest stands on the porch of a western-style building. He points off-screen to his right with his right hand while speaking.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of the outdoors.; attributes: camera_state: The camera is at a medium distance, focusing on the man from the waist up. The shot is static., video_background: The background shows a wooden porch with a red door frame. Behind him are wooden buildings with covered porches, suggesting a western movie set or town., storyline: The scene opens with a character, likely a host or narrator, introducing the setting or pointing out something of interest to the audience., shooting_style: This is a standard establishing shot of a character. A man and a woman, both dressed in western attire, walk through a dusty, open gate. The woman wears a white shirt, a dark vest, and a straw cowboy hat, holding a beer bottle. The man wears a plaid shirt and a dark cowboy hat.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient outdoor sounds.; attributes: camera_state: The camera is positioned behind the gate, capturing the couple as they walk away from the camera and into the pen. The shot is static., video_background: The setting is a rustic, dusty ranch with wooden fences, dry brush, and a clear blue sky. A red sign with 'COWBOY' is visible in the background., storyline: The two main characters are introduced as they enter a corral, setting the scene for an activity involving horses., shooting_style: This is a standard shot showing the characters' arrival. Three men in cowboy hats stand by a rusty metal fence, talking. The man on the left, wearing a white shirt and a black vest, casually leans his leg over the top rail. The man in the middle holds a hat to his head, and the man on the right gestures with his hand.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient sounds of the ranch.; attributes: camera_state: The camera is at a medium distance, capturing the three men from the waist up. The shot is static., video_background: The men are in a dusty pen with a rusty metal fence. In the background, there are dry, leafless trees and a wooden structure., storyline: The three men are shown in a casual, conversational moment, likely discussing the horses or their plans., shooting_style: This is a standard group shot.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "A man in a tan cowboy hat, sunglasses, a blue shirt, and a tan vest stands on the porch of a western-style building. He points off-screen to his right with his right hand while speaking.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient sounds of the outdoors.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, focusing on the man from the waist up. The shot is static.",
+                "video_background: The background shows a wooden porch with a red door frame. Behind him are wooden buildings with covered porches, suggesting a western movie set or town.",
+                "storyline: The scene opens with a character, likely a host or narrator, introducing the setting or pointing out something of interest to the audience.",
+                "shooting_style: This is a standard establishing shot of a character."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 66.0,
+              "visual": "A man and a woman, both dressed in western attire, walk through a dusty, open gate. The woman wears a white shirt, a dark vest, and a straw cowboy hat, holding a beer bottle. The man wears a plaid shirt and a dark cowboy hat.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient outdoor sounds.",
+              "attributes": [
+                "camera_state: The camera is positioned behind the gate, capturing the couple as they walk away from the camera and into the pen. The shot is static.",
+                "video_background: The setting is a rustic, dusty ranch with wooden fences, dry brush, and a clear blue sky. A red sign with 'COWBOY' is visible in the background.",
+                "storyline: The two main characters are introduced as they enter a corral, setting the scene for an activity involving horses.",
+                "shooting_style: This is a standard shot showing the characters' arrival."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 70.0,
+              "visual": "Three men in cowboy hats stand by a rusty metal fence, talking. The man on the left, wearing a white shirt and a black vest, casually leans his leg over the top rail. The man in the middle holds a hat to his head, and the man on the right gestures with his hand.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient sounds of the ranch.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, capturing the three men from the waist up. The shot is static.",
+                "video_background: The men are in a dusty pen with a rusty metal fence. In the background, there are dry, leafless trees and a wooden structure.",
+                "storyline: The three men are shown in a casual, conversational moment, likely discussing the horses or their plans.",
+                "shooting_style: This is a standard group shot."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

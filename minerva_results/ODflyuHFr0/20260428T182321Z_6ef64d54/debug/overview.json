@@ -1,0 +1,2731 @@
+{
+  "run": {
+    "run_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/ODflyuHFr0/20260428T182321Z_6ef64d54",
+    "benchmark": "adhoc",
+    "sample_key": "ODflyuHFr0__f0ba80114388",
+    "video_id": "-ODflyuHFr0",
+    "run_id": "20260428T182321Z_6ef64d54",
+    "mode": "generate"
+  },
+  "task": {
+    "question": "What is the 1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer?",
+    "options": [
+      "A. O.",
+      "B. L.",
+      "C. M.",
+      "D. C.",
+      "E. E."
+    ],
+    "gold_answer": "C.",
+    "video_id": "-ODflyuHFr0",
+    "question_id": ""
+  },
+  "result": {
+    "final_answer": "B. L.",
+    "latest_audit_verdict": "PASS",
+    "latest_audit_feedback": "The trace is well aligned to the question: it grounds the ingredient list text, identifies the second listed ingredient as \"mint leaves,\" extracts the second word \"leaves,\" derives the first letter \"L,\" and maps it correctly to option B.",
+    "rounds_executed": 1
+  },
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Verify the ingredient-order text near the green chutney montage by retrieving a readable frame around the 'GRIND IT IN A MIXER' display, OCR the ingredient labels, then extract the second ingredient and its second word's first letter.",
+      "refinement_instructions": "Treat preprocess captions as a locator only. Base the final reasoning on the retrieved montage frames plus OCR text. Preserve chronology across the ingredient overlays; do not infer order from OCR line order alone if multiple frames are involved. If OCR is noisy, use the frames to disambiguate whether the second ingredient is 'GINGER & GARLIC' or 'FRESH CORIANDER AND MINT LEAVES' before extracting the second word. Keep the answer unresolved if the ingredient order cannot be visually verified.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve a small chronological set of readable frames from the early ingredient montage where the ingredient labels and 'GRIND IT IN A MIXER' text appear together or in immediate sequence.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "-ODflyuHFr0",
+                "start_s": 12.0,
+                "end_s": 18.0,
+                "artifact_id": "clip_000_00_060_00",
+                "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+                "metadata": {}
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 4,
+            "query": "readable frames showing the ordered green chutney ingredient text overlays, especially the second ingredient before or with 'GRIND IT IN A MIXER'",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "12.0-18.0 ingredient montage with text overlays ending at 'GRIND IT IN A MIXER'"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "ocr",
+          "purpose": "Read the exact on-screen ingredient labels from the retrieved frames so the ingredient wording and order can be verified from visual text.",
+          "inputs": {
+            "clips": [],
+            "frames": [],
+            "query": "read all visible ingredient labels and the 'GRIND IT IN A MIXER' text exactly as shown",
+            "regions": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ]
+          }
+        },
+        {
+          "step_id": 3,
+          "tool_name": "generic_purpose",
+          "purpose": "Determine the ordered list of ingredients intended to be ground, identify the second ingredient, then extract the first letter of its second word and map it to the options.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "Using the retrieved frames and OCR text, identify the ordered ingredient labels associated with the green chutney that are to be ground in the mixer. Determine the 2nd ingredient in that order, then take the 1st letter of that ingredient's 2nd word. Return the matching option letter and briefly note the exact ingredient phrase used.",
+            "text_contexts": [],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ],
+            "text_contexts": [
+              {
+                "step_id": 2,
+                "field_path": "text"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "B. L.",
+      "trace_evidence_count": 2,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The relevant ingredient overlay is grounded by chronologically retrieved frames at 16s, 17s, and 18s, with 16s and 17s being readable and 18s fading out.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 16.0,
+              "end_s": 18.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "Across the readable frames, the ingredient list visibly shows \"1/2 cup coriander leaves\" followed by \"1/2 cup mint leaves\". This supports that the second listed ingredient is mint leaves, rather than a different phrase such as \"ginger & garlic\" or \"fresh coriander and mint leaves\".",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 16.0,
+              "end_s": 17.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "For the second ingredient phrase \"mint leaves\", the second word is \"leaves\", whose first letter is L.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 16.0,
+              "end_s": 17.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Among the options, the letter L corresponds to option B.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "PASS",
+      "audit_confidence": 0.94,
+      "audit_feedback": "The trace is well aligned to the question: it grounds the ingredient list text, identifies the second listed ingredient as \"mint leaves,\" extracts the second word \"leaves,\" derives the first letter \"L,\" and maps it correctly to option B.",
+      "audit_missing_information": [],
+      "audit_findings": []
+    }
+  ],
+  "tool_steps": [
+    {
+      "round_index": 1,
+      "tool_dir": "round_01/tools/01_frame_retriever",
+      "tool_name": "frame_retriever",
+      "request": {
+        "tool_name": "frame_retriever",
+        "clips": [
+          {
+            "video_id": "-ODflyuHFr0",
+            "start_s": 12.0,
+            "end_s": 18.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+            "metadata": {}
+          }
+        ],
+        "time_hints": [
+          "12.0-18.0 ingredient montage with text overlays ending at 'GRIND IT IN A MIXER'"
+        ],
+        "query": "readable frames showing the ordered green chutney ingredient text overlays, especially the second ingredient before or with 'GRIND IT IN A MIXER'",
+        "num_frames": 4,
+        "sequence_mode": "chronological",
+        "neighbor_radius_s": 0.0,
+        "include_anchor_neighbors": false,
+        "sort_order": "chronological"
+      },
+      "result": {
+        "tool_name": "frame_retriever",
+        "ok": true,
+        "data": {
+          "query": "readable frames showing the ordered green chutney ingredient text overlays, especially the second ingredient before or with 'GRIND IT IN A MIXER'",
+          "frames": [
+            {
+              "video_id": "-ODflyuHFr0",
+              "timestamp_s": 16.0,
+              "artifact_id": "frame_16.00",
+              "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+              "clip": {
+                "video_id": "-ODflyuHFr0",
+                "start_s": 12.0,
+                "end_s": 18.0,
+                "artifact_id": "clip_000_00_060_00",
+                "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+                "metadata": {}
+              },
+              "metadata": {
+                "relevance_score": 0.07662712782621384,
+                "device": "cuda:1",
+                "clip_start_s": 12.0,
+                "clip_end_s": 18.0,
+                "frame_pool_start_s": 12.0,
+                "frame_pool_end_s": 18.0,
+                "temporal_score": 0.07662712782621384,
+                "anchor_distance_s": 2.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 18.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "before",
+                "sequence_index": 0,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "-ODflyuHFr0",
+              "timestamp_s": 17.0,
+              "artifact_id": "frame_17.00",
+              "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+              "clip": {
+                "video_id": "-ODflyuHFr0",
+                "start_s": 12.0,
+                "end_s": 18.0,
+                "artifact_id": "clip_000_00_060_00",
+                "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+                "metadata": {}
+              },
+              "metadata": {
+                "relevance_score": 0.07487977296113968,
+                "device": "cuda:1",
+                "clip_start_s": 12.0,
+                "clip_end_s": 18.0,
+                "frame_pool_start_s": 12.0,
+                "frame_pool_end_s": 18.0,
+                "temporal_score": 0.07487977296113968,
+                "anchor_distance_s": 1.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 18.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "before",
+                "sequence_index": 1,
+                "sequence_sort_order": "chronological"
+              }
+            },
+            {
+              "video_id": "-ODflyuHFr0",
+              "timestamp_s": 18.0,
+              "artifact_id": "frame_18.00",
+              "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+              "clip": {
+                "video_id": "-ODflyuHFr0",
+                "start_s": 12.0,
+                "end_s": 18.0,
+                "artifact_id": "clip_000_00_060_00",
+                "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+                "metadata": {}
+              },
+              "metadata": {
+                "relevance_score": 0.1189909279346466,
+                "device": "cuda:1",
+                "clip_start_s": 12.0,
+                "clip_end_s": 18.0,
+                "frame_pool_start_s": 12.0,
+                "frame_pool_end_s": 18.0,
+                "temporal_score": 0.1189909279346466,
+                "anchor_distance_s": 0.0,
+                "selection_reason": "anchor_window_sequence",
+                "requested_timestamp_s": 18.0,
+                "neighbor_radius_s": 2.0,
+                "sequence_mode": "anchor_window",
+                "sequence_role": "anchor",
+                "sequence_index": 2,
+                "sequence_sort_order": "chronological"
+              }
+            }
+          ],
+          "mode": "clip_bounded",
+          "cache_metadata": {
+            "dense_frame_cache_hit": true,
+            "dense_frame_count": 224,
+            "bounded_frame_count": 7,
+            "frame_pool_start_s": 12.0,
+            "frame_pool_end_s": 18.0,
+            "expanded_frame_pool_for_anchor_window": false,
+            "embedding_cache_ready": false,
+            "embedding_cache_scope": "none",
+            "persist_cache_on_bounded_request": false,
+            "time_hints_applied": true,
+            "sequence_mode": "anchor_window",
+            "anchor_window_applied": true,
+            "requested_anchor_timestamps_s": [
+              18.0
+            ],
+            "neighbor_radius_s": 2.0,
+            "timings": {
+              "total_s": 36.9801
+            },
+            "embedder": {
+              "requested_attn_implementation": "flash_attention_2",
+              "loaded_attn_implementation": "flash_attention_2",
+              "fallback_attn_implementations": [],
+              "embed_call_count": 2,
+              "retry_count": 0,
+              "batch_attempt_count": 1,
+              "batch_failure_count": 0,
+              "single_item_fallback_count": 0,
+              "zero_embedding_fallback_count": 0,
+              "dense_frame_embed_batch": 24,
+              "cache_load_error": null,
+              "cache_build_error": null,
+              "cache_write_error": null,
+              "query_error": null,
+              "frame_error": null,
+              "cache_load_s": 0.0,
+              "cache_build_s": 0.0,
+              "query_embed_s": 0.4591645870823413,
+              "frame_embed_s": 9.754618318984285,
+              "embedding_cache_ready": false
+            }
+          },
+          "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+        },
+        "raw_output_text": "{\"query\": \"readable frames showing the ordered green chutney ingredient text overlays, especially the second ingredient before or with 'GRIND IT IN A MIXER'\", \"frames\": [{\"frame_path\": \"workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_16.00.png\", \"timestamp_s\": 16.0, \"relevance_score\": 0.07662712782621384, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 12.0, \"clip_end_s\": 18.0, \"frame_pool_start_s\": 12.0, \"frame_pool_end_s\": 18.0, \"temporal_score\": 0.07662712782621384, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 18.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 0, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_17.00.png\", \"timestamp_s\": 17.0, \"relevance_score\": 0.07487977296113968, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 12.0, \"clip_end_s\": 18.0, \"frame_pool_start_s\": 12.0, \"frame_pool_end_s\": 18.0, \"temporal_score\": 0.07487977296113968, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 18.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 1, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_18.00.png\", \"timestamp_s\": 18.0, \"relevance_score\": 0.1189909279346466, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 12.0, \"clip_end_s\": 18.0, \"frame_pool_start_s\": 12.0, \"frame_pool_end_s\": 18.0, \"temporal_score\": 0.1189909279346466, \"anchor_distance_s\": 0.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 18.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 2, \"sequence_sort_order\": \"chronological\"}}], \"mode\": \"clip_bounded\", \"cache_metadata\": {\"dense_frame_cache_hit\": true, \"dense_frame_count\": 224, \"bounded_frame_count\": 7, \"frame_pool_start_s\": 12.0, \"frame_pool_end_s\": 18.0, \"expanded_frame_pool_for_anchor_window\": false, \"embedding_cache_ready\": false, \"embedding_cache_scope\": \"none\", \"persist_cache_on_bounded_request\": false, \"time_hints_applied\": true, \"sequence_mode\": \"anchor_window\", \"anchor_window_applied\": true, \"requested_anchor_timestamps_s\": [18.0], \"neighbor_radius_s\": 2.0, \"timings\": {\"total_s\": 36.9801}, \"embedder\": {\"requested_attn_implementation\": \"flash_attention_2\", \"loaded_attn_implementation\": \"flash_attention_2\", \"fallback_attn_implementations\": [], \"embed_call_count\": 2, \"retry_count\": 0, \"batch_attempt_count\": 1, \"batch_failure_count\": 0, \"single_item_fallback_count\": 0, \"zero_embedding_fallback_count\": 0, \"dense_frame_embed_batch\": 24, \"cache_load_error\": null, \"cache_build_error\": null, \"cache_write_error\": null, \"query_error\": null, \"frame_error\": null, \"cache_load_s\": 0.0, \"cache_build_s\": 0.0, \"query_embed_s\": 0.4591645870823413, \"frame_embed_s\": 9.754618318984285, \"embedding_cache_ready\": false}}, \"rationale\": \"Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\"}\n",
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_16.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_16.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 115531
+            }
+          },
+          {
+            "artifact_id": "frame_17.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_17.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 99788
+            }
+          },
+          {
+            "artifact_id": "frame_18.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_18.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 24568
+            }
+          }
+        ],
+        "request_hash": "0a082813f746f52d6bffc1b6",
+        "cache_hit": false,
+        "summary": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.",
+        "metadata": {
+          "backend": "Qwen/Qwen3-VL-Embedding-8B",
+          "confidence": 0.119,
+          "confidence_avg": 0.0902,
+          "confidence_count": 3,
+          "confidence_kind": "frame_relevance",
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 224,
+          "bounded_frame_count": 7,
+          "frame_pool_start_s": 12.0,
+          "frame_pool_end_s": 18.0,
+          "expanded_frame_pool_for_anchor_window": false,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": true,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [
+            18.0
+          ],
+          "neighbor_radius_s": 2.0,
+          "timings": {
+            "total_s": 36.9801
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 2,
+            "retry_count": 0,
+            "batch_attempt_count": 1,
+            "batch_failure_count": 0,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 0,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": null,
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.4591645870823413,
+            "frame_embed_s": 9.754618318984285,
+            "embedding_cache_ready": false
+          },
+          "timing": {
+            "started_at_utc": "2026-04-28T18:26:36.868686+00:00",
+            "finished_at_utc": "2026-04-28T18:27:28.843524+00:00",
+            "duration_s": 51.9749,
+            "cache_wait_s": 0.0017,
+            "execution_mode": "executed"
+          },
+          "observation_ids": [
+            "obs_e7766e2ff0290146",
+            "obs_a32885a7c1779ccd",
+            "obs_6063d470b05201f4"
+          ]
+        }
+      },
+      "timing": {
+        "started_at_utc": "2026-04-28T18:26:36.868686+00:00",
+        "finished_at_utc": "2026-04-28T18:27:28.843524+00:00",
+        "duration_s": 51.9749,
+        "cache_wait_s": 0.0017,
+        "execution_mode": "executed"
+      },
+      "runtime": {
+        "backend": "qwen_frame_retriever",
+        "model_name": "Qwen/Qwen3-VL-Embedding-8B",
+        "device": "cuda:1",
+        "device_mapping": {
+          "requested_label": "cuda:1",
+          "resolved_label": "cuda:1",
+          "cuda_visible_devices": "0,1",
+          "cuda_device_order": null,
+          "local_index": 1,
+          "physical_index_hint": "1",
+          "mapping_source": "CUDA_VISIBLE_DEVICES"
+        },
+        "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+        "resolved_model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/hub/models--Qwen--Qwen3-VL-Embedding-8B/snapshots/418d03899aeb9d954e776dfa762006616519a914",
+        "model_resolution_status": "ok",
+        "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+        "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/ODflyuHFr0/20260428T182321Z_6ef64d54/_scratch/frame_retriever",
+        "extra": {
+          "backend_name": "qwen_frame_retriever",
+          "reranker_model": "Qwen/Qwen3-VL-Reranker-8B",
+          "use_reranker": true,
+          "candidate_frames": 12,
+          "dense_frame_embed_batch": 24,
+          "attn_implementation": "flash_attention_2",
+          "temperature": 0.0,
+          "do_sample": false
+        }
+      },
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_16.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_16.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 115531
+          }
+        },
+        {
+          "artifact_id": "frame_17.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_17.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 99788
+          }
+        },
+        {
+          "artifact_id": "frame_18.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_18.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 24568
+          }
+        }
+      ],
+      "observations": [
+        {
+          "observation_id": "obs_e7766e2ff0290146",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "16.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 16.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": 0.07662712782621384,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 16.00s.",
+          "metadata": {
+            "observation_id": "obs_e7766e2ff0290146"
+          }
+        },
+        {
+          "observation_id": "obs_a32885a7c1779ccd",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "17.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 17.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": 0.07487977296113968,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_17.00",
+            "clip_000_00_060_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 17.00s.",
+          "metadata": {
+            "observation_id": "obs_a32885a7c1779ccd"
+          }
+        },
+        {
+          "observation_id": "obs_6063d470b05201f4",
+          "subject": "requested frame",
+          "subject_type": "frame_query",
+          "predicate": "retrieved_frame_at",
+          "object_text": "18.00s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": 18.0,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": 0.1189909279346466,
+          "source_tool": "frame_retriever",
+          "source_artifact_refs": [
+            "frame_18.00",
+            "clip_000_00_060_00"
+          ],
+          "direct_or_derived": "direct",
+          "atomic_text": "A candidate frame was retrieved at 18.00s.",
+          "metadata": {
+            "observation_id": "obs_6063d470b05201f4"
+          }
+        }
+      ],
+      "request_path": "round_01/tools/01_frame_retriever/request.json",
+      "result_path": "round_01/tools/01_frame_retriever/result.json",
+      "timing_path": "round_01/tools/01_frame_retriever/timing.json",
+      "runtime_path": "round_01/tools/01_frame_retriever/runtime.json",
+      "observations_path": "round_01/tools/01_frame_retriever/observations.json",
+      "artifact_refs_path": "round_01/tools/01_frame_retriever/artifact_refs.json"
+    },
+    {
+      "round_index": 1,
+      "tool_dir": "round_01/tools/02_ocr",
+      "tool_name": "ocr",
+      "request": {
+        "tool_name": "ocr",
+        "clips": [],
+        "frames": [
+          {
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 16.0,
+            "artifact_id": "frame_16.00",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+            "clip": {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+              "metadata": {}
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_16.00.png",
+              "relevance_score": 0.07662712782621384,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.07662712782621384,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 17.0,
+            "artifact_id": "frame_17.00",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+            "clip": {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+              "metadata": {}
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_17.00.png",
+              "relevance_score": 0.07487977296113968,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.07487977296113968,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 18.0,
+            "artifact_id": "frame_18.00",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+            "clip": {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+              "metadata": {}
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_18.00.png",
+              "relevance_score": 0.1189909279346466,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.1189909279346466,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological"
+            }
+          }
+        ],
+        "regions": [],
+        "query": "read all visible ingredient labels and the 'GRIND IT IN A MIXER' text exactly as shown\n\nFrame sequence context: These frames are a chronological sequence centered on timestamp 18s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 16s, 17s, 18s."
+      },
+      "result": {
+        "tool_name": "ocr",
+        "ok": true,
+        "data": {
+          "query": "read all visible ingredient labels and the 'GRIND IT IN A MIXER' text exactly as shown\n\nFrame sequence context: These frames are a chronological sequence centered on timestamp 18s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 16s, 17s, 18s.",
+          "text": "",
+          "lines": [],
+          "reads": [
+            {
+              "frame": {
+                "video_id": "-ODflyuHFr0",
+                "timestamp_s": 16.0,
+                "artifact_id": "frame_16.00",
+                "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+                "clip": {
+                  "video_id": "-ODflyuHFr0",
+                  "start_s": 12.0,
+                  "end_s": 18.0,
+                  "artifact_id": "clip_000_00_060_00",
+                  "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+                  "metadata": {}
+                },
+                "metadata": {
+                  "relevance_score": 0.07662712782621384,
+                  "device": "cuda:1",
+                  "clip_start_s": 12.0,
+                  "clip_end_s": 18.0,
+                  "frame_pool_start_s": 12.0,
+                  "frame_pool_end_s": 18.0,
+                  "temporal_score": 0.07662712782621384,
+                  "anchor_distance_s": 2.0,
+                  "selection_reason": "anchor_window_sequence",
+                  "requested_timestamp_s": 18.0,
+                  "neighbor_radius_s": 2.0,
+                  "sequence_mode": "anchor_window",
+                  "sequence_role": "before",
+                  "sequence_index": 0,
+                  "sequence_sort_order": "chronological"
+                }
+              },
+              "text": "",
+              "lines": [],
+              "timestamp_s": 16.0,
+              "source_frame_path": "workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_16.00.png",
+              "backend": "paddleocr"
+            },
+            {
+              "frame": {
+                "video_id": "-ODflyuHFr0",
+                "timestamp_s": 17.0,
+                "artifact_id": "frame_17.00",
+                "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+                "clip": {
+                  "video_id": "-ODflyuHFr0",
+                  "start_s": 12.0,
+                  "end_s": 18.0,
+                  "artifact_id": "clip_000_00_060_00",
+                  "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+                  "metadata": {}
+                },
+                "metadata": {
+                  "relevance_score": 0.07487977296113968,
+                  "device": "cuda:1",
+                  "clip_start_s": 12.0,
+                  "clip_end_s": 18.0,
+                  "frame_pool_start_s": 12.0,
+                  "frame_pool_end_s": 18.0,
+                  "temporal_score": 0.07487977296113968,
+                  "anchor_distance_s": 1.0,
+                  "selection_reason": "anchor_window_sequence",
+                  "requested_timestamp_s": 18.0,
+                  "neighbor_radius_s": 2.0,
+                  "sequence_mode": "anchor_window",
+                  "sequence_role": "before",
+                  "sequence_index": 1,
+                  "sequence_sort_order": "chronological"
+                }
+              },
+              "text": "",
+              "lines": [],
+              "timestamp_s": 17.0,
+              "source_frame_path": "workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_17.00.png",
+              "backend": "paddleocr"
+            },
+            {
+              "frame": {
+                "video_id": "-ODflyuHFr0",
+                "timestamp_s": 18.0,
+                "artifact_id": "frame_18.00",
+                "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+                "clip": {
+                  "video_id": "-ODflyuHFr0",
+                  "start_s": 12.0,
+                  "end_s": 18.0,
+                  "artifact_id": "clip_000_00_060_00",
+                  "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+                  "metadata": {}
+                },
+                "metadata": {
+                  "relevance_score": 0.1189909279346466,
+                  "device": "cuda:1",
+                  "clip_start_s": 12.0,
+                  "clip_end_s": 18.0,
+                  "frame_pool_start_s": 12.0,
+                  "frame_pool_end_s": 18.0,
+                  "temporal_score": 0.1189909279346466,
+                  "anchor_distance_s": 0.0,
+                  "selection_reason": "anchor_window_sequence",
+                  "requested_timestamp_s": 18.0,
+                  "neighbor_radius_s": 2.0,
+                  "sequence_mode": "anchor_window",
+                  "sequence_role": "anchor",
+                  "sequence_index": 2,
+                  "sequence_sort_order": "chronological"
+                }
+              },
+              "text": "",
+              "lines": [],
+              "timestamp_s": 18.0,
+              "source_frame_path": "workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_18.00.png",
+              "backend": "paddleocr"
+            }
+          ],
+          "backend": "paddleocr"
+        },
+        "raw_output_text": "{\"results\": [{\"text\": \"\", \"lines\": [], \"query\": \"read all visible ingredient labels and the 'GRIND IT IN A MIXER' text exactly as shown\\n\\nFrame sequence context: These frames are a chronological sequence centered on timestamp 18s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 16s, 17s, 18s.\", \"timestamp_s\": 16.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_16.00.png\", \"backend\": \"paddleocr\"}, {\"text\": \"\", \"lines\": [], \"query\": \"read all visible ingredient labels and the 'GRIND IT IN A MIXER' text exactly as shown\\n\\nFrame sequence context: These frames are a chronological sequence centered on timestamp 18s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 16s, 17s, 18s.\", \"timestamp_s\": 17.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_17.00.png\", \"backend\": \"paddleocr\"}, {\"text\": \"\", \"lines\": [], \"query\": \"read all visible ingredient labels and the 'GRIND IT IN A MIXER' text exactly as shown\\n\\nFrame sequence context: These frames are a chronological sequence centered on timestamp 18s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 16s, 17s, 18s.\", \"timestamp_s\": 18.0, \"source_frame_path\": \"workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_18.00.png\", \"backend\": \"paddleocr\"}], \"backend\": \"paddleocr\"}\n",
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_16.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+            "media_type": "image",
+            "source_tool": "ocr",
+            "metadata": {
+              "source_name": "frame_16.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 115531
+            }
+          },
+          {
+            "artifact_id": "frame_17.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+            "media_type": "image",
+            "source_tool": "ocr",
+            "metadata": {
+              "source_name": "frame_17.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 99788
+            }
+          },
+          {
+            "artifact_id": "frame_18.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+            "media_type": "image",
+            "source_tool": "ocr",
+            "metadata": {
+              "source_name": "frame_18.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 24568
+            }
+          }
+        ],
+        "request_hash": "c2741fa8b742f9df44ec0c82",
+        "cache_hit": false,
+        "summary": "OCR completed for 3 input item(s).",
+        "metadata": {
+          "backend": "paddleocr",
+          "group_count": 3,
+          "batch_execution": "single_subprocess",
+          "timing": {
+            "started_at_utc": "2026-04-28T18:27:28.870606+00:00",
+            "finished_at_utc": "2026-04-28T18:27:59.274840+00:00",
+            "duration_s": 30.4043,
+            "cache_wait_s": 0.001,
+            "execution_mode": "executed"
+          },
+          "observation_ids": []
+        }
+      },
+      "timing": {
+        "started_at_utc": "2026-04-28T18:27:28.870606+00:00",
+        "finished_at_utc": "2026-04-28T18:27:59.274840+00:00",
+        "duration_s": 30.4043,
+        "cache_wait_s": 0.001,
+        "execution_mode": "executed"
+      },
+      "runtime": {
+        "backend": "paddleocr",
+        "model_name": "PaddleOCR",
+        "device": "cuda:1",
+        "device_mapping": {
+          "requested_label": "cuda:1",
+          "resolved_label": "cuda:1",
+          "cuda_visible_devices": "0,1",
+          "cuda_device_order": null,
+          "local_index": 1,
+          "physical_index_hint": "1",
+          "mapping_source": "CUDA_VISIBLE_DEVICES"
+        },
+        "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+        "resolved_model_path": null,
+        "model_resolution_status": "missing",
+        "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+        "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/ODflyuHFr0/20260428T182321Z_6ef64d54/_scratch/ocr",
+        "extra": {
+          "backend_name": "paddleocr",
+          "lang": "en",
+          "ocr_version": "PP-OCRv5",
+          "require_gpu": false,
+          "use_textline_orientation": false,
+          "max_longest_dim": 1600
+        }
+      },
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_16.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_16.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 115531
+          }
+        },
+        {
+          "artifact_id": "frame_17.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_17.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 99788
+          }
+        },
+        {
+          "artifact_id": "frame_18.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_18.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 24568
+          }
+        }
+      ],
+      "observations": [],
+      "request_path": "round_01/tools/02_ocr/request.json",
+      "result_path": "round_01/tools/02_ocr/result.json",
+      "timing_path": "round_01/tools/02_ocr/timing.json",
+      "runtime_path": "round_01/tools/02_ocr/runtime.json",
+      "observations_path": "round_01/tools/02_ocr/observations.json",
+      "artifact_refs_path": "round_01/tools/02_ocr/artifact_refs.json"
+    },
+    {
+      "round_index": 1,
+      "tool_dir": "round_01/tools/03_generic_purpose",
+      "tool_name": "generic_purpose",
+      "request": {
+        "tool_name": "generic_purpose",
+        "query": "Using the retrieved frames and OCR text, identify the ordered ingredient labels associated with the green chutney that are to be ground in the mixer. Determine the 2nd ingredient in that order, then take the 1st letter of that ingredient's 2nd word. Return the matching option letter and briefly note the exact ingredient phrase used.",
+        "clips": [],
+        "frames": [
+          {
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 16.0,
+            "artifact_id": "frame_16.00",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+            "clip": {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+              "metadata": {}
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_16.00.png",
+              "relevance_score": 0.07662712782621384,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.07662712782621384,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 17.0,
+            "artifact_id": "frame_17.00",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+            "clip": {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+              "metadata": {}
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_17.00.png",
+              "relevance_score": 0.07487977296113968,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.07487977296113968,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 18.0,
+            "artifact_id": "frame_18.00",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+            "clip": {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+              "metadata": {}
+            },
+            "metadata": {
+              "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_18.00.png",
+              "relevance_score": 0.1189909279346466,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.1189909279346466,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological"
+            }
+          }
+        ],
+        "transcripts": [],
+        "text_contexts": [
+          "These frames are a chronological sequence centered on timestamp 18s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 16s, 17s, 18s."
+        ],
+        "evidence_ids": []
+      },
+      "result": {
+        "tool_name": "generic_purpose",
+        "ok": true,
+        "data": {
+          "response": "The user wants to identify a specific letter based on a recipe instruction shown in the video frames.\n\n1.  **Analyze the Request:**\n    *   Target: \"1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer\".\n    *   Context: \"green chutney\".\n    *   Input: Three frames (16s, 17s, 18s) showing a list of ingredients.\n    *   Output: JSON with answer, supporting_points, confidence, analysis.\n\n2.  **Examine the Images:**\n    *   **Image 1 (16s):** Shows a list of ingredients. The text is a bit blurry but readable.\n        *   \"1/2 cup coriander leaves\"\n        *   \"1/2 cup mint leaves\"\n        *   \"1/2 inch ginger\"\n        *   \"1/2 inch green chilli\"\n        *   \"1/2 tsp salt\"\n        *   \"1/2 cup water\"\n    *   **Image 2 (17s):** Similar list, slightly different layout or just a transition.\n        *   \"1/2 cup coriander leaves\"\n        *   \"1/2 cup mint leaves\"\n        *   \"1/2 inch ginger\"\n        *   \"1/2 inch green chilli\"\n        *   \"1/2 tsp salt\"\n        *   \"1/2 cup water\"\n    *   **Image 3 (18s):** The list is fading out or very faint.\n\n3.  **Identify the Ingredients:**\n    *   The prompt asks for ingredients \"to get ground in a mixer\" for \"green chutney\".\n    *   The list visible is:\n        1.  coriander leaves\n        2.  mint leaves\n        3.  ginger\n        4.  green chilli\n        5.  salt\n        6.  water\n\n4.  **Determine the \"2nd ingredient\":**\n    *   The list order is usually top-to-bottom.\n    *   1st: coriander leaves\n    *   2nd: mint leaves\n\n5.  **Extract the \"2nd word\" of the \"2nd ingredient\":**\n    *   Ingredient phrase: \"mint leaves\"\n    *   1st word: \"mint\"\n    *   2nd word: \"leaves\"\n\n6.  **Find the \"1st letter\" of that word:**\n    *   Word: \"leaves\"\n    *   1st letter: \"L\"\n\n7.  **Match with Options:**\n    *   A. O.\n    *   B. L.\n    *   C. M.\n    *   D. C.\n    *   E. E.\n    *   Match: Option B.\n\n8.  **Formulate Supporting Points:**\n    *   The visible ingredient list for green chutney includes \"coriander leaves\" and \"mint leaves\".\n    *   The second ingredient in the list is \"mint leaves\".\n    *   The second word of \"mint leaves\" is \"leaves\".\n    *   The first letter of \"leaves\" is \"L\".\n\n9.  **Construct JSON:**\n    *   answer: \"B\"\n    *   supporting_points: [\"The ingredient list shows 'coriander leaves' followed by 'mint leaves'.\", \"The second ingredient is 'mint",
+          "answer": "The user wants to identify a specific letter based on a recipe instruction shown in the video frames.\n\n1.  **Analyze the Request:**\n    *   Target: \"1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer\".\n    *   Context: \"green chutney\".\n    *   Input: Three frames (16s, 17s, 18s) showing a list of ingredients.\n    *   Output: JSON with answer, supporting_points, confidence, analysis.\n\n2.  **Examine the Images:**\n    *   **Image 1 (16s):** Shows a list of ingredients. The text is a bit blurry but readable.\n        *   \"1/2 cup coriander leaves\"\n        *   \"1/2 cup mint leaves\"\n        *   \"1/2 inch ginger\"\n        *   \"1/2 inch green chilli\"\n        *   \"1/2 tsp salt\"\n        *   \"1/2 cup water\"\n    *   **Image 2 (17s):** Similar list, slightly different layout or just a transition.\n        *   \"1/2 cup coriander leaves\"\n        *   \"1/2 cup mint leaves\"\n        *   \"1/2 inch ginger\"\n        *   \"1/2 inch green chilli\"\n        *   \"1/2 tsp salt\"\n        *   \"1/2 cup water\"\n    *   **Image 3 (18s):** The list is fading out or very faint.\n\n3.  **Identify the Ingredients:**\n    *   The prompt asks for ingredients \"to get ground in a mixer\" for \"green chutney\".\n    *   The list visible is:\n        1.  coriander leaves\n        2.  mint leaves\n        3.  ginger\n        4.  green chilli\n        5.  salt\n        6.  water\n\n4.  **Determine the \"2nd ingredient\":**\n    *   The list order is usually top-to-bottom.\n    *   1st: coriander leaves\n    *   2nd: mint leaves\n\n5.  **Extract the \"2nd word\" of the \"2nd ingredient\":**\n    *   Ingredient phrase: \"mint leaves\"\n    *   1st word: \"mint\"\n    *   2nd word: \"leaves\"\n\n6.  **Find the \"1st letter\" of that word:**\n    *   Word: \"leaves\"\n    *   1st letter: \"L\"\n\n7.  **Match with Options:**\n    *   A. O.\n    *   B. L.\n    *   C. M.\n    *   D. C.\n    *   E. E.\n    *   Match: Option B.\n\n8.  **Formulate Supporting Points:**\n    *   The visible ingredient list for green chutney includes \"coriander leaves\" and \"mint leaves\".\n    *   The second ingredient in the list is \"mint leaves\".\n    *   The second word of \"mint leaves\" is \"leaves\".\n    *   The first letter of \"leaves\" is \"L\".\n\n9.  **Construct JSON:**\n    *   answer: \"B\"\n    *   supporting_points: [\"The ingredient list shows 'coriander leaves' followed by 'mint leaves'.\", \"The second ingredient is 'mint",
+          "analysis": "The user wants to identify a specific letter based on a recipe instruction shown in the video frames.\n\n1.  **Analyze the Request:**\n    *   Target: \"1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer\".\n    *   Context: \"green chutney\".\n    *   Input: Three frames (16s, 17s, 18s) showing a list of ingredients.\n    *   Output: JSON with answer, supporting_points, confidence, analysis.\n\n2.  **Examine the Images:**\n    *   **Image 1 (16s):** Shows a list of ingredients. The text is a bit blurry but readable.\n        *   \"1/2 cup coriander leaves\"\n        *   \"1/2 cup mint leaves\"\n        *   \"1/2 inch ginger\"\n        *   \"1/2 inch green chilli\"\n        *   \"1/2 tsp salt\"\n        *   \"1/2 cup water\"\n    *   **Image 2 (17s):** Similar list, slightly different layout or just a transition.\n        *   \"1/2 cup coriander leaves\"\n        *   \"1/2 cup mint leaves\"\n        *   \"1/2 inch ginger\"\n        *   \"1/2 inch green chilli\"\n        *   \"1/2 tsp salt\"\n        *   \"1/2 cup water\"\n    *   **Image 3 (18s):** The list is fading out or very faint.\n\n3.  **Identify the Ingredients:**\n    *   The prompt asks for ingredients \"to get ground in a mixer\" for \"green chutney\".\n    *   The list visible is:\n        1.  coriander leaves\n        2.  mint leaves\n        3.  ginger\n        4.  green chilli\n        5.  salt\n        6.  water\n\n4.  **Determine the \"2nd ingredient\":**\n    *   The list order is usually top-to-bottom.\n    *   1st: coriander leaves\n    *   2nd: mint leaves\n\n5.  **Extract the \"2nd word\" of the \"2nd ingredient\":**\n    *   Ingredient phrase: \"mint leaves\"\n    *   1st word: \"mint\"\n    *   2nd word: \"leaves\"\n\n6.  **Find the \"1st letter\" of that word:**\n    *   Word: \"leaves\"\n    *   1st letter: \"L\"\n\n7.  **Match with Options:**\n    *   A. O.\n    *   B. L.\n    *   C. M.\n    *   D. C.\n    *   E. E.\n    *   Match: Option B.\n\n8.  **Formulate Supporting Points:**\n    *   The visible ingredient list for green chutney includes \"coriander leaves\" and \"mint leaves\".\n    *   The second ingredient in the list is \"mint leaves\".\n    *   The second word of \"mint leaves\" is \"leaves\".\n    *   The first letter of \"leaves\" is \"L\".\n\n9.  **Construct JSON:**\n    *   answer: \"B\"\n    *   supporting_points: [\"The ingredient list shows 'coriander leaves' followed by 'mint leaves'.\", \"The second ingredient is 'mint",
+          "supporting_points": [],
+          "confidence": null
+        },
+        "raw_output_text": "{\"answer\": \"The user wants to identify a specific letter based on a recipe instruction shown in the video frames.\\n\\n1.  **Analyze the Request:**\\n    *   Target: \\\"1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer\\\".\\n    *   Context: \\\"green chutney\\\".\\n    *   Input: Three frames (16s, 17s, 18s) showing a list of ingredients.\\n    *   Output: JSON with answer, supporting_points, confidence, analysis.\\n\\n2.  **Examine the Images:**\\n    *   **Image 1 (16s):** Shows a list of ingredients. The text is a bit blurry but readable.\\n        *   \\\"1/2 cup coriander leaves\\\"\\n        *   \\\"1/2 cup mint leaves\\\"\\n        *   \\\"1/2 inch ginger\\\"\\n        *   \\\"1/2 inch green chilli\\\"\\n        *   \\\"1/2 tsp salt\\\"\\n        *   \\\"1/2 cup water\\\"\\n    *   **Image 2 (17s):** Similar list, slightly different layout or just a transition.\\n        *   \\\"1/2 cup coriander leaves\\\"\\n        *   \\\"1/2 cup mint leaves\\\"\\n        *   \\\"1/2 inch ginger\\\"\\n        *   \\\"1/2 inch green chilli\\\"\\n        *   \\\"1/2 tsp salt\\\"\\n        *   \\\"1/2 cup water\\\"\\n    *   **Image 3 (18s):** The list is fading out or very faint.\\n\\n3.  **Identify the Ingredients:**\\n    *   The prompt asks for ingredients \\\"to get ground in a mixer\\\" for \\\"green chutney\\\".\\n    *   The list visible is:\\n        1.  coriander leaves\\n        2.  mint leaves\\n        3.  ginger\\n        4.  green chilli\\n        5.  salt\\n        6.  water\\n\\n4.  **Determine the \\\"2nd ingredient\\\":**\\n    *   The list order is usually top-to-bottom.\\n    *   1st: coriander leaves\\n    *   2nd: mint leaves\\n\\n5.  **Extract the \\\"2nd word\\\" of the \\\"2nd ingredient\\\":**\\n    *   Ingredient phrase: \\\"mint leaves\\\"\\n    *   1st word: \\\"mint\\\"\\n    *   2nd word: \\\"leaves\\\"\\n\\n6.  **Find the \\\"1st letter\\\" of that word:**\\n    *   Word: \\\"leaves\\\"\\n    *   1st letter: \\\"L\\\"\\n\\n7.  **Match with Options:**\\n    *   A. O.\\n    *   B. L.\\n    *   C. M.\\n    *   D. C.\\n    *   E. E.\\n    *   Match: Option B.\\n\\n8.  **Formulate Supporting Points:**\\n    *   The visible ingredient list for green chutney includes \\\"coriander leaves\\\" and \\\"mint leaves\\\".\\n    *   The second ingredient in the list is \\\"mint leaves\\\".\\n    *   The second word of \\\"mint leaves\\\" is \\\"leaves\\\".\\n    *   The first letter of \\\"leaves\\\" is \\\"L\\\".\\n\\n9.  **Construct JSON:**\\n    *   answer: \\\"B\\\"\\n    *   supporting_points: [\\\"The ingredient list shows 'coriander leaves' followed by 'mint leaves'.\\\", \\\"The second ingredient is 'mint\", \"supporting_points\": [], \"confidence\": null, \"analysis\": \"The user wants to identify a specific letter based on a recipe instruction shown in the video frames.\\n\\n1.  **Analyze the Request:**\\n    *   Target: \\\"1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer\\\".\\n    *   Context: \\\"green chutney\\\".\\n    *   Input: Three frames (16s, 17s, 18s) showing a list of ingredients.\\n    *   Output: JSON with answer, supporting_points, confidence, analysis.\\n\\n2.  **Examine the Images:**\\n    *   **Image 1 (16s):** Shows a list of ingredients. The text is a bit blurry but readable.\\n        *   \\\"1/2 cup coriander leaves\\\"\\n        *   \\\"1/2 cup mint leaves\\\"\\n        *   \\\"1/2 inch ginger\\\"\\n        *   \\\"1/2 inch green chilli\\\"\\n        *   \\\"1/2 tsp salt\\\"\\n        *   \\\"1/2 cup water\\\"\\n    *   **Image 2 (17s):** Similar list, slightly different layout or just a transition.\\n        *   \\\"1/2 cup coriander leaves\\\"\\n        *   \\\"1/2 cup mint leaves\\\"\\n        *   \\\"1/2 inch ginger\\\"\\n        *   \\\"1/2 inch green chilli\\\"\\n        *   \\\"1/2 tsp salt\\\"\\n        *   \\\"1/2 cup water\\\"\\n    *   **Image 3 (18s):** The list is fading out or very faint.\\n\\n3.  **Identify the Ingredients:**\\n    *   The prompt asks for ingredients \\\"to get ground in a mixer\\\" for \\\"green chutney\\\".\\n    *   The list visible is:\\n        1.  coriander leaves\\n        2.  mint leaves\\n        3.  ginger\\n        4.  green chilli\\n        5.  salt\\n        6.  water\\n\\n4.  **Determine the \\\"2nd ingredient\\\":**\\n    *   The list order is usually top-to-bottom.\\n    *   1st: coriander leaves\\n    *   2nd: mint leaves\\n\\n5.  **Extract the \\\"2nd word\\\" of the \\\"2nd ingredient\\\":**\\n    *   Ingredient phrase: \\\"mint leaves\\\"\\n    *   1st word: \\\"mint\\\"\\n    *   2nd word: \\\"leaves\\\"\\n\\n6.  **Find the \\\"1st letter\\\" of that word:**\\n    *   Word: \\\"leaves\\\"\\n    *   1st letter: \\\"L\\\"\\n\\n7.  **Match with Options:**\\n    *   A. O.\\n    *   B. L.\\n    *   C. M.\\n    *   D. C.\\n    *   E. E.\\n    *   Match: Option B.\\n\\n8.  **Formulate Supporting Points:**\\n    *   The visible ingredient list for green chutney includes \\\"coriander leaves\\\" and \\\"mint leaves\\\".\\n    *   The second ingredient in the list is \\\"mint leaves\\\".\\n    *   The second word of \\\"mint leaves\\\" is \\\"leaves\\\".\\n    *   The first letter of \\\"leaves\\\" is \\\"L\\\".\\n\\n9.  **Construct JSON:**\\n    *   answer: \\\"B\\\"\\n    *   supporting_points: [\\\"The ingredient list shows 'coriander leaves' followed by 'mint leaves'.\\\", \\\"The second ingredient is 'mint\"}\n",
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_16.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.07662712782621384,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.07662712782621384,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological",
+              "video_id": "-ODflyuHFr0",
+              "timestamp_s": 16.0
+            }
+          },
+          {
+            "artifact_id": "clip_000_00_060_00",
+            "kind": "clip",
+            "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 12.0,
+              "end_s": 18.0
+            }
+          },
+          {
+            "artifact_id": "frame_17.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.07487977296113968,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.07487977296113968,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological",
+              "video_id": "-ODflyuHFr0",
+              "timestamp_s": 17.0
+            }
+          },
+          {
+            "artifact_id": "frame_18.00",
+            "kind": "frame",
+            "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "relevance_score": 0.1189909279346466,
+              "device": "cuda:1",
+              "clip_start_s": 12.0,
+              "clip_end_s": 18.0,
+              "frame_pool_start_s": 12.0,
+              "frame_pool_end_s": 18.0,
+              "temporal_score": 0.1189909279346466,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 18.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological",
+              "video_id": "-ODflyuHFr0",
+              "timestamp_s": 18.0
+            }
+          }
+        ],
+        "request_hash": "000f4ce51c4a2d6370b05451",
+        "cache_hit": false,
+        "summary": "The user wants to identify a specific letter based on a recipe instruction shown in the video frames.\n\n1.  **Analyze the Request:**\n    *   Target: \"1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer\".\n    *   Context: \"green chutney\".\n    *   Input: Three frames (16s, 17s, 18s) showing a list of ingredients.\n    *   Output: JSON with answer, supporting_points, confidence, analysis.\n\n2.  **Examine the Images:**\n    *   **Image 1 (16s):** Shows a list of ingredients. The text is a bit blurry but readable.\n        *   \"1/2 cup coriander leaves\"\n        *   \"1/2 cup mint leaves\"\n        *   \"1/2 inch ginger\"\n        *   \"1/2 inch green chilli\"\n        *   \"1/2 tsp salt\"\n        *   \"1/2 cup water\"\n    *   **Image 2 (17s):** Similar list, slightly different layout or just a transition.\n        *   \"1/2 cup coriander leaves\"\n        *   \"1/2 cup mint leaves\"\n        *   \"1/2 inch ginger\"\n        *   \"1/2 inch green chilli\"\n        *   \"1/2 tsp salt\"\n        *   \"1/2 cup water\"\n    *   **Image 3 (18s):** The list is fading out or very faint.\n\n3.  **Identify the Ingredients:**\n    *   The prompt asks for ingredients \"to get ground in a mixer\" for \"green chutney\".\n    *   The list visible is:\n        1.  coriander leaves\n        2.  mint leaves\n        3.  ginger\n        4.  green chilli\n        5.  salt\n        6.  water\n\n4.  **Determine the \"2nd ingredient\":**\n    *   The list order is usually top-to-bottom.\n    *   1st: coriander leaves\n    *   2nd: mint leaves\n\n5.  **Extract the \"2nd word\" of the \"2nd ingredient\":**\n    *   Ingredient phrase: \"mint leaves\"\n    *   1st word: \"mint\"\n    *   2nd word: \"leaves\"\n\n6.  **Find the \"1st letter\" of that word:**\n    *   Word: \"leaves\"\n    *   1st letter: \"L\"\n\n7.  **Match with Options:**\n    *   A. O.\n    *   B. L.\n    *   C. M.\n    *   D. C.\n    *   E. E.\n    *   Match: Option B.\n\n8.  **Formulate Supporting Points:**\n    *   The visible ingredient list for green chutney includes \"coriander leaves\" and \"mint",
+        "metadata": {
+          "backend": "Qwen/Qwen3.5-9B",
+          "low_signal_output": false,
+          "timing": {
+            "started_at_utc": "2026-04-28T18:27:59.299999+00:00",
+            "finished_at_utc": "2026-04-28T18:29:36.750633+00:00",
+            "duration_s": 97.4507,
+            "cache_wait_s": 0.0005,
+            "execution_mode": "executed"
+          },
+          "observation_ids": [
+            "obs_61334250cc07fb53",
+            "obs_d654d773f6560148",
+            "obs_c1f08604b91d715d",
+            "obs_d4474d608e2001b8",
+            "obs_213713940be6f9f7",
+            "obs_dbef640773a82c86",
+            "obs_b05a02e05f87b787",
+            "obs_8d3b628699594d88",
+            "obs_abe153eab2f98ae5",
+            "obs_8aaa6337b4b1dee4",
+            "obs_c1ec34064c400c14",
+            "obs_1bbbe001c4882885",
+            "obs_05cc5f516131df9d",
+            "obs_43466baca1b0d1d1",
+            "obs_3b81caa7ef4cdea5",
+            "obs_a96feebe69a4227d",
+            "obs_e55292e44278cb98",
+            "obs_43cafc02c26b739f",
+            "obs_433bb13d84a75d85",
+            "obs_8505b06373051365",
+            "obs_c47c7cd44ddd8890",
+            "obs_d0cf9e7dff11fb21",
+            "obs_0c2ef218cc61aadd",
+            "obs_368439fce27de3f2",
+            "obs_11a85d6cae3eca61",
+            "obs_a0028599f12eb2f3",
+            "obs_b616368347125e54",
+            "obs_97cf8825b43c9ead",
+            "obs_08853c337f79bb27",
+            "obs_d53ce48233d8c321",
+            "obs_2ee28c35bf1f7a9d",
+            "obs_4aba75c652b1eb68",
+            "obs_21c9a26e31e8dc0e",
+            "obs_5420ac2555c10062",
+            "obs_0f1b2ce82f9c17f1",
+            "obs_ea80527d42fcf60f",
+            "obs_a6c6775560611f30",
+            "obs_4e6b9d7a52299a35",
+            "obs_e35173e54eebcc94",
+            "obs_764edfae6e8dc979",
+            "obs_0aee4a4b7198ff69",
+            "obs_3024d79f6616293d",
+            "obs_2d371df92d0b9824",
+            "obs_5f31a23e8088eab0",
+            "obs_a34471e04a14f9e9",
+            "obs_822d2486ba64c35a"
+          ]
+        }
+      },
+      "timing": {
+        "started_at_utc": "2026-04-28T18:27:59.299999+00:00",
+        "finished_at_utc": "2026-04-28T18:29:36.750633+00:00",
+        "duration_s": 97.4507,
+        "cache_wait_s": 0.0005,
+        "execution_mode": "executed"
+      },
+      "runtime": {
+        "backend": "qwen35vl",
+        "model_name": "Qwen/Qwen3.5-9B",
+        "device": "cuda:1",
+        "device_mapping": {
+          "requested_label": "cuda:1",
+          "resolved_label": "cuda:1",
+          "cuda_visible_devices": "0,1",
+          "cuda_device_order": null,
+          "local_index": 1,
+          "physical_index_hint": "1",
+          "mapping_source": "CUDA_VISIBLE_DEVICES"
+        },
+        "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+        "resolved_model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--Qwen--Qwen3.5-9B/snapshots/c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+        "model_resolution_status": "ok",
+        "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+        "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/ODflyuHFr0/20260428T182321Z_6ef64d54/_scratch/generic_purpose",
+        "extra": {
+          "backend_name": "qwen35vl",
+          "attn_implementation": "flash_attention_2",
+          "temperature": 0.0,
+          "do_sample": false
+        }
+      },
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_16.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_16.00.png",
+            "relevance_score": 0.07662712782621384,
+            "device": "cuda:1",
+            "clip_start_s": 12.0,
+            "clip_end_s": 18.0,
+            "frame_pool_start_s": 12.0,
+            "frame_pool_end_s": 18.0,
+            "temporal_score": 0.07662712782621384,
+            "anchor_distance_s": 2.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 18.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "before",
+            "sequence_index": 0,
+            "sequence_sort_order": "chronological",
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 16.0
+          }
+        },
+        {
+          "artifact_id": "clip_000_00_060_00",
+          "kind": "clip",
+          "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "video_id": "-ODflyuHFr0",
+            "start_s": 12.0,
+            "end_s": 18.0
+          }
+        },
+        {
+          "artifact_id": "frame_17.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_17.00.png",
+            "relevance_score": 0.07487977296113968,
+            "device": "cuda:1",
+            "clip_start_s": 12.0,
+            "clip_end_s": 18.0,
+            "frame_pool_start_s": 12.0,
+            "frame_pool_end_s": 18.0,
+            "temporal_score": 0.07487977296113968,
+            "anchor_distance_s": 1.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 18.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "before",
+            "sequence_index": 1,
+            "sequence_sort_order": "chronological",
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 17.0
+          }
+        },
+        {
+          "artifact_id": "frame_18.00",
+          "kind": "frame",
+          "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/-ODflyuHFr0/dense_frames/-ODflyuHFr0/frame_18.00.png",
+            "relevance_score": 0.1189909279346466,
+            "device": "cuda:1",
+            "clip_start_s": 12.0,
+            "clip_end_s": 18.0,
+            "frame_pool_start_s": 12.0,
+            "frame_pool_end_s": 18.0,
+            "temporal_score": 0.1189909279346466,
+            "anchor_distance_s": 0.0,
+            "selection_reason": "anchor_window_sequence",
+            "requested_timestamp_s": 18.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "anchor",
+            "sequence_index": 2,
+            "sequence_sort_order": "chronological",
+            "video_id": "-ODflyuHFr0",
+            "timestamp_s": 18.0
+          }
+        }
+      ],
+      "observations": [
+        {
+          "observation_id": "obs_61334250cc07fb53",
+          "subject": "user",
+          "subject_type": "person",
+          "predicate": "wants_to_identify",
+          "object_text": "a specific letter based on a recipe instruction shown in the video frames",
+          "object_type": "task",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The user wants to identify a specific letter based on a recipe instruction shown in the video frames.",
+          "metadata": {
+            "observation_id": "obs_61334250cc07fb53"
+          }
+        },
+        {
+          "observation_id": "obs_d654d773f6560148",
+          "subject": "target",
+          "subject_type": "instruction",
+          "predicate": "is",
+          "object_text": "1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer",
+          "object_type": "text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The target is \"1st letter of the 2nd word for the 2nd ingredient to get ground in a mixer\".",
+          "metadata": {
+            "observation_id": "obs_d654d773f6560148"
+          }
+        },
+        {
+          "observation_id": "obs_c1f08604b91d715d",
+          "subject": "context",
+          "subject_type": "recipe",
+          "predicate": "is",
+          "object_text": "green chutney",
+          "object_type": "dish",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The context is \"green chutney\".",
+          "metadata": {
+            "observation_id": "obs_c1f08604b91d715d"
+          }
+        },
+        {
+          "observation_id": "obs_d4474d608e2001b8",
+          "subject": "input",
+          "subject_type": "media_set",
+          "predicate": "includes",
+          "object_text": "three frames",
+          "object_type": "count",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The input includes three frames.",
+          "metadata": {
+            "observation_id": "obs_d4474d608e2001b8"
+          }
+        },
+        {
+          "observation_id": "obs_213713940be6f9f7",
+          "subject": "three frames",
+          "subject_type": "media_set",
+          "predicate": "occur_at",
+          "object_text": "16s, 17s, and 18s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The three frames occur at 16s, 17s, and 18s.",
+          "metadata": {
+            "observation_id": "obs_213713940be6f9f7"
+          }
+        },
+        {
+          "observation_id": "obs_dbef640773a82c86",
+          "subject": "three frames",
+          "subject_type": "media_set",
+          "predicate": "show",
+          "object_text": "a list of ingredients",
+          "object_type": "visual_content",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The three frames show a list of ingredients.",
+          "metadata": {
+            "observation_id": "obs_dbef640773a82c86"
+          }
+        },
+        {
+          "observation_id": "obs_b05a02e05f87b787",
+          "subject": "requested output",
+          "subject_type": "format",
+          "predicate": "is",
+          "object_text": "JSON with answer, supporting_points, confidence, analysis",
+          "object_type": "text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The requested output is JSON with answer, supporting_points, confidence, analysis.",
+          "metadata": {
+            "observation_id": "obs_b05a02e05f87b787"
+          }
+        },
+        {
+          "observation_id": "obs_8d3b628699594d88",
+          "subject": "Image 1",
+          "subject_type": "video_frame",
+          "predicate": "timestamp",
+          "object_text": "16s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 1 is at 16s.",
+          "metadata": {
+            "observation_id": "obs_8d3b628699594d88"
+          }
+        },
+        {
+          "observation_id": "obs_abe153eab2f98ae5",
+          "subject": "Image 1",
+          "subject_type": "video_frame",
+          "predicate": "shows",
+          "object_text": "a list of ingredients",
+          "object_type": "visual_content",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 1 shows a list of ingredients.",
+          "metadata": {
+            "observation_id": "obs_abe153eab2f98ae5"
+          }
+        },
+        {
+          "observation_id": "obs_8aaa6337b4b1dee4",
+          "subject": "Image 1 text",
+          "subject_type": "text",
+          "predicate": "visibility",
+          "object_text": "a bit blurry but readable",
+          "object_type": "attribute",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The text in Image 1 is a bit blurry but readable.",
+          "metadata": {
+            "observation_id": "obs_8aaa6337b4b1dee4"
+          }
+        },
+        {
+          "observation_id": "obs_c1ec34064c400c14",
+          "subject": "Image 1",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 cup coriander leaves",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 1 contains the text \"1/2 cup coriander leaves\".",
+          "metadata": {
+            "observation_id": "obs_c1ec34064c400c14"
+          }
+        },
+        {
+          "observation_id": "obs_1bbbe001c4882885",
+          "subject": "Image 1",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 cup mint leaves",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 1 contains the text \"1/2 cup mint leaves\".",
+          "metadata": {
+            "observation_id": "obs_1bbbe001c4882885"
+          }
+        },
+        {
+          "observation_id": "obs_05cc5f516131df9d",
+          "subject": "Image 1",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 inch ginger",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 1 contains the text \"1/2 inch ginger\".",
+          "metadata": {
+            "observation_id": "obs_05cc5f516131df9d"
+          }
+        },
+        {
+          "observation_id": "obs_43466baca1b0d1d1",
+          "subject": "Image 1",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 inch green chilli",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 1 contains the text \"1/2 inch green chilli\".",
+          "metadata": {
+            "observation_id": "obs_43466baca1b0d1d1"
+          }
+        },
+        {
+          "observation_id": "obs_3b81caa7ef4cdea5",
+          "subject": "Image 1",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 tsp salt",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 1 contains the text \"1/2 tsp salt\".",
+          "metadata": {
+            "observation_id": "obs_3b81caa7ef4cdea5"
+          }
+        },
+        {
+          "observation_id": "obs_a96feebe69a4227d",
+          "subject": "Image 1",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 cup water",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 1 contains the text \"1/2 cup water\".",
+          "metadata": {
+            "observation_id": "obs_a96feebe69a4227d"
+          }
+        },
+        {
+          "observation_id": "obs_e55292e44278cb98",
+          "subject": "Image 2",
+          "subject_type": "video_frame",
+          "predicate": "timestamp",
+          "object_text": "17s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 is at 17s.",
+          "metadata": {
+            "observation_id": "obs_e55292e44278cb98"
+          }
+        },
+        {
+          "observation_id": "obs_43cafc02c26b739f",
+          "subject": "Image 2",
+          "subject_type": "video_frame",
+          "predicate": "shows",
+          "object_text": "a similar ingredient list",
+          "object_type": "visual_content",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 shows a similar ingredient list.",
+          "metadata": {
+            "observation_id": "obs_43cafc02c26b739f"
+          }
+        },
+        {
+          "observation_id": "obs_433bb13d84a75d85",
+          "subject": "Image 2",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 cup coriander leaves",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 contains the text \"1/2 cup coriander leaves\".",
+          "metadata": {
+            "observation_id": "obs_433bb13d84a75d85"
+          }
+        },
+        {
+          "observation_id": "obs_8505b06373051365",
+          "subject": "Image 2",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 cup mint leaves",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 contains the text \"1/2 cup mint leaves\".",
+          "metadata": {
+            "observation_id": "obs_8505b06373051365"
+          }
+        },
+        {
+          "observation_id": "obs_c47c7cd44ddd8890",
+          "subject": "Image 2",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 inch ginger",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 contains the text \"1/2 inch ginger\".",
+          "metadata": {
+            "observation_id": "obs_c47c7cd44ddd8890"
+          }
+        },
+        {
+          "observation_id": "obs_d0cf9e7dff11fb21",
+          "subject": "Image 2",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 inch green chilli",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 contains the text \"1/2 inch green chilli\".",
+          "metadata": {
+            "observation_id": "obs_d0cf9e7dff11fb21"
+          }
+        },
+        {
+          "observation_id": "obs_0c2ef218cc61aadd",
+          "subject": "Image 2",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 tsp salt",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 contains the text \"1/2 tsp salt\".",
+          "metadata": {
+            "observation_id": "obs_0c2ef218cc61aadd"
+          }
+        },
+        {
+          "observation_id": "obs_368439fce27de3f2",
+          "subject": "Image 2",
+          "subject_type": "video_frame",
+          "predicate": "contains_text",
+          "object_text": "1/2 cup water",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 2 contains the text \"1/2 cup water\".",
+          "metadata": {
+            "observation_id": "obs_368439fce27de3f2"
+          }
+        },
+        {
+          "observation_id": "obs_11a85d6cae3eca61",
+          "subject": "Image 3",
+          "subject_type": "video_frame",
+          "predicate": "timestamp",
+          "object_text": "18s",
+          "object_type": "timestamp",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Image 3 is at 18s.",
+          "metadata": {
+            "observation_id": "obs_11a85d6cae3eca61"
+          }
+        },
+        {
+          "observation_id": "obs_a0028599f12eb2f3",
+          "subject": "Image 3",
+          "subject_type": "video_frame",
+          "predicate": "appearance",
+          "object_text": "the list is fading out or very faint",
+          "object_type": "attribute",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "In Image 3, the list is fading out or very faint.",
+          "metadata": {
+            "observation_id": "obs_a0028599f12eb2f3"
+          }
+        },
+        {
+          "observation_id": "obs_b616368347125e54",
+          "subject": "visible ingredient list",
+          "subject_type": "ingredient_list",
+          "predicate": "includes",
+          "object_text": "coriander leaves",
+          "object_type": "ingredient",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The visible ingredient list includes coriander leaves.",
+          "metadata": {
+            "observation_id": "obs_b616368347125e54"
+          }
+        },
+        {
+          "observation_id": "obs_97cf8825b43c9ead",
+          "subject": "visible ingredient list",
+          "subject_type": "ingredient_list",
+          "predicate": "includes",
+          "object_text": "mint leaves",
+          "object_type": "ingredient",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The visible ingredient list includes mint leaves.",
+          "metadata": {
+            "observation_id": "obs_97cf8825b43c9ead"
+          }
+        },
+        {
+          "observation_id": "obs_08853c337f79bb27",
+          "subject": "visible ingredient list",
+          "subject_type": "ingredient_list",
+          "predicate": "includes",
+          "object_text": "ginger",
+          "object_type": "ingredient",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The visible ingredient list includes ginger.",
+          "metadata": {
+            "observation_id": "obs_08853c337f79bb27"
+          }
+        },
+        {
+          "observation_id": "obs_d53ce48233d8c321",
+          "subject": "visible ingredient list",
+          "subject_type": "ingredient_list",
+          "predicate": "includes",
+          "object_text": "green chilli",
+          "object_type": "ingredient",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The visible ingredient list includes green chilli.",
+          "metadata": {
+            "observation_id": "obs_d53ce48233d8c321"
+          }
+        },
+        {
+          "observation_id": "obs_2ee28c35bf1f7a9d",
+          "subject": "visible ingredient list",
+          "subject_type": "ingredient_list",
+          "predicate": "includes",
+          "object_text": "salt",
+          "object_type": "ingredient",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The visible ingredient list includes salt.",
+          "metadata": {
+            "observation_id": "obs_2ee28c35bf1f7a9d"
+          }
+        },
+        {
+          "observation_id": "obs_4aba75c652b1eb68",
+          "subject": "visible ingredient list",
+          "subject_type": "ingredient_list",
+          "predicate": "includes",
+          "object_text": "water",
+          "object_type": "ingredient",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The visible ingredient list includes water.",
+          "metadata": {
+            "observation_id": "obs_4aba75c652b1eb68"
+          }
+        },
+        {
+          "observation_id": "obs_21c9a26e31e8dc0e",
+          "subject": "ingredient order",
+          "subject_type": "ordering",
+          "predicate": "usually_is",
+          "object_text": "top-to-bottom",
+          "object_type": "attribute",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The list order is usually top-to-bottom.",
+          "metadata": {
+            "observation_id": "obs_21c9a26e31e8dc0e"
+          }
+        },
+        {
+          "observation_id": "obs_5420ac2555c10062",
+          "subject": "1st ingredient",
+          "subject_type": "list_position",
+          "predicate": "is",
+          "object_text": "coriander leaves",
+          "object_type": "ingredient",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The 1st ingredient is coriander leaves.",
+          "metadata": {
+            "observation_id": "obs_5420ac2555c10062"
+          }
+        },
+        {
+          "observation_id": "obs_0f1b2ce82f9c17f1",
+          "subject": "2nd ingredient",
+          "subject_type": "list_position",
+          "predicate": "is",
+          "object_text": "mint leaves",
+          "object_type": "ingredient",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The 2nd ingredient is mint leaves.",
+          "metadata": {
+            "observation_id": "obs_0f1b2ce82f9c17f1"
+          }
+        },
+        {
+          "observation_id": "obs_ea80527d42fcf60f",
+          "subject": "ingredient phrase",
+          "subject_type": "text",
+          "predicate": "is",
+          "object_text": "mint leaves",
+          "object_type": "ingredient_text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The ingredient phrase is \"mint leaves\".",
+          "metadata": {
+            "observation_id": "obs_ea80527d42fcf60f"
+          }
+        },
+        {
+          "observation_id": "obs_a6c6775560611f30",
+          "subject": "1st word of \"mint leaves\"",
+          "subject_type": "word_position",
+          "predicate": "is",
+          "object_text": "mint",
+          "object_type": "word",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The 1st word of \"mint leaves\" is \"mint\".",
+          "metadata": {
+            "observation_id": "obs_a6c6775560611f30"
+          }
+        },
+        {
+          "observation_id": "obs_4e6b9d7a52299a35",
+          "subject": "2nd word of \"mint leaves\"",
+          "subject_type": "word_position",
+          "predicate": "is",
+          "object_text": "leaves",
+          "object_type": "word",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The 2nd word of \"mint leaves\" is \"leaves\".",
+          "metadata": {
+            "observation_id": "obs_4e6b9d7a52299a35"
+          }
+        },
+        {
+          "observation_id": "obs_e35173e54eebcc94",
+          "subject": "1st letter of \"leaves\"",
+          "subject_type": "letter_position",
+          "predicate": "is",
+          "object_text": "L",
+          "object_type": "letter",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The 1st letter of \"leaves\" is \"L\".",
+          "metadata": {
+            "observation_id": "obs_e35173e54eebcc94"
+          }
+        },
+        {
+          "observation_id": "obs_764edfae6e8dc979",
+          "subject": "Option A",
+          "subject_type": "answer_option",
+          "predicate": "is",
+          "object_text": "O",
+          "object_type": "letter",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Option A is \"O\".",
+          "metadata": {
+            "observation_id": "obs_764edfae6e8dc979"
+          }
+        },
+        {
+          "observation_id": "obs_0aee4a4b7198ff69",
+          "subject": "Option B",
+          "subject_type": "answer_option",
+          "predicate": "is",
+          "object_text": "L",
+          "object_type": "letter",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Option B is \"L\".",
+          "metadata": {
+            "observation_id": "obs_0aee4a4b7198ff69"
+          }
+        },
+        {
+          "observation_id": "obs_3024d79f6616293d",
+          "subject": "Option C",
+          "subject_type": "answer_option",
+          "predicate": "is",
+          "object_text": "M",
+          "object_type": "letter",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Option C is \"M\".",
+          "metadata": {
+            "observation_id": "obs_3024d79f6616293d"
+          }
+        },
+        {
+          "observation_id": "obs_2d371df92d0b9824",
+          "subject": "Option D",
+          "subject_type": "answer_option",
+          "predicate": "is",
+          "object_text": "C",
+          "object_type": "letter",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Option D is \"C\".",
+          "metadata": {
+            "observation_id": "obs_2d371df92d0b9824"
+          }
+        },
+        {
+          "observation_id": "obs_5f31a23e8088eab0",
+          "subject": "Option E",
+          "subject_type": "answer_option",
+          "predicate": "is",
+          "object_text": "E",
+          "object_type": "letter",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "Option E is \"E\".",
+          "metadata": {
+            "observation_id": "obs_5f31a23e8088eab0"
+          }
+        },
+        {
+          "observation_id": "obs_a34471e04a14f9e9",
+          "subject": "match",
+          "subject_type": "selection",
+          "predicate": "is",
+          "object_text": "Option B",
+          "object_type": "answer_option",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The match is Option B.",
+          "metadata": {
+            "observation_id": "obs_a34471e04a14f9e9"
+          }
+        },
+        {
+          "observation_id": "obs_822d2486ba64c35a",
+          "subject": "answer",
+          "subject_type": "response_field",
+          "predicate": "is",
+          "object_text": "B",
+          "object_type": "text",
+          "numeric_value": null,
+          "unit": null,
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "bbox": null,
+          "speaker_id": null,
+          "confidence": null,
+          "source_tool": "generic_purpose",
+          "source_artifact_refs": [
+            "frame_16.00",
+            "clip_000_00_060_00",
+            "frame_17.00",
+            "frame_18.00"
+          ],
+          "direct_or_derived": "derived",
+          "atomic_text": "The answer is \"B\".",
+          "metadata": {
+            "observation_id": "obs_822d2486ba64c35a"
+          }
+        }
+      ],
+      "request_path": "round_01/tools/03_generic_purpose/request.json",
+      "result_path": "round_01/tools/03_generic_purpose/result.json",
+      "timing_path": "round_01/tools/03_generic_purpose/timing.json",
+      "runtime_path": "round_01/tools/03_generic_purpose/runtime.json",
+      "observations_path": "round_01/tools/03_generic_purpose/observations.json",
+      "artifact_refs_path": "round_01/tools/03_generic_purpose/artifact_refs.json"
+    }
+  ],
+  "evidence_summary": {
+    "evidence_entry_count": 5,
+    "observation_count": 49,
+    "evidence_entries_by_tool": [
+      {
+        "tool_name": "frame_retriever",
+        "count": 2
+      },
+      {
+        "tool_name": "generic_purpose",
+        "count": 2
+      },
+      {
+        "tool_name": "ocr",
+        "count": 1
+      }
+    ],
+    "observations_by_tool": [
+      {
+        "tool_name": "generic_purpose",
+        "count": 46
+      },
+      {
+        "tool_name": "frame_retriever",
+        "count": 3
+      }
+    ]
+  },
+  "key_files": {
+    "run_manifest": "run_manifest.json",
+    "runtime_snapshot": "runtime_snapshot.json",
+    "trace_package": "trace_package.json",
+    "benchmark_export": "benchmark_export.json",
+    "final_result": "final_result.json"
+  }
+}

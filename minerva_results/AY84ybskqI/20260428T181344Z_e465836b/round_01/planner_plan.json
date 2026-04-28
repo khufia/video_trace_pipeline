@@ -1,0 +1,73 @@
+{
+  "strategy": "Use the known Inner City Tennis interval from preprocess, retrieve a chronological local frame sequence around the woman in gray, and count verified side steps versus ball tosses in one visual reasoning pass.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a dense chronological frame sequence from the Inner City Tennis volunteering segment where the woman in gray teaches on the indoor court, so the motion cycle can be counted rather than inferred from summaries.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 120.0,
+            "end_s": 125.0,
+            "artifact_id": "clip_120_00_172_27",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 12,
+        "query": "chronological frames showing the woman in gray instructor's repeated side steps and ball tosses while teaching the child",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "120-125s woman in gray instructor with child at Inner City Tennis"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological frames covering the action cycle of the woman in gray during the Inner City Tennis scene"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Identify the woman in gray, count completed side steps and completed ball tosses in the retrieved chronological sequence, compute the ratio, and map it to the provided options.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 120.0,
+            "end_s": 125.0,
+            "artifact_id": "clip_120_00_172_27",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+            "metadata": {}
+          }
+        ],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "In this chronological frame sequence from the Inner City Tennis volunteering scene, focus only on the woman in gray instructor. Count completed side steps and completed ball tosses visible in the sequence, state the counts, compute the simplified ratio of side steps to ball tosses, and map it to one of these options: A 4:1, B 3:1, C 1:1, D 5:1, E 2:1.",
+        "text_contexts": [
+          "Preprocess context: A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INNER CITY TENNIS' are visible on the wall behind them."
+        ],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "selected option for the ratio",
+        "supporting_points": "explicit counts of side steps and ball tosses with any ambiguity notes",
+        "analysis": "how the counts were determined from the chronological sequence"
+      }
+    }
+  ],
+  "refinement_instructions": "Use the preprocess segment only to anchor the correct interval and identity of the woman in gray; do not treat the caption's single mention of a toss as sufficient proof of the count. Base the final answer on the chronological retrieved frames, counting only completed visible side-step movements and completed visible toss events by the woman in gray. If the 120-125s sequence does not fully show enough of the action cycle to count confidently, keep the answer unresolved rather than guessing."
+}

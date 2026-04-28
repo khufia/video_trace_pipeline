@@ -1,0 +1,48 @@
+{
+  "action": "retrieve",
+  "rationale": "The likely accusation line is in existing ASR/preprocess around 154-183s, but we still need text context to identify which visible person the man in the light gray jacket is accusing.",
+  "requests": [
+    {
+      "request_id": "kidnapper_dialogue_asr",
+      "target": "asr_transcripts",
+      "need": "Exact dialogue around the accusation and nearby speaker turns in the forest confrontation scene",
+      "query": "that's the guy that kidnapped me I did not identify speaker nearby turns",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 150.0,
+        "end_s": 185.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "scene_character_descriptions",
+      "target": "dense_captions",
+      "need": "Existing text descriptions of who is present in the confrontation scene and their clothing/positions so the accused person can be matched to an option",
+      "query": "light gray jacket accused kidnapper backwards baseball cap glasses blonde wig orange puff jacket plaid shirt confrontation scene",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 150.0,
+        "end_s": 185.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

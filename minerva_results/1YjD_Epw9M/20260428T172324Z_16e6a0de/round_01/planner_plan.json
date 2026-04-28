@@ -1,0 +1,57 @@
+{
+  "strategy": "Use the existing preprocess transcripts to determine whether the interviewed coach describes a win or loss, and use one visual verification frame from the celebration to map the winning jersey color to the answer options.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a stable frame from the end celebration where the winning team is visibly celebrating so the jersey color can be verified.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "-1YjD_Epw9M",
+            "start_s": 120.0,
+            "end_s": 141.867,
+            "artifact_id": "clip_120_00_141_87",
+            "relpath": "artifacts/1YjD_Epw9M/clips/clip_120_00_141_87.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 2,
+        "query": "latest clear frame showing the celebrating team on stage with trophy and visible jersey color",
+        "sequence_mode": "ranked",
+        "sort_order": "ranked",
+        "time_hints": [
+          "126-130s celebration on stage with trophy"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "one or two readable celebration frames showing the winning team's jersey color"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine the game result from the transcript evidence and the celebration frame, including which jersey color won and which option matches.",
+      "inputs": {
+        "query": "From these interview transcripts and celebration frame, determine the result of the game. First decide whether the coach is describing a win, loss, tie, cancellation, or disqualification. Then identify the jersey color of the celebrating winning team in the frame and map to the options black team won or white team won if it was a win. Quote the transcript phrases that support the result and note the visible jersey color from the frame."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "resolved game result mapped to one option",
+        "supporting_points": "quoted transcript evidence plus visual jersey-color verification",
+        "analysis": "reasoning linking win/loss language to the visible celebrating team"
+      }
+    }
+  ],
+  "refinement_instructions": "Rely on the preprocess transcript content already provided in the prompt as the primary evidence for whether the game was won or lost; do not call ASR again. In the trace, quote the strongest phrases such as 'Fourth time's the charm,' 'that's the one that matters most,' 'very proud of the girls,' 'our defense carried us through the game,' 'we had to beat really good teams to win,' and 'they kids stepped up and did that.' Use the retrieved celebration frame only to verify the winning team's jersey color before mapping to black vs white. Do not treat dense-caption summaries alone as final proof for the winner if the frame is unclear; if jersey color remains ambiguous, keep that uncertainty explicit."
+}

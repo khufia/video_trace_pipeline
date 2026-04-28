@@ -1,0 +1,548 @@
+{
+  "task_key": "nq9WnmCGoFQ__5884641d36bd",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_target_ingredient",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Transcript evidence identifies salad as the ingredient receiving the clearest insulting language: \"salad... All you really do is get soggy and you taste like nothing.\" Other cited ingredient mentions are characterized in the supplied observations as positive, neutral, descriptive, metaphorical, or not clearly insults.",
+      "inference_hint": null,
+      "confidence": 0.78,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_0f54122947838fc9",
+        "obs_f20f4d336c045f42",
+        "obs_130ff347d66ab716",
+        "obs_cb33d291d438532d",
+        "obs_a27b8bc23a871ad0",
+        "obs_45a3626a84093177",
+        "obs_5d9677e91629e3a1",
+        "obs_84c713823ba50119",
+        "obs_5b94c8ac076ff9c7"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_full_video_salad_candidates",
+      "tool_name": "visual_temporal_grounder",
+      "evidence_text": "Full-video candidate intervals where lettuce/salad is visible were grounded at 0.00-4.00s, 50.00-59.00s, 60.00-68.00s, 105.00-108.00s, 124.00-126.00s, 256.00-258.00s, 261.00-263.00s, and 270.00-273.00s.",
+      "inference_hint": null,
+      "confidence": 0.95,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0
+        },
+        {
+          "start_s": 50.0,
+          "end_s": 59.0
+        },
+        {
+          "start_s": 60.0,
+          "end_s": 68.0
+        },
+        {
+          "start_s": 105.0,
+          "end_s": 108.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 256.0,
+          "end_s": 258.0
+        },
+        {
+          "start_s": 261.0,
+          "end_s": 263.0
+        },
+        {
+          "start_s": 270.0,
+          "end_s": 273.0
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_00cd116449996e4f",
+        "obs_1586bf5557b901be",
+        "obs_e7781553bc7ac087",
+        "obs_c74d721284e29e34",
+        "obs_20854861ab290f0d",
+        "obs_b9d3cedab125d1d8",
+        "obs_7144eda618d2768a",
+        "obs_5dc764345f3364ae"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_sampled_visual_checks",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Sampled visual checks show: 1-5s burger on a cutting board with no separately visible salad; 62-66s head of lettuce on the floor with no cutting board; 107-110s lettuce with a cutting board, including 107s hand holding lettuce over a cutting board, 108-109s lettuce being cut on a cutting board, and 110s an empty cutting board after the lettuce is gone.",
+      "inference_hint": null,
+      "confidence": 0.84,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 1.0,
+          "end_s": 5.0
+        },
+        {
+          "start_s": 62.0,
+          "end_s": 66.0
+        },
+        {
+          "start_s": 107.0,
+          "end_s": 110.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_1.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_1.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 1.0
+          }
+        },
+        {
+          "artifact_id": "frame_2.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_2.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 2.0
+          }
+        },
+        {
+          "artifact_id": "frame_3.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_3.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 3.0
+          }
+        },
+        {
+          "artifact_id": "frame_4.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_4.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 4.0
+          }
+        },
+        {
+          "artifact_id": "frame_5.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_5.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 5.0
+          }
+        },
+        {
+          "artifact_id": "frame_62.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_62.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 62.0
+          }
+        },
+        {
+          "artifact_id": "frame_63.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_63.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 63.0
+          }
+        },
+        {
+          "artifact_id": "frame_64.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_64.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 64.0
+          }
+        },
+        {
+          "artifact_id": "frame_65.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_65.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 65.0
+          }
+        },
+        {
+          "artifact_id": "frame_66.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_66.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 66.0
+          }
+        },
+        {
+          "artifact_id": "frame_107.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_107.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 107.0
+          }
+        },
+        {
+          "artifact_id": "frame_108.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_108.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 108.0
+          }
+        },
+        {
+          "artifact_id": "frame_109.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_109.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 109.0
+          }
+        },
+        {
+          "artifact_id": "frame_110.00",
+          "kind": "frame",
+          "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_110.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 110.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_2f3c18b62e3552cc",
+        "obs_f640f73192a4cf9c",
+        "obs_45481c9c3d206b5c",
+        "obs_f2efcf3a7f46148b",
+        "obs_d415ea3dc95f611d",
+        "obs_f91bc0b7f19da8e9",
+        "obs_fa7758b8709a4437",
+        "obs_5022042f48a89a5f"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The ingredient insulted the most is salad. The transcript explicitly insults salad by saying it gets soggy and tastes like nothing, while the other cited ingredient mentions are characterized as positive, neutral, descriptive, metaphorical, or not clearly insults.",
+      "supporting_observation_ids": [
+        "obs_0f54122947838fc9",
+        "obs_f20f4d336c045f42",
+        "obs_130ff347d66ab716",
+        "obs_cb33d291d438532d",
+        "obs_a27b8bc23a871ad0",
+        "obs_45a3626a84093177",
+        "obs_5d9677e91629e3a1",
+        "obs_84c713823ba50119",
+        "obs_5b94c8ac076ff9c7"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 2,
+      "text": "Full-video candidate coverage for salad/lettuce visibility is grounded at these intervals, in chronological order: 0.00-4.00s, 50.00-59.00s, 60.00-68.00s, 105.00-108.00s, 124.00-126.00s, 256.00-258.00s, 261.00-263.00s, and 270.00-273.00s. These are the intervals that must be checked for qualifying appearances with a cutting board.",
+      "supporting_observation_ids": [
+        "obs_00cd116449996e4f",
+        "obs_1586bf5557b901be",
+        "obs_e7781553bc7ac087",
+        "obs_c74d721284e29e34",
+        "obs_20854861ab290f0d",
+        "obs_b9d3cedab125d1d8",
+        "obs_7144eda618d2768a",
+        "obs_5dc764345f3364ae"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.0
+        },
+        {
+          "start_s": 50.0,
+          "end_s": 59.0
+        },
+        {
+          "start_s": 60.0,
+          "end_s": 68.0
+        },
+        {
+          "start_s": 105.0,
+          "end_s": 108.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 256.0,
+          "end_s": 258.0
+        },
+        {
+          "start_s": 261.0,
+          "end_s": 263.0
+        },
+        {
+          "start_s": 270.0,
+          "end_s": 273.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "The sampled visual checks establish three important grounded cases. First, 1-5s is non-qualifying: there is a cutting board, but only a burger is shown and salad is not separately visible as the counted ingredient. Second, 62-66s is non-qualifying: lettuce is visible, but there is no cutting board. Third, the earlier late segment remains one continuous qualifying appearance rather than multiple ones: 107-109s shows lettuce together with a cutting board, and 110s shows only an empty cutting board after the lettuce is gone, so the 107-110s sampled sequence supports one continuous late appearance centered on 105-108s, not separate counts for each frame.",
+      "supporting_observation_ids": [
+        "obs_2f3c18b62e3552cc",
+        "obs_f640f73192a4cf9c",
+        "obs_45481c9c3d206b5c",
+        "obs_f2efcf3a7f46148b",
+        "obs_d415ea3dc95f611d",
+        "obs_f91bc0b7f19da8e9",
+        "obs_fa7758b8709a4437",
+        "obs_5022042f48a89a5f",
+        "obs_c74d721284e29e34"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 1.0,
+          "end_s": 5.0
+        },
+        {
+          "start_s": 62.0,
+          "end_s": 66.0
+        },
+        {
+          "start_s": 105.0,
+          "end_s": 108.0
+        },
+        {
+          "start_s": 107.0,
+          "end_s": 110.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Counting distinct appearances where both salad/lettuce and a cutting board are visible in the same shot, the grounded qualifying appearances are: 50.00-59.00s, 105.00-108.00s, 124.00-126.00s, 256.00-258.00s, and 270.00-273.00s. The grounded non-qualifying candidate intervals are 0.00-4.00s and 60.00-68.00s, and 261.00-263.00s is not counted as an additional distinct appearance because it falls between the later counted intervals rather than introducing a new grounded qualifying shot in the supplied evidence. That yields a total of 5 distinct qualifying appearances, which maps to option C.",
+      "supporting_observation_ids": [
+        "obs_1586bf5557b901be",
+        "obs_c74d721284e29e34",
+        "obs_20854861ab290f0d",
+        "obs_b9d3cedab125d1d8",
+        "obs_5dc764345f3364ae",
+        "obs_00cd116449996e4f",
+        "obs_e7781553bc7ac087",
+        "obs_7144eda618d2768a",
+        "obs_2f3c18b62e3552cc",
+        "obs_f640f73192a4cf9c",
+        "obs_45481c9c3d206b5c",
+        "obs_f2efcf3a7f46148b",
+        "obs_d415ea3dc95f611d",
+        "obs_f91bc0b7f19da8e9",
+        "obs_fa7758b8709a4437",
+        "obs_5022042f48a89a5f"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 50.0,
+          "end_s": 59.0
+        },
+        {
+          "start_s": 105.0,
+          "end_s": 108.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 256.0,
+          "end_s": 258.0
+        },
+        {
+          "start_s": 270.0,
+          "end_s": 273.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "C. 5 times",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "nq9WnmCGoFQ__5884641d36bd",
+      "trace": {
+        "inference_steps": [
+          "The ingredient insulted the most is salad. The transcript explicitly insults salad by saying it gets soggy and tastes like nothing, while the other cited ingredient mentions are characterized as positive, neutral, descriptive, metaphorical, or not clearly insults.",
+          "[0s to 4s; 50s to 59s; 60s to 68s; 105s to 108s; 124s to 126s; 256s to 258s; 261s to 263s; 270s to 273s] Full-video candidate coverage for salad/lettuce visibility is grounded at these intervals, in chronological order: 0.00-4.00s, 50.00-59.00s, 60.00-68.00s, 105.00-108.00s, 124.00-126.00s, 256.00-258.00s, 261.00-263.00s, and 270.00-273.00s. These are the intervals that must be checked for qualifying appearances with a cutting board.",
+          "[1s to 5s; 62s to 66s; 105s to 108s; 107s to 110s] The sampled visual checks establish three important grounded cases. First, 1-5s is non-qualifying: there is a cutting board, but only a burger is shown and salad is not separately visible as the counted ingredient. Second, 62-66s is non-qualifying: lettuce is visible, but there is no cutting board. Third, the earlier late segment remains one continuous qualifying appearance rather than multiple ones: 107-109s shows lettuce together with a cutting board, and 110s shows only an empty cutting board after the lettuce is gone, so the 107-110s sampled sequence supports one continuous late appearance centered on 105-108s, not separate counts for each frame.",
+          "[50s to 59s; 105s to 108s; 124s to 126s; 256s to 258s; 270s to 273s] Counting distinct appearances where both salad/lettuce and a cutting board are visible in the same shot, the grounded qualifying appearances are: 50.00-59.00s, 105.00-108.00s, 124.00-126.00s, 256.00-258.00s, and 270.00-273.00s. The grounded non-qualifying candidate intervals are 0.00-4.00s and 60.00-68.00s, and 261.00-263.00s is not counted as an additional distinct appearance because it falls between the later counted intervals rather than introducing a new grounded qualifying shot in the supplied evidence. That yields a total of 5 distinct qualifying appearances, which maps to option C."
+        ],
+        "evidence": [
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Transcript evidence identifies salad as the ingredient receiving the clearest insulting language: \"salad... All you really do is get soggy and you taste like nothing.\" Other cited ingredient mentions are characterized in the supplied observations as positive, neutral, descriptive, metaphorical, or not clearly insults.",
+            "observation_ids": [
+              "obs_0f54122947838fc9",
+              "obs_f20f4d336c045f42",
+              "obs_130ff347d66ab716",
+              "obs_cb33d291d438532d",
+              "obs_a27b8bc23a871ad0",
+              "obs_45a3626a84093177",
+              "obs_5d9677e91629e3a1",
+              "obs_84c713823ba50119",
+              "obs_5b94c8ac076ff9c7"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          },
+          {
+            "tool_name": "visual_temporal_grounder",
+            "evidence_text": "Full-video candidate intervals where lettuce/salad is visible were grounded at 0.00-4.00s, 50.00-59.00s, 60.00-68.00s, 105.00-108.00s, 124.00-126.00s, 256.00-258.00s, 261.00-263.00s, and 270.00-273.00s.",
+            "observation_ids": [
+              "obs_00cd116449996e4f",
+              "obs_1586bf5557b901be",
+              "obs_e7781553bc7ac087",
+              "obs_c74d721284e29e34",
+              "obs_20854861ab290f0d",
+              "obs_b9d3cedab125d1d8",
+              "obs_7144eda618d2768a",
+              "obs_5dc764345f3364ae"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 0.0,
+                "end_s": 4.0
+              },
+              {
+                "start_s": 50.0,
+                "end_s": 59.0
+              },
+              {
+                "start_s": 60.0,
+                "end_s": 68.0
+              },
+              {
+                "start_s": 105.0,
+                "end_s": 108.0
+              },
+              {
+                "start_s": 124.0,
+                "end_s": 126.0
+              },
+              {
+                "start_s": 256.0,
+                "end_s": 258.0
+              },
+              {
+                "start_s": 261.0,
+                "end_s": 263.0
+              },
+              {
+                "start_s": 270.0,
+                "end_s": 273.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Sampled visual checks show: 1-5s burger on a cutting board with no separately visible salad; 62-66s head of lettuce on the floor with no cutting board; 107-110s lettuce with a cutting board, including 107s hand holding lettuce over a cutting board, 108-109s lettuce being cut on a cutting board, and 110s an empty cutting board after the lettuce is gone.",
+            "observation_ids": [
+              "obs_2f3c18b62e3552cc",
+              "obs_f640f73192a4cf9c",
+              "obs_45481c9c3d206b5c",
+              "obs_f2efcf3a7f46148b",
+              "obs_d415ea3dc95f611d",
+              "obs_f91bc0b7f19da8e9",
+              "obs_fa7758b8709a4437",
+              "obs_5022042f48a89a5f"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 1.0,
+                "end_s": 5.0
+              },
+              {
+                "start_s": 62.0,
+                "end_s": 66.0
+              },
+              {
+                "start_s": 107.0,
+                "end_s": 110.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": "C. 5 times"
+    }
+  },
+  "metadata": {
+    "answer_status": "resolved",
+    "selected_option": "C",
+    "counted_distinct_appearances": 5
+  }
+}

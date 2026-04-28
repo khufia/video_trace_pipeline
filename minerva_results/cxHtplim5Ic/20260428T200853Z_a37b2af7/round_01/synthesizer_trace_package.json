@@ -1,0 +1,444 @@
+{
+  "task_key": "cxHtplim5Ic__f7565a1a91a1",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_9aab54f7",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved candidate frames at 0.00s, 1.00s, 2.00s, 3.00s, 4.00s, 65.00s, 66.00s, and 67.00s for visual verification.",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 0.0,
+          "end_s": 0.0
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 1.0
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 2.0
+        },
+        {
+          "start_s": 3.0,
+          "end_s": 3.0
+        },
+        {
+          "start_s": 4.0,
+          "end_s": 4.0
+        },
+        {
+          "start_s": 65.0,
+          "end_s": 65.0
+        },
+        {
+          "start_s": 66.0,
+          "end_s": 66.0
+        },
+        {
+          "start_s": 67.0,
+          "end_s": 67.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_0.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_0.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_0.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 103761
+          }
+        },
+        {
+          "artifact_id": "frame_1.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_1.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_1.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 104102
+          }
+        },
+        {
+          "artifact_id": "frame_2.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_2.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_2.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 105068
+          }
+        },
+        {
+          "artifact_id": "frame_3.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_3.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_3.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 143570
+          }
+        },
+        {
+          "artifact_id": "frame_4.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_4.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_4.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 164764
+          }
+        },
+        {
+          "artifact_id": "frame_65.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_65.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_65.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 226661
+          }
+        },
+        {
+          "artifact_id": "frame_66.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_66.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_66.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 235344
+          }
+        },
+        {
+          "artifact_id": "frame_67.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_67.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_67.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 230175
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_28b25e1f0d8f6412",
+        "obs_287207b77fd468e3",
+        "obs_2412291926a594b3",
+        "obs_e57a69fd41be2d82",
+        "obs_8146e931865f27f0",
+        "obs_3a65cf94be9984db",
+        "obs_3a3e71cf29710925",
+        "obs_4b1f7b83071132fe"
+      ],
+      "metadata": {
+        "request_hash": "9aab54f732a0713c2a358987",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_5401d796",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Visual/text summary says the opening card reads \"TURTLE CANYON COMEDY PRESENTS\" and classifies it as an opening production logo rather than a subsection heading. The sampled action frames around 3-4s and 65-67s are described as hands/candies and a man with a menu, with no visible title text in those sampled frames. The text context separately lists five possible subsection titles: \"THE DRINKS,\" \"THE BILL,\" \"THE FART,\" \"THE PREP,\" and \"THE INTERROGATION,\" and says to exclude the production logo/opening company card.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_0.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_0.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 0.0
+          }
+        },
+        {
+          "artifact_id": "frame_1.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_1.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 1.0
+          }
+        },
+        {
+          "artifact_id": "frame_2.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_2.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 2.0
+          }
+        },
+        {
+          "artifact_id": "frame_3.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_3.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 3.0
+          }
+        },
+        {
+          "artifact_id": "frame_4.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_4.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 4.0
+          }
+        },
+        {
+          "artifact_id": "frame_65.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_65.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 65.0
+          }
+        },
+        {
+          "artifact_id": "frame_66.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_66.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 66.0
+          }
+        },
+        {
+          "artifact_id": "frame_67.00",
+          "kind": "frame",
+          "relpath": "artifacts/cxHtplim5Ic/frames/frame_67.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 67.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_2cf8ce910c7bdf72",
+        "obs_80b3a956453e8599",
+        "obs_3242bebcec176393",
+        "obs_da7df2beaa4644f9",
+        "obs_8d0eb9fcfde0ecbf",
+        "obs_b9310955b19ad8b9",
+        "obs_ff3e8c18b77dfa54",
+        "obs_37b989374ec7a172",
+        "obs_34f967ef90175f1a",
+        "obs_6d55f587c3910593",
+        "obs_6744a2204b27db62",
+        "obs_3d870902accba6f9"
+      ],
+      "metadata": {
+        "request_hash": "5401d796fa4f73a8ee104ce1",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The sampled opening frames contain the text \"TURTLE CANYON COMEDY PRESENTS,\" and that text is identified as an opening production logo rather than a subsection heading, so it should not be counted as a titled subsection.",
+      "supporting_observation_ids": [
+        "obs_2cf8ce910c7bdf72",
+        "obs_80b3a956453e8599",
+        "obs_3242bebcec176393",
+        "obs_6744a2204b27db62"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 2,
+      "text": "The sampled action/menu frames at 3-4s and 65-67s do not visibly show subsection title text, so those sampled visuals do not independently add confirmed subsection headings.",
+      "supporting_observation_ids": [
+        "obs_da7df2beaa4644f9",
+        "obs_8d0eb9fcfde0ecbf"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 3.0,
+          "end_s": 4.0
+        },
+        {
+          "start_s": 65.0,
+          "end_s": 67.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Separately from the sampled frames, the provided text context enumerates five subsection-style titles: \"THE DRINKS,\" \"THE BILL,\" \"THE FART,\" \"THE PREP,\" and \"THE INTERROGATION.\" Counting those listed titles gives 5.",
+      "supporting_observation_ids": [
+        "obs_b9310955b19ad8b9",
+        "obs_ff3e8c18b77dfa54",
+        "obs_37b989374ec7a172",
+        "obs_34f967ef90175f1a",
+        "obs_6d55f587c3910593",
+        "obs_3d870902accba6f9"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 4,
+      "text": "Among the answer choices, the count 5 maps directly to option B.",
+      "supporting_observation_ids": [
+        "obs_515b1204a2198b66"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "B. 5.",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "cxHtplim5Ic__f7565a1a91a1",
+      "trace": {
+        "inference_steps": [
+          "The sampled opening frames contain the text \"TURTLE CANYON COMEDY PRESENTS,\" and that text is identified as an opening production logo rather than a subsection heading, so it should not be counted as a titled subsection.",
+          "[3s to 4s; 65s to 67s] The sampled action/menu frames at 3-4s and 65-67s do not visibly show subsection title text, so those sampled visuals do not independently add confirmed subsection headings.",
+          "Separately from the sampled frames, the provided text context enumerates five subsection-style titles: \"THE DRINKS,\" \"THE BILL,\" \"THE FART,\" \"THE PREP,\" and \"THE INTERROGATION.\" Counting those listed titles gives 5.",
+          "Among the answer choices, the count 5 maps directly to option B."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved candidate frames at 0.00s, 1.00s, 2.00s, 3.00s, 4.00s, 65.00s, 66.00s, and 67.00s for visual verification.",
+            "observation_ids": [
+              "obs_28b25e1f0d8f6412",
+              "obs_287207b77fd468e3",
+              "obs_2412291926a594b3",
+              "obs_e57a69fd41be2d82",
+              "obs_8146e931865f27f0",
+              "obs_3a65cf94be9984db",
+              "obs_3a3e71cf29710925",
+              "obs_4b1f7b83071132fe"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 0.0,
+                "end_s": 0.0
+              },
+              {
+                "start_s": 1.0,
+                "end_s": 1.0
+              },
+              {
+                "start_s": 2.0,
+                "end_s": 2.0
+              },
+              {
+                "start_s": 3.0,
+                "end_s": 3.0
+              },
+              {
+                "start_s": 4.0,
+                "end_s": 4.0
+              },
+              {
+                "start_s": 65.0,
+                "end_s": 65.0
+              },
+              {
+                "start_s": 66.0,
+                "end_s": 66.0
+              },
+              {
+                "start_s": 67.0,
+                "end_s": 67.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Visual/text summary says the opening card reads \"TURTLE CANYON COMEDY PRESENTS\" and classifies it as an opening production logo rather than a subsection heading. The sampled action frames around 3-4s and 65-67s are described as hands/candies and a man with a menu, with no visible title text in those sampled frames. The text context separately lists five possible subsection titles: \"THE DRINKS,\" \"THE BILL,\" \"THE FART,\" \"THE PREP,\" and \"THE INTERROGATION,\" and says to exclude the production logo/opening company card.",
+            "observation_ids": [
+              "obs_2cf8ce910c7bdf72",
+              "obs_80b3a956453e8599",
+              "obs_3242bebcec176393",
+              "obs_da7df2beaa4644f9",
+              "obs_8d0eb9fcfde0ecbf",
+              "obs_b9310955b19ad8b9",
+              "obs_ff3e8c18b77dfa54",
+              "obs_37b989374ec7a172",
+              "obs_34f967ef90175f1a",
+              "obs_6d55f587c3910593",
+              "obs_6744a2204b27db62",
+              "obs_3d870902accba6f9"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          }
+        ]
+      },
+      "answer": "B. 5."
+    }
+  },
+  "metadata": {
+    "notes": "Used the distinction between subsection headings and non-subsection text. The sampled 65-67s frames do not visually confirm a title there, but the provided text context explicitly lists five subsection titles overall."
+  }
+}

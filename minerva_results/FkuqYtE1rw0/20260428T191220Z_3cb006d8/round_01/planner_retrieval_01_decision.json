@@ -1,0 +1,27 @@
+{
+  "action": "retrieve",
+  "rationale": "Need existing text descriptions from preprocess/dense captions around the Wild Shuffle Hands demonstration to determine how many players receive red cards after the redeal.",
+  "requests": [
+    {
+      "request_id": "shuffle_hands_dense_context",
+      "target": "preprocess",
+      "need": "Text spans describing the visual demonstration immediately after the Wild Shuffle Hands card is shown, including players' hands/colors/cards after redealing",
+      "query": "Wild Shuffle Hands demonstration players hands red cards after redeal",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 180.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

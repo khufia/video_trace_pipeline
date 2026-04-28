@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "FkuqYtE1rw0__6b0a577f35bf",
+  "video_id": "FkuqYtE1rw0",
+  "run_id": "20260428T191220Z_3cb006d8",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "FkuqYtE1rw0__6b0a577f35bf",
+    "question": "After the shuffle hands card was played, how many of the players ended up with a red UNO card in their hands?",
+    "options": [
+      "A. 1.",
+      "B. 6.",
+      "C. 3.",
+      "D. 2.",
+      "E. 4."
+    ],
+    "video_id": "FkuqYtE1rw0",
+    "question_id": null,
+    "gold_answer": "4.",
+    "initial_trace_steps": [
+      "While watching, I noticed a shuffle hands card at 02:00 by reading the card. Then, I watched from 02:02 - 02:18 as the shuffle hands card was played, and then the rest of the cards were reshuffled and passed out. At 02:18, I paused the video and counted how many players there were. Based on the hands I saw in the frame, there are 4 players. Then, I counted how many players had a red card in their hands and noticed all the players had at least 1 red card. Therefore, there are 4 players who ended up with a red UNO card after the shuffle hands card was dealt."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/FkuqYtE1rw0",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

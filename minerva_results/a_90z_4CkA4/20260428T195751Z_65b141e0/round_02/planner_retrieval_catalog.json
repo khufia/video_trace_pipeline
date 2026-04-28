@@ -1,0 +1,797 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "many",
+    "times",
+    "woman",
+    "white",
+    "hit",
+    "net",
+    "orderly",
+    "answers",
+    "total",
+    "count",
+    "question",
+    "few",
+    "sampled",
+    "events",
+    "confirmation",
+    "all",
+    "relevant",
+    "hits",
+    "covered",
+    "just",
+    "checked",
+    "examples",
+    "unconfirmed",
+    "whether",
+    "early",
+    "middle",
+    "late",
+    "intervals",
+    "cover",
+    "number"
+  ],
+  "preprocess": {
+    "planner_segment_count": 2,
+    "raw_segment_count": 2,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 2,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "A female tennis player in a white shirt and bright turquoise skirt stands on a blue and green tennis court. She bounces the ball a few times, then performs a powerful overhand serve, sending the ball high and deep into the opponent's court.; speech: None.;...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is positioned at a wide angle from the baseline, capturing the...",
+          "video_background: The scene is an outdoor tennis court with a blue surface and green ou...",
+          "storyline: The segment begins with the player initiating a point with a serve, setting...",
+          "shooting_style: This is a standard, continuous shot.",
+          "camera_state: The camera is now positioned behind the player, looking over her shoulder...",
+          "video_background: The background is the same tennis court, with the back of a man in a...",
+          "storyline: This segment shows the player engaging in a rally, returning shots from her...",
+          "shooting_style: This is a standard, continuous shot with a cut from the previous scene."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 11.843,
+            "end_s": 38.945,
+            "text": "I don't know what's going on."
+          },
+          {
+            "start_s": 46.387,
+            "end_s": 66.923,
+            "text": "That's the thing though, I wasn't trying to lose."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/a_90z_4CkA4/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 80.467,
+        "overall_summary": "A woman in a white t-shirt and a bright turquoise skirt stands on a green and blue tennis court, holding a tennis racket. She is facing a man in a grey t-shirt, red cap, and grey shorts, who is holding a white towel. They are in the middle of the court, pre...",
+        "caption_count": 3,
+        "asr_span_count": 0,
+        "attributes": [
+          "camera_state: The camera is at a medium distance, positioned behind the man, looking to...",
+          "video_background: The scene is an outdoor tennis court with a green surface and a blue...",
+          "storyline: The scene is set for a tennis match. The two players are positioned on oppos...",
+          "shooting_style: This is a standard establishing shot.",
+          "camera_state: The camera remains in a static, medium-wide shot, capturing the woman's f...",
+          "video_background: The tennis court, with its green and blue surface, is the primary bac...",
+          "storyline: The server begins her preparation for the serve, moving the game from the pr...",
+          "shooting_style: This is a continuous shot following the action.",
+          "camera_state: The camera is static and wide, panning slightly to the left to follow the...",
+          "video_background: The tennis court and surrounding trees are visible as the serve is ma...",
+          "storyline: The serve is executed, officially starting the point. The fade to black tran...",
+          "shooting_style: The scene ends with a fade-to-black transition."
+        ],
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 60.0,
+            "end_s": 80.467,
+            "artifact_id": "clip_060_00_080_47",
+            "relpath": "artifacts/a_90z_4CkA4/clips/clip_060_00_080_47.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 2,
+    "observation_count": 54,
+    "counts_by_status": {
+      "provisional": 2
+    },
+    "counts_by_tool": {
+      "frame_retriever": 1,
+      "generic_purpose": 1
+    },
+    "validated_evidence": [],
+    "recent_evidence": [
+      {
+        "evidence_id": "ev_01_8db5fd97",
+        "tool_name": "frame_retriever",
+        "status": "provisional",
+        "summary": "Retrieved 15 frame(s) across 2 input clip(s).",
+        "observation_ids": [
+          "obs_2412291926a594b3",
+          "obs_e57a69fd41be2d82",
+          "obs_8146e931865f27f0",
+          "obs_60daffedc7b0864c",
+          "obs_a88521f9cf116054",
+          "obs_290f8f0bf18bd60d",
+          "obs_c7d1f0b35df411fa",
+          "obs_e21dc2d7633fc78d"
+        ]
+      },
+      {
+        "evidence_id": "ev_02_f90a135d",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "The user wants to count the number of times the woman in white hits the tennis ball into the net. 1. **Analyze the video sequence:** * **0s - 6s (Images 1-5):** The woman is preparing to serve. She tosses the ball up...",
+        "observation_ids": [
+          "obs_5e29aab1c5cd310c",
+          "obs_6e0c949d5a4b84f0",
+          "obs_50879ef8a4924c1c",
+          "obs_60eb0e3ff853b5a2",
+          "obs_97d07568afcafcc4",
+          "obs_6d1aaa3f6a05025f",
+          "obs_bf8f40948c267619",
+          "obs_ed6bac86b1273980"
+        ]
+      }
+    ],
+    "recent_observations": [
+      {
+        "observation_id": "obs_2734d0e76bf42e28",
+        "evidence_id": "ev_01_8db5fd97",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 75.0,
+        "text": "A candidate frame was retrieved at 75.00s."
+      },
+      {
+        "observation_id": "obs_5e29aab1c5cd310c",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The user wants to count the number of times the woman in white hits the tennis ball into the net."
+      },
+      {
+        "observation_id": "obs_6e0c949d5a4b84f0",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "During 0s-6s, the woman is preparing to serve."
+      },
+      {
+        "observation_id": "obs_50879ef8a4924c1c",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The woman tosses the ball at Image 5."
+      },
+      {
+        "observation_id": "obs_60eb0e3ff853b5a2",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The woman hits the ball at Image 6."
+      },
+      {
+        "observation_id": "obs_97d07568afcafcc4",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+      },
+      {
+        "observation_id": "obs_6d1aaa3f6a05025f",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The serve in 0-4s is not a net hit."
+      },
+      {
+        "observation_id": "obs_bf8f40948c267619",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "During 12s-16s, this section shows a rally."
+      },
+      {
+        "observation_id": "obs_ed6bac86b1273980",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 12s, the woman is in a ready position."
+      },
+      {
+        "observation_id": "obs_799b7376ec1304fa",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 13s, the woman is hitting a forehand."
+      },
+      {
+        "observation_id": "obs_4661882d7e894b5d",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 14s, the woman is in a ready position again."
+      },
+      {
+        "observation_id": "obs_9637093b0c98c0c3",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 15s, the woman is hitting a backhand."
+      },
+      {
+        "observation_id": "obs_ab2b3bb511b3df23",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 16s, the woman is in a ready position."
+      },
+      {
+        "observation_id": "obs_5576ac2a3b0a105d",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The context says 5-14s shows a rally with a series of groundstrokes from behind the player."
+      },
+      {
+        "observation_id": "obs_e3d0a1af8b4be639",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The context says exact net contacts are not specified and must be visually verified."
+      },
+      {
+        "observation_id": "obs_77dd74e517b02d7a",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The speaker does not see the ball hitting the net."
+      },
+      {
+        "observation_id": "obs_437015fae73e10ee",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "In Image 9 at 15s, the ball is visible near the racket."
+      },
+      {
+        "observation_id": "obs_cd6359f1e1cfc306",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The hit in Image 9 at 15s looks like a clean hit."
+      },
+      {
+        "observation_id": "obs_518a25e34f73375e",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "In Image 7 at 13s, the woman is hitting a forehand swing."
+      },
+      {
+        "observation_id": "obs_276bbec438ec452b",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The prompt asks to verify the ball outcome."
+      },
+      {
+        "observation_id": "obs_bb0ec72eedd8bc86",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The speaker says it is hard to be 100% sure without seeing the ball land or bounce."
+      },
+      {
+        "observation_id": "obs_651d92dda0759246",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "Image 1-5 shows a serve."
+      },
+      {
+        "observation_id": "obs_1b1a895b5986a4ed",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The context says the serve went deep."
+      },
+      {
+        "observation_id": "obs_b019b92354fbb8ca",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The serve in Image 1-5 is not a net hit."
+      },
+      {
+        "observation_id": "obs_d04b5cd344f4403f",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "Image 6-10 shows a rally."
+      },
+      {
+        "observation_id": "obs_c5be7bd6aa93ea23",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "Image 7 shows a forehand swing at 13s."
+      },
+      {
+        "observation_id": "obs_6a090c7581c37686",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "Image 9 shows a backhand swing at 15s."
+      },
+      {
+        "observation_id": "obs_d5d3fb0bcb1ff086",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "There is no clear visual of the ball hitting the net in these frames."
+      },
+      {
+        "observation_id": "obs_4cb9110be475e8e3",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The ball is often blurred."
+      },
+      {
+        "observation_id": "obs_bdad6fb2787ed5b9",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The ball is not clearly visible hitting the mesh."
+      },
+      {
+        "observation_id": "obs_f4252d42fd03aceb",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "Image 11-15 shows another serve during 71s-75s."
+      },
+      {
+        "observation_id": "obs_585366259a8600f9",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 71s, the woman is serving."
+      },
+      {
+        "observation_id": "obs_2ca72d056e513202",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 72s, the woman is tossing the ball."
+      },
+      {
+        "observation_id": "obs_e5a1388e6ef303d4",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 73s, the woman is hitting the serve."
+      },
+      {
+        "observation_id": "obs_859de2fdd6128dc0",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 74s, the woman is in follow through."
+      },
+      {
+        "observation_id": "obs_b7e6a85058579567",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "At 75s, the woman is in ready position."
+      },
+      {
+        "observation_id": "obs_857f5870dd0f58eb",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The context says 69-73s shows a serve whose trajectory flies over the net."
+      },
+      {
+        "observation_id": "obs_d7900fc2919feded",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The serve in 69-73s is not a net hit."
+      },
+      {
+        "observation_id": "obs_4bf71c1cf223ae1f",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The question asks how many times the woman in white hits into the net."
+      },
+      {
+        "observation_id": "obs_e62e03542d9d0422",
+        "evidence_id": "ev_02_f90a135d",
+        "source_tool": "generic_purpose",
+        "text": "The speaker says, \"Let's look at the options: A.\""
+      }
+    ]
+  },
+  "artifact_context": {
+    "record_count": 17,
+    "counts_by_type": {
+      "frame": 15,
+      "clip": 2
+    },
+    "records": [
+      {
+        "artifact_id": "clip_000_00_060_00",
+        "artifact_type": "clip",
+        "relpath": "artifacts/a_90z_4CkA4/clips/clip_000_00_060_00.mp4",
+        "time": {
+          "clip": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          }
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "clip_060_00_080_47",
+        "artifact_type": "clip",
+        "relpath": "artifacts/a_90z_4CkA4/clips/clip_060_00_080_47.mp4",
+        "time": {
+          "clip": {
+            "start_s": 60.0,
+            "end_s": 80.467
+          }
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_12.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_12.00.png",
+        "time": {
+          "timestamp_s": 12.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_13.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_13.00.png",
+        "time": {
+          "timestamp_s": 13.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_14.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_14.00.png",
+        "time": {
+          "timestamp_s": 14.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_15.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_15.00.png",
+        "time": {
+          "timestamp_s": 15.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_16.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_16.00.png",
+        "time": {
+          "timestamp_s": 16.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_2.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_2.00.png",
+        "time": {
+          "timestamp_s": 2.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_3.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_3.00.png",
+        "time": {
+          "timestamp_s": 3.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_4.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_4.00.png",
+        "time": {
+          "timestamp_s": 4.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_5.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_5.00.png",
+        "time": {
+          "timestamp_s": 5.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_6.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_6.00.png",
+        "time": {
+          "timestamp_s": 6.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_71.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_71.00.png",
+        "time": {
+          "timestamp_s": 71.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_72.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_72.00.png",
+        "time": {
+          "timestamp_s": 72.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_73.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_73.00.png",
+        "time": {
+          "timestamp_s": 73.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_74.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_74.00.png",
+        "time": {
+          "timestamp_s": 74.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      },
+      {
+        "artifact_id": "frame_75.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_75.00.png",
+        "time": {
+          "timestamp_s": 75.0
+        },
+        "contains_preview": [
+          "During 0s-6s, the woman is preparing to serve.",
+          "The woman tosses the ball at Image 5.",
+          "The woman hits the ball at Image 6.",
+          "The context says 0-4s shows a serve that goes high and deep into the opponent's court."
+        ],
+        "linked_observation_count": 36,
+        "linked_evidence_ids": [
+          "ev_01_8db5fd97",
+          "ev_02_f90a135d"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 5,
+    "claims": [
+      {
+        "step_id": 1,
+        "text": "Chronologically, the distinct hits by the woman in white evidenced here are: an early serve around 0-6s, a forehand during the rally at 13s, a backhand during the rally at 15s, and a later serve at 73s. Neighboring frames around each action are treated as the same swing rather than separate hits.",
+        "supporting_observation_ids": [
+          "obs_60eb0e3ff853b5a2",
+          "obs_799b7376ec1304fa",
+          "obs_9637093b0c98c0c3",
+          "obs_e5a1388e6ef303d4"
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The early serve is supported as a non-net shot: the provided context says it goes high/deep into the opponent's court, and the derived outcome marks it as not a net hit.",
+        "supporting_observation_ids": [
+          "obs_97d07568afcafcc4",
+          "obs_6d1aaa3f6a05025f",
+          "obs_b019b92354fbb8ca"
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "For the rally segment, two hits are visible at 13s and 15s, but the evidence does not clearly show either ball contacting the net. The observations explicitly say exact net contacts must be visually verified, there is no clear visual of the ball hitting the net, and the 15s shot looks like a clean hit. So these rally hits do not provide grounded evidence of any net hit.",
+        "supporting_observation_ids": [
+          "obs_799b7376ec1304fa",
+          "obs_9637093b0c98c0c3",
+          "obs_e3d0a1af8b4be639",
+          "obs_d5d3fb0bcb1ff086",
+          "obs_bdad6fb2787ed5b9",
+          "obs_cd6359f1e1cfc306"
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "The later serve is also supported as a non-net shot: the provided context says its trajectory flies over the net, and the derived outcome marks it as not a net hit.",
+        "supporting_observation_ids": [
+          "obs_857f5870dd0f58eb",
+          "obs_d7900fc2919feded"
+        ]
+      },
+      {
+        "step_id": 5,
+        "text": "Across the four distinct hits evidenced here, none is grounded as reaching the net. That maps to option A (0).",
+        "supporting_observation_ids": [
+          "obs_6d1aaa3f6a05025f",
+          "obs_d5d3fb0bcb1ff086",
+          "obs_cd6359f1e1cfc306",
+          "obs_d7900fc2919feded"
+        ]
+      }
+    ]
+  },
+  "audit_gaps": [
+    "whether the sampled early, middle, and late intervals cover all answer-relevant hits by the woman in white in the video",
+    "the total number of grounded net-hit events by the woman in white across the full question-relevant span"
+  ]
+}

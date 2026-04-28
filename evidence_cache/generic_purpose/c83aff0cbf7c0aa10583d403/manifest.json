@@ -1,0 +1,48 @@
+{
+  "tool_name": "generic_purpose",
+  "request_hash": "c83aff0cbf7c0aa10583d403",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "generic_purpose",
+    "query": "In the confrontation around 153-183 seconds, identify who says 'That's the guy that kidnapped me' versus who replies 'I... I did not. I didn't.' Determine the local accusation window and describe the visual referent slots that must be resolved: (1) the man in the light gray jacket, and (2) the person he is accusing. Quote the relevant transcript lines and keep speaker attribution tentative if the transcript alone cannot prove it.",
+    "clips": [],
+    "frames": [],
+    "transcripts": [
+      {
+        "transcript_id": "preprocess_seg_003",
+        "clip": {
+          "video_id": "5-otljNyRmQ",
+          "start_s": 120.0,
+          "end_s": 180.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "relpath": null,
+        "segments": [
+          {
+            "start_s": 123.556,
+            "end_s": 153.442,
+            "text": "Mike! Dustin! Mike! Mike! Mike! Dustin! Lucas! Mike! Mike! Eleven? It's me!",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 153.982,
+            "end_s": 183.091,
+            "text": "Will! Will? Will! Eleven. What are you doing here? How'd you get out of the Upside Down? Pop saved me. I'm just glad you're here, Will. What the hell are you guys doing? That's the guy that kidnapped me. I... I did not. I didn't.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ],
+        "metadata": {
+          "source": "preprocess",
+          "segment_id": "seg_003",
+          "span_count": 2
+        }
+      }
+    ],
+    "text_contexts": [],
+    "evidence_ids": []
+  }
+}

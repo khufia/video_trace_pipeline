@@ -1,0 +1,471 @@
+{
+  "tool_name": "generic_purpose",
+  "request_hash": "f9051cdf506c41263f6f9cb7",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "generic_purpose",
+    "query": "Identify the second reviewed play in this local sequence, determine the shot two cuts before it, and in that shot count the number of distinct flag-wave motions by the male spectator while the ball lands near him. Use shot boundaries and visible motion, not just captions. Return the count and which option it matches.",
+    "clips": [
+      {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 360.0,
+        "end_s": 430.0,
+        "artifact_id": "clip_360_00_420_00",
+        "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+        "metadata": {
+          "source": "preprocess",
+          "segment_ids": [
+            "seg_007",
+            "seg_008"
+          ]
+        }
+      }
+    ],
+    "frames": [
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 358.0,
+        "artifact_id": "frame_358.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_358.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 360.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 359.0,
+        "artifact_id": "frame_359.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_359.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 360.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 360.0,
+        "artifact_id": "frame_360.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_360.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 360.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 2,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 361.0,
+        "artifact_id": "frame_361.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_361.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 360.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 3,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 362.0,
+        "artifact_id": "frame_362.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_362.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 360.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 4,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 425.0,
+        "artifact_id": "frame_425.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_425.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 427.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 5,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 426.0,
+        "artifact_id": "frame_426.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_426.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 427.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 6,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 427.0,
+        "artifact_id": "frame_427.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_427.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 427.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 7,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 428.0,
+        "artifact_id": "frame_428.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_428.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 427.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 8,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-4IduHFnEwg",
+        "timestamp_s": 429.0,
+        "artifact_id": "frame_429.00",
+        "relpath": "artifacts/4IduHFnEwg/frames/frame_429.00.png",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 430.0,
+          "artifact_id": "clip_360_00_420_00",
+          "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+          "metadata": {
+            "source": "preprocess",
+            "segment_ids": [
+              "seg_007",
+              "seg_008"
+            ]
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 360.0,
+          "clip_end_s": 430.0,
+          "frame_pool_start_s": 358.0,
+          "frame_pool_end_s": 432.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 427.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 9,
+          "sequence_sort_order": "chronological"
+        }
+      }
+    ],
+    "transcripts": [
+      {
+        "transcript_id": "preprocess_seg_007",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 360.0,
+          "end_s": 420.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "relpath": null,
+        "segments": [
+          {
+            "start_s": 373.93,
+            "end_s": 399.918,
+            "text": "7th Wonder International 100 for Fakhaz Aman. He's gone past 2,500 Wonder International runs in this innings. He's had some fortune. He was dropped before he reached 50. Wagon wheel runs all around the ground. Oh, and that's delicate. We saw power down the ground earlier in the over. And that was a little bit of... Side screen, long on.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 401.538,
+            "end_s": 430.343,
+            "text": "looks like side rightly so it's a big bound he should get back for a couple scott edwards that's gone that's gone excellent in the deep brilliant work in the deep bendis returned well gathered by edwards and well for kazaman acknowledges the approach shuffles across for his back goes high goes long and goes all the way",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ],
+        "metadata": {
+          "source": "preprocess",
+          "segment_id": "seg_007",
+          "span_count": 2
+        }
+      },
+      {
+        "transcript_id": "preprocess_seg_008",
+        "clip": {
+          "video_id": "-4IduHFnEwg",
+          "start_s": 420.0,
+          "end_s": 480.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "relpath": null,
+        "segments": [
+          {
+            "start_s": 437.448,
+            "end_s": 467.367,
+            "text": "Big shout for LBW and the finger goes up. There's the latest strikes. Original decision out. Pitching outside off. Impact in line. Pickett's umpire's call. Michael, you can stay with your decision. Imagine one day international cricket. That's going to be four. There's no point in chasing that Wesley Barresi. Mid-off and mid-on up in the circle. Straight away he's drilled down the ground for four.",
+            "speaker_id": null,
+            "confidence": null
+          },
+          {
+            "start_s": 467.738,
+            "end_s": 491.718,
+            "text": "Kushtil's shot. Oh, no. For Pakistan. Slow ball from King Mark. And it's gone over. Extra cover for four. Danger, danger for the Dutch here. Slow ball. And I think it's gone all the way for six. Pulled away by Kushtil.",
+            "speaker_id": null,
+            "confidence": null
+          }
+        ],
+        "metadata": {
+          "source": "preprocess",
+          "segment_id": "seg_008",
+          "span_count": 2
+        }
+      }
+    ],
+    "text_contexts": [
+      "Candidate two-shots-before material is the earlier crowd/ball-into-stands sequence just before the reviewed play transition.",
+      "Preprocess indicates a reviewed play at 0-60s and another reviewed play beginning around 427-467s with umpire decision and ball-tracking language, so the latter is the second reviewed play.",
+      "These frames are a chronological sequence centered on timestamp 360s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 358s, 359s, 360s, 361s, 362s, 425s, 426s, 427s, 428s, 429s."
+    ],
+    "evidence_ids": []
+  }
+}

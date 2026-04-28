@@ -1,0 +1,60 @@
+{
+  "strategy": "Use preprocess to anchor the last smartphone-use interval, then retrieve a small chronological frame sequence around that moment and visually verify which on-screen option is highlighted.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve chronological frames around the last smartphone-use moment in the phone/laptop digitizing segment so the downstream tool can identify the final phone interaction and the highlighted UI option visible immediately after it.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "GlecDUdZdkE",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4",
+            "metadata": {
+              "source": "preprocess_seg_002",
+              "reason": "segment containing the only described smartphone use before transition to laptop screen"
+            }
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 6,
+        "query": "chronological frames showing the last smartphone use and the on-screen menu or option highlighted immediately after that use",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "67-72s smartphone held up to take a photo, then transition to laptop screen",
+          "retrieve the latest frames in this phone-use sequence and immediate aftermath where any menu or highlighted option is visible"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological frame sequence spanning the final smartphone interaction and nearby UI states"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "From the retrieved frame sequence, determine which frame corresponds to the guy's last smartphone use and read which answer-option text is highlighted on screen at that point or immediately after.",
+      "inputs": {
+        "query": "Inspect this chronological frame sequence. Identify the last time the guy is using his smartphone, then determine which on-screen option is highlighted at that moment or immediately after. Choose only among: Decline, Open in Photos, Download, Accept, Open in new window. Base the answer on visible UI highlighting, not narration."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "highlighted option mapped to one of the provided choices",
+        "supporting_points": "brief visual observations about the last smartphone-use frame(s) and the highlighted UI text"
+      }
+    }
+  ],
+  "refinement_instructions": "Use preprocess only as the anchor that the smartphone use occurs around 67-72s in seg_002; do not treat preprocess text as proof of the highlighted option. In the trace, explicitly identify the last smartphone-use frame within the retrieved chronological sequence, then cite the visible highlighted menu option from that local sequence. If the option text is partially visible or ambiguous, keep uncertainty and do not overclaim from likely software defaults."
+}

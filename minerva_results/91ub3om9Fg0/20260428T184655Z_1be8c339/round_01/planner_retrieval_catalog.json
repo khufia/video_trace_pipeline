@@ -1,0 +1,187 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "long",
+    "take",
+    "word",
+    "time",
+    "machine",
+    "focus",
+    "once",
+    "man",
+    "blue",
+    "sweater",
+    "shows",
+    "green",
+    "hoodie"
+  ],
+  "preprocess": {
+    "planner_segment_count": 4,
+    "raw_segment_count": 4,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 4,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black backgro...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The camera is static, holding a centered, medium shot on the loading whee...",
+          "video_background: The background is entirely black, creating a sense of digital space o...",
+          "storyline: This segment serves as the title sequence, establishing the name of the show...",
+          "shooting_style: This is a title sequence featuring a simple animation and glitch effects.",
+          "camera_state: The camera is static, holding a medium shot of the two men as they intera...",
+          "video_background: The setting is a dark, modern-looking room with a grey couch. The lig...",
+          "storyline: This scene introduces two main characters and establishes a casual, slightly...",
+          "shooting_style: This is a standard dialogue scene with a static camera."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 15.893,
+            "end_s": 18.61,
+            "text": "Oh, there's only one. Yeah, there's only one, but look."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: A medium shot, framed from the side, focusing on the two men on the couch...",
+          "video_background: The scene is set in a dark, modern-looking room with a plain wall beh...",
+          "storyline: The scene introduces two characters who are reacting to something happening...",
+          "shooting_style: This is a standard shot establishing the characters and their initial r...",
+          "camera_state: The camera cuts between a medium shot of the person in the hazmat suit an...",
+          "video_background: The background is a simple, out-of-focus room with some indistinct po...",
+          "storyline: The central plot device, a homemade time machine, is introduced. The person...",
+          "shooting_style: The scene uses intercutting between the speaker and the listeners to sh..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 50.032,
+            "end_s": 75.749,
+            "text": "What are you talking about? Are you crazy? Wait. Is it like the one we see in a movie? Can we time travel?"
+          },
+          {
+            "start_s": 80.187,
+            "end_s": 98.092,
+            "text": "It is based on quantum physics. There's a quasi-stable antimatter inside. It's placed with the fabric of the space-time. It's starting into a complex. How do we know this works? Wait and watch. Setting the radius to one meter north. Geo coordinates intact."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then r...",
+        "caption_count": 1,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The scene starts with a close-up on the wooden object, then cuts to a med...",
+          "video_background: The setting appears to be a dimly lit room or office with dark walls....",
+          "storyline: The scene introduces a mysterious time machine and its inventor, who is expl...",
+          "shooting_style: The scene uses intercutting between the inventor and the two onlookers..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 120.164,
+            "end_s": 148.345,
+            "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+          },
+          {
+            "start_s": 149.982,
+            "end_s": 177.05,
+            "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium...",
+          "video_background: The first shot is in a dimly lit room with a dark, blurry background....",
+          "storyline: The scene introduces a conflict where a group is trying to contain or contro...",
+          "shooting_style: This is a montage of quick, intercutting shots to build tension and int...",
+          "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a...",
+          "video_background: The background is dark and indistinct, keeping the focus entirely on...",
+          "storyline: The tension escalates as the portal's power seems to increase, causing fear...",
+          "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 182.18,
+            "end_s": 198.295,
+            "text": "what is this button?"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 180.0,
+            "end_s": 225.88,
+            "artifact_id": "clip_180_00_225_88",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 0,
+    "observation_count": 0,
+    "counts_by_status": {},
+    "counts_by_tool": {},
+    "validated_evidence": [],
+    "recent_evidence": [],
+    "recent_observations": []
+  },
+  "artifact_context": {
+    "record_count": 0,
+    "counts_by_type": {},
+    "records": [],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 0,
+    "claims": []
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.95,
+  "scores": {
+    "logical_coherence": 2,
+    "completeness": 1,
+    "factual_correctness": 2,
+    "reasoning_order": 3
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "INCOMPLETE_TRACE",
+      "message": "The final count of 5 qualifying appearances is not justified by the supplied text. Only the 107-109s sequence is explicitly checked for co-visibility of salad/lettuce and a cutting board, while the claimed qualifying intervals at 50-59s, 124-126s, 256-258s, and 270-273s are asserted without textual evidence that a cutting board is present there.",
+      "evidence_ids": [
+        "ev_full_video_salad_candidates",
+        "ev_sampled_visual_checks"
+      ]
+    },
+    {
+      "severity": "HIGH",
+      "category": "INFERENCE_ERROR",
+      "message": "The trace treats visibility candidate intervals as if they were validated qualifying appearances with a cutting board. Candidate coverage for lettuce/salad visibility does not by itself establish the answer-critical cutting-board condition.",
+      "evidence_ids": [
+        "ev_full_video_salad_candidates"
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "COUNTING_GAP",
+      "message": "The exclusion of 261-263s as 'not an additional distinct appearance' is unsupported because the trace never textually establishes whether 256-258s, 261-263s, and 270-273s are the same continuous shot, separate shots, or whether any of them include a cutting board.",
+      "evidence_ids": [
+        "ev_full_video_salad_candidates"
+      ]
+    }
+  ],
+  "feedback": "The trace correctly identifies salad as the insulted ingredient, but the count is under-grounded. It must textually validate the cutting-board condition for each counted interval and justify the distinct-appearance grouping before selecting option C.",
+  "missing_information": [
+    "for each counted salad/lettuce interval, whether a cutting board is visible in the same shot",
+    "which distinct qualifying appearances are grounded after checking all salad/lettuce candidate intervals",
+    "whether 256-258s, 261-263s, and 270-273s are separate qualifying appearances or part of the same appearance"
+  ],
+  "diagnostics": {
+    "referent_alignment": "pass: the trace textually grounds the insulted ingredient as salad from transcript evidence.",
+    "temporal_alignment": "partial: candidate salad/lettuce intervals are listed, but most counted intervals lack answer-critical visual validation.",
+    "option_alignment": "fail: option C is selected from an unsupported total of 5.",
+    "evidence_sufficiency": "fail: supplied text supports at most one explicit qualifying appearance around 107-109s and two explicit non-qualifying sampled cases; the remaining counted appearances are not textually grounded."
+  }
+}

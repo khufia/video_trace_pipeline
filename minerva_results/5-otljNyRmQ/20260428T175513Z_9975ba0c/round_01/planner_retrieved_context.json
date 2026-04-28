@@ -1,0 +1,476 @@
+{
+  "query_terms": [
+    "happens",
+    "friends",
+    "exit",
+    "vehicle",
+    "rain",
+    "someone",
+    "slams",
+    "car",
+    "door",
+    "shoots",
+    "gun",
+    "standing",
+    "front",
+    "holding",
+    "lantern",
+    "cocks",
+    "rifle",
+    "slips",
+    "falls",
+    "wet",
+    "terrain",
+    "caption",
+    "spans",
+    "describing",
+    "rainy",
+    "scene",
+    "around",
+    "immediately",
+    "following",
+    "action",
+    "exiting",
+    "next",
+    "slip",
+    "fall",
+    "visual",
+    "transcript",
+    "lines",
+    "align",
+    "any",
+    "sounds",
+    "dialogue",
+    "mike",
+    "dustin",
+    "lucas",
+    "eleven",
+    "will",
+    "kidnapped",
+    "asr"
+  ],
+  "retrieval_requests": [
+    {
+      "request_id": "rain_vehicle_exit_densecaps",
+      "target": "dense_captions",
+      "need": "Caption spans describing the rainy scene around when the friends exit the vehicle and the immediately following action",
+      "query": "friends exit vehicle in rain after exiting car what happens next gun lantern rifle slip fall door",
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 180.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "limit": 10
+    },
+    {
+      "request_id": "rain_vehicle_exit_asr",
+      "target": "asr_transcripts",
+      "need": "Transcript lines around the rainy vehicle-exit scene to align the moment and any immediately following sounds or dialogue",
+      "query": "friends exit vehicle rain Mike Dustin Lucas Eleven Will kidnapped me",
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 180.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "limit": 10
+    }
+  ],
+  "preprocess_matches": {
+    "planner_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "5-otljNyRmQ",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/5-otljNyRmQ/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "In a dark, rainy night scene, a group of people are walking down a wet, dark road. The headlights of a car illuminate them as they walk away from the camera. One person in a red and black striped shirt is in the foreground, while others follow behind. The scene then cuts to a close-up of a man with long, messy blonde hair and a black turtleneck, looking distressed and shouting as rain falls around him.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of heavy rain and the low rumble of a car engine.; attributes: camera_state: The first shot is a static wide shot from behind the group. The second shot is a shaky, handheld close-up on the man's face, creating a sense of immediacy and chaos., video_background: The setting is a dark, wet, and rural road at night during a rainstorm. The environment is pitch black, with only the car's headlights and ambient light providing illumination., storyline: The scene opens with a sense of mystery and tension, establishing a group of people in a perilous situation. The sudden cut to a distressed individual suggests a sudden turn of events or a flashback, creating immediate suspense., shooting_style: The scene uses a hard cut to transition from a wide, establishing shot to an intense, emotional close-up, heightening the dramatic tension. A montage of quick cuts shows different people in the dark, rainy forest. A man in a black jacket and cap holds a lantern high, illuminating the dense foliage. Another man with a beard, wearing a grey hoodie and a Columbia baseball cap, also holds a lantern, looking around with a concerned expression. The camera cuts between them as they navigate the dark woods.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The continuous sound of heavy rain and a low, ominous ambient tone.; attributes: camera_state: The camera uses a series of medium shots and close-ups, often handheld and shaky, following the characters as they move. The focus is often on the lanterns, which are the primary light source., video_background: The setting is a dense, dark forest at night, with heavy rain falling. The ground is covered in leaves and dirt, and the trees are thick and black against the night sky., storyline: This montage introduces more characters who are also lost or searching in the woods. Their use of lanterns confirms they are in a dark, isolated location, and their cautious movements suggest they are on high alert., shooting_style: This is a montage sequence, using rapid cuts between different characters and actions to build a sense of collective anxiety and disorientation.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 124.0,
+              "visual": "In a dark, rainy night scene, a group of people are walking down a wet, dark road. The headlights of a car illuminate them as they walk away from the camera. One person in a red and black striped shirt is in the foreground, while others follow behind. The scene then cuts to a close-up of a man with long, messy blonde hair and a black turtleneck, looking distressed and shouting as rain falls around him.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of heavy rain and the low rumble of a car engine.",
+              "attributes": [
+                "camera_state: The first shot is a static wide shot from behind the group. The second shot is a shaky, handheld close-up on the man's face, creating a sense of immediacy and chaos.",
+                "video_background: The setting is a dark, wet, and rural road at night during a rainstorm. The environment is pitch black, with only the car's headlights and ambient light providing illumination.",
+                "storyline: The scene opens with a sense of mystery and tension, establishing a group of people in a perilous situation. The sudden cut to a distressed individual suggests a sudden turn of events or a flashback, creating immediate suspense.",
+                "shooting_style: The scene uses a hard cut to transition from a wide, establishing shot to an intense, emotional close-up, heightening the dramatic tension."
+              ]
+            },
+            {
+              "start_s": 125.0,
+              "end_s": 132.0,
+              "visual": "A montage of quick cuts shows different people in the dark, rainy forest. A man in a black jacket and cap holds a lantern high, illuminating the dense foliage. Another man with a beard, wearing a grey hoodie and a Columbia baseball cap, also holds a lantern, looking around with a concerned expression. The camera cuts between them as they navigate the dark woods.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The continuous sound of heavy rain and a low, ominous ambient tone.",
+              "attributes": [
+                "camera_state: The camera uses a series of medium shots and close-ups, often handheld and shaky, following the characters as they move. The focus is often on the lanterns, which are the primary light source.",
+                "video_background: The setting is a dense, dark forest at night, with heavy rain falling. The ground is covered in leaves and dirt, and the trees are thick and black against the night sky.",
+                "storyline: This montage introduces more characters who are also lost or searching in the woods. Their use of lanterns confirms they are in a dark, isolated location, and their cautious movements suggest they are on high alert.",
+                "shooting_style: This is a montage sequence, using rapid cuts between different characters and actions to build a sense of collective anxiety and disorientation."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 123.556,
+              "end_s": 153.442,
+              "text": "Mike! Dustin! Mike! Mike! Mike! Dustin! Lucas! Mike! Mike! Eleven? It's me!"
+            },
+            {
+              "start_s": 153.982,
+              "end_s": 183.091,
+              "text": "Will! Will? Will! Eleven. What are you doing here? How'd you get out of the Upside Down? Pop saved me. I'm just glad you're here, Will. What the hell are you guys doing? That's the guy that kidnapped me. I... I did not. I didn't."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "5-otljNyRmQ",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/5-otljNyRmQ/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A man with a beard and a black cap is shown in profile, talking on a phone in a dark, outdoor setting. The scene then cuts to another man in a bright orange puffer jacket, sitting in a cluttered garage and also on the phone. He is surrounded by tools, a workbench, and a trash can.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, tense, ambient musical score begins to play.; attributes: camera_state: The first shot is a close-up profile of the man in the cap. The second shot is a medium shot of the man in the orange jacket, filmed from over the shoulder of another person., video_background: The first scene is dark, with out-of-focus lights in the background. The second scene is a messy garage with a tool cabinet, a workbench with a hairdryer and other tools, and a black trash bag., storyline: The scene introduces two separate characters in different locations, both engaged in a phone conversation, establishing a connection between them., shooting_style: This is an intercut sequence, showing two parallel actions. The scene cuts back to the man in the cap, who is now in a car. He looks over his shoulder with a concerned expression. In the background, the man in the orange jacket is still visible, now leaning back in his chair with a relaxed posture.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The tense, ambient music continues.; attributes: camera_state: The camera is positioned inside the car, looking over the driver's shoulder towards the passenger. The focus is on the man in the cap., video_background: The interior of a car at night. The garage with the man in the orange jacket is visible but out of focus in the background., storyline: The two characters are now shown in the same location, suggesting they are about to meet. The man in the cap appears anxious, while the man in the orange jacket seems calm., shooting_style: This is a standard shot with a rack focus effect, shifting from the man in the orange jacket in the background to the man in the cap in the foreground.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 63.0,
+              "visual": "A man with a beard and a black cap is shown in profile, talking on a phone in a dark, outdoor setting. The scene then cuts to another man in a bright orange puffer jacket, sitting in a cluttered garage and also on the phone. He is surrounded by tools, a workbench, and a trash can.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, tense, ambient musical score begins to play.",
+              "attributes": [
+                "camera_state: The first shot is a close-up profile of the man in the cap. The second shot is a medium shot of the man in the orange jacket, filmed from over the shoulder of another person.",
+                "video_background: The first scene is dark, with out-of-focus lights in the background. The second scene is a messy garage with a tool cabinet, a workbench with a hairdryer and other tools, and a black trash bag.",
+                "storyline: The scene introduces two separate characters in different locations, both engaged in a phone conversation, establishing a connection between them.",
+                "shooting_style: This is an intercut sequence, showing two parallel actions."
+              ]
+            },
+            {
+              "start_s": 64.0,
+              "end_s": 68.0,
+              "visual": "The scene cuts back to the man in the cap, who is now in a car. He looks over his shoulder with a concerned expression. In the background, the man in the orange jacket is still visible, now leaning back in his chair with a relaxed posture.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The tense, ambient music continues.",
+              "attributes": [
+                "camera_state: The camera is positioned inside the car, looking over the driver's shoulder towards the passenger. The focus is on the man in the cap.",
+                "video_background: The interior of a car at night. The garage with the man in the orange jacket is visible but out of focus in the background.",
+                "storyline: The two characters are now shown in the same location, suggesting they are about to meet. The man in the cap appears anxious, while the man in the orange jacket seems calm.",
+                "shooting_style: This is a standard shot with a rack focus effect, shifting from the man in the orange jacket in the background to the man in the cap in the foreground."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 68.341,
+              "end_s": 93.029,
+              "text": "What's up? What's going on guys? We gotta go. Dude, I'm actually starting to believe Dave is 11. Honestly dude, me too. Last night when I got home, Alex kept saying he was Will. Kept talking about the upside down, Demogorgons. Dude, he puked up a leech. Puked up a leech?"
+            },
+            {
+              "start_s": 93.991,
+              "end_s": 122.847,
+              "text": "Yeah, dude. It's gotta be real. How else could he have made me piss myself? And he made you shit your pants, dude. It's not funny, guys. Dave has powers. Made you shit your pants? Oh, Mr. Poop Pants."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "5-otljNyRmQ",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/5-otljNyRmQ/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "In a dark, outdoor setting, a group of men are illuminated by the light of a flashlight. One man in a red puffer jacket and a baseball cap gestures with his hands as he speaks. Another man in a plaid shirt holds a flashlight up, and a third man in a grey hoodie and a Columbia baseball cap looks on with a concerned expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, indistinct background noise.; attributes: camera_state: The camera is at a medium distance, capturing the upper bodies of the three men. The shot is slightly shaky, giving it a found-footage feel., video_background: The scene is set at night in a dark, outdoor location, possibly a backyard or woods. The background is completely black, focusing all attention on the characters., storyline: The scene opens on a tense group of men, establishing a sense of mystery and suspense. Their concerned expressions suggest they are searching for something or someone., shooting_style: The scene is shot in a dark, found-footage style, with the flashlight acting as the primary light source. A woman with a messy, platinum blonde wig and a dark coat appears, holding a flashlight. She looks distressed and confused. The man in the grey hoodie looks up at something off-screen with a startled expression, his mouth agape.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous sound effect plays as the man reacts.; attributes: camera_state: The camera cuts between a medium shot of the woman and a close-up on the man's shocked face., video_background: The setting remains a dark, outdoor area at night. The flashlight beams create harsh shadows., storyline: A new, mysterious character is introduced, adding to the suspense. The man's reaction to an off-screen event heightens the tension, suggesting a sudden threat or discovery., shooting_style: The scene uses quick cuts between characters to build suspense and show their individual reactions.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 183.0,
+              "visual": "In a dark, outdoor setting, a group of men are illuminated by the light of a flashlight. One man in a red puffer jacket and a baseball cap gestures with his hands as he speaks. Another man in a plaid shirt holds a flashlight up, and a third man in a grey hoodie and a Columbia baseball cap looks on with a concerned expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, indistinct background noise.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, capturing the upper bodies of the three men. The shot is slightly shaky, giving it a found-footage feel.",
+                "video_background: The scene is set at night in a dark, outdoor location, possibly a backyard or woods. The background is completely black, focusing all attention on the characters.",
+                "storyline: The scene opens on a tense group of men, establishing a sense of mystery and suspense. Their concerned expressions suggest they are searching for something or someone.",
+                "shooting_style: The scene is shot in a dark, found-footage style, with the flashlight acting as the primary light source."
+              ]
+            },
+            {
+              "start_s": 184.0,
+              "end_s": 186.0,
+              "visual": "A woman with a messy, platinum blonde wig and a dark coat appears, holding a flashlight. She looks distressed and confused. The man in the grey hoodie looks up at something off-screen with a startled expression, his mouth agape.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous sound effect plays as the man reacts.",
+              "attributes": [
+                "camera_state: The camera cuts between a medium shot of the woman and a close-up on the man's shocked face.",
+                "video_background: The setting remains a dark, outdoor area at night. The flashlight beams create harsh shadows.",
+                "storyline: A new, mysterious character is introduced, adding to the suspense. The man's reaction to an off-screen event heightens the tension, suggesting a sudden threat or discovery.",
+                "shooting_style: The scene uses quick cuts between characters to build suspense and show their individual reactions."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 183.985,
+              "end_s": 212.842,
+              "text": "Let's not do that. Dave. Eleven. We're your friends. Friend? Yes, friends. Will. Friend. What is going on right now? Alright, here's my stop. Alright man, I gotta drop these guys off and I'm coming back. Do not watch Stranger Things."
+            },
+            {
+              "start_s": 213.736,
+              "end_s": 242.12,
+              "text": "Why? Just promise me, dude. I'll be right back. I'm gonna drop these guys off. Okay. Taylor! Mike, come in. It's Lucas. Over. Taylor? Mike! Taylor! Mike! Dude! You watched it, didn't you?"
+            }
+          ]
+        }
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_3fa072ae7605",
+        "clip": {
+          "video_id": "5-otljNyRmQ",
+          "start_s": 0.0,
+          "end_s": 253.92,
+          "artifact_id": "clip_000_00_253_92",
+          "relpath": "artifacts/5-otljNyRmQ/clips/clip_000_00_253_92.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 7.169,
+            "end_s": 26.069,
+            "text": "Thick shot, dude. You actually get more points when it hits the board. Thanks, guys. You guys think you got something? Let me see you do it. It's all about confidence, Taylor. That just happened. No way. Who does that? I do that."
+          },
+          {
+            "start_s": 27.672,
+            "end_s": 45.307,
+            "text": "What's up, brother? I ended up staying at Dave's last night. I just woke up. Now he's missing. Last night was obviously pretty weird. Alex is acting like super, super strange. Yeah, I can't find him. Holy shit. I just seen Dave walking into the woods."
+          },
+          {
+            "start_s": 46.218,
+            "end_s": 66.653,
+            "text": "You saw him in the woods? I'm coming to get you. Be ready. Okay, yeah, just come to Dustin's. Did you change your pants? I don't want that smell on my truck, man. Yeah, I took a shower and changed my pants. Just saying. Well, I'm almost there. Be ready. Yeah, I'll see you soon. Grab lights. Make sure you got lights. Okay, bye."
+          },
+          {
+            "start_s": 68.341,
+            "end_s": 93.029,
+            "text": "What's up? What's going on guys? We gotta go. Dude, I'm actually starting to believe Dave is 11. Honestly dude, me too. Last night when I got home, Alex kept saying he was Will. Kept talking about the upside down, Demogorgons. Dude, he puked up a leech. Puked up a leech?"
+          },
+          {
+            "start_s": 93.991,
+            "end_s": 122.847,
+            "text": "Yeah, dude. It's gotta be real. How else could he have made me piss myself? And he made you shit your pants, dude. It's not funny, guys. Dave has powers. Made you shit your pants? Oh, Mr. Poop Pants."
+          },
+          {
+            "start_s": 123.556,
+            "end_s": 153.442,
+            "text": "Mike! Dustin! Mike! Mike! Mike! Dustin! Lucas! Mike! Mike! Eleven? It's me!"
+          },
+          {
+            "start_s": 153.982,
+            "end_s": 183.091,
+            "text": "Will! Will? Will! Eleven. What are you doing here? How'd you get out of the Upside Down? Pop saved me. I'm just glad you're here, Will. What the hell are you guys doing? That's the guy that kidnapped me. I... I did not. I didn't."
+          },
+          {
+            "start_s": 183.985,
+            "end_s": 212.842,
+            "text": "Let's not do that. Dave. Eleven. We're your friends. Friend? Yes, friends. Will. Friend. What is going on right now? Alright, here's my stop. Alright man, I gotta drop these guys off and I'm coming back. Do not watch Stranger Things."
+          },
+          {
+            "start_s": 213.736,
+            "end_s": 242.12,
+            "text": "Why? Just promise me, dude. I'll be right back. I'm gonna drop these guys off. Okay. Taylor! Mike, come in. It's Lucas. Over. Taylor? Mike! Taylor! Mike! Dude! You watched it, didn't you?"
+          },
+          {
+            "start_s": 244.195,
+            "end_s": 248.347,
+            "text": "God damn it. God damn it."
+          }
+        ]
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "5-otljNyRmQ",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/5-otljNyRmQ/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "In a dark, rainy night scene, a group of people are walking down a wet, dark road. The headlights of a car illuminate them as they walk away from the camera. One person in a red and black striped shirt is in the foreground, while others follow behind. The scene then cuts to a close-up of a man with long, messy blonde hair and a black turtleneck, looking distressed and shouting as rain falls around him.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of heavy rain and the low rumble of a car engine.; attributes: camera_state: The first shot is a static wide shot from behind the group. The second shot is a shaky, handheld close-up on the man's face, creating a sense of immediacy and chaos., video_background: The setting is a dark, wet, and rural road at night during a rainstorm. The environment is pitch black, with only the car's headlights and ambient light providing illumination., storyline: The scene opens with a sense of mystery and tension, establishing a group of people in a perilous situation. The sudden cut to a distressed individual suggests a sudden turn of events or a flashback, creating immediate suspense., shooting_style: The scene uses a hard cut to transition from a wide, establishing shot to an intense, emotional close-up, heightening the dramatic tension. A montage of quick cuts shows different people in the dark, rainy forest. A man in a black jacket and cap holds a lantern high, illuminating the dense foliage. Another man with a beard, wearing a grey hoodie and a Columbia baseball cap, also holds a lantern, looking around with a concerned expression. The camera cuts between them as they navigate the dark woods.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The continuous sound of heavy rain and a low, ominous ambient tone.; attributes: camera_state: The camera uses a series of medium shots and close-ups, often handheld and shaky, following the characters as they move. The focus is often on the lanterns, which are the primary light source., video_background: The setting is a dense, dark forest at night, with heavy rain falling. The ground is covered in leaves and dirt, and the trees are thick and black against the night sky., storyline: This montage introduces more characters who are also lost or searching in the woods. Their use of lanterns confirms they are in a dark, isolated location, and their cautious movements suggest they are on high alert., shooting_style: This is a montage sequence, using rapid cuts between different characters and actions to build a sense of collective anxiety and disorientation.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 124.0,
+              "visual": "In a dark, rainy night scene, a group of people are walking down a wet, dark road. The headlights of a car illuminate them as they walk away from the camera. One person in a red and black striped shirt is in the foreground, while others follow behind. The scene then cuts to a close-up of a man with long, messy blonde hair and a black turtleneck, looking distressed and shouting as rain falls around him.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The sound of heavy rain and the low rumble of a car engine.",
+              "attributes": [
+                "camera_state: The first shot is a static wide shot from behind the group. The second shot is a shaky, handheld close-up on the man's face, creating a sense of immediacy and chaos.",
+                "video_background: The setting is a dark, wet, and rural road at night during a rainstorm. The environment is pitch black, with only the car's headlights and ambient light providing illumination.",
+                "storyline: The scene opens with a sense of mystery and tension, establishing a group of people in a perilous situation. The sudden cut to a distressed individual suggests a sudden turn of events or a flashback, creating immediate suspense.",
+                "shooting_style: The scene uses a hard cut to transition from a wide, establishing shot to an intense, emotional close-up, heightening the dramatic tension."
+              ]
+            },
+            {
+              "start_s": 125.0,
+              "end_s": 132.0,
+              "visual": "A montage of quick cuts shows different people in the dark, rainy forest. A man in a black jacket and cap holds a lantern high, illuminating the dense foliage. Another man with a beard, wearing a grey hoodie and a Columbia baseball cap, also holds a lantern, looking around with a concerned expression. The camera cuts between them as they navigate the dark woods.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The continuous sound of heavy rain and a low, ominous ambient tone.",
+              "attributes": [
+                "camera_state: The camera uses a series of medium shots and close-ups, often handheld and shaky, following the characters as they move. The focus is often on the lanterns, which are the primary light source.",
+                "video_background: The setting is a dense, dark forest at night, with heavy rain falling. The ground is covered in leaves and dirt, and the trees are thick and black against the night sky.",
+                "storyline: This montage introduces more characters who are also lost or searching in the woods. Their use of lanterns confirms they are in a dark, isolated location, and their cautious movements suggest they are on high alert.",
+                "shooting_style: This is a montage sequence, using rapid cuts between different characters and actions to build a sense of collective anxiety and disorientation."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "5-otljNyRmQ",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/5-otljNyRmQ/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A man with a beard and a black cap is shown in profile, talking on a phone in a dark, outdoor setting. The scene then cuts to another man in a bright orange puffer jacket, sitting in a cluttered garage and also on the phone. He is surrounded by tools, a workbench, and a trash can.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, tense, ambient musical score begins to play.; attributes: camera_state: The first shot is a close-up profile of the man in the cap. The second shot is a medium shot of the man in the orange jacket, filmed from over the shoulder of another person., video_background: The first scene is dark, with out-of-focus lights in the background. The second scene is a messy garage with a tool cabinet, a workbench with a hairdryer and other tools, and a black trash bag., storyline: The scene introduces two separate characters in different locations, both engaged in a phone conversation, establishing a connection between them., shooting_style: This is an intercut sequence, showing two parallel actions. The scene cuts back to the man in the cap, who is now in a car. He looks over his shoulder with a concerned expression. In the background, the man in the orange jacket is still visible, now leaning back in his chair with a relaxed posture.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The tense, ambient music continues.; attributes: camera_state: The camera is positioned inside the car, looking over the driver's shoulder towards the passenger. The focus is on the man in the cap., video_background: The interior of a car at night. The garage with the man in the orange jacket is visible but out of focus in the background., storyline: The two characters are now shown in the same location, suggesting they are about to meet. The man in the cap appears anxious, while the man in the orange jacket seems calm., shooting_style: This is a standard shot with a rack focus effect, shifting from the man in the orange jacket in the background to the man in the cap in the foreground.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 63.0,
+              "visual": "A man with a beard and a black cap is shown in profile, talking on a phone in a dark, outdoor setting. The scene then cuts to another man in a bright orange puffer jacket, sitting in a cluttered garage and also on the phone. He is surrounded by tools, a workbench, and a trash can.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, tense, ambient musical score begins to play.",
+              "attributes": [
+                "camera_state: The first shot is a close-up profile of the man in the cap. The second shot is a medium shot of the man in the orange jacket, filmed from over the shoulder of another person.",
+                "video_background: The first scene is dark, with out-of-focus lights in the background. The second scene is a messy garage with a tool cabinet, a workbench with a hairdryer and other tools, and a black trash bag.",
+                "storyline: The scene introduces two separate characters in different locations, both engaged in a phone conversation, establishing a connection between them.",
+                "shooting_style: This is an intercut sequence, showing two parallel actions."
+              ]
+            },
+            {
+              "start_s": 64.0,
+              "end_s": 68.0,
+              "visual": "The scene cuts back to the man in the cap, who is now in a car. He looks over his shoulder with a concerned expression. In the background, the man in the orange jacket is still visible, now leaning back in his chair with a relaxed posture.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The tense, ambient music continues.",
+              "attributes": [
+                "camera_state: The camera is positioned inside the car, looking over the driver's shoulder towards the passenger. The focus is on the man in the cap.",
+                "video_background: The interior of a car at night. The garage with the man in the orange jacket is visible but out of focus in the background.",
+                "storyline: The two characters are now shown in the same location, suggesting they are about to meet. The man in the cap appears anxious, while the man in the orange jacket seems calm.",
+                "shooting_style: This is a standard shot with a rack focus effect, shifting from the man in the orange jacket in the background to the man in the cap in the foreground."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "5-otljNyRmQ",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/5-otljNyRmQ/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "In a dark, outdoor setting, a group of men are illuminated by the light of a flashlight. One man in a red puffer jacket and a baseball cap gestures with his hands as he speaks. Another man in a plaid shirt holds a flashlight up, and a third man in a grey hoodie and a Columbia baseball cap looks on with a concerned expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, indistinct background noise.; attributes: camera_state: The camera is at a medium distance, capturing the upper bodies of the three men. The shot is slightly shaky, giving it a found-footage feel., video_background: The scene is set at night in a dark, outdoor location, possibly a backyard or woods. The background is completely black, focusing all attention on the characters., storyline: The scene opens on a tense group of men, establishing a sense of mystery and suspense. Their concerned expressions suggest they are searching for something or someone., shooting_style: The scene is shot in a dark, found-footage style, with the flashlight acting as the primary light source. A woman with a messy, platinum blonde wig and a dark coat appears, holding a flashlight. She looks distressed and confused. The man in the grey hoodie looks up at something off-screen with a startled expression, his mouth agape.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous sound effect plays as the man reacts.; attributes: camera_state: The camera cuts between a medium shot of the woman and a close-up on the man's shocked face., video_background: The setting remains a dark, outdoor area at night. The flashlight beams create harsh shadows., storyline: A new, mysterious character is introduced, adding to the suspense. The man's reaction to an off-screen event heightens the tension, suggesting a sudden threat or discovery., shooting_style: The scene uses quick cuts between characters to build suspense and show their individual reactions.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 183.0,
+              "visual": "In a dark, outdoor setting, a group of men are illuminated by the light of a flashlight. One man in a red puffer jacket and a baseball cap gestures with his hands as he speaks. Another man in a plaid shirt holds a flashlight up, and a third man in a grey hoodie and a Columbia baseball cap looks on with a concerned expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, indistinct background noise.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, capturing the upper bodies of the three men. The shot is slightly shaky, giving it a found-footage feel.",
+                "video_background: The scene is set at night in a dark, outdoor location, possibly a backyard or woods. The background is completely black, focusing all attention on the characters.",
+                "storyline: The scene opens on a tense group of men, establishing a sense of mystery and suspense. Their concerned expressions suggest they are searching for something or someone.",
+                "shooting_style: The scene is shot in a dark, found-footage style, with the flashlight acting as the primary light source."
+              ]
+            },
+            {
+              "start_s": 184.0,
+              "end_s": 186.0,
+              "visual": "A woman with a messy, platinum blonde wig and a dark coat appears, holding a flashlight. She looks distressed and confused. The man in the grey hoodie looks up at something off-screen with a startled expression, his mouth agape.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous sound effect plays as the man reacts.",
+              "attributes": [
+                "camera_state: The camera cuts between a medium shot of the woman and a close-up on the man's shocked face.",
+                "video_background: The setting remains a dark, outdoor area at night. The flashlight beams create harsh shadows.",
+                "storyline: A new, mysterious character is introduced, adding to the suspense. The man's reaction to an off-screen event heightens the tension, suggesting a sudden threat or discovery.",
+                "shooting_style: The scene uses quick cuts between characters to build suspense and show their individual reactions."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

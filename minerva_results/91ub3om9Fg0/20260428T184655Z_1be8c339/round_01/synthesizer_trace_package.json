@@ -1,0 +1,325 @@
+{
+  "task_key": "91ub3om9Fg0__5713a0fb45d0",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_c85d0a69",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Chronological neighboring frames were retrieved at 13.00s, 14.00s, 15.00s, 16.00s, 17.00s, and 18.00s for visual inspection around the relevant moment.",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 13.0,
+          "end_s": 13.0
+        },
+        {
+          "start_s": 14.0,
+          "end_s": 14.0
+        },
+        {
+          "start_s": 15.0,
+          "end_s": 15.0
+        },
+        {
+          "start_s": 16.0,
+          "end_s": 16.0
+        },
+        {
+          "start_s": 17.0,
+          "end_s": 17.0
+        },
+        {
+          "start_s": 18.0,
+          "end_s": 18.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_13.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_13.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_13.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 182388
+          }
+        },
+        {
+          "artifact_id": "frame_14.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_14.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_14.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 78034
+          }
+        },
+        {
+          "artifact_id": "frame_15.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_15.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_15.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 78550
+          }
+        },
+        {
+          "artifact_id": "frame_16.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_16.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_16.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 97867
+          }
+        },
+        {
+          "artifact_id": "frame_17.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_17.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_17.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 120928
+          }
+        },
+        {
+          "artifact_id": "frame_18.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_18.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_18.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 140380
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_c7d1f0b35df411fa",
+        "obs_e21dc2d7633fc78d",
+        "obs_3baabfc7d86e073f",
+        "obs_e7766e2ff0290146",
+        "obs_a32885a7c1779ccd",
+        "obs_6063d470b05201f4"
+      ],
+      "metadata": {
+        "request_hash": "c85d0a69397e9dc274ad0b47",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_95e7b11e",
+      "tool_name": "generic_purpose",
+      "evidence_text": "A transcript span from 15.893s to 18.61s contains the quote: \"Oh, there's only one. Yeah, there's only one, but look.\" This provides only a temporal anchor near the showing moment; per instructions it is not final proof of the exact visual timing.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 15.893,
+          "end_s": 18.61
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_a1d735622f411a7b",
+        "obs_b01cb365479faed3",
+        "obs_b2932114e183c0a3"
+      ],
+      "metadata": {
+        "request_hash": "95e7b11ef8c9995873eaba16",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The available visual evidence is a chronological frame sequence at 13s, 14s, 15s, 16s, 17s, and 18s, so any duration estimate must be based on 1-second sampling rather than continuous frame-by-frame timing.",
+      "supporting_observation_ids": [
+        "obs_c7d1f0b35df411fa",
+        "obs_e21dc2d7633fc78d",
+        "obs_3baabfc7d86e073f",
+        "obs_e7766e2ff0290146",
+        "obs_a32885a7c1779ccd",
+        "obs_6063d470b05201f4"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 13.0,
+          "end_s": 18.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The transcript phrase ending with \"but look\" occurs from 15.893s to 18.61s, which anchors the likely showing event to roughly the 16-18s region, but the transcript alone does not prove the exact start or end frame for the visual question.",
+      "supporting_observation_ids": [
+        "obs_a1d735622f411a7b",
+        "obs_b01cb365479faed3",
+        "obs_b2932114e183c0a3"
+      ],
+      "answer_relevance": "medium",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 15.893,
+          "end_s": 18.61
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Because the discriminator must come from the chronological frames, the relevant candidate interval is around 16s to 18s. With only 1-second-spaced frames, the sequence is too sparse to cleanly distinguish whether the elapsed time from first showing to first readable focus is exactly 1 second or 2 seconds if those events happen between sampled frames.",
+      "supporting_observation_ids": [
+        "obs_e7766e2ff0290146",
+        "obs_a32885a7c1779ccd",
+        "obs_6063d470b05201f4",
+        "obs_a1d735622f411a7b"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 15.893,
+          "end_s": 18.61
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Given that the anchor phrase begins near 15.9s and the inspected frames continue through 18s, longer options such as 4s, 6s, or 7s are not well supported by the anchored window. The shortest plausible option consistent with a showing moment near 16-17s and readable focus by 17-18s is 2 seconds, but this remains somewhat uncertain because the frame sequence is sparse.",
+      "supporting_observation_ids": [
+        "obs_e7766e2ff0290146",
+        "obs_a32885a7c1779ccd",
+        "obs_6063d470b05201f4",
+        "obs_a1d735622f411a7b",
+        "obs_b01cb365479faed3"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 15.893,
+          "end_s": 18.61
+        }
+      ]
+    }
+  ],
+  "final_answer": "C. 00:02.",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "91ub3om9Fg0__5713a0fb45d0",
+      "trace": {
+        "inference_steps": [
+          "[13s to 18s] The available visual evidence is a chronological frame sequence at 13s, 14s, 15s, 16s, 17s, and 18s, so any duration estimate must be based on 1-second sampling rather than continuous frame-by-frame timing.",
+          "[15.893s to 18.61s] The transcript phrase ending with \"but look\" occurs from 15.893s to 18.61s, which anchors the likely showing event to roughly the 16-18s region, but the transcript alone does not prove the exact start or end frame for the visual question.",
+          "[15.893s to 18.61s] Because the discriminator must come from the chronological frames, the relevant candidate interval is around 16s to 18s. With only 1-second-spaced frames, the sequence is too sparse to cleanly distinguish whether the elapsed time from first showing to first readable focus is exactly 1 second or 2 seconds if those events happen between sampled frames.",
+          "[15.893s to 18.61s] Given that the anchor phrase begins near 15.9s and the inspected frames continue through 18s, longer options such as 4s, 6s, or 7s are not well supported by the anchored window. The shortest plausible option consistent with a showing moment near 16-17s and readable focus by 17-18s is 2 seconds, but this remains somewhat uncertain because the frame sequence is sparse."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Chronological neighboring frames were retrieved at 13.00s, 14.00s, 15.00s, 16.00s, 17.00s, and 18.00s for visual inspection around the relevant moment.",
+            "observation_ids": [
+              "obs_c7d1f0b35df411fa",
+              "obs_e21dc2d7633fc78d",
+              "obs_3baabfc7d86e073f",
+              "obs_e7766e2ff0290146",
+              "obs_a32885a7c1779ccd",
+              "obs_6063d470b05201f4"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 13.0,
+                "end_s": 13.0
+              },
+              {
+                "start_s": 14.0,
+                "end_s": 14.0
+              },
+              {
+                "start_s": 15.0,
+                "end_s": 15.0
+              },
+              {
+                "start_s": 16.0,
+                "end_s": 16.0
+              },
+              {
+                "start_s": 17.0,
+                "end_s": 17.0
+              },
+              {
+                "start_s": 18.0,
+                "end_s": 18.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "A transcript span from 15.893s to 18.61s contains the quote: \"Oh, there's only one. Yeah, there's only one, but look.\" This provides only a temporal anchor near the showing moment; per instructions it is not final proof of the exact visual timing.",
+            "observation_ids": [
+              "obs_a1d735622f411a7b",
+              "obs_b01cb365479faed3",
+              "obs_b2932114e183c0a3"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 15.893,
+                "end_s": 18.61
+              }
+            ]
+          }
+        ]
+      },
+      "answer": "C. 00:02."
+    }
+  },
+  "metadata": {
+    "notes": "Transcript used only as temporal anchor. Final choice is tentative because no atomic visual observations describe the exact showing frame or the exact first readable 'TIME MACHINE' frame."
+  }
+}

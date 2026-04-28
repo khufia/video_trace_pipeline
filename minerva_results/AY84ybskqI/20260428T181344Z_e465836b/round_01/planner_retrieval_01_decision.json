@@ -1,0 +1,47 @@
+{
+  "action": "retrieve",
+  "rationale": "Relevant existing text likely exists in dense captions/preprocess for the Inner City Tennis segment, which may describe counts of side steps and ball tosses before planning new tool use.",
+  "requests": [
+    {
+      "request_id": "inner_city_tennis_action_counts",
+      "target": "dense_captions",
+      "need": "Text spans in the Inner City Tennis segment describing the woman in gray's repeated side steps and ball toss actions so the planner can infer the ratio.",
+      "query": "Inner City Tennis woman in gray side steps ball tosses instructor grey t-shirt indoor tennis court",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 172.272
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "inner_city_tennis_preprocess_context",
+      "target": "preprocess",
+      "need": "Detailed preprocess text for the segment where she volunteers at Inner City Tennis, including action descriptions around the woman in gray.",
+      "query": "segment 120 172 Inner City Tennis woman in gray tosses ball steps",
+      "modalities": [
+        "visual",
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 172.272
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 5
+    }
+  ]
+}

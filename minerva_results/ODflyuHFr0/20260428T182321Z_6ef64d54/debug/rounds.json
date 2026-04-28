@@ -1,0 +1,148 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Verify the ingredient-order text near the green chutney montage by retrieving a readable frame around the 'GRIND IT IN A MIXER' display, OCR the ingredient labels, then extract the second ingredient and its second word's first letter.",
+      "refinement_instructions": "Treat preprocess captions as a locator only. Base the final reasoning on the retrieved montage frames plus OCR text. Preserve chronology across the ingredient overlays; do not infer order from OCR line order alone if multiple frames are involved. If OCR is noisy, use the frames to disambiguate whether the second ingredient is 'GINGER & GARLIC' or 'FRESH CORIANDER AND MINT LEAVES' before extracting the second word. Keep the answer unresolved if the ingredient order cannot be visually verified.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve a small chronological set of readable frames from the early ingredient montage where the ingredient labels and 'GRIND IT IN A MIXER' text appear together or in immediate sequence.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "-ODflyuHFr0",
+                "start_s": 12.0,
+                "end_s": 18.0,
+                "artifact_id": "clip_000_00_060_00",
+                "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+                "metadata": {}
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 4,
+            "query": "readable frames showing the ordered green chutney ingredient text overlays, especially the second ingredient before or with 'GRIND IT IN A MIXER'",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "12.0-18.0 ingredient montage with text overlays ending at 'GRIND IT IN A MIXER'"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "ocr",
+          "purpose": "Read the exact on-screen ingredient labels from the retrieved frames so the ingredient wording and order can be verified from visual text.",
+          "inputs": {
+            "clips": [],
+            "frames": [],
+            "query": "read all visible ingredient labels and the 'GRIND IT IN A MIXER' text exactly as shown",
+            "regions": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ]
+          }
+        },
+        {
+          "step_id": 3,
+          "tool_name": "generic_purpose",
+          "purpose": "Determine the ordered list of ingredients intended to be ground, identify the second ingredient, then extract the first letter of its second word and map it to the options.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "Using the retrieved frames and OCR text, identify the ordered ingredient labels associated with the green chutney that are to be ground in the mixer. Determine the 2nd ingredient in that order, then take the 1st letter of that ingredient's 2nd word. Return the matching option letter and briefly note the exact ingredient phrase used.",
+            "text_contexts": [],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ],
+            "text_contexts": [
+              {
+                "step_id": 2,
+                "field_path": "text"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "B. L.",
+      "trace_evidence_count": 2,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The relevant ingredient overlay is grounded by chronologically retrieved frames at 16s, 17s, and 18s, with 16s and 17s being readable and 18s fading out.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 16.0,
+              "end_s": 18.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "Across the readable frames, the ingredient list visibly shows \"1/2 cup coriander leaves\" followed by \"1/2 cup mint leaves\". This supports that the second listed ingredient is mint leaves, rather than a different phrase such as \"ginger & garlic\" or \"fresh coriander and mint leaves\".",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 16.0,
+              "end_s": 17.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "For the second ingredient phrase \"mint leaves\", the second word is \"leaves\", whose first letter is L.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 16.0,
+              "end_s": 17.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "Among the options, the letter L corresponds to option B.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": []
+        }
+      ],
+      "audit_verdict": "PASS",
+      "audit_confidence": 0.94,
+      "audit_feedback": "The trace is well aligned to the question: it grounds the ingredient list text, identifies the second listed ingredient as \"mint leaves,\" extracts the second word \"leaves,\" derives the first letter \"L,\" and maps it correctly to option B.",
+      "audit_missing_information": [],
+      "audit_findings": []
+    }
+  ]
+}

@@ -1,0 +1,321 @@
+{
+  "tool_name": "generic_purpose",
+  "ok": true,
+  "data": {
+    "response": "The user wants to know how many times the woman in white hits the tennis ball into the net based on the provided video frames and context.\n\n1.  **Analyze the video sequence and context:**\n    *   **0s - 6s (Images 1-5):** The woman is preparing to serve.\n        *   Image 1-4: Preparation.\n        *   Image 5: Tossing the ball.\n        *   Image 6: Hitting the ball (serve).\n        *   Context says: \"0-4s shows a serve that is described as going high and deep into the opponent's court, not into the net.\"\n        *   Conclusion: This serve is **not** a net hit.\n\n    *   **12s - 16s (Images 6-10):** This section shows a rally.\n        *   Image 6 (12s): Ready position.\n        *   Image 7 (13s): Hitting a forehand.\n        *   Image 8 (14s): Ready position.\n        *   Image 9 (15s): Hitting a backhand.\n        *   Image 10 (16s): Ready position.\n        *   Context says: \"5-14s shows a rally with a series of groundstrokes from behind the player; exact net contacts are not specified and must be visually verified.\"\n        *   Visual check: In Image 9 (15s), she is hitting a backhand. The ball is visible near the racket. It looks like a clean hit. In Image 7 (13s), she is hitting a forehand. There is no clear visual of the ball hitting the net mesh or stopping. The context explicitly states \"exact net contacts are not specified and must be visually verified\" and the speaker says \"The speaker does not see the ball hitting the net.\"\n        *   Conclusion: No net hits observed in this rally segment.\n\n    *   **71s - 75s (Images 11-15):** This section shows another serve.\n        *   Image 11 (71s): Preparation.\n        *   Image 12 (72s): Tossing the ball.\n        *   Image 13 (73s): Hitting the serve.\n        *   Image 14 (74s): Follow through.\n        *   Image 15 (75s): Ready position.\n        *   Context says: \"69-73s shows a serve whose trajectory flies over the net.\"\n        *   Conclusion: This serve is **not** a net hit.\n\n2.  **Evaluate the options:**\n    *   A. 0.\n    *   B. 4.\n    *   C. 3.\n    *   D. 1.\n    *   E. 2.\n\n3.  **Synthesize findings:**\n    *   The first serve (0-6s) went deep, not into the net.\n    *   The rally (12-16s) had groundstrokes, but no visual evidence of the ball hitting the net. The context implies verification is needed but the speaker doesn't see it.\n    *   The second serve (71-75s) flew over the net.\n    *   Therefore, the count of net hits is 0.\n\n4.  **Final check:**\n    *   Did I miss anything? The prompt asks to \"deduplicate repeated neighboring frames\". The frames",
+    "answer": "The user wants to know how many times the woman in white hits the tennis ball into the net based on the provided video frames and context.\n\n1.  **Analyze the video sequence and context:**\n    *   **0s - 6s (Images 1-5):** The woman is preparing to serve.\n        *   Image 1-4: Preparation.\n        *   Image 5: Tossing the ball.\n        *   Image 6: Hitting the ball (serve).\n        *   Context says: \"0-4s shows a serve that is described as going high and deep into the opponent's court, not into the net.\"\n        *   Conclusion: This serve is **not** a net hit.\n\n    *   **12s - 16s (Images 6-10):** This section shows a rally.\n        *   Image 6 (12s): Ready position.\n        *   Image 7 (13s): Hitting a forehand.\n        *   Image 8 (14s): Ready position.\n        *   Image 9 (15s): Hitting a backhand.\n        *   Image 10 (16s): Ready position.\n        *   Context says: \"5-14s shows a rally with a series of groundstrokes from behind the player; exact net contacts are not specified and must be visually verified.\"\n        *   Visual check: In Image 9 (15s), she is hitting a backhand. The ball is visible near the racket. It looks like a clean hit. In Image 7 (13s), she is hitting a forehand. There is no clear visual of the ball hitting the net mesh or stopping. The context explicitly states \"exact net contacts are not specified and must be visually verified\" and the speaker says \"The speaker does not see the ball hitting the net.\"\n        *   Conclusion: No net hits observed in this rally segment.\n\n    *   **71s - 75s (Images 11-15):** This section shows another serve.\n        *   Image 11 (71s): Preparation.\n        *   Image 12 (72s): Tossing the ball.\n        *   Image 13 (73s): Hitting the serve.\n        *   Image 14 (74s): Follow through.\n        *   Image 15 (75s): Ready position.\n        *   Context says: \"69-73s shows a serve whose trajectory flies over the net.\"\n        *   Conclusion: This serve is **not** a net hit.\n\n2.  **Evaluate the options:**\n    *   A. 0.\n    *   B. 4.\n    *   C. 3.\n    *   D. 1.\n    *   E. 2.\n\n3.  **Synthesize findings:**\n    *   The first serve (0-6s) went deep, not into the net.\n    *   The rally (12-16s) had groundstrokes, but no visual evidence of the ball hitting the net. The context implies verification is needed but the speaker doesn't see it.\n    *   The second serve (71-75s) flew over the net.\n    *   Therefore, the count of net hits is 0.\n\n4.  **Final check:**\n    *   Did I miss anything? The prompt asks to \"deduplicate repeated neighboring frames\". The frames",
+    "analysis": "The user wants to know how many times the woman in white hits the tennis ball into the net based on the provided video frames and context.\n\n1.  **Analyze the video sequence and context:**\n    *   **0s - 6s (Images 1-5):** The woman is preparing to serve.\n        *   Image 1-4: Preparation.\n        *   Image 5: Tossing the ball.\n        *   Image 6: Hitting the ball (serve).\n        *   Context says: \"0-4s shows a serve that is described as going high and deep into the opponent's court, not into the net.\"\n        *   Conclusion: This serve is **not** a net hit.\n\n    *   **12s - 16s (Images 6-10):** This section shows a rally.\n        *   Image 6 (12s): Ready position.\n        *   Image 7 (13s): Hitting a forehand.\n        *   Image 8 (14s): Ready position.\n        *   Image 9 (15s): Hitting a backhand.\n        *   Image 10 (16s): Ready position.\n        *   Context says: \"5-14s shows a rally with a series of groundstrokes from behind the player; exact net contacts are not specified and must be visually verified.\"\n        *   Visual check: In Image 9 (15s), she is hitting a backhand. The ball is visible near the racket. It looks like a clean hit. In Image 7 (13s), she is hitting a forehand. There is no clear visual of the ball hitting the net mesh or stopping. The context explicitly states \"exact net contacts are not specified and must be visually verified\" and the speaker says \"The speaker does not see the ball hitting the net.\"\n        *   Conclusion: No net hits observed in this rally segment.\n\n    *   **71s - 75s (Images 11-15):** This section shows another serve.\n        *   Image 11 (71s): Preparation.\n        *   Image 12 (72s): Tossing the ball.\n        *   Image 13 (73s): Hitting the serve.\n        *   Image 14 (74s): Follow through.\n        *   Image 15 (75s): Ready position.\n        *   Context says: \"69-73s shows a serve whose trajectory flies over the net.\"\n        *   Conclusion: This serve is **not** a net hit.\n\n2.  **Evaluate the options:**\n    *   A. 0.\n    *   B. 4.\n    *   C. 3.\n    *   D. 1.\n    *   E. 2.\n\n3.  **Synthesize findings:**\n    *   The first serve (0-6s) went deep, not into the net.\n    *   The rally (12-16s) had groundstrokes, but no visual evidence of the ball hitting the net. The context implies verification is needed but the speaker doesn't see it.\n    *   The second serve (71-75s) flew over the net.\n    *   Therefore, the count of net hits is 0.\n\n4.  **Final check:**\n    *   Did I miss anything? The prompt asks to \"deduplicate repeated neighboring frames\". The frames",
+    "supporting_points": [],
+    "confidence": null
+  },
+  "raw_output_text": "{\"answer\": \"The user wants to know how many times the woman in white hits the tennis ball into the net based on the provided video frames and context.\\n\\n1.  **Analyze the video sequence and context:**\\n    *   **0s - 6s (Images 1-5):** The woman is preparing to serve.\\n        *   Image 1-4: Preparation.\\n        *   Image 5: Tossing the ball.\\n        *   Image 6: Hitting the ball (serve).\\n        *   Context says: \\\"0-4s shows a serve that is described as going high and deep into the opponent's court, not into the net.\\\"\\n        *   Conclusion: This serve is **not** a net hit.\\n\\n    *   **12s - 16s (Images 6-10):** This section shows a rally.\\n        *   Image 6 (12s): Ready position.\\n        *   Image 7 (13s): Hitting a forehand.\\n        *   Image 8 (14s): Ready position.\\n        *   Image 9 (15s): Hitting a backhand.\\n        *   Image 10 (16s): Ready position.\\n        *   Context says: \\\"5-14s shows a rally with a series of groundstrokes from behind the player; exact net contacts are not specified and must be visually verified.\\\"\\n        *   Visual check: In Image 9 (15s), she is hitting a backhand. The ball is visible near the racket. It looks like a clean hit. In Image 7 (13s), she is hitting a forehand. There is no clear visual of the ball hitting the net mesh or stopping. The context explicitly states \\\"exact net contacts are not specified and must be visually verified\\\" and the speaker says \\\"The speaker does not see the ball hitting the net.\\\"\\n        *   Conclusion: No net hits observed in this rally segment.\\n\\n    *   **71s - 75s (Images 11-15):** This section shows another serve.\\n        *   Image 11 (71s): Preparation.\\n        *   Image 12 (72s): Tossing the ball.\\n        *   Image 13 (73s): Hitting the serve.\\n        *   Image 14 (74s): Follow through.\\n        *   Image 15 (75s): Ready position.\\n        *   Context says: \\\"69-73s shows a serve whose trajectory flies over the net.\\\"\\n        *   Conclusion: This serve is **not** a net hit.\\n\\n2.  **Evaluate the options:**\\n    *   A. 0.\\n    *   B. 4.\\n    *   C. 3.\\n    *   D. 1.\\n    *   E. 2.\\n\\n3.  **Synthesize findings:**\\n    *   The first serve (0-6s) went deep, not into the net.\\n    *   The rally (12-16s) had groundstrokes, but no visual evidence of the ball hitting the net. The context implies verification is needed but the speaker doesn't see it.\\n    *   The second serve (71-75s) flew over the net.\\n    *   Therefore, the count of net hits is 0.\\n\\n4.  **Final check:**\\n    *   Did I miss anything? The prompt asks to \\\"deduplicate repeated neighboring frames\\\". The frames\", \"supporting_points\": [], \"confidence\": null, \"analysis\": \"The user wants to know how many times the woman in white hits the tennis ball into the net based on the provided video frames and context.\\n\\n1.  **Analyze the video sequence and context:**\\n    *   **0s - 6s (Images 1-5):** The woman is preparing to serve.\\n        *   Image 1-4: Preparation.\\n        *   Image 5: Tossing the ball.\\n        *   Image 6: Hitting the ball (serve).\\n        *   Context says: \\\"0-4s shows a serve that is described as going high and deep into the opponent's court, not into the net.\\\"\\n        *   Conclusion: This serve is **not** a net hit.\\n\\n    *   **12s - 16s (Images 6-10):** This section shows a rally.\\n        *   Image 6 (12s): Ready position.\\n        *   Image 7 (13s): Hitting a forehand.\\n        *   Image 8 (14s): Ready position.\\n        *   Image 9 (15s): Hitting a backhand.\\n        *   Image 10 (16s): Ready position.\\n        *   Context says: \\\"5-14s shows a rally with a series of groundstrokes from behind the player; exact net contacts are not specified and must be visually verified.\\\"\\n        *   Visual check: In Image 9 (15s), she is hitting a backhand. The ball is visible near the racket. It looks like a clean hit. In Image 7 (13s), she is hitting a forehand. There is no clear visual of the ball hitting the net mesh or stopping. The context explicitly states \\\"exact net contacts are not specified and must be visually verified\\\" and the speaker says \\\"The speaker does not see the ball hitting the net.\\\"\\n        *   Conclusion: No net hits observed in this rally segment.\\n\\n    *   **71s - 75s (Images 11-15):** This section shows another serve.\\n        *   Image 11 (71s): Preparation.\\n        *   Image 12 (72s): Tossing the ball.\\n        *   Image 13 (73s): Hitting the serve.\\n        *   Image 14 (74s): Follow through.\\n        *   Image 15 (75s): Ready position.\\n        *   Context says: \\\"69-73s shows a serve whose trajectory flies over the net.\\\"\\n        *   Conclusion: This serve is **not** a net hit.\\n\\n2.  **Evaluate the options:**\\n    *   A. 0.\\n    *   B. 4.\\n    *   C. 3.\\n    *   D. 1.\\n    *   E. 2.\\n\\n3.  **Synthesize findings:**\\n    *   The first serve (0-6s) went deep, not into the net.\\n    *   The rally (12-16s) had groundstrokes, but no visual evidence of the ball hitting the net. The context implies verification is needed but the speaker doesn't see it.\\n    *   The second serve (71-75s) flew over the net.\\n    *   Therefore, the count of net hits is 0.\\n\\n4.  **Final check:**\\n    *   Did I miss anything? The prompt asks to \\\"deduplicate repeated neighboring frames\\\". The frames\"}\n",
+  "artifact_refs": [
+    {
+      "artifact_id": "frame_2.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_2.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 2.0
+      }
+    },
+    {
+      "artifact_id": "frame_3.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_3.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 3.0
+      }
+    },
+    {
+      "artifact_id": "frame_4.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_4.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 4.0
+      }
+    },
+    {
+      "artifact_id": "frame_5.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_5.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 5.0
+      }
+    },
+    {
+      "artifact_id": "frame_6.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_6.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 6.0
+      }
+    },
+    {
+      "artifact_id": "frame_12.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_12.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 12.0
+      }
+    },
+    {
+      "artifact_id": "frame_13.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_13.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 13.0
+      }
+    },
+    {
+      "artifact_id": "frame_14.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_14.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 14.0
+      }
+    },
+    {
+      "artifact_id": "frame_15.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_15.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 15.0
+      }
+    },
+    {
+      "artifact_id": "frame_16.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_16.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 16.0
+      }
+    },
+    {
+      "artifact_id": "frame_71.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_71.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 71.0
+      }
+    },
+    {
+      "artifact_id": "frame_72.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_72.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 72.0
+      }
+    },
+    {
+      "artifact_id": "frame_73.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_73.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 73.0
+      }
+    },
+    {
+      "artifact_id": "frame_74.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_74.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 74.0
+      }
+    },
+    {
+      "artifact_id": "frame_75.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_75.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "source": "retrieved_artifact_context",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 75.0
+      }
+    },
+    {
+      "artifact_id": "frame_70.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_70.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "relevance_score": 0.48795679211616516,
+        "device": "cuda:1",
+        "clip_start_s": 70.0,
+        "clip_end_s": 73.0,
+        "frame_pool_start_s": 68.5,
+        "frame_pool_end_s": 74.5,
+        "temporal_score": 0.48795679211616516,
+        "anchor_distance_s": 1.5,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 71.5,
+        "neighbor_radius_s": 1.5,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 0,
+        "sequence_sort_order": "chronological",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 70.0
+      }
+    },
+    {
+      "artifact_id": "frame_76.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_76.00.png",
+      "media_type": "image",
+      "source_tool": "generic_purpose",
+      "metadata": {
+        "relevance_score": 0.5104556083679199,
+        "device": "cuda:1",
+        "clip_start_s": 75.0,
+        "clip_end_s": 78.0,
+        "frame_pool_start_s": 73.5,
+        "frame_pool_end_s": 79.5,
+        "temporal_score": 0.5104556083679199,
+        "anchor_distance_s": 0.5,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 76.5,
+        "neighbor_radius_s": 1.5,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "anchor",
+        "sequence_index": 1,
+        "sequence_sort_order": "chronological",
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 76.0
+      }
+    }
+  ],
+  "request_hash": "8f0fe609b5baff169e9e39a4",
+  "cache_hit": false,
+  "summary": "The user wants to know how many times the woman in white hits the tennis ball into the net based on the provided video frames and context.\n\n1.  **Analyze the video sequence and context:**\n    *   **0s - 6s (Images 1-5):** The woman is preparing to serve.\n        *   Image 1-4: Preparation.\n        *   Image 5: Tossing the ball.\n        *   Image 6: Hitting the ball (serve).\n        *   Context says: \"0-4s shows a serve that is described as going high and deep into the opponent's court, not into the net.\"\n        *   Conclusion: This serve is **not** a net hit.\n\n    *   **12s - 16s (Images 6-10):** This section shows a rally.\n        *   Image 6 (12s): Ready position.\n        *   Image 7 (13s): Hitting a forehand.\n        *   Image 8 (14s): Ready position.\n        *   Image 9 (15s): Hitting a backhand.\n        *   Image 10 (16s): Ready position.\n        *   Context says: \"5-14s shows a rally with a series of groundstrokes from behind the player; exact net contacts are not specified and must be visually verified.\"\n        *   Visual check: In Image 9 (15s), she is hitting a backhand. The ball is visible near the racket. It looks like a clean hit. In Image 7 (13s), she is hitting a forehand. There is no clear visual of the ball hitting the net mesh or stopping. The context explicitly states \"exact net contacts are not specified and must be visually verified\" and the speaker says \"The speaker does not see the ball hitting the net.\"\n        *   Conclusion: No net hits observed in this rally segment.\n\n    *   **71s - 75s (Images 11-15):** This section shows another serve.\n        *   Image 11 (71s): Preparation.\n        *   Image 12 (72s): Tossing the ball.\n        *   Image 13 (73s): Hitting the serve.\n        *   Image 14 (74s): Follow through.\n        *   Image 15 (75s): Ready position.\n        *   Context says: \"69-73s shows a serve whose trajectory flies over the net.\"\n        *   Conclusion: This serve is **not** a net hit.\n\n2.  **Evaluate the options:**\n    *   A. ",
+  "metadata": {
+    "backend": "Qwen/Qwen3.5-9B",
+    "low_signal_output": false,
+    "timing": {
+      "started_at_utc": "2026-04-28T20:05:53.591570+00:00",
+      "finished_at_utc": "2026-04-28T20:07:15.626590+00:00",
+      "duration_s": 82.0351,
+      "cache_wait_s": 0.0005,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_7162831426a8688c",
+      "obs_95b670ce1a4a59f7",
+      "obs_c084280b17aac405",
+      "obs_06e16dfbf376c568",
+      "obs_ccae7d9e21dbd085",
+      "obs_2b50dfeaadf8f946",
+      "obs_db79c7af99e6ecab",
+      "obs_5f6247a8f885b6c5",
+      "obs_2143af31128b51fa",
+      "obs_6c89f7f65f21c4c0",
+      "obs_2ac9146946b2e120",
+      "obs_82f5e149ad7f9f51",
+      "obs_c2039c2ce0446273",
+      "obs_2a8bbc17c1a67419",
+      "obs_c9e8c772560832da",
+      "obs_f0124eeaeb41ac98",
+      "obs_f4dffd608a387649",
+      "obs_e12372e8015b833c",
+      "obs_2683c609b9e18b2e",
+      "obs_fc0c22fd6ae384da",
+      "obs_735c45475648b550",
+      "obs_8a5d0b400939ec13",
+      "obs_8a552d3662f74400",
+      "obs_3c4c547df78893de",
+      "obs_3af9641352440c2f",
+      "obs_c8d2a5cf398318f8",
+      "obs_00b94afecc488c67",
+      "obs_0a02572fdf046a7f",
+      "obs_4e5d3f2dd9ee32e5",
+      "obs_cceb2bbf7e0013e7",
+      "obs_fa349f6a45d24df8",
+      "obs_8c1b438d05f0f784",
+      "obs_41a4fefffc0c1408",
+      "obs_df9aeb9c1ce33d93",
+      "obs_3670091020a7548d",
+      "obs_dd68ba47ae973660",
+      "obs_7c721b452c3d8cb9",
+      "obs_1f9e633571f29f90",
+      "obs_965c560434464cd5",
+      "obs_db7822ae46f436cb",
+      "obs_ee4b6225cf2d9e76",
+      "obs_d7b56a0362e3cdeb",
+      "obs_1d82fe03942694dd",
+      "obs_c1bf1cd3a7736be4",
+      "obs_a4886fd23d033b75",
+      "obs_f3c07a12129dd11b",
+      "obs_c0f328514486422f",
+      "obs_c0a889ba60e4d216",
+      "obs_53fd8cb3e2c95618",
+      "obs_c9a4434f1f7fea77",
+      "obs_f973ae035fbafbef",
+      "obs_e82861667c25630b",
+      "obs_b34d6e1fe6f439eb",
+      "obs_843f2c52c5b7c6bb",
+      "obs_88a0105428d6ab01",
+      "obs_bfd63e52064fbc0d",
+      "obs_a524cf2b564f7b84",
+      "obs_9ad4fd6f58c51cc4",
+      "obs_1aa4ad611d43cadf"
+    ]
+  }
+}

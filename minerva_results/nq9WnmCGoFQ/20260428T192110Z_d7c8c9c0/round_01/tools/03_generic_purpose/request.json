@@ -1,0 +1,462 @@
+{
+  "tool_name": "generic_purpose",
+  "query": "Using the transcript result for the target ingredient and these chronological frames, identify each distinct time the target ingredient is visibly shown. For each distinct appearance, state whether a cutting board is in the background. Deduplicate neighboring frames from the same appearance, count only appearances where the target ingredient is shown and a cutting board is in the background, and map the final count to the multiple-choice options.",
+  "clips": [],
+  "frames": [
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 1.0,
+      "artifact_id": "frame_1.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_1.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_1.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 3.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 0,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 2.0,
+      "artifact_id": "frame_2.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_2.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_2.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 3.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 1,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 3.0,
+      "artifact_id": "frame_3.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_3.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_3.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 0.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 3.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "anchor",
+        "sequence_index": 2,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 4.0,
+      "artifact_id": "frame_4.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_4.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_4.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 3.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "after",
+        "sequence_index": 3,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 5.0,
+      "artifact_id": "frame_5.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_5.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_5.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 3.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "after",
+        "sequence_index": 4,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 62.0,
+      "artifact_id": "frame_62.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_62.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_62.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 64.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 5,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 63.0,
+      "artifact_id": "frame_63.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_63.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_63.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 64.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 6,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 64.0,
+      "artifact_id": "frame_64.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_64.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_64.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 0.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 64.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "anchor",
+        "sequence_index": 7,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 65.0,
+      "artifact_id": "frame_65.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_65.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_65.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 64.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "after",
+        "sequence_index": 8,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 66.0,
+      "artifact_id": "frame_66.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_66.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_66.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 64.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "after",
+        "sequence_index": 9,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 107.0,
+      "artifact_id": "frame_107.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_107.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_107.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 109.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 10,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 108.0,
+      "artifact_id": "frame_108.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_108.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_108.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 109.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 11,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 109.0,
+      "artifact_id": "frame_109.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_109.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_109.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 0.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 109.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "anchor",
+        "sequence_index": 12,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "nq9WnmCGoFQ",
+      "timestamp_s": 110.0,
+      "artifact_id": "frame_110.00",
+      "relpath": "artifacts/nq9WnmCGoFQ/frames/frame_110.00.png",
+      "clip": {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/nq9WnmCGoFQ/dense_frames/nq9WnmCGoFQ/frame_110.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 0.0,
+        "clip_end_s": 300.0,
+        "frame_pool_start_s": 0.0,
+        "frame_pool_end_s": 302.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 109.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "after",
+        "sequence_index": 13,
+        "sequence_sort_order": "chronological"
+      }
+    }
+  ],
+  "transcripts": [],
+  "text_contexts": [
+    "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   **Task:** Answer a query based *only* on supplied evidence (transcripts) and any sampled media (none provided in the prompt, only transcripts).\n    *   **Query:** \"How many times is the ingredient which is insulted the most shown with a cutting board in the background?\"\n    *   **Constraint 1:** Do not rely on scene priors, world knowledge, or what usually happens.\n    *   **Constraint 2:** Treat query wording as instructions, not evidence.\n    *   **Constraint 3:** If a queried state (like \"shown with a cutting board\") is not directly visible or stated, answer indeterminate.\n    *   **Constraint 4:** Return JSON only with keys: answer, supporting_points, confidence, analysis.\n    *   **Constraint 5:** No preamble, markdown, or hidden reasoning.\n    *   **Constraint 6:** Confidence score 0.0 to 1.0.\n    *   **Sub-task:** First, identify the ingredient insulted the most from the transcripts. Quote each insulting mention, group by ingredient, decide the target.\n    *   **Sub-task:** Then, count how many times *that specific ingredient* is shown with a cutting board in the background.\n    *   **Problem:** There is no media (images/video frames) provided in the input. Only transcripts are provided. The query asks about visual evidence (\"shown with a cutting board in the background\").\n    *   **Constraint Check:** \"If a queried state such as empty/full/open/closed is not directly visible or stated, answer indeterminate instead of guessing.\" Since there are no images, I cannot verify visual states like \"shown with a cutting board\".\n    *   **Constraint Check:** \"Answer the query using only the supplied evidence and any sampled media.\" There is no sampled media.\n    *   **Constraint Check:** \"For sound-count questions...\". This is a visual count question based on transcripts.\n    *   **Constraint Check:** \"If the grounded evidence still leaves multiple answer options compatible, answer indeterminate instead of forcing a best guess.\"\n    *   **Constraint Check:** \"Do not rely on scene priors...\". I cannot assume a cutting board is present just because it's a cooking video.\n\n2.  **Analyze the Transcripts for Insults:**\n    *   **Transcript 1:**\n        *   \"unsmashed beef\" (not really an insult, descriptive).\n        *   \"super lean stuff... might cause you to lose too much weight\" (not an insult to the ingredient itself, advice).\n        *   \"nice dank onion\" (dank is usually positive in slang, but could be neutral/negative depending on context, but later context suggests positive \"nice\").\n        *   \"nice hood tomatoes\" (positive).\n        *   \"pickles... That's awesome... essential\" (positive).\n        *   \"cupboard cheese\" (neutral/descriptive).\n        *   \"salad... All you really do is get soggy and you taste like nothing.\" -> **Salad** is insulted here (\"taste like nothing\", \"soggy\").\n    *   **Transcript 2:**\n        *   \"potatoes... smash them against the wall\" (violent action, not necessarily an insult to the potato itself, but the action is violent).\n        *   \"miniature man tried to run through a cartoon wall\" (metaphor for bun).\n        *   \"slice onions thin enough, they won't make you cry,",
+    "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   **Task:** Answer a query based *only* on supplied evidence (transcripts) and any sampled media (none provided in the prompt, only transcripts).\n    *   **Query:** \"How many times is the ingredient which is insulted the most shown with a cutting board in the background?\"\n    *   **Constraint 1:** Do not rely on scene priors, world knowledge, or what usually happens.\n    *   **Constraint 2:** Treat query wording as instructions, not evidence.\n    *   **Constraint 3:** If a queried state (like \"shown with a cutting board\") is not directly visible or stated, answer indeterminate.\n    *   **Constraint 4:** Return JSON only with keys: answer, supporting_points, confidence, analysis.\n    *   **Constraint 5:** No preamble, markdown, or hidden reasoning.\n    *   **Constraint 6:** Confidence score 0.0 to 1.0.\n    *   **Sub-task:** First, identify the ingredient insulted the most from the transcripts. Quote each insulting mention, group by ingredient, decide the target.\n    *   **Sub-task:** Then, count how many times *that specific ingredient* is shown with a cutting board in the background.\n    *   **Problem:** There is no media (images/video frames) provided in the input. Only transcripts are provided. The query asks about visual evidence (\"shown with a cutting board in the background\").\n    *   **Constraint Check:** \"If a queried state such as empty/full/open/closed is not directly visible or stated, answer indeterminate instead of guessing.\" Since there are no images, I cannot verify visual states like \"shown with a cutting board\".\n    *   **Constraint Check:** \"Answer the query using only the supplied evidence and any sampled media.\" There is no sampled media.\n    *   **Constraint Check:** \"For sound-count questions...\". This is a visual count question based on transcripts.\n    *   **Constraint Check:** \"If the grounded evidence still leaves multiple answer options compatible, answer indeterminate instead of forcing a best guess.\"\n    *   **Constraint Check:** \"Do not rely on scene priors...\". I cannot assume a cutting board is present just because it's a cooking video.\n\n2.  **Analyze the Transcripts for Insults:**\n    *   **Transcript 1:**\n        *   \"unsmashed beef\" (not really an insult, descriptive).\n        *   \"super lean stuff... might cause you to lose too much weight\" (not an insult to the ingredient itself, advice).\n        *   \"nice dank onion\" (dank is usually positive in slang, but could be neutral/negative depending on context, but later context suggests positive \"nice\").\n        *   \"nice hood tomatoes\" (positive).\n        *   \"pickles... That's awesome... essential\" (positive).\n        *   \"cupboard cheese\" (neutral/descriptive).\n        *   \"salad... All you really do is get soggy and you taste like nothing.\" -> **Salad** is insulted here (\"taste like nothing\", \"soggy\").\n    *   **Transcript 2:**\n        *   \"potatoes... smash them against the wall\" (violent action, not necessarily an insult to the potato itself, but the action is violent).\n        *   \"miniature man tried to run through a cartoon wall\" (metaphor for bun).\n        *   \"slice onions thin enough, they won't make you cry,",
+    "These frames are a chronological sequence centered on timestamp 3s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 1s, 2s, 3s, 4s, 5s, 62s, 63s, 64s, 65s, 66s, 107s, 108s."
+  ],
+  "evidence_ids": []
+}

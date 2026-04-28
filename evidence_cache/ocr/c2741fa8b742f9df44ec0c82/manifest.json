@@ -1,0 +1,106 @@
+{
+  "tool_name": "ocr",
+  "request_hash": "c2741fa8b742f9df44ec0c82",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "ocr",
+    "clips": [],
+    "frames": [
+      {
+        "video_id": "-ODflyuHFr0",
+        "timestamp_s": 16.0,
+        "artifact_id": "frame_16.00",
+        "relpath": "artifacts/ODflyuHFr0/frames/frame_16.00.png",
+        "clip": {
+          "video_id": "-ODflyuHFr0",
+          "start_s": 12.0,
+          "end_s": 18.0,
+          "artifact_id": "clip_000_00_060_00",
+          "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.07662712782621384,
+          "device": "cuda:1",
+          "clip_start_s": 12.0,
+          "clip_end_s": 18.0,
+          "frame_pool_start_s": 12.0,
+          "frame_pool_end_s": 18.0,
+          "temporal_score": 0.07662712782621384,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 18.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-ODflyuHFr0",
+        "timestamp_s": 17.0,
+        "artifact_id": "frame_17.00",
+        "relpath": "artifacts/ODflyuHFr0/frames/frame_17.00.png",
+        "clip": {
+          "video_id": "-ODflyuHFr0",
+          "start_s": 12.0,
+          "end_s": 18.0,
+          "artifact_id": "clip_000_00_060_00",
+          "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.07487977296113968,
+          "device": "cuda:1",
+          "clip_start_s": 12.0,
+          "clip_end_s": 18.0,
+          "frame_pool_start_s": 12.0,
+          "frame_pool_end_s": 18.0,
+          "temporal_score": 0.07487977296113968,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 18.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "-ODflyuHFr0",
+        "timestamp_s": 18.0,
+        "artifact_id": "frame_18.00",
+        "relpath": "artifacts/ODflyuHFr0/frames/frame_18.00.png",
+        "clip": {
+          "video_id": "-ODflyuHFr0",
+          "start_s": 12.0,
+          "end_s": 18.0,
+          "artifact_id": "clip_000_00_060_00",
+          "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4",
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.1189909279346466,
+          "device": "cuda:1",
+          "clip_start_s": 12.0,
+          "clip_end_s": 18.0,
+          "frame_pool_start_s": 12.0,
+          "frame_pool_end_s": 18.0,
+          "temporal_score": 0.1189909279346466,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 18.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 2,
+          "sequence_sort_order": "chronological"
+        }
+      }
+    ],
+    "regions": [],
+    "query": "read all visible ingredient labels and the 'GRIND IT IN A MIXER' text exactly as shown\n\nFrame sequence context: These frames are a chronological sequence centered on timestamp 18s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 16s, 17s, 18s."
+  }
+}

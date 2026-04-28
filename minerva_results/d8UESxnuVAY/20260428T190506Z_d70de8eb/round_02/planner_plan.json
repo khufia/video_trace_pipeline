@@ -1,0 +1,77 @@
+{
+  "strategy": "Preserve the known clock-side mapping and prior sampled clock readings, then directly search for the earliest visual moment where the on-screen chess evaluation first becomes strictly greater than 4 and read Black's clock at that same display.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "visual_temporal_grounder",
+      "purpose": "Find candidate intervals where the broadcast-style chess display shows Black with a clearly favorable evaluation exceeding 4 points, prioritizing the earliest occurrence.",
+      "inputs": {
+        "query": "earliest moment in the chess game where the on-screen evaluation or advantage indicator shows Black strictly greater than 4 points, such as +4.x for Black or an equivalent black-favoring evaluation display",
+        "top_k": 5
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "clips": "candidate earliest >4 evaluation intervals"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve chronological neighboring frames around each candidate interval so the threshold crossing can be verified as the first qualifying moment rather than a later nearby state.",
+      "inputs": {
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 2.0,
+        "num_frames": 6,
+        "query": "frames showing the evaluation display and chess clock around the first moment Black's advantage exceeds 4",
+        "sequence_mode": "anchor_window",
+        "sort_order": "chronological",
+        "time_hints": [
+          "earliest candidate only",
+          "need evaluation display and clock visible together"
+        ]
+      },
+      "input_refs": {
+        "clips": [
+          {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "frames": "chronological candidate threshold-crossing frames with local context"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "From the chronological frames, identify the earliest frame where Black's evaluation is strictly greater than 4, determine which side of the clock is Black's using preserved prior evidence, read Black's clock at that frame, and map it to the answer option.",
+      "inputs": {
+        "evidence_ids": [
+          "ev_03_b9fca1dd",
+          "ev_04_6463d4ec"
+        ],
+        "query": "Using the chronological frames, find the earliest frame where the on-screen chess evaluation is strictly greater than 4 in Black's favor. Do not assume from nearby frames. Verify the first qualifying frame in time order, then read Black's clock at that same frame. Use prior evidence only for the preserved mapping that Black corresponds to the right side of the clock and for previously observed nearby clock readings as context, but replace them if the current frames show otherwise. Return the exact clock time and the matching option."
+      },
+      "input_refs": {
+        "clips": [
+          {
+            "step_id": 1,
+            "field_path": "clips"
+          }
+        ],
+        "frames": [
+          {
+            "step_id": 2,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "grounded clock time and option",
+        "supporting_points": "earliest qualifying frame, evaluation reading, black-clock side, and clock reading"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the prior grounded fact that Black maps to the right side of the chess clock unless the newly inspected frames visibly contradict it. Do not reuse the earlier unsupported assumption that the threshold was crossed in the previously sampled windows; those windows were explicitly insufficient because no evaluation number was visible. In the new trace, cite the earliest qualifying frame from the new chronological sequence, explicitly state the visible evaluation reading that is strictly greater than 4, then state Black's clock reading from that same frame and map it to one option. If the retrieved candidate intervals still do not show a readable evaluation display, keep the answer unresolved rather than inferring from nearby clock times."
+}

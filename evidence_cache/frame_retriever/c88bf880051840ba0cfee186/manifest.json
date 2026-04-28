@@ -1,0 +1,34 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "c88bf880051840ba0cfee186",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "-4IduHFnEwg",
+        "start_s": 360.0,
+        "end_s": 430.0,
+        "artifact_id": "clip_360_00_420_00",
+        "relpath": "artifacts/4IduHFnEwg/clips/clip_360_00_420_00.mp4",
+        "metadata": {
+          "source": "preprocess",
+          "segment_ids": [
+            "seg_007",
+            "seg_008"
+          ]
+        }
+      }
+    ],
+    "time_hints": [
+      "around 401.5-430.3 commentary leads into a six/ball to stands, and around 427-430 another reviewed play begins",
+      "inspect the shot sequence immediately before the reviewed play at about 427s"
+    ],
+    "query": "chronological frames showing the shot sequence before the reviewed play, especially the ball going into the stands and any spectator waving a flag",
+    "num_frames": 10,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

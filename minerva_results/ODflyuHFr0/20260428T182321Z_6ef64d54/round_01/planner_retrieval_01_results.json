@@ -1,0 +1,485 @@
+{
+  "query_terms": [
+    "text",
+    "describing",
+    "ingredients",
+    "prepared",
+    "mixer",
+    "order",
+    "especially",
+    "second",
+    "ingredient",
+    "ground",
+    "green",
+    "chutney",
+    "grind",
+    "coriander",
+    "mint",
+    "leaves",
+    "visual",
+    "ocr",
+    "dense",
+    "caption",
+    "spans",
+    "around",
+    "grinding",
+    "step",
+    "identify",
+    "wording"
+  ],
+  "retrieval_requests": [
+    {
+      "request_id": "ground_ingredients_early_segment",
+      "target": "preprocess",
+      "need": "Text describing the ingredients prepared in the mixer and their order, especially the second ingredient to be ground",
+      "query": "green chutney ingredients mixer grind ground ingredient order coriander mint leaves",
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 60.0
+      },
+      "limit": 10
+    },
+    {
+      "request_id": "dense_caption_mixer_step",
+      "target": "dense_captions",
+      "need": "Dense-caption spans around the mixer/grinding step to identify the second ingredient and its wording",
+      "query": "mixer grinding ingredients green chutney second ingredient",
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 60.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "limit": 10
+    }
+  ],
+  "preprocess_matches": {
+    "planner_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a 3D animated logo for 'Rahul Music World' rotating against a white background. The logo features a treble clef and colorful musical notes on a rainbow-colored staff. Below the logo, the text 'A Anjana Rajesh Shinde Production' appears.; acoustics: 1) N/A. 2) Upbeat, synthesized instrumental music plays in the background.; Rahul Music World | A Anjana Rajesh Shinde Production; attributes: camera_state: The camera is static, focused on the animated logo as it rotates and zooms out., video_background: The background is a clean, white, reflective surface with a slight vignette effect around the edges., storyline: This segment serves as the production company's title card, introducing the creators of the video., shooting_style: This is a 3D animated logo reveal. A title card appears on a white background, stating 'SPONSORED BY Hakim Masala'. The text 'Hakim' is written in a bold, red, stylized font, with 'Masala' in a smaller, black font below it. The screen then transitions to a white background with animated red and black dots that coalesce into the 'MUMBAI MASALA TANDA' logo.; acoustics: 1) N/A. 2) The upbeat instrumental music continues.; SPONSORED BY Hakim Masala | Hakim | Masala | MUMBAI MASALA TANDA; attributes: camera_state: The camera is static, centered on the text and logos., video_background: The background is plain white throughout this segment., storyline: This segment introduces the sponsor of the recipe, Hakim Masala, and presents the title of the dish to be made., shooting_style: This is a title card sequence with animated text and logo reveal. A montage of ingredients for the green chutney is shown. The first shot is a plate with a folded sandwich, ketchup, and green chutney. This dissolves into a shot of fresh spinach, which then dissolves into a close-up of green chillies, ginger, and garlic. Text overlays identify the ingredients: 'FOR GREEN CHUTNEY PALAK', 'GREEN CHILLIES', 'GINGER & GARLIC', and 'FRESH CORIANDER AND MINT LEAVES'. The final shot shows all the herbs on a paper towel with the text 'GRIND IT IN A MIXER'.; acoustics: 1) N/A. 2) The upbeat instrumental music continues.; FOR GREEN CHUTNEY PALAK | GREEN CHILLIES | GINGER & GARLIC | FRESH CORIANDER AND MINT LEAVES | GRIND IT IN A MIXER; attributes: camera_state: The camera uses a series of static, close-up, and medium shots of the ingredients, with dissolve transitions between them., video_background: The ingredients are displayed on a wooden surface and a white paper towel., storyline: This segment introduces the first component of the recipe: the green chutney, and lists all the necessary ingredients., shooting_style: This is a montage sequence using dissolves to transition between different ingredient shots.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 5.0,
+              "visual": "The video begins with a 3D animated logo for 'Rahul Music World' rotating against a white background. The logo features a treble clef and colorful musical notes on a rainbow-colored staff. Below the logo, the text 'A Anjana Rajesh Shinde Production' appears.",
+              "audio": "acoustics: 1) N/A. 2) Upbeat, synthesized instrumental music plays in the background.",
+              "on_screen_text": [
+                "Rahul Music World",
+                "A Anjana Rajesh Shinde Production"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, focused on the animated logo as it rotates and zooms out.",
+                "video_background: The background is a clean, white, reflective surface with a slight vignette effect around the edges.",
+                "storyline: This segment serves as the production company's title card, introducing the creators of the video.",
+                "shooting_style: This is a 3D animated logo reveal."
+              ]
+            },
+            {
+              "start_s": 6.0,
+              "end_s": 11.0,
+              "visual": "A title card appears on a white background, stating 'SPONSORED BY Hakim Masala'. The text 'Hakim' is written in a bold, red, stylized font, with 'Masala' in a smaller, black font below it. The screen then transitions to a white background with animated red and black dots that coalesce into the 'MUMBAI MASALA TANDA' logo.",
+              "audio": "acoustics: 1) N/A. 2) The upbeat instrumental music continues.",
+              "on_screen_text": [
+                "SPONSORED BY Hakim Masala",
+                "Masala",
+                "MUMBAI MASALA TANDA"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, centered on the text and logos.",
+                "video_background: The background is plain white throughout this segment.",
+                "storyline: This segment introduces the sponsor of the recipe, Hakim Masala, and presents the title of the dish to be made.",
+                "shooting_style: This is a title card sequence with animated text and logo reveal."
+              ]
+            },
+            {
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "visual": "A montage of ingredients for the green chutney is shown. The first shot is a plate with a folded sandwich, ketchup, and green chutney. This dissolves into a shot of fresh spinach, which then dissolves into a close-up of green chillies, ginger, and garlic. Text overlays identify the ingredients: 'FOR GREEN CHUTNEY PALAK', 'GREEN CHILLIES', 'GINGER & GARLIC', and 'FRESH CORIANDER AND MINT LEAVES'. The final shot shows all the herbs on a paper towel with the text 'GRIND IT IN A MIXER'.",
+              "audio": "acoustics: 1) N/A. 2) The upbeat instrumental music continues.",
+              "on_screen_text": [
+                "FOR GREEN CHUTNEY PALAK",
+                "GREEN CHILLIES",
+                "GINGER & GARLIC",
+                "FRESH CORIANDER AND MINT LEAVES",
+                "GRIND IT IN A MIXER"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of static, close-up, and medium shots of the ingredients, with dissolve transitions between them.",
+                "video_background: The ingredients are displayed on a wooden surface and a white paper towel.",
+                "storyline: This segment introduces the first component of the recipe: the green chutney, and lists all the necessary ingredients.",
+                "shooting_style: This is a montage sequence using dissolves to transition between different ingredient shots."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A person's hands are seen preparing ingredients for a sandwich. On a wooden cutting board, they use a knife to slice a piece of white bread. In the background, several small metal bowls contain prepped ingredients: sliced red tomatoes, sliced cucumbers, chopped red onions, whole green pickles, a green chutney, and a red masala paste.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of a knife cutting through bread is audible.; attributes: camera_state: The camera is positioned in a static, top-down shot, providing a clear view of the entire preparation area., video_background: The scene is set on a dark, black countertop. The ingredients are neatly arranged in metal bowls, creating a well-organized cooking station., storyline: The video begins with the initial steps of making a masala sandwich, starting with slicing the bread., shooting_style: This is a standard, instructional shot with no special effects or transitions. Following a text overlay that reads 'APPLY GREEN CHUTNEY TO THE BREAD,' the person takes a knife and generously spreads a vibrant green chutney onto the slices of white bread that are on the cutting board. They use a circular motion to ensure the chutney covers the entire surface of the bread.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The soft sound of the knife spreading the chutney can be heard.; APPLY GREEN CHUTNEY TO THE BREAD,; attributes: camera_state: The camera remains in a static, top-down position, focusing on the action of spreading the chutney., video_background: The background remains the same, with all the prepped ingredients visible but out of focus., storyline: The first layer of the sandwich is added as the person applies the green chutney., shooting_style: A text overlay is used to provide instructions to the viewer. A new text overlay appears, stating 'PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.' The person takes the sliced cucumbers from a bowl and begins to neatly place them in a single layer on top of the chutney-covered bread slices.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle clinking of the ceramic bowl is audible.; PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.; attributes: camera_state: The camera is static and maintains its top-down perspective, keeping the focus on the sandwich assembly., video_background: The dark countertop with the array of ingredients remains the backdrop for the cooking process., storyline: The second layer of the sandwich is added as the person places the sliced cucumbers on top of the chutney., shooting_style: A text overlay is used to guide the viewer through the recipe steps.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 67.0,
+              "visual": "A person's hands are seen preparing ingredients for a sandwich. On a wooden cutting board, they use a knife to slice a piece of white bread. In the background, several small metal bowls contain prepped ingredients: sliced red tomatoes, sliced cucumbers, chopped red onions, whole green pickles, a green chutney, and a red masala paste.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of a knife cutting through bread is audible.",
+              "attributes": [
+                "camera_state: The camera is positioned in a static, top-down shot, providing a clear view of the entire preparation area.",
+                "video_background: The scene is set on a dark, black countertop. The ingredients are neatly arranged in metal bowls, creating a well-organized cooking station.",
+                "storyline: The video begins with the initial steps of making a masala sandwich, starting with slicing the bread.",
+                "shooting_style: This is a standard, instructional shot with no special effects or transitions."
+              ]
+            },
+            {
+              "start_s": 68.0,
+              "end_s": 73.0,
+              "visual": "Following a text overlay that reads 'APPLY GREEN CHUTNEY TO THE BREAD,' the person takes a knife and generously spreads a vibrant green chutney onto the slices of white bread that are on the cutting board. They use a circular motion to ensure the chutney covers the entire surface of the bread.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The soft sound of the knife spreading the chutney can be heard.",
+              "on_screen_text": [
+                "APPLY GREEN CHUTNEY TO THE BREAD,"
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static, top-down position, focusing on the action of spreading the chutney.",
+                "video_background: The background remains the same, with all the prepped ingredients visible but out of focus.",
+                "storyline: The first layer of the sandwich is added as the person applies the green chutney.",
+                "shooting_style: A text overlay is used to provide instructions to the viewer."
+              ]
+            },
+            {
+              "start_s": 74.0,
+              "end_s": 80.0,
+              "visual": "A new text overlay appears, stating 'PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.' The person takes the sliced cucumbers from a bowl and begins to neatly place them in a single layer on top of the chutney-covered bread slices.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle clinking of the ceramic bowl is audible.",
+              "on_screen_text": [
+                "PLACE THE SLICED CUCUMBER ON THE BREAD SLICE."
+              ],
+              "attributes": [
+                "camera_state: The camera is static and maintains its top-down perspective, keeping the focus on the sandwich assembly.",
+                "video_background: The dark countertop with the array of ingredients remains the backdrop for the cooking process.",
+                "storyline: The second layer of the sandwich is added as the person places the sliced cucumbers on top of the chutney.",
+                "shooting_style: A text overlay is used to guide the viewer through the recipe steps."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a 3D animated logo for 'Rahul Music World' rotating against a white background. The logo features a treble clef and colorful musical notes on a rainbow-colored staff. Below the logo, the text 'A Anjana Rajesh Shinde Production' appears.; acoustics: 1) N/A. 2) Upbeat, synthesized instrumental music plays in the background.; Rahul Music World | A Anjana Rajesh Shinde Production; attributes: camera_state: The camera is static, focused on the animated logo as it rotates and zooms out., video_background: The background is a clean, white, reflective surface with a slight vignette effect around the edges., storyline: This segment serves as the production company's title card, introducing the creators of the video., shooting_style: This is a 3D animated logo reveal. A title card appears on a white background, stating 'SPONSORED BY Hakim Masala'. The text 'Hakim' is written in a bold, red, stylized font, with 'Masala' in a smaller, black font below it. The screen then transitions to a white background with animated red and black dots that coalesce into the 'MUMBAI MASALA TANDA' logo.; acoustics: 1) N/A. 2) The upbeat instrumental music continues.; SPONSORED BY Hakim Masala | Hakim | Masala | MUMBAI MASALA TANDA; attributes: camera_state: The camera is static, centered on the text and logos., video_background: The background is plain white throughout this segment., storyline: This segment introduces the sponsor of the recipe, Hakim Masala, and presents the title of the dish to be made., shooting_style: This is a title card sequence with animated text and logo reveal. A montage of ingredients for the green chutney is shown. The first shot is a plate with a folded sandwich, ketchup, and green chutney. This dissolves into a shot of fresh spinach, which then dissolves into a close-up of green chillies, ginger, and garlic. Text overlays identify the ingredients: 'FOR GREEN CHUTNEY PALAK', 'GREEN CHILLIES', 'GINGER & GARLIC', and 'FRESH CORIANDER AND MINT LEAVES'. The final shot shows all the herbs on a paper towel with the text 'GRIND IT IN A MIXER'.; acoustics: 1) N/A. 2) The upbeat instrumental music continues.; FOR GREEN CHUTNEY PALAK | GREEN CHILLIES | GINGER & GARLIC | FRESH CORIANDER AND MINT LEAVES | GRIND IT IN A MIXER; attributes: camera_state: The camera uses a series of static, close-up, and medium shots of the ingredients, with dissolve transitions between them., video_background: The ingredients are displayed on a wooden surface and a white paper towel., storyline: This segment introduces the first component of the recipe: the green chutney, and lists all the necessary ingredients., shooting_style: This is a montage sequence using dissolves to transition between different ingredient shots.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 5.0,
+              "visual": "The video begins with a 3D animated logo for 'Rahul Music World' rotating against a white background. The logo features a treble clef and colorful musical notes on a rainbow-colored staff. Below the logo, the text 'A Anjana Rajesh Shinde Production' appears.",
+              "audio": "acoustics: 1) N/A. 2) Upbeat, synthesized instrumental music plays in the background.",
+              "on_screen_text": [
+                "Rahul Music World",
+                "A Anjana Rajesh Shinde Production"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, focused on the animated logo as it rotates and zooms out.",
+                "video_background: The background is a clean, white, reflective surface with a slight vignette effect around the edges.",
+                "storyline: This segment serves as the production company's title card, introducing the creators of the video.",
+                "shooting_style: This is a 3D animated logo reveal."
+              ]
+            },
+            {
+              "start_s": 6.0,
+              "end_s": 11.0,
+              "visual": "A title card appears on a white background, stating 'SPONSORED BY Hakim Masala'. The text 'Hakim' is written in a bold, red, stylized font, with 'Masala' in a smaller, black font below it. The screen then transitions to a white background with animated red and black dots that coalesce into the 'MUMBAI MASALA TANDA' logo.",
+              "audio": "acoustics: 1) N/A. 2) The upbeat instrumental music continues.",
+              "on_screen_text": [
+                "SPONSORED BY Hakim Masala",
+                "Masala",
+                "MUMBAI MASALA TANDA"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, centered on the text and logos.",
+                "video_background: The background is plain white throughout this segment.",
+                "storyline: This segment introduces the sponsor of the recipe, Hakim Masala, and presents the title of the dish to be made.",
+                "shooting_style: This is a title card sequence with animated text and logo reveal."
+              ]
+            },
+            {
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "visual": "A montage of ingredients for the green chutney is shown. The first shot is a plate with a folded sandwich, ketchup, and green chutney. This dissolves into a shot of fresh spinach, which then dissolves into a close-up of green chillies, ginger, and garlic. Text overlays identify the ingredients: 'FOR GREEN CHUTNEY PALAK', 'GREEN CHILLIES', 'GINGER & GARLIC', and 'FRESH CORIANDER AND MINT LEAVES'. The final shot shows all the herbs on a paper towel with the text 'GRIND IT IN A MIXER'.",
+              "audio": "acoustics: 1) N/A. 2) The upbeat instrumental music continues.",
+              "on_screen_text": [
+                "FOR GREEN CHUTNEY PALAK",
+                "GREEN CHILLIES",
+                "GINGER & GARLIC",
+                "FRESH CORIANDER AND MINT LEAVES",
+                "GRIND IT IN A MIXER"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of static, close-up, and medium shots of the ingredients, with dissolve transitions between them.",
+                "video_background: The ingredients are displayed on a wooden surface and a white paper towel.",
+                "storyline: This segment introduces the first component of the recipe: the green chutney, and lists all the necessary ingredients.",
+                "shooting_style: This is a montage sequence using dissolves to transition between different ingredient shots."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A person's hands are seen preparing ingredients for a sandwich. On a wooden cutting board, they use a knife to slice a piece of white bread. In the background, several small metal bowls contain prepped ingredients: sliced red tomatoes, sliced cucumbers, chopped red onions, whole green pickles, a green chutney, and a red masala paste.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of a knife cutting through bread is audible.; attributes: camera_state: The camera is positioned in a static, top-down shot, providing a clear view of the entire preparation area., video_background: The scene is set on a dark, black countertop. The ingredients are neatly arranged in metal bowls, creating a well-organized cooking station., storyline: The video begins with the initial steps of making a masala sandwich, starting with slicing the bread., shooting_style: This is a standard, instructional shot with no special effects or transitions. Following a text overlay that reads 'APPLY GREEN CHUTNEY TO THE BREAD,' the person takes a knife and generously spreads a vibrant green chutney onto the slices of white bread that are on the cutting board. They use a circular motion to ensure the chutney covers the entire surface of the bread.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The soft sound of the knife spreading the chutney can be heard.; APPLY GREEN CHUTNEY TO THE BREAD,; attributes: camera_state: The camera remains in a static, top-down position, focusing on the action of spreading the chutney., video_background: The background remains the same, with all the prepped ingredients visible but out of focus., storyline: The first layer of the sandwich is added as the person applies the green chutney., shooting_style: A text overlay is used to provide instructions to the viewer. A new text overlay appears, stating 'PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.' The person takes the sliced cucumbers from a bowl and begins to neatly place them in a single layer on top of the chutney-covered bread slices.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle clinking of the ceramic bowl is audible.; PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.; attributes: camera_state: The camera is static and maintains its top-down perspective, keeping the focus on the sandwich assembly., video_background: The dark countertop with the array of ingredients remains the backdrop for the cooking process., storyline: The second layer of the sandwich is added as the person places the sliced cucumbers on top of the chutney., shooting_style: A text overlay is used to guide the viewer through the recipe steps.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 67.0,
+              "visual": "A person's hands are seen preparing ingredients for a sandwich. On a wooden cutting board, they use a knife to slice a piece of white bread. In the background, several small metal bowls contain prepped ingredients: sliced red tomatoes, sliced cucumbers, chopped red onions, whole green pickles, a green chutney, and a red masala paste.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of a knife cutting through bread is audible.",
+              "attributes": [
+                "camera_state: The camera is positioned in a static, top-down shot, providing a clear view of the entire preparation area.",
+                "video_background: The scene is set on a dark, black countertop. The ingredients are neatly arranged in metal bowls, creating a well-organized cooking station.",
+                "storyline: The video begins with the initial steps of making a masala sandwich, starting with slicing the bread.",
+                "shooting_style: This is a standard, instructional shot with no special effects or transitions."
+              ]
+            },
+            {
+              "start_s": 68.0,
+              "end_s": 73.0,
+              "visual": "Following a text overlay that reads 'APPLY GREEN CHUTNEY TO THE BREAD,' the person takes a knife and generously spreads a vibrant green chutney onto the slices of white bread that are on the cutting board. They use a circular motion to ensure the chutney covers the entire surface of the bread.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The soft sound of the knife spreading the chutney can be heard.",
+              "on_screen_text": [
+                "APPLY GREEN CHUTNEY TO THE BREAD,"
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static, top-down position, focusing on the action of spreading the chutney.",
+                "video_background: The background remains the same, with all the prepped ingredients visible but out of focus.",
+                "storyline: The first layer of the sandwich is added as the person applies the green chutney.",
+                "shooting_style: A text overlay is used to provide instructions to the viewer."
+              ]
+            },
+            {
+              "start_s": 74.0,
+              "end_s": 80.0,
+              "visual": "A new text overlay appears, stating 'PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.' The person takes the sliced cucumbers from a bowl and begins to neatly place them in a single layer on top of the chutney-covered bread slices.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle clinking of the ceramic bowl is audible.",
+              "on_screen_text": [
+                "PLACE THE SLICED CUCUMBER ON THE BREAD SLICE."
+              ],
+              "attributes": [
+                "camera_state: The camera is static and maintains its top-down perspective, keeping the focus on the sandwich assembly.",
+                "video_background: The dark countertop with the array of ingredients remains the backdrop for the cooking process.",
+                "storyline: The second layer of the sandwich is added as the person places the sliced cucumbers on top of the chutney.",
+                "shooting_style: A text overlay is used to guide the viewer through the recipe steps."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a 3D animated logo for 'Rahul Music World' rotating against a white background. The logo features a treble clef and colorful musical notes on a rainbow-colored staff. Below the logo, the text 'A Anjana Rajesh Shinde Production' appears.; acoustics: 1) N/A. 2) Upbeat, synthesized instrumental music plays in the background.; Rahul Music World | A Anjana Rajesh Shinde Production; attributes: camera_state: The camera is static, focused on the animated logo as it rotates and zooms out., video_background: The background is a clean, white, reflective surface with a slight vignette effect around the edges., storyline: This segment serves as the production company's title card, introducing the creators of the video., shooting_style: This is a 3D animated logo reveal. A title card appears on a white background, stating 'SPONSORED BY Hakim Masala'. The text 'Hakim' is written in a bold, red, stylized font, with 'Masala' in a smaller, black font below it. The screen then transitions to a white background with animated red and black dots that coalesce into the 'MUMBAI MASALA TANDA' logo.; acoustics: 1) N/A. 2) The upbeat instrumental music continues.; SPONSORED BY Hakim Masala | Hakim | Masala | MUMBAI MASALA TANDA; attributes: camera_state: The camera is static, centered on the text and logos., video_background: The background is plain white throughout this segment., storyline: This segment introduces the sponsor of the recipe, Hakim Masala, and presents the title of the dish to be made., shooting_style: This is a title card sequence with animated text and logo reveal. A montage of ingredients for the green chutney is shown. The first shot is a plate with a folded sandwich, ketchup, and green chutney. This dissolves into a shot of fresh spinach, which then dissolves into a close-up of green chillies, ginger, and garlic. Text overlays identify the ingredients: 'FOR GREEN CHUTNEY PALAK', 'GREEN CHILLIES', 'GINGER & GARLIC', and 'FRESH CORIANDER AND MINT LEAVES'. The final shot shows all the herbs on a paper towel with the text 'GRIND IT IN A MIXER'.; acoustics: 1) N/A. 2) The upbeat instrumental music continues.; FOR GREEN CHUTNEY PALAK | GREEN CHILLIES | GINGER & GARLIC | FRESH CORIANDER AND MINT LEAVES | GRIND IT IN A MIXER; attributes: camera_state: The camera uses a series of static, close-up, and medium shots of the ingredients, with dissolve transitions between them., video_background: The ingredients are displayed on a wooden surface and a white paper towel., storyline: This segment introduces the first component of the recipe: the green chutney, and lists all the necessary ingredients., shooting_style: This is a montage sequence using dissolves to transition between different ingredient shots.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 5.0,
+              "visual": "The video begins with a 3D animated logo for 'Rahul Music World' rotating against a white background. The logo features a treble clef and colorful musical notes on a rainbow-colored staff. Below the logo, the text 'A Anjana Rajesh Shinde Production' appears.",
+              "audio": "acoustics: 1) N/A. 2) Upbeat, synthesized instrumental music plays in the background.",
+              "on_screen_text": [
+                "Rahul Music World",
+                "A Anjana Rajesh Shinde Production"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, focused on the animated logo as it rotates and zooms out.",
+                "video_background: The background is a clean, white, reflective surface with a slight vignette effect around the edges.",
+                "storyline: This segment serves as the production company's title card, introducing the creators of the video.",
+                "shooting_style: This is a 3D animated logo reveal."
+              ]
+            },
+            {
+              "start_s": 6.0,
+              "end_s": 11.0,
+              "visual": "A title card appears on a white background, stating 'SPONSORED BY Hakim Masala'. The text 'Hakim' is written in a bold, red, stylized font, with 'Masala' in a smaller, black font below it. The screen then transitions to a white background with animated red and black dots that coalesce into the 'MUMBAI MASALA TANDA' logo.",
+              "audio": "acoustics: 1) N/A. 2) The upbeat instrumental music continues.",
+              "on_screen_text": [
+                "SPONSORED BY Hakim Masala",
+                "Masala",
+                "MUMBAI MASALA TANDA"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, centered on the text and logos.",
+                "video_background: The background is plain white throughout this segment.",
+                "storyline: This segment introduces the sponsor of the recipe, Hakim Masala, and presents the title of the dish to be made.",
+                "shooting_style: This is a title card sequence with animated text and logo reveal."
+              ]
+            },
+            {
+              "start_s": 12.0,
+              "end_s": 18.0,
+              "visual": "A montage of ingredients for the green chutney is shown. The first shot is a plate with a folded sandwich, ketchup, and green chutney. This dissolves into a shot of fresh spinach, which then dissolves into a close-up of green chillies, ginger, and garlic. Text overlays identify the ingredients: 'FOR GREEN CHUTNEY PALAK', 'GREEN CHILLIES', 'GINGER & GARLIC', and 'FRESH CORIANDER AND MINT LEAVES'. The final shot shows all the herbs on a paper towel with the text 'GRIND IT IN A MIXER'.",
+              "audio": "acoustics: 1) N/A. 2) The upbeat instrumental music continues.",
+              "on_screen_text": [
+                "FOR GREEN CHUTNEY PALAK",
+                "GREEN CHILLIES",
+                "GINGER & GARLIC",
+                "FRESH CORIANDER AND MINT LEAVES",
+                "GRIND IT IN A MIXER"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of static, close-up, and medium shots of the ingredients, with dissolve transitions between them.",
+                "video_background: The ingredients are displayed on a wooden surface and a white paper towel.",
+                "storyline: This segment introduces the first component of the recipe: the green chutney, and lists all the necessary ingredients.",
+                "shooting_style: This is a montage sequence using dissolves to transition between different ingredient shots."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "-ODflyuHFr0",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/ODflyuHFr0/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A person's hands are seen preparing ingredients for a sandwich. On a wooden cutting board, they use a knife to slice a piece of white bread. In the background, several small metal bowls contain prepped ingredients: sliced red tomatoes, sliced cucumbers, chopped red onions, whole green pickles, a green chutney, and a red masala paste.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of a knife cutting through bread is audible.; attributes: camera_state: The camera is positioned in a static, top-down shot, providing a clear view of the entire preparation area., video_background: The scene is set on a dark, black countertop. The ingredients are neatly arranged in metal bowls, creating a well-organized cooking station., storyline: The video begins with the initial steps of making a masala sandwich, starting with slicing the bread., shooting_style: This is a standard, instructional shot with no special effects or transitions. Following a text overlay that reads 'APPLY GREEN CHUTNEY TO THE BREAD,' the person takes a knife and generously spreads a vibrant green chutney onto the slices of white bread that are on the cutting board. They use a circular motion to ensure the chutney covers the entire surface of the bread.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The soft sound of the knife spreading the chutney can be heard.; APPLY GREEN CHUTNEY TO THE BREAD,; attributes: camera_state: The camera remains in a static, top-down position, focusing on the action of spreading the chutney., video_background: The background remains the same, with all the prepped ingredients visible but out of focus., storyline: The first layer of the sandwich is added as the person applies the green chutney., shooting_style: A text overlay is used to provide instructions to the viewer. A new text overlay appears, stating 'PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.' The person takes the sliced cucumbers from a bowl and begins to neatly place them in a single layer on top of the chutney-covered bread slices.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle clinking of the ceramic bowl is audible.; PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.; attributes: camera_state: The camera is static and maintains its top-down perspective, keeping the focus on the sandwich assembly., video_background: The dark countertop with the array of ingredients remains the backdrop for the cooking process., storyline: The second layer of the sandwich is added as the person places the sliced cucumbers on top of the chutney., shooting_style: A text overlay is used to guide the viewer through the recipe steps.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 67.0,
+              "visual": "A person's hands are seen preparing ingredients for a sandwich. On a wooden cutting board, they use a knife to slice a piece of white bread. In the background, several small metal bowls contain prepped ingredients: sliced red tomatoes, sliced cucumbers, chopped red onions, whole green pickles, a green chutney, and a red masala paste.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The distinct sound of a knife cutting through bread is audible.",
+              "attributes": [
+                "camera_state: The camera is positioned in a static, top-down shot, providing a clear view of the entire preparation area.",
+                "video_background: The scene is set on a dark, black countertop. The ingredients are neatly arranged in metal bowls, creating a well-organized cooking station.",
+                "storyline: The video begins with the initial steps of making a masala sandwich, starting with slicing the bread.",
+                "shooting_style: This is a standard, instructional shot with no special effects or transitions."
+              ]
+            },
+            {
+              "start_s": 68.0,
+              "end_s": 73.0,
+              "visual": "Following a text overlay that reads 'APPLY GREEN CHUTNEY TO THE BREAD,' the person takes a knife and generously spreads a vibrant green chutney onto the slices of white bread that are on the cutting board. They use a circular motion to ensure the chutney covers the entire surface of the bread.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The soft sound of the knife spreading the chutney can be heard.",
+              "on_screen_text": [
+                "APPLY GREEN CHUTNEY TO THE BREAD,"
+              ],
+              "attributes": [
+                "camera_state: The camera remains in a static, top-down position, focusing on the action of spreading the chutney.",
+                "video_background: The background remains the same, with all the prepped ingredients visible but out of focus.",
+                "storyline: The first layer of the sandwich is added as the person applies the green chutney.",
+                "shooting_style: A text overlay is used to provide instructions to the viewer."
+              ]
+            },
+            {
+              "start_s": 74.0,
+              "end_s": 80.0,
+              "visual": "A new text overlay appears, stating 'PLACE THE SLICED CUCUMBER ON THE BREAD SLICE.' The person takes the sliced cucumbers from a bowl and begins to neatly place them in a single layer on top of the chutney-covered bread slices.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The gentle clinking of the ceramic bowl is audible.",
+              "on_screen_text": [
+                "PLACE THE SLICED CUCUMBER ON THE BREAD SLICE."
+              ],
+              "attributes": [
+                "camera_state: The camera is static and maintains its top-down perspective, keeping the focus on the sandwich assembly.",
+                "video_background: The dark countertop with the array of ingredients remains the backdrop for the cooking process.",
+                "storyline: The second layer of the sandwich is added as the person places the sliced cucumbers on top of the chutney.",
+                "shooting_style: A text overlay is used to guide the viewer through the recipe steps."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

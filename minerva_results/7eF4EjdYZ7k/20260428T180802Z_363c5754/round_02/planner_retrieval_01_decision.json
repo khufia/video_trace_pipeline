@@ -1,0 +1,73 @@
+{
+  "action": "retrieve",
+  "rationale": "Current text is insufficiently grounded: we need existing OCR/observation records tied to frames 81-82s that pair each visible item with its exact visible price and confirm whether any additional priced items appear.",
+  "requests": [
+    {
+      "request_id": "ocr_item_price_pairs_81_82",
+      "target": "existing_evidence",
+      "need": "Existing OCR observations from frames 81s-82s that contain product names and nearby price-like text so the planner can ground item-to-price pairings for each counted item.",
+      "query": "81 82 General Supplies Dixie Swpeet A AIRTITE GE Slime price OCR 119 11 17 16 12 92 171 1612 1192",
+      "modalities": [
+        "ocr",
+        "visual"
+      ],
+      "time_range": {},
+      "source_tools": [
+        "ocr"
+      ],
+      "evidence_status": "provisional",
+      "artifact_ids": [
+        "frame_81.00",
+        "frame_82.00"
+      ],
+      "evidence_ids": [
+        "ev_02_ccd065aa"
+      ],
+      "observation_ids": [],
+      "limit": 50
+    },
+    {
+      "request_id": "all_priced_items_interval_81_83",
+      "target": "observations",
+      "need": "All existing observations for frames 81s-83s indicating which items have visible prices versus not visible, to verify whether any priced items beyond the top-row set should be included.",
+      "query": "81 82 83 visible price not visible Nordic Pure YouTube Gear Plumbing General Supplies counted items",
+      "modalities": [
+        "ocr",
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 81.0,
+        "end_s": 83.0
+      },
+      "source_tools": [
+        "ocr",
+        "generic_purpose"
+      ],
+      "evidence_status": "provisional",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 50
+    },
+    {
+      "request_id": "artifact_context_81_82_candidates",
+      "target": "artifact_context",
+      "need": "Artifact-anchored text context for frames 81s-82s with linked observations/evidence around the product grid, to use the concrete frame records rather than prior-trace prose.",
+      "query": "frame 81 82 General Supplies product grid visible prices linked observations",
+      "modalities": [],
+      "time_range": {},
+      "source_tools": [
+        "ocr",
+        "generic_purpose"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [
+        "frame_81.00",
+        "frame_82.00"
+      ],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 20
+    }
+  ]
+}

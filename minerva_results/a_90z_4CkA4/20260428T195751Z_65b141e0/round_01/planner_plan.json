@@ -1,0 +1,75 @@
+{
+  "strategy": "Use preprocess to bound the tennis-action intervals, then inspect chronological frame sequences across the full video to count only verified netted shots by the woman in white.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological visual sequence spanning the full tennis footage so the downstream model can verify each shot outcome and count only the woman's hits that go into the net.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/a_90z_4CkA4/clips/clip_000_00_060_00.mp4",
+            "metadata": {}
+          },
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 60.0,
+            "end_s": 80.467,
+            "artifact_id": "clip_060_00_080_47",
+            "relpath": "artifacts/a_90z_4CkA4/clips/clip_060_00_080_47.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 16,
+        "query": "chronological frames covering each time the woman in white strikes the tennis ball and whether the ball goes into the net or clears it",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "0-4s serve",
+          "5-14s rally groundstrokes",
+          "64-73s serve sequence"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological frames across all candidate tennis hits and outcomes"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "From the chronological frame sequence and bounded clips, identify each distinct hit by the woman in white, determine which hits go into the net, deduplicate repeated views of the same hit, and map the verified count to the answer option.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Count how many distinct times the woman in white hits the tennis ball into the net. Use the chronological sequence to separate different hits, verify the ball outcome for each hit, exclude shots that clear the net, and return the matching option letter and count.",
+        "text_contexts": [
+          "Preprocess context: 0-4s shows a serve that is described as going high and deep into the opponent's court, not into the net.",
+          "Preprocess context: 5-14s shows a rally with a series of groundstrokes from behind the player; exact net contacts are not specified and must be visually verified.",
+          "Preprocess context: 69-73s shows a serve whose trajectory flies over the net, not into the net."
+        ],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "verified count of netted hits with option mapping",
+        "supporting_points": "per-hit verification notes distinguishing netted vs non-netted shots"
+      }
+    }
+  ],
+  "refinement_instructions": "Do not answer from preprocess summaries alone. Use the retrieved chronological frames to enumerate each distinct hit by the woman in white and explicitly mark whether the ball reaches the net or clears it. Treat the serves at 0-4s and 69-73s as likely non-net examples unless the frames contradict preprocess. Avoid double-counting neighboring frames from the same swing. If any rally hit outcome remains visually ambiguous, keep that uncertainty explicit rather than forcing a count."
+}

@@ -1,0 +1,233 @@
+{
+  "task_key": "ywXYEaP8KA__68489cd8ee6d",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_rooms_year_phrase",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Transcript 1 segment [44.277s-72.509s] states: \"state-of-the-art rooms, decorated in an 1880s flair.\" This is the narrator's year phrase used to describe the rooms/bedrooms.",
+      "inference_hint": null,
+      "confidence": 0.85,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 44.277,
+          "end_s": 72.509
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_29ccab7808129718",
+        "obs_746bbc03cddbcbe3"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_founder_mentions_no_death_year",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Transcript 2 segment [150.539s-170.84s] mentions \"Tombstone founder Ed Sheflin,\" and Transcript 3 segment [170.84s-199.713s] discusses Sheflin discovering the silver strike and naming the town. However, the provided transcripts do not explicitly state Ed Sheflin's death year, and the founder-related transcript spans contain no year tied to him.",
+      "inference_hint": null,
+      "confidence": 0.85,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 150.539,
+          "end_s": 170.84
+        },
+        {
+          "start_s": 170.84,
+          "end_s": 199.713
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_02d1512fdbb82ee1",
+        "obs_afe898c836acc548",
+        "obs_be3b150181bcd830",
+        "obs_c82e78ed674d9782",
+        "obs_f2e77d9a42312baa",
+        "obs_8866a717c43584bd",
+        "obs_782338f143be4ed9",
+        "obs_a2a2bf2da13b1ae3"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_insufficient_for_supported_sum",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The provided transcripts do not provide two transcript-grounded numeric years needed for a supported sum. The rooms evidence is the phrase \"1880s flair,\" while the founder's death year is not explicitly given.",
+      "inference_hint": null,
+      "confidence": 0.85,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_746bbc03cddbcbe3",
+        "obs_a2a2bf2da13b1ae3",
+        "obs_b60ac6921278f971"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The narrator's year phrase for the rooms/bedrooms is explicitly \"decorated in an 1880s flair.\"",
+      "supporting_observation_ids": [
+        "obs_29ccab7808129718",
+        "obs_746bbc03cddbcbe3"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 44.277,
+          "end_s": 72.509
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The transcript identifies Ed Sheflin as Tombstone's founder and discusses him in later narration, but none of the provided transcript spans explicitly states his death year.",
+      "supporting_observation_ids": [
+        "obs_02d1512fdbb82ee1",
+        "obs_be3b150181bcd830",
+        "obs_f2e77d9a42312baa",
+        "obs_a2a2bf2da13b1ae3"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 150.539,
+          "end_s": 170.84
+        },
+        {
+          "start_s": 170.84,
+          "end_s": 199.713
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Because one required value—the founder's death year—is missing from the transcript evidence, the requested sum cannot be verified from the provided evidence alone.",
+      "supporting_observation_ids": [
+        "obs_a2a2bf2da13b1ae3",
+        "obs_b60ac6921278f971"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 4,
+      "text": "Therefore the multiple-choice answer is underdetermined from transcript evidence alone. Although the options list possible sums, none can be selected as a verified answer without an explicit death year.",
+      "supporting_observation_ids": [
+        "obs_b60ac6921278f971",
+        "obs_7e025456fbc12af9",
+        "obs_9482e03563f08b64",
+        "obs_352315d44c1b3e51",
+        "obs_aed5b1bdc62ac8db",
+        "obs_3c1614844b906ea2"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "ywXYEaP8KA__68489cd8ee6d",
+      "trace": {
+        "inference_steps": [
+          "[44.277s to 72.509s] The narrator's year phrase for the rooms/bedrooms is explicitly \"decorated in an 1880s flair.\"",
+          "[150.539s to 170.84s; 170.84s to 199.713s] The transcript identifies Ed Sheflin as Tombstone's founder and discusses him in later narration, but none of the provided transcript spans explicitly states his death year.",
+          "Because one required value—the founder's death year—is missing from the transcript evidence, the requested sum cannot be verified from the provided evidence alone.",
+          "Therefore the multiple-choice answer is underdetermined from transcript evidence alone. Although the options list possible sums, none can be selected as a verified answer without an explicit death year."
+        ],
+        "evidence": [
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Transcript 1 segment [44.277s-72.509s] states: \"state-of-the-art rooms, decorated in an 1880s flair.\" This is the narrator's year phrase used to describe the rooms/bedrooms.",
+            "observation_ids": [
+              "obs_29ccab7808129718",
+              "obs_746bbc03cddbcbe3"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 44.277,
+                "end_s": 72.509
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Transcript 2 segment [150.539s-170.84s] mentions \"Tombstone founder Ed Sheflin,\" and Transcript 3 segment [170.84s-199.713s] discusses Sheflin discovering the silver strike and naming the town. However, the provided transcripts do not explicitly state Ed Sheflin's death year, and the founder-related transcript spans contain no year tied to him.",
+            "observation_ids": [
+              "obs_02d1512fdbb82ee1",
+              "obs_afe898c836acc548",
+              "obs_be3b150181bcd830",
+              "obs_c82e78ed674d9782",
+              "obs_f2e77d9a42312baa",
+              "obs_8866a717c43584bd",
+              "obs_782338f143be4ed9",
+              "obs_a2a2bf2da13b1ae3"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 150.539,
+                "end_s": 170.84
+              },
+              {
+                "start_s": 170.84,
+                "end_s": 199.713
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "The provided transcripts do not provide two transcript-grounded numeric years needed for a supported sum. The rooms evidence is the phrase \"1880s flair,\" while the founder's death year is not explicitly given.",
+            "observation_ids": [
+              "obs_746bbc03cddbcbe3",
+              "obs_a2a2bf2da13b1ae3",
+              "obs_b60ac6921278f971"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "underdetermined": true,
+    "note": "Per transcript-only evidence, preserve the exact phrase \"decorated in an 1880s flair\" and do not infer or import Ed Sheflin's death year from outside knowledge."
+  }
+}

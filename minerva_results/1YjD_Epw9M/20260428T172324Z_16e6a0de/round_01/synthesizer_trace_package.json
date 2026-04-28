@@ -1,0 +1,247 @@
+{
+  "task_key": "1YjD_Epw9M__f309a1ce747d",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_e44b06e1",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Chronological neighboring frames were retrieved at 129.00s and 130.00s around the anchor moment.",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 129.0,
+          "end_s": 129.0
+        },
+        {
+          "start_s": 130.0,
+          "end_s": 130.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_129.00",
+          "kind": "frame",
+          "relpath": "artifacts/1YjD_Epw9M/frames/frame_129.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_129.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 227360
+          }
+        },
+        {
+          "artifact_id": "frame_130.00",
+          "kind": "frame",
+          "relpath": "artifacts/1YjD_Epw9M/frames/frame_130.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_130.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 243672
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_cdf91975c35f8e4a",
+        "obs_e0130ec777c753f6"
+      ],
+      "metadata": {
+        "request_hash": "e44b06e105d59636b7097709",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_tx_refinement_phrases",
+      "tool_name": "prompt_preprocess",
+      "evidence_text": "Refinement instructions identify transcript phrases to rely on as primary evidence for the game outcome: \"Fourth time's the charm,\" \"that's the one that matters most,\" \"very proud of the girls,\" \"our defense carried us through the game,\" \"we had to beat really good teams to win,\" and \"they kids stepped up and did that.\" These phrases describe a successful result rather than a cancellation, tie, or disqualification.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [],
+      "observation_ids": [],
+      "metadata": {
+        "source": "REFINEMENT_INSTRUCTIONS"
+      }
+    },
+    {
+      "evidence_id": "ev_vis_team_color_limits",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The retrieved frames show an interview scene with people in grey hoodies and one person in a black-and-white jacket, but no clear jerseys or scoreboard are visible. The visual evidence therefore does not cleanly verify whether the winning team corresponds to black or white jerseys.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_129.00",
+          "kind": "frame",
+          "relpath": "artifacts/1YjD_Epw9M/frames/frame_129.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 129.0
+          }
+        },
+        {
+          "artifact_id": "frame_130.00",
+          "kind": "frame",
+          "relpath": "artifacts/1YjD_Epw9M/frames/frame_130.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 130.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_d00a2cc5f00d7706",
+        "obs_f0cca745e5133413",
+        "obs_9933e15d51873223",
+        "obs_c451b807d993c330",
+        "obs_4c57616e94ef0c7f"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The transcript phrases supplied in the refinement instructions strongly indicate that the speaker's team won the game: phrases such as \"Fourth time's the charm,\" \"that's the one that matters most,\" \"very proud of the girls,\" \"our defense carried us through the game,\" and \"we had to beat really good teams to win\" all describe a victory.",
+      "supporting_observation_ids": [],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 2,
+      "text": "Those victory-oriented transcript phrases rule out the options that the game was cancelled, tied, or that the teams were disqualified.",
+      "supporting_observation_ids": [],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    },
+    {
+      "step_id": 3,
+      "text": "To choose between \"black team won\" and \"white team won,\" the instructions say to use the celebration frame to verify jersey color. However, the retrieved frames do not show clear jerseys; they show grey hoodies, a black-and-white jacket, and no scoreboard, so the winner's jersey color cannot be grounded from the supplied visuals.",
+      "supporting_observation_ids": [
+        "obs_d00a2cc5f00d7706",
+        "obs_f0cca745e5133413",
+        "obs_9933e15d51873223",
+        "obs_c451b807d993c330",
+        "obs_4c57616e94ef0c7f"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 129.0,
+          "end_s": 129.0
+        },
+        {
+          "start_s": 130.0,
+          "end_s": 130.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Because the evidence supports that there was a winner but does not reliably map that winner to black versus white jerseys, multiple answer choices remain compatible between those two winning-color options. Under the uncertainty rule, the final answer should be left empty.",
+      "supporting_observation_ids": [
+        "obs_9933e15d51873223",
+        "obs_4c57616e94ef0c7f"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "1YjD_Epw9M__f309a1ce747d",
+      "trace": {
+        "inference_steps": [
+          "The transcript phrases supplied in the refinement instructions strongly indicate that the speaker's team won the game: phrases such as \"Fourth time's the charm,\" \"that's the one that matters most,\" \"very proud of the girls,\" \"our defense carried us through the game,\" and \"we had to beat really good teams to win\" all describe a victory.",
+          "Those victory-oriented transcript phrases rule out the options that the game was cancelled, tied, or that the teams were disqualified.",
+          "[129s; 130s] To choose between \"black team won\" and \"white team won,\" the instructions say to use the celebration frame to verify jersey color. However, the retrieved frames do not show clear jerseys; they show grey hoodies, a black-and-white jacket, and no scoreboard, so the winner's jersey color cannot be grounded from the supplied visuals.",
+          "Because the evidence supports that there was a winner but does not reliably map that winner to black versus white jerseys, multiple answer choices remain compatible between those two winning-color options. Under the uncertainty rule, the final answer should be left empty."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Chronological neighboring frames were retrieved at 129.00s and 130.00s around the anchor moment.",
+            "observation_ids": [
+              "obs_cdf91975c35f8e4a",
+              "obs_e0130ec777c753f6"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 129.0,
+                "end_s": 129.0
+              },
+              {
+                "start_s": 130.0,
+                "end_s": 130.0
+              }
+            ]
+          },
+          {
+            "tool_name": "prompt_preprocess",
+            "evidence_text": "Refinement instructions identify transcript phrases to rely on as primary evidence for the game outcome: \"Fourth time's the charm,\" \"that's the one that matters most,\" \"very proud of the girls,\" \"our defense carried us through the game,\" \"we had to beat really good teams to win,\" and \"they kids stepped up and did that.\" These phrases describe a successful result rather than a cancellation, tie, or disqualification.",
+            "observation_ids": [],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "The retrieved frames show an interview scene with people in grey hoodies and one person in a black-and-white jacket, but no clear jerseys or scoreboard are visible. The visual evidence therefore does not cleanly verify whether the winning team corresponds to black or white jerseys.",
+            "observation_ids": [
+              "obs_d00a2cc5f00d7706",
+              "obs_f0cca745e5133413",
+              "obs_9933e15d51873223",
+              "obs_c451b807d993c330",
+              "obs_4c57616e94ef0c7f"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": []
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "notes": "Primary outcome evidence came from transcript phrases quoted in the refinement instructions; visual frames were only sufficient to assess jersey-color ambiguity, not to resolve black vs white."
+  }
+}

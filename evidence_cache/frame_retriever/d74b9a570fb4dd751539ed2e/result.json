@@ -1,0 +1,1468 @@
+{
+  "tool_name": "frame_retriever",
+  "ok": true,
+  "data": {
+    "query": "chessboard states where the two white knights might be within one square of each other; prioritize readable full-board frames and preserve chronology",
+    "clips": [
+      {
+        "video_id": "ZF4T833lln4",
+        "start_s": 123.0,
+        "end_s": 237.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "start_s": 220.0,
+        "end_s": 239.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      }
+    ],
+    "frames": [
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 218.0,
+        "artifact_id": "frame_218.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_218.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 220.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 219.0,
+        "artifact_id": "frame_219.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_219.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 220.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 220.0,
+        "artifact_id": "frame_220.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_220.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 220.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 2,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 221.0,
+        "artifact_id": "frame_221.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_221.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 220.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 3,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 222.0,
+        "artifact_id": "frame_222.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_222.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 220.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 4,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 235.0,
+        "artifact_id": "frame_235.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_235.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 237.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 5,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 236.0,
+        "artifact_id": "frame_236.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_236.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 237.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 6,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 237.0,
+        "artifact_id": "frame_237.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_237.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 237.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 7,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 238.0,
+        "artifact_id": "frame_238.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_238.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 237.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 8,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 239.0,
+        "artifact_id": "frame_239.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_239.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 123.0,
+          "end_s": 237.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 123.0,
+          "clip_end_s": 237.0,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 237.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 9,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 240.0,
+        "artifact_id": "frame_240.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_240.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 220.0,
+          "end_s": 239.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 220.0,
+          "clip_end_s": 239.0,
+          "frame_pool_start_s": 218.0,
+          "frame_pool_end_s": 241.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 239.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 8,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "timestamp_s": 241.0,
+        "artifact_id": "frame_241.00",
+        "relpath": "artifacts/ZF4T833lln4/frames/frame_241.00.png",
+        "clip": {
+          "video_id": "ZF4T833lln4",
+          "start_s": 220.0,
+          "end_s": 239.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {}
+        },
+        "metadata": {
+          "relevance_score": 0.0,
+          "device": "cuda:1",
+          "clip_start_s": 220.0,
+          "clip_end_s": 239.0,
+          "frame_pool_start_s": 218.0,
+          "frame_pool_end_s": 241.0,
+          "temporal_score": 0.0,
+          "anchor_distance_s": 2.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 239.0,
+          "neighbor_radius_s": 2.0,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 9,
+          "sequence_sort_order": "chronological"
+        }
+      }
+    ],
+    "frame_groups": [
+      {
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 123.0,
+            "end_s": 237.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          }
+        ],
+        "time_hints": [
+          "02:03-03:57 unresolved candidate interval B; sample across the interval with emphasis on later interior after 02:05"
+        ],
+        "frames": [
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 218.0,
+            "artifact_id": "frame_218.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_218.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 219.0,
+            "artifact_id": "frame_219.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_219.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 220.0,
+            "artifact_id": "frame_220.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_220.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 221.0,
+            "artifact_id": "frame_221.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_221.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 3,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 222.0,
+            "artifact_id": "frame_222.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_222.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 4,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 235.0,
+            "artifact_id": "frame_235.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_235.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 237.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 5,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 236.0,
+            "artifact_id": "frame_236.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_236.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 237.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 6,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 237.0,
+            "artifact_id": "frame_237.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_237.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 237.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 7,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 238.0,
+            "artifact_id": "frame_238.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_238.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 237.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 8,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 239.0,
+            "artifact_id": "frame_239.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_239.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 123.0,
+              "end_s": 237.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 123.0,
+              "clip_end_s": 237.0,
+              "frame_pool_start_s": 121.0,
+              "frame_pool_end_s": 239.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 237.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 9,
+              "sequence_sort_order": "chronological"
+            }
+          }
+        ],
+        "cache_metadata": {
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 344,
+          "bounded_frame_count": 119,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "expanded_frame_pool_for_anchor_window": true,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": true,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [
+            237.0,
+            220.0
+          ],
+          "neighbor_radius_s": 2.0,
+          "timings": {
+            "total_s": 42.6639
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 6,
+            "retry_count": 0,
+            "batch_attempt_count": 5,
+            "batch_failure_count": 5,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 119,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.75 GiB. GPU 1 has a total capacity of 39.49 GiB of which 3.32 GiB is free. Process 4147804 has 3.75 GiB memory in use. Including non-PyTorch memory, this process has 32.41 GiB memory in use. Of the allocated memory 31.58 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)",
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.3786878529936075,
+            "frame_embed_s": 34.69369331910275,
+            "embedding_cache_ready": false
+          }
+        },
+        "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+      },
+      {
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 220.0,
+            "end_s": 239.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          }
+        ],
+        "time_hints": [
+          "02:03-03:57 unresolved candidate interval B; sample across the interval with emphasis on later interior after 02:05"
+        ],
+        "frames": [
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 218.0,
+            "artifact_id": "frame_218.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_218.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 219.0,
+            "artifact_id": "frame_219.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_219.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 220.0,
+            "artifact_id": "frame_220.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_220.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 221.0,
+            "artifact_id": "frame_221.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_221.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 3,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 222.0,
+            "artifact_id": "frame_222.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_222.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 220.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 4,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 237.0,
+            "artifact_id": "frame_237.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_237.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 239.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 5,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 238.0,
+            "artifact_id": "frame_238.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_238.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 239.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 6,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 239.0,
+            "artifact_id": "frame_239.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_239.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 0.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 239.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 7,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 240.0,
+            "artifact_id": "frame_240.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_240.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 1.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 239.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 8,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "timestamp_s": 241.0,
+            "artifact_id": "frame_241.00",
+            "relpath": "artifacts/ZF4T833lln4/frames/frame_241.00.png",
+            "clip": {
+              "video_id": "ZF4T833lln4",
+              "start_s": 220.0,
+              "end_s": 239.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {}
+            },
+            "metadata": {
+              "relevance_score": 0.0,
+              "device": "cuda:1",
+              "clip_start_s": 220.0,
+              "clip_end_s": 239.0,
+              "frame_pool_start_s": 218.0,
+              "frame_pool_end_s": 241.0,
+              "temporal_score": 0.0,
+              "anchor_distance_s": 2.0,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 239.0,
+              "neighbor_radius_s": 2.0,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 9,
+              "sequence_sort_order": "chronological"
+            }
+          }
+        ],
+        "cache_metadata": {
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 344,
+          "bounded_frame_count": 24,
+          "frame_pool_start_s": 218.0,
+          "frame_pool_end_s": 241.0,
+          "expanded_frame_pool_for_anchor_window": true,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": true,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [
+            239.0,
+            220.0
+          ],
+          "neighbor_radius_s": 2.0,
+          "timings": {
+            "total_s": 27.5178
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 2,
+            "retry_count": 0,
+            "batch_attempt_count": 1,
+            "batch_failure_count": 1,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 24,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.75 GiB. GPU 1 has a total capacity of 39.49 GiB of which 3.32 GiB is free. Process 4147804 has 3.75 GiB memory in use. Including non-PyTorch memory, this process has 32.41 GiB memory in use. Of the allocated memory 31.58 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)",
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.4016663460060954,
+            "frame_embed_s": 8.956643555080518,
+            "embedding_cache_ready": false
+          }
+        },
+        "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+      }
+    ],
+    "cache_groups": [
+      {
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 123.0,
+            "end_s": 237.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          }
+        ],
+        "time_hints": [
+          "02:03-03:57 unresolved candidate interval B; sample across the interval with emphasis on later interior after 02:05"
+        ],
+        "cache_metadata": {
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 344,
+          "bounded_frame_count": 119,
+          "frame_pool_start_s": 121.0,
+          "frame_pool_end_s": 239.0,
+          "expanded_frame_pool_for_anchor_window": true,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": true,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [
+            237.0,
+            220.0
+          ],
+          "neighbor_radius_s": 2.0,
+          "timings": {
+            "total_s": 42.6639
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 6,
+            "retry_count": 0,
+            "batch_attempt_count": 5,
+            "batch_failure_count": 5,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 119,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.75 GiB. GPU 1 has a total capacity of 39.49 GiB of which 3.32 GiB is free. Process 4147804 has 3.75 GiB memory in use. Including non-PyTorch memory, this process has 32.41 GiB memory in use. Of the allocated memory 31.58 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)",
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.3786878529936075,
+            "frame_embed_s": 34.69369331910275,
+            "embedding_cache_ready": false
+          }
+        }
+      },
+      {
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 220.0,
+            "end_s": 239.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {}
+          }
+        ],
+        "time_hints": [
+          "02:03-03:57 unresolved candidate interval B; sample across the interval with emphasis on later interior after 02:05"
+        ],
+        "cache_metadata": {
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 344,
+          "bounded_frame_count": 24,
+          "frame_pool_start_s": 218.0,
+          "frame_pool_end_s": 241.0,
+          "expanded_frame_pool_for_anchor_window": true,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": true,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [
+            239.0,
+            220.0
+          ],
+          "neighbor_radius_s": 2.0,
+          "timings": {
+            "total_s": 27.5178
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 2,
+            "retry_count": 0,
+            "batch_attempt_count": 1,
+            "batch_failure_count": 1,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 24,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 4.75 GiB. GPU 1 has a total capacity of 39.49 GiB of which 3.32 GiB is free. Process 4147804 has 3.75 GiB memory in use. Including non-PyTorch memory, this process has 32.41 GiB memory in use. Of the allocated memory 31.58 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)",
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.4016663460060954,
+            "frame_embed_s": 8.956643555080518,
+            "embedding_cache_ready": false
+          }
+        }
+      }
+    ],
+    "cache_metadata": {
+      "dense_frame_cache_hit": true,
+      "dense_frame_count": 344,
+      "bounded_frame_count": 143,
+      "embedding_cache_ready": false
+    },
+    "mode": "multi_clip_bounded",
+    "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\n\nFrames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+  },
+  "raw_output_text": "{\"query\": \"chessboard states where the two white knights might be within one square of each other; prioritize readable full-board frames and preserve chronology\", \"frames\": [{\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_218.00.png\", \"timestamp_s\": 218.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 0, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_219.00.png\", \"timestamp_s\": 219.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 1, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_220.00.png\", \"timestamp_s\": 220.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 0.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 2, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_221.00.png\", \"timestamp_s\": 221.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 3, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_222.00.png\", \"timestamp_s\": 222.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 4, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_235.00.png\", \"timestamp_s\": 235.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 237.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 5, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_236.00.png\", \"timestamp_s\": 236.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 237.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 6, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_237.00.png\", \"timestamp_s\": 237.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 0.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 237.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 7, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_238.00.png\", \"timestamp_s\": 238.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 237.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 8, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_239.00.png\", \"timestamp_s\": 239.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 123.0, \"clip_end_s\": 237.0, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 237.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 9, \"sequence_sort_order\": \"chronological\"}}], \"mode\": \"clip_bounded\", \"cache_metadata\": {\"dense_frame_cache_hit\": true, \"dense_frame_count\": 344, \"bounded_frame_count\": 119, \"frame_pool_start_s\": 121.0, \"frame_pool_end_s\": 239.0, \"expanded_frame_pool_for_anchor_window\": true, \"embedding_cache_ready\": false, \"embedding_cache_scope\": \"none\", \"persist_cache_on_bounded_request\": false, \"time_hints_applied\": true, \"sequence_mode\": \"anchor_window\", \"anchor_window_applied\": true, \"requested_anchor_timestamps_s\": [237.0, 220.0], \"neighbor_radius_s\": 2.0, \"timings\": {\"total_s\": 42.6639}, \"embedder\": {\"requested_attn_implementation\": \"flash_attention_2\", \"loaded_attn_implementation\": \"flash_attention_2\", \"fallback_attn_implementations\": [], \"embed_call_count\": 6, \"retry_count\": 0, \"batch_attempt_count\": 5, \"batch_failure_count\": 5, \"single_item_fallback_count\": 0, \"zero_embedding_fallback_count\": 119, \"dense_frame_embed_batch\": 24, \"cache_load_error\": null, \"cache_build_error\": null, \"cache_write_error\": null, \"query_error\": null, \"frame_error\": \"OutOfMemoryError: CUDA out of memory. Tried to allocate 4.75 GiB. GPU 1 has a total capacity of 39.49 GiB of which 3.32 GiB is free. Process 4147804 has 3.75 GiB memory in use. Including non-PyTorch memory, this process has 32.41 GiB memory in use. Of the allocated memory 31.58 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)\", \"cache_load_s\": 0.0, \"cache_build_s\": 0.0, \"query_embed_s\": 0.3786878529936075, \"frame_embed_s\": 34.69369331910275, \"embedding_cache_ready\": false}}, \"rationale\": \"Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\"}\n\n{\"query\": \"chessboard states where the two white knights might be within one square of each other; prioritize readable full-board frames and preserve chronology\", \"frames\": [{\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_218.00.png\", \"timestamp_s\": 218.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 0, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_219.00.png\", \"timestamp_s\": 219.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 1, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_220.00.png\", \"timestamp_s\": 220.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 0.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 2, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_221.00.png\", \"timestamp_s\": 221.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 3, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_222.00.png\", \"timestamp_s\": 222.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 220.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 4, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_237.00.png\", \"timestamp_s\": 237.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 239.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 5, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_238.00.png\", \"timestamp_s\": 238.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 239.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 6, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_239.00.png\", \"timestamp_s\": 239.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 0.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 239.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 7, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_240.00.png\", \"timestamp_s\": 240.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 1.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 239.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 8, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/ZF4T833lln4/dense_frames/ZF4T833lln4/frame_241.00.png\", \"timestamp_s\": 241.0, \"relevance_score\": 0.0, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 220.0, \"clip_end_s\": 239.0, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"temporal_score\": 0.0, \"anchor_distance_s\": 2.0, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 239.0, \"neighbor_radius_s\": 2.0, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 9, \"sequence_sort_order\": \"chronological\"}}], \"mode\": \"clip_bounded\", \"cache_metadata\": {\"dense_frame_cache_hit\": true, \"dense_frame_count\": 344, \"bounded_frame_count\": 24, \"frame_pool_start_s\": 218.0, \"frame_pool_end_s\": 241.0, \"expanded_frame_pool_for_anchor_window\": true, \"embedding_cache_ready\": false, \"embedding_cache_scope\": \"none\", \"persist_cache_on_bounded_request\": false, \"time_hints_applied\": true, \"sequence_mode\": \"anchor_window\", \"anchor_window_applied\": true, \"requested_anchor_timestamps_s\": [239.0, 220.0], \"neighbor_radius_s\": 2.0, \"timings\": {\"total_s\": 27.5178}, \"embedder\": {\"requested_attn_implementation\": \"flash_attention_2\", \"loaded_attn_implementation\": \"flash_attention_2\", \"fallback_attn_implementations\": [], \"embed_call_count\": 2, \"retry_count\": 0, \"batch_attempt_count\": 1, \"batch_failure_count\": 1, \"single_item_fallback_count\": 0, \"zero_embedding_fallback_count\": 24, \"dense_frame_embed_batch\": 24, \"cache_load_error\": null, \"cache_build_error\": null, \"cache_write_error\": null, \"query_error\": null, \"frame_error\": \"OutOfMemoryError: CUDA out of memory. Tried to allocate 4.75 GiB. GPU 1 has a total capacity of 39.49 GiB of which 3.32 GiB is free. Process 4147804 has 3.75 GiB memory in use. Including non-PyTorch memory, this process has 32.41 GiB memory in use. Of the allocated memory 31.58 GiB is allocated by PyTorch, and 333.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:/<redacted-path>#environment-variables)\", \"cache_load_s\": 0.0, \"cache_build_s\": 0.0, \"query_embed_s\": 0.4016663460060954, \"frame_embed_s\": 8.956643555080518, \"embedding_cache_ready\": false}}, \"rationale\": \"Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\"}",
+  "artifact_refs": [
+    {
+      "artifact_id": "frame_218.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_218.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_218.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 208156
+      }
+    },
+    {
+      "artifact_id": "frame_219.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_219.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_219.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 208858
+      }
+    },
+    {
+      "artifact_id": "frame_220.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_220.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_220.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 206490
+      }
+    },
+    {
+      "artifact_id": "frame_221.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_221.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_221.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 207061
+      }
+    },
+    {
+      "artifact_id": "frame_222.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_222.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_222.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 207118
+      }
+    },
+    {
+      "artifact_id": "frame_235.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_235.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_235.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 207958
+      }
+    },
+    {
+      "artifact_id": "frame_236.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_236.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_236.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 208077
+      }
+    },
+    {
+      "artifact_id": "frame_237.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_237.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_237.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 206863
+      }
+    },
+    {
+      "artifact_id": "frame_238.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_238.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_238.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 204611
+      }
+    },
+    {
+      "artifact_id": "frame_239.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_239.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_239.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 204949
+      }
+    },
+    {
+      "artifact_id": "frame_240.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_240.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_240.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 205484
+      }
+    },
+    {
+      "artifact_id": "frame_241.00",
+      "kind": "frame",
+      "relpath": "artifacts/ZF4T833lln4/frames/frame_241.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_241.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 205396
+      }
+    }
+  ],
+  "request_hash": "d74b9a570fb4dd751539ed2e",
+  "cache_hit": false,
+  "summary": "Retrieved 12 frame(s) across 2 input clip(s).",
+  "metadata": {
+    "backend": "Qwen/Qwen3-VL-Embedding-8B",
+    "group_count": 2,
+    "confidence": 0.0,
+    "confidence_avg": 0.0,
+    "confidence_count": 12,
+    "confidence_kind": "frame_relevance",
+    "dense_frame_cache_hit": true,
+    "dense_frame_count": 344,
+    "bounded_frame_count": 143,
+    "embedding_cache_ready": false,
+    "timing": {
+      "started_at_utc": "2026-04-28T20:23:37.279469+00:00",
+      "finished_at_utc": "2026-04-28T20:25:09.642917+00:00",
+      "duration_s": 92.3645,
+      "cache_wait_s": 0.0006,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_c16eb796e1943eeb",
+      "obs_163d8e2dcc9b4fce",
+      "obs_bf10066ba0ba33b9",
+      "obs_b136319ff468a323",
+      "obs_6db94889721ddf85",
+      "obs_b4448fe152945294",
+      "obs_180219c112dc7215",
+      "obs_e30c85e8f8b724c1",
+      "obs_841e2f652e685f7c",
+      "obs_8e92684063e942e3",
+      "obs_842309b42d887837",
+      "obs_dbc1e614c60ebb07"
+    ]
+  }
+}

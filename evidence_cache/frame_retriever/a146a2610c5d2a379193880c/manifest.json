@@ -1,0 +1,39 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "a146a2610c5d2a379193880c",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "a_90z_4CkA4",
+        "start_s": 70.0,
+        "end_s": 73.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "a_90z_4CkA4",
+        "start_s": 75.0,
+        "end_s": 78.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "time_hints": [],
+    "query": "frames before during and after each woman-in-white tennis hit showing racket-ball contact and whether the ball goes into the net",
+    "num_frames": 6,
+    "sequence_mode": "anchor_window",
+    "neighbor_radius_s": 1.5,
+    "include_anchor_neighbors": true,
+    "sort_order": "chronological"
+  }
+}

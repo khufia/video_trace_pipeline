@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "GlecDUdZdkE__6a613da3ac3d",
+  "video_id": "GlecDUdZdkE",
+  "run_id": "20260428T192900Z_03208175",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "GlecDUdZdkE__6a613da3ac3d",
+    "question": "What color is the last physical \"Mahalo my dude\" sticker that appears on-screen?",
+    "options": [
+      "A. Green",
+      "B. Black",
+      "C. White",
+      "D. Red",
+      "E. Yellow"
+    ],
+    "video_id": "GlecDUdZdkE",
+    "question_id": null,
+    "gold_answer": "White",
+    "initial_trace_steps": [
+      "I watched the video from the beginning to locate the instances where a physical \"Mahalo my dude\" sticker appears on-screen. The first time happens at 00:01, and it's a yellow sticker, the second time is at 00:07, and it's white. It appears briefly again at 00:10 (black), 00:12 (white), and 00:14 (white). I watched the video until the end and found no other instance where a physical \"Mahalo my dude\" sticker is visible. For this reason, the last time a physical \"Mahalo my dude\" sticker appears on-screen is at 00:14, where a white version of the sticker is being placed on a car window."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/GlecDUdZdkE",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

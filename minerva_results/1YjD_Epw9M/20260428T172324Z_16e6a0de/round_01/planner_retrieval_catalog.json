@@ -1,0 +1,165 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "result",
+    "game",
+    "cancelled",
+    "black",
+    "team",
+    "won",
+    "white",
+    "two",
+    "teams",
+    "tied",
+    "were",
+    "disqualified"
+  ],
+  "preprocess": {
+    "planner_segment_count": 3,
+    "raw_segment_count": 3,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 3,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "A man with a reddish-blonde beard, wearing a grey plaid blazer and a yellow patterned tie, is interviewed. A lower-third graphic identifies him as 'Ryan Sullivan, Sheridan Girls Basketball Coach.' He speaks into a microphone, then runs a hand through his ha...",
+        "caption_count": 3,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is at a medium close-up, focused on the coach's face and upper...",
+          "video_background: The background is dark and out of focus, with some people in blue and...",
+          "storyline: The video introduces Ryan Sullivan, the coach of the Sheridan girls' basketb...",
+          "shooting_style: This is a standard interview shot.",
+          "camera_state: The camera uses high-angle, wide shots to capture the basketball court ac...",
+          "video_background: The game takes place on a polished wooden basketball court. Spectator...",
+          "storyline: This montage provides context for the interview, showing highlights from the...",
+          "shooting_style: This is a montage of game highlights, intercut with the interview.",
+          "camera_state: The camera returns to the medium close-up, handheld shot of the coach.",
+          "video_background: The background remains dark and blurry, with people moving around beh...",
+          "storyline: The video returns to the interview, focusing on the coach's reaction to the...",
+          "shooting_style: This is an intercut back to the primary interview footage."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 0.031,
+            "end_s": 23.858,
+            "text": "Fourth time's the charm, and that's the one that matters most, doesn't it? Yeah, I mean, they're an unbelievable team. They're very good, and mentally for us to kind of get over that hurdle against Campbell and show up the way we did today, getting down early in the first quarter and the resolve that we had in the second quarter, we were great defensively second quarter and gave ourselves a chance in the second half, so just very proud of the girls. What was going wrong there early when you were down 14-3?"
+          },
+          {
+            "start_s": 24.078,
+            "end_s": 51.247,
+            "text": "We just were flustered a little bit, and we didn't settle in yet, and kind of had butterflies, I think, and we weren't making reads on our offense. We were kind of guessing on stuff, but the girls settled in and bought into what our game plan was, and we had a lot of kids step up. Defensively, again, we were great in the second quarter, but they were doubling Mesa, and we kind of recognized that, and we had kids make shots when they were open. You know, Avery shot the lights out today. Cam hit big ones. It just was a team effort. We had to have everybody we had them."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-1YjD_Epw9M",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/1YjD_Epw9M/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "A montage of a women's basketball game begins. A player in a black jersey with the number 10 shoots a jump shot. The scene then cuts to a different play where a player in a white jersey with the number 10 dribbles the ball, guarded by a player in a black je...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is positioned high, providing a wide shot of the basketball co...",
+          "video_background: The game takes place in a gymnasium with a wooden floor. Spectators a...",
+          "storyline: This segment introduces the women's basketball team in action, showcasing th...",
+          "shooting_style: This is a montage of different game highlights, cutting between various...",
+          "camera_state: The camera is at eye level, framed as a medium close-up on the man's face...",
+          "video_background: The background is dark and out of focus, with a few people in blue an...",
+          "storyline: This introduces a coach or official providing commentary or a post-game inte...",
+          "shooting_style: This is a standard interview shot, intercut with the game footage."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 52.175,
+            "end_s": 81.875,
+            "text": "You had that hot finish there the second quarter. How did you try to make sure that you didn't have the big letdown coming out of halftime? Well, we just talked at half about how we got through that quarter because we were really good defensively. We got after them a little bit, and our defense turned into offense. And we tried to carry that through the second half. And Campbell came in, and they made a lot of shots. And Cammie Curtis finishes with dang near 30, I think. But we limited everybody else. We were great on the basketball. It was our defense that carried us through the game. Obviously, we shot the ball well, but we had to get stops, and we got them."
+          },
+          {
+            "start_s": 82.381,
+            "end_s": 103.306,
+            "text": "As much as nobody likes to lose, was maybe losing that regional championship game kind of a blessing in disguise considering how the state bracket was shaped and how you went through it? We had to beat really good teams to win, and we knew that regardless. So whoever we got in the first round, second round, third round, we knew we were going to have to beat good teams, and the kids stepped up and did that."
+          },
+          {
+            "start_s": 103.745,
+            "end_s": 120.603,
+            "text": "considering three years ago this team only won nine games? Did he make state tournament two years ago as well and fell short in third place last year? How have you seen this program kind of turn around? Well, Addy and Allie inherited a program with two wins the year before. They come in and they work their tails off that summer and"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-1YjD_Epw9M",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/1YjD_Epw9M/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 141.867,
+        "overall_summary": "A man with a reddish-brown beard, wearing a grey plaid blazer and a yellow patterned tie, speaks passionately into a microphone. He is being interviewed, and the background is dark with a few people and a staircase faintly visible behind him.; acoustics: 1)...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The camera is in a close-up, focused on the man's face and upper torso. T...",
+          "video_background: The background is dark and out of focus, with the faint outline of a...",
+          "storyline: The video begins with a post-event interview, setting a celebratory and refl...",
+          "shooting_style: This is a standard interview shot.",
+          "camera_state: The camera is at a medium distance, capturing the entire team and a large...",
+          "video_background: The team is on a dark stage, with a black curtain behind them. The li...",
+          "storyline: The scene transitions to the women's basketball team's victory celebration,...",
+          "shooting_style: This is a wide shot capturing the group celebration."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 120.788,
+            "end_s": 140.853,
+            "text": "We go 9-15, but we take third at state. We win big games down the stretch. They kind of got a feel for that, but they never stopped working. Adeline and Allie came in and shot for the last four weeks, five weeks they came in and shot and made 700 shots a week in the morning. They don't know how to stop working, and they had a goal, and they continue to work towards that goal, and they deserve everything. I'm very proud of them."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-1YjD_Epw9M",
+            "start_s": 120.0,
+            "end_s": 141.867,
+            "artifact_id": "clip_120_00_141_87",
+            "relpath": "artifacts/1YjD_Epw9M/clips/clip_120_00_141_87.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 0,
+    "observation_count": 0,
+    "counts_by_status": {},
+    "counts_by_tool": {},
+    "validated_evidence": [],
+    "recent_evidence": [],
+    "recent_observations": []
+  },
+  "artifact_context": {
+    "record_count": 0,
+    "counts_by_type": {},
+    "records": [],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 0,
+    "claims": []
+  }
+}

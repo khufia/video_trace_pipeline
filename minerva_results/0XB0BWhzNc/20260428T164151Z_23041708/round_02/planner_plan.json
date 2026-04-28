@@ -1,0 +1,89 @@
+{
+  "strategy": "Preserve the anchored end-of-third-quarter frames, verify the scoreboard directly from the retrieved frame sequence, then explicitly compare the grounded scoreline against the provided options to determine whether the options are inconsistent.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "generic_purpose",
+      "purpose": "Verify the answer-critical scoreboard reading from the retrieved end-of-third-quarter frame sequence and identify the exact score, quarter, clock, and leader from visual evidence rather than prior prose alone.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [
+          {
+            "video_id": "-0XB0BWhzNc",
+            "timestamp_s": 124.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_124.00",
+            "relpath": "artifacts/0XB0BWhzNc/frames/frame_124.00.png"
+          },
+          {
+            "video_id": "-0XB0BWhzNc",
+            "timestamp_s": 125.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_125.00",
+            "relpath": "artifacts/0XB0BWhzNc/frames/frame_125.00.png"
+          },
+          {
+            "video_id": "-0XB0BWhzNc",
+            "timestamp_s": 126.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_126.00",
+            "relpath": "artifacts/0XB0BWhzNc/frames/frame_126.00.png"
+          }
+        ],
+        "query": "Using these retrieved frames around the end of the third quarter, identify which frame clearly shows the completed scoreboard state for the end of the 3rd quarter, then extract the exact team names, both scores, the quarter indicator, the game clock, and who is leading. Ignore any answer options for this step.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "verified scoreboard reading at the end of the third quarter",
+        "supporting_points": "explicit visual observations for score, quarter, clock, and leader",
+        "analysis": "which frame is the stable end-of-quarter display and any residual uncertainty"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Map the verified scoreboard reading to the multiple-choice options and determine whether any option matches or whether the option set is inconsistent with the grounded evidence.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [
+          "ev_01_dfa19275"
+        ],
+        "frames": [],
+        "query": "Given the verified scoreboard reading from the prior step and these answer options: A. 55 to 40, Bristol Central leading. B. 52 to 52, tied. C. 55 to 40, East Catholic leading. D. 64 to 32, Bristol Central leading. E. 64 to 32, East Catholic leading. Determine whether any option exactly matches the grounded scoreline and leader. If none matches, state that the options are inconsistent with the visual evidence and identify the closest partial match only as a mismatch note, not as a selected correct option.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": {
+        "text_contexts": [
+          {
+            "step_id": 1,
+            "field_path": "analysis"
+          },
+          {
+            "step_id": 1,
+            "field_path": "answer"
+          },
+          {
+            "step_id": 1,
+            "field_path": "supporting_points"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "option match result or explicit statement that no provided option matches",
+        "supporting_points": "comparison of grounded scoreline against each relevant option",
+        "analysis": "final option-alignment reasoning for the trace"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the existing anchor that the relevant display is the end of the 3rd quarter around 124-126s, but replace unsupported reliance on prior provisional prose with direct verification from the retrieved frames. In the trace, first state the visually verified scoreboard facts: quarter, clock, both team scores, and leader. Then compare those facts against the listed options exactly. Do not force-pick an option if none matches the grounded scoreline. If step 2 confirms no exact match, the trace should explicitly say the task data/options are inconsistent with the visual evidence and keep the final answer unresolved rather than inventing a best fit."
+}

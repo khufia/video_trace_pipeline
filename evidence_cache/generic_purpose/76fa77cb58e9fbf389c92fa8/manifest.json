@@ -1,0 +1,255 @@
+{
+  "tool_name": "generic_purpose",
+  "request_hash": "76fa77cb58e9fbf389c92fa8",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "generic_purpose",
+    "query": "Which retrieved interval actually shows a child going down a slide with an accompanying character? For each candidate, state whether sliding is visible, whether the character is accompanying the child down the slide, identify the character using only these options {Donald Duck, Daisy, Goofy, Mickey Mouse, Pluto}, reject non-matching or non-slide scenes, and output the single best-supported option if one interval clearly matches.",
+    "clips": [
+      {
+        "video_id": "9u2I5D55tfU",
+        "start_s": 62.0,
+        "end_s": 64.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "9u2I5D55tfU",
+        "start_s": 215.0,
+        "end_s": 218.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "9u2I5D55tfU",
+        "start_s": 273.0,
+        "end_s": 275.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "frames": [
+      {
+        "video_id": "9u2I5D55tfU",
+        "timestamp_s": 62.0,
+        "artifact_id": "frame_62.00",
+        "relpath": "artifacts/9u2I5D55tfU/frames/frame_62.00.png",
+        "clip": {
+          "video_id": "9u2I5D55tfU",
+          "start_s": 62.0,
+          "end_s": 64.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.142134889960289,
+          "device": "cuda:1",
+          "clip_start_s": 62.0,
+          "clip_end_s": 64.0,
+          "frame_pool_start_s": 62.0,
+          "frame_pool_end_s": 64.0,
+          "temporal_score": 0.142134889960289,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 63.0,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "9u2I5D55tfU",
+        "timestamp_s": 63.0,
+        "artifact_id": "frame_63.00",
+        "relpath": "artifacts/9u2I5D55tfU/frames/frame_63.00.png",
+        "clip": {
+          "video_id": "9u2I5D55tfU",
+          "start_s": 62.0,
+          "end_s": 64.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.1368514746427536,
+          "device": "cuda:1",
+          "clip_start_s": 62.0,
+          "clip_end_s": 64.0,
+          "frame_pool_start_s": 62.0,
+          "frame_pool_end_s": 64.0,
+          "temporal_score": 0.1368514746427536,
+          "anchor_distance_s": 0.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 63.0,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "9u2I5D55tfU",
+        "timestamp_s": 64.0,
+        "artifact_id": "frame_64.00",
+        "relpath": "artifacts/9u2I5D55tfU/frames/frame_64.00.png",
+        "clip": {
+          "video_id": "9u2I5D55tfU",
+          "start_s": 62.0,
+          "end_s": 64.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.6158079504966736,
+          "device": "cuda:1",
+          "clip_start_s": 62.0,
+          "clip_end_s": 64.0,
+          "frame_pool_start_s": 62.0,
+          "frame_pool_end_s": 64.0,
+          "temporal_score": 0.6158079504966736,
+          "anchor_distance_s": 1.0,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 63.0,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 2,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "9u2I5D55tfU",
+        "timestamp_s": 215.0,
+        "artifact_id": "frame_215.00",
+        "relpath": "artifacts/9u2I5D55tfU/frames/frame_215.00.png",
+        "clip": {
+          "video_id": "9u2I5D55tfU",
+          "start_s": 215.0,
+          "end_s": 218.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.28722792863845825,
+          "device": "cuda:1",
+          "clip_start_s": 215.0,
+          "clip_end_s": 218.0,
+          "frame_pool_start_s": 215.0,
+          "frame_pool_end_s": 218.0,
+          "temporal_score": 0.28722792863845825,
+          "anchor_distance_s": 1.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 216.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "9u2I5D55tfU",
+        "timestamp_s": 216.0,
+        "artifact_id": "frame_216.00",
+        "relpath": "artifacts/9u2I5D55tfU/frames/frame_216.00.png",
+        "clip": {
+          "video_id": "9u2I5D55tfU",
+          "start_s": 215.0,
+          "end_s": 218.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.3858475089073181,
+          "device": "cuda:1",
+          "clip_start_s": 215.0,
+          "clip_end_s": 218.0,
+          "frame_pool_start_s": 215.0,
+          "frame_pool_end_s": 218.0,
+          "temporal_score": 0.3858475089073181,
+          "anchor_distance_s": 0.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 216.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "9u2I5D55tfU",
+        "timestamp_s": 217.0,
+        "artifact_id": "frame_217.00",
+        "relpath": "artifacts/9u2I5D55tfU/frames/frame_217.00.png",
+        "clip": {
+          "video_id": "9u2I5D55tfU",
+          "start_s": 215.0,
+          "end_s": 218.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.1082879826426506,
+          "device": "cuda:1",
+          "clip_start_s": 215.0,
+          "clip_end_s": 218.0,
+          "frame_pool_start_s": 215.0,
+          "frame_pool_end_s": 218.0,
+          "temporal_score": 0.1082879826426506,
+          "anchor_distance_s": 0.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 216.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 2,
+          "sequence_sort_order": "chronological"
+        }
+      }
+    ],
+    "transcripts": [],
+    "text_contexts": [
+      "These frames are a chronological sequence centered on timestamp 63s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 1.5s. Frame timestamps in this sequence: 62s, 63s, 64s, 215s, 216s, 217s."
+    ],
+    "evidence_ids": []
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "tool_name": "generic_purpose",
+  "query": "Using the exact 01:20-01:25 frames and OCR, identify every distinct visible item that has a visible price point during this interval. For each item, extract the item name and exact price, deduplicate the same item across multiple frames, exclude anything without a visible price in this interval, compute the total cost, and state which option matches.",
+  "clips": [
+    {
+      "video_id": "7eF4EjdYZ7k",
+      "start_s": 80.0,
+      "end_s": 85.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {}
+    }
+  ],
+  "frames": [
+    {
+      "video_id": "7eF4EjdYZ7k",
+      "timestamp_s": 78.0,
+      "artifact_id": "frame_78.00",
+      "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_78.00.png",
+      "clip": {
+        "video_id": "7eF4EjdYZ7k",
+        "start_s": 80.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/7eF4EjdYZ7k/dense_frames/7eF4EjdYZ7k/frame_78.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 80.0,
+        "clip_end_s": 85.0,
+        "frame_pool_start_s": 78.0,
+        "frame_pool_end_s": 87.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 80.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 0,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "7eF4EjdYZ7k",
+      "timestamp_s": 79.0,
+      "artifact_id": "frame_79.00",
+      "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_79.00.png",
+      "clip": {
+        "video_id": "7eF4EjdYZ7k",
+        "start_s": 80.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/7eF4EjdYZ7k/dense_frames/7eF4EjdYZ7k/frame_79.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 80.0,
+        "clip_end_s": 85.0,
+        "frame_pool_start_s": 78.0,
+        "frame_pool_end_s": 87.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 80.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "before",
+        "sequence_index": 1,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "7eF4EjdYZ7k",
+      "timestamp_s": 80.0,
+      "artifact_id": "frame_80.00",
+      "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_80.00.png",
+      "clip": {
+        "video_id": "7eF4EjdYZ7k",
+        "start_s": 80.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/7eF4EjdYZ7k/dense_frames/7eF4EjdYZ7k/frame_80.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 80.0,
+        "clip_end_s": 85.0,
+        "frame_pool_start_s": 78.0,
+        "frame_pool_end_s": 87.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 0.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 80.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "anchor",
+        "sequence_index": 2,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "7eF4EjdYZ7k",
+      "timestamp_s": 81.0,
+      "artifact_id": "frame_81.00",
+      "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+      "clip": {
+        "video_id": "7eF4EjdYZ7k",
+        "start_s": 80.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/7eF4EjdYZ7k/dense_frames/7eF4EjdYZ7k/frame_81.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 80.0,
+        "clip_end_s": 85.0,
+        "frame_pool_start_s": 78.0,
+        "frame_pool_end_s": 87.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 1.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 80.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "after",
+        "sequence_index": 3,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "7eF4EjdYZ7k",
+      "timestamp_s": 82.0,
+      "artifact_id": "frame_82.00",
+      "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+      "clip": {
+        "video_id": "7eF4EjdYZ7k",
+        "start_s": 80.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/7eF4EjdYZ7k/dense_frames/7eF4EjdYZ7k/frame_82.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 80.0,
+        "clip_end_s": 85.0,
+        "frame_pool_start_s": 78.0,
+        "frame_pool_end_s": 87.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 80.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "after",
+        "sequence_index": 4,
+        "sequence_sort_order": "chronological"
+      }
+    },
+    {
+      "video_id": "7eF4EjdYZ7k",
+      "timestamp_s": 83.0,
+      "artifact_id": "frame_83.00",
+      "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_83.00.png",
+      "clip": {
+        "video_id": "7eF4EjdYZ7k",
+        "start_s": 80.0,
+        "end_s": 85.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      "metadata": {
+        "source_path": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/workspace/cache/tool_wrappers/reference/7eF4EjdYZ7k/dense_frames/7eF4EjdYZ7k/frame_83.00.png",
+        "relevance_score": 0.0,
+        "device": "cuda:1",
+        "clip_start_s": 80.0,
+        "clip_end_s": 85.0,
+        "frame_pool_start_s": 78.0,
+        "frame_pool_end_s": 87.0,
+        "temporal_score": 0.0,
+        "anchor_distance_s": 2.0,
+        "selection_reason": "anchor_window_sequence",
+        "requested_timestamp_s": 81.0,
+        "neighbor_radius_s": 2.0,
+        "sequence_mode": "anchor_window",
+        "sequence_role": "after",
+        "sequence_index": 5,
+        "sequence_sort_order": "chronological"
+      }
+    }
+  ],
+  "transcripts": [],
+  "text_contexts": [
+    "See reporting\nManage contient\nHome\nRepairs\nO\nUpdate background photo\nEveryday Home Repairs\nc\nquick refferertces to all of our recommended toaols that have served uis well ovnwr the years\nMy earnse is Scortt and welicomnne to dur Evieryday Hore Repairs Amazon Stone. Belcw you wsill fland\nAdiea Lisits\nVideos\nLvestratarns\nasi fs all 2.2 po\nSearch\n\nEveryday Home Repairs\nG\nMy rurne is Scatt and welicome to our Everydiay Horne Repairs Aunazorn Store. Below ytu will find\nces to all of our recormmtended tools that have served us well over the years.\nIidea Lists\nVidecs\nLivestreams\nQ Search ail 72 ports\nSeanch\n12MEM\nTIOM\nLaciUp Pomer\nflectriead\nNAITEMS\nSOTEMS\n17ITPMS\n20 ITEMS\nGenterai Teals\nYouTube Gear\nlumbing (Shaurkbite)\n\nEveryday Home Repairs\nG\nMy rurne is Scatt and welicome to our Everydiay Horne Repairs Aurnazorn Store. Below ytu will find\nces to all of our recornmtended tools that have served us well over the years.\nIidea Lists\nVidecs\nLivestreams\nQ Search ail 72 ports\nSeanch\n4\n12TEM\nTITMS\nBackUp Pomer\nBlinds And Wie\nflactrical\nNATEMS\nSOTEMS\n1ITPMS\n20 ITTMS\nGenteral Teals\nnibing (General)\nLOORLNTTWSTHAET\n\nPet Supplies\nShop By Iinterent\nHeatth & Housnthold\nFind a Gift\nHaredasadia\nLivestream\nEveryday Home Repairs\nc\nGeneral Supplies\nDixie\nSwpeet\nA AIRTITE\nGE\nSlime\nITW Brands 25316 50PK#50\nSwpeet Assorted 24 Pcs\nAirTite - Preserves Open\nGE Ms0016 Supreme\nSlime Tire Repair Kit Delucee\nStud Dry Anchor\nTogglie Bolt and Wing Nut\nCaulking Tubes\nSilicone Window & Door..\n1612\n1192\n$11s\n181\n$171\nFaest delivery Tuenday, June 20 or\ny Tunndiary, June 20on\ns.0n\nFREE de\nouer $25\nNordic Pure\n\nAmaron Basics\nPet Supplies\nBeauity & Personal Cars\nCoupons\nShep By Interent\nHealth & Household\nFind a Gih\nHandrade\nLivestream\nEveryday Home Repairs\nG\n:\n13 eTEMS × Updated today\nGeneral Supplies\nDiaxie\nSwpeet\nA AIRTITE\nGE\nSlime\nITW Brands 25316 5OPKASO\nSwpeet Assorted 24 Pcs\nAirTite - Preserves Open\nGE Ms0016 Supreme\nSlime Tire Repair Kit Deluxe\nStud Dry Anchor\nToggle Bolt and Wing Nut\nCaulking Tubes\n181\nSilicone Window & Door...\n$171\n1612\n1192\n$11%\nFaest delivery Tuesday, June 20 or\ny Tunndiary, June 20on\never 521\ns.an\nFREE de\nNordic Pure\n\nHomse Irprovermnent\nFind a Gfh\niestrean",
+    "These frames are a chronological sequence centered on timestamp 80s. Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive. The requested neighbor radius is 2s. Frame timestamps in this sequence: 78s, 79s, 80s, 81s, 82s, 83s."
+  ],
+  "evidence_ids": []
+}

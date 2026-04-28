@@ -1,0 +1,58 @@
+{
+  "strategy": "Verify the exact visual action at the 00:06 timestamp with a local chronological frame window, then map it to the options.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve the anchor frame at 00:06 plus nearby chronological context so the man's exact action is visually grounded rather than inferred from summary text.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "5-otljNyRmQ",
+            "start_s": 0.0,
+            "end_s": 12.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/5-otljNyRmQ/clips/clip_000_00_060_00.mp4",
+            "metadata": {
+              "source": "preprocess_seg_001"
+            }
+          }
+        ],
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 2.0,
+        "num_frames": 5,
+        "query": "man at 00:06 and what he is doing; include object/action context such as dartboard, beer can, cards, ping pong, garage activity",
+        "sequence_mode": "anchor_window",
+        "sort_order": "chronological",
+        "time_hints": [
+          "00:06"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological frame sequence centered on 00:06 showing the man's action"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Identify the man's action from the local frame sequence and choose the matching option, distinguishing primary action from incidental objects like a beer can or garage setting.",
+      "inputs": {
+        "query": "At 00:06, what is the man primarily doing? Use the chronological frames to determine the visible action and map it to exactly one option: A playing cards, B swilling beer, C tinkering in his garage, D playing ping pong, E playing darts."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "selected option for the man's action at 00:06",
+        "supporting_points": "brief visual evidence describing the action and why distractor options are not correct"
+      }
+    }
+  ],
+  "refinement_instructions": "Use the retrieved frame sequence as the primary evidence because this is an exact-timestamp action question. Treat preprocess dense captions and nearby transcript as context only; do not rely on them alone if the frames are unclear. In the trace, state the visible action at the anchor and note any incidental beer can or garage background separately so they are not mistaken for the main action."
+}

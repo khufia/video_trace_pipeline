@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "9u2I5D55tfU__d7bebf7ba80a",
+  "video_id": "9u2I5D55tfU",
+  "run_id": "20260428T185406Z_4b1872c8",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "9u2I5D55tfU__d7bebf7ba80a",
+    "question": "Which character accompanies a child down a slide?",
+    "options": [
+      "A. Donald Duck.",
+      "B. Daisy.",
+      "C. Goofy.",
+      "D. Mickey Mouse.",
+      "E. Pluto."
+    ],
+    "video_id": "9u2I5D55tfU",
+    "question_id": null,
+    "gold_answer": "Pluto.",
+    "initial_trace_steps": [
+      "I watched the video until 01:03 when the camera pointed to a slide with a child and a character on it. From 01:03 to 01:04, I observed that the character accompanying the child down the slide was Pluto. I watched the remainder of the video to confirm that this is the only instance of a character going down a slide."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/9u2I5D55tfU",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

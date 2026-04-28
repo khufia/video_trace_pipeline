@@ -1,0 +1,29 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "addc3e4b4c34e3b9f0904f94",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "-AY84ybskqI",
+        "start_s": 120.0,
+        "end_s": 129.0,
+        "artifact_id": "clip_120_00_172_27",
+        "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "120-125s woman in gray instructor teaching at Inner City Tennis",
+      "123-127s previously sampled sequence around toss/demo",
+      "count completed side steps and completed ball tosses by the woman in gray"
+    ],
+    "query": "chronological frames showing the woman in gray instructor's full demo motion, especially lateral side steps and each completed ball toss",
+    "num_frames": 12,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

@@ -1,0 +1,1356 @@
+{
+  "query_terms": [
+    "second",
+    "replay",
+    "black",
+    "team",
+    "first",
+    "scoring",
+    "shot",
+    "word",
+    "referee",
+    "skating",
+    "hues",
+    "hugo",
+    "yugo",
+    "rydell",
+    "wegos"
+  ],
+  "artifact_context": [
+    {
+      "artifact_id": "clip_240_00_300_00",
+      "artifact_type": "clip",
+      "relpath": "artifacts/0ZosUeqDg0/clips/clip_240_00_300_00.mp4",
+      "time": {
+        "clip": {
+          "start_s": 252.0,
+          "end_s": 262.0
+        }
+      },
+      "contains": [
+        "The context is the second replay of the black team's first scoring shot.",
+        "No referee skating on the ice is clearly visible in Image 1 in a way that shows a word under their skates.",
+        "The text context says the first replay angle is a high-angle shot.",
+        "The goal is to find a word the referee is skating on.",
+        "The text context says the second replay angle is a closer angle.",
+        "The scoreboard in Image 1 shows Minnesota 0.",
+        "The scoreboard in Image 1 shows North Dakota 2.",
+        "A man in Image 2 wears a black and green jersey.",
+        "Image 2 shows no referee on the ice.",
+        "Image 3 shows no referee on the ice.",
+        "The text context says the replay montage runs from about 252s to 262s.",
+        "The text context says the replay montage consists of three replay angles in order."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_f55eb74ec9fe8277",
+          "source_tool": "generic_purpose",
+          "text": "The context is the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_b2566d187172e680",
+          "source_tool": "generic_purpose",
+          "text": "No referee skating on the ice is clearly visible in Image 1 in a way that shows a word under their skates."
+        },
+        {
+          "observation_id": "obs_f6e3bb999e010715",
+          "source_tool": "generic_purpose",
+          "text": "The text context says the first replay angle is a high-angle shot."
+        },
+        {
+          "observation_id": "obs_c702c44d111f9740",
+          "source_tool": "generic_purpose",
+          "text": "The goal is to find a word the referee is skating on."
+        },
+        {
+          "observation_id": "obs_b2e54bd8d2aeaf7d",
+          "source_tool": "generic_purpose",
+          "text": "The text context says the second replay angle is a closer angle."
+        },
+        {
+          "observation_id": "obs_7dfa2c4f4c4d682e",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 does not show a referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_599eaecffba86000",
+          "source_tool": "generic_purpose",
+          "text": "In Image 1 and Image 2, the referee is skating on the ice."
+        },
+        {
+          "observation_id": "obs_aec279d001f025ff",
+          "source_tool": "generic_purpose",
+          "text": "The text near the referee's skates in Image 1 and Image 2 is 'VISION'."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_255.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_255.00.png",
+      "time": {
+        "timestamp_s": 255.0
+      },
+      "contains": [
+        "The context is the second replay of the black team's first scoring shot.",
+        "The goal is to find a word the referee is skating on.",
+        "Image 5 does not show a referee skating on the ice in the foreground.",
+        "In Image 1 and Image 2, the referee is skating on the ice.",
+        "The text near the referee's skates in Image 1 and Image 2 is 'VISION'.",
+        "A referee is in the bottom left corner in Image 1.",
+        "The boards behind the referee in Image 1 display 'PROSEED' vertically.",
+        "A referee is on the left in Image 2.",
+        "Referees are in the background in Image 3.",
+        "Referees are in the background in Image 4.",
+        "The provided images are not distinct replay angles in the traditional sense.",
+        "Frame 1 and Frame 2 show a referee on the left."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_63a3df14d1a40996",
+          "source_tool": "generic_purpose",
+          "text": "The word to identify is visible in the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_f55eb74ec9fe8277",
+          "source_tool": "generic_purpose",
+          "text": "The context is the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_c702c44d111f9740",
+          "source_tool": "generic_purpose",
+          "text": "The goal is to find a word the referee is skating on."
+        },
+        {
+          "observation_id": "obs_ceb026fadee6c0ea",
+          "source_tool": "generic_purpose",
+          "text": "The ice surface near the referee's skates in Image 1 has the word \"VISION\" visible."
+        },
+        {
+          "observation_id": "obs_7dfa2c4f4c4d682e",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 does not show a referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_599eaecffba86000",
+          "source_tool": "generic_purpose",
+          "text": "In Image 1 and Image 2, the referee is skating on the ice."
+        },
+        {
+          "observation_id": "obs_aec279d001f025ff",
+          "source_tool": "generic_purpose",
+          "text": "The text near the referee's skates in Image 1 and Image 2 is 'VISION'."
+        },
+        {
+          "observation_id": "obs_47b91992e59f48ea",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 shows a referee in the bottom left corner skating."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_e1e7f453",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 5 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_f909f855",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 5 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_256.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_256.00.png",
+      "time": {
+        "timestamp_s": 256.0
+      },
+      "contains": [
+        "The context is the second replay of the black team's first scoring shot.",
+        "The goal is to find a word the referee is skating on.",
+        "Image 5 does not show a referee skating on the ice in the foreground.",
+        "In Image 1 and Image 2, the referee is skating on the ice.",
+        "The text near the referee's skates in Image 1 and Image 2 is 'VISION'.",
+        "A referee is in the bottom left corner in Image 1.",
+        "The boards behind the referee in Image 1 display 'PROSEED' vertically.",
+        "A referee is on the left in Image 2.",
+        "Referees are in the background in Image 3.",
+        "Referees are in the background in Image 4.",
+        "The provided images are not distinct replay angles in the traditional sense.",
+        "Frame 1 and Frame 2 show a referee on the left."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_63a3df14d1a40996",
+          "source_tool": "generic_purpose",
+          "text": "The word to identify is visible in the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_f55eb74ec9fe8277",
+          "source_tool": "generic_purpose",
+          "text": "The context is the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_c702c44d111f9740",
+          "source_tool": "generic_purpose",
+          "text": "The goal is to find a word the referee is skating on."
+        },
+        {
+          "observation_id": "obs_ceb026fadee6c0ea",
+          "source_tool": "generic_purpose",
+          "text": "The ice surface near the referee's skates in Image 1 has the word \"VISION\" visible."
+        },
+        {
+          "observation_id": "obs_7dfa2c4f4c4d682e",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 does not show a referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_599eaecffba86000",
+          "source_tool": "generic_purpose",
+          "text": "In Image 1 and Image 2, the referee is skating on the ice."
+        },
+        {
+          "observation_id": "obs_aec279d001f025ff",
+          "source_tool": "generic_purpose",
+          "text": "The text near the referee's skates in Image 1 and Image 2 is 'VISION'."
+        },
+        {
+          "observation_id": "obs_47b91992e59f48ea",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 shows a referee in the bottom left corner skating."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_e1e7f453",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 5 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_f909f855",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 5 frame(s).",
+          "observation_texts": [
+            "PROSEED is located at [95.0, 187.5, 117.5, 347.5] in the frame."
+          ]
+        },
+        {
+          "evidence_id": "ev_03_3f0c6c00",
+          "tool_name": "ocr",
+          "summary": "No text detected."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_257.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_257.00.png",
+      "time": {
+        "timestamp_s": 257.0
+      },
+      "contains": [
+        "The context is the second replay of the black team's first scoring shot.",
+        "The goal is to find a word the referee is skating on.",
+        "Image 5 does not show a referee skating on the ice in the foreground.",
+        "In Image 1 and Image 2, the referee is skating on the ice.",
+        "The text near the referee's skates in Image 1 and Image 2 is 'VISION'.",
+        "A referee is in the bottom left corner in Image 1.",
+        "The boards behind the referee in Image 1 display 'PROSEED' vertically.",
+        "A referee is on the left in Image 2.",
+        "Referees are in the background in Image 3.",
+        "Referees are in the background in Image 4.",
+        "The provided images are not distinct replay angles in the traditional sense.",
+        "Frame 1 and Frame 2 show a referee on the left."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_63a3df14d1a40996",
+          "source_tool": "generic_purpose",
+          "text": "The word to identify is visible in the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_f55eb74ec9fe8277",
+          "source_tool": "generic_purpose",
+          "text": "The context is the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_c702c44d111f9740",
+          "source_tool": "generic_purpose",
+          "text": "The goal is to find a word the referee is skating on."
+        },
+        {
+          "observation_id": "obs_ceb026fadee6c0ea",
+          "source_tool": "generic_purpose",
+          "text": "The ice surface near the referee's skates in Image 1 has the word \"VISION\" visible."
+        },
+        {
+          "observation_id": "obs_7dfa2c4f4c4d682e",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 does not show a referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_599eaecffba86000",
+          "source_tool": "generic_purpose",
+          "text": "In Image 1 and Image 2, the referee is skating on the ice."
+        },
+        {
+          "observation_id": "obs_aec279d001f025ff",
+          "source_tool": "generic_purpose",
+          "text": "The text near the referee's skates in Image 1 and Image 2 is 'VISION'."
+        },
+        {
+          "observation_id": "obs_47b91992e59f48ea",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 shows a referee in the bottom left corner skating."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_e1e7f453",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 5 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_f909f855",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 5 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_258.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_258.00.png",
+      "time": {
+        "timestamp_s": 258.0
+      },
+      "contains": [
+        "The context is the second replay of the black team's first scoring shot.",
+        "The goal is to find a word the referee is skating on.",
+        "Image 5 does not show a referee skating on the ice in the foreground.",
+        "In Image 1 and Image 2, the referee is skating on the ice.",
+        "The text near the referee's skates in Image 1 and Image 2 is 'VISION'.",
+        "A referee is in the bottom left corner in Image 1.",
+        "The boards behind the referee in Image 1 display 'PROSEED' vertically.",
+        "A referee is on the left in Image 2.",
+        "Referees are in the background in Image 3.",
+        "Referees are in the background in Image 4.",
+        "The provided images are not distinct replay angles in the traditional sense.",
+        "Frame 1 and Frame 2 show a referee on the left."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_63a3df14d1a40996",
+          "source_tool": "generic_purpose",
+          "text": "The word to identify is visible in the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_f55eb74ec9fe8277",
+          "source_tool": "generic_purpose",
+          "text": "The context is the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_c702c44d111f9740",
+          "source_tool": "generic_purpose",
+          "text": "The goal is to find a word the referee is skating on."
+        },
+        {
+          "observation_id": "obs_ceb026fadee6c0ea",
+          "source_tool": "generic_purpose",
+          "text": "The ice surface near the referee's skates in Image 1 has the word \"VISION\" visible."
+        },
+        {
+          "observation_id": "obs_7dfa2c4f4c4d682e",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 does not show a referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_599eaecffba86000",
+          "source_tool": "generic_purpose",
+          "text": "In Image 1 and Image 2, the referee is skating on the ice."
+        },
+        {
+          "observation_id": "obs_aec279d001f025ff",
+          "source_tool": "generic_purpose",
+          "text": "The text near the referee's skates in Image 1 and Image 2 is 'VISION'."
+        },
+        {
+          "observation_id": "obs_47b91992e59f48ea",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 shows a referee in the bottom left corner skating."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_e1e7f453",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 5 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_f909f855",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 5 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_259.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_259.00.png",
+      "time": {
+        "timestamp_s": 259.0
+      },
+      "contains": [
+        "The context is the second replay of the black team's first scoring shot.",
+        "The goal is to find a word the referee is skating on.",
+        "Image 5 does not show a referee skating on the ice in the foreground.",
+        "In Image 1 and Image 2, the referee is skating on the ice.",
+        "The text near the referee's skates in Image 1 and Image 2 is 'VISION'.",
+        "A referee is in the bottom left corner in Image 1.",
+        "The boards behind the referee in Image 1 display 'PROSEED' vertically.",
+        "A referee is on the left in Image 2.",
+        "Referees are in the background in Image 3.",
+        "Referees are in the background in Image 4.",
+        "The provided images are not distinct replay angles in the traditional sense.",
+        "Frame 1 and Frame 2 show a referee on the left."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_63a3df14d1a40996",
+          "source_tool": "generic_purpose",
+          "text": "The word to identify is visible in the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_f55eb74ec9fe8277",
+          "source_tool": "generic_purpose",
+          "text": "The context is the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_c702c44d111f9740",
+          "source_tool": "generic_purpose",
+          "text": "The goal is to find a word the referee is skating on."
+        },
+        {
+          "observation_id": "obs_ceb026fadee6c0ea",
+          "source_tool": "generic_purpose",
+          "text": "The ice surface near the referee's skates in Image 1 has the word \"VISION\" visible."
+        },
+        {
+          "observation_id": "obs_7dfa2c4f4c4d682e",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 does not show a referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_599eaecffba86000",
+          "source_tool": "generic_purpose",
+          "text": "In Image 1 and Image 2, the referee is skating on the ice."
+        },
+        {
+          "observation_id": "obs_aec279d001f025ff",
+          "source_tool": "generic_purpose",
+          "text": "The text near the referee's skates in Image 1 and Image 2 is 'VISION'."
+        },
+        {
+          "observation_id": "obs_47b91992e59f48ea",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 shows a referee in the bottom left corner skating."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_e1e7f453",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 5 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_f909f855",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 5 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_260.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_260.00.png",
+      "time": {
+        "timestamp_s": 260.0
+      },
+      "contains": [
+        "The word to identify is visible in the second replay of the black team's first scoring shot.",
+        "No referee skating on the ice is clearly visible in Image 1 in a way that shows a word under their skates.",
+        "The text context says the first replay angle is a high-angle shot.",
+        "The text context says the second replay angle is a closer angle.",
+        "The scoreboard in Image 1 shows Minnesota 0.",
+        "The scoreboard in Image 1 shows North Dakota 2.",
+        "A man in Image 2 wears a black and green jersey.",
+        "Image 2 shows no referee on the ice.",
+        "Image 3 shows no referee on the ice.",
+        "The text context says the replay montage runs from about 252s to 262s.",
+        "The text context says the replay montage consists of three replay angles in order.",
+        "The text context says the third replay angle is a final replay from behind the glass."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_63a3df14d1a40996",
+          "source_tool": "generic_purpose",
+          "text": "The word to identify is visible in the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_b2566d187172e680",
+          "source_tool": "generic_purpose",
+          "text": "No referee skating on the ice is clearly visible in Image 1 in a way that shows a word under their skates."
+        },
+        {
+          "observation_id": "obs_f6e3bb999e010715",
+          "source_tool": "generic_purpose",
+          "text": "The text context says the first replay angle is a high-angle shot."
+        },
+        {
+          "observation_id": "obs_ceb026fadee6c0ea",
+          "source_tool": "generic_purpose",
+          "text": "The ice surface near the referee's skates in Image 1 has the word \"VISION\" visible."
+        },
+        {
+          "observation_id": "obs_b2e54bd8d2aeaf7d",
+          "source_tool": "generic_purpose",
+          "text": "The text context says the second replay angle is a closer angle."
+        },
+        {
+          "observation_id": "obs_47b91992e59f48ea",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 shows a referee in the bottom left corner skating."
+        },
+        {
+          "observation_id": "obs_28e2cdd9e1321ba6",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 has no referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_f06e6580cb12de2f",
+          "source_tool": "generic_purpose",
+          "text": "The first replay angle is a high-angle."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_cb76b6f6",
+          "tool_name": "frame_retriever",
+          "summary": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+        },
+        {
+          "evidence_id": "ev_03_f515ba55",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 3 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_261.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_261.00.png",
+      "time": {
+        "timestamp_s": 261.0
+      },
+      "contains": [
+        "The word to identify is visible in the second replay of the black team's first scoring shot.",
+        "No referee skating on the ice is clearly visible in Image 1 in a way that shows a word under their skates.",
+        "The text context says the first replay angle is a high-angle shot.",
+        "The text context says the second replay angle is a closer angle.",
+        "The scoreboard in Image 1 shows Minnesota 0.",
+        "The scoreboard in Image 1 shows North Dakota 2.",
+        "A man in Image 2 wears a black and green jersey.",
+        "Image 2 shows no referee on the ice.",
+        "Image 3 shows no referee on the ice.",
+        "The text context says the replay montage runs from about 252s to 262s.",
+        "The text context says the replay montage consists of three replay angles in order.",
+        "The text context says the third replay angle is a final replay from behind the glass."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_63a3df14d1a40996",
+          "source_tool": "generic_purpose",
+          "text": "The word to identify is visible in the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_b2566d187172e680",
+          "source_tool": "generic_purpose",
+          "text": "No referee skating on the ice is clearly visible in Image 1 in a way that shows a word under their skates."
+        },
+        {
+          "observation_id": "obs_f6e3bb999e010715",
+          "source_tool": "generic_purpose",
+          "text": "The text context says the first replay angle is a high-angle shot."
+        },
+        {
+          "observation_id": "obs_ceb026fadee6c0ea",
+          "source_tool": "generic_purpose",
+          "text": "The ice surface near the referee's skates in Image 1 has the word \"VISION\" visible."
+        },
+        {
+          "observation_id": "obs_b2e54bd8d2aeaf7d",
+          "source_tool": "generic_purpose",
+          "text": "The text context says the second replay angle is a closer angle."
+        },
+        {
+          "observation_id": "obs_47b91992e59f48ea",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 shows a referee in the bottom left corner skating."
+        },
+        {
+          "observation_id": "obs_28e2cdd9e1321ba6",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 has no referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_f06e6580cb12de2f",
+          "source_tool": "generic_purpose",
+          "text": "The first replay angle is a high-angle."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_cb76b6f6",
+          "tool_name": "frame_retriever",
+          "summary": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+        },
+        {
+          "evidence_id": "ev_03_f515ba55",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 3 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_262.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_262.00.png",
+      "time": {
+        "timestamp_s": 262.0
+      },
+      "contains": [
+        "The word to identify is visible in the second replay of the black team's first scoring shot.",
+        "No referee skating on the ice is clearly visible in Image 1 in a way that shows a word under their skates.",
+        "The text context says the first replay angle is a high-angle shot.",
+        "The text context says the second replay angle is a closer angle.",
+        "The scoreboard in Image 1 shows Minnesota 0.",
+        "The scoreboard in Image 1 shows North Dakota 2.",
+        "A man in Image 2 wears a black and green jersey.",
+        "Image 2 shows no referee on the ice.",
+        "Image 3 shows no referee on the ice.",
+        "The text context says the replay montage runs from about 252s to 262s.",
+        "The text context says the replay montage consists of three replay angles in order.",
+        "The text context says the third replay angle is a final replay from behind the glass."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_63a3df14d1a40996",
+          "source_tool": "generic_purpose",
+          "text": "The word to identify is visible in the second replay of the black team's first scoring shot."
+        },
+        {
+          "observation_id": "obs_b2566d187172e680",
+          "source_tool": "generic_purpose",
+          "text": "No referee skating on the ice is clearly visible in Image 1 in a way that shows a word under their skates."
+        },
+        {
+          "observation_id": "obs_f6e3bb999e010715",
+          "source_tool": "generic_purpose",
+          "text": "The text context says the first replay angle is a high-angle shot."
+        },
+        {
+          "observation_id": "obs_ceb026fadee6c0ea",
+          "source_tool": "generic_purpose",
+          "text": "The ice surface near the referee's skates in Image 1 has the word \"VISION\" visible."
+        },
+        {
+          "observation_id": "obs_b2e54bd8d2aeaf7d",
+          "source_tool": "generic_purpose",
+          "text": "The text context says the second replay angle is a closer angle."
+        },
+        {
+          "observation_id": "obs_47b91992e59f48ea",
+          "source_tool": "generic_purpose",
+          "text": "Image 1 shows a referee in the bottom left corner skating."
+        },
+        {
+          "observation_id": "obs_28e2cdd9e1321ba6",
+          "source_tool": "generic_purpose",
+          "text": "Image 5 has no referee skating on the ice in the foreground."
+        },
+        {
+          "observation_id": "obs_f06e6580cb12de2f",
+          "source_tool": "generic_purpose",
+          "text": "The first replay angle is a high-angle."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_01_cb76b6f6",
+          "tool_name": "frame_retriever",
+          "summary": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+        },
+        {
+          "evidence_id": "ev_03_f515ba55",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 3 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_52.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_52.00.png",
+      "time": {
+        "timestamp_s": 52.0
+      },
+      "contains": [
+        "Images 5-8 are described as the second replay or a different angle/replay sequence.",
+        "The first sequence shows the goal being scored.",
+        "The second sequence shows the same play from a different angle or a replay.",
+        "The referee is wearing a black and white striped shirt.",
+        "The referee is in the foreground in the second sequence.",
+        "Images 5-8 show a replay of the play.",
+        "The first sequence covers timestamp 52s-55s.",
+        "The second sequence covers timestamp 73s-76s.",
+        "A referee is visible in Images 5, 6, 7, and 8.",
+        "The referee is located at the bottom right corner in Images 5, 6, 7, and 8.",
+        "Image 5 shows the referee at the bottom right.",
+        "Image 6 shows the referee at the bottom right."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_ece827d615b1db9e",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 are described as the second replay or a different angle/replay sequence."
+        },
+        {
+          "observation_id": "obs_6bc7dd63f3da1e98",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence shows the goal being scored."
+        },
+        {
+          "observation_id": "obs_bfcd50e6aeb3296e",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence shows the same play from a different angle or a replay."
+        },
+        {
+          "observation_id": "obs_36eed87779c4432f",
+          "source_tool": "generic_purpose",
+          "text": "The referee is wearing a black and white striped shirt."
+        },
+        {
+          "observation_id": "obs_19e785c44e101f7c",
+          "source_tool": "generic_purpose",
+          "text": "The referee is in the foreground in the second sequence."
+        },
+        {
+          "observation_id": "obs_66f1fd8805332981",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 show a replay of the play."
+        },
+        {
+          "observation_id": "obs_e6459dcb3e6675d3",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence covers timestamp 52s-55s."
+        },
+        {
+          "observation_id": "obs_241c52984e81fba6",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence covers timestamp 73s-76s."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_02_44a63ac7",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 8 frame(s) across 3 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_03_89d46686",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 8 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_53.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_53.00.png",
+      "time": {
+        "timestamp_s": 53.0
+      },
+      "contains": [
+        "Images 5-8 are described as the second replay or a different angle/replay sequence.",
+        "The first sequence shows the goal being scored.",
+        "The second sequence shows the same play from a different angle or a replay.",
+        "The referee is wearing a black and white striped shirt.",
+        "The referee is in the foreground in the second sequence.",
+        "Images 5-8 show a replay of the play.",
+        "The first sequence covers timestamp 52s-55s.",
+        "The second sequence covers timestamp 73s-76s.",
+        "A referee is visible in Images 5, 6, 7, and 8.",
+        "The referee is located at the bottom right corner in Images 5, 6, 7, and 8.",
+        "Image 5 shows the referee at the bottom right.",
+        "Image 6 shows the referee at the bottom right."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_ece827d615b1db9e",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 are described as the second replay or a different angle/replay sequence."
+        },
+        {
+          "observation_id": "obs_6bc7dd63f3da1e98",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence shows the goal being scored."
+        },
+        {
+          "observation_id": "obs_bfcd50e6aeb3296e",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence shows the same play from a different angle or a replay."
+        },
+        {
+          "observation_id": "obs_36eed87779c4432f",
+          "source_tool": "generic_purpose",
+          "text": "The referee is wearing a black and white striped shirt."
+        },
+        {
+          "observation_id": "obs_19e785c44e101f7c",
+          "source_tool": "generic_purpose",
+          "text": "The referee is in the foreground in the second sequence."
+        },
+        {
+          "observation_id": "obs_66f1fd8805332981",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 show a replay of the play."
+        },
+        {
+          "observation_id": "obs_e6459dcb3e6675d3",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence covers timestamp 52s-55s."
+        },
+        {
+          "observation_id": "obs_241c52984e81fba6",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence covers timestamp 73s-76s."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_02_44a63ac7",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 8 frame(s) across 3 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_03_89d46686",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 8 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_54.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_54.00.png",
+      "time": {
+        "timestamp_s": 54.0
+      },
+      "contains": [
+        "Images 5-8 are described as the second replay or a different angle/replay sequence.",
+        "The first sequence shows the goal being scored.",
+        "The second sequence shows the same play from a different angle or a replay.",
+        "The referee is wearing a black and white striped shirt.",
+        "The referee is in the foreground in the second sequence.",
+        "Images 5-8 show a replay of the play.",
+        "The first sequence covers timestamp 52s-55s.",
+        "The second sequence covers timestamp 73s-76s.",
+        "A referee is visible in Images 5, 6, 7, and 8.",
+        "The referee is located at the bottom right corner in Images 5, 6, 7, and 8.",
+        "Image 5 shows the referee at the bottom right.",
+        "Image 6 shows the referee at the bottom right."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_ece827d615b1db9e",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 are described as the second replay or a different angle/replay sequence."
+        },
+        {
+          "observation_id": "obs_6bc7dd63f3da1e98",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence shows the goal being scored."
+        },
+        {
+          "observation_id": "obs_bfcd50e6aeb3296e",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence shows the same play from a different angle or a replay."
+        },
+        {
+          "observation_id": "obs_36eed87779c4432f",
+          "source_tool": "generic_purpose",
+          "text": "The referee is wearing a black and white striped shirt."
+        },
+        {
+          "observation_id": "obs_19e785c44e101f7c",
+          "source_tool": "generic_purpose",
+          "text": "The referee is in the foreground in the second sequence."
+        },
+        {
+          "observation_id": "obs_66f1fd8805332981",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 show a replay of the play."
+        },
+        {
+          "observation_id": "obs_e6459dcb3e6675d3",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence covers timestamp 52s-55s."
+        },
+        {
+          "observation_id": "obs_241c52984e81fba6",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence covers timestamp 73s-76s."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_02_44a63ac7",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 8 frame(s) across 3 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_03_89d46686",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 8 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_55.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_55.00.png",
+      "time": {
+        "timestamp_s": 55.0
+      },
+      "contains": [
+        "Images 5-8 are described as the second replay or a different angle/replay sequence.",
+        "The first sequence shows the goal being scored.",
+        "The second sequence shows the same play from a different angle or a replay.",
+        "The referee is wearing a black and white striped shirt.",
+        "The referee is in the foreground in the second sequence.",
+        "Images 5-8 show a replay of the play.",
+        "The first sequence covers timestamp 52s-55s.",
+        "The second sequence covers timestamp 73s-76s.",
+        "A referee is visible in Images 5, 6, 7, and 8.",
+        "The referee is located at the bottom right corner in Images 5, 6, 7, and 8.",
+        "Image 5 shows the referee at the bottom right.",
+        "Image 6 shows the referee at the bottom right."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_ece827d615b1db9e",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 are described as the second replay or a different angle/replay sequence."
+        },
+        {
+          "observation_id": "obs_6bc7dd63f3da1e98",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence shows the goal being scored."
+        },
+        {
+          "observation_id": "obs_bfcd50e6aeb3296e",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence shows the same play from a different angle or a replay."
+        },
+        {
+          "observation_id": "obs_36eed87779c4432f",
+          "source_tool": "generic_purpose",
+          "text": "The referee is wearing a black and white striped shirt."
+        },
+        {
+          "observation_id": "obs_19e785c44e101f7c",
+          "source_tool": "generic_purpose",
+          "text": "The referee is in the foreground in the second sequence."
+        },
+        {
+          "observation_id": "obs_66f1fd8805332981",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 show a replay of the play."
+        },
+        {
+          "observation_id": "obs_e6459dcb3e6675d3",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence covers timestamp 52s-55s."
+        },
+        {
+          "observation_id": "obs_241c52984e81fba6",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence covers timestamp 73s-76s."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_02_44a63ac7",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 8 frame(s) across 3 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_03_89d46686",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 8 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_73.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_73.00.png",
+      "time": {
+        "timestamp_s": 73.0
+      },
+      "contains": [
+        "Images 5-8 are described as the second replay or a different angle/replay sequence.",
+        "The first sequence shows the goal being scored.",
+        "The second sequence shows the same play from a different angle or a replay.",
+        "The referee is wearing a black and white striped shirt.",
+        "The referee is in the foreground in the second sequence.",
+        "Images 5-8 show a replay of the play.",
+        "The first sequence covers timestamp 52s-55s.",
+        "The second sequence covers timestamp 73s-76s.",
+        "A referee is visible in Images 5, 6, 7, and 8.",
+        "The referee is located at the bottom right corner in Images 5, 6, 7, and 8.",
+        "Image 5 shows the referee at the bottom right.",
+        "Image 6 shows the referee at the bottom right."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_ece827d615b1db9e",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 are described as the second replay or a different angle/replay sequence."
+        },
+        {
+          "observation_id": "obs_6bc7dd63f3da1e98",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence shows the goal being scored."
+        },
+        {
+          "observation_id": "obs_bfcd50e6aeb3296e",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence shows the same play from a different angle or a replay."
+        },
+        {
+          "observation_id": "obs_36eed87779c4432f",
+          "source_tool": "generic_purpose",
+          "text": "The referee is wearing a black and white striped shirt."
+        },
+        {
+          "observation_id": "obs_19e785c44e101f7c",
+          "source_tool": "generic_purpose",
+          "text": "The referee is in the foreground in the second sequence."
+        },
+        {
+          "observation_id": "obs_66f1fd8805332981",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 show a replay of the play."
+        },
+        {
+          "observation_id": "obs_e6459dcb3e6675d3",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence covers timestamp 52s-55s."
+        },
+        {
+          "observation_id": "obs_241c52984e81fba6",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence covers timestamp 73s-76s."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_02_44a63ac7",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 8 frame(s) across 3 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_03_89d46686",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 8 frame(s)."
+        },
+        {
+          "evidence_id": "ev_01_9b32650b",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 4 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_395744c1",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 4 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_74.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_74.00.png",
+      "time": {
+        "timestamp_s": 74.0
+      },
+      "contains": [
+        "Images 5-8 are described as the second replay or a different angle/replay sequence.",
+        "The first sequence shows the goal being scored.",
+        "The second sequence shows the same play from a different angle or a replay.",
+        "The referee is wearing a black and white striped shirt.",
+        "The referee is in the foreground in the second sequence.",
+        "Images 5-8 show a replay of the play.",
+        "The first sequence covers timestamp 52s-55s.",
+        "The second sequence covers timestamp 73s-76s.",
+        "A referee is visible in Images 5, 6, 7, and 8.",
+        "The referee is located at the bottom right corner in Images 5, 6, 7, and 8.",
+        "Image 5 shows the referee at the bottom right.",
+        "Image 6 shows the referee at the bottom right."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_ece827d615b1db9e",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 are described as the second replay or a different angle/replay sequence."
+        },
+        {
+          "observation_id": "obs_6bc7dd63f3da1e98",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence shows the goal being scored."
+        },
+        {
+          "observation_id": "obs_bfcd50e6aeb3296e",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence shows the same play from a different angle or a replay."
+        },
+        {
+          "observation_id": "obs_36eed87779c4432f",
+          "source_tool": "generic_purpose",
+          "text": "The referee is wearing a black and white striped shirt."
+        },
+        {
+          "observation_id": "obs_19e785c44e101f7c",
+          "source_tool": "generic_purpose",
+          "text": "The referee is in the foreground in the second sequence."
+        },
+        {
+          "observation_id": "obs_66f1fd8805332981",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 show a replay of the play."
+        },
+        {
+          "observation_id": "obs_e6459dcb3e6675d3",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence covers timestamp 52s-55s."
+        },
+        {
+          "observation_id": "obs_241c52984e81fba6",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence covers timestamp 73s-76s."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_02_44a63ac7",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 8 frame(s) across 3 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_03_89d46686",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 8 frame(s)."
+        },
+        {
+          "evidence_id": "ev_01_9b32650b",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 4 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_395744c1",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 4 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_75.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_75.00.png",
+      "time": {
+        "timestamp_s": 75.0
+      },
+      "contains": [
+        "Images 5-8 are described as the second replay or a different angle/replay sequence.",
+        "The first sequence shows the goal being scored.",
+        "The second sequence shows the same play from a different angle or a replay.",
+        "The referee is wearing a black and white striped shirt.",
+        "The referee is in the foreground in the second sequence.",
+        "Images 5-8 show a replay of the play.",
+        "The first sequence covers timestamp 52s-55s.",
+        "The second sequence covers timestamp 73s-76s.",
+        "A referee is visible in Images 5, 6, 7, and 8.",
+        "The referee is located at the bottom right corner in Images 5, 6, 7, and 8.",
+        "Image 5 shows the referee at the bottom right.",
+        "Image 6 shows the referee at the bottom right."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_ece827d615b1db9e",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 are described as the second replay or a different angle/replay sequence."
+        },
+        {
+          "observation_id": "obs_6bc7dd63f3da1e98",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence shows the goal being scored."
+        },
+        {
+          "observation_id": "obs_bfcd50e6aeb3296e",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence shows the same play from a different angle or a replay."
+        },
+        {
+          "observation_id": "obs_36eed87779c4432f",
+          "source_tool": "generic_purpose",
+          "text": "The referee is wearing a black and white striped shirt."
+        },
+        {
+          "observation_id": "obs_19e785c44e101f7c",
+          "source_tool": "generic_purpose",
+          "text": "The referee is in the foreground in the second sequence."
+        },
+        {
+          "observation_id": "obs_66f1fd8805332981",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 show a replay of the play."
+        },
+        {
+          "observation_id": "obs_e6459dcb3e6675d3",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence covers timestamp 52s-55s."
+        },
+        {
+          "observation_id": "obs_241c52984e81fba6",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence covers timestamp 73s-76s."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_02_44a63ac7",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 8 frame(s) across 3 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_03_89d46686",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 8 frame(s)."
+        },
+        {
+          "evidence_id": "ev_01_9b32650b",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 4 frame(s) across 1 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_02_395744c1",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 4 frame(s)."
+        }
+      ]
+    },
+    {
+      "artifact_id": "frame_76.00",
+      "artifact_type": "frame",
+      "relpath": "artifacts/0ZosUeqDg0/frames/frame_76.00.png",
+      "time": {
+        "timestamp_s": 76.0
+      },
+      "contains": [
+        "Images 5-8 are described as the second replay or a different angle/replay sequence.",
+        "The first sequence shows the goal being scored.",
+        "The second sequence shows the same play from a different angle or a replay.",
+        "The referee is wearing a black and white striped shirt.",
+        "The referee is in the foreground in the second sequence.",
+        "referee is located at [187.5, 105.5, 246.0, 325.0] in the frame.",
+        "word on the ice is located at [78.66666666666667, 302.0, 104.0, 322.3333333333333] in the frame.",
+        "Images 5-8 show a replay of the play.",
+        "The first sequence covers timestamp 52s-55s.",
+        "The second sequence covers timestamp 73s-76s.",
+        "A referee is visible in Images 5, 6, 7, and 8.",
+        "The referee is located at the bottom right corner in Images 5, 6, 7, and 8."
+      ],
+      "linked_observations": [
+        {
+          "observation_id": "obs_ece827d615b1db9e",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 are described as the second replay or a different angle/replay sequence."
+        },
+        {
+          "observation_id": "obs_6bc7dd63f3da1e98",
+          "source_tool": "generic_purpose",
+          "text": "The first sequence shows the goal being scored."
+        },
+        {
+          "observation_id": "obs_bfcd50e6aeb3296e",
+          "source_tool": "generic_purpose",
+          "text": "The second sequence shows the same play from a different angle or a replay."
+        },
+        {
+          "observation_id": "obs_36eed87779c4432f",
+          "source_tool": "generic_purpose",
+          "text": "The referee is wearing a black and white striped shirt."
+        },
+        {
+          "observation_id": "obs_19e785c44e101f7c",
+          "source_tool": "generic_purpose",
+          "text": "The referee is in the foreground in the second sequence."
+        },
+        {
+          "observation_id": "obs_2903271b10d118d9",
+          "source_tool": "spatial_grounder",
+          "text": "referee is located at [187.5, 105.5, 246.0, 325.0] in the frame."
+        },
+        {
+          "observation_id": "obs_d0b06bcbb808475d",
+          "source_tool": "spatial_grounder",
+          "text": "word on the ice is located at [78.66666666666667, 302.0, 104.0, 322.3333333333333] in the frame."
+        },
+        {
+          "observation_id": "obs_66f1fd8805332981",
+          "source_tool": "generic_purpose",
+          "text": "Images 5-8 show a replay of the play."
+        }
+      ],
+      "linked_evidence": [
+        {
+          "evidence_id": "ev_02_44a63ac7",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 8 frame(s) across 3 input clip(s)."
+        },
+        {
+          "evidence_id": "ev_03_89d46686",
+          "tool_name": "spatial_grounder",
+          "summary": "Spatial grounding completed for 8 frame(s).",
+          "observation_texts": [
+            "referee is located at [187.5, 105.5, 246.0, 325.0] in the frame.",
+            "word on the ice is located at [78.66666666666667, 302.0, 104.0, 322.3333333333333] in the frame."
+          ]
+        },
+        {
+          "evidence_id": "ev_04_fbee1643",
+          "tool_name": "ocr",
+          "summary": "OCR completed for 2 input item(s)."
+        },
+        {
+          "evidence_id": "ev_01_9b32650b",
+          "tool_name": "frame_retriever",
+          "summary": "Retrieved 4 frame(s) across 1 input clip(s)."
+        }
+      ]
+    }
+  ]
+}

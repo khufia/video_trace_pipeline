@@ -1,0 +1,616 @@
+{
+  "task_key": "7eF4EjdYZ7k__caebc0240ec6",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_36a8c315",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved frames at 78s, 79s, 80s, 81s, 82s, and 83s, covering the queried 01:20-01:25 interval.",
+      "inference_hint": null,
+      "confidence": 1.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 78.0,
+          "end_s": 83.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_78.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_78.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_78.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 175492
+          }
+        },
+        {
+          "artifact_id": "frame_79.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_79.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_79.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178228
+          }
+        },
+        {
+          "artifact_id": "frame_80.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_80.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_80.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178194
+          }
+        },
+        {
+          "artifact_id": "frame_81.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_81.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155592
+          }
+        },
+        {
+          "artifact_id": "frame_82.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_82.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155665
+          }
+        },
+        {
+          "artifact_id": "frame_83.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_83.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_83.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 37551
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_302cfb4962ac51d5",
+        "obs_4337c86f187e84ea",
+        "obs_5a352361a912769a",
+        "obs_278c36f225bce6e7",
+        "obs_ff5d696b5929a020",
+        "obs_56c5a979106fc7ef"
+      ],
+      "metadata": {
+        "request_hash": "36a8c3152a1d74d799f78a1b",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_interval_content",
+      "tool_name": "ocr",
+      "evidence_text": "Frames at 78s-80s show the Everyday Home Repairs page without OCR-grounded item prices. Frames at 81s-82s show a General Supplies product grid with visible item names and price-like OCR fragments. Frame 83s no longer shows the same priced grid.",
+      "inference_hint": null,
+      "confidence": 0.82,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 78.0,
+          "end_s": 80.0
+        },
+        {
+          "start_s": 81.0,
+          "end_s": 82.0
+        },
+        {
+          "start_s": 83.0,
+          "end_s": 83.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_78.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_78.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_78.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 175492
+          }
+        },
+        {
+          "artifact_id": "frame_79.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_79.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_79.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178228
+          }
+        },
+        {
+          "artifact_id": "frame_80.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_80.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_80.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 178194
+          }
+        },
+        {
+          "artifact_id": "frame_81.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_81.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155592
+          }
+        },
+        {
+          "artifact_id": "frame_82.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_82.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155665
+          }
+        },
+        {
+          "artifact_id": "frame_83.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_83.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_83.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 37551
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_83f87890f5f1eba2",
+        "obs_34bc8c26143ce290",
+        "obs_dd5c27eb5ced5d2a",
+        "obs_090c272d83b6056f",
+        "obs_9d7da000099ee31b",
+        "obs_79cac953469dc16b",
+        "obs_4cdb422cdf65f1ce"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_03_distinct_items",
+      "tool_name": "ocr",
+      "evidence_text": "Within the 81s-82s product-grid view, the visible top-row item names are Dixie / ITW Brands 25316 50PK#50 Stud Dry Anchor, Swpeet Assorted 24 Pcs Toggle Bolt and Wing Nut, A AIRTITE / AirTite - Preserves Open Caulking Tubes, GE MS0016 Supreme Silicone Window & Door..., and Slime Tire Repair Kit Deluxe. Bottom-row cards such as Nordic Pure / YouTube Gear / Plumbing are visible elsewhere in the broader store pages, but no exact visible price is grounded for them in the 81s-82s priced grid evidence used here.",
+      "inference_hint": null,
+      "confidence": 0.76,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 81.0,
+          "end_s": 82.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_81.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_81.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155592
+          }
+        },
+        {
+          "artifact_id": "frame_82.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_82.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155665
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_fd985431ab6c856a",
+        "obs_1b2dd7c1bc2626bc",
+        "obs_b41efcb2500a3dc7",
+        "obs_7a70b4179eacf6b5",
+        "obs_50a9fc35fbeec3d2",
+        "obs_f88854d415885fe5",
+        "obs_ebfacf70082096c5",
+        "obs_aeddee69cab95d29",
+        "obs_5f9b90dd52397887",
+        "obs_70ce11cd559c3617",
+        "obs_f0a77a43eda0eab1",
+        "obs_e202d8afce9e41d7",
+        "obs_c7f0e256e3f5a1ea",
+        "obs_741f83f85ec1f144",
+        "obs_cdb84f0df5501448",
+        "obs_9f72471c0d2cb582",
+        "obs_03bda6ffa5288ee2",
+        "obs_f3e1d2c03ee6cda9",
+        "obs_d2e456c11b9f618f",
+        "obs_decda9c9c5bad288",
+        "obs_1747fec2482e76f5"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_04_price_fragments",
+      "tool_name": "ocr",
+      "evidence_text": "The only OCR-grounded price-like strings visible in the 81s-82s grid are ambiguous fragments rather than exact full prices: \"$171\" appears in both 81s and 82s, \"1192\" appears in both 81s and 82s, and \"1612\" appears in both 81s and 82s. These fragments do not by themselves establish exact dollar-and-cent values or exact item-to-price pairings for every counted card.",
+      "inference_hint": null,
+      "confidence": 0.86,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 81.0,
+          "end_s": 82.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_81.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_81.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155592
+          }
+        },
+        {
+          "artifact_id": "frame_82.00",
+          "kind": "frame",
+          "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png",
+          "media_type": "image",
+          "source_tool": "ocr",
+          "metadata": {
+            "source_name": "frame_82.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 155665
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_b8c22bd5a4369b8f",
+        "obs_9abb88042e6be5e6",
+        "obs_0eb7ff6c2364e930",
+        "obs_774e2e4616012d43",
+        "obs_e82e7f0d9064cc45",
+        "obs_baaa9ad1ae1d5827"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "Chronologically, the queried interval is covered by frames at 78s, 79s, 80s, 81s, 82s, and 83s.",
+      "supporting_observation_ids": [
+        "obs_302cfb4962ac51d5",
+        "obs_4337c86f187e84ea",
+        "obs_5a352361a912769a",
+        "obs_278c36f225bce6e7",
+        "obs_ff5d696b5929a020",
+        "obs_56c5a979106fc7ef"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 78.0,
+          "end_s": 83.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "Frames at 78s-80s show the Everyday Home Repairs page rather than the priced product grid, so they do not contribute item prices to the requested total. Frame 83s no longer shows that same priced grid either.",
+      "supporting_observation_ids": [
+        "obs_83f87890f5f1eba2",
+        "obs_34bc8c26143ce290",
+        "obs_dd5c27eb5ced5d2a",
+        "obs_4cdb422cdf65f1ce"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 78.0,
+          "end_s": 80.0
+        },
+        {
+          "start_s": 83.0,
+          "end_s": 83.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "The relevant priced-grid view is at 81s-82s, where the screen shows the General Supplies section and five visible top-row product cards: Dixie / ITW Brands 25316 50PK#50 Stud Dry Anchor; Swpeet Assorted 24 Pcs Toggle Bolt and Wing Nut; A AIRTITE / AirTite - Preserves Open Caulking Tubes; GE MS0016 Supreme Silicone Window & Door...; and Slime Tire Repair Kit Deluxe.",
+      "supporting_observation_ids": [
+        "obs_090c272d83b6056f",
+        "obs_9d7da000099ee31b",
+        "obs_fd985431ab6c856a",
+        "obs_1b2dd7c1bc2626bc",
+        "obs_b41efcb2500a3dc7",
+        "obs_7a70b4179eacf6b5",
+        "obs_50a9fc35fbeec3d2",
+        "obs_f88854d415885fe5",
+        "obs_ebfacf70082096c5",
+        "obs_aeddee69cab95d29",
+        "obs_5f9b90dd52397887",
+        "obs_70ce11cd559c3617",
+        "obs_f0a77a43eda0eab1",
+        "obs_e202d8afce9e41d7",
+        "obs_c7f0e256e3f5a1ea",
+        "obs_741f83f85ec1f144",
+        "obs_cdb84f0df5501448",
+        "obs_d2e456c11b9f618f",
+        "obs_decda9c9c5bad288",
+        "obs_1747fec2482e76f5"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 81.0,
+          "end_s": 82.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "However, the OCR-grounded price evidence in that 81s-82s grid is limited to ambiguous fragments: \"$171\", \"1192\", and \"1612\". Those fragments repeat across the two frames, but they do not ground exact cents and do not securely pair one exact full price to each of the five visible items.",
+      "supporting_observation_ids": [
+        "obs_b8c22bd5a4369b8f",
+        "obs_9abb88042e6be5e6",
+        "obs_0eb7ff6c2364e930",
+        "obs_774e2e4616012d43",
+        "obs_e82e7f0d9064cc45",
+        "obs_baaa9ad1ae1d5827"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 81.0,
+          "end_s": 82.0
+        }
+      ]
+    },
+    {
+      "step_id": 5,
+      "text": "Because the question asks for the total cost of every item containing a visible price point, an exact answer requires exact visible prices and item-to-price pairings for all counted items. The current evidence does not provide that: it does not establish exact prices for each listed item, and it does not justify any cent-valued multiple-choice option. Other visible cards are excluded because no exact visible price is grounded for them in the 81s-82s evidence.",
+      "supporting_observation_ids": [
+        "obs_fd985431ab6c856a",
+        "obs_7a70b4179eacf6b5",
+        "obs_ebfacf70082096c5",
+        "obs_70ce11cd559c3617",
+        "obs_c7f0e256e3f5a1ea",
+        "obs_b8c22bd5a4369b8f",
+        "obs_9abb88042e6be5e6",
+        "obs_0eb7ff6c2364e930",
+        "obs_774e2e4616012d43",
+        "obs_e82e7f0d9064cc45",
+        "obs_baaa9ad1ae1d5827"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 81.0,
+          "end_s": 82.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "7eF4EjdYZ7k__caebc0240ec6",
+      "trace": {
+        "inference_steps": [
+          "[78s to 83s] Chronologically, the queried interval is covered by frames at 78s, 79s, 80s, 81s, 82s, and 83s.",
+          "[78s to 80s; 83s] Frames at 78s-80s show the Everyday Home Repairs page rather than the priced product grid, so they do not contribute item prices to the requested total. Frame 83s no longer shows that same priced grid either.",
+          "[81s to 82s] The relevant priced-grid view is at 81s-82s, where the screen shows the General Supplies section and five visible top-row product cards: Dixie / ITW Brands 25316 50PK#50 Stud Dry Anchor; Swpeet Assorted 24 Pcs Toggle Bolt and Wing Nut; A AIRTITE / AirTite - Preserves Open Caulking Tubes; GE MS0016 Supreme Silicone Window & Door...; and Slime Tire Repair Kit Deluxe.",
+          "[81s to 82s] However, the OCR-grounded price evidence in that 81s-82s grid is limited to ambiguous fragments: \"$171\", \"1192\", and \"1612\". Those fragments repeat across the two frames, but they do not ground exact cents and do not securely pair one exact full price to each of the five visible items.",
+          "[81s to 82s] Because the question asks for the total cost of every item containing a visible price point, an exact answer requires exact visible prices and item-to-price pairings for all counted items. The current evidence does not provide that: it does not establish exact prices for each listed item, and it does not justify any cent-valued multiple-choice option. Other visible cards are excluded because no exact visible price is grounded for them in the 81s-82s evidence."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved frames at 78s, 79s, 80s, 81s, 82s, and 83s, covering the queried 01:20-01:25 interval.",
+            "observation_ids": [
+              "obs_302cfb4962ac51d5",
+              "obs_4337c86f187e84ea",
+              "obs_5a352361a912769a",
+              "obs_278c36f225bce6e7",
+              "obs_ff5d696b5929a020",
+              "obs_56c5a979106fc7ef"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 78.0,
+                "end_s": 83.0
+              }
+            ]
+          },
+          {
+            "tool_name": "ocr",
+            "evidence_text": "Frames at 78s-80s show the Everyday Home Repairs page without OCR-grounded item prices. Frames at 81s-82s show a General Supplies product grid with visible item names and price-like OCR fragments. Frame 83s no longer shows the same priced grid.",
+            "observation_ids": [
+              "obs_83f87890f5f1eba2",
+              "obs_34bc8c26143ce290",
+              "obs_dd5c27eb5ced5d2a",
+              "obs_090c272d83b6056f",
+              "obs_9d7da000099ee31b",
+              "obs_79cac953469dc16b",
+              "obs_4cdb422cdf65f1ce"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 78.0,
+                "end_s": 80.0
+              },
+              {
+                "start_s": 81.0,
+                "end_s": 82.0
+              },
+              {
+                "start_s": 83.0,
+                "end_s": 83.0
+              }
+            ]
+          },
+          {
+            "tool_name": "ocr",
+            "evidence_text": "Within the 81s-82s product-grid view, the visible top-row item names are Dixie / ITW Brands 25316 50PK#50 Stud Dry Anchor, Swpeet Assorted 24 Pcs Toggle Bolt and Wing Nut, A AIRTITE / AirTite - Preserves Open Caulking Tubes, GE MS0016 Supreme Silicone Window & Door..., and Slime Tire Repair Kit Deluxe. Bottom-row cards such as Nordic Pure / YouTube Gear / Plumbing are visible elsewhere in the broader store pages, but no exact visible price is grounded for them in the 81s-82s priced grid evidence used here.",
+            "observation_ids": [
+              "obs_fd985431ab6c856a",
+              "obs_1b2dd7c1bc2626bc",
+              "obs_b41efcb2500a3dc7",
+              "obs_7a70b4179eacf6b5",
+              "obs_50a9fc35fbeec3d2",
+              "obs_f88854d415885fe5",
+              "obs_ebfacf70082096c5",
+              "obs_aeddee69cab95d29",
+              "obs_5f9b90dd52397887",
+              "obs_70ce11cd559c3617",
+              "obs_f0a77a43eda0eab1",
+              "obs_e202d8afce9e41d7",
+              "obs_c7f0e256e3f5a1ea",
+              "obs_741f83f85ec1f144",
+              "obs_cdb84f0df5501448",
+              "obs_9f72471c0d2cb582",
+              "obs_03bda6ffa5288ee2",
+              "obs_f3e1d2c03ee6cda9",
+              "obs_d2e456c11b9f618f",
+              "obs_decda9c9c5bad288",
+              "obs_1747fec2482e76f5"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 81.0,
+                "end_s": 82.0
+              }
+            ]
+          },
+          {
+            "tool_name": "ocr",
+            "evidence_text": "The only OCR-grounded price-like strings visible in the 81s-82s grid are ambiguous fragments rather than exact full prices: \"$171\" appears in both 81s and 82s, \"1192\" appears in both 81s and 82s, and \"1612\" appears in both 81s and 82s. These fragments do not by themselves establish exact dollar-and-cent values or exact item-to-price pairings for every counted card.",
+            "observation_ids": [
+              "obs_b8c22bd5a4369b8f",
+              "obs_9abb88042e6be5e6",
+              "obs_0eb7ff6c2364e930",
+              "obs_774e2e4616012d43",
+              "obs_e82e7f0d9064cc45",
+              "obs_baaa9ad1ae1d5827"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 81.0,
+                "end_s": 82.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "notes": "Preserved the prior interval anchor that the relevant priced grid is at 81s-82s and that 78s-80s are non-priced pages. Removed the unsupported whole-dollar summation and option mapping. The new evidence still does not ground exact item-to-price pairings or cents, so the answer remains unresolved.",
+    "unresolved_reason": "Exact visible prices for each counted item are not grounded; only ambiguous fragments such as $171, 1192, and 1612 are OCR-visible."
+  }
+}

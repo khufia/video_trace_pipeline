@@ -1,0 +1,371 @@
+{
+  "rounds": [
+    {
+      "round_index": 1,
+      "round_dir": "round_01",
+      "planner_request_path": "round_01/planner_request.json",
+      "planner_plan_path": "round_01/planner_plan.json",
+      "synthesizer_request_path": "round_01/synthesizer_request.json",
+      "trace_path": "round_01/synthesizer_trace_package.json",
+      "auditor_request_path": "round_01/auditor_request.json",
+      "audit_path": "round_01/auditor_report.json",
+      "strategy": "Use preprocess context to target likely visual intervals, retrieve a small chronological frame set across those intervals, and verify which non-racket/non-ball object the main player briefly holds.",
+      "refinement_instructions": "Base the final answer on direct visual evidence from the retrieved frames, not on preprocess summaries alone. The key discriminator is whether the object is actually held briefly by the main player, not merely worn or nearby. If multiple candidate objects appear, prefer the one clearly shown in her hand and map exactly to the provided options.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "frame_retriever",
+          "purpose": "Retrieve representative chronological frames from the likely intervals where Alex Replier appears off-court and on-court, so the held object can be visually verified against the answer options.",
+          "inputs": {
+            "clips": [
+              {
+                "video_id": "-AY84ybskqI",
+                "start_s": 0.0,
+                "end_s": 60.0,
+                "artifact_id": "clip_000_00_060_00",
+                "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_060_00.mp4",
+                "metadata": {}
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "start_s": 60.0,
+                "end_s": 120.0,
+                "artifact_id": "clip_060_00_120_00",
+                "relpath": "artifacts/AY84ybskqI/clips/clip_060_00_120_00.mp4",
+                "metadata": {}
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "start_s": 120.0,
+                "end_s": 172.272,
+                "artifact_id": "clip_120_00_172_27",
+                "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+                "metadata": {}
+              }
+            ],
+            "include_anchor_neighbors": false,
+            "neighbor_radius_s": 0.0,
+            "num_frames": 8,
+            "query": "frames where Alex Replier or the main female tennis player is holding an object other than a tennis racket or tennis ball, especially a water bottle, sunglasses, towel, wristband, or energy bar",
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "time_hints": [
+              "3-8s montage of player smiling/talking and playing",
+              "60-62s group of players standing and talking",
+              "120-125s instructor/mentor scene where she may briefly hold another object before hitting"
+            ]
+          },
+          "input_refs": {}
+        },
+        {
+          "step_id": 2,
+          "tool_name": "generic_purpose",
+          "purpose": "Inspect the retrieved frames and determine which answer option matches the other object the main character briefly holds.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [],
+            "frames": [],
+            "query": "Across these frames, identify the main female tennis player and determine whether she briefly holds any object besides a tennis ball and racket. Compare only these options: water bottle, wristband, sunglasses, towel, energy bar. Reject objects that are merely worn, in the background, or not actually held. Return the matching option and cite the frame timestamps that show the object in hand.",
+            "text_contexts": [
+              "Preprocess context suggests the video centers on Alex Replier, a tennis player, with likely candidate moments in the opening montage, the outdoor group scene around 60-62s, and the indoor teaching scene around 120-125s."
+            ],
+            "transcripts": []
+          },
+          "input_refs": {
+            "frames": [
+              {
+                "step_id": 1,
+                "field_path": "frames"
+              }
+            ]
+          }
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 3,
+      "trace_inference_count": 3,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The main character is best grounded by the action sequence at 7s-10s, where one female tennis player is centered and repeatedly shown playing tennis. The later 60s-62s frames are a separate group scene rather than the same clearly centered action subject.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 7.0,
+              "end_s": 10.0
+            },
+            {
+              "start_s": 60.0,
+              "end_s": 62.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "In the main player's action frames, she is shown holding a racket, and at 7s a tennis ball is visible, but no other object is clearly shown in her hand. This does not support sunglasses, a towel, a wristband, or an energy bar being briefly held by the main player in the retrieved frames.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 7.0,
+              "end_s": 10.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "A water bottle is the only answer option that is directly observed being held in the retrieved frames, but that observation is in the later group scene and is not securely tied to the main player. Because the question asks what the main character holds briefly, the available direct visual evidence does not uniquely support any option for the main player.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 60.0,
+              "end_s": 60.0
+            }
+          ]
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace is orderly and cautious, but it stops short of the required option selection. The key repair is to ground whether the water-bottle holder is the main character or otherwise establish which listed object the main character briefly holds.",
+      "audit_missing_information": [
+        "whether the person holding the water bottle is the main character",
+        "which listed object, if any, is briefly held by the main character besides the tennis ball and racket",
+        "final answer selection mapped to one provided option"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace correctly notes that the only directly observed option is a water bottle in a later group scene, but it does not justify a unique multiple-choice answer for what the main character briefly holds. Leaving the final answer empty is incomplete for this benchmark question.",
+          "evidence_ids": [
+            "ev_main_player_action_frames",
+            "ev_water_bottle_other_person",
+            "ev_main_character_identity_cue"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "ATTRIBUTION_GAP",
+          "message": "Answer-critical referent alignment remains unresolved: the water bottle observation is not securely tied to the main character, and the action-frame evidence only supports racket/ball with no other clearly held object.",
+          "evidence_ids": [
+            "ev_water_bottle_other_person",
+            "ev_main_character_identity_cue",
+            "ev_main_player_action_frames"
+          ]
+        }
+      ]
+    },
+    {
+      "round_index": 2,
+      "round_dir": "round_02",
+      "planner_request_path": "round_02/planner_request.json",
+      "planner_plan_path": "round_02/planner_plan.json",
+      "synthesizer_request_path": "round_02/synthesizer_request.json",
+      "trace_path": "round_02/synthesizer_trace_package.json",
+      "auditor_request_path": "round_02/auditor_request.json",
+      "audit_path": "round_02/auditor_report.json",
+      "strategy": "Reuse the retrieved frame sequences and directly verify whether the later water-bottle holder matches the main player grounded in the earlier action sequence, then map the verified object to an option.",
+      "refinement_instructions": "Preserve the prior grounded anchor that the main character is the repeatedly centered player in the 7s-10s action sequence unless the new frame comparison clearly overturns it. Use the new comparison to resolve the audit gap directly: either confirm that the 60s-62s water-bottle holder is the same person and select water bottle, or state that she is different and reject water bottle for the main character. Do not rely on provisional artifact-context prose as final proof; cite the visual comparison from the retrieved frames. In the final trace, explicitly mention why sunglasses, towel, wristband, and energy bar are unsupported in the verified main-character frames, then map the surviving supported option to the answer choice.",
+      "steps": [
+        {
+          "step_id": 1,
+          "tool_name": "generic_purpose",
+          "purpose": "Compare the earlier main-player action sequence with the later group-scene sequence to determine whether the water-bottle holder is the same person as the main character, and identify which listed object is actually briefly held by the main character.",
+          "inputs": {
+            "clips": [],
+            "evidence_ids": [
+              "ev_01_f58e9ff5",
+              "ev_02_0c328ed9"
+            ],
+            "frames": [
+              {
+                "video_id": "-AY84ybskqI",
+                "timestamp_s": 6.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_6.00",
+                "relpath": "artifacts/AY84ybskqI/frames/frame_6.00.png"
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "timestamp_s": 7.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_7.00",
+                "relpath": "artifacts/AY84ybskqI/frames/frame_7.00.png"
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "timestamp_s": 8.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_8.00",
+                "relpath": "artifacts/AY84ybskqI/frames/frame_8.00.png"
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "timestamp_s": 9.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_9.00",
+                "relpath": "artifacts/AY84ybskqI/frames/frame_9.00.png"
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "timestamp_s": 10.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_10.00",
+                "relpath": "artifacts/AY84ybskqI/frames/frame_10.00.png"
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "timestamp_s": 60.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_60.00",
+                "relpath": "artifacts/AY84ybskqI/frames/frame_60.00.png"
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "timestamp_s": 61.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_61.00",
+                "relpath": "artifacts/AY84ybskqI/frames/frame_61.00.png"
+              },
+              {
+                "video_id": "-AY84ybskqI",
+                "timestamp_s": 62.0,
+                "metadata": {
+                  "source": "retrieved_artifact_context"
+                },
+                "artifact_id": "frame_62.00",
+                "relpath": "artifacts/AY84ybskqI/frames/frame_62.00.png"
+              }
+            ],
+            "query": "Use the chronological frames from 6s-10s to identify the main female tennis player and her stable appearance cues, then compare against the chronological frames from 60s-62s to determine whether the person drinking/holding the water bottle is the same person. Explicitly assess each option (water bottle, wristband, sunglasses, towel, energy bar) and state which listed object, if any, is briefly held by the main character besides a tennis ball and racket. If the later water-bottle holder is the same person, say so clearly; if not, reject water bottle for the main character.",
+            "text_contexts": [
+              "Audit gap: determine whether the person holding the water bottle is the main character.",
+              "Preprocess context: 3.0-8.0s shows a montage of young female tennis players; first a group of girls smiles and talks, then a player in a white visor and tank top hits on a green court.",
+              "Preprocess context: 60.0-62.0s shows a group of young female tennis players standing on a court talking and laughing.",
+              "Prior trace claim: the main character is best grounded by the action sequence at 7s-10s, while 60s-62s are a separate later group scene."
+            ],
+            "transcripts": []
+          },
+          "input_refs": {}
+        }
+      ],
+      "trace_final_answer": "",
+      "trace_evidence_count": 3,
+      "trace_inference_count": 4,
+      "trace_inference_steps": [
+        {
+          "step_id": 1,
+          "text": "The main character is best grounded by the 7s-10s action sequence, because those frames repeatedly center one female tennis player in play, whereas the 60s-62s material is a later group scene.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 7.0,
+              "end_s": 10.0
+            },
+            {
+              "start_s": 60.0,
+              "end_s": 62.0
+            }
+          ]
+        },
+        {
+          "step_id": 2,
+          "text": "In the verified main-character frames at 7s-10s, the player holds only her racket, with the tennis ball visible at 7s; no other held object is clearly shown. That means sunglasses, a towel, a wristband, and an energy bar are unsupported for the main character in the retrieved frames.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 7.0,
+              "end_s": 10.0
+            }
+          ]
+        },
+        {
+          "step_id": 3,
+          "text": "Although a water bottle is observed at 60s, the holder is not the same person as the main action-sequence player: the main player wears a white visor, white tank top, and dark skirt and has dark hair in a ponytail, while the water-bottle holder appears in a white t-shirt without a visor and has brown hair in a ponytail. So the water bottle should be rejected for the main character.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 60.0,
+              "end_s": 60.0
+            },
+            {
+              "start_s": 7.0,
+              "end_s": 10.0
+            }
+          ]
+        },
+        {
+          "step_id": 4,
+          "text": "After rejecting water bottle and finding no support for wristband, sunglasses, towel, or energy bar in the main-character frames, none of the listed options is grounded as an object briefly held by the main character.",
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 7.0,
+              "end_s": 10.0
+            },
+            {
+              "start_s": 60.0,
+              "end_s": 60.0
+            }
+          ]
+        }
+      ],
+      "audit_verdict": "FAIL",
+      "audit_confidence": 0.95,
+      "audit_feedback": "The trace reasonably rejects the 60s water-bottle holder as a different person, but it does not complete the multiple-choice task and overgeneralizes from limited sampled frames to 'none of the options.'",
+      "audit_missing_information": [
+        "which provided option is the other object briefly held by the main character",
+        "grounded evidence covering the answer-critical moment(s) where the main character briefly holds an object besides the tennis ball and racket"
+      ],
+      "audit_findings": [
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The trace ends with 'none of the listed options is grounded' and leaves final_answer empty. For a multiple-choice question, the trace must justify one provided option or remain explicitly unresolved due to missing answer-critical evidence; a blank/non-option outcome is not a completed answer.",
+          "evidence_ids": [
+            "ev_main_player_action_frames",
+            "ev_main_character_identity_cue",
+            "ev_water_bottle_identity_comparison"
+          ]
+        },
+        {
+          "severity": "HIGH",
+          "category": "INCOMPLETE_TRACE",
+          "message": "The evidence only characterizes selected frames around 7s-10s and 60s-62s. From that limited coverage, the trace overreaches by concluding that none of the options is the briefly held object anywhere in the video, rather than showing that the answer-critical object was checked across the relevant grounded moments.",
+          "evidence_ids": [
+            "ev_main_player_action_frames",
+            "ev_main_character_identity_cue",
+            "ev_water_bottle_identity_comparison"
+          ]
+        }
+      ]
+    }
+  ]
+}

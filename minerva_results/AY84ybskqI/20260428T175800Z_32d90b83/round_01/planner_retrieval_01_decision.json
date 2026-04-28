@@ -1,0 +1,46 @@
+{
+  "action": "retrieve",
+  "rationale": "Dense captions and preprocess summaries likely contain the brief held object; retrieve those text spans before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "held_object_dense_caps",
+      "target": "dense_captions",
+      "need": "Text spans describing moments when the main tennis player briefly holds another object besides a tennis ball and racket",
+      "query": "player holds water bottle wristband sunglasses towel energy bar briefly on tennis court",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 172.272
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "held_object_preprocess_segments",
+      "target": "preprocess",
+      "need": "Segment-level caption text or summaries mentioning candidate held objects such as bottle, towel, sunglasses, wristband, or bar",
+      "query": "water bottle towel sunglasses wristband energy bar hold player tennis",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 172.272
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

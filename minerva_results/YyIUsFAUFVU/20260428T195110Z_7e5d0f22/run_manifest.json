@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "YyIUsFAUFVU__c17d4ee05b76",
+  "video_id": "YyIUsFAUFVU",
+  "run_id": "20260428T195110Z_7e5d0f22",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "YyIUsFAUFVU__c17d4ee05b76",
+    "question": "How many comedians are featured in the show?",
+    "options": [
+      "A. 8.",
+      "B. 1.",
+      "C. 2.",
+      "D. 6.",
+      "E. 7."
+    ],
+    "video_id": "YyIUsFAUFVU",
+    "question_id": null,
+    "gold_answer": "7.",
+    "initial_trace_steps": [
+      "I watched the video and located the segment between 00:46 and 00:54, where the woman in the peach blazer introduced and mentioned the performers she was with for the night. While watching, I counted the names she mentioned. Therefore, I was able to determine the number of performers presenting in the video, which was 7. To confirm her words, I watched each time a comedian showed up to see if any appeared on stage that weren't mentioned. At 00:25, 4 different comedians appear. At 00:32 a new comedian appears. At 01:48 another new comedian appears. Finally, at 02:11, a new comedian appears. All the rest that appear are previous comedians. Therefore, there are 7 comedians featured in the show."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/YyIUsFAUFVU",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

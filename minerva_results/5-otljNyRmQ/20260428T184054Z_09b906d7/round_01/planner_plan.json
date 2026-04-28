@@ -1,0 +1,119 @@
+{
+  "strategy": "Use the existing preprocess transcript to anchor the accusation moment, then retrieve nearby chronological frames to identify which visible person the man in the light gray jacket is accusing and map that person to the clothing-based options.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological local frame sequence around the accusation so the accuser in the light gray jacket and the accused person can be visually identified in context.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "5-otljNyRmQ",
+            "start_s": 150.0,
+            "end_s": 186.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/5-otljNyRmQ/clips/clip_120_00_180_00.mp4",
+            "metadata": {
+              "source": "preprocess_segment"
+            }
+          }
+        ],
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 4.0,
+        "num_frames": 7,
+        "query": "chronological frames showing the man in the light gray jacket and the person he points to or faces during the accusation",
+        "sequence_mode": "anchor_window",
+        "sort_order": "chronological",
+        "time_hints": [
+          "around 170s accusation line 'That's the guy that kidnapped me'",
+          "include moments immediately before and after the denial 'I... I did not. I didn't.'"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological accusation-scene frames with both accuser and accused candidates visible"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Interpret the accusation dialogue from the preprocess transcript, identify the likely accuser turn and the local accusation window, and specify what visual referents must be resolved on screen.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "In the confrontation around 153-183 seconds, identify who says 'That's the guy that kidnapped me' versus who replies 'I... I did not. I didn't.' Determine the local accusation window and describe the visual referent slots that must be resolved: (1) the man in the light gray jacket, and (2) the person he is accusing. Quote the relevant transcript lines and keep speaker attribution tentative if the transcript alone cannot prove it.",
+        "text_contexts": [],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_003",
+            "clip": {
+              "video_id": "5-otljNyRmQ",
+              "start_s": 120.0,
+              "end_s": 180.0
+            },
+            "segments": [
+              {
+                "start_s": 123.556,
+                "end_s": 153.442,
+                "text": "Mike! Dustin! Mike! Mike! Mike! Dustin! Lucas! Mike! Mike! Eleven? It's me!"
+              },
+              {
+                "start_s": 153.982,
+                "end_s": 183.091,
+                "text": "Will! Will? Will! Eleven. What are you doing here? How'd you get out of the Upside Down? Pop saved me. I'm just glad you're here, Will. What the hell are you guys doing? That's the guy that kidnapped me. I... I did not. I didn't."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_003",
+              "span_count": 2
+            }
+          }
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "analysis": "quoted accusation lines and the local accusation window to inspect visually"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "From the transcript and local frame sequence together, identify which visible person is being accused by the man in the light gray jacket and map that person to the provided option descriptions.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Using the transcript and the chronological frames from the accusation scene, determine which visible person is accused of being the kidnapper by the man in the light gray jacket. First identify the man in the light gray jacket in the frames. Then determine which other person he is accusing based on gaze, pointing, facing, turn-taking, and who gives the denial. Finally map the accused person to exactly one option: backwards baseball cap, wearing glasses, blonde wig, orange puff jacket, or plaid shirt. Reject options not present or not being addressed in this moment.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ],
+        "text_contexts": [
+          {
+            "step_id": 2,
+            "field_path": "analysis"
+          }
+        ],
+        "transcripts": [
+          {
+            "step_id": 2,
+            "field_path": "transcripts"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "accused person's option label",
+        "supporting_points": "brief grounded rationale tying transcript turn-taking to the visible person"
+      }
+    }
+  ],
+  "refinement_instructions": "Base the final trace on the quoted preprocess transcript plus the retrieved chronological frames. Do not answer from transcript alone, because the options are visual clothing identities. Explicitly identify the man in the light gray jacket in the local sequence, then identify who he is accusing by visible interaction and the denial turn. If the frames do not clearly show the accused referent, keep the answer unresolved rather than guessing from scene summaries."
+}

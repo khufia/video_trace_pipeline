@@ -1,0 +1,121 @@
+{
+  "strategy": "Reuse the retrieved checkmate-window frames and preprocess transcript, then directly verify the move transition and mating piece from the local chronological sequence instead of inferring from queen mention alone.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "generic_purpose",
+      "purpose": "Inspect the chronological frames around the checkmate moment together with the covered transcript to determine which black piece is actually being moved on the final move and whether that move is the one that produces checkmate.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 180.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_180_00_240_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4"
+          }
+        ],
+        "evidence_ids": [
+          "ev_01_6391ba4e",
+          "ev_02_edfbcd81"
+        ],
+        "frames": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "timestamp_s": 217.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_217.00",
+            "relpath": "artifacts/d8UESxnuVAY/frames/frame_217.00.png"
+          },
+          {
+            "video_id": "d8UESxnuVAY",
+            "timestamp_s": 218.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_218.00",
+            "relpath": "artifacts/d8UESxnuVAY/frames/frame_218.00.png"
+          },
+          {
+            "video_id": "d8UESxnuVAY",
+            "timestamp_s": 219.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_219.00",
+            "relpath": "artifacts/d8UESxnuVAY/frames/frame_219.00.png"
+          },
+          {
+            "video_id": "d8UESxnuVAY",
+            "timestamp_s": 220.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_220.00",
+            "relpath": "artifacts/d8UESxnuVAY/frames/frame_220.00.png"
+          },
+          {
+            "video_id": "d8UESxnuVAY",
+            "timestamp_s": 221.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_221.00",
+            "relpath": "artifacts/d8UESxnuVAY/frames/frame_221.00.png"
+          },
+          {
+            "video_id": "d8UESxnuVAY",
+            "timestamp_s": 222.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_222.00",
+            "relpath": "artifacts/d8UESxnuVAY/frames/frame_222.00.png"
+          }
+        ],
+        "query": "Using the chronological frame sequence around 217s-222s and the transcript around 212s-231s, identify the exact black piece being moved on the final move immediately before the reactions 'A checkmate?' / 'A checkmate.' Do not answer from piece presence or dialogue mention alone. Compare before/during/after frames, determine which piece is in motion or has just changed square, state whether that move is the mating move, and map the result to one of: bishop, knight, pawn, queen, rook.",
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_004",
+            "clip": {
+              "video_id": "d8UESxnuVAY",
+              "start_s": 180.0,
+              "end_s": 240.0
+            },
+            "segments": [
+              {
+                "start_s": 181.522,
+                "end_s": 211.458,
+                "text": "What are we gonna do? Going there? Oh, no, you can't. Oh, you're trying to be slick. You're trying to use your brain. Of course I am. No, I can't do that, bro. You almost fell for it. I actually almost did. Go in and go in. Thanks, Mike. What kind of cheerleading crap is this, man? I got a cheerleader here. That's right. You don't have one, but she does. Thank you. Now we go here. What are we gonna do now? Oh, I can take that, too. That was free, so I gotta get that out of there."
+              },
+              {
+                "start_s": 212.217,
+                "end_s": 231.016,
+                "text": "But you know what's also free? Yeah, another queen. A checkmate. Oh! Oh! A checkmate? A checkmate. Drew, I'm still on your side. And a beautiful one. Oh! Oh!"
+              },
+              {
+                "start_s": 232.788,
+                "end_s": 245.292,
+                "text": "She got this thing! She got it! It is what it is! It is what it is! That was almost two in one thing. Thank you! Wow! Oh my gosh!"
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_004",
+              "span_count": 3
+            }
+          }
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "validated mating piece type and option mapping",
+        "supporting_points": "explicit before/during/after observations tying the moved black piece to the checkmate moment",
+        "analysis": "reasoned account of the move transition and any remaining uncertainty"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the existing late-game anchor at 217s-222s and the preprocess transcript span at 212.217s-231.016s. In the trace, do not rely on queen mention, queen presence, or elimination of other options by itself. Quote the transcript only as temporal context for the mating moment, then state the visual before/during/after evidence that identifies which black piece is actually moved. If the frames do not clearly show a move transition, keep the answer unresolved rather than upgrading queen from salience to proof."
+}

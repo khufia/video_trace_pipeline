@@ -1,0 +1,154 @@
+{
+  "strategy": "Use the preprocess transcript to anchor the Wild Shuffle Hands explanation, then inspect a chronological frame sequence around that interval to count how many cards are dealt to the player on the left.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological local sequence around the Wild Shuffle Hands dealing demonstration so the number of cards dealt to the left player can be counted from the visual sequence rather than inferred from transcript alone.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4"
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 10,
+        "query": "chronological frames showing the four-player table during the Wild Shuffle Hands redistribution, especially the player on the left receiving cards",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "119.827-143.333",
+          "around the dealing sequence immediately after the shuffle hands card explanation"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological dealing sequence around the left player's receipt of cards"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Use the existing preprocess transcript span to identify the exact Wild Shuffle Hands interval and the dealing moment after the narrator says players may end up with more or fewer cards.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From this transcript, identify the exact interval for the Wild Shuffle Hands explanation, especially the portion containing 'Starting with the player to your left, deal out all the cards to all the players' and 'Players may end up with more or fewer cards than what they started with.' Return the relevant quoted lines and the best timestamp window to inspect visually for the dealing/count outcome.",
+        "text_contexts": [],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_003",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 180.0
+            },
+            "segments": [
+              {
+                "start_s": 119.827,
+                "end_s": 143.333,
+                "text": "Wild Shuffle Hands. This card is a wild and can be played on anything. Once played, collect every card from all the players' hands and shuffle them together. Starting with the player to your left, deal out all the cards to all the players. Players may end up with more or fewer cards than what they started with. Play continues in the current direction of play with you picking the color."
+              },
+              {
+                "start_s": 144.565,
+                "end_s": 163.043,
+                "text": "Wild draw four. This card is a wild and can be played on anything. However, you are only allowed to play this card if you do not have any other cards in your hand with the same color as the top card in the discard. Once played, the next player may either draw four cards and lose their turn,"
+              },
+              {
+                "start_s": 163.043,
+                "end_s": 189.217,
+                "text": "or they may challenge. If you challenge a wild draw four, then the player who played it must reveal their hand. If they do not have the color in their hand that matches the discard pile they played to, then you must draw six cards and lose your turn. If they do have the color, then they must draw four cards instead, and it is your turn. Regardless of the outcome of the challenge, that player picks the color that continues play."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_003",
+              "span_count": 3
+            }
+          }
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "analysis": "quoted transcript anchor and recommended visual inspection window"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine which hand/player is on the left in the top-down layout and count how many cards that player ends up receiving during the Wild Shuffle Hands redistribution, then map to the answer option.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4"
+          }
+        ],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Using the transcript anchor and the chronological frames, identify the player on the left side of the table and count how many cards are dealt to that player during the Wild Shuffle Hands redistribution. Base the answer on visible dealt/held cards in the sequence, not on default Uno rules. Return the final count and the matching multiple-choice option.",
+        "text_contexts": [],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_003",
+            "clip": {
+              "video_id": "FkuqYtE1rw0",
+              "start_s": 120.0,
+              "end_s": 180.0
+            },
+            "segments": [
+              {
+                "start_s": 119.827,
+                "end_s": 143.333,
+                "text": "Wild Shuffle Hands. This card is a wild and can be played on anything. Once played, collect every card from all the players' hands and shuffle them together. Starting with the player to your left, deal out all the cards to all the players. Players may end up with more or fewer cards than what they started with. Play continues in the current direction of play with you picking the color."
+              },
+              {
+                "start_s": 144.565,
+                "end_s": 163.043,
+                "text": "Wild draw four. This card is a wild and can be played on anything. However, you are only allowed to play this card if you do not have any other cards in your hand with the same color as the top card in the discard. Once played, the next player may either draw four cards and lose their turn,"
+              },
+              {
+                "start_s": 163.043,
+                "end_s": 189.217,
+                "text": "or they may challenge. If you challenge a wild draw four, then the player who played it must reveal their hand. If they do not have the color in their hand that matches the discard pile they played to, then you must draw six cards and lose your turn. If they do have the color, then they must draw four cards instead, and it is your turn. Regardless of the outcome of the challenge, that player picks the color that continues play."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_003",
+              "span_count": 3
+            }
+          }
+        ]
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ],
+        "text_contexts": [
+          {
+            "step_id": 2,
+            "field_path": "analysis"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "final card count for the left player with option mapping",
+        "supporting_points": "brief visual counting rationale tied to the sequence"
+      }
+    }
+  ],
+  "refinement_instructions": "Treat the preprocess transcript as the temporal anchor only. The final answer must be grounded in the retrieved chronological frames showing the redistribution outcome for the left-side player. Do not answer from default Uno knowledge such as seven-card starting hands. If the sequence does not clearly show the left player's final received-card count, keep the result uncertain rather than guessing."
+}

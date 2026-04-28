@@ -1,0 +1,592 @@
+{
+  "task_key": "91ub3om9Fg0__5713a0fb45d0",
+  "mode": "refine",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_c85d0a69",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Frames were retrieved at 13.00s, 14.00s, 15.00s, 16.00s, 17.00s, and 18.00s around the relevant moment.",
+      "inference_hint": null,
+      "confidence": 0.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 13.0,
+          "end_s": 13.0
+        },
+        {
+          "start_s": 14.0,
+          "end_s": 14.0
+        },
+        {
+          "start_s": 15.0,
+          "end_s": 15.0
+        },
+        {
+          "start_s": 16.0,
+          "end_s": 16.0
+        },
+        {
+          "start_s": 17.0,
+          "end_s": 17.0
+        },
+        {
+          "start_s": 18.0,
+          "end_s": 18.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_13.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_13.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_13.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 182388
+          }
+        },
+        {
+          "artifact_id": "frame_14.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_14.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_14.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 78034
+          }
+        },
+        {
+          "artifact_id": "frame_15.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_15.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_15.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 78550
+          }
+        },
+        {
+          "artifact_id": "frame_16.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_16.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_16.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 97867
+          }
+        },
+        {
+          "artifact_id": "frame_17.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_17.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_17.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 120928
+          }
+        },
+        {
+          "artifact_id": "frame_18.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_18.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_18.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 140380
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_c7d1f0b35df411fa",
+        "obs_e21dc2d7633fc78d",
+        "obs_3baabfc7d86e073f",
+        "obs_e7766e2ff0290146",
+        "obs_a32885a7c1779ccd",
+        "obs_6063d470b05201f4"
+      ],
+      "metadata": {
+        "request_hash": "c85d0a69397e9dc274ad0b47",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_02_95e7b11e",
+      "tool_name": "generic_purpose",
+      "evidence_text": "A transcript span from 15.893s to 18.61s contains the quote: \"Oh, there's only one. Yeah, there's only one, but look.\" This is a temporal anchor near the presentation moment, not proof of the exact visual endpoints.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 15.893,
+          "end_s": 18.61
+        }
+      ],
+      "artifact_refs": [],
+      "observation_ids": [
+        "obs_a1d735622f411a7b",
+        "obs_b01cb365479faed3",
+        "obs_b2932114e183c0a3"
+      ],
+      "metadata": {
+        "request_hash": "95e7b11ef8c9995873eaba16",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_01_f4f62838",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Frame-by-frame visual summary from the sampled images: at 13s, two men are visible, the man in blue holds a device up, the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; at 14s the frame is very dark with no clear object/text; at 15s the frame remains blurry; at 16s \"TIME MACHINE\" is visible but blurry/out of focus; at 17s \"TIME MACHINE\" is still somewhat blurry though clearer than at 16s, with subtitle text including \"but look...\"; at 18s \"TIME MACHINE\" appears quite clear / at least legible.",
+      "inference_hint": null,
+      "confidence": null,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 13.0,
+          "end_s": 13.0
+        },
+        {
+          "start_s": 14.0,
+          "end_s": 14.0
+        },
+        {
+          "start_s": 15.0,
+          "end_s": 15.0
+        },
+        {
+          "start_s": 16.0,
+          "end_s": 16.0
+        },
+        {
+          "start_s": 17.0,
+          "end_s": 17.0
+        },
+        {
+          "start_s": 18.0,
+          "end_s": 18.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_000_00_060_00",
+          "kind": "clip",
+          "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 0.0,
+            "end_s": 60.0
+          }
+        },
+        {
+          "artifact_id": "frame_13.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_13.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "retrieved_artifact_context",
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 13.0
+          }
+        },
+        {
+          "artifact_id": "frame_14.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_14.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "retrieved_artifact_context",
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 14.0
+          }
+        },
+        {
+          "artifact_id": "frame_15.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_15.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "retrieved_artifact_context",
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 15.0
+          }
+        },
+        {
+          "artifact_id": "frame_16.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_16.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "retrieved_artifact_context",
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 16.0
+          }
+        },
+        {
+          "artifact_id": "frame_17.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_17.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "retrieved_artifact_context",
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 17.0
+          }
+        },
+        {
+          "artifact_id": "frame_18.00",
+          "kind": "frame",
+          "relpath": "artifacts/91ub3om9Fg0/frames/frame_18.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "source": "retrieved_artifact_context",
+            "video_id": "91ub3om9Fg0",
+            "timestamp_s": 18.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_f8612a549e46994b",
+        "obs_11de089e6c8ba971",
+        "obs_8983853f8ed96e72",
+        "obs_08180e3203183f17",
+        "obs_b527aebba1343c2c",
+        "obs_ac18c3e87e8911d1",
+        "obs_b3728567bbb2f2ec",
+        "obs_4f72a11a94a6ffea",
+        "obs_3baef28f5935b885",
+        "obs_00562c16a42b7c0d",
+        "obs_e3369efff2919b3e",
+        "obs_b2a63027cc5cbfb1",
+        "obs_a0e7e8ee8f858eb5",
+        "obs_5a34d51177c0c1dd",
+        "obs_01f917fc3b11e4fa",
+        "obs_3f851d6271a0d727",
+        "obs_465e19b422d586c0",
+        "obs_e9c9f7d1f5f7c0bc",
+        "obs_976b1fdd21bcf66a",
+        "obs_6947d7886887fdd7",
+        "obs_341d108647039017",
+        "obs_de0124edab41ada2",
+        "obs_6a434193c9975f25",
+        "obs_99e7b7910eadb299",
+        "obs_ae5321d7e96ba27d",
+        "obs_47b0c0e4f9458400"
+      ],
+      "metadata": {
+        "request_hash": "f4f62838002c6bb3a2f77cd8",
+        "cache_hit": false
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "Chronologically, the sampled frames are 13s, 14s, 15s, 16s, 17s, and 18s, so the visual timing can only be localized to these 1-second samples rather than exact continuous-frame boundaries.",
+      "supporting_observation_ids": [
+        "obs_c7d1f0b35df411fa",
+        "obs_e21dc2d7633fc78d",
+        "obs_3baabfc7d86e073f",
+        "obs_e7766e2ff0290146",
+        "obs_a32885a7c1779ccd",
+        "obs_6063d470b05201f4"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 13.0,
+          "end_s": 18.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The frame summaries ground the visual progression as follows: at 13s the man in blue is holding the device up while the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; 14s and 15s do not provide a clear readable view; at 16s \"TIME MACHINE\" is visible but out of focus; at 17s it is still somewhat blurry; at 18s it appears quite clear / at least legible.",
+      "supporting_observation_ids": [
+        "obs_f8612a549e46994b",
+        "obs_08180e3203183f17",
+        "obs_b3728567bbb2f2ec",
+        "obs_4f72a11a94a6ffea",
+        "obs_ac18c3e87e8911d1",
+        "obs_3baef28f5935b885",
+        "obs_e3369efff2919b3e",
+        "obs_b2a63027cc5cbfb1",
+        "obs_a0e7e8ee8f858eb5",
+        "obs_5a34d51177c0c1dd",
+        "obs_01f917fc3b11e4fa",
+        "obs_3f851d6271a0d727",
+        "obs_e9c9f7d1f5f7c0bc",
+        "obs_976b1fdd21bcf66a",
+        "obs_6947d7886887fdd7",
+        "obs_6a434193c9975f25",
+        "obs_99e7b7910eadb299",
+        "obs_ae5321d7e96ba27d"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 13.0,
+          "end_s": 18.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Using only grounded visual endpoints, the earliest sampled showing/presentation timestamp is 13s, because that frame shows the man in blue holding the device up while the man in green looks toward him. The earliest sampled timestamp where \"TIME MACHINE\" is in focus enough to count as readable is 18s, because 16s is explicitly out of focus and 17s is still somewhat blurry.",
+      "supporting_observation_ids": [
+        "obs_b3728567bbb2f2ec",
+        "obs_4f72a11a94a6ffea",
+        "obs_3f851d6271a0d727",
+        "obs_6947d7886887fdd7",
+        "obs_ae5321d7e96ba27d",
+        "obs_47b0c0e4f9458400"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 13.0,
+          "end_s": 13.0
+        },
+        {
+          "start_s": 18.0,
+          "end_s": 18.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "The transcript phrase ending with \"but look\" occurs from 15.893s to 18.61s and aligns with the later close-up sequence, but it is only a temporal anchor and does not replace the visual endpoint grounding.",
+      "supporting_observation_ids": [
+        "obs_a1d735622f411a7b",
+        "obs_b01cb365479faed3",
+        "obs_b2932114e183c0a3",
+        "obs_de0124edab41ada2"
+      ],
+      "answer_relevance": "medium",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 15.893,
+          "end_s": 18.61
+        },
+        {
+          "start_s": 17.0,
+          "end_s": 17.0
+        }
+      ]
+    },
+    {
+      "step_id": 5,
+      "text": "From the grounded sampled timestamps, the elapsed time is 18s - 13s = 5 seconds. None of the provided options is 5 seconds, so the evidence does not support choosing A (1 second) or C (2 seconds), and the multiple-choice answer remains unresolved from the available sampled frames.",
+      "supporting_observation_ids": [
+        "obs_b3728567bbb2f2ec",
+        "obs_4f72a11a94a6ffea",
+        "obs_ae5321d7e96ba27d",
+        "obs_47b0c0e4f9458400",
+        "obs_08e1c4e210a6f0fb",
+        "obs_17ee0cbab10b3566"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 13.0,
+          "end_s": 13.0
+        },
+        {
+          "start_s": 18.0,
+          "end_s": 18.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "91ub3om9Fg0__5713a0fb45d0",
+      "trace": {
+        "inference_steps": [
+          "[13s to 18s] Chronologically, the sampled frames are 13s, 14s, 15s, 16s, 17s, and 18s, so the visual timing can only be localized to these 1-second samples rather than exact continuous-frame boundaries.",
+          "[13s to 18s] The frame summaries ground the visual progression as follows: at 13s the man in blue is holding the device up while the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; 14s and 15s do not provide a clear readable view; at 16s \"TIME MACHINE\" is visible but out of focus; at 17s it is still somewhat blurry; at 18s it appears quite clear / at least legible.",
+          "[13s; 18s] Using only grounded visual endpoints, the earliest sampled showing/presentation timestamp is 13s, because that frame shows the man in blue holding the device up while the man in green looks toward him. The earliest sampled timestamp where \"TIME MACHINE\" is in focus enough to count as readable is 18s, because 16s is explicitly out of focus and 17s is still somewhat blurry.",
+          "[15.893s to 18.61s; 17s] The transcript phrase ending with \"but look\" occurs from 15.893s to 18.61s and aligns with the later close-up sequence, but it is only a temporal anchor and does not replace the visual endpoint grounding.",
+          "[13s; 18s] From the grounded sampled timestamps, the elapsed time is 18s - 13s = 5 seconds. None of the provided options is 5 seconds, so the evidence does not support choosing A (1 second) or C (2 seconds), and the multiple-choice answer remains unresolved from the available sampled frames."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Frames were retrieved at 13.00s, 14.00s, 15.00s, 16.00s, 17.00s, and 18.00s around the relevant moment.",
+            "observation_ids": [
+              "obs_c7d1f0b35df411fa",
+              "obs_e21dc2d7633fc78d",
+              "obs_3baabfc7d86e073f",
+              "obs_e7766e2ff0290146",
+              "obs_a32885a7c1779ccd",
+              "obs_6063d470b05201f4"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 13.0,
+                "end_s": 13.0
+              },
+              {
+                "start_s": 14.0,
+                "end_s": 14.0
+              },
+              {
+                "start_s": 15.0,
+                "end_s": 15.0
+              },
+              {
+                "start_s": 16.0,
+                "end_s": 16.0
+              },
+              {
+                "start_s": 17.0,
+                "end_s": 17.0
+              },
+              {
+                "start_s": 18.0,
+                "end_s": 18.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "A transcript span from 15.893s to 18.61s contains the quote: \"Oh, there's only one. Yeah, there's only one, but look.\" This is a temporal anchor near the presentation moment, not proof of the exact visual endpoints.",
+            "observation_ids": [
+              "obs_a1d735622f411a7b",
+              "obs_b01cb365479faed3",
+              "obs_b2932114e183c0a3"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 15.893,
+                "end_s": 18.61
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Frame-by-frame visual summary from the sampled images: at 13s, two men are visible, the man in blue holds a device up, the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; at 14s the frame is very dark with no clear object/text; at 15s the frame remains blurry; at 16s \"TIME MACHINE\" is visible but blurry/out of focus; at 17s \"TIME MACHINE\" is still somewhat blurry though clearer than at 16s, with subtitle text including \"but look...\"; at 18s \"TIME MACHINE\" appears quite clear / at least legible.",
+            "observation_ids": [
+              "obs_f8612a549e46994b",
+              "obs_11de089e6c8ba971",
+              "obs_8983853f8ed96e72",
+              "obs_08180e3203183f17",
+              "obs_b527aebba1343c2c",
+              "obs_ac18c3e87e8911d1",
+              "obs_b3728567bbb2f2ec",
+              "obs_4f72a11a94a6ffea",
+              "obs_3baef28f5935b885",
+              "obs_00562c16a42b7c0d",
+              "obs_e3369efff2919b3e",
+              "obs_b2a63027cc5cbfb1",
+              "obs_a0e7e8ee8f858eb5",
+              "obs_5a34d51177c0c1dd",
+              "obs_01f917fc3b11e4fa",
+              "obs_3f851d6271a0d727",
+              "obs_465e19b422d586c0",
+              "obs_e9c9f7d1f5f7c0bc",
+              "obs_976b1fdd21bcf66a",
+              "obs_6947d7886887fdd7",
+              "obs_341d108647039017",
+              "obs_de0124edab41ada2",
+              "obs_6a434193c9975f25",
+              "obs_99e7b7910eadb299",
+              "obs_ae5321d7e96ba27d",
+              "obs_47b0c0e4f9458400"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 13.0,
+                "end_s": 13.0
+              },
+              {
+                "start_s": 14.0,
+                "end_s": 14.0
+              },
+              {
+                "start_s": 15.0,
+                "end_s": 15.0
+              },
+              {
+                "start_s": 16.0,
+                "end_s": 16.0
+              },
+              {
+                "start_s": 17.0,
+                "end_s": 17.0
+              },
+              {
+                "start_s": 18.0,
+                "end_s": 18.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "notes": "Refined to remove the unsupported 2-second selection. The trace now grounds the earliest sampled presentation at 13s and the earliest sampled readable/in-focus TIME MACHINE frame at 18s, yielding 5 seconds, which does not map to any provided option. Transcript 'but look' is retained only as an anchor."
+  }
+}

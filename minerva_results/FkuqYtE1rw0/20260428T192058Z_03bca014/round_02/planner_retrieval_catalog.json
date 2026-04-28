@@ -1,0 +1,700 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "wild",
+    "shuffle",
+    "hands",
+    "card",
+    "played",
+    "narrator",
+    "mentions",
+    "players",
+    "may",
+    "fewer",
+    "cards",
+    "many",
+    "player",
+    "left",
+    "receive",
+    "orderly",
+    "appropriately",
+    "cautious",
+    "complete",
+    "benchmark",
+    "task",
+    "option",
+    "selected",
+    "missing",
+    "support",
+    "identification",
+    "final",
+    "received",
+    "count",
+    "visible"
+  ],
+  "preprocess": {
+    "planner_segment_count": 4,
+    "raw_segment_count": 4,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 4,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "A close-up shot shows a red Mattel Games Uno card box against a dark wood-grain background. The box features the large 'UNO' logo in yellow and black, with the text 'NOW WITH CUSTOMIZABLE WILD CARDS!' below. The camera slowly zooms in on the box.; acoustics...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is positioned at a high angle, looking down at the Uno box. It...",
+          "video_background: The background is a dark, textured surface resembling a wooden table...",
+          "storyline: This segment introduces the product, Uno, and highlights its new feature, 'C...",
+          "shooting_style: This is a product shot with a slow zoom to draw the viewer's attention...",
+          "camera_state: The camera is at eye level, framed in a medium shot from the waist up, ke...",
+          "video_background: The background consists of two large screens. The left screen shows a...",
+          "storyline: The host is introduced. He is positioned as the expert who will explain the...",
+          "shooting_style: This is a standard talking-head shot, establishing the host and the set..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 0.335,
+            "end_s": 22.627,
+            "text": "Uno, how to play. The object of the game is to be the first player to get rid of all the cards in your hand. Pick a dealer who shuffles the deck and deals seven cards face down to each player. Players look at their own cards, but keep them hidden from others. The dealer places the remaining deck face down on the table as a draw deck and flips over the top card to start a discard pile."
+          },
+          {
+            "start_s": 22.627,
+            "end_s": 42.083,
+            "text": "If this card is an action or wild card, then ignore it and flip over another card until you get a non-action or non-wild card. The player to the left of the dealer goes first, then play initially proceeds clockwise. On your turn, you may play one card from your hand to the discard pile if you want."
+          },
+          {
+            "start_s": 42.083,
+            "end_s": 70.687,
+            "text": "You can only play a card if it matches at least one attribute of the top card on the discard pile, its color, number, or symbol. If you cannot make a play, or choose not to, then you must draw the top card of the deck and add it to your hand. If the drawn card, and only that card, is a playable card, then you are allowed to play it if you want. If there are no cards in the draw deck, then shuffle all but the top card of the discard pile into a new draw deck."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/FkuqYtE1rw0/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "The video begins with a top-down view of a dark wood-grain surface. Two Uno cards are displayed: a black Uno card on the left and a red '6' card on the right. A bright green checkmark animates into view, circling the '6' card to signify it is a valid move.;...",
+        "caption_count": 3,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is positioned directly overhead in a static, top-down shot, fo...",
+          "video_background: The background is a dark brown surface with a distinct wood grain tex...",
+          "storyline: This segment introduces the basic premise of the Uno game, demonstrating tha...",
+          "shooting_style: This is a simple introductory shot with a simple animated graphic overl...",
+          "camera_state: The camera remains in a static, top-down position, capturing the hands' a...",
+          "video_background: The background is the same dark brown wood-grain surface.",
+          "storyline: This segment demonstrates the action of playing two cards, which is a fundam...",
+          "shooting_style: This is a straightforward instructional shot showing a specific action.",
+          "camera_state: The camera is static and maintains its top-down perspective.",
+          "video_background: The background is the same dark brown wood-grain surface.",
+          "storyline: This segment explains the 'Uno' rule, showing how a player can play a card t...",
+          "shooting_style: This is an instructional segment using animated circles and text overla..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 70.687,
+            "end_s": 97.214,
+            "text": "After you play or draw, your turn ends and the next player goes. The moment you only have one card in your hand, you must yell UNO to alert the other players you are about to win. However, if someone beats you to it and calls UNO before the next player takes their turn, then you must draw two penalty cards. There are special action cards and wild cards you can play. When you do, this is what happens."
+          },
+          {
+            "start_s": 97.315,
+            "end_s": 119.236,
+            "text": "Draw two. The next player must draw two cards and loses their turn. Skip. The next player loses their turn. Reverse. Change the direction of play so it goes in the opposite direction. Wild. This card can match to any card in the discard pile. After playing a wild, you get to pick the color that continues play."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/FkuqYtE1rw0/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "A close-up shot shows a single Uno card, a 'shuffle hands' card, lying on a dark wood-grain surface. The card is black with a white oval containing a drawing of two hands shuffling a deck. The text 'shuffle hands' is written below the drawing, and a small,...",
+        "caption_count": 3,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is positioned in a static, top-down close-up, focusing on the...",
+          "video_background: The background is a dark brown wooden surface with a distinct wood gr...",
+          "storyline: This segment introduces a specific Uno card, the 'shuffle hands' card, setti...",
+          "shooting_style: This is a simple, static shot used to highlight a key object.",
+          "camera_state: The camera maintains a static, top-down position, capturing the actions o...",
+          "video_background: The game is being played on a dark brown wooden table.",
+          "storyline: The game begins with the initial deal and the first action, which is to disc...",
+          "shooting_style: A montage of quick cuts shows each player's hand dealing cards, followe...",
+          "camera_state: The camera is in a static, top-down position, focused on the player's han...",
+          "video_background: The game is on a dark brown wooden table. The pile of red cards is vi...",
+          "storyline: The game progresses as a player makes their first move after the initial red...",
+          "shooting_style: A single, continuous shot shows the player's action."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 119.827,
+            "end_s": 143.333,
+            "text": "Wild Shuffle Hands. This card is a wild and can be played on anything. Once played, collect every card from all the players' hands and shuffle them together. Starting with the player to your left, deal out all the cards to all the players. Players may end up with more or fewer cards than what they started with. Play continues in the current direction of play with you picking the color."
+          },
+          {
+            "start_s": 144.565,
+            "end_s": 163.043,
+            "text": "Wild draw four. This card is a wild and can be played on anything. However, you are only allowed to play this card if you do not have any other cards in your hand with the same color as the top card in the discard. Once played, the next player may either draw four cards and lose their turn,"
+          },
+          {
+            "start_s": 163.043,
+            "end_s": 189.217,
+            "text": "or they may challenge. If you challenge a wild draw four, then the player who played it must reveal their hand. If they do not have the color in their hand that matches the discard pile they played to, then you must draw six cards and lose your turn. If they do have the color, then they must draw four cards instead, and it is your turn. Regardless of the outcome of the challenge, that player picks the color that continues play."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 239.506,
+        "overall_summary": "A person's hands are shown holding a fan of Uno cards. The cards are fanned out to show their face values: 6, 1, 2, 2, 2, 8, 2, 3, and 5. The text 'Yellow' is written in large yellow letters over the cards, indicating the current color.; acoustics: 1) Tone...",
+        "caption_count": 3,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is positioned in a top-down, close-up shot, focusing on the ha...",
+          "video_background: The background is a dark brown wooden surface, providing a neutral ba...",
+          "storyline: This segment introduces the concept of the 'current color' in the game of Un...",
+          "shooting_style: This is a straightforward instructional shot with a text overlay to con...",
+          "camera_state: The camera remains in a static, top-down close-up, focusing on the Uno ca...",
+          "video_background: The background is a dark brown wooden surface.",
+          "storyline: This segment demonstrates the function of a Uno Wild card, showing how it is...",
+          "shooting_style: This is a demonstration shot, showing a specific action with a Uno card.",
+          "camera_state: The camera is in a static, top-down close-up, focused on the Uno cards.",
+          "video_background: The background is a dark brown wooden surface.",
+          "storyline: This segment demonstrates another function of a Uno Wild card, showing how i...",
+          "shooting_style: This is a demonstration shot, showing a specific action with a Uno card."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 190.01,
+            "end_s": 214.175,
+            "text": "Wild Customizable. Before the game begins, remove these three cards and write with a pencil on them your own rule that must be followed when played. This card is a wild that may be played on any other card and you get to pick the color that continues play. Between games, you may erase and change the cards. The first player to get rid of all the cards in their hand wins."
+          },
+          {
+            "start_s": 214.175,
+            "end_s": 238.424,
+            "text": "There is an optional victory method you can play, which is for points. At the end of each hand, the player who went out scores points for each card remaining in their opponents' hands. All number cards are worth their face value. Skip, Reverse, and Draw 2 are each worth 20 points. Wild cards are worth 50 points each. The first player to 500 or more points wins."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "FkuqYtE1rw0",
+            "start_s": 180.0,
+            "end_s": 239.506,
+            "artifact_id": "clip_180_00_239_51",
+            "relpath": "artifacts/FkuqYtE1rw0/clips/clip_180_00_239_51.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 3,
+    "observation_count": 52,
+    "counts_by_status": {
+      "provisional": 3
+    },
+    "counts_by_tool": {
+      "generic_purpose": 2,
+      "frame_retriever": 1
+    },
+    "validated_evidence": [],
+    "recent_evidence": [
+      {
+        "evidence_id": "ev_01_7c5f7ff4",
+        "tool_name": "frame_retriever",
+        "status": "provisional",
+        "summary": "Retrieved 5 frame(s) across 1 input clip(s).",
+        "observation_ids": [
+          "obs_90f0f255d9bab112",
+          "obs_e1ac9f02f0502395",
+          "obs_e500dc12a424b367",
+          "obs_99a50d42e78fc2d4",
+          "obs_a577e3525bc44a1c"
+        ]
+      },
+      {
+        "evidence_id": "ev_02_86f72dda",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "Thinking Process: 1. **Analyze the Request:** * Task: Identify the exact interval for the \"Wild Shuffle Hands\" explanation from the provided transcript. * Specific Content: Look for the portion containing 'Starting wi...",
+        "observation_ids": [
+          "obs_fd2e9e12f4c1e300",
+          "obs_7067fd6aaec813e2",
+          "obs_17b6bdf55087b633",
+          "obs_6a463ac3a629012d",
+          "obs_1be3da209752babb",
+          "obs_6f35f55fd34ba9fb",
+          "obs_c5875319f3bf8a4d",
+          "obs_75c35dc05a36471f"
+        ]
+      },
+      {
+        "evidence_id": "ev_03_de6343c9",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "The user wants to know how many cards the player on the left receives after the \"Wild Shuffle Hands\" card is played, based on the provided transcript and images. 1. **Analyze the Transcript:** * The transcript segment...",
+        "observation_ids": [
+          "obs_a243c77157a1c576",
+          "obs_09902cdbf771ca04",
+          "obs_e39b87f884f1a10d",
+          "obs_ee2639f6304e821d",
+          "obs_d1b2fa5c9f3aa479",
+          "obs_06200d7d7d4074ea",
+          "obs_078f9f571499a516",
+          "obs_e628df64bbf419bd"
+        ]
+      }
+    ],
+    "recent_observations": [
+      {
+        "observation_id": "obs_75c35dc05a36471f",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "Thinking Process item 1 states there should be no markdown."
+      },
+      {
+        "observation_id": "obs_dfa98cef31d690cb",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "Thinking Process item 1 states there should be no preamble."
+      },
+      {
+        "observation_id": "obs_b2b0c7607172bf44",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note states that the user query asks \"how many cards does the player on the left receive?\" in the initial prompt block."
+      },
+      {
+        "observation_id": "obs_056d4ad13183f6b7",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note states that the specific QUERY at the bottom asks for the exact interval, relevant quoted lines, and the best timestamp window."
+      },
+      {
+        "observation_id": "obs_a45ed458a99c3b7b",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The top section contains the text \"Answer the query using only the supplied evidence...\""
+      },
+      {
+        "observation_id": "obs_31e9df8e338c2e5d",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The middle section contains the label \"TASK QUESTION.\""
+      },
+      {
+        "observation_id": "obs_50e4ab044033ca5b",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The TASK QUESTION asks \"After the wild shuffle hands card is played... how many cards does the player on the left receive?\""
+      },
+      {
+        "observation_id": "obs_b5f34ee872fd206a",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The bottom section contains the label \"QUERY.\""
+      },
+      {
+        "observation_id": "obs_193ced5d24410671",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The QUERY asks to identify the exact interval for the Wild Shuffle Hands explanation from the transcript."
+      },
+      {
+        "observation_id": "obs_d2a0ad582f059814",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note states that there is a conflict."
+      },
+      {
+        "observation_id": "obs_cb69bde64847627a",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note says the TASK QUESTION asks for a count with options A-E."
+      },
+      {
+        "observation_id": "obs_973f76ee3f68fd2b",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note says the QUERY asks for the interval and quoted lines."
+      },
+      {
+        "observation_id": "obs_3e2a122044f9c437",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note states that the TASK QUESTION cannot be answered from the transcript."
+      },
+      {
+        "observation_id": "obs_b6a829a42bf0c6f4",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The transcript says \"deal out all the cards to all the players.\""
+      },
+      {
+        "observation_id": "obs_09049a3f14c54cad",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note states that the transcript does not specify the count of cards received."
+      },
+      {
+        "observation_id": "obs_8ee77f1c8ff0340b",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note states that the transcript gives the action of dealing."
+      },
+      {
+        "observation_id": "obs_0a1f6c21da49eb5f",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note states that the QUERY can be answered based on the transcript."
+      },
+      {
+        "observation_id": "obs_2abcd1658b0904ad",
+        "evidence_id": "ev_02_86f72dda",
+        "source_tool": "generic_purpose",
+        "text": "The Thinking Process note states that the text labeled QUERY should be prioritized."
+      },
+      {
+        "observation_id": "obs_a243c77157a1c576",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The transcript segment [119.827s-143.333s] describes the \"Wild Shuffle Hands\" card."
+      },
+      {
+        "observation_id": "obs_09902cdbf771ca04",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The transcript states: \"Starting with the player to your left, deal out all the cards to all the players.\""
+      },
+      {
+        "observation_id": "obs_e39b87f884f1a10d",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The transcript states: \"Players may end up with more or fewer cards than what they started with.\""
+      },
+      {
+        "observation_id": "obs_ee2639f6304e821d",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The transcript does not explicitly state the number of cards dealt to the player on the left."
+      },
+      {
+        "observation_id": "obs_d1b2fa5c9f3aa479",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 is at 148s."
+      },
+      {
+        "observation_id": "obs_06200d7d7d4074ea",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 shows a hand holding 4 visible cards."
+      },
+      {
+        "observation_id": "obs_078f9f571499a516",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The hand in Image 1 holds a yellow 0 card."
+      },
+      {
+        "observation_id": "obs_e628df64bbf419bd",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The hand in Image 1 holds a green 6 card."
+      },
+      {
+        "observation_id": "obs_9b583cb9c09777a4",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The hand in Image 1 holds a green 1 card."
+      },
+      {
+        "observation_id": "obs_ee54ebf9915decd6",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The hand in Image 1 holds another green 1 card."
+      },
+      {
+        "observation_id": "obs_a8ee150dbd01a118",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 is at 149s."
+      },
+      {
+        "observation_id": "obs_2be37aaf62739b5b",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 shows the same hand with the same cards as Image 1."
+      },
+      {
+        "observation_id": "obs_ff8d5d8024f9005c",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 is at 150s."
+      },
+      {
+        "observation_id": "obs_a63dc30f5dfc9f7a",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 shows the same hand with the same cards as Image 1."
+      },
+      {
+        "observation_id": "obs_b5f5b46643a04a15",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 is at 151s."
+      },
+      {
+        "observation_id": "obs_7455085067856ec1",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 shows the same hand with the same cards as Image 1."
+      },
+      {
+        "observation_id": "obs_43049f4bf1bef183",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 5 is at 152s."
+      },
+      {
+        "observation_id": "obs_887125d4a004ef54",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Image 5 shows the same hand with the same cards as Image 1."
+      },
+      {
+        "observation_id": "obs_92bde786da673638",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The \"Wild Shuffle Hands\" transcript segment ends at 143.333s."
+      },
+      {
+        "observation_id": "obs_cb9ec3cb8b07f04c",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The next segment, \"Wild draw four,\" starts at 144.565s."
+      },
+      {
+        "observation_id": "obs_96295d4ce0584986",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "Images 1-5 occur after the \"Wild Shuffle Hands\" transcript segment."
+      },
+      {
+        "observation_id": "obs_24c1386d47ebb96c",
+        "evidence_id": "ev_03_de6343c9",
+        "source_tool": "generic_purpose",
+        "text": "The source analysis does not establish that the visible 4 cards are the cards the player on the left received after \"Wild Shuffle Hands\"."
+      }
+    ]
+  },
+  "artifact_context": {
+    "record_count": 6,
+    "counts_by_type": {
+      "frame": 5,
+      "clip": 1
+    },
+    "records": [
+      {
+        "artifact_id": "clip_120_00_180_00",
+        "artifact_type": "clip",
+        "relpath": "artifacts/FkuqYtE1rw0/clips/clip_120_00_180_00.mp4",
+        "time": {
+          "clip": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          }
+        },
+        "contains_preview": [
+          "The transcript segment [119.827s-143.333s] describes the \"Wild Shuffle Hands\" card.",
+          "The transcript states: \"Starting with the player to your left, deal out all the cards to all the players.\"",
+          "The transcript states: \"Players may end up with more or fewer cards than what they started with.\"",
+          "The transcript does not explicitly state the number of cards dealt to the player on the left."
+        ],
+        "linked_observation_count": 22,
+        "linked_evidence_ids": [
+          "ev_03_de6343c9"
+        ]
+      },
+      {
+        "artifact_id": "frame_148.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/FkuqYtE1rw0/frames/frame_148.00.png",
+        "time": {
+          "timestamp_s": 148.0
+        },
+        "contains_preview": [
+          "The transcript segment [119.827s-143.333s] describes the \"Wild Shuffle Hands\" card.",
+          "The transcript states: \"Starting with the player to your left, deal out all the cards to all the players.\"",
+          "The transcript states: \"Players may end up with more or fewer cards than what they started with.\"",
+          "The transcript does not explicitly state the number of cards dealt to the player on the left."
+        ],
+        "linked_observation_count": 22,
+        "linked_evidence_ids": [
+          "ev_01_7c5f7ff4",
+          "ev_03_de6343c9"
+        ]
+      },
+      {
+        "artifact_id": "frame_149.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/FkuqYtE1rw0/frames/frame_149.00.png",
+        "time": {
+          "timestamp_s": 149.0
+        },
+        "contains_preview": [
+          "The transcript segment [119.827s-143.333s] describes the \"Wild Shuffle Hands\" card.",
+          "The transcript states: \"Starting with the player to your left, deal out all the cards to all the players.\"",
+          "The transcript states: \"Players may end up with more or fewer cards than what they started with.\"",
+          "The transcript does not explicitly state the number of cards dealt to the player on the left."
+        ],
+        "linked_observation_count": 22,
+        "linked_evidence_ids": [
+          "ev_01_7c5f7ff4",
+          "ev_03_de6343c9"
+        ]
+      },
+      {
+        "artifact_id": "frame_150.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/FkuqYtE1rw0/frames/frame_150.00.png",
+        "time": {
+          "timestamp_s": 150.0
+        },
+        "contains_preview": [
+          "The transcript segment [119.827s-143.333s] describes the \"Wild Shuffle Hands\" card.",
+          "The transcript states: \"Starting with the player to your left, deal out all the cards to all the players.\"",
+          "The transcript states: \"Players may end up with more or fewer cards than what they started with.\"",
+          "The transcript does not explicitly state the number of cards dealt to the player on the left."
+        ],
+        "linked_observation_count": 22,
+        "linked_evidence_ids": [
+          "ev_01_7c5f7ff4",
+          "ev_03_de6343c9"
+        ]
+      },
+      {
+        "artifact_id": "frame_151.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/FkuqYtE1rw0/frames/frame_151.00.png",
+        "time": {
+          "timestamp_s": 151.0
+        },
+        "contains_preview": [
+          "The transcript segment [119.827s-143.333s] describes the \"Wild Shuffle Hands\" card.",
+          "The transcript states: \"Starting with the player to your left, deal out all the cards to all the players.\"",
+          "The transcript states: \"Players may end up with more or fewer cards than what they started with.\"",
+          "The transcript does not explicitly state the number of cards dealt to the player on the left."
+        ],
+        "linked_observation_count": 22,
+        "linked_evidence_ids": [
+          "ev_01_7c5f7ff4",
+          "ev_03_de6343c9"
+        ]
+      },
+      {
+        "artifact_id": "frame_152.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/FkuqYtE1rw0/frames/frame_152.00.png",
+        "time": {
+          "timestamp_s": 152.0
+        },
+        "contains_preview": [
+          "The transcript segment [119.827s-143.333s] describes the \"Wild Shuffle Hands\" card.",
+          "The transcript states: \"Starting with the player to your left, deal out all the cards to all the players.\"",
+          "The transcript states: \"Players may end up with more or fewer cards than what they started with.\"",
+          "The transcript does not explicitly state the number of cards dealt to the player on the left."
+        ],
+        "linked_observation_count": 22,
+        "linked_evidence_ids": [
+          "ev_01_7c5f7ff4",
+          "ev_03_de6343c9"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 4,
+    "claims": [
+      {
+        "step_id": 1,
+        "text": "The transcript provides the temporal anchor for the Wild Shuffle Hands explanation and states that dealing starts with the player to the left and that players may end up with more or fewer cards, but it does not state a numeric count for the left-side player.",
+        "supporting_observation_ids": [
+          "obs_09902cdbf771ca04",
+          "obs_e39b87f884f1a10d",
+          "obs_ee2639f6304e821d"
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "Chronologically, the available visual evidence to inspect the redistribution outcome comes later, at 148s through 152s, after the Wild Shuffle Hands explanation has ended.",
+        "supporting_observation_ids": [
+          "obs_92bde786da673638",
+          "obs_90f0f255d9bab112",
+          "obs_e1ac9f02f0502395",
+          "obs_e500dc12a424b367",
+          "obs_99a50d42e78fc2d4",
+          "obs_a577e3525bc44a1c",
+          "obs_96295d4ce0584986"
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "Those later frames show a hand with 4 visible cards consistently across the inspected sequence, but the evidence does not ground that hand as the left-side player and does not establish that the visible 4 cards are the final cards that player received from the redistribution.",
+        "supporting_observation_ids": [
+          "obs_06200d7d7d4074ea",
+          "obs_2be37aaf62739b5b",
+          "obs_a63dc30f5dfc9f7a",
+          "obs_7455085067856ec1",
+          "obs_887125d4a004ef54",
+          "obs_24c1386d47ebb96c"
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "Because the answer choices require a specific card count for the player on the left, and the retrieved frames do not clearly identify that player's final received-card count, none of the options can be selected with grounded support.",
+        "supporting_observation_ids": [
+          "obs_ee2639f6304e821d",
+          "obs_24c1386d47ebb96c"
+        ]
+      }
+    ]
+  },
+  "audit_gaps": [
+    "which visible hand corresponds to the player on the left after Wild Shuffle Hands",
+    "the final number of cards received by the player on the left after the redistribution",
+    "the mapping from that grounded count to one provided answer option"
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "tool_name": "visual_temporal_grounder",
+  "ok": true,
+  "data": {
+    "query": "all moments where the guy visibly uses or holds a smartphone, especially taking a photo or interacting with the phone screen",
+    "clips": [
+      {
+        "video_id": "GlecDUdZdkE",
+        "start_s": 15.0,
+        "end_s": 17.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "GlecDUdZdkE",
+        "start_s": 72.0,
+        "end_s": 75.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "GlecDUdZdkE",
+        "start_s": 117.0,
+        "end_s": 119.0,
+        "confidence": 1.0,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "GlecDUdZdkE",
+        "start_s": 131.0,
+        "end_s": 135.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "GlecDUdZdkE",
+        "start_s": 308.0,
+        "end_s": 310.0,
+        "confidence": 0.95,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "video_duration": 322.69737499999997,
+    "retrieval_backend": "timelens_transformers",
+    "query_absent": false,
+    "summary": "The queried event appears at: 15.00s-17.00s, 72.00s-75.00s, 117.00s-119.00s, 131.00s-135.00s, 308.00s-310.00s.",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 6,
+      "candidate_windows": 6,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    }
+  },
+  "raw_output_text": "{\"query\": \"all moments where the guy visibly uses or holds a smartphone, especially taking a photo or interacting with the phone screen\", \"clips\": [{\"video_id\": \"GlecDUdZdkE\", \"start_s\": 15.0, \"end_s\": 17.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"GlecDUdZdkE\", \"start_s\": 72.0, \"end_s\": 75.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"GlecDUdZdkE\", \"start_s\": 117.0, \"end_s\": 119.0, \"confidence\": 1.0, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"GlecDUdZdkE\", \"start_s\": 131.0, \"end_s\": 135.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}, {\"video_id\": \"GlecDUdZdkE\", \"start_s\": 308.0, \"end_s\": 310.0, \"confidence\": 0.95, \"metadata\": {\"tool_backend\": \"timelens_transformers\", \"model_path\": \"<redacted-path>\"}}], \"video_duration\": 322.69737499999997, \"retrieval_backend\": \"timelens_transformers\", \"query_absent\": false, \"summary\": \"The queried event appears at: 15.00s-17.00s, 72.00s-75.00s, 117.00s-119.00s, 131.00s-135.00s, 308.00s-310.00s.\", \"prefilter\": {\"enabled\": false, \"total_windows\": 6, \"candidate_windows\": 6, \"configured\": true, \"reason\": \"prefilter_disabled_in_code\"}}",
+  "artifact_refs": [],
+  "request_hash": "0f4ff1a14e462d26fe7e19ee",
+  "cache_hit": false,
+  "summary": "The queried event appears at: 15.00s-17.00s, 72.00s-75.00s, 117.00s-119.00s, 131.00s-135.00s, 308.00s-310.00s.",
+  "metadata": {
+    "backend": "timelens_transformers",
+    "prefilter": {
+      "enabled": false,
+      "total_windows": 6,
+      "candidate_windows": 6,
+      "configured": true,
+      "reason": "prefilter_disabled_in_code"
+    },
+    "confidence": 1.0,
+    "confidence_avg": 0.97,
+    "confidence_count": 5,
+    "confidence_kind": "temporal_grounding",
+    "timing": {
+      "started_at_utc": "2026-04-28T19:42:57.762639+00:00",
+      "finished_at_utc": "2026-04-28T19:43:43.319085+00:00",
+      "duration_s": 45.5565,
+      "cache_wait_s": 0.0007,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_fa330d7db784f54f",
+      "obs_7408bf9cf458c893",
+      "obs_9d7acb64d8666552",
+      "obs_76b6bcdbfd99b512",
+      "obs_b9a11f414bc9dff2"
+    ]
+  }
+}

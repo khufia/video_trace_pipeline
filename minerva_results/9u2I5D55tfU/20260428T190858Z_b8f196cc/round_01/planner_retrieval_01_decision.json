@@ -1,0 +1,27 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries indicate the likely horse-riding montage is in 60-120s, but current context lacks the specific horse color; retrieve existing dense-caption text for that interval before planning new tool use.",
+  "requests": [
+    {
+      "request_id": "horse_riding_montage_caption",
+      "target": "dense_captions",
+      "need": "Dense-caption spans describing the boy in yellow riding a horse and the horse's color/pattern during the montage",
+      "query": "boy in yellow riding horse horse color brown black white spots montage",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 60.0,
+        "end_s": 120.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

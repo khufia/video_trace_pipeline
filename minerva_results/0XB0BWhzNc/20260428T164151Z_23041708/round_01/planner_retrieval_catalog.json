@@ -1,0 +1,506 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "score",
+    "end",
+    "third",
+    "quarter",
+    "bristol",
+    "central",
+    "leading",
+    "tied",
+    "east",
+    "catholic"
+  ],
+  "preprocess": {
+    "planner_segment_count": 4,
+    "raw_segment_count": 4,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 4,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "A basketball game is in progress. A player in a white jersey with the number 10 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey. The ball bounces off the backboard and swishes through the net. The score...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is positioned high up, providing a wide shot of the basketball...",
+          "video_background: The scene is a large, crowded basketball arena. The stands are filled...",
+          "storyline: The game begins with East Catholic making the first basket, giving them a 3-...",
+          "shooting_style: This is a standard live sports broadcast shot, following the live actio...",
+          "camera_state: The camera maintains a high, wide angle, panning quickly to follow the fa...",
+          "video_background: The basketball arena is filled with spectators. The scoreboard is vis...",
+          "storyline: Bristol Central extends their lead with a fast-break dunk, making the score...",
+          "shooting_style: This is a continuous shot following the live action."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 1.263,
+            "end_s": 28.28,
+            "text": "East Catholic will set. And a three. Buried from Glasper. Nice job by East Catholic getting back on D. Three. Got it. Another dump down to Klingin. They got a double team. He spins into it. Little running hook. And Klingin says, uh-uh. You ain't coming in here. He is not backing away. Not on my watch is the big fella."
+          },
+          {
+            "start_s": 29.512,
+            "end_s": 56.613,
+            "text": "Klingin demands it at the foul line, gets it. Spins, strong left-handed finish at the rim. That's a drop step, that's a big man move. Glasper gave up the three, drives, hangs, lefty flip. Little fancy from Damian Glasper. Yeah, he's tough. With active guards. Glasper for three, got it. He's feeling it. That's his third triple tonight. There you go. Turn the corner, the delivery and the rejection."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-0XB0BWhzNc",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/0XB0BWhzNc/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "A basketball player in a white jersey with the number 30 receives a pass on the right wing. He takes a quick, contested shot over a defender in a maroon jersey, and the ball bounces off the backboard and goes through the net for a basket. The scoreboard sho...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is positioned high, providing a wide shot of the half-court. I...",
+          "video_background: The scene is a basketball arena with a large crowd in the stands. The...",
+          "storyline: The player in the white jersey scores a crucial basket for his team, Bristol...",
+          "shooting_style: This is a standard live sports broadcast shot.",
+          "camera_state: The camera is at a high, wide angle, showing the full half-court. It rema...",
+          "video_background: The basketball game is in progress, with players from both teams on t...",
+          "storyline: Bristol Central secures an offensive rebound and scores on the putback, incr...",
+          "shooting_style: This is a standard live sports broadcast shot."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 56.984,
+            "end_s": 79.867,
+            "text": "There are block shots. And a stare down to Boone. Pump fake now. Riley drives baseline. Hangs. Klingin with another block. All the way in the basket. Left hand is good. What a nice move, Alan Wright. Kicks. Riley drives. And scores over the top of Klingin. Basket is good. And a foul. And a little smack talk. Smack talk, yeah."
+          },
+          {
+            "start_s": 82.297,
+            "end_s": 111.743,
+            "text": "Riley, nice job to the cutting Elliott. Reverse layup is good. Gout Klingin, glass grip for three. No good. And there it comes. The rebound and the putback for the big guy. Oh, good look. Sanchez over the top of Klingin. Basket is good. And the foul. And Klingin says, I didn't touch him. Great defense from Wright. Ahead it goes. And Riley, Sam Riley will knock it down."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-0XB0BWhzNc",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/0XB0BWhzNc/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "A basketball game is in progress, with the team in white jerseys leading the team in maroon jerseys 52-40 with 3 seconds left in the 3rd quarter. The ball is near the top of the key. The scene then cuts to a close-up of the maroon team on the court, with pl...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The first shot is a high, wide angle of the basketball court. The second...",
+          "video_background: The game is being played in a large, dark arena with spectators visib...",
+          "storyline: The scene sets up a tense moment in a basketball game, showing the score and...",
+          "shooting_style: This is a montage of two different shots: a wide shot of the game and a...",
+          "camera_state: The camera is positioned at a high angle, looking down at the basket, and...",
+          "video_background: The game is in a crowded arena with a large 'FAM FAME' logo on the co...",
+          "storyline: A player from the maroon team scores a crucial basket in the final minutes o...",
+          "shooting_style: This is a single, continuous shot of a game highlight."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 112.402,
+            "end_s": 140.617,
+            "text": "In the third period. Great look underneath and Jones off a beautiful pass. Glasper pump fake at the buzzer. Got it! Oh, a dagger from Damian Glasper at the end of period three. He wants it back. He's been out a while. There he goes up and throws it down with authority. Send it in, big fella. It's been..."
+          },
+          {
+            "start_s": 142.388,
+            "end_s": 168.308,
+            "text": "Catholic up ahead it goes, Rosa ahead of the pack. And that's a nice way to break the press. A lot of hands on. Nice pass from Klingin underneath, basket by Revorick, good and a foul. Lob inside, Klingin, and an easy dunk for Donovan Klingin."
+          },
+          {
+            "start_s": 169.388,
+            "end_s": 183.665,
+            "text": "He's tied now. He needs one more to finish. And there it is. Offensive rebound. He'll go to the line. Round of applause for Donnelly Klingin."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-0XB0BWhzNc",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 186.333,
+        "overall_summary": "A wide shot shows a basketball game in progress. The scoreboard indicates that Bristol Central is leading East Catholic 72-50 with 1:58 left in the 4th quarter. The players are positioned on the court, with some looking towards the basket.; acoustics: 1) To...",
+        "caption_count": 2,
+        "asr_span_count": 0,
+        "attributes": [
+          "camera_state: The camera is positioned high up, providing a wide shot of the basketball...",
+          "video_background: The scene is a basketball arena with a wooden court. The stands are m...",
+          "storyline: The scene is set for the final moments of a basketball game, establishing th...",
+          "shooting_style: This is a standard wide shot establishing the scene.",
+          "camera_state: The camera is at a medium-close angle, focusing on the two players from t...",
+          "video_background: The background consists of empty red seats in the arena, with the bas...",
+          "storyline: The focus shifts to the players from the leading team, capturing a moment of...",
+          "shooting_style: This is a standard close-up shot to focus on the players' expressions a..."
+        ],
+        "clips": [
+          {
+            "video_id": "-0XB0BWhzNc",
+            "start_s": 180.0,
+            "end_s": 186.333,
+            "artifact_id": "clip_180_00_186_33",
+            "relpath": "artifacts/0XB0BWhzNc/clips/clip_180_00_186_33.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 0,
+    "observation_count": 0,
+    "counts_by_status": {},
+    "counts_by_tool": {},
+    "validated_evidence": [],
+    "recent_evidence": [],
+    "recent_observations": []
+  },
+  "artifact_context": {
+    "record_count": 16,
+    "counts_by_type": {
+      "frame": 15,
+      "clip": 1
+    },
+    "records": [
+      {
+        "artifact_id": "clip_120_00_180_00",
+        "artifact_type": "clip",
+        "relpath": "artifacts/0XB0BWhzNc/clips/clip_120_00_180_00.mp4",
+        "time": {
+          "clip": {
+            "start_s": 120.0,
+            "end_s": 126.0
+          }
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. with 52 points.",
+          "Image 1 shows E. CATHOLIC with 40 points.",
+          "Image 1 shows the game at 3rd 0:00.8.",
+          "Image 2 shows BRISTOL CENT. with 52 points."
+        ],
+        "linked_observation_count": 21,
+        "linked_evidence_ids": [
+          "ev_02_d5b545a2"
+        ]
+      },
+      {
+        "artifact_id": "frame_0.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_0.00.png",
+        "time": {
+          "timestamp_s": 0.0
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. 2.",
+          "Image 1 shows E. CATHOLIC 3.",
+          "Image 1 shows the clock as 1st 5:51.",
+          "Image 2 shows BRISTOL CENT. 2."
+        ],
+        "linked_observation_count": 19,
+        "linked_evidence_ids": [
+          "ev_02_a31973cc",
+          "ev_03_b3ab11f9"
+        ]
+      },
+      {
+        "artifact_id": "frame_1.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_1.00.png",
+        "time": {
+          "timestamp_s": 1.0
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. 2.",
+          "Image 1 shows E. CATHOLIC 3.",
+          "Image 1 shows the clock as 1st 5:51.",
+          "Image 2 shows BRISTOL CENT. 2."
+        ],
+        "linked_observation_count": 19,
+        "linked_evidence_ids": [
+          "ev_02_a31973cc",
+          "ev_03_b3ab11f9"
+        ]
+      },
+      {
+        "artifact_id": "frame_116.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_116.00.png",
+        "time": {
+          "timestamp_s": 116.0
+        },
+        "contains_preview": [
+          "Image 3 scoreboard shows BRISTOL CENT.",
+          "In Image 3, BRISTOL CENT. has a score of 36.",
+          "Image 3 scoreboard shows E. CATHOLIC.",
+          "In Image 3, E. CATHOLIC has a score of 23."
+        ],
+        "linked_observation_count": 30,
+        "linked_evidence_ids": [
+          "ev_02_a31973cc",
+          "ev_02_665b2c44",
+          "ev_03_f4872f70"
+        ]
+      },
+      {
+        "artifact_id": "frame_117.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_117.00.png",
+        "time": {
+          "timestamp_s": 117.0
+        },
+        "contains_preview": [
+          "Image 3 scoreboard shows BRISTOL CENT.",
+          "In Image 3, BRISTOL CENT. has a score of 36.",
+          "Image 3 scoreboard shows E. CATHOLIC.",
+          "In Image 3, E. CATHOLIC has a score of 23."
+        ],
+        "linked_observation_count": 30,
+        "linked_evidence_ids": [
+          "ev_02_a31973cc",
+          "ev_02_665b2c44",
+          "ev_03_f4872f70"
+        ]
+      },
+      {
+        "artifact_id": "frame_118.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_118.00.png",
+        "time": {
+          "timestamp_s": 118.0
+        },
+        "contains_preview": [
+          "Image 3 scoreboard shows BRISTOL CENT.",
+          "In Image 3, BRISTOL CENT. has a score of 36.",
+          "Image 3 scoreboard shows E. CATHOLIC.",
+          "In Image 3, E. CATHOLIC has a score of 23."
+        ],
+        "linked_observation_count": 30,
+        "linked_evidence_ids": [
+          "ev_02_a31973cc",
+          "ev_02_665b2c44",
+          "ev_03_f4872f70"
+        ]
+      },
+      {
+        "artifact_id": "frame_123.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_123.00.png",
+        "time": {
+          "timestamp_s": 123.0
+        },
+        "linked_observation_count": 0,
+        "linked_evidence_ids": [
+          "ev_02_665b2c44"
+        ]
+      },
+      {
+        "artifact_id": "frame_124.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_124.00.png",
+        "time": {
+          "timestamp_s": 124.0
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. with 52 points.",
+          "Image 1 shows E. CATHOLIC with 40 points.",
+          "Image 1 shows the game at 3rd 0:00.8.",
+          "Image 2 shows BRISTOL CENT. with 52 points."
+        ],
+        "linked_observation_count": 21,
+        "linked_evidence_ids": [
+          "ev_01_cddd1e02",
+          "ev_02_d5b545a2",
+          "ev_02_a31973cc",
+          "ev_02_665b2c44"
+        ]
+      },
+      {
+        "artifact_id": "frame_125.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_125.00.png",
+        "time": {
+          "timestamp_s": 125.0
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. with 52 points.",
+          "Image 1 shows E. CATHOLIC with 40 points.",
+          "Image 1 shows the game at 3rd 0:00.8.",
+          "Image 2 shows BRISTOL CENT. with 52 points."
+        ],
+        "linked_observation_count": 41,
+        "linked_evidence_ids": [
+          "ev_01_cddd1e02",
+          "ev_02_d5b545a2",
+          "ev_01_d55ec338",
+          "ev_02_a31973cc",
+          "ev_02_665b2c44"
+        ]
+      },
+      {
+        "artifact_id": "frame_126.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_126.00.png",
+        "time": {
+          "timestamp_s": 126.0
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. with 52 points.",
+          "Image 1 shows E. CATHOLIC with 40 points.",
+          "Image 1 shows the game at 3rd 0:00.8.",
+          "Image 2 shows BRISTOL CENT. with 52 points."
+        ],
+        "linked_observation_count": 80,
+        "linked_evidence_ids": [
+          "ev_01_cddd1e02",
+          "ev_02_d5b545a2",
+          "ev_01_d55ec338",
+          "ev_01_e6f7de28",
+          "ev_01_aa07b09c",
+          "ev_02_a31973cc"
+        ]
+      },
+      {
+        "artifact_id": "frame_3.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_3.00.png",
+        "time": {
+          "timestamp_s": 3.0
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. 2.",
+          "Image 1 shows E. CATHOLIC 3.",
+          "Image 1 shows the clock as 1st 5:51.",
+          "Image 2 shows BRISTOL CENT. 2."
+        ],
+        "linked_observation_count": 19,
+        "linked_evidence_ids": [
+          "ev_02_a31973cc",
+          "ev_03_b3ab11f9"
+        ]
+      },
+      {
+        "artifact_id": "frame_4.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_4.00.png",
+        "time": {
+          "timestamp_s": 4.0
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. 2.",
+          "Image 1 shows E. CATHOLIC 3.",
+          "Image 1 shows the clock as 1st 5:51.",
+          "Image 2 shows BRISTOL CENT. 2."
+        ],
+        "linked_observation_count": 19,
+        "linked_evidence_ids": [
+          "ev_02_a31973cc",
+          "ev_03_b3ab11f9"
+        ]
+      },
+      {
+        "artifact_id": "frame_5.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_5.00.png",
+        "time": {
+          "timestamp_s": 5.0
+        },
+        "contains_preview": [
+          "Image 1 shows BRISTOL CENT. 2.",
+          "Image 1 shows E. CATHOLIC 3.",
+          "Image 1 shows the clock as 1st 5:51.",
+          "Image 2 shows BRISTOL CENT. 2."
+        ],
+        "linked_observation_count": 19,
+        "linked_evidence_ids": [
+          "ev_02_a31973cc",
+          "ev_03_b3ab11f9"
+        ]
+      },
+      {
+        "artifact_id": "frame_58.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_58.00.png",
+        "time": {
+          "timestamp_s": 58.0
+        },
+        "contains_preview": [
+          "Image 3 scoreboard shows BRISTOL CENT.",
+          "In Image 3, BRISTOL CENT. has a score of 36.",
+          "Image 3 scoreboard shows E. CATHOLIC.",
+          "In Image 3, E. CATHOLIC has a score of 23."
+        ],
+        "linked_observation_count": 30,
+        "linked_evidence_ids": [
+          "ev_02_665b2c44",
+          "ev_03_f4872f70"
+        ]
+      },
+      {
+        "artifact_id": "frame_59.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_59.00.png",
+        "time": {
+          "timestamp_s": 59.0
+        },
+        "contains_preview": [
+          "Image 3 scoreboard shows BRISTOL CENT.",
+          "In Image 3, BRISTOL CENT. has a score of 36.",
+          "Image 3 scoreboard shows E. CATHOLIC.",
+          "In Image 3, E. CATHOLIC has a score of 23."
+        ],
+        "linked_observation_count": 30,
+        "linked_evidence_ids": [
+          "ev_02_665b2c44",
+          "ev_03_f4872f70"
+        ]
+      },
+      {
+        "artifact_id": "frame_60.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/0XB0BWhzNc/frames/frame_60.00.png",
+        "time": {
+          "timestamp_s": 60.0
+        },
+        "contains_preview": [
+          "Image 3 scoreboard shows BRISTOL CENT.",
+          "In Image 3, BRISTOL CENT. has a score of 36.",
+          "Image 3 scoreboard shows E. CATHOLIC.",
+          "In Image 3, E. CATHOLIC has a score of 23."
+        ],
+        "linked_observation_count": 30,
+        "linked_evidence_ids": [
+          "ev_02_665b2c44",
+          "ev_03_f4872f70"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 0,
+    "claims": []
+  }
+}

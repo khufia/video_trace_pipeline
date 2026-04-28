@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "1YjD_Epw9M__f309a1ce747d",
+  "video_id": "-1YjD_Epw9M",
+  "run_id": "20260428T172324Z_16e6a0de",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "1YjD_Epw9M__f309a1ce747d",
+    "question": "What was the result of the game?",
+    "options": [
+      "A. The game was cancelled.",
+      "B. The black team won.",
+      "C. The white team won.",
+      "D. The two teams tied.",
+      "E. The teams were disqualified."
+    ],
+    "video_id": "-1YjD_Epw9M",
+    "question_id": null,
+    "gold_answer": "The white team won.",
+    "initial_trace_steps": [
+      "At 00:12, I identified the two teams with the different colors of their jerseys: white and black. Throughout the video, the white and black teams competed against each other, until at 01:43 - 01:58, I saw the white team victoriously storm the floor and celebrate together. Then, at 02:11 - 02:21, I saw the white team pose together for a photo with an award plaque before jumping around and celebrating together. All of this behavior indicates that the white team won the game."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/1YjD_Epw9M",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

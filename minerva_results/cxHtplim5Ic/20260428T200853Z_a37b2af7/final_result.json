@@ -1,0 +1,2390 @@
+{
+  "run_dir": "runs/cxHtplim5Ic/20260428T200853Z_a37b2af7",
+  "trace_package": {
+    "task_key": "cxHtplim5Ic__f7565a1a91a1",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_01_9aab54f7",
+        "tool_name": "frame_retriever",
+        "evidence_text": "Retrieved candidate frames at 0.00s, 1.00s, 2.00s, 3.00s, 4.00s, 65.00s, 66.00s, and 67.00s for visual verification.",
+        "inference_hint": null,
+        "confidence": 0.0,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 0.0,
+            "end_s": 0.0
+          },
+          {
+            "start_s": 1.0,
+            "end_s": 1.0
+          },
+          {
+            "start_s": 2.0,
+            "end_s": 2.0
+          },
+          {
+            "start_s": 3.0,
+            "end_s": 3.0
+          },
+          {
+            "start_s": 4.0,
+            "end_s": 4.0
+          },
+          {
+            "start_s": 65.0,
+            "end_s": 65.0
+          },
+          {
+            "start_s": 66.0,
+            "end_s": 66.0
+          },
+          {
+            "start_s": 67.0,
+            "end_s": 67.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_0.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_0.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_0.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 103761
+            }
+          },
+          {
+            "artifact_id": "frame_1.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_1.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_1.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 104102
+            }
+          },
+          {
+            "artifact_id": "frame_2.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_2.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_2.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 105068
+            }
+          },
+          {
+            "artifact_id": "frame_3.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_3.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_3.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 143570
+            }
+          },
+          {
+            "artifact_id": "frame_4.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_4.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_4.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 164764
+            }
+          },
+          {
+            "artifact_id": "frame_65.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_65.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_65.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 226661
+            }
+          },
+          {
+            "artifact_id": "frame_66.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_66.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_66.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 235344
+            }
+          },
+          {
+            "artifact_id": "frame_67.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_67.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_67.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 230175
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_28b25e1f0d8f6412",
+          "obs_287207b77fd468e3",
+          "obs_2412291926a594b3",
+          "obs_e57a69fd41be2d82",
+          "obs_8146e931865f27f0",
+          "obs_3a65cf94be9984db",
+          "obs_3a3e71cf29710925",
+          "obs_4b1f7b83071132fe"
+        ],
+        "metadata": {
+          "request_hash": "9aab54f732a0713c2a358987",
+          "cache_hit": false
+        }
+      },
+      {
+        "evidence_id": "ev_03_d0f26151",
+        "tool_name": "ocr",
+        "evidence_text": "OCR on sampled frames confirms only the opening logo text in the early frames: frame 0.00s contains \"TURTLE\", \"CANYON\", \"COMEDY\", \"PRESENTS\" and frame 1.00s contains the same words. No OCR-confirmed subsection-title text is provided for later sampled frames in this round.",
+        "inference_hint": null,
+        "confidence": 0.9999,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 0.0,
+            "end_s": 0.0
+          },
+          {
+            "start_s": 1.0,
+            "end_s": 1.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_0.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_0.00.png",
+            "media_type": "image",
+            "source_tool": "ocr",
+            "metadata": {
+              "source_name": "frame_0.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 103761
+            }
+          },
+          {
+            "artifact_id": "frame_1.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_1.00.png",
+            "media_type": "image",
+            "source_tool": "ocr",
+            "metadata": {
+              "source_name": "frame_1.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 104102
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_98af0691e6b01cf5",
+          "obs_b1cd8442e1274546",
+          "obs_3d186222370cfc99",
+          "obs_26795aea5c2059c7",
+          "obs_00ae2a0be2a82e01",
+          "obs_685b247057678765",
+          "obs_3ba4e25696811995",
+          "obs_a7560842fa59a636"
+        ],
+        "metadata": {
+          "request_hash": "d0f2615188e240260f462c38",
+          "cache_hit": false
+        }
+      },
+      {
+        "evidence_id": "ev_02_76272991",
+        "tool_name": "generic_purpose",
+        "evidence_text": "Whole-video preprocess summary describes the video structure: seg_001 is the opening production logo 'Turtle Canyon Comedy' / 'PRESENTS' and is excluded; seg_002 mentions title card 'THE DRINKS' around 60-66s; seg_003 mentions title card 'THE BILL' around 67-72s; seg_004 mentions title card 'THE FART' around 137-141s; seg_005 mentions title card 'THE PREP' around 188-201s; seg_006 mentions end credits from about 300s onward and those credits are excluded. The same summary also counts 'THE INTERROGATION' among the subsection titles, but no separate visually confirmed frame/OCR evidence for that title is supplied here.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 60.0,
+            "end_s": 66.0
+          },
+          {
+            "start_s": 67.0,
+            "end_s": 72.0
+          },
+          {
+            "start_s": 137.0,
+            "end_s": 141.0
+          },
+          {
+            "start_s": 188.0,
+            "end_s": 201.0
+          },
+          {
+            "start_s": 300.0,
+            "end_s": 337.92
+          }
+        ],
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_08475d87892cd70e",
+          "obs_759926215a24688a",
+          "obs_e1e709b1f23476a2",
+          "obs_0656db84b8dbe3f4",
+          "obs_3084ebcc26400c69",
+          "obs_774373b2fe48b147",
+          "obs_c76ea4f7b69b2b35",
+          "obs_411e97bd106f29e3",
+          "obs_1a751e15ce4f15e8"
+        ],
+        "metadata": {
+          "request_hash": "7627299127cda4b348a4e366",
+          "cache_hit": false
+        }
+      },
+      {
+        "evidence_id": "ev_02_5401d796",
+        "tool_name": "generic_purpose",
+        "evidence_text": "Sampled frames show the opening logo in Images 1-2, hands/candies with no visible title text in Images 3-5, and a man with a menu with no visible title text in Images 6-8. The text context says to exclude the production logo/opening company card and notes the ending shows credits. It also presents the subsection names as possible on-screen titles rather than direct visual confirmation in these sampled frames.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 3.0,
+            "end_s": 4.0
+          },
+          {
+            "start_s": 65.0,
+            "end_s": 67.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_0.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_0.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 0.0
+            }
+          },
+          {
+            "artifact_id": "frame_1.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_1.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 1.0
+            }
+          },
+          {
+            "artifact_id": "frame_2.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_2.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 2.0
+            }
+          },
+          {
+            "artifact_id": "frame_3.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_3.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 3.0
+            }
+          },
+          {
+            "artifact_id": "frame_4.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_4.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 4.0
+            }
+          },
+          {
+            "artifact_id": "frame_65.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_65.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 65.0
+            }
+          },
+          {
+            "artifact_id": "frame_66.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_66.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 66.0
+            }
+          },
+          {
+            "artifact_id": "frame_67.00",
+            "kind": "frame",
+            "relpath": "artifacts/cxHtplim5Ic/frames/frame_67.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "timestamp_s": 67.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_2cf8ce910c7bdf72",
+          "obs_80b3a956453e8599",
+          "obs_3242bebcec176393",
+          "obs_da7df2beaa4644f9",
+          "obs_8d0eb9fcfde0ecbf",
+          "obs_607c93e4ebd772d5",
+          "obs_6744a2204b27db62",
+          "obs_30b161e4bedf1c38",
+          "obs_d309c3a7b1a804c8",
+          "obs_5bec4dafbb176a30"
+        ],
+        "metadata": {
+          "request_hash": "5401d796fa4f73a8ee104ce1",
+          "cache_hit": false
+        }
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "The opening text display is grounded as \"TURTLE CANYON COMEDY PRESENTS\" by both the sampled-frame summary and OCR on the early frames, and it is classified as an opening production logo rather than a subsection heading, so it must be excluded from the subsection count.",
+        "supporting_observation_ids": [
+          "obs_2cf8ce910c7bdf72",
+          "obs_80b3a956453e8599",
+          "obs_3242bebcec176393",
+          "obs_6744a2204b27db62",
+          "obs_98af0691e6b01cf5",
+          "obs_b1cd8442e1274546",
+          "obs_3d186222370cfc99",
+          "obs_26795aea5c2059c7"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": 0.0,
+        "time_end_s": 1.0,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 0.0,
+            "end_s": 1.0
+          }
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The sampled non-opening frames at 3-4s and 65-67s show action scenes with no visible title text, so these sampled visuals do not themselves visually confirm any subsection title cards.",
+        "supporting_observation_ids": [
+          "obs_da7df2beaa4644f9",
+          "obs_8d0eb9fcfde0ecbf",
+          "obs_5bec4dafbb176a30"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 3.0,
+            "end_s": 4.0
+          },
+          {
+            "start_s": 65.0,
+            "end_s": 67.0
+          }
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "For whole-video coverage, the preprocess summary identifies the video structure after the excluded opening logo: title card \"THE DRINKS\" around 60-66s, title card \"THE BILL\" around 67-72s, title card \"THE FART\" around 137-141s, and title card \"THE PREP\" around 188-201s. These are the subsection titles explicitly tied to distinct video spans in the supplied evidence.",
+        "supporting_observation_ids": [
+          "obs_e1e709b1f23476a2",
+          "obs_0656db84b8dbe3f4",
+          "obs_3084ebcc26400c69",
+          "obs_774373b2fe48b147"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 60.0,
+            "end_s": 66.0
+          },
+          {
+            "start_s": 67.0,
+            "end_s": 72.0
+          },
+          {
+            "start_s": 137.0,
+            "end_s": 141.0
+          },
+          {
+            "start_s": 188.0,
+            "end_s": 201.0
+          }
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "The ending is separately identified as end credits from about 300s onward, and credits are excluded from the subsection count, so the supplied whole-video structure does not add another subsection title at the end.",
+        "supporting_observation_ids": [
+          "obs_c76ea4f7b69b2b35",
+          "obs_411e97bd106f29e3",
+          "obs_607c93e4ebd772d5"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": 300.0,
+        "time_end_s": 337.92,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 300.0,
+            "end_s": 337.92
+          }
+        ]
+      },
+      {
+        "step_id": 5,
+        "text": "Although the text context also names \"THE INTERROGATION,\" the refinement instructions require counting only titles that are visually confirmed as actual on-screen subsection cards. In the supplied round evidence, there is no OCR-confirmed frame or other direct visual confirmation for \"THE INTERROGATION,\" and no separate timestamped segment entry for it. Therefore it cannot be added to the verified count.",
+        "supporting_observation_ids": [
+          "obs_6d55f587c3910593",
+          "obs_d309c3a7b1a804c8",
+          "obs_30b161e4bedf1c38"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      },
+      {
+        "step_id": 6,
+        "text": "So the verified subsection-title set supported by the supplied evidence is: THE DRINKS, THE BILL, THE FART, and THE PREP. The excluded text displays are the opening production logo and the ending credits. Counting only the verified subsection titles gives 4, which does not match any answer option.",
+        "supporting_observation_ids": [
+          "obs_e1e709b1f23476a2",
+          "obs_0656db84b8dbe3f4",
+          "obs_3084ebcc26400c69",
+          "obs_774373b2fe48b147",
+          "obs_759926215a24688a",
+          "obs_411e97bd106f29e3"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "cxHtplim5Ic__f7565a1a91a1",
+        "trace": {
+          "inference_steps": [
+            "[0s to 1s] The opening text display is grounded as \"TURTLE CANYON COMEDY PRESENTS\" by both the sampled-frame summary and OCR on the early frames, and it is classified as an opening production logo rather than a subsection heading, so it must be excluded from the subsection count.",
+            "[3s to 4s; 65s to 67s] The sampled non-opening frames at 3-4s and 65-67s show action scenes with no visible title text, so these sampled visuals do not themselves visually confirm any subsection title cards.",
+            "[60s to 66s; 67s to 72s; 137s to 141s; 188s to 201s] For whole-video coverage, the preprocess summary identifies the video structure after the excluded opening logo: title card \"THE DRINKS\" around 60-66s, title card \"THE BILL\" around 67-72s, title card \"THE FART\" around 137-141s, and title card \"THE PREP\" around 188-201s. These are the subsection titles explicitly tied to distinct video spans in the supplied evidence.",
+            "[300s to 337.92s] The ending is separately identified as end credits from about 300s onward, and credits are excluded from the subsection count, so the supplied whole-video structure does not add another subsection title at the end.",
+            "Although the text context also names \"THE INTERROGATION,\" the refinement instructions require counting only titles that are visually confirmed as actual on-screen subsection cards. In the supplied round evidence, there is no OCR-confirmed frame or other direct visual confirmation for \"THE INTERROGATION,\" and no separate timestamped segment entry for it. Therefore it cannot be added to the verified count.",
+            "So the verified subsection-title set supported by the supplied evidence is: THE DRINKS, THE BILL, THE FART, and THE PREP. The excluded text displays are the opening production logo and the ending credits. Counting only the verified subsection titles gives 4, which does not match any answer option."
+          ],
+          "evidence": [
+            {
+              "tool_name": "frame_retriever",
+              "evidence_text": "Retrieved candidate frames at 0.00s, 1.00s, 2.00s, 3.00s, 4.00s, 65.00s, 66.00s, and 67.00s for visual verification.",
+              "observation_ids": [
+                "obs_28b25e1f0d8f6412",
+                "obs_287207b77fd468e3",
+                "obs_2412291926a594b3",
+                "obs_e57a69fd41be2d82",
+                "obs_8146e931865f27f0",
+                "obs_3a65cf94be9984db",
+                "obs_3a3e71cf29710925",
+                "obs_4b1f7b83071132fe"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 0.0,
+                  "end_s": 0.0
+                },
+                {
+                  "start_s": 1.0,
+                  "end_s": 1.0
+                },
+                {
+                  "start_s": 2.0,
+                  "end_s": 2.0
+                },
+                {
+                  "start_s": 3.0,
+                  "end_s": 3.0
+                },
+                {
+                  "start_s": 4.0,
+                  "end_s": 4.0
+                },
+                {
+                  "start_s": 65.0,
+                  "end_s": 65.0
+                },
+                {
+                  "start_s": 66.0,
+                  "end_s": 66.0
+                },
+                {
+                  "start_s": 67.0,
+                  "end_s": 67.0
+                }
+              ]
+            },
+            {
+              "tool_name": "ocr",
+              "evidence_text": "OCR on sampled frames confirms only the opening logo text in the early frames: frame 0.00s contains \"TURTLE\", \"CANYON\", \"COMEDY\", \"PRESENTS\" and frame 1.00s contains the same words. No OCR-confirmed subsection-title text is provided for later sampled frames in this round.",
+              "observation_ids": [
+                "obs_98af0691e6b01cf5",
+                "obs_b1cd8442e1274546",
+                "obs_3d186222370cfc99",
+                "obs_26795aea5c2059c7",
+                "obs_00ae2a0be2a82e01",
+                "obs_685b247057678765",
+                "obs_3ba4e25696811995",
+                "obs_a7560842fa59a636"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 0.0,
+                  "end_s": 0.0
+                },
+                {
+                  "start_s": 1.0,
+                  "end_s": 1.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "Whole-video preprocess summary describes the video structure: seg_001 is the opening production logo 'Turtle Canyon Comedy' / 'PRESENTS' and is excluded; seg_002 mentions title card 'THE DRINKS' around 60-66s; seg_003 mentions title card 'THE BILL' around 67-72s; seg_004 mentions title card 'THE FART' around 137-141s; seg_005 mentions title card 'THE PREP' around 188-201s; seg_006 mentions end credits from about 300s onward and those credits are excluded. The same summary also counts 'THE INTERROGATION' among the subsection titles, but no separate visually confirmed frame/OCR evidence for that title is supplied here.",
+              "observation_ids": [
+                "obs_08475d87892cd70e",
+                "obs_759926215a24688a",
+                "obs_e1e709b1f23476a2",
+                "obs_0656db84b8dbe3f4",
+                "obs_3084ebcc26400c69",
+                "obs_774373b2fe48b147",
+                "obs_c76ea4f7b69b2b35",
+                "obs_411e97bd106f29e3",
+                "obs_1a751e15ce4f15e8"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 60.0,
+                  "end_s": 66.0
+                },
+                {
+                  "start_s": 67.0,
+                  "end_s": 72.0
+                },
+                {
+                  "start_s": 137.0,
+                  "end_s": 141.0
+                },
+                {
+                  "start_s": 188.0,
+                  "end_s": 201.0
+                },
+                {
+                  "start_s": 300.0,
+                  "end_s": 337.92
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "Sampled frames show the opening logo in Images 1-2, hands/candies with no visible title text in Images 3-5, and a man with a menu with no visible title text in Images 6-8. The text context says to exclude the production logo/opening company card and notes the ending shows credits. It also presents the subsection names as possible on-screen titles rather than direct visual confirmation in these sampled frames.",
+              "observation_ids": [
+                "obs_2cf8ce910c7bdf72",
+                "obs_80b3a956453e8599",
+                "obs_3242bebcec176393",
+                "obs_da7df2beaa4644f9",
+                "obs_8d0eb9fcfde0ecbf",
+                "obs_607c93e4ebd772d5",
+                "obs_6744a2204b27db62",
+                "obs_30b161e4bedf1c38",
+                "obs_d309c3a7b1a804c8",
+                "obs_5bec4dafbb176a30"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 3.0,
+                  "end_s": 4.0
+                },
+                {
+                  "start_s": 65.0,
+                  "end_s": 67.0
+                }
+              ]
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {
+      "notes": "Preserved the supported exclusion of the opening logo. Repaired the prior unsupported jump from a candidate title list to a count of five by requiring direct visual/OCR confirmation where available and using whole-video segment summaries only for structurally anchored title-card spans. Because the supplied round evidence does not visually/OCR-confirm all five named titles, especially THE INTERROGATION, the option-level answer remains unresolved."
+    }
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.95,
+    "scores": {
+      "logical_coherence": 3,
+      "completeness": 1,
+      "factual_correctness": 3,
+      "reasoning_order": 4
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace does not complete the multiple-choice task: it leaves final_answer empty and ends with a free-form unresolved count of 4, which is not a valid option selection.",
+        "evidence_ids": [
+          "ev_02_76272991",
+          "ev_03_d0f26151",
+          "ev_02_5401d796"
+        ]
+      },
+      {
+        "severity": "HIGH",
+        "category": "INFERENCE_ERROR",
+        "message": "The trace applies an extra requirement that subsection titles must be visually/OCR-confirmed in sampled frames, then excludes 'THE INTERROGATION' despite supplied text evidence stating the summary counts it among the subsection titles. That stricter rule is not grounded by the question text and blocks justified option mapping.",
+        "evidence_ids": [
+          "ev_02_76272991",
+          "ev_03_d0f26151",
+          "ev_02_5401d796"
+        ]
+      }
+    ],
+    "feedback": "The trace preserves valid exclusions for the opening logo and end credits, but it fails to answer the multiple-choice question because it imposes an unsupported visual-confirmation rule and leaves the final option blank. Repair the grounded counting rule for titled subsections and map the supported total to one provided option.",
+    "missing_information": [
+      "the grounded counting rule for whether subsection titles named in the whole-video summary count even without sampled-frame OCR confirmation",
+      "the final answer selection from the supported subsection total and provided options"
+    ],
+    "diagnostics": {
+      "option_alignment": "fail: no unique option selected in final_answer",
+      "temporal_alignment": "pass: the trace consistently excludes opening and ending spans and cites the listed subsection spans",
+      "evidence_sufficiency": "partial: the text evidence supports exclusion of the opening logo and end credits and names subsection titles in the whole-video summary, but the trace does not use that evidence consistently to reach an option-level answer"
+    }
+  },
+  "benchmark_export": {
+    "sample_key": "cxHtplim5Ic__f7565a1a91a1",
+    "trace": {
+      "inference_steps": [
+        "[0s to 1s] The opening text display is grounded as \"TURTLE CANYON COMEDY PRESENTS\" by both the sampled-frame summary and OCR on the early frames, and it is classified as an opening production logo rather than a subsection heading, so it must be excluded from the subsection count.",
+        "[3s to 4s; 65s to 67s] The sampled non-opening frames at 3-4s and 65-67s show action scenes with no visible title text, so these sampled visuals do not themselves visually confirm any subsection title cards.",
+        "[60s to 66s; 67s to 72s; 137s to 141s; 188s to 201s] For whole-video coverage, the preprocess summary identifies the video structure after the excluded opening logo: title card \"THE DRINKS\" around 60-66s, title card \"THE BILL\" around 67-72s, title card \"THE FART\" around 137-141s, and title card \"THE PREP\" around 188-201s. These are the subsection titles explicitly tied to distinct video spans in the supplied evidence.",
+        "[300s to 337.92s] The ending is separately identified as end credits from about 300s onward, and credits are excluded from the subsection count, so the supplied whole-video structure does not add another subsection title at the end.",
+        "Although the text context also names \"THE INTERROGATION,\" the refinement instructions require counting only titles that are visually confirmed as actual on-screen subsection cards. In the supplied round evidence, there is no OCR-confirmed frame or other direct visual confirmation for \"THE INTERROGATION,\" and no separate timestamped segment entry for it. Therefore it cannot be added to the verified count.",
+        "So the verified subsection-title set supported by the supplied evidence is: THE DRINKS, THE BILL, THE FART, and THE PREP. The excluded text displays are the opening production logo and the ending credits. Counting only the verified subsection titles gives 4, which does not match any answer option."
+      ],
+      "evidence": [
+        {
+          "tool_name": "frame_retriever",
+          "evidence_text": "Retrieved candidate frames at 0.00s, 1.00s, 2.00s, 3.00s, 4.00s, 65.00s, 66.00s, and 67.00s for visual verification.",
+          "observation_ids": [
+            "obs_28b25e1f0d8f6412",
+            "obs_287207b77fd468e3",
+            "obs_2412291926a594b3",
+            "obs_e57a69fd41be2d82",
+            "obs_8146e931865f27f0",
+            "obs_3a65cf94be9984db",
+            "obs_3a3e71cf29710925",
+            "obs_4b1f7b83071132fe"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 0.0,
+              "end_s": 0.0
+            },
+            {
+              "start_s": 1.0,
+              "end_s": 1.0
+            },
+            {
+              "start_s": 2.0,
+              "end_s": 2.0
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 3.0
+            },
+            {
+              "start_s": 4.0,
+              "end_s": 4.0
+            },
+            {
+              "start_s": 65.0,
+              "end_s": 65.0
+            },
+            {
+              "start_s": 66.0,
+              "end_s": 66.0
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 67.0
+            }
+          ]
+        },
+        {
+          "tool_name": "ocr",
+          "evidence_text": "OCR on sampled frames confirms only the opening logo text in the early frames: frame 0.00s contains \"TURTLE\", \"CANYON\", \"COMEDY\", \"PRESENTS\" and frame 1.00s contains the same words. No OCR-confirmed subsection-title text is provided for later sampled frames in this round.",
+          "observation_ids": [
+            "obs_98af0691e6b01cf5",
+            "obs_b1cd8442e1274546",
+            "obs_3d186222370cfc99",
+            "obs_26795aea5c2059c7",
+            "obs_00ae2a0be2a82e01",
+            "obs_685b247057678765",
+            "obs_3ba4e25696811995",
+            "obs_a7560842fa59a636"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 0.0,
+              "end_s": 0.0
+            },
+            {
+              "start_s": 1.0,
+              "end_s": 1.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "Whole-video preprocess summary describes the video structure: seg_001 is the opening production logo 'Turtle Canyon Comedy' / 'PRESENTS' and is excluded; seg_002 mentions title card 'THE DRINKS' around 60-66s; seg_003 mentions title card 'THE BILL' around 67-72s; seg_004 mentions title card 'THE FART' around 137-141s; seg_005 mentions title card 'THE PREP' around 188-201s; seg_006 mentions end credits from about 300s onward and those credits are excluded. The same summary also counts 'THE INTERROGATION' among the subsection titles, but no separate visually confirmed frame/OCR evidence for that title is supplied here.",
+          "observation_ids": [
+            "obs_08475d87892cd70e",
+            "obs_759926215a24688a",
+            "obs_e1e709b1f23476a2",
+            "obs_0656db84b8dbe3f4",
+            "obs_3084ebcc26400c69",
+            "obs_774373b2fe48b147",
+            "obs_c76ea4f7b69b2b35",
+            "obs_411e97bd106f29e3",
+            "obs_1a751e15ce4f15e8"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 60.0,
+              "end_s": 66.0
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 72.0
+            },
+            {
+              "start_s": 137.0,
+              "end_s": 141.0
+            },
+            {
+              "start_s": 188.0,
+              "end_s": 201.0
+            },
+            {
+              "start_s": 300.0,
+              "end_s": 337.92
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "Sampled frames show the opening logo in Images 1-2, hands/candies with no visible title text in Images 3-5, and a man with a menu with no visible title text in Images 6-8. The text context says to exclude the production logo/opening company card and notes the ending shows credits. It also presents the subsection names as possible on-screen titles rather than direct visual confirmation in these sampled frames.",
+          "observation_ids": [
+            "obs_2cf8ce910c7bdf72",
+            "obs_80b3a956453e8599",
+            "obs_3242bebcec176393",
+            "obs_da7df2beaa4644f9",
+            "obs_8d0eb9fcfde0ecbf",
+            "obs_607c93e4ebd772d5",
+            "obs_6744a2204b27db62",
+            "obs_30b161e4bedf1c38",
+            "obs_d309c3a7b1a804c8",
+            "obs_5bec4dafbb176a30"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 3.0,
+              "end_s": 4.0
+            },
+            {
+              "start_s": 65.0,
+              "end_s": 67.0
+            }
+          ]
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": false,
+    "cache_dir": "preprocess/cxHtplim5Ic",
+    "manifest": {
+      "video_id": "cxHtplim5Ic",
+      "video_fingerprint": "639db09c527941217f51584bfe79b9b16843c6d3e31be2e5ca577347d8349377",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "26503208b9ce",
+      "segment_count": 6,
+      "planner_segment_count": 6,
+      "dense_caption_span_count": 12,
+      "transcript_segment_count": 9,
+      "transcript_count": 1,
+      "include_asr": true
+    },
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a static shot of the 'Turtle Canyon Comedy' production logo. The logo features a cartoon turtle with a happy expression, wearing a blue shirt and shorts, dancing next to the company name in bold, dark blue letters. The word 'PRESENTS' appears below in a smaller, italicized font.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.; Turtle Canyon Comedy | PRESENTS; attributes: camera_state: The camera is static, holding a wide shot of the logo against a plain white background., video_background: The background is a solid, clean white screen., storyline: This segment serves as the production company's title card, setting the stage for the comedy sketch., shooting_style: This is a standard logo reveal. In a dimly lit living room, a person's hand reaches into a clear plastic container filled with colorful candies. The scene then cuts to two young men sitting on a couch. The man on the left, wearing a blue Adidas tracksuit, gestures with his hands as he speaks, while the man on the right, in a grey sweatshirt, listens with a somber, downcast expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient room tone.; attributes: camera_state: The first shot is a close-up on the hand and candy container. The second shot is a medium shot of the two men on the couch, framed from the waist up., video_background: The setting is a cozy living room at night, with a floor lamp providing warm light in the background. A yellow mug with a cartoon face is visible on a side table., storyline: The scene introduces the two main characters and establishes a tense or serious mood, contrasting the casual act of eating candy with the somber mood of the man on the couch., shooting_style: The scene uses a simple cut to transition from the candy to the characters.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 1.0,
+              "visual": "The video begins with a static shot of the 'Turtle Canyon Comedy' production logo. The logo features a cartoon turtle with a happy expression, wearing a blue shirt and shorts, dancing next to the company name in bold, dark blue letters. The word 'PRESENTS' appears below in a smaller, italicized font.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.",
+              "on_screen_text": [
+                "Turtle Canyon Comedy",
+                "PRESENTS"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the logo against a plain white background.",
+                "video_background: The background is a solid, clean white screen.",
+                "storyline: This segment serves as the production company's title card, setting the stage for the comedy sketch.",
+                "shooting_style: This is a standard logo reveal."
+              ]
+            },
+            {
+              "start_s": 2.0,
+              "end_s": 7.0,
+              "visual": "In a dimly lit living room, a person's hand reaches into a clear plastic container filled with colorful candies. The scene then cuts to two young men sitting on a couch. The man on the left, wearing a blue Adidas tracksuit, gestures with his hands as he speaks, while the man on the right, in a grey sweatshirt, listens with a somber, downcast expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient room tone.",
+              "attributes": [
+                "camera_state: The first shot is a close-up on the hand and candy container. The second shot is a medium shot of the two men on the couch, framed from the waist up.",
+                "video_background: The setting is a cozy living room at night, with a floor lamp providing warm light in the background. A yellow mug with a cartoon face is visible on a side table.",
+                "storyline: The scene introduces the two main characters and establishes a tense or serious mood, contrasting the casual act of eating candy with the somber mood of the man on the couch.",
+                "shooting_style: The scene uses a simple cut to transition from the candy to the characters."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 2.377,
+            "end_s": 32.178,
+            "text": "I mean, when people ask questions like this, you know, about being bisexual and stuff like that, does that ever get in the way? No. No. No. Of course it doesn't. It's bloody fascinating. So when you take out a man, compared to when you take out a woman, do you feel like you treat him the same? Well, yeah. I think so."
+          },
+          {
+            "start_s": 33.427,
+            "end_s": 61.355,
+            "text": "Hey, good to meet you. Hey, you too. Shall we? Just a beer, please. Which one, sir?"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A montage begins with a title card reading 'THE DRINKS'. A waiter in a white shirt approaches a table where a man in a tan shirt sits. The scene cuts to a young man with a bowl cut and an orange turtleneck staring intensely. It then cuts to a woman in a green top, her finger to her lips in a 'shushing' gesture, as she looks at the man in the tan shirt, who is now holding a menu.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic track begins to play.; THE DRINKS | shushing; attributes: camera_state: The sequence uses a series of medium shots and close-ups, cutting between different characters and actions. The camera is mostly static., video_background: The setting is a dimly lit, warm-toned restaurant with wooden tables and chairs. In the background, a bar area with bottles and a white camper van are visible., storyline: This opening montage introduces the main characters and the setting, establishing a tense and intimate atmosphere as they interact in a restaurant., shooting_style: This is a montage sequence, intercutting different moments from the same scene to build a sense of anticipation and character dynamics. A waiter's arm is seen placing a bill on the table, with a title card reading 'THE BILL' overlaid. The man in the tan shirt looks up with a slight, knowing smile. The scene cuts to the woman in the green top, who looks at him with a serious, almost challenging expression. The man is then shown from behind, looking at his phone.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.; s arm is seen placing a bill on the table, with a title card reading; attributes: camera_state: The camera uses medium shots and close-ups, focusing on the characters' reactions. The shot of the bill is a close-up on the action., video_background: The restaurant setting continues, with warm lighting and other patrons blurred in the background. A potted plant is visible behind the man., storyline: The arrival of the bill introduces a point of tension or a turning point in the date, shifting the mood from a simple meal to a more serious interaction., shooting_style: The montage continues, using a title card to label a key event in the narrative.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 66.0,
+              "visual": "A montage begins with a title card reading 'THE DRINKS'. A waiter in a white shirt approaches a table where a man in a tan shirt sits. The scene cuts to a young man with a bowl cut and an orange turtleneck staring intensely. It then cuts to a woman in a green top, her finger to her lips in a 'shushing' gesture, as she looks at the man in the tan shirt, who is now holding a menu.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic track begins to play.",
+              "on_screen_text": [
+                "THE DRINKS",
+                "shushing"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a series of medium shots and close-ups, cutting between different characters and actions. The camera is mostly static.",
+                "video_background: The setting is a dimly lit, warm-toned restaurant with wooden tables and chairs. In the background, a bar area with bottles and a white camper van are visible.",
+                "storyline: This opening montage introduces the main characters and the setting, establishing a tense and intimate atmosphere as they interact in a restaurant.",
+                "shooting_style: This is a montage sequence, intercutting different moments from the same scene to build a sense of anticipation and character dynamics."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 72.0,
+              "visual": "A waiter's arm is seen placing a bill on the table, with a title card reading 'THE BILL' overlaid. The man in the tan shirt looks up with a slight, knowing smile. The scene cuts to the woman in the green top, who looks at him with a serious, almost challenging expression. The man is then shown from behind, looking at his phone.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.",
+              "on_screen_text": [
+                "s arm is seen placing a bill on the table, with a title card reading"
+              ],
+              "attributes": [
+                "camera_state: The camera uses medium shots and close-ups, focusing on the characters' reactions. The shot of the bill is a close-up on the action.",
+                "video_background: The restaurant setting continues, with warm lighting and other patrons blurred in the background. A potted plant is visible behind the man.",
+                "storyline: The arrival of the bill introduces a point of tension or a turning point in the date, shifting the mood from a simple meal to a more serious interaction.",
+                "shooting_style: The montage continues, using a title card to label a key event in the narrative."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 62.789,
+            "end_s": 89.401,
+            "text": "Not bothered. The red wine. Which one, sir? The nice. Oh, the cheap one. It's on me. I insist. I halved it. I think the couple wanted to plant a trio. No way."
+          },
+          {
+            "start_s": 89.722,
+            "end_s": 118.628,
+            "text": "What did you say? No, because that's not what I'm after. What did you say? Oh, yeah, but I felt bad after. You want to find a bar? Yeah, that'd be great. Do you want to find a gay bar? Yeah, sure thing. My father took my hand and said, we may not live in the same world, but I'll always be by your side. I'll always be in your corner."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "Two men stand on a dark, wet street at night, illuminated by a single streetlight. The man on the left wears a dark jacket over a pink shirt, while the man on the right wears a dark puffer jacket and a headband. They are talking and gesturing to each other, with the man on the left pointing at the man on the right.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient night sounds.; attributes: camera_state: The camera is at a medium distance, holding a static shot of the two men., video_background: The scene is a dark, residential street at night. A single streetlight casts a warm glow on the two men. Trees and the faint outline of a house are visible in the background., storyline: The scene opens on two friends, establishing a casual, nighttime setting. Their conversation seems to be a prelude to an event., shooting_style: This is a standard establishing shot. A third person, a woman, walks up to the two men on the street. The man on the right turns and walks away, while the other two continue their conversation. The woman then walks past them, and the man on the left follows her, leaving the man on the right behind.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient night sounds.; attributes: camera_state: The camera remains in a static medium shot, observing the group's interaction and movement., video_background: The setting is the same dark street, with a parked car and a streetlight becoming more visible in the background as the characters move., storyline: A third character is introduced, creating a dynamic shift as the original pair splits up. The man on the right seems to be an outsider to the other two's interaction., shooting_style: This is a continuous shot following the action. The scene cuts to a different angle, showing the man and woman walking together on the dark street. A title card with a black background and white text appears, reading 'THE FART'. The man smiles as he walks, and the woman looks ahead with a neutral expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency sound effect plays as the title card appears.; THE FART; attributes: camera_state: The camera is positioned at a medium distance, tracking the couple as they walk., video_background: The background is a dark street with out-of-focus lights from distant houses., storyline: This segment introduces a comedic or dramatic element with the title card, suggesting a significant or unusual event is about to occur between the man and woman., shooting_style: This is a standard tracking shot with a title card overlay.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "Two men stand on a dark, wet street at night, illuminated by a single streetlight. The man on the left wears a dark jacket over a pink shirt, while the man on the right wears a dark puffer jacket and a headband. They are talking and gesturing to each other, with the man on the left pointing at the man on the right.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient night sounds.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, holding a static shot of the two men.",
+                "video_background: The scene is a dark, residential street at night. A single streetlight casts a warm glow on the two men. Trees and the faint outline of a house are visible in the background.",
+                "storyline: The scene opens on two friends, establishing a casual, nighttime setting. Their conversation seems to be a prelude to an event.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 136.0,
+              "visual": "A third person, a woman, walks up to the two men on the street. The man on the right turns and walks away, while the other two continue their conversation. The woman then walks past them, and the man on the left follows her, leaving the man on the right behind.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient night sounds.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, observing the group's interaction and movement.",
+                "video_background: The setting is the same dark street, with a parked car and a streetlight becoming more visible in the background as the characters move.",
+                "storyline: A third character is introduced, creating a dynamic shift as the original pair splits up. The man on the right seems to be an outsider to the other two's interaction.",
+                "shooting_style: This is a continuous shot following the action."
+              ]
+            },
+            {
+              "start_s": 137.0,
+              "end_s": 141.0,
+              "visual": "The scene cuts to a different angle, showing the man and woman walking together on the dark street. A title card with a black background and white text appears, reading 'THE FART'. The man smiles as he walks, and the woman looks ahead with a neutral expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency sound effect plays as the title card appears.",
+              "on_screen_text": [
+                "THE FART"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, tracking the couple as they walk.",
+                "video_background: The background is a dark street with out-of-focus lights from distant houses.",
+                "storyline: This segment introduces a comedic or dramatic element with the title card, suggesting a significant or unusual event is about to occur between the man and woman.",
+                "shooting_style: This is a standard tracking shot with a title card overlay."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 121.042,
+            "end_s": 147.991,
+            "text": "And I love you. Sorry, what about you? They found my porn and everybody cried. I think my parents always knew I was straight. It's never come up. It's a really weird question though, why would you ask me that? Give us a smile, love. Oh my god, I am so sorry about that. Give us a smile, love."
+          },
+          {
+            "start_s": 151.18,
+            "end_s": 173.995,
+            "text": "He was talking to me. I had a great time. Me too. I just..."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "In a dimly lit, narrow hallway, two men stand face-to-face, their expressions intense. The man on the left, with dark hair and a pink shirt, looks at the man on the right, who has a short haircut and wears a black jacket. The scene cuts to a different angle, showing a Black woman with braided hair smiling as she talks to the man in the pink shirt. He gestures with his hand as he speaks to her. The scene cuts back to the two men, who now lean in and kiss each other passionately.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ambient, and slightly tense musical score plays in the background.; attributes: camera_state: The camera uses a series of medium close-ups and close-ups, cutting between different angles to focus on the characters' faces and interactions. The framing is tight, creating a sense of intimacy and tension., video_background: The setting is a dark, narrow interior hallway with plain walls. A staircase is partially visible in the background, suggesting a residential space., storyline: This opening scene establishes a complex and intimate relationship between the two men, hinting at a romantic or deeply emotional connection. The presence of the woman adds another layer to the dynamic., shooting_style: The scene is intercut, showing different perspectives of the same interaction to build the narrative and emotional context. A montage begins with a title card reading 'THE PREP'. A man in a brown shirt walks through a room. Another man in a red turtleneck stands in a doorway, looking out. The first man enters a bedroom, where the man in the red turtleneck is now present. The man in the red turtleneck takes a drink from a plastic bottle. The scene cuts to a man in a pink shirt looking down, his face illuminated by shifting red and blue lights, creating a moody and introspective atmosphere.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and rhythmic electronic score plays, building tension.; THE PREP; attributes: camera_state: The camera uses a series of medium shots and close-ups, often with a handheld or slightly unsteady feel. The lighting is low-key and atmospheric., video_background: The scenes take place in a dimly lit apartment, showing a bedroom with a closet and a hallway. The lighting is dark and moody., storyline: This montage introduces the characters preparing for an event. The shifting lights and somber mood suggest a sense of unease or anticipation., shooting_style: This is a montage sequence, cutting between different moments of preparation, unified by a title card and a consistent, dark visual style.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 187.0,
+              "visual": "In a dimly lit, narrow hallway, two men stand face-to-face, their expressions intense. The man on the left, with dark hair and a pink shirt, looks at the man on the right, who has a short haircut and wears a black jacket. The scene cuts to a different angle, showing a Black woman with braided hair smiling as she talks to the man in the pink shirt. He gestures with his hand as he speaks to her. The scene cuts back to the two men, who now lean in and kiss each other passionately.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ambient, and slightly tense musical score plays in the background.",
+              "attributes": [
+                "camera_state: The camera uses a series of medium close-ups and close-ups, cutting between different angles to focus on the characters' faces and interactions. The framing is tight, creating a sense of intimacy and tension.",
+                "video_background: The setting is a dark, narrow interior hallway with plain walls. A staircase is partially visible in the background, suggesting a residential space.",
+                "storyline: This opening scene establishes a complex and intimate relationship between the two men, hinting at a romantic or deeply emotional connection. The presence of the woman adds another layer to the dynamic.",
+                "shooting_style: The scene is intercut, showing different perspectives of the same interaction to build the narrative and emotional context."
+              ]
+            },
+            {
+              "start_s": 188.0,
+              "end_s": 201.0,
+              "visual": "A montage begins with a title card reading 'THE PREP'. A man in a brown shirt walks through a room. Another man in a red turtleneck stands in a doorway, looking out. The first man enters a bedroom, where the man in the red turtleneck is now present. The man in the red turtleneck takes a drink from a plastic bottle. The scene cuts to a man in a pink shirt looking down, his face illuminated by shifting red and blue lights, creating a moody and introspective atmosphere.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and rhythmic electronic score plays, building tension.",
+              "on_screen_text": [
+                "THE PREP"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of medium shots and close-ups, often with a handheld or slightly unsteady feel. The lighting is low-key and atmospheric.",
+                "video_background: The scenes take place in a dimly lit apartment, showing a bedroom with a closet and a hallway. The lighting is dark and moody.",
+                "storyline: This montage introduces the characters preparing for an event. The shifting lights and somber mood suggest a sense of unease or anticipation.",
+                "shooting_style: This is a montage sequence, cutting between different moments of preparation, unified by a title card and a consistent, dark visual style."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 183.952,
+            "end_s": 196.034,
+            "text": "You wanna come inside? Alright. Come in. It's been one minute."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": "clip_240_00_300_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_240_00_300_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "overall_summary": "The scene opens with a dark, blurry shot of a person in a dark blue shirt walking through a dark, wooded area at night. The ground is covered in leaves, and the lighting is very low, creating a sense of mystery and suspense.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient sounds of footsteps and rustling leaves.; attributes: camera_state: The camera is handheld and shaky, following the person's movement from a medium distance. The focus is soft and blurry., video_background: The setting is a dark, dense forest or park at night. The only light source appears to be off-camera, casting a faint blue and white glow on the leaves and the person., storyline: This opening shot establishes a mysterious and potentially dangerous situation, introducing a character moving through a dark, isolated location., shooting_style: This is a standard shot with a dark, moody color grade. The scene cuts to two men sitting on a couch in a dimly lit living room. The man on the right, in a grey sweatshirt, holds a small wooden object and looks at the man on the left with a sly, menacing smile. The man on the left, in a blue Adidas tracksuit, looks at his phone, then turns to his friend with a startled and confused expression. The text 'THE INTERROGATION' is superimposed on the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The scene is quiet, with no background music, which emphasizes the tension between the two characters.; THE INTERROGATION; attributes: camera_state: The camera is static, framed in a medium shot showing both men on the couch. The focus is on their interaction and expressions., video_background: The setting is a cozy but dimly lit living room at night. A floor lamp provides a warm, low light. A coffee table in front of them holds a game controller, a mug, and some snacks., storyline: This scene introduces a new dynamic. The man in grey appears to be intimidating or coercing the man in the tracksuit, shifting the tone from mysterious to confrontational. The title card suggests this is a key moment in the narrative., shooting_style: This is a standard shot with a title card overlay.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 243.0,
+              "visual": "The scene opens with a dark, blurry shot of a person in a dark blue shirt walking through a dark, wooded area at night. The ground is covered in leaves, and the lighting is very low, creating a sense of mystery and suspense.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient sounds of footsteps and rustling leaves.",
+              "attributes": [
+                "camera_state: The camera is handheld and shaky, following the person's movement from a medium distance. The focus is soft and blurry.",
+                "video_background: The setting is a dark, dense forest or park at night. The only light source appears to be off-camera, casting a faint blue and white glow on the leaves and the person.",
+                "storyline: This opening shot establishes a mysterious and potentially dangerous situation, introducing a character moving through a dark, isolated location.",
+                "shooting_style: This is a standard shot with a dark, moody color grade."
+              ]
+            },
+            {
+              "start_s": 244.0,
+              "end_s": 261.0,
+              "visual": "The scene cuts to two men sitting on a couch in a dimly lit living room. The man on the right, in a grey sweatshirt, holds a small wooden object and looks at the man on the left with a sly, menacing smile. The man on the left, in a blue Adidas tracksuit, looks at his phone, then turns to his friend with a startled and confused expression. The text 'THE INTERROGATION' is superimposed on the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The scene is quiet, with no background music, which emphasizes the tension between the two characters.",
+              "on_screen_text": [
+                "THE INTERROGATION"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, framed in a medium shot showing both men on the couch. The focus is on their interaction and expressions.",
+                "video_background: The setting is a cozy but dimly lit living room at night. A floor lamp provides a warm, low light. A coffee table in front of them holds a game controller, a mug, and some snacks.",
+                "storyline: This scene introduces a new dynamic. The man in grey appears to be intimidating or coercing the man in the tracksuit, shifting the tone from mysterious to confrontational. The title card suggests this is a key moment in the narrative.",
+                "shooting_style: This is a standard shot with a title card overlay."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 245.495,
+            "end_s": 272.343,
+            "text": "How was that date the other night then, mate? Yeah, it was alright. Probably won't see him again. Oh, that's a shame. I'm sure you'll find someone. Yeah. I know. Have a look at her, mate. Look."
+          },
+          {
+            "start_s": 273.001,
+            "end_s": 277.456,
+            "text": "She's into meditation, wood carving and kite flying."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 337.92,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 300.0,
+              "end_s": 337.92,
+              "artifact_id": "clip_300_00_337_92",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_300_00_337_92.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 337.92
+          },
+          "overall_summary": "The end credits for a film scroll upwards on the right side of the screen. The text is white and has a slight drop shadow. The credits list the starring actors, production crew, and filming location. In the background, a dark, foggy alley at night is visible. A faint, silhouetted figure can be seen walking away down the alley, disappearing into the mist.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient, and slightly eerie music plays in the background.; attributes: camera_state: The camera is static, holding a wide shot of the alley., video_background: The setting is a dark, narrow, and foggy alleyway at night, flanked by trees and a fence. The ground is covered in leaves, and a faint light source illuminates the far end of the alley., storyline: This is the closing scene of the film, displaying the credits while maintaining a mysterious and slightly ominous atmosphere with the figure in the background., shooting_style: This is a standard credit roll over a live-action shot.",
+          "captions": [
+            {
+              "start_s": 300.0,
+              "end_s": 319.0,
+              "visual": "The end credits for a film scroll upwards on the right side of the screen. The text is white and has a slight drop shadow. The credits list the starring actors, production crew, and filming location. In the background, a dark, foggy alley at night is visible. A faint, silhouetted figure can be seen walking away down the alley, disappearing into the mist.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient, and slightly eerie music plays in the background.",
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the alley.",
+                "video_background: The setting is a dark, narrow, and foggy alleyway at night, flanked by trees and a fence. The ground is covered in leaves, and a faint light source illuminates the far end of the alley.",
+                "storyline: This is the closing scene of the film, displaying the credits while maintaining a mysterious and slightly ominous atmosphere with the figure in the background.",
+                "shooting_style: This is a standard credit roll over a live-action shot."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a static shot of the 'Turtle Canyon Comedy' production logo. The logo features a cartoon turtle with a happy expression, wearing a blue shirt and shorts, dancing next to the company name in bold, dark blue letters. The word 'PRESENTS' appears below in a smaller, italicized font.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.; Turtle Canyon Comedy | PRESENTS; attributes: camera_state: The camera is static, holding a wide shot of the logo against a plain white background., video_background: The background is a solid, clean white screen., storyline: This segment serves as the production company's title card, setting the stage for the comedy sketch., shooting_style: This is a standard logo reveal. In a dimly lit living room, a person's hand reaches into a clear plastic container filled with colorful candies. The scene then cuts to two young men sitting on a couch. The man on the left, wearing a blue Adidas tracksuit, gestures with his hands as he speaks, while the man on the right, in a grey sweatshirt, listens with a somber, downcast expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient room tone.; attributes: camera_state: The first shot is a close-up on the hand and candy container. The second shot is a medium shot of the two men on the couch, framed from the waist up., video_background: The setting is a cozy living room at night, with a floor lamp providing warm light in the background. A yellow mug with a cartoon face is visible on a side table., storyline: The scene introduces the two main characters and establishes a tense or serious mood, contrasting the casual act of eating candy with the somber mood of the man on the couch., shooting_style: The scene uses a simple cut to transition from the candy to the characters.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 1.0,
+              "visual": "The video begins with a static shot of the 'Turtle Canyon Comedy' production logo. The logo features a cartoon turtle with a happy expression, wearing a blue shirt and shorts, dancing next to the company name in bold, dark blue letters. The word 'PRESENTS' appears below in a smaller, italicized font.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.",
+              "on_screen_text": [
+                "Turtle Canyon Comedy",
+                "PRESENTS"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the logo against a plain white background.",
+                "video_background: The background is a solid, clean white screen.",
+                "storyline: This segment serves as the production company's title card, setting the stage for the comedy sketch.",
+                "shooting_style: This is a standard logo reveal."
+              ]
+            },
+            {
+              "start_s": 2.0,
+              "end_s": 7.0,
+              "visual": "In a dimly lit living room, a person's hand reaches into a clear plastic container filled with colorful candies. The scene then cuts to two young men sitting on a couch. The man on the left, wearing a blue Adidas tracksuit, gestures with his hands as he speaks, while the man on the right, in a grey sweatshirt, listens with a somber, downcast expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient room tone.",
+              "attributes": [
+                "camera_state: The first shot is a close-up on the hand and candy container. The second shot is a medium shot of the two men on the couch, framed from the waist up.",
+                "video_background: The setting is a cozy living room at night, with a floor lamp providing warm light in the background. A yellow mug with a cartoon face is visible on a side table.",
+                "storyline: The scene introduces the two main characters and establishes a tense or serious mood, contrasting the casual act of eating candy with the somber mood of the man on the couch.",
+                "shooting_style: The scene uses a simple cut to transition from the candy to the characters."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 2.377,
+            "end_s": 32.178,
+            "text": "I mean, when people ask questions like this, you know, about being bisexual and stuff like that, does that ever get in the way? No. No. No. Of course it doesn't. It's bloody fascinating. So when you take out a man, compared to when you take out a woman, do you feel like you treat him the same? Well, yeah. I think so."
+          },
+          {
+            "start_s": 33.427,
+            "end_s": 61.355,
+            "text": "Hey, good to meet you. Hey, you too. Shall we? Just a beer, please. Which one, sir?"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A montage begins with a title card reading 'THE DRINKS'. A waiter in a white shirt approaches a table where a man in a tan shirt sits. The scene cuts to a young man with a bowl cut and an orange turtleneck staring intensely. It then cuts to a woman in a green top, her finger to her lips in a 'shushing' gesture, as she looks at the man in the tan shirt, who is now holding a menu.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic track begins to play.; THE DRINKS | shushing; attributes: camera_state: The sequence uses a series of medium shots and close-ups, cutting between different characters and actions. The camera is mostly static., video_background: The setting is a dimly lit, warm-toned restaurant with wooden tables and chairs. In the background, a bar area with bottles and a white camper van are visible., storyline: This opening montage introduces the main characters and the setting, establishing a tense and intimate atmosphere as they interact in a restaurant., shooting_style: This is a montage sequence, intercutting different moments from the same scene to build a sense of anticipation and character dynamics. A waiter's arm is seen placing a bill on the table, with a title card reading 'THE BILL' overlaid. The man in the tan shirt looks up with a slight, knowing smile. The scene cuts to the woman in the green top, who looks at him with a serious, almost challenging expression. The man is then shown from behind, looking at his phone.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.; s arm is seen placing a bill on the table, with a title card reading; attributes: camera_state: The camera uses medium shots and close-ups, focusing on the characters' reactions. The shot of the bill is a close-up on the action., video_background: The restaurant setting continues, with warm lighting and other patrons blurred in the background. A potted plant is visible behind the man., storyline: The arrival of the bill introduces a point of tension or a turning point in the date, shifting the mood from a simple meal to a more serious interaction., shooting_style: The montage continues, using a title card to label a key event in the narrative.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 66.0,
+              "visual": "A montage begins with a title card reading 'THE DRINKS'. A waiter in a white shirt approaches a table where a man in a tan shirt sits. The scene cuts to a young man with a bowl cut and an orange turtleneck staring intensely. It then cuts to a woman in a green top, her finger to her lips in a 'shushing' gesture, as she looks at the man in the tan shirt, who is now holding a menu.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic track begins to play.",
+              "on_screen_text": [
+                "THE DRINKS",
+                "shushing"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a series of medium shots and close-ups, cutting between different characters and actions. The camera is mostly static.",
+                "video_background: The setting is a dimly lit, warm-toned restaurant with wooden tables and chairs. In the background, a bar area with bottles and a white camper van are visible.",
+                "storyline: This opening montage introduces the main characters and the setting, establishing a tense and intimate atmosphere as they interact in a restaurant.",
+                "shooting_style: This is a montage sequence, intercutting different moments from the same scene to build a sense of anticipation and character dynamics."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 72.0,
+              "visual": "A waiter's arm is seen placing a bill on the table, with a title card reading 'THE BILL' overlaid. The man in the tan shirt looks up with a slight, knowing smile. The scene cuts to the woman in the green top, who looks at him with a serious, almost challenging expression. The man is then shown from behind, looking at his phone.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.",
+              "on_screen_text": [
+                "s arm is seen placing a bill on the table, with a title card reading"
+              ],
+              "attributes": [
+                "camera_state: The camera uses medium shots and close-ups, focusing on the characters' reactions. The shot of the bill is a close-up on the action.",
+                "video_background: The restaurant setting continues, with warm lighting and other patrons blurred in the background. A potted plant is visible behind the man.",
+                "storyline: The arrival of the bill introduces a point of tension or a turning point in the date, shifting the mood from a simple meal to a more serious interaction.",
+                "shooting_style: The montage continues, using a title card to label a key event in the narrative."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 62.789,
+            "end_s": 89.401,
+            "text": "Not bothered. The red wine. Which one, sir? The nice. Oh, the cheap one. It's on me. I insist. I halved it. I think the couple wanted to plant a trio. No way."
+          },
+          {
+            "start_s": 89.722,
+            "end_s": 118.628,
+            "text": "What did you say? No, because that's not what I'm after. What did you say? Oh, yeah, but I felt bad after. You want to find a bar? Yeah, that'd be great. Do you want to find a gay bar? Yeah, sure thing. My father took my hand and said, we may not live in the same world, but I'll always be by your side. I'll always be in your corner."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "Two men stand on a dark, wet street at night, illuminated by a single streetlight. The man on the left wears a dark jacket over a pink shirt, while the man on the right wears a dark puffer jacket and a headband. They are talking and gesturing to each other, with the man on the left pointing at the man on the right.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient night sounds.; attributes: camera_state: The camera is at a medium distance, holding a static shot of the two men., video_background: The scene is a dark, residential street at night. A single streetlight casts a warm glow on the two men. Trees and the faint outline of a house are visible in the background., storyline: The scene opens on two friends, establishing a casual, nighttime setting. Their conversation seems to be a prelude to an event., shooting_style: This is a standard establishing shot. A third person, a woman, walks up to the two men on the street. The man on the right turns and walks away, while the other two continue their conversation. The woman then walks past them, and the man on the left follows her, leaving the man on the right behind.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient night sounds.; attributes: camera_state: The camera remains in a static medium shot, observing the group's interaction and movement., video_background: The setting is the same dark street, with a parked car and a streetlight becoming more visible in the background as the characters move., storyline: A third character is introduced, creating a dynamic shift as the original pair splits up. The man on the right seems to be an outsider to the other two's interaction., shooting_style: This is a continuous shot following the action. The scene cuts to a different angle, showing the man and woman walking together on the dark street. A title card with a black background and white text appears, reading 'THE FART'. The man smiles as he walks, and the woman looks ahead with a neutral expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency sound effect plays as the title card appears.; THE FART; attributes: camera_state: The camera is positioned at a medium distance, tracking the couple as they walk., video_background: The background is a dark street with out-of-focus lights from distant houses., storyline: This segment introduces a comedic or dramatic element with the title card, suggesting a significant or unusual event is about to occur between the man and woman., shooting_style: This is a standard tracking shot with a title card overlay.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "Two men stand on a dark, wet street at night, illuminated by a single streetlight. The man on the left wears a dark jacket over a pink shirt, while the man on the right wears a dark puffer jacket and a headband. They are talking and gesturing to each other, with the man on the left pointing at the man on the right.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient night sounds.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, holding a static shot of the two men.",
+                "video_background: The scene is a dark, residential street at night. A single streetlight casts a warm glow on the two men. Trees and the faint outline of a house are visible in the background.",
+                "storyline: The scene opens on two friends, establishing a casual, nighttime setting. Their conversation seems to be a prelude to an event.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 136.0,
+              "visual": "A third person, a woman, walks up to the two men on the street. The man on the right turns and walks away, while the other two continue their conversation. The woman then walks past them, and the man on the left follows her, leaving the man on the right behind.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient night sounds.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, observing the group's interaction and movement.",
+                "video_background: The setting is the same dark street, with a parked car and a streetlight becoming more visible in the background as the characters move.",
+                "storyline: A third character is introduced, creating a dynamic shift as the original pair splits up. The man on the right seems to be an outsider to the other two's interaction.",
+                "shooting_style: This is a continuous shot following the action."
+              ]
+            },
+            {
+              "start_s": 137.0,
+              "end_s": 141.0,
+              "visual": "The scene cuts to a different angle, showing the man and woman walking together on the dark street. A title card with a black background and white text appears, reading 'THE FART'. The man smiles as he walks, and the woman looks ahead with a neutral expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency sound effect plays as the title card appears.",
+              "on_screen_text": [
+                "THE FART"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, tracking the couple as they walk.",
+                "video_background: The background is a dark street with out-of-focus lights from distant houses.",
+                "storyline: This segment introduces a comedic or dramatic element with the title card, suggesting a significant or unusual event is about to occur between the man and woman.",
+                "shooting_style: This is a standard tracking shot with a title card overlay."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 121.042,
+            "end_s": 147.991,
+            "text": "And I love you. Sorry, what about you? They found my porn and everybody cried. I think my parents always knew I was straight. It's never come up. It's a really weird question though, why would you ask me that? Give us a smile, love. Oh my god, I am so sorry about that. Give us a smile, love."
+          },
+          {
+            "start_s": 151.18,
+            "end_s": 173.995,
+            "text": "He was talking to me. I had a great time. Me too. I just..."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "In a dimly lit, narrow hallway, two men stand face-to-face, their expressions intense. The man on the left, with dark hair and a pink shirt, looks at the man on the right, who has a short haircut and wears a black jacket. The scene cuts to a different angle, showing a Black woman with braided hair smiling as she talks to the man in the pink shirt. He gestures with his hand as he speaks to her. The scene cuts back to the two men, who now lean in and kiss each other passionately.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ambient, and slightly tense musical score plays in the background.; attributes: camera_state: The camera uses a series of medium close-ups and close-ups, cutting between different angles to focus on the characters' faces and interactions. The framing is tight, creating a sense of intimacy and tension., video_background: The setting is a dark, narrow interior hallway with plain walls. A staircase is partially visible in the background, suggesting a residential space., storyline: This opening scene establishes a complex and intimate relationship between the two men, hinting at a romantic or deeply emotional connection. The presence of the woman adds another layer to the dynamic., shooting_style: The scene is intercut, showing different perspectives of the same interaction to build the narrative and emotional context. A montage begins with a title card reading 'THE PREP'. A man in a brown shirt walks through a room. Another man in a red turtleneck stands in a doorway, looking out. The first man enters a bedroom, where the man in the red turtleneck is now present. The man in the red turtleneck takes a drink from a plastic bottle. The scene cuts to a man in a pink shirt looking down, his face illuminated by shifting red and blue lights, creating a moody and introspective atmosphere.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and rhythmic electronic score plays, building tension.; THE PREP; attributes: camera_state: The camera uses a series of medium shots and close-ups, often with a handheld or slightly unsteady feel. The lighting is low-key and atmospheric., video_background: The scenes take place in a dimly lit apartment, showing a bedroom with a closet and a hallway. The lighting is dark and moody., storyline: This montage introduces the characters preparing for an event. The shifting lights and somber mood suggest a sense of unease or anticipation., shooting_style: This is a montage sequence, cutting between different moments of preparation, unified by a title card and a consistent, dark visual style.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 187.0,
+              "visual": "In a dimly lit, narrow hallway, two men stand face-to-face, their expressions intense. The man on the left, with dark hair and a pink shirt, looks at the man on the right, who has a short haircut and wears a black jacket. The scene cuts to a different angle, showing a Black woman with braided hair smiling as she talks to the man in the pink shirt. He gestures with his hand as he speaks to her. The scene cuts back to the two men, who now lean in and kiss each other passionately.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ambient, and slightly tense musical score plays in the background.",
+              "attributes": [
+                "camera_state: The camera uses a series of medium close-ups and close-ups, cutting between different angles to focus on the characters' faces and interactions. The framing is tight, creating a sense of intimacy and tension.",
+                "video_background: The setting is a dark, narrow interior hallway with plain walls. A staircase is partially visible in the background, suggesting a residential space.",
+                "storyline: This opening scene establishes a complex and intimate relationship between the two men, hinting at a romantic or deeply emotional connection. The presence of the woman adds another layer to the dynamic.",
+                "shooting_style: The scene is intercut, showing different perspectives of the same interaction to build the narrative and emotional context."
+              ]
+            },
+            {
+              "start_s": 188.0,
+              "end_s": 201.0,
+              "visual": "A montage begins with a title card reading 'THE PREP'. A man in a brown shirt walks through a room. Another man in a red turtleneck stands in a doorway, looking out. The first man enters a bedroom, where the man in the red turtleneck is now present. The man in the red turtleneck takes a drink from a plastic bottle. The scene cuts to a man in a pink shirt looking down, his face illuminated by shifting red and blue lights, creating a moody and introspective atmosphere.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and rhythmic electronic score plays, building tension.",
+              "on_screen_text": [
+                "THE PREP"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of medium shots and close-ups, often with a handheld or slightly unsteady feel. The lighting is low-key and atmospheric.",
+                "video_background: The scenes take place in a dimly lit apartment, showing a bedroom with a closet and a hallway. The lighting is dark and moody.",
+                "storyline: This montage introduces the characters preparing for an event. The shifting lights and somber mood suggest a sense of unease or anticipation.",
+                "shooting_style: This is a montage sequence, cutting between different moments of preparation, unified by a title card and a consistent, dark visual style."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 183.952,
+            "end_s": 196.034,
+            "text": "You wanna come inside? Alright. Come in. It's been one minute."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": "clip_240_00_300_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_240_00_300_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "overall_summary": "The scene opens with a dark, blurry shot of a person in a dark blue shirt walking through a dark, wooded area at night. The ground is covered in leaves, and the lighting is very low, creating a sense of mystery and suspense.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient sounds of footsteps and rustling leaves.; attributes: camera_state: The camera is handheld and shaky, following the person's movement from a medium distance. The focus is soft and blurry., video_background: The setting is a dark, dense forest or park at night. The only light source appears to be off-camera, casting a faint blue and white glow on the leaves and the person., storyline: This opening shot establishes a mysterious and potentially dangerous situation, introducing a character moving through a dark, isolated location., shooting_style: This is a standard shot with a dark, moody color grade. The scene cuts to two men sitting on a couch in a dimly lit living room. The man on the right, in a grey sweatshirt, holds a small wooden object and looks at the man on the left with a sly, menacing smile. The man on the left, in a blue Adidas tracksuit, looks at his phone, then turns to his friend with a startled and confused expression. The text 'THE INTERROGATION' is superimposed on the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The scene is quiet, with no background music, which emphasizes the tension between the two characters.; THE INTERROGATION; attributes: camera_state: The camera is static, framed in a medium shot showing both men on the couch. The focus is on their interaction and expressions., video_background: The setting is a cozy but dimly lit living room at night. A floor lamp provides a warm, low light. A coffee table in front of them holds a game controller, a mug, and some snacks., storyline: This scene introduces a new dynamic. The man in grey appears to be intimidating or coercing the man in the tracksuit, shifting the tone from mysterious to confrontational. The title card suggests this is a key moment in the narrative., shooting_style: This is a standard shot with a title card overlay.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 243.0,
+              "visual": "The scene opens with a dark, blurry shot of a person in a dark blue shirt walking through a dark, wooded area at night. The ground is covered in leaves, and the lighting is very low, creating a sense of mystery and suspense.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient sounds of footsteps and rustling leaves.",
+              "attributes": [
+                "camera_state: The camera is handheld and shaky, following the person's movement from a medium distance. The focus is soft and blurry.",
+                "video_background: The setting is a dark, dense forest or park at night. The only light source appears to be off-camera, casting a faint blue and white glow on the leaves and the person.",
+                "storyline: This opening shot establishes a mysterious and potentially dangerous situation, introducing a character moving through a dark, isolated location.",
+                "shooting_style: This is a standard shot with a dark, moody color grade."
+              ]
+            },
+            {
+              "start_s": 244.0,
+              "end_s": 261.0,
+              "visual": "The scene cuts to two men sitting on a couch in a dimly lit living room. The man on the right, in a grey sweatshirt, holds a small wooden object and looks at the man on the left with a sly, menacing smile. The man on the left, in a blue Adidas tracksuit, looks at his phone, then turns to his friend with a startled and confused expression. The text 'THE INTERROGATION' is superimposed on the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The scene is quiet, with no background music, which emphasizes the tension between the two characters.",
+              "on_screen_text": [
+                "THE INTERROGATION"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, framed in a medium shot showing both men on the couch. The focus is on their interaction and expressions.",
+                "video_background: The setting is a cozy but dimly lit living room at night. A floor lamp provides a warm, low light. A coffee table in front of them holds a game controller, a mug, and some snacks.",
+                "storyline: This scene introduces a new dynamic. The man in grey appears to be intimidating or coercing the man in the tracksuit, shifting the tone from mysterious to confrontational. The title card suggests this is a key moment in the narrative.",
+                "shooting_style: This is a standard shot with a title card overlay."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 245.495,
+            "end_s": 272.343,
+            "text": "How was that date the other night then, mate? Yeah, it was alright. Probably won't see him again. Oh, that's a shame. I'm sure you'll find someone. Yeah. I know. Have a look at her, mate. Look."
+          },
+          {
+            "start_s": 273.001,
+            "end_s": 277.456,
+            "text": "She's into meditation, wood carving and kite flying."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 337.92,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 300.0,
+              "end_s": 337.92,
+              "artifact_id": "clip_300_00_337_92",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_300_00_337_92.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 337.92
+          },
+          "overall_summary": "The end credits for a film scroll upwards on the right side of the screen. The text is white and has a slight drop shadow. The credits list the starring actors, production crew, and filming location. In the background, a dark, foggy alley at night is visible. A faint, silhouetted figure can be seen walking away down the alley, disappearing into the mist.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient, and slightly eerie music plays in the background.; attributes: camera_state: The camera is static, holding a wide shot of the alley., video_background: The setting is a dark, narrow, and foggy alleyway at night, flanked by trees and a fence. The ground is covered in leaves, and a faint light source illuminates the far end of the alley., storyline: This is the closing scene of the film, displaying the credits while maintaining a mysterious and slightly ominous atmosphere with the figure in the background., shooting_style: This is a standard credit roll over a live-action shot.",
+          "captions": [
+            {
+              "start_s": 300.0,
+              "end_s": 319.0,
+              "visual": "The end credits for a film scroll upwards on the right side of the screen. The text is white and has a slight drop shadow. The credits list the starring actors, production crew, and filming location. In the background, a dark, foggy alley at night is visible. A faint, silhouetted figure can be seen walking away down the alley, disappearing into the mist.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient, and slightly eerie music plays in the background.",
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the alley.",
+                "video_background: The setting is a dark, narrow, and foggy alleyway at night, flanked by trees and a fence. The ground is covered in leaves, and a faint light source illuminates the far end of the alley.",
+                "storyline: This is the closing scene of the film, displaying the credits while maintaining a mysterious and slightly ominous atmosphere with the figure in the background.",
+                "shooting_style: This is a standard credit roll over a live-action shot."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a static shot of the 'Turtle Canyon Comedy' production logo. The logo features a cartoon turtle with a happy expression, wearing a blue shirt and shorts, dancing next to the company name in bold, dark blue letters. The word 'PRESENTS' appears below in a smaller, italicized font.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.; Turtle Canyon Comedy | PRESENTS; attributes: camera_state: The camera is static, holding a wide shot of the logo against a plain white background., video_background: The background is a solid, clean white screen., storyline: This segment serves as the production company's title card, setting the stage for the comedy sketch., shooting_style: This is a standard logo reveal. In a dimly lit living room, a person's hand reaches into a clear plastic container filled with colorful candies. The scene then cuts to two young men sitting on a couch. The man on the left, wearing a blue Adidas tracksuit, gestures with his hands as he speaks, while the man on the right, in a grey sweatshirt, listens with a somber, downcast expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient room tone.; attributes: camera_state: The first shot is a close-up on the hand and candy container. The second shot is a medium shot of the two men on the couch, framed from the waist up., video_background: The setting is a cozy living room at night, with a floor lamp providing warm light in the background. A yellow mug with a cartoon face is visible on a side table., storyline: The scene introduces the two main characters and establishes a tense or serious mood, contrasting the casual act of eating candy with the somber mood of the man on the couch., shooting_style: The scene uses a simple cut to transition from the candy to the characters.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 1.0,
+              "visual": "The video begins with a static shot of the 'Turtle Canyon Comedy' production logo. The logo features a cartoon turtle with a happy expression, wearing a blue shirt and shorts, dancing next to the company name in bold, dark blue letters. The word 'PRESENTS' appears below in a smaller, italicized font.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.",
+              "on_screen_text": [
+                "Turtle Canyon Comedy",
+                "PRESENTS"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the logo against a plain white background.",
+                "video_background: The background is a solid, clean white screen.",
+                "storyline: This segment serves as the production company's title card, setting the stage for the comedy sketch.",
+                "shooting_style: This is a standard logo reveal."
+              ]
+            },
+            {
+              "start_s": 2.0,
+              "end_s": 7.0,
+              "visual": "In a dimly lit living room, a person's hand reaches into a clear plastic container filled with colorful candies. The scene then cuts to two young men sitting on a couch. The man on the left, wearing a blue Adidas tracksuit, gestures with his hands as he speaks, while the man on the right, in a grey sweatshirt, listens with a somber, downcast expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient room tone.",
+              "attributes": [
+                "camera_state: The first shot is a close-up on the hand and candy container. The second shot is a medium shot of the two men on the couch, framed from the waist up.",
+                "video_background: The setting is a cozy living room at night, with a floor lamp providing warm light in the background. A yellow mug with a cartoon face is visible on a side table.",
+                "storyline: The scene introduces the two main characters and establishes a tense or serious mood, contrasting the casual act of eating candy with the somber mood of the man on the couch.",
+                "shooting_style: The scene uses a simple cut to transition from the candy to the characters."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A montage begins with a title card reading 'THE DRINKS'. A waiter in a white shirt approaches a table where a man in a tan shirt sits. The scene cuts to a young man with a bowl cut and an orange turtleneck staring intensely. It then cuts to a woman in a green top, her finger to her lips in a 'shushing' gesture, as she looks at the man in the tan shirt, who is now holding a menu.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic track begins to play.; THE DRINKS | shushing; attributes: camera_state: The sequence uses a series of medium shots and close-ups, cutting between different characters and actions. The camera is mostly static., video_background: The setting is a dimly lit, warm-toned restaurant with wooden tables and chairs. In the background, a bar area with bottles and a white camper van are visible., storyline: This opening montage introduces the main characters and the setting, establishing a tense and intimate atmosphere as they interact in a restaurant., shooting_style: This is a montage sequence, intercutting different moments from the same scene to build a sense of anticipation and character dynamics. A waiter's arm is seen placing a bill on the table, with a title card reading 'THE BILL' overlaid. The man in the tan shirt looks up with a slight, knowing smile. The scene cuts to the woman in the green top, who looks at him with a serious, almost challenging expression. The man is then shown from behind, looking at his phone.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.; s arm is seen placing a bill on the table, with a title card reading; attributes: camera_state: The camera uses medium shots and close-ups, focusing on the characters' reactions. The shot of the bill is a close-up on the action., video_background: The restaurant setting continues, with warm lighting and other patrons blurred in the background. A potted plant is visible behind the man., storyline: The arrival of the bill introduces a point of tension or a turning point in the date, shifting the mood from a simple meal to a more serious interaction., shooting_style: The montage continues, using a title card to label a key event in the narrative.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 66.0,
+              "visual": "A montage begins with a title card reading 'THE DRINKS'. A waiter in a white shirt approaches a table where a man in a tan shirt sits. The scene cuts to a young man with a bowl cut and an orange turtleneck staring intensely. It then cuts to a woman in a green top, her finger to her lips in a 'shushing' gesture, as she looks at the man in the tan shirt, who is now holding a menu.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic track begins to play.",
+              "on_screen_text": [
+                "THE DRINKS",
+                "shushing"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a series of medium shots and close-ups, cutting between different characters and actions. The camera is mostly static.",
+                "video_background: The setting is a dimly lit, warm-toned restaurant with wooden tables and chairs. In the background, a bar area with bottles and a white camper van are visible.",
+                "storyline: This opening montage introduces the main characters and the setting, establishing a tense and intimate atmosphere as they interact in a restaurant.",
+                "shooting_style: This is a montage sequence, intercutting different moments from the same scene to build a sense of anticipation and character dynamics."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 72.0,
+              "visual": "A waiter's arm is seen placing a bill on the table, with a title card reading 'THE BILL' overlaid. The man in the tan shirt looks up with a slight, knowing smile. The scene cuts to the woman in the green top, who looks at him with a serious, almost challenging expression. The man is then shown from behind, looking at his phone.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.",
+              "on_screen_text": [
+                "s arm is seen placing a bill on the table, with a title card reading"
+              ],
+              "attributes": [
+                "camera_state: The camera uses medium shots and close-ups, focusing on the characters' reactions. The shot of the bill is a close-up on the action.",
+                "video_background: The restaurant setting continues, with warm lighting and other patrons blurred in the background. A potted plant is visible behind the man.",
+                "storyline: The arrival of the bill introduces a point of tension or a turning point in the date, shifting the mood from a simple meal to a more serious interaction.",
+                "shooting_style: The montage continues, using a title card to label a key event in the narrative."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "Two men stand on a dark, wet street at night, illuminated by a single streetlight. The man on the left wears a dark jacket over a pink shirt, while the man on the right wears a dark puffer jacket and a headband. They are talking and gesturing to each other, with the man on the left pointing at the man on the right.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient night sounds.; attributes: camera_state: The camera is at a medium distance, holding a static shot of the two men., video_background: The scene is a dark, residential street at night. A single streetlight casts a warm glow on the two men. Trees and the faint outline of a house are visible in the background., storyline: The scene opens on two friends, establishing a casual, nighttime setting. Their conversation seems to be a prelude to an event., shooting_style: This is a standard establishing shot. A third person, a woman, walks up to the two men on the street. The man on the right turns and walks away, while the other two continue their conversation. The woman then walks past them, and the man on the left follows her, leaving the man on the right behind.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient night sounds.; attributes: camera_state: The camera remains in a static medium shot, observing the group's interaction and movement., video_background: The setting is the same dark street, with a parked car and a streetlight becoming more visible in the background as the characters move., storyline: A third character is introduced, creating a dynamic shift as the original pair splits up. The man on the right seems to be an outsider to the other two's interaction., shooting_style: This is a continuous shot following the action. The scene cuts to a different angle, showing the man and woman walking together on the dark street. A title card with a black background and white text appears, reading 'THE FART'. The man smiles as he walks, and the woman looks ahead with a neutral expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency sound effect plays as the title card appears.; THE FART; attributes: camera_state: The camera is positioned at a medium distance, tracking the couple as they walk., video_background: The background is a dark street with out-of-focus lights from distant houses., storyline: This segment introduces a comedic or dramatic element with the title card, suggesting a significant or unusual event is about to occur between the man and woman., shooting_style: This is a standard tracking shot with a title card overlay.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "Two men stand on a dark, wet street at night, illuminated by a single streetlight. The man on the left wears a dark jacket over a pink shirt, while the man on the right wears a dark puffer jacket and a headband. They are talking and gesturing to each other, with the man on the left pointing at the man on the right.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient night sounds.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, holding a static shot of the two men.",
+                "video_background: The scene is a dark, residential street at night. A single streetlight casts a warm glow on the two men. Trees and the faint outline of a house are visible in the background.",
+                "storyline: The scene opens on two friends, establishing a casual, nighttime setting. Their conversation seems to be a prelude to an event.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 136.0,
+              "visual": "A third person, a woman, walks up to the two men on the street. The man on the right turns and walks away, while the other two continue their conversation. The woman then walks past them, and the man on the left follows her, leaving the man on the right behind.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient night sounds.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, observing the group's interaction and movement.",
+                "video_background: The setting is the same dark street, with a parked car and a streetlight becoming more visible in the background as the characters move.",
+                "storyline: A third character is introduced, creating a dynamic shift as the original pair splits up. The man on the right seems to be an outsider to the other two's interaction.",
+                "shooting_style: This is a continuous shot following the action."
+              ]
+            },
+            {
+              "start_s": 137.0,
+              "end_s": 141.0,
+              "visual": "The scene cuts to a different angle, showing the man and woman walking together on the dark street. A title card with a black background and white text appears, reading 'THE FART'. The man smiles as he walks, and the woman looks ahead with a neutral expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency sound effect plays as the title card appears.",
+              "on_screen_text": [
+                "THE FART"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, tracking the couple as they walk.",
+                "video_background: The background is a dark street with out-of-focus lights from distant houses.",
+                "storyline: This segment introduces a comedic or dramatic element with the title card, suggesting a significant or unusual event is about to occur between the man and woman.",
+                "shooting_style: This is a standard tracking shot with a title card overlay."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "In a dimly lit, narrow hallway, two men stand face-to-face, their expressions intense. The man on the left, with dark hair and a pink shirt, looks at the man on the right, who has a short haircut and wears a black jacket. The scene cuts to a different angle, showing a Black woman with braided hair smiling as she talks to the man in the pink shirt. He gestures with his hand as he speaks to her. The scene cuts back to the two men, who now lean in and kiss each other passionately.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ambient, and slightly tense musical score plays in the background.; attributes: camera_state: The camera uses a series of medium close-ups and close-ups, cutting between different angles to focus on the characters' faces and interactions. The framing is tight, creating a sense of intimacy and tension., video_background: The setting is a dark, narrow interior hallway with plain walls. A staircase is partially visible in the background, suggesting a residential space., storyline: This opening scene establishes a complex and intimate relationship between the two men, hinting at a romantic or deeply emotional connection. The presence of the woman adds another layer to the dynamic., shooting_style: The scene is intercut, showing different perspectives of the same interaction to build the narrative and emotional context. A montage begins with a title card reading 'THE PREP'. A man in a brown shirt walks through a room. Another man in a red turtleneck stands in a doorway, looking out. The first man enters a bedroom, where the man in the red turtleneck is now present. The man in the red turtleneck takes a drink from a plastic bottle. The scene cuts to a man in a pink shirt looking down, his face illuminated by shifting red and blue lights, creating a moody and introspective atmosphere.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and rhythmic electronic score plays, building tension.; THE PREP; attributes: camera_state: The camera uses a series of medium shots and close-ups, often with a handheld or slightly unsteady feel. The lighting is low-key and atmospheric., video_background: The scenes take place in a dimly lit apartment, showing a bedroom with a closet and a hallway. The lighting is dark and moody., storyline: This montage introduces the characters preparing for an event. The shifting lights and somber mood suggest a sense of unease or anticipation., shooting_style: This is a montage sequence, cutting between different moments of preparation, unified by a title card and a consistent, dark visual style.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 187.0,
+              "visual": "In a dimly lit, narrow hallway, two men stand face-to-face, their expressions intense. The man on the left, with dark hair and a pink shirt, looks at the man on the right, who has a short haircut and wears a black jacket. The scene cuts to a different angle, showing a Black woman with braided hair smiling as she talks to the man in the pink shirt. He gestures with his hand as he speaks to her. The scene cuts back to the two men, who now lean in and kiss each other passionately.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ambient, and slightly tense musical score plays in the background.",
+              "attributes": [
+                "camera_state: The camera uses a series of medium close-ups and close-ups, cutting between different angles to focus on the characters' faces and interactions. The framing is tight, creating a sense of intimacy and tension.",
+                "video_background: The setting is a dark, narrow interior hallway with plain walls. A staircase is partially visible in the background, suggesting a residential space.",
+                "storyline: This opening scene establishes a complex and intimate relationship between the two men, hinting at a romantic or deeply emotional connection. The presence of the woman adds another layer to the dynamic.",
+                "shooting_style: The scene is intercut, showing different perspectives of the same interaction to build the narrative and emotional context."
+              ]
+            },
+            {
+              "start_s": 188.0,
+              "end_s": 201.0,
+              "visual": "A montage begins with a title card reading 'THE PREP'. A man in a brown shirt walks through a room. Another man in a red turtleneck stands in a doorway, looking out. The first man enters a bedroom, where the man in the red turtleneck is now present. The man in the red turtleneck takes a drink from a plastic bottle. The scene cuts to a man in a pink shirt looking down, his face illuminated by shifting red and blue lights, creating a moody and introspective atmosphere.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and rhythmic electronic score plays, building tension.",
+              "on_screen_text": [
+                "THE PREP"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of medium shots and close-ups, often with a handheld or slightly unsteady feel. The lighting is low-key and atmospheric.",
+                "video_background: The scenes take place in a dimly lit apartment, showing a bedroom with a closet and a hallway. The lighting is dark and moody.",
+                "storyline: This montage introduces the characters preparing for an event. The shifting lights and somber mood suggest a sense of unease or anticipation.",
+                "shooting_style: This is a montage sequence, cutting between different moments of preparation, unified by a title card and a consistent, dark visual style."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": "clip_240_00_300_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_240_00_300_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "overall_summary": "The scene opens with a dark, blurry shot of a person in a dark blue shirt walking through a dark, wooded area at night. The ground is covered in leaves, and the lighting is very low, creating a sense of mystery and suspense.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient sounds of footsteps and rustling leaves.; attributes: camera_state: The camera is handheld and shaky, following the person's movement from a medium distance. The focus is soft and blurry., video_background: The setting is a dark, dense forest or park at night. The only light source appears to be off-camera, casting a faint blue and white glow on the leaves and the person., storyline: This opening shot establishes a mysterious and potentially dangerous situation, introducing a character moving through a dark, isolated location., shooting_style: This is a standard shot with a dark, moody color grade. The scene cuts to two men sitting on a couch in a dimly lit living room. The man on the right, in a grey sweatshirt, holds a small wooden object and looks at the man on the left with a sly, menacing smile. The man on the left, in a blue Adidas tracksuit, looks at his phone, then turns to his friend with a startled and confused expression. The text 'THE INTERROGATION' is superimposed on the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The scene is quiet, with no background music, which emphasizes the tension between the two characters.; THE INTERROGATION; attributes: camera_state: The camera is static, framed in a medium shot showing both men on the couch. The focus is on their interaction and expressions., video_background: The setting is a cozy but dimly lit living room at night. A floor lamp provides a warm, low light. A coffee table in front of them holds a game controller, a mug, and some snacks., storyline: This scene introduces a new dynamic. The man in grey appears to be intimidating or coercing the man in the tracksuit, shifting the tone from mysterious to confrontational. The title card suggests this is a key moment in the narrative., shooting_style: This is a standard shot with a title card overlay.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 243.0,
+              "visual": "The scene opens with a dark, blurry shot of a person in a dark blue shirt walking through a dark, wooded area at night. The ground is covered in leaves, and the lighting is very low, creating a sense of mystery and suspense.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient sounds of footsteps and rustling leaves.",
+              "attributes": [
+                "camera_state: The camera is handheld and shaky, following the person's movement from a medium distance. The focus is soft and blurry.",
+                "video_background: The setting is a dark, dense forest or park at night. The only light source appears to be off-camera, casting a faint blue and white glow on the leaves and the person.",
+                "storyline: This opening shot establishes a mysterious and potentially dangerous situation, introducing a character moving through a dark, isolated location.",
+                "shooting_style: This is a standard shot with a dark, moody color grade."
+              ]
+            },
+            {
+              "start_s": 244.0,
+              "end_s": 261.0,
+              "visual": "The scene cuts to two men sitting on a couch in a dimly lit living room. The man on the right, in a grey sweatshirt, holds a small wooden object and looks at the man on the left with a sly, menacing smile. The man on the left, in a blue Adidas tracksuit, looks at his phone, then turns to his friend with a startled and confused expression. The text 'THE INTERROGATION' is superimposed on the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The scene is quiet, with no background music, which emphasizes the tension between the two characters.",
+              "on_screen_text": [
+                "THE INTERROGATION"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, framed in a medium shot showing both men on the couch. The focus is on their interaction and expressions.",
+                "video_background: The setting is a cozy but dimly lit living room at night. A floor lamp provides a warm, low light. A coffee table in front of them holds a game controller, a mug, and some snacks.",
+                "storyline: This scene introduces a new dynamic. The man in grey appears to be intimidating or coercing the man in the tracksuit, shifting the tone from mysterious to confrontational. The title card suggests this is a key moment in the narrative.",
+                "shooting_style: This is a standard shot with a title card overlay."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 337.92,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 300.0,
+              "end_s": 337.92,
+              "artifact_id": "clip_300_00_337_92",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_300_00_337_92.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 337.92
+          },
+          "overall_summary": "The end credits for a film scroll upwards on the right side of the screen. The text is white and has a slight drop shadow. The credits list the starring actors, production crew, and filming location. In the background, a dark, foggy alley at night is visible. A faint, silhouetted figure can be seen walking away down the alley, disappearing into the mist.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient, and slightly eerie music plays in the background.; attributes: camera_state: The camera is static, holding a wide shot of the alley., video_background: The setting is a dark, narrow, and foggy alleyway at night, flanked by trees and a fence. The ground is covered in leaves, and a faint light source illuminates the far end of the alley., storyline: This is the closing scene of the film, displaying the credits while maintaining a mysterious and slightly ominous atmosphere with the figure in the background., shooting_style: This is a standard credit roll over a live-action shot.",
+          "captions": [
+            {
+              "start_s": 300.0,
+              "end_s": 319.0,
+              "visual": "The end credits for a film scroll upwards on the right side of the screen. The text is white and has a slight drop shadow. The credits list the starring actors, production crew, and filming location. In the background, a dark, foggy alley at night is visible. A faint, silhouetted figure can be seen walking away down the alley, disappearing into the mist.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient, and slightly eerie music plays in the background.",
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the alley.",
+                "video_background: The setting is a dark, narrow, and foggy alleyway at night, flanked by trees and a fence. The ground is covered in leaves, and a faint light source illuminates the far end of the alley.",
+                "storyline: This is the closing scene of the film, displaying the credits while maintaining a mysterious and slightly ominous atmosphere with the figure in the background.",
+                "shooting_style: This is a standard credit roll over a live-action shot."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_c797e843d675",
+        "clip": {
+          "video_id": "cxHtplim5Ic",
+          "start_s": 0.0,
+          "end_s": 337.92,
+          "artifact_id": "clip_000_00_337_92",
+          "relpath": "artifacts/cxHtplim5Ic/clips/clip_000_00_337_92.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 2.377,
+            "end_s": 32.178,
+            "text": "I mean, when people ask questions like this, you know, about being bisexual and stuff like that, does that ever get in the way? No. No. No. Of course it doesn't. It's bloody fascinating. So when you take out a man, compared to when you take out a woman, do you feel like you treat him the same? Well, yeah. I think so."
+          },
+          {
+            "start_s": 33.427,
+            "end_s": 61.355,
+            "text": "Hey, good to meet you. Hey, you too. Shall we? Just a beer, please. Which one, sir?"
+          },
+          {
+            "start_s": 62.789,
+            "end_s": 89.401,
+            "text": "Not bothered. The red wine. Which one, sir? The nice. Oh, the cheap one. It's on me. I insist. I halved it. I think the couple wanted to plant a trio. No way."
+          },
+          {
+            "start_s": 89.722,
+            "end_s": 118.628,
+            "text": "What did you say? No, because that's not what I'm after. What did you say? Oh, yeah, but I felt bad after. You want to find a bar? Yeah, that'd be great. Do you want to find a gay bar? Yeah, sure thing. My father took my hand and said, we may not live in the same world, but I'll always be by your side. I'll always be in your corner."
+          },
+          {
+            "start_s": 121.042,
+            "end_s": 147.991,
+            "text": "And I love you. Sorry, what about you? They found my porn and everybody cried. I think my parents always knew I was straight. It's never come up. It's a really weird question though, why would you ask me that? Give us a smile, love. Oh my god, I am so sorry about that. Give us a smile, love."
+          },
+          {
+            "start_s": 151.18,
+            "end_s": 173.995,
+            "text": "He was talking to me. I had a great time. Me too. I just..."
+          },
+          {
+            "start_s": 183.952,
+            "end_s": 196.034,
+            "text": "You wanna come inside? Alright. Come in. It's been one minute."
+          },
+          {
+            "start_s": 245.495,
+            "end_s": 272.343,
+            "text": "How was that date the other night then, mate? Yeah, it was alright. Probably won't see him again. Oh, that's a shame. I'm sure you'll find someone. Yeah. I know. Have a look at her, mate. Look."
+          },
+          {
+            "start_s": 273.001,
+            "end_s": 277.456,
+            "text": "She's into meditation, wood carving and kite flying."
+          }
+        ]
+      }
+    ],
+    "planner_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a static shot of the 'Turtle Canyon Comedy' production logo. The logo features a cartoon turtle with a happy expression, wearing a blue shirt and shorts, dancing next to the company name in bold, dark blue letters. The word 'PRESENTS' appears below in a smaller, italicized font.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.; Turtle Canyon Comedy | PRESENTS; attributes: camera_state: The camera is static, holding a wide shot of the logo against a plain white background., video_background: The background is a solid, clean white screen., storyline: This segment serves as the production company's title card, setting the stage for the comedy sketch., shooting_style: This is a standard logo reveal. In a dimly lit living room, a person's hand reaches into a clear plastic container filled with colorful candies. The scene then cuts to two young men sitting on a couch. The man on the left, wearing a blue Adidas tracksuit, gestures with his hands as he speaks, while the man on the right, in a grey sweatshirt, listens with a somber, downcast expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient room tone.; attributes: camera_state: The first shot is a close-up on the hand and candy container. The second shot is a medium shot of the two men on the couch, framed from the waist up., video_background: The setting is a cozy living room at night, with a floor lamp providing warm light in the background. A yellow mug with a cartoon face is visible on a side table., storyline: The scene introduces the two main characters and establishes a tense or serious mood, contrasting the casual act of eating candy with the somber mood of the man on the couch., shooting_style: The scene uses a simple cut to transition from the candy to the characters.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 1.0,
+              "visual": "The video begins with a static shot of the 'Turtle Canyon Comedy' production logo. The logo features a cartoon turtle with a happy expression, wearing a blue shirt and shorts, dancing next to the company name in bold, dark blue letters. The word 'PRESENTS' appears below in a smaller, italicized font.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Silence.",
+              "on_screen_text": [
+                "Turtle Canyon Comedy",
+                "PRESENTS"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the logo against a plain white background.",
+                "video_background: The background is a solid, clean white screen.",
+                "storyline: This segment serves as the production company's title card, setting the stage for the comedy sketch.",
+                "shooting_style: This is a standard logo reveal."
+              ]
+            },
+            {
+              "start_s": 2.0,
+              "end_s": 7.0,
+              "visual": "In a dimly lit living room, a person's hand reaches into a clear plastic container filled with colorful candies. The scene then cuts to two young men sitting on a couch. The man on the left, wearing a blue Adidas tracksuit, gestures with his hands as he speaks, while the man on the right, in a grey sweatshirt, listens with a somber, downcast expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient room tone.",
+              "attributes": [
+                "camera_state: The first shot is a close-up on the hand and candy container. The second shot is a medium shot of the two men on the couch, framed from the waist up.",
+                "video_background: The setting is a cozy living room at night, with a floor lamp providing warm light in the background. A yellow mug with a cartoon face is visible on a side table.",
+                "storyline: The scene introduces the two main characters and establishes a tense or serious mood, contrasting the casual act of eating candy with the somber mood of the man on the couch.",
+                "shooting_style: The scene uses a simple cut to transition from the candy to the characters."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 2.377,
+              "end_s": 32.178,
+              "text": "I mean, when people ask questions like this, you know, about being bisexual and stuff like that, does that ever get in the way? No. No. No. Of course it doesn't. It's bloody fascinating. So when you take out a man, compared to when you take out a woman, do you feel like you treat him the same? Well, yeah. I think so."
+            },
+            {
+              "start_s": 33.427,
+              "end_s": 61.355,
+              "text": "Hey, good to meet you. Hey, you too. Shall we? Just a beer, please. Which one, sir?"
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A montage begins with a title card reading 'THE DRINKS'. A waiter in a white shirt approaches a table where a man in a tan shirt sits. The scene cuts to a young man with a bowl cut and an orange turtleneck staring intensely. It then cuts to a woman in a green top, her finger to her lips in a 'shushing' gesture, as she looks at the man in the tan shirt, who is now holding a menu.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic track begins to play.; THE DRINKS | shushing; attributes: camera_state: The sequence uses a series of medium shots and close-ups, cutting between different characters and actions. The camera is mostly static., video_background: The setting is a dimly lit, warm-toned restaurant with wooden tables and chairs. In the background, a bar area with bottles and a white camper van are visible., storyline: This opening montage introduces the main characters and the setting, establishing a tense and intimate atmosphere as they interact in a restaurant., shooting_style: This is a montage sequence, intercutting different moments from the same scene to build a sense of anticipation and character dynamics. A waiter's arm is seen placing a bill on the table, with a title card reading 'THE BILL' overlaid. The man in the tan shirt looks up with a slight, knowing smile. The scene cuts to the woman in the green top, who looks at him with a serious, almost challenging expression. The man is then shown from behind, looking at his phone.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.; s arm is seen placing a bill on the table, with a title card reading; attributes: camera_state: The camera uses medium shots and close-ups, focusing on the characters' reactions. The shot of the bill is a close-up on the action., video_background: The restaurant setting continues, with warm lighting and other patrons blurred in the background. A potted plant is visible behind the man., storyline: The arrival of the bill introduces a point of tension or a turning point in the date, shifting the mood from a simple meal to a more serious interaction., shooting_style: The montage continues, using a title card to label a key event in the narrative.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 66.0,
+              "visual": "A montage begins with a title card reading 'THE DRINKS'. A waiter in a white shirt approaches a table where a man in a tan shirt sits. The scene cuts to a young man with a bowl cut and an orange turtleneck staring intensely. It then cuts to a woman in a green top, her finger to her lips in a 'shushing' gesture, as she looks at the man in the tan shirt, who is now holding a menu.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, ambient electronic track begins to play.",
+              "on_screen_text": [
+                "THE DRINKS",
+                "shushing"
+              ],
+              "attributes": [
+                "camera_state: The sequence uses a series of medium shots and close-ups, cutting between different characters and actions. The camera is mostly static.",
+                "video_background: The setting is a dimly lit, warm-toned restaurant with wooden tables and chairs. In the background, a bar area with bottles and a white camper van are visible.",
+                "storyline: This opening montage introduces the main characters and the setting, establishing a tense and intimate atmosphere as they interact in a restaurant.",
+                "shooting_style: This is a montage sequence, intercutting different moments from the same scene to build a sense of anticipation and character dynamics."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 72.0,
+              "visual": "A waiter's arm is seen placing a bill on the table, with a title card reading 'THE BILL' overlaid. The man in the tan shirt looks up with a slight, knowing smile. The scene cuts to the woman in the green top, who looks at him with a serious, almost challenging expression. The man is then shown from behind, looking at his phone.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ambient electronic music continues.",
+              "on_screen_text": [
+                "s arm is seen placing a bill on the table, with a title card reading"
+              ],
+              "attributes": [
+                "camera_state: The camera uses medium shots and close-ups, focusing on the characters' reactions. The shot of the bill is a close-up on the action.",
+                "video_background: The restaurant setting continues, with warm lighting and other patrons blurred in the background. A potted plant is visible behind the man.",
+                "storyline: The arrival of the bill introduces a point of tension or a turning point in the date, shifting the mood from a simple meal to a more serious interaction.",
+                "shooting_style: The montage continues, using a title card to label a key event in the narrative."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 62.789,
+              "end_s": 89.401,
+              "text": "Not bothered. The red wine. Which one, sir? The nice. Oh, the cheap one. It's on me. I insist. I halved it. I think the couple wanted to plant a trio. No way."
+            },
+            {
+              "start_s": 89.722,
+              "end_s": 118.628,
+              "text": "What did you say? No, because that's not what I'm after. What did you say? Oh, yeah, but I felt bad after. You want to find a bar? Yeah, that'd be great. Do you want to find a gay bar? Yeah, sure thing. My father took my hand and said, we may not live in the same world, but I'll always be by your side. I'll always be in your corner."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "Two men stand on a dark, wet street at night, illuminated by a single streetlight. The man on the left wears a dark jacket over a pink shirt, while the man on the right wears a dark puffer jacket and a headband. They are talking and gesturing to each other, with the man on the left pointing at the man on the right.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient night sounds.; attributes: camera_state: The camera is at a medium distance, holding a static shot of the two men., video_background: The scene is a dark, residential street at night. A single streetlight casts a warm glow on the two men. Trees and the faint outline of a house are visible in the background., storyline: The scene opens on two friends, establishing a casual, nighttime setting. Their conversation seems to be a prelude to an event., shooting_style: This is a standard establishing shot. A third person, a woman, walks up to the two men on the street. The man on the right turns and walks away, while the other two continue their conversation. The woman then walks past them, and the man on the left follows her, leaving the man on the right behind.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient night sounds.; attributes: camera_state: The camera remains in a static medium shot, observing the group's interaction and movement., video_background: The setting is the same dark street, with a parked car and a streetlight becoming more visible in the background as the characters move., storyline: A third character is introduced, creating a dynamic shift as the original pair splits up. The man on the right seems to be an outsider to the other two's interaction., shooting_style: This is a continuous shot following the action. The scene cuts to a different angle, showing the man and woman walking together on the dark street. A title card with a black background and white text appears, reading 'THE FART'. The man smiles as he walks, and the woman looks ahead with a neutral expression.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency sound effect plays as the title card appears.; THE FART; attributes: camera_state: The camera is positioned at a medium distance, tracking the couple as they walk., video_background: The background is a dark street with out-of-focus lights from distant houses., storyline: This segment introduces a comedic or dramatic element with the title card, suggesting a significant or unusual event is about to occur between the man and woman., shooting_style: This is a standard tracking shot with a title card overlay.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 126.0,
+              "visual": "Two men stand on a dark, wet street at night, illuminated by a single streetlight. The man on the left wears a dark jacket over a pink shirt, while the man on the right wears a dark puffer jacket and a headband. They are talking and gesturing to each other, with the man on the left pointing at the man on the right.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint ambient night sounds.",
+              "attributes": [
+                "camera_state: The camera is at a medium distance, holding a static shot of the two men.",
+                "video_background: The scene is a dark, residential street at night. A single streetlight casts a warm glow on the two men. Trees and the faint outline of a house are visible in the background.",
+                "storyline: The scene opens on two friends, establishing a casual, nighttime setting. Their conversation seems to be a prelude to an event.",
+                "shooting_style: This is a standard establishing shot."
+              ]
+            },
+            {
+              "start_s": 127.0,
+              "end_s": 136.0,
+              "visual": "A third person, a woman, walks up to the two men on the street. The man on the right turns and walks away, while the other two continue their conversation. The woman then walks past them, and the man on the left follows her, leaving the man on the right behind.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Ambient night sounds.",
+              "attributes": [
+                "camera_state: The camera remains in a static medium shot, observing the group's interaction and movement.",
+                "video_background: The setting is the same dark street, with a parked car and a streetlight becoming more visible in the background as the characters move.",
+                "storyline: A third character is introduced, creating a dynamic shift as the original pair splits up. The man on the right seems to be an outsider to the other two's interaction.",
+                "shooting_style: This is a continuous shot following the action."
+              ]
+            },
+            {
+              "start_s": 137.0,
+              "end_s": 141.0,
+              "visual": "The scene cuts to a different angle, showing the man and woman walking together on the dark street. A title card with a black background and white text appears, reading 'THE FART'. The man smiles as he walks, and the woman looks ahead with a neutral expression.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency sound effect plays as the title card appears.",
+              "on_screen_text": [
+                "THE FART"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned at a medium distance, tracking the couple as they walk.",
+                "video_background: The background is a dark street with out-of-focus lights from distant houses.",
+                "storyline: This segment introduces a comedic or dramatic element with the title card, suggesting a significant or unusual event is about to occur between the man and woman.",
+                "shooting_style: This is a standard tracking shot with a title card overlay."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 121.042,
+              "end_s": 147.991,
+              "text": "And I love you. Sorry, what about you? They found my porn and everybody cried. I think my parents always knew I was straight. It's never come up. It's a really weird question though, why would you ask me that? Give us a smile, love. Oh my god, I am so sorry about that. Give us a smile, love."
+            },
+            {
+              "start_s": 151.18,
+              "end_s": 173.995,
+              "text": "He was talking to me. I had a great time. Me too. I just..."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 180.0,
+              "end_s": 240.0,
+              "artifact_id": "clip_180_00_240_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_180_00_240_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 240.0
+          },
+          "overall_summary": "In a dimly lit, narrow hallway, two men stand face-to-face, their expressions intense. The man on the left, with dark hair and a pink shirt, looks at the man on the right, who has a short haircut and wears a black jacket. The scene cuts to a different angle, showing a Black woman with braided hair smiling as she talks to the man in the pink shirt. He gestures with his hand as he speaks to her. The scene cuts back to the two men, who now lean in and kiss each other passionately.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ambient, and slightly tense musical score plays in the background.; attributes: camera_state: The camera uses a series of medium close-ups and close-ups, cutting between different angles to focus on the characters' faces and interactions. The framing is tight, creating a sense of intimacy and tension., video_background: The setting is a dark, narrow interior hallway with plain walls. A staircase is partially visible in the background, suggesting a residential space., storyline: This opening scene establishes a complex and intimate relationship between the two men, hinting at a romantic or deeply emotional connection. The presence of the woman adds another layer to the dynamic., shooting_style: The scene is intercut, showing different perspectives of the same interaction to build the narrative and emotional context. A montage begins with a title card reading 'THE PREP'. A man in a brown shirt walks through a room. Another man in a red turtleneck stands in a doorway, looking out. The first man enters a bedroom, where the man in the red turtleneck is now present. The man in the red turtleneck takes a drink from a plastic bottle. The scene cuts to a man in a pink shirt looking down, his face illuminated by shifting red and blue lights, creating a moody and introspective atmosphere.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and rhythmic electronic score plays, building tension.; THE PREP; attributes: camera_state: The camera uses a series of medium shots and close-ups, often with a handheld or slightly unsteady feel. The lighting is low-key and atmospheric., video_background: The scenes take place in a dimly lit apartment, showing a bedroom with a closet and a hallway. The lighting is dark and moody., storyline: This montage introduces the characters preparing for an event. The shifting lights and somber mood suggest a sense of unease or anticipation., shooting_style: This is a montage sequence, cutting between different moments of preparation, unified by a title card and a consistent, dark visual style.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 187.0,
+              "visual": "In a dimly lit, narrow hallway, two men stand face-to-face, their expressions intense. The man on the left, with dark hair and a pink shirt, looks at the man on the right, who has a short haircut and wears a black jacket. The scene cuts to a different angle, showing a Black woman with braided hair smiling as she talks to the man in the pink shirt. He gestures with his hand as he speaks to her. The scene cuts back to the two men, who now lean in and kiss each other passionately.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ambient, and slightly tense musical score plays in the background.",
+              "attributes": [
+                "camera_state: The camera uses a series of medium close-ups and close-ups, cutting between different angles to focus on the characters' faces and interactions. The framing is tight, creating a sense of intimacy and tension.",
+                "video_background: The setting is a dark, narrow interior hallway with plain walls. A staircase is partially visible in the background, suggesting a residential space.",
+                "storyline: This opening scene establishes a complex and intimate relationship between the two men, hinting at a romantic or deeply emotional connection. The presence of the woman adds another layer to the dynamic.",
+                "shooting_style: The scene is intercut, showing different perspectives of the same interaction to build the narrative and emotional context."
+              ]
+            },
+            {
+              "start_s": 188.0,
+              "end_s": 201.0,
+              "visual": "A montage begins with a title card reading 'THE PREP'. A man in a brown shirt walks through a room. Another man in a red turtleneck stands in a doorway, looking out. The first man enters a bedroom, where the man in the red turtleneck is now present. The man in the red turtleneck takes a drink from a plastic bottle. The scene cuts to a man in a pink shirt looking down, his face illuminated by shifting red and blue lights, creating a moody and introspective atmosphere.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A low, ominous, and rhythmic electronic score plays, building tension.",
+              "on_screen_text": [
+                "THE PREP"
+              ],
+              "attributes": [
+                "camera_state: The camera uses a series of medium shots and close-ups, often with a handheld or slightly unsteady feel. The lighting is low-key and atmospheric.",
+                "video_background: The scenes take place in a dimly lit apartment, showing a bedroom with a closet and a hallway. The lighting is dark and moody.",
+                "storyline: This montage introduces the characters preparing for an event. The shifting lights and somber mood suggest a sense of unease or anticipation.",
+                "shooting_style: This is a montage sequence, cutting between different moments of preparation, unified by a title card and a consistent, dark visual style."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 183.952,
+              "end_s": 196.034,
+              "text": "You wanna come inside? Alright. Come in. It's been one minute."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 300.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 240.0,
+              "end_s": 300.0,
+              "artifact_id": "clip_240_00_300_00",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_240_00_300_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 240.0,
+            "end_s": 300.0
+          },
+          "overall_summary": "The scene opens with a dark, blurry shot of a person in a dark blue shirt walking through a dark, wooded area at night. The ground is covered in leaves, and the lighting is very low, creating a sense of mystery and suspense.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient sounds of footsteps and rustling leaves.; attributes: camera_state: The camera is handheld and shaky, following the person's movement from a medium distance. The focus is soft and blurry., video_background: The setting is a dark, dense forest or park at night. The only light source appears to be off-camera, casting a faint blue and white glow on the leaves and the person., storyline: This opening shot establishes a mysterious and potentially dangerous situation, introducing a character moving through a dark, isolated location., shooting_style: This is a standard shot with a dark, moody color grade. The scene cuts to two men sitting on a couch in a dimly lit living room. The man on the right, in a grey sweatshirt, holds a small wooden object and looks at the man on the left with a sly, menacing smile. The man on the left, in a blue Adidas tracksuit, looks at his phone, then turns to his friend with a startled and confused expression. The text 'THE INTERROGATION' is superimposed on the screen.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The scene is quiet, with no background music, which emphasizes the tension between the two characters.; THE INTERROGATION; attributes: camera_state: The camera is static, framed in a medium shot showing both men on the couch. The focus is on their interaction and expressions., video_background: The setting is a cozy but dimly lit living room at night. A floor lamp provides a warm, low light. A coffee table in front of them holds a game controller, a mug, and some snacks., storyline: This scene introduces a new dynamic. The man in grey appears to be intimidating or coercing the man in the tracksuit, shifting the tone from mysterious to confrontational. The title card suggests this is a key moment in the narrative., shooting_style: This is a standard shot with a title card overlay.",
+          "captions": [
+            {
+              "start_s": 240.0,
+              "end_s": 243.0,
+              "visual": "The scene opens with a dark, blurry shot of a person in a dark blue shirt walking through a dark, wooded area at night. The ground is covered in leaves, and the lighting is very low, creating a sense of mystery and suspense.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient sounds of footsteps and rustling leaves.",
+              "attributes": [
+                "camera_state: The camera is handheld and shaky, following the person's movement from a medium distance. The focus is soft and blurry.",
+                "video_background: The setting is a dark, dense forest or park at night. The only light source appears to be off-camera, casting a faint blue and white glow on the leaves and the person.",
+                "storyline: This opening shot establishes a mysterious and potentially dangerous situation, introducing a character moving through a dark, isolated location.",
+                "shooting_style: This is a standard shot with a dark, moody color grade."
+              ]
+            },
+            {
+              "start_s": 244.0,
+              "end_s": 261.0,
+              "visual": "The scene cuts to two men sitting on a couch in a dimly lit living room. The man on the right, in a grey sweatshirt, holds a small wooden object and looks at the man on the left with a sly, menacing smile. The man on the left, in a blue Adidas tracksuit, looks at his phone, then turns to his friend with a startled and confused expression. The text 'THE INTERROGATION' is superimposed on the screen.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The scene is quiet, with no background music, which emphasizes the tension between the two characters.",
+              "on_screen_text": [
+                "THE INTERROGATION"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, framed in a medium shot showing both men on the couch. The focus is on their interaction and expressions.",
+                "video_background: The setting is a cozy but dimly lit living room at night. A floor lamp provides a warm, low light. A coffee table in front of them holds a game controller, a mug, and some snacks.",
+                "storyline: This scene introduces a new dynamic. The man in grey appears to be intimidating or coercing the man in the tracksuit, shifting the tone from mysterious to confrontational. The title card suggests this is a key moment in the narrative.",
+                "shooting_style: This is a standard shot with a title card overlay."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 245.495,
+              "end_s": 272.343,
+              "text": "How was that date the other night then, mate? Yeah, it was alright. Probably won't see him again. Oh, that's a shame. I'm sure you'll find someone. Yeah. I know. Have a look at her, mate. Look."
+            },
+            {
+              "start_s": 273.001,
+              "end_s": 277.456,
+              "text": "She's into meditation, wood carving and kite flying."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_006",
+        "start_s": 300.0,
+        "end_s": 337.92,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "cxHtplim5Ic",
+              "start_s": 300.0,
+              "end_s": 337.92,
+              "artifact_id": "clip_300_00_337_92",
+              "relpath": "artifacts/cxHtplim5Ic/clips/clip_300_00_337_92.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 300.0,
+            "end_s": 337.92
+          },
+          "overall_summary": "The end credits for a film scroll upwards on the right side of the screen. The text is white and has a slight drop shadow. The credits list the starring actors, production crew, and filming location. In the background, a dark, foggy alley at night is visible. A faint, silhouetted figure can be seen walking away down the alley, disappearing into the mist.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient, and slightly eerie music plays in the background.; attributes: camera_state: The camera is static, holding a wide shot of the alley., video_background: The setting is a dark, narrow, and foggy alleyway at night, flanked by trees and a fence. The ground is covered in leaves, and a faint light source illuminates the far end of the alley., storyline: This is the closing scene of the film, displaying the credits while maintaining a mysterious and slightly ominous atmosphere with the figure in the background., shooting_style: This is a standard credit roll over a live-action shot.",
+          "captions": [
+            {
+              "start_s": 300.0,
+              "end_s": 319.0,
+              "visual": "The end credits for a film scroll upwards on the right side of the screen. The text is white and has a slight drop shadow. The credits list the starring actors, production crew, and filming location. In the background, a dark, foggy alley at night is visible. A faint, silhouetted figure can be seen walking away down the alley, disappearing into the mist.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Faint, ambient, and slightly eerie music plays in the background.",
+              "attributes": [
+                "camera_state: The camera is static, holding a wide shot of the alley.",
+                "video_background: The setting is a dark, narrow, and foggy alleyway at night, flanked by trees and a fence. The ground is covered in leaves, and a faint light source illuminates the far end of the alley.",
+                "storyline: This is the closing scene of the film, displaying the credits while maintaining a mysterious and slightly ominous atmosphere with the figure in the background.",
+                "shooting_style: This is a standard credit roll over a live-action shot."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "video_fingerprint": "639db09c527941217f51584bfe79b9b16843c6d3e31be2e5ca577347d8349377"
+  },
+  "rounds_executed": 2
+}

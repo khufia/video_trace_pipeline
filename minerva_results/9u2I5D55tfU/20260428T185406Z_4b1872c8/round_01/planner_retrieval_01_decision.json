@@ -1,0 +1,24 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess dense-caption summaries likely contain the slide scene, and no evidence has been retrieved yet.",
+  "requests": [
+    {
+      "request_id": "slide_scene_preprocess",
+      "target": "preprocess",
+      "need": "Find the segment and caption span where a child goes down a slide with a named character, to narrow which option matches.",
+      "query": "child slide character Donald Duck Daisy Goofy Mickey Mouse Pluto playground slide accompaniment",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {},
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

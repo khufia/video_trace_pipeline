@@ -1,0 +1,313 @@
+{
+  "task_key": "5-otljNyRmQ__1eb66c95c205",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_anchor_6s_action",
+      "tool_name": "generic_purpose",
+      "evidence_text": "At the 6.00s anchor frame, the man is in a garage-like shed space, holding a can in his left hand while extending his right arm toward a rack of fishing rods or similar equipment; he appears to be reaching for or adjusting something on the rack.",
+      "inference_hint": null,
+      "confidence": 0.79,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 6.0,
+      "time_intervals": [
+        {
+          "start_s": 6.0,
+          "end_s": 6.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_6.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_6.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 6.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_a88521f9cf116054",
+        "obs_1b7b0e4efcec05c8",
+        "obs_8a325e98738c390f",
+        "obs_52cc5aba7fdf8365",
+        "obs_ad33ff5e31ed10ac",
+        "obs_0c6ebcb640a6b533",
+        "obs_8255bd010f2f930d",
+        "obs_cf04ea6f38a8153c",
+        "obs_925c100522bd9958"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_neighboring_frames_context",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Neighboring frames around the anchor support that the man is focused on the equipment rather than drinking or playing a game: at 7s his right arm is still somewhat extended and he is looking toward the equipment; at 8s he is simply holding the can and looking toward the camera.",
+      "inference_hint": null,
+      "confidence": 0.72,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 7.0,
+          "end_s": 8.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_7.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_7.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 7.0
+          }
+        },
+        {
+          "artifact_id": "frame_8.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_8.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 8.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_5c1c2c696d1bc090",
+        "obs_57988df58d994eab",
+        "obs_ce85b2db53561044",
+        "obs_c84b1f6e0be5a702",
+        "obs_42a84611d52cde0e",
+        "obs_c4913450d780770e",
+        "obs_3ef3e318ed9b7ac2",
+        "obs_81ea4769f6f7f5ea"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_option_elimination",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The visible evidence does not show cards, ping pong equipment, or dart throwing. A dartboard is present in the scene, but the man is away from it and interacting with the rack/equipment instead.",
+      "inference_hint": null,
+      "confidence": 0.74,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 4.0,
+          "end_s": 8.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_4.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_4.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 4.0
+          }
+        },
+        {
+          "artifact_id": "frame_5.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_5.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 5.0
+          }
+        },
+        {
+          "artifact_id": "frame_6.00",
+          "kind": "frame",
+          "relpath": "artifacts/5-otljNyRmQ/frames/frame_6.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 6.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_0defb6d60808bd7e",
+        "obs_89e16a7780801c03",
+        "obs_417cb205347d14bd",
+        "obs_b159c971e6614f81",
+        "obs_39bfe6d207ee38a6",
+        "obs_d331aa6f2c3854f5",
+        "obs_abc14be952a1db0d",
+        "obs_6375bcb3c7dc3889",
+        "obs_d37192698dfd0fdf"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "At the exact 6.00s anchor, the man is visibly reaching toward and interacting with a rack of fishing rods or similar equipment. The can in his left hand is incidental to the visible action.",
+      "supporting_observation_ids": [
+        "obs_a88521f9cf116054",
+        "obs_52cc5aba7fdf8365",
+        "obs_ad33ff5e31ed10ac",
+        "obs_0c6ebcb640a6b533",
+        "obs_8255bd010f2f930d",
+        "obs_cf04ea6f38a8153c",
+        "obs_925c100522bd9958"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 6.0,
+      "time_intervals": [
+        {
+          "start_s": 6.0,
+          "end_s": 6.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "That action occurs in a garage-like or shed-like workspace, so among the options it best matches tinkering in his garage rather than drinking, since he is not shown actually drinking at 6s.",
+      "supporting_observation_ids": [
+        "obs_8a325e98738c390f",
+        "obs_75843e5f15229290",
+        "obs_6375bcb3c7dc3889",
+        "obs_d37192698dfd0fdf"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 6.0,
+      "time_intervals": [
+        {
+          "start_s": 6.0,
+          "end_s": 6.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "Other choices are less supported: no cards are visible, no ping pong table or paddles are visible, and although a dartboard is present, the man is away from it and not throwing darts.",
+      "supporting_observation_ids": [
+        "obs_0defb6d60808bd7e",
+        "obs_89e16a7780801c03",
+        "obs_417cb205347d14bd",
+        "obs_b159c971e6614f81",
+        "obs_39bfe6d207ee38a6",
+        "obs_d331aa6f2c3854f5"
+      ],
+      "answer_relevance": "supporting",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 4.0,
+          "end_s": 8.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "C. Tinkering in his garage.",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "5-otljNyRmQ__1eb66c95c205",
+      "trace": {
+        "inference_steps": [
+          "[6s] At the exact 6.00s anchor, the man is visibly reaching toward and interacting with a rack of fishing rods or similar equipment. The can in his left hand is incidental to the visible action.",
+          "[6s] That action occurs in a garage-like or shed-like workspace, so among the options it best matches tinkering in his garage rather than drinking, since he is not shown actually drinking at 6s.",
+          "[4s to 8s] Other choices are less supported: no cards are visible, no ping pong table or paddles are visible, and although a dartboard is present, the man is away from it and not throwing darts."
+        ],
+        "evidence": [
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "At the 6.00s anchor frame, the man is in a garage-like shed space, holding a can in his left hand while extending his right arm toward a rack of fishing rods or similar equipment; he appears to be reaching for or adjusting something on the rack.",
+            "observation_ids": [
+              "obs_a88521f9cf116054",
+              "obs_1b7b0e4efcec05c8",
+              "obs_8a325e98738c390f",
+              "obs_52cc5aba7fdf8365",
+              "obs_ad33ff5e31ed10ac",
+              "obs_0c6ebcb640a6b533",
+              "obs_8255bd010f2f930d",
+              "obs_cf04ea6f38a8153c",
+              "obs_925c100522bd9958"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": 6.0,
+            "time_intervals": [
+              {
+                "start_s": 6.0,
+                "end_s": 6.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Neighboring frames around the anchor support that the man is focused on the equipment rather than drinking or playing a game: at 7s his right arm is still somewhat extended and he is looking toward the equipment; at 8s he is simply holding the can and looking toward the camera.",
+            "observation_ids": [
+              "obs_5c1c2c696d1bc090",
+              "obs_57988df58d994eab",
+              "obs_ce85b2db53561044",
+              "obs_c84b1f6e0be5a702",
+              "obs_42a84611d52cde0e",
+              "obs_c4913450d780770e",
+              "obs_3ef3e318ed9b7ac2",
+              "obs_81ea4769f6f7f5ea"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 7.0,
+                "end_s": 8.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "The visible evidence does not show cards, ping pong equipment, or dart throwing. A dartboard is present in the scene, but the man is away from it and interacting with the rack/equipment instead.",
+            "observation_ids": [
+              "obs_0defb6d60808bd7e",
+              "obs_89e16a7780801c03",
+              "obs_417cb205347d14bd",
+              "obs_b159c971e6614f81",
+              "obs_39bfe6d207ee38a6",
+              "obs_d331aa6f2c3854f5",
+              "obs_abc14be952a1db0d",
+              "obs_6375bcb3c7dc3889",
+              "obs_d37192698dfd0fdf"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 4.0,
+                "end_s": 8.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": "C. Tinkering in his garage."
+    }
+  },
+  "metadata": {}
+}

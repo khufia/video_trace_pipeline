@@ -1,0 +1,47 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries and ASR previews likely already contain the dialogue explaining the text's purpose; retrieve those text spans before planning new tool calls.",
+  "requests": [
+    {
+      "request_id": "cliff_confrontation_asr",
+      "target": "preprocess",
+      "need": "Exact dialogue around the brunette receiving the message and the stated reason for sending it, to distinguish among the answer choices.",
+      "query": "T'as reçu mon message pourquoi t'es là mariage conscience couple je t'aime pas",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 50.0,
+        "end_s": 170.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "relationship_context_preprocess",
+      "target": "preprocess",
+      "need": "Narrative summary of the confrontation and relationship context that clarifies the blonde's motive for texting the brunette.",
+      "query": "blonde brunette cliff confrontation wedding couple message motive",
+      "modalities": [
+        "visual",
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 60.0,
+        "end_s": 180.0
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "b380ffa62dcb8c752d24c4a4",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "nq9WnmCGoFQ",
+        "start_s": 0.0,
+        "end_s": 300.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "0-3s finished burger on board may include lettuce",
+      "60-64s whole lettuce on floor",
+      "86-109s slicing and mention of crispy water",
+      "109-130s mise en place with shredded crispy water",
+      "120-125s ingredients laid out on cutting board",
+      "237-259s burger assembly with shredded crispy water"
+    ],
+    "query": "chronological frames showing the ingredient identified as most insulted, especially lettuce or shredded crispy water, including all distinct appearances and whether a cutting board is visible in the background",
+    "num_frames": 14,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries suggest the relevant state is likely in the early game, but we need existing dense-caption text spans to identify when the two white knights are adjacent before planning new visual tools.",
+  "requests": [
+    {
+      "request_id": "knight_proximity_dense_caps",
+      "target": "dense_captions",
+      "need": "Dense-caption spans describing chessboard piece positions or knight moves so we can determine when the two white knights are within one square of each other and map to the answer options.",
+      "query": "chessboard white knights positions adjacent within one square knight moves early game",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 240.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 20
+    },
+    {
+      "request_id": "knight_proximity_preprocess",
+      "target": "preprocess",
+      "need": "Planner/raw preprocess text for early segments that may mention white knight movement or board state narrowing candidate option windows.",
+      "query": "white knight move positions board state early game adjacent",
+      "modalities": [],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 240.0
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

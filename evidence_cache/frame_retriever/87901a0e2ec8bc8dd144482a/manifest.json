@@ -1,0 +1,53 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "87901a0e2ec8bc8dd144482a",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "ZF4T833lln4",
+        "start_s": 30.0,
+        "end_s": 82.0,
+        "artifact_id": "clip_000_00_344_27",
+        "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_344_27.mp4",
+        "metadata": {
+          "reason": "covers option E and the start of option D where early knight development occurs"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "start_s": 115.0,
+        "end_s": 150.0,
+        "artifact_id": "clip_000_00_344_27",
+        "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_344_27.mp4",
+        "metadata": {
+          "reason": "covers option B/C overlap and the move around 120-131s where preprocess mentions a white knight moving to c3"
+        }
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "start_s": 255.0,
+        "end_s": 272.0,
+        "artifact_id": "clip_000_00_344_27",
+        "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_344_27.mp4",
+        "metadata": {
+          "reason": "covers option A where later knight proximity is plausible from transcript mention of knight f5"
+        }
+      }
+    ],
+    "time_hints": [
+      "00:30-01:22",
+      "01:55-02:49",
+      "02:03-03:57",
+      "03:40-03:59",
+      "04:25-04:30"
+    ],
+    "query": "chronological board frames where both white knights are visible and their relative squares can be compared for adjacency or being within one square of each other",
+    "num_frames": 18,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

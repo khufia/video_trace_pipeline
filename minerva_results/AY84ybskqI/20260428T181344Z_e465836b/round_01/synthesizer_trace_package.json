@@ -1,0 +1,549 @@
+{
+  "task_key": "AY84ybskqI__067504b6f6bd",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_01_bc372a7f",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Chronological neighboring frames were retrieved at 123s, 124s, 125s, 126s, and 127s around the relevant interval.",
+      "inference_hint": null,
+      "confidence": 1.0,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 124.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_123.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_123.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 264716
+          }
+        },
+        {
+          "artifact_id": "frame_124.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_124.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_124.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 245830
+          }
+        },
+        {
+          "artifact_id": "frame_125.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_125.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_125.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 239007
+          }
+        },
+        {
+          "artifact_id": "frame_126.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_126.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 275343
+          }
+        },
+        {
+          "artifact_id": "frame_127.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_127.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 273671
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_40621d81d1533575",
+        "obs_e39891027b66c6ac",
+        "obs_fe0427218e9a71e2",
+        "obs_1edd2b3e5b3bf63a",
+        "obs_854aa1019d24fe4a"
+      ],
+      "metadata": {
+        "request_hash": "bc372a7f001759efe9de128e",
+        "cache_hit": false
+      }
+    },
+    {
+      "evidence_id": "ev_gp_visible_actions",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Within the retrieved sequence, the woman in gray is visible standing and holding a ball at 123s; at 124s the frame is a close-up of a racket hitting a ball and does not clearly show her performing a toss; at 125s no woman is visible; at 126s she is standing with a racket while a ball is in the air and she is looking up at it; at 127s she is holding the racket out and no ball is in the air.",
+      "inference_hint": null,
+      "confidence": 0.67,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 124.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "clip_120_00_172_27",
+          "kind": "clip",
+          "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+          "media_type": "video",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "video_id": "-AY84ybskqI",
+            "start_s": 120.0,
+            "end_s": 125.0
+          }
+        },
+        {
+          "artifact_id": "frame_123.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 123.0
+          }
+        },
+        {
+          "artifact_id": "frame_124.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_124.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 124.0
+          }
+        },
+        {
+          "artifact_id": "frame_125.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_125.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 125.0
+          }
+        },
+        {
+          "artifact_id": "frame_126.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 126.0
+          }
+        },
+        {
+          "artifact_id": "frame_127.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 127.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_58baefaabf9330b0",
+        "obs_280e58fcd2f9ef86",
+        "obs_505710e8a488bc29",
+        "obs_2fd95d52fae5466e",
+        "obs_48e29ca8676b10e6",
+        "obs_39a336e3bee50872",
+        "obs_aab1a288360f0b79",
+        "obs_6f607737594f52bd",
+        "obs_3e9a72e7a17dd339",
+        "obs_556d6527bd3a9799",
+        "obs_eacb952dda896492",
+        "obs_ed6aa91722c53306",
+        "obs_1e525c6b57612c8f",
+        "obs_7d337af79333923b",
+        "obs_9016a5ae6210aaf0"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_gp_no_completed_side_steps",
+      "tool_name": "generic_purpose",
+      "evidence_text": "The retrieved frames that show the woman do not show a completed visible side step: Image 1/123s, Image 4/126s, and Image 5/127s are each marked as not showing a completed side step, with feet positions described as together or shoulder-width rather than a clearly completed lateral movement.",
+      "inference_hint": null,
+      "confidence": 0.63,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_123.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 123.0
+          }
+        },
+        {
+          "artifact_id": "frame_126.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 126.0
+          }
+        },
+        {
+          "artifact_id": "frame_127.00",
+          "kind": "frame",
+          "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 127.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_27459b1e14ba4df0",
+        "obs_7f222d9c6a8afb7d",
+        "obs_4ba5694c7fc884d1",
+        "obs_47d723601f358fa7",
+        "obs_0aac2802aa7c1d37",
+        "obs_cf0da9ab65f3eb99"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "The relevant retrieved frames are in chronological order at 123s, 124s, 125s, 126s, and 127s, so any counting must be based on that ordered sequence rather than on an isolated caption-like summary.",
+      "supporting_observation_ids": [
+        "obs_40621d81d1533575",
+        "obs_e39891027b66c6ac",
+        "obs_fe0427218e9a71e2",
+        "obs_1edd2b3e5b3bf63a",
+        "obs_854aa1019d24fe4a"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 124.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "For side steps, the visible frames with the woman at 123s, 126s, and 127s are each marked as not showing a completed side step, so the available evidence does not support counting any completed visible side-step movement in this interval.",
+      "supporting_observation_ids": [
+        "obs_27459b1e14ba4df0",
+        "obs_7f222d9c6a8afb7d",
+        "obs_4ba5694c7fc884d1"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        },
+        {
+          "start_s": 127.0,
+          "end_s": 127.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "For ball tosses, the frames do not show a fully countable completed visible toss by the woman: at 123s she is only holding a ball, at 124s the frame shows a racket hitting a ball but does not clearly show her performing the toss, at 125s she is not visible, and at 126s a ball is already in the air while she looks up at it. This supports that a toss may have occurred, but not a confident count of completed visible toss events by her from the retrieved frames alone.",
+      "supporting_observation_ids": [
+        "obs_280e58fcd2f9ef86",
+        "obs_2fd95d52fae5466e",
+        "obs_48e29ca8676b10e6",
+        "obs_39a336e3bee50872",
+        "obs_6f607737594f52bd",
+        "obs_eacb952dda896492",
+        "obs_ed6aa91722c53306"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 123.0,
+          "end_s": 123.0
+        },
+        {
+          "start_s": 124.0,
+          "end_s": 124.0
+        },
+        {
+          "start_s": 125.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 126.0,
+          "end_s": 126.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Because the question asks for a ratio from multiple-choice options, but the retrieved sequence does not ground a confident count of completed visible tosses and does not show any completed visible side steps, none of the listed ratios can be selected without guessing.",
+      "supporting_observation_ids": [
+        "obs_27459b1e14ba4df0",
+        "obs_7f222d9c6a8afb7d",
+        "obs_4ba5694c7fc884d1",
+        "obs_280e58fcd2f9ef86",
+        "obs_39a336e3bee50872",
+        "obs_6f607737594f52bd",
+        "obs_eacb952dda896492"
+      ],
+      "answer_relevance": "critical",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "AY84ybskqI__067504b6f6bd",
+      "trace": {
+        "inference_steps": [
+          "[123s; 124s; 125s; 126s; 127s] The relevant retrieved frames are in chronological order at 123s, 124s, 125s, 126s, and 127s, so any counting must be based on that ordered sequence rather than on an isolated caption-like summary.",
+          "[123s; 126s; 127s] For side steps, the visible frames with the woman at 123s, 126s, and 127s are each marked as not showing a completed side step, so the available evidence does not support counting any completed visible side-step movement in this interval.",
+          "[123s; 124s; 125s; 126s] For ball tosses, the frames do not show a fully countable completed visible toss by the woman: at 123s she is only holding a ball, at 124s the frame shows a racket hitting a ball but does not clearly show her performing the toss, at 125s she is not visible, and at 126s a ball is already in the air while she looks up at it. This supports that a toss may have occurred, but not a confident count of completed visible toss events by her from the retrieved frames alone.",
+          "Because the question asks for a ratio from multiple-choice options, but the retrieved sequence does not ground a confident count of completed visible tosses and does not show any completed visible side steps, none of the listed ratios can be selected without guessing."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Chronological neighboring frames were retrieved at 123s, 124s, 125s, 126s, and 127s around the relevant interval.",
+            "observation_ids": [
+              "obs_40621d81d1533575",
+              "obs_e39891027b66c6ac",
+              "obs_fe0427218e9a71e2",
+              "obs_1edd2b3e5b3bf63a",
+              "obs_854aa1019d24fe4a"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 123.0,
+                "end_s": 123.0
+              },
+              {
+                "start_s": 124.0,
+                "end_s": 124.0
+              },
+              {
+                "start_s": 125.0,
+                "end_s": 125.0
+              },
+              {
+                "start_s": 126.0,
+                "end_s": 126.0
+              },
+              {
+                "start_s": 127.0,
+                "end_s": 127.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Within the retrieved sequence, the woman in gray is visible standing and holding a ball at 123s; at 124s the frame is a close-up of a racket hitting a ball and does not clearly show her performing a toss; at 125s no woman is visible; at 126s she is standing with a racket while a ball is in the air and she is looking up at it; at 127s she is holding the racket out and no ball is in the air.",
+            "observation_ids": [
+              "obs_58baefaabf9330b0",
+              "obs_280e58fcd2f9ef86",
+              "obs_505710e8a488bc29",
+              "obs_2fd95d52fae5466e",
+              "obs_48e29ca8676b10e6",
+              "obs_39a336e3bee50872",
+              "obs_aab1a288360f0b79",
+              "obs_6f607737594f52bd",
+              "obs_3e9a72e7a17dd339",
+              "obs_556d6527bd3a9799",
+              "obs_eacb952dda896492",
+              "obs_ed6aa91722c53306",
+              "obs_1e525c6b57612c8f",
+              "obs_7d337af79333923b",
+              "obs_9016a5ae6210aaf0"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 123.0,
+                "end_s": 123.0
+              },
+              {
+                "start_s": 124.0,
+                "end_s": 124.0
+              },
+              {
+                "start_s": 125.0,
+                "end_s": 125.0
+              },
+              {
+                "start_s": 126.0,
+                "end_s": 126.0
+              },
+              {
+                "start_s": 127.0,
+                "end_s": 127.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "The retrieved frames that show the woman do not show a completed visible side step: Image 1/123s, Image 4/126s, and Image 5/127s are each marked as not showing a completed side step, with feet positions described as together or shoulder-width rather than a clearly completed lateral movement.",
+            "observation_ids": [
+              "obs_27459b1e14ba4df0",
+              "obs_7f222d9c6a8afb7d",
+              "obs_4ba5694c7fc884d1",
+              "obs_47d723601f358fa7",
+              "obs_0aac2802aa7c1d37",
+              "obs_cf0da9ab65f3eb99"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 123.0,
+                "end_s": 123.0
+              },
+              {
+                "start_s": 126.0,
+                "end_s": 126.0
+              },
+              {
+                "start_s": 127.0,
+                "end_s": 127.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved_due_to_insufficient_visible_action_counts",
+    "notes": "Per instruction, the implied toss summary was not treated as sufficient proof of count."
+  }
+}

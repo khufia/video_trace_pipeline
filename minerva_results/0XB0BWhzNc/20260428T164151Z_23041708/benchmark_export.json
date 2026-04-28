@@ -1,0 +1,73 @@
+{
+  "sample_key": "0XB0BWhzNc__7f54fa7b6dfe",
+  "trace": {
+    "inference_steps": [
+      "[124s to 126s] The retrieved end-of-quarter frames directly verify the scoreboard state. Around 124-126s, the overlay shows the 3rd quarter; at 124.0s the clock is 0:00.8, and at 125.0s and 126.0s the clock is 0:00.0. In those same frames, BRISTOL CENT. has 52 and E. CATHOLIC has 40.",
+      "[125s to 126s] Because 52 is greater than 40, Bristol Central is leading East Catholic at the end of the third quarter.",
+      "[126s] Comparing the verified scoreline to the listed choices: the visual evidence gives 52 to 40 with Bristol Central leading, while option A says 55 to 40, option B says 52 to 52 tied, option C says 55 to 40 with East Catholic leading, and options D and E say 64 to 32. Therefore no provided option exactly matches the grounded scoreboard reading.",
+      "Since the options are inconsistent with the visually verified end-of-third-quarter score, the multiple-choice answer cannot be resolved from the provided choices without inventing a best fit."
+    ],
+    "evidence": [
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "In frame_126.00, the bottom scoreboard overlay shows BRISTOL CENT. with 52, E. CATHOLIC with 40, the quarter indicator as 3rd, and the clock as 0:00.0.",
+        "observation_ids": [
+          "obs_e5e0e2a1d8b30e15",
+          "obs_bad0c9e73bf66cbc",
+          "obs_297ea422defefa53",
+          "obs_4ca5f4324e908e0f",
+          "obs_66c6e86d315b676a",
+          "obs_3457cf0e4b5c594f"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": 126.0,
+        "time_intervals": []
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Across retrieved frames near the end of the quarter, the scoreboard remains consistent: frame_124.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.8; frame_125.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.0; frame_126.00 shows BRISTOL CENT. 52, E. CATHOLIC 40, 3rd, 0:00.0.",
+        "observation_ids": [
+          "obs_bccd3aa1adb1c847",
+          "obs_e74503724c3bcfaa",
+          "obs_8ca7c0b17c7b6185",
+          "obs_96455e189af1f51b",
+          "obs_0e4fb82f01f69f7c",
+          "obs_bd6bf8deccbc7f06",
+          "obs_0eeedee45cef85e3",
+          "obs_82f790c599cf624b",
+          "obs_c5c83648904708a9",
+          "obs_f8c2acf6562cb30d",
+          "obs_01a5018ad7e89743",
+          "obs_c669009c71e56f57",
+          "obs_97e0bf7df12cc13e"
+        ],
+        "time_start_s": 124.0,
+        "time_end_s": 126.0,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 124.0,
+            "end_s": 126.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "The answer options are: A = 55 to 40, Bristol Central leading; B = 52 to 52, tied; C = 55 to 40, East Catholic leading; D = 64 to 32, Bristol Central leading; E = 64 to 32, East Catholic leading.",
+        "observation_ids": [
+          "obs_f5dc8b4fa14e01d5",
+          "obs_88ecff69e3e2434c",
+          "obs_4e006f552343a599",
+          "obs_a55777f8bd0d96e0",
+          "obs_4ed261ba8031f851"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      }
+    ]
+  },
+  "answer": ""
+}

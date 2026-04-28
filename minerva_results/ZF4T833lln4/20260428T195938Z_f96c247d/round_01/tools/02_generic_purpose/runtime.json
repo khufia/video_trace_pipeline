@@ -1,0 +1,25 @@
+{
+  "backend": "qwen35vl",
+  "model_name": "Qwen/Qwen3.5-9B",
+  "device": "cuda:1",
+  "device_mapping": {
+    "requested_label": "cuda:1",
+    "resolved_label": "cuda:1",
+    "cuda_visible_devices": "0,1",
+    "cuda_device_order": null,
+    "local_index": 1,
+    "physical_index_hint": "1",
+    "mapping_source": "CUDA_VISIBLE_DEVICES"
+  },
+  "hf_cache": "/nfs-stor/ghazi.ahmad/HF_HOME",
+  "resolved_model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--Qwen--Qwen3.5-9B/snapshots/c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+  "model_resolution_status": "ok",
+  "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline",
+  "scratch_dir": "/nfs-stor/ghazi.ahmad/video_trace_pipeline/runs/ZF4T833lln4/20260428T195938Z_f96c247d/_scratch/generic_purpose",
+  "extra": {
+    "backend_name": "qwen35vl",
+    "attn_implementation": "flash_attention_2",
+    "temperature": 0.0,
+    "do_sample": false
+  }
+}

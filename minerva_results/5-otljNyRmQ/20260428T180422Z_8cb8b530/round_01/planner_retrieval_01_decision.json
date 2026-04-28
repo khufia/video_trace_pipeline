@@ -1,0 +1,48 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries suggest the relevant action near 00:06 is in the first segment, but we need the existing dense-caption/ASR text around that timestamp to distinguish among the answer choices before planning new tool use.",
+  "requests": [
+    {
+      "request_id": "action_at_6s_dense",
+      "target": "dense_captions",
+      "need": "Visual action of the man around 00:06, including whether he is playing darts, cards, ping pong, drinking beer, or tinkering in a garage",
+      "query": "00:06 man action darts cards ping pong beer garage workshop",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 12.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "speech_at_6s_asr",
+      "target": "asr_transcripts",
+      "need": "Nearby transcript around 00:06 that may mention the activity or game being played",
+      "query": "00:06 thick shot more points hits the board confidence",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 12.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

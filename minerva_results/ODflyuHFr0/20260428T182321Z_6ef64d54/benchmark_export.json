@@ -1,0 +1,64 @@
+{
+  "sample_key": "ODflyuHFr0__f0ba80114388",
+  "trace": {
+    "inference_steps": [
+      "[16s to 18s] The relevant ingredient overlay is grounded by chronologically retrieved frames at 16s, 17s, and 18s, with 16s and 17s being readable and 18s fading out.",
+      "[16s to 17s] Across the readable frames, the ingredient list visibly shows \"1/2 cup coriander leaves\" followed by \"1/2 cup mint leaves\". This supports that the second listed ingredient is mint leaves, rather than a different phrase such as \"ginger & garlic\" or \"fresh coriander and mint leaves\".",
+      "[16s to 17s] For the second ingredient phrase \"mint leaves\", the second word is \"leaves\", whose first letter is L.",
+      "Among the options, the letter L corresponds to option B."
+    ],
+    "evidence": [
+      {
+        "tool_name": "frame_retriever",
+        "evidence_text": "Chronological neighboring frames were retrieved at 16.00s, 17.00s, and 18.00s around the ingredient overlay.",
+        "observation_ids": [
+          "obs_e7766e2ff0290146",
+          "obs_a32885a7c1779ccd",
+          "obs_6063d470b05201f4"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 16.0,
+            "end_s": 16.0
+          },
+          {
+            "start_s": 17.0,
+            "end_s": 17.0
+          },
+          {
+            "start_s": 18.0,
+            "end_s": 18.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "In the clearer ingredient-overlay frames, the visible list includes \"1/2 cup coriander leaves\" and directly below it \"1/2 cup mint leaves\"; the same list also includes \"1/2 inch ginger\", \"1/2 inch green chilli\", \"1/2 tsp salt\", and \"1/2 cup water\". The 18s frame is faint/fading, so the 16s and 17s frames are the main readable anchors.",
+        "observation_ids": [
+          "obs_8aaa6337b4b1dee4",
+          "obs_c1ec34064c400c14",
+          "obs_1bbbe001c4882885",
+          "obs_05cc5f516131df9d",
+          "obs_43466baca1b0d1d1",
+          "obs_3b81caa7ef4cdea5",
+          "obs_a96feebe69a4227d",
+          "obs_433bb13d84a75d85",
+          "obs_8505b06373051365",
+          "obs_c47c7cd44ddd8890",
+          "obs_d0cf9e7dff11fb21",
+          "obs_0c2ef218cc61aadd",
+          "obs_368439fce27de3f2",
+          "obs_a0028599f12eb2f3"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": []
+      }
+    ]
+  },
+  "answer": "B. L."
+}

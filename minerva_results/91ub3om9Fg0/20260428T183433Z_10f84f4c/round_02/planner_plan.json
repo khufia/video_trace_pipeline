@@ -1,0 +1,120 @@
+{
+  "strategy": "Preserve the known 176–183s struggle window, extend slightly later to verify the actual post-argument consequence, and compare that visual consequence against the competing options in one grounded interpretation step.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological local sequence that starts from the known struggle/button window and extends later so the actual consequence of the machine can be visually verified rather than inferred from portal formation alone.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 180.0,
+            "end_s": 225.88,
+            "artifact_id": "clip_180_00_225_88",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 8.0,
+        "num_frames": 10,
+        "query": "chronological frames showing what happens immediately after the friends struggle over control of the machine, including whether they are pulled in, visibly frozen, or neither",
+        "sequence_mode": "anchor_window",
+        "sort_order": "chronological",
+        "time_hints": [
+          "176s-183s known struggle/button window; inspect immediate aftermath through the next several seconds"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological aftermath frames spanning the struggle and immediate consequence"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine the answer-critical consequence from the chronological frames and preserved transcript context, explicitly testing whether the friends are sucked into the machine, freeze themselves, or whether only portal/chaos is shown.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 180.0,
+            "end_s": 225.88,
+            "artifact_id": "clip_180_00_225_88",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4",
+            "metadata": {}
+          }
+        ],
+        "evidence_ids": [
+          "ev_02_2294e173"
+        ],
+        "query": "Using the chronological frames and transcript context, identify what actually happens when the friends argue over control of the machine. Explicitly verify whether the people are visibly pulled into the machine, visibly frozen/stopped by the machine, or whether neither is shown. Then map only to the supported option and explain why the competing option between A and B is not grounded.",
+        "text_contexts": [
+          "Known grounded context from preprocessing: during 180-191s, the group struggles over a black box with a glass dome while a bright blue-white portal begins to form inside; later in the same segment the portal appears brighter/fiery and the scene emphasizes panic."
+        ],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_003",
+            "clip": {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0
+            },
+            "segments": [
+              {
+                "start_s": 120.164,
+                "end_s": 148.345,
+                "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+              },
+              {
+                "start_s": 149.982,
+                "end_s": 177.05,
+                "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_003",
+              "span_count": 2
+            }
+          },
+          {
+            "transcript_id": "preprocess_seg_004",
+            "clip": {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88
+            },
+            "segments": [
+              {
+                "start_s": 182.18,
+                "end_s": 198.295,
+                "text": "what is this button?"
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_004",
+              "span_count": 1
+            }
+          }
+        ]
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "supported option mapping or explicit statement that neither A nor B is visually grounded",
+        "supporting_points": "specific visual observations from the chronological sequence that discriminate A vs B",
+        "analysis": "reasoned comparison of the competing options without repeating the prior unsupported leap"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the prior anchor that the struggle occurs around 176-183s, but do not reuse the old inference that portal formation implies being sucked in. In the trace, cite only grounded observations from the new chronological aftermath frames plus the preserved preprocess transcripts. The key missing fact is the actual consequence after the struggle: whether bodies are shown being pulled into the machine, whether people are shown frozen/immobile, or whether only an unstable portal/chaotic malfunction is visible. If the extended sequence still does not explicitly show either sucking-in or self-freezing, say the evidence does not uniquely discriminate A from B and keep the answer unresolved rather than guessing from genre logic."
+}

@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "d8UESxnuVAY__205f02dd40b5",
+  "video_id": "d8UESxnuVAY",
+  "run_id": "20260428T202635Z_27e47251",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "d8UESxnuVAY__205f02dd40b5",
+    "question": "What's the last piece black moves to deliver checkmate?",
+    "options": [
+      "A. A bishop.",
+      "B. A knight.",
+      "C. A pawn.",
+      "D. The queen.",
+      "E. A rook."
+    ],
+    "video_id": "d8UESxnuVAY",
+    "question_id": null,
+    "gold_answer": "A knight.",
+    "initial_trace_steps": [
+      "I that a checkmate is delivered when a king cannot escape the attack from one or more opponent pieces through movement or capturing an attacking piece. As I watched the video and looked for this moment, I heard that the woman in yellow, playing black, said \"Checkmate\" at 03:35. I noticed that this move, knight to e2, only put the king in check. So I continued watching to see what black's final piece to move would be. At 03:45, I saw black move her queen to g1, but this still didn't put the king in checkmate because white was able to take the queen at 03:47. Then, black moved her second knight to f2, which delivered a checkmate on the king in h1. Therefore, I determined that the last piece black moves to deliver checkmate was a knight."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/d8UESxnuVAY",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

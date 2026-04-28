@@ -1,0 +1,60 @@
+{
+  "strategy": "Use the preprocess montage anchor to retrieve a small chronological frame set around the horse-riding shot, then visually verify the horse color/pattern and map it to the options.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve chronological frames around the montage moment where the child in yellow is riding the horse, so the horse's coat color and any spots can be directly inspected.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "9u2I5D55tfU",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/9u2I5D55tfU/clips/clip_060_00_120_00.mp4",
+            "metadata": {
+              "segment_id": "seg_002",
+              "source": "preprocess_dense_caption"
+            }
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 5,
+        "query": "frames showing the child in yellow helmet riding the horse, with the horse body clearly visible for coat color and spotting pattern",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "62-68s horse-riding montage; especially the shot described as a young girl in a yellow helmet sitting on a dark horse while a man leads her"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological candidate frames of the yellow-helmet rider and horse"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Identify the correct rider shot among the retrieved frames, determine the horse's visible coat color and whether white or brown spots are present, and map that grounded observation to the answer options.",
+      "inputs": {
+        "query": "Among these chronological frames, find the shot where the child in yellow is riding the horse. What is the horse's coat color/pattern: black, white, brown, black with brown spots, or brown with white spots? Use only what is visibly supported in the frames and reject spot patterns unless clearly visible."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "grounded horse color mapped to one option",
+        "supporting_points": "brief visual observations about the horse coat and absence/presence of spots",
+        "analysis": "which frame(s) show the rider in yellow and why the selected option fits best"
+      }
+    }
+  ],
+  "refinement_instructions": "Use preprocess only as the temporal anchor, not as final proof. Base the final claim on the retrieved frames showing the yellow-helmet rider. Explicitly note whether any spotting is actually visible; if spots are not clearly visible, prefer a plain-color option over a spotted one. If the retrieved frames do not clearly show the horse body or the rider identity, keep the answer unresolved rather than overcommitting."
+}

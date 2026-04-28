@@ -1,0 +1,575 @@
+{
+  "task_key": "ZF4T833lln4__f57542bf6424",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_board_early",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Early retrieved board frames at 28s-32s show the starting position, with White's knights on b1 and g1, far apart and therefore not within one square of each other.",
+      "inference_hint": null,
+      "confidence": 0.63,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 28.0,
+          "end_s": 32.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_28.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_28.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 28.0
+          }
+        },
+        {
+          "artifact_id": "frame_29.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_29.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 29.0
+          }
+        },
+        {
+          "artifact_id": "frame_30.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_30.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 30.0
+          }
+        },
+        {
+          "artifact_id": "frame_31.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_31.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 31.0
+          }
+        },
+        {
+          "artifact_id": "frame_32.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_32.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 32.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_f7f85216fa2d3153",
+        "obs_1d960412457fb375",
+        "obs_4703ffc8a1cb321c",
+        "obs_d7a2ee884fc1bd3d"
+      ],
+      "metadata": {
+        "note": "Used only as a ruled-out interval."
+      }
+    },
+    {
+      "evidence_id": "ev_board_mid_not_close",
+      "tool_name": "generic_purpose",
+      "evidence_text": "Retrieved midgame board frames at 113s-117s show White's knights on c3 and f3. These squares are separated by two files on the same rank, so the knights are not within one square of each other.",
+      "inference_hint": null,
+      "confidence": 0.72,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 113.0,
+          "end_s": 117.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_113.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_113.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 113.0
+          }
+        },
+        {
+          "artifact_id": "frame_114.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_114.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 114.0
+          }
+        },
+        {
+          "artifact_id": "frame_115.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_115.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 115.0
+          }
+        },
+        {
+          "artifact_id": "frame_116.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_116.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 116.0
+          }
+        },
+        {
+          "artifact_id": "frame_117.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_117.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 117.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_d2309c75b8a3499e",
+        "obs_727a1586392db5e8",
+        "obs_d49cc7324c28f1d9",
+        "obs_0f676260130a1fd6",
+        "obs_ffbef1b985bca431",
+        "obs_883923295d919fe6",
+        "obs_b81a5e88fe142386",
+        "obs_bbeeaf5e525a84df",
+        "obs_3b488c83cd2d5643",
+        "obs_f068af706d58ec82",
+        "obs_c275e3d088fe66d8",
+        "obs_8cc84f61fe6932eb"
+      ],
+      "metadata": {
+        "note": "This directly rules out option D's late portion and option B's opening portion."
+      }
+    },
+    {
+      "evidence_id": "ev_board_121_uncertain",
+      "tool_name": "generic_purpose",
+      "evidence_text": "At 121s, the source analysis tentatively describes White's knights as being on d5 and f3, but the same analysis text is self-correcting and flagged as uncertain. This suggests the board changed after 117s, but the exact squares should be treated cautiously.",
+      "inference_hint": null,
+      "confidence": 0.34,
+      "status": "provisional",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 121.0,
+          "end_s": 121.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_121.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_121.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 121.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_b04e56ec2f96623f",
+        "obs_ecc5692cd2403036",
+        "obs_6a0359e7151f96cc",
+        "obs_d881ba29fb05711a"
+      ],
+      "metadata": {
+        "note": "Included as weak evidence only; refinement instructions warn against relying on noisy square labels."
+      }
+    },
+    {
+      "evidence_id": "ev_frame_coverage",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved decisive candidate frames are concentrated around 28s-32s, 113s-125s, and 263s-265s. No retrieved frames directly cover the full interiors of options B, C, or D beyond the sampled moments, so only sampled board states can be grounded here.",
+      "inference_hint": null,
+      "confidence": 0.81,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 28.0,
+          "end_s": 32.0
+        },
+        {
+          "start_s": 113.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 263.0,
+          "end_s": 265.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_28.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_28.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "timestamp_s": 28.0
+          }
+        },
+        {
+          "artifact_id": "frame_113.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_113.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "timestamp_s": 113.0
+          }
+        },
+        {
+          "artifact_id": "frame_121.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_121.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "timestamp_s": 121.0
+          }
+        },
+        {
+          "artifact_id": "frame_125.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_125.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "timestamp_s": 125.0
+          }
+        },
+        {
+          "artifact_id": "frame_263.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_263.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "timestamp_s": 263.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_055c2c3e55443ea5",
+        "obs_45d16c669054f2b6",
+        "obs_f4dec2cb92ae8d75",
+        "obs_0fbfd207f6ca6f32",
+        "obs_64d4bfca65e49318",
+        "obs_48d40b211c701147",
+        "obs_4604614d2c2b6d93",
+        "obs_99877a7044cca3e9",
+        "obs_a98e90ff27e4cc21",
+        "obs_e5ec86f780ae1122",
+        "obs_6fc1eb3a303351e0",
+        "obs_4166535374bc1580",
+        "obs_40621d81d1533575",
+        "obs_e39891027b66c6ac",
+        "obs_fe0427218e9a71e2",
+        "obs_f50c74c8493b12dd",
+        "obs_d65992db0b35751c",
+        "obs_ee1776fc8a237b55"
+      ],
+      "metadata": {
+        "note": "Coverage evidence for uncertainty handling."
+      }
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "Chronologically, the grounded sampled board states are at 28s-32s, then 113s-125s, then 263s-265s.",
+      "supporting_observation_ids": [
+        "obs_055c2c3e55443ea5",
+        "obs_64d4bfca65e49318",
+        "obs_48d40b211c701147",
+        "obs_fe0427218e9a71e2",
+        "obs_f50c74c8493b12dd",
+        "obs_ee1776fc8a237b55"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 28.0,
+          "end_s": 32.0
+        },
+        {
+          "start_s": 113.0,
+          "end_s": 125.0
+        },
+        {
+          "start_s": 263.0,
+          "end_s": 265.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "In the early sampled frames (28s-32s), White's knights are on b1 and g1, which are far apart, so option E cannot be the interval where they are within one square of each other.",
+      "supporting_observation_ids": [
+        "obs_4703ffc8a1cb321c",
+        "obs_d7a2ee884fc1bd3d"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 28.0,
+          "end_s": 32.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "In the sampled midgame frames at 113s-117s, White's knights are on c3 and f3. Those squares are separated by two files on the same rank, so they are not within one square of each other.",
+      "supporting_observation_ids": [
+        "obs_727a1586392db5e8",
+        "obs_d49cc7324c28f1d9",
+        "obs_0f676260130a1fd6",
+        "obs_883923295d919fe6",
+        "obs_bbeeaf5e525a84df",
+        "obs_f068af706d58ec82",
+        "obs_8cc84f61fe6932eb"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 113.0,
+          "end_s": 117.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "Because 113s-117s lies inside option D (01:55-02:49) and also overlaps the beginning of option B (02:03-03:57), those options are not supported by the sampled board states at their starts; the knights are explicitly not within one square there.",
+      "supporting_observation_ids": [
+        "obs_d2309c75b8a3499e",
+        "obs_c275e3d088fe66d8",
+        "obs_727a1586392db5e8",
+        "obs_0f676260130a1fd6"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 113.0,
+          "end_s": 117.0
+        }
+      ]
+    },
+    {
+      "step_id": 5,
+      "text": "There is a tentative later sampled claim at 121s that the white knights are on d5 and f3. If that square reading were correct, those two squares would be two files apart and two ranks apart, which is still not within one square. However, this square labeling is uncertain and should not be treated as decisive.",
+      "supporting_observation_ids": [
+        "obs_b04e56ec2f96623f",
+        "obs_ecc5692cd2403036",
+        "obs_d881ba29fb05711a"
+      ],
+      "answer_relevance": "medium",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 121.0,
+          "end_s": 121.0
+        }
+      ]
+    },
+    {
+      "step_id": 6,
+      "text": "No validated sampled frame in the provided evidence shows the two white knights occupying adjacent or diagonally adjacent squares. The available grounded frames therefore rule out E and strongly disfavor D, while B and C remain unresolved because the decisive later portions of those intervals are not directly grounded by reliable board-state observations here.",
+      "supporting_observation_ids": [
+        "obs_4703ffc8a1cb321c",
+        "obs_d7a2ee884fc1bd3d",
+        "obs_727a1586392db5e8",
+        "obs_0f676260130a1fd6",
+        "obs_055c2c3e55443ea5",
+        "obs_fe0427218e9a71e2"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 28.0,
+          "end_s": 32.0
+        },
+        {
+          "start_s": 113.0,
+          "end_s": 125.0
+        }
+      ]
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "ZF4T833lln4__f57542bf6424",
+      "trace": {
+        "inference_steps": [
+          "[28s to 32s; 113s to 125s; 263s to 265s] Chronologically, the grounded sampled board states are at 28s-32s, then 113s-125s, then 263s-265s.",
+          "[28s to 32s] In the early sampled frames (28s-32s), White's knights are on b1 and g1, which are far apart, so option E cannot be the interval where they are within one square of each other.",
+          "[113s to 117s] In the sampled midgame frames at 113s-117s, White's knights are on c3 and f3. Those squares are separated by two files on the same rank, so they are not within one square of each other.",
+          "[113s to 117s] Because 113s-117s lies inside option D (01:55-02:49) and also overlaps the beginning of option B (02:03-03:57), those options are not supported by the sampled board states at their starts; the knights are explicitly not within one square there.",
+          "[121s] There is a tentative later sampled claim at 121s that the white knights are on d5 and f3. If that square reading were correct, those two squares would be two files apart and two ranks apart, which is still not within one square. However, this square labeling is uncertain and should not be treated as decisive.",
+          "[28s to 32s; 113s to 125s] No validated sampled frame in the provided evidence shows the two white knights occupying adjacent or diagonally adjacent squares. The available grounded frames therefore rule out E and strongly disfavor D, while B and C remain unresolved because the decisive later portions of those intervals are not directly grounded by reliable board-state observations here."
+        ],
+        "evidence": [
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Early retrieved board frames at 28s-32s show the starting position, with White's knights on b1 and g1, far apart and therefore not within one square of each other.",
+            "observation_ids": [
+              "obs_f7f85216fa2d3153",
+              "obs_1d960412457fb375",
+              "obs_4703ffc8a1cb321c",
+              "obs_d7a2ee884fc1bd3d"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 28.0,
+                "end_s": 32.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "Retrieved midgame board frames at 113s-117s show White's knights on c3 and f3. These squares are separated by two files on the same rank, so the knights are not within one square of each other.",
+            "observation_ids": [
+              "obs_d2309c75b8a3499e",
+              "obs_727a1586392db5e8",
+              "obs_d49cc7324c28f1d9",
+              "obs_0f676260130a1fd6",
+              "obs_ffbef1b985bca431",
+              "obs_883923295d919fe6",
+              "obs_b81a5e88fe142386",
+              "obs_bbeeaf5e525a84df",
+              "obs_3b488c83cd2d5643",
+              "obs_f068af706d58ec82",
+              "obs_c275e3d088fe66d8",
+              "obs_8cc84f61fe6932eb"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 113.0,
+                "end_s": 117.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "At 121s, the source analysis tentatively describes White's knights as being on d5 and f3, but the same analysis text is self-correcting and flagged as uncertain. This suggests the board changed after 117s, but the exact squares should be treated cautiously.",
+            "observation_ids": [
+              "obs_b04e56ec2f96623f",
+              "obs_ecc5692cd2403036",
+              "obs_6a0359e7151f96cc",
+              "obs_d881ba29fb05711a"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 121.0,
+                "end_s": 121.0
+              }
+            ]
+          },
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved decisive candidate frames are concentrated around 28s-32s, 113s-125s, and 263s-265s. No retrieved frames directly cover the full interiors of options B, C, or D beyond the sampled moments, so only sampled board states can be grounded here.",
+            "observation_ids": [
+              "obs_055c2c3e55443ea5",
+              "obs_45d16c669054f2b6",
+              "obs_f4dec2cb92ae8d75",
+              "obs_0fbfd207f6ca6f32",
+              "obs_64d4bfca65e49318",
+              "obs_48d40b211c701147",
+              "obs_4604614d2c2b6d93",
+              "obs_99877a7044cca3e9",
+              "obs_a98e90ff27e4cc21",
+              "obs_e5ec86f780ae1122",
+              "obs_6fc1eb3a303351e0",
+              "obs_4166535374bc1580",
+              "obs_40621d81d1533575",
+              "obs_e39891027b66c6ac",
+              "obs_fe0427218e9a71e2",
+              "obs_f50c74c8493b12dd",
+              "obs_d65992db0b35751c",
+              "obs_ee1776fc8a237b55"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 28.0,
+                "end_s": 32.0
+              },
+              {
+                "start_s": 113.0,
+                "end_s": 125.0
+              },
+              {
+                "start_s": 263.0,
+                "end_s": 265.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved",
+    "reason": "Provided evidence does not reliably ground a frame where the two white knights are within one square of each other, and multiple options remain compatible with the missing unsampled portions."
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "ZF4T833lln4__f57542bf6424",
+  "video_id": "ZF4T833lln4",
+  "run_id": "20260428T201720Z_cdc2177f",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "ZF4T833lln4__f57542bf6424",
+    "question": "When are 2 white knights within 1 square of each other?",
+    "options": [
+      "A. 04:25 - 04:30.",
+      "B. 02:03 - 03:57.",
+      "C. 03:40 - 03:59.",
+      "D. 01:55 - 02:49.",
+      "E. 00:30 - 01:22."
+    ],
+    "video_id": "ZF4T833lln4",
+    "question_id": null,
+    "gold_answer": "01:55 - 02:49.",
+    "initial_trace_steps": [
+      "At 01:55, I noticed 2 white knights within 1 square of each other for the first time, with 1 at f3 and another at e1, thus being 1 diagonal square away from each other. At 01:57, I saw the white knight at e1 move to g3, but it was still 1 square away from the knight at f3. At 02:49, when the white knight at f3 moves to capture a black pawn at d4, the 2 white knights are now no longer within 1 square from each other. Since there is no other time that 2 white knights are within 1 square of each other, the only time when 2 white knights are within 1 square from each other is at 01:55 - 02:49."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/ZF4T833lln4",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

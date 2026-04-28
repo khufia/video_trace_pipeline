@@ -1,0 +1,646 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "ratio",
+    "side",
+    "steps",
+    "ball",
+    "tosses",
+    "woman",
+    "gray",
+    "volunteers",
+    "inner",
+    "city",
+    "tennis",
+    "cautious",
+    "mostly",
+    "internally",
+    "consistent",
+    "remains",
+    "incomplete",
+    "multiple",
+    "choice",
+    "task",
+    "ground",
+    "counts",
+    "well",
+    "enough",
+    "map",
+    "one",
+    "option",
+    "leaves",
+    "final",
+    "blank"
+  ],
+  "preprocess": {
+    "planner_segment_count": 3,
+    "raw_segment_count": 3,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 3,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "The video begins with the CCX Media logo, featuring the letters 'CCX' in a large, gradient blue-green font. Below it, the word 'MEDIA' is in white, and 'CCXMEDIA.ORG' is in a smaller, sans-serif font. The background is a dark, abstract pattern of intersecti...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is static, holding a centered, medium shot of the logo.",
+          "video_background: The background is a dark, abstract design with thin, white diagonal a...",
+          "storyline: This segment serves as the production company's branding intro before the ma...",
+          "shooting_style: This is a static shot of a logo.",
+          "camera_state: The camera uses a series of quick cuts. It includes a medium shot of the...",
+          "video_background: The scenes take place on and around a green tennis court, with a chai...",
+          "storyline: This montage introduces the main subjects of the video: young female tennis...",
+          "shooting_style: This is a montage sequence with quick cuts between different scenes."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 0.031,
+            "end_s": 21.074,
+            "text": "Alex Replier calls the tennis court her happy place. The Chamberlain Park Junior tried a lot of sports growing up, but tennis stuck. It was just something about the fact that when I'm on the court, it's me and I get to make decisions. And if you know I messed up, it's me. And if I win, it's me."
+          },
+          {
+            "start_s": 21.192,
+            "end_s": 44.193,
+            "text": "Replier started playing when she was five years old and made the CP varsity as a seventh grader. In ninth grade, she became the Rebels' number one singles player. I went from just being the flattest, hardest hitter ever to someone who I can actually hit topspin now and just really, I know how to construct points better and I know how to really just set up a strategy that'll work to have me be successful on the court."
+          },
+          {
+            "start_s": 44.412,
+            "end_s": 67.666,
+            "text": "Replier is a team captain this season and tries to be a leader and mentor to younger players. She really took me under her wing. She just made sure I felt like I could talk to her about anything. And if I had any questions, I could go to her. Year after year, she got a little more mature. She started to make friends. And she's really blossomed into the leader of Temple Park tennis."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "A group of young female tennis players, including one in a white shirt and another in a purple shirt, stand on a court, talking and laughing. A man in a blue shirt and a white cap walks past them in the background.; acoustics: 1) Tone of speech: N/A. 2) Bac...",
+        "caption_count": 3,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera is at a medium distance, panning slightly to the right to foll...",
+          "video_background: The scene is set on an outdoor tennis court, with a chain-link fence...",
+          "storyline: This opening shot establishes the setting and introduces a group of young te...",
+          "shooting_style: This is a standard establishing shot.",
+          "camera_state: The camera is at a medium close-up, focused on the coach's face and upper...",
+          "video_background: The background consists of a chain-link fence and trees with green an...",
+          "storyline: This segment introduces a key figure, the assistant coach, who will provide...",
+          "shooting_style: This is a standard interview shot with a lower-third graphic.",
+          "camera_state: The camera pans to the right, following the players' movements across the...",
+          "video_background: The match takes place on a blue tennis court with white lines. A blac...",
+          "storyline: This montage provides a glimpse into the women's doubles match, showcasing t...",
+          "shooting_style: This is a montage of action shots from the tennis match."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 67.666,
+            "end_s": 86.667,
+            "text": "Replier is always striving to get better and to that end she plays on the club circuit as well. I love competing in tournaments whether they're local level or national level and the club environment is just so fun and it is something I really love to do is just compete and every weekend you know we're traveling to different cities and spending a lot of time on the court."
+          },
+          {
+            "start_s": 86.87,
+            "end_s": 115.912,
+            "text": "Still, Replier says the club tennis world is very different from high school and can sometimes be difficult to manage. I've kind of built a community with my family and with my coaches where, you know, I have a supportive group around me, but definitely when you're on the court, you're just kind of sitting on the bench yourself. It definitely can get a little, feel a little lonely. When she's not playing tennis or keeping up with her schoolwork, Alex Replier is probably teaching the game. She volunteers at Inner City Tennis in Minneapolis."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 172.272,
+        "overall_summary": "A female instructor in a grey t-shirt and black shorts stands on an indoor tennis court, smiling as she teaches a young girl in a pink shirt. The instructor tosses a multi-colored ball in the air and prepares to hit it with her tennis racket. The words 'INN...",
+        "caption_count": 2,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is at a medium distance, focusing on the instructor and the ch...",
+          "video_background: The scene is an indoor tennis facility with a bright blue wall in the...",
+          "storyline: This segment introduces the 'Inner City Tennis' program, showing a mentor te...",
+          "shooting_style: This is a standard shot establishing the scene and characters.",
+          "camera_state: The sequence uses multiple camera angles: a medium shot of a young girl,...",
+          "video_background: The scenes take place on an indoor tennis court, with blue backdrops,...",
+          "storyline: This montage quickly showcases the activities and participants of the tennis...",
+          "shooting_style: This is a montage, using quick cuts between different related scenes to..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 116.097,
+            "end_s": 136.702,
+            "text": "It's the greatest feeling. Just seeing these kids kind of latch on to a sport that I love so much and just the smiles on their face when they kind of, you know, hit a forehand for the first time or, you know, something just clicks in their head where they're like, oh my god, I know how to do this. It's just a really amazing feeling to know that I have an impact on their lives and that I get to show them something that I love so much and see them love it just as much."
+          },
+          {
+            "start_s": 136.769,
+            "end_s": 161.373,
+            "text": "Champlin Park bowed out early in the section tournament, but with a pretty young squad, Replier believes the future is bright for Rebels tennis. All of these girls work so hard in the offseason, and we all play constantly almost every day in the offseason. And so as we look into the future, we know that even if this year isn't perfect, we have time to grow, and we can do even better next year and just keep working hard. Jason Melillo, CCX Sports."
+          },
+          {
+            "start_s": 163.28,
+            "end_s": 169.76,
+            "text": "Find more prep sports games and highlights at ccxmedia.org and follow us on social media."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 120.0,
+            "end_s": 172.272,
+            "artifact_id": "clip_120_00_172_27",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 2,
+    "observation_count": 40,
+    "counts_by_status": {
+      "provisional": 2
+    },
+    "counts_by_tool": {
+      "frame_retriever": 1,
+      "generic_purpose": 1
+    },
+    "validated_evidence": [],
+    "recent_evidence": [
+      {
+        "evidence_id": "ev_01_bc372a7f",
+        "tool_name": "frame_retriever",
+        "status": "provisional",
+        "summary": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.",
+        "observation_ids": [
+          "obs_40621d81d1533575",
+          "obs_e39891027b66c6ac",
+          "obs_fe0427218e9a71e2",
+          "obs_1edd2b3e5b3bf63a",
+          "obs_854aa1019d24fe4a"
+        ]
+      },
+      {
+        "evidence_id": "ev_02_d0040c7a",
+        "tool_name": "generic_purpose",
+        "status": "provisional",
+        "summary": "The user wants to find the ratio of side steps to ball tosses performed by the woman in gray. 1. **Analyze the images for \"side steps\" and \"ball tosses\".** * **Image 1 (123s):** The woman is standing, holding a ball....",
+        "observation_ids": [
+          "obs_fa39c4afb70dce4f",
+          "obs_8d75f7b8831aca68",
+          "obs_58baefaabf9330b0",
+          "obs_280e58fcd2f9ef86",
+          "obs_9496fdab8dc3d34f",
+          "obs_505710e8a488bc29",
+          "obs_2fd95d52fae5466e",
+          "obs_a8e4af7301a1e27a"
+        ]
+      }
+    ],
+    "recent_observations": [
+      {
+        "observation_id": "obs_40621d81d1533575",
+        "evidence_id": "ev_01_bc372a7f",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 123.0,
+        "text": "A candidate frame was retrieved at 123.00s."
+      },
+      {
+        "observation_id": "obs_e39891027b66c6ac",
+        "evidence_id": "ev_01_bc372a7f",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 124.0,
+        "text": "A candidate frame was retrieved at 124.00s."
+      },
+      {
+        "observation_id": "obs_fe0427218e9a71e2",
+        "evidence_id": "ev_01_bc372a7f",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 125.0,
+        "text": "A candidate frame was retrieved at 125.00s."
+      },
+      {
+        "observation_id": "obs_1edd2b3e5b3bf63a",
+        "evidence_id": "ev_01_bc372a7f",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 126.0,
+        "text": "A candidate frame was retrieved at 126.00s."
+      },
+      {
+        "observation_id": "obs_854aa1019d24fe4a",
+        "evidence_id": "ev_01_bc372a7f",
+        "source_tool": "frame_retriever",
+        "frame_ts_s": 127.0,
+        "text": "A candidate frame was retrieved at 127.00s."
+      },
+      {
+        "observation_id": "obs_fa39c4afb70dce4f",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "The user wants to find the ratio of side steps to ball tosses performed by the woman in gray."
+      },
+      {
+        "observation_id": "obs_8d75f7b8831aca68",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 is at 123s."
+      },
+      {
+        "observation_id": "obs_58baefaabf9330b0",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1 at 123s, the woman in gray is standing."
+      },
+      {
+        "observation_id": "obs_280e58fcd2f9ef86",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1 at 123s, the woman in gray is holding a ball."
+      },
+      {
+        "observation_id": "obs_9496fdab8dc3d34f",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1 at 123s, the woman in gray is looking down/forward."
+      },
+      {
+        "observation_id": "obs_505710e8a488bc29",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 at 123s shows no clear side step."
+      },
+      {
+        "observation_id": "obs_2fd95d52fae5466e",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 at 123s shows no clear toss yet."
+      },
+      {
+        "observation_id": "obs_a8e4af7301a1e27a",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 is at 124s."
+      },
+      {
+        "observation_id": "obs_48e29ca8676b10e6",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 2 at 124s shows a close-up of a racket hitting a ball."
+      },
+      {
+        "observation_id": "obs_39a336e3bee50872",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 2 at 124s, the woman is not clearly visible doing the toss."
+      },
+      {
+        "observation_id": "obs_b7809d628af96920",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 is at 125s."
+      },
+      {
+        "observation_id": "obs_aab1a288360f0b79",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 3 at 125s shows a close-up of a child in pink holding a racket."
+      },
+      {
+        "observation_id": "obs_6f607737594f52bd",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 3 at 125s, no woman is visible."
+      },
+      {
+        "observation_id": "obs_1a03dbe99145148b",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 is at 126s."
+      },
+      {
+        "observation_id": "obs_3e9a72e7a17dd339",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 4 at 126s, the woman in gray is standing."
+      },
+      {
+        "observation_id": "obs_556d6527bd3a9799",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 4 at 126s, the woman in gray is holding a racket."
+      },
+      {
+        "observation_id": "obs_eacb952dda896492",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 4 at 126s, a ball is in the air."
+      },
+      {
+        "observation_id": "obs_ed6aa91722c53306",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 4 at 126s, the woman in gray is looking up at the ball."
+      },
+      {
+        "observation_id": "obs_4a8ddec696fe7e18",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 5 is at 127s."
+      },
+      {
+        "observation_id": "obs_1e525c6b57612c8f",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 5 at 127s, the woman in gray is holding the racket out."
+      },
+      {
+        "observation_id": "obs_7d337af79333923b",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 5 at 127s, the woman in gray is looking at the children."
+      },
+      {
+        "observation_id": "obs_9016a5ae6210aaf0",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 5 at 127s, no ball is in the air."
+      },
+      {
+        "observation_id": "obs_27459b1e14ba4df0",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 1 does not show a completed side step."
+      },
+      {
+        "observation_id": "obs_7f222d9c6a8afb7d",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 does not show a completed side step."
+      },
+      {
+        "observation_id": "obs_4ba5694c7fc884d1",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 5 does not show a completed side step."
+      },
+      {
+        "observation_id": "obs_47d723601f358fa7",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 1, the woman's feet are together/shoulder width."
+      },
+      {
+        "observation_id": "obs_0aac2802aa7c1d37",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 4, the woman's feet are shoulder width."
+      },
+      {
+        "observation_id": "obs_cf0da9ab65f3eb99",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "In Image 5, the woman's feet are shoulder width."
+      },
+      {
+        "observation_id": "obs_cea4aa1545a601ad",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "A toss by the woman in gray is implied between Image 1 at 123s and Image 4 at 126s."
+      },
+      {
+        "observation_id": "obs_273935be42bdee00",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "Image 4 indicates one ball toss."
+      },
+      {
+        "observation_id": "obs_a4b2f9bcc6d36aa1",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "The options include 4:1."
+      },
+      {
+        "observation_id": "obs_ddbcf095fecf4f30",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "The options include 3:1."
+      },
+      {
+        "observation_id": "obs_1300bc14c906ec99",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "The options include 1:1."
+      },
+      {
+        "observation_id": "obs_9c7f095de05c9c3e",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "The options include 5:1."
+      },
+      {
+        "observation_id": "obs_9b6835c18671dd1a",
+        "evidence_id": "ev_02_d0040c7a",
+        "source_tool": "generic_purpose",
+        "text": "The options include 2:1."
+      }
+    ]
+  },
+  "artifact_context": {
+    "record_count": 6,
+    "counts_by_type": {
+      "frame": 5,
+      "clip": 1
+    },
+    "records": [
+      {
+        "artifact_id": "clip_120_00_172_27",
+        "artifact_type": "clip",
+        "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+        "time": {
+          "clip": {
+            "start_s": 120.0,
+            "end_s": 125.0
+          }
+        },
+        "contains_preview": [
+          "Image 1 is at 123s.",
+          "In Image 1 at 123s, the woman in gray is standing.",
+          "In Image 1 at 123s, the woman in gray is holding a ball.",
+          "In Image 1 at 123s, the woman in gray is looking down/forward."
+        ],
+        "linked_observation_count": 34,
+        "linked_evidence_ids": [
+          "ev_02_d0040c7a"
+        ]
+      },
+      {
+        "artifact_id": "frame_123.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/AY84ybskqI/frames/frame_123.00.png",
+        "time": {
+          "timestamp_s": 123.0
+        },
+        "contains_preview": [
+          "Image 1 is at 123s.",
+          "In Image 1 at 123s, the woman in gray is standing.",
+          "In Image 1 at 123s, the woman in gray is holding a ball.",
+          "In Image 1 at 123s, the woman in gray is looking down/forward."
+        ],
+        "linked_observation_count": 34,
+        "linked_evidence_ids": [
+          "ev_01_bc372a7f",
+          "ev_02_d0040c7a"
+        ]
+      },
+      {
+        "artifact_id": "frame_124.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/AY84ybskqI/frames/frame_124.00.png",
+        "time": {
+          "timestamp_s": 124.0
+        },
+        "contains_preview": [
+          "Image 1 is at 123s.",
+          "In Image 1 at 123s, the woman in gray is standing.",
+          "In Image 1 at 123s, the woman in gray is holding a ball.",
+          "In Image 1 at 123s, the woman in gray is looking down/forward."
+        ],
+        "linked_observation_count": 34,
+        "linked_evidence_ids": [
+          "ev_01_bc372a7f",
+          "ev_02_d0040c7a"
+        ]
+      },
+      {
+        "artifact_id": "frame_125.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/AY84ybskqI/frames/frame_125.00.png",
+        "time": {
+          "timestamp_s": 125.0
+        },
+        "contains_preview": [
+          "Image 1 is at 123s.",
+          "In Image 1 at 123s, the woman in gray is standing.",
+          "In Image 1 at 123s, the woman in gray is holding a ball.",
+          "In Image 1 at 123s, the woman in gray is looking down/forward."
+        ],
+        "linked_observation_count": 34,
+        "linked_evidence_ids": [
+          "ev_01_bc372a7f",
+          "ev_02_d0040c7a"
+        ]
+      },
+      {
+        "artifact_id": "frame_126.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/AY84ybskqI/frames/frame_126.00.png",
+        "time": {
+          "timestamp_s": 126.0
+        },
+        "contains_preview": [
+          "Image 1 is at 123s.",
+          "In Image 1 at 123s, the woman in gray is standing.",
+          "In Image 1 at 123s, the woman in gray is holding a ball.",
+          "In Image 1 at 123s, the woman in gray is looking down/forward."
+        ],
+        "linked_observation_count": 34,
+        "linked_evidence_ids": [
+          "ev_01_bc372a7f",
+          "ev_02_d0040c7a"
+        ]
+      },
+      {
+        "artifact_id": "frame_127.00",
+        "artifact_type": "frame",
+        "relpath": "artifacts/AY84ybskqI/frames/frame_127.00.png",
+        "time": {
+          "timestamp_s": 127.0
+        },
+        "contains_preview": [
+          "Image 1 is at 123s.",
+          "In Image 1 at 123s, the woman in gray is standing.",
+          "In Image 1 at 123s, the woman in gray is holding a ball.",
+          "In Image 1 at 123s, the woman in gray is looking down/forward."
+        ],
+        "linked_observation_count": 34,
+        "linked_evidence_ids": [
+          "ev_01_bc372a7f",
+          "ev_02_d0040c7a"
+        ]
+      }
+    ],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 4,
+    "claims": [
+      {
+        "step_id": 1,
+        "text": "The relevant retrieved frames are in chronological order at 123s, 124s, 125s, 126s, and 127s, so any counting must be based on that ordered sequence rather than on an isolated caption-like summary.",
+        "supporting_observation_ids": [
+          "obs_40621d81d1533575",
+          "obs_e39891027b66c6ac",
+          "obs_fe0427218e9a71e2",
+          "obs_1edd2b3e5b3bf63a",
+          "obs_854aa1019d24fe4a"
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "For side steps, the visible frames with the woman at 123s, 126s, and 127s are each marked as not showing a completed side step, so the available evidence does not support counting any completed visible side-step movement in this interval.",
+        "supporting_observation_ids": [
+          "obs_27459b1e14ba4df0",
+          "obs_7f222d9c6a8afb7d",
+          "obs_4ba5694c7fc884d1"
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "For ball tosses, the frames do not show a fully countable completed visible toss by the woman: at 123s she is only holding a ball, at 124s the frame shows a racket hitting a ball but does not clearly show her performing the toss, at 125s she is not visible, and at 126s a ball is already in the air while she looks up at it. This supports that a toss may have occurred, but not a confident count of completed visible toss events by her from the retrieved frames alone.",
+        "supporting_observation_ids": [
+          "obs_280e58fcd2f9ef86",
+          "obs_2fd95d52fae5466e",
+          "obs_48e29ca8676b10e6",
+          "obs_39a336e3bee50872",
+          "obs_6f607737594f52bd",
+          "obs_eacb952dda896492",
+          "obs_ed6aa91722c53306"
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "Because the question asks for a ratio from multiple-choice options, but the retrieved sequence does not ground a confident count of completed visible tosses and does not show any completed visible side steps, none of the listed ratios can be selected without guessing.",
+        "supporting_observation_ids": [
+          "obs_27459b1e14ba4df0",
+          "obs_7f222d9c6a8afb7d",
+          "obs_4ba5694c7fc884d1",
+          "obs_280e58fcd2f9ef86",
+          "obs_39a336e3bee50872",
+          "obs_6f607737594f52bd",
+          "obs_eacb952dda896492"
+        ]
+      }
+    ]
+  },
+  "audit_gaps": [
+    "grounded count of the woman's completed side steps in the relevant activity segment",
+    "grounded count of the woman's completed ball tosses in the relevant activity segment",
+    "mapping from the grounded side-step-to-ball-toss ratio to one provided option"
+  ]
+}

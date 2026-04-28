@@ -1,0 +1,83 @@
+{
+  "strategy": "Use preprocess clues to target the likely early-game windows, retrieve chronological board frames across the candidate option intervals, and verify in one visual reasoning pass when the two white knights are on squares within one king-move of each other.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve chronological representative board frames spanning the answer-option windows where preprocess suggests white-knight repositioning, so the downstream model can inspect both knights' relative squares over time.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 30.0,
+            "end_s": 82.0,
+            "artifact_id": "clip_000_00_344_27",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_344_27.mp4",
+            "metadata": {
+              "reason": "covers option E and the start of option D where early knight development occurs"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 115.0,
+            "end_s": 150.0,
+            "artifact_id": "clip_000_00_344_27",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_344_27.mp4",
+            "metadata": {
+              "reason": "covers option B/C overlap and the move around 120-131s where preprocess mentions a white knight moving to c3"
+            }
+          },
+          {
+            "video_id": "ZF4T833lln4",
+            "start_s": 255.0,
+            "end_s": 272.0,
+            "artifact_id": "clip_000_00_344_27",
+            "relpath": "artifacts/ZF4T833lln4/clips/clip_000_00_344_27.mp4",
+            "metadata": {
+              "reason": "covers option A where later knight proximity is plausible from transcript mention of knight f5"
+            }
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 18,
+        "query": "chronological board frames where both white knights are visible and their relative squares can be compared for adjacency or being within one square of each other",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "00:30-01:22",
+          "01:55-02:49",
+          "02:03-03:57",
+          "03:40-03:59",
+          "04:25-04:30"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological board frames sampled across the candidate intervals"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Inspect the retrieved board sequence, identify the squares of both white knights in each relevant phase, determine when they are within one square of each other, and map that verified interval to the provided options.",
+      "inputs": {
+        "query": "For each retrieved frame, identify the two white knights' squares or approximate board locations and determine whether they are within one square of each other (including diagonally adjacent king-move distance). Use the chronological sequence to find the sustained interval(s) when this condition holds, compare against the answer options A-E, and return the best-supported option only if visually grounded."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "best-supported option for when the two white knights are within one square of each other",
+        "supporting_points": "frame-based observations of knight locations over time",
+        "analysis": "comparison of verified interval against the listed options"
+      }
+    }
+  ],
+  "refinement_instructions": "Do not rely on preprocess captions alone for the final claim because the captions contain noisy square labels. Base the conclusion on the retrieved board frames. In the trace, explicitly state the two white knights' relative positions in the decisive frames and why they do or do not satisfy 'within 1 square of each other.' Treat this as a visual board-state question, not a transcript question. If multiple intervals appear plausible, compare them directly to all options and keep uncertainty explicit rather than overcommitting."
+}

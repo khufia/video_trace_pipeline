@@ -1,0 +1,237 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "character",
+    "accompanies",
+    "child",
+    "down",
+    "slide",
+    "donald",
+    "duck",
+    "daisy",
+    "goofy",
+    "mickey",
+    "mouse",
+    "pluto"
+  ],
+  "preprocess": {
+    "planner_segment_count": 5,
+    "raw_segment_count": 5,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 5,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "The video begins with a close-up of a logo for 'Holiday Inn Kids Village.' The logo features cartoon children on a globe, with a candy cane and balloons. The scene then cuts to an exterior shot of a large, colorful sign for 'Kids Village' with a heart symbo...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The camera starts with a close-up on the logo, then cuts to a static medi...",
+          "video_background: The initial background is a blurry, warm-toned image. The 'Kids Villa...",
+          "storyline: This segment introduces the two main entities featured in the documentary: t...",
+          "shooting_style: This is a montage of still images and logos, setting the stage for the...",
+          "camera_state: The first shot is a high-angle aerial view that pans over the constructio...",
+          "video_background: The first scene is a construction site with dirt, trees, and building...",
+          "storyline: This segment contrasts the 'before' and 'after' of the Kids Village, showing...",
+          "shooting_style: The segment uses a dissolve transition to move from the construction fo..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 25.04,
+            "end_s": 46.707,
+            "text": "At the start is a dream For the dreamer it's easy But it's more than it seems For our wishes o'er the sky adorn Inspire the night and stars are born"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "9u2I5D55tfU",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/9u2I5D55tfU/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "An older man with white hair, wearing a dark suit, a red patterned tie, and a red pocket square, speaks directly to the camera. He is seated in a large, dark green leather office chair. Behind him is a bookshelf with a model of a knight in armor and a frame...",
+        "caption_count": 3,
+        "asr_span_count": 3,
+        "attributes": [
+          "camera_state: The camera is at a medium close-up, eye-level with the speaker, and remai...",
+          "video_background: The setting is a professional office, indicated by the bookshelf, a f...",
+          "storyline: This segment introduces a key figure, likely the founder or a leader of the...",
+          "shooting_style: This is a standard talking-head interview shot.",
+          "camera_state: The sequence uses an aerial shot, a medium shot from behind, and a medium...",
+          "video_background: The scenes take place at an outdoor park, featuring playground equipm...",
+          "storyline: This montage introduces the park's attractions and activities, focusing on h...",
+          "shooting_style: This is a montage of short, distinct clips.",
+          "camera_state: The camera uses a series of medium shots to capture the interactions betw...",
+          "video_background: The setting is an outdoor petting zoo or horse riding area, with whit...",
+          "storyline: This segment emphasizes the family-friendly and gentle nature of the park's...",
+          "shooting_style: This is a montage of short, distinct clips."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 47.669,
+            "end_s": 75.412,
+            "text": "Through the years it'll grow From the roots to the branches Little star you will glow As you reach beyond the sky and sea Inspiring other dreams to be Take a step, take my hand Who knows where we'll land"
+          },
+          {
+            "start_s": 78.061,
+            "end_s": 86.279,
+            "text": "And close your eyes Just count to three And come real"
+          },
+          {
+            "start_s": 95.273,
+            "end_s": 120.181,
+            "text": "Find your wish, that's the start Turn your eyes up to the stars It's a treasure trove of dreamers to discover Then find the place in your dream where a spark becomes a gleam Shine your light, you've gotta share it with each other"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "9u2I5D55tfU",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/9u2I5D55tfU/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "A group of eight people, including a mascot, stand together outdoors, smiling and posing for a photo. They are holding a large white board that displays a hand-drawn concept sketch of a pirate ship ride.; speech: None.; acoustics: 1) Tone of speech: N/A. 2)...",
+        "caption_count": 3,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The camera is static, capturing a medium shot of the group.",
+          "video_background: The group is standing on a gravelly surface with lush green trees and...",
+          "storyline: This scene shows the initial concept and planning phase for one of the park'...",
+          "shooting_style: This is a still photograph that dissolves into the next scene.",
+          "camera_state: The first shot is a medium shot of the ride in motion. The second is a cl...",
+          "video_background: The ride is set in an outdoor area with palm trees and other greenery...",
+          "storyline: This segment shows the successful execution of the previously shown concept,...",
+          "shooting_style: This is a montage of two different shots showing the ride.",
+          "camera_state: The first shot is a static medium shot of the cartoon train. The second i...",
+          "video_background: The cartoon is set against a bright sky with palm trees. The live-act...",
+          "storyline: This segment showcases another one of the park's unique, character-themed ri...",
+          "shooting_style: This is a montage of a cartoon and a live-action shot."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 126.779,
+            "end_s": 152.581,
+            "text": "And share it, child, cause you give us the world. For the light of who you are. Touches dreamers near and far. That's when our wish. That's when our wish. Yeah, that's when our wish. Becomes a star."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "9u2I5D55tfU",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/9u2I5D55tfU/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "overall_summary": "A montage of scenes from a children's amusement park. A boy in a purple shirt dances with his arms raised on a small, green-floored mini-golf course. A family holds up a large, framed certificate of achievement with a purple ribbon. A group of people, inclu...",
+        "caption_count": 2,
+        "asr_span_count": 2,
+        "attributes": [
+          "camera_state: The camera uses a series of medium and close-up shots, cutting between di...",
+          "video_background: The scenes take place in various outdoor and indoor settings at a chi...",
+          "storyline: This opening montage introduces the theme of a children's amusement park, sh...",
+          "shooting_style: This is a montage, cutting between different short, unrelated clips to...",
+          "camera_state: The first shot is a static medium shot of the group photo. The second sho...",
+          "video_background: The first scene is outdoors in front of a red building with a red awn...",
+          "storyline: This segment highlights special events and promotions at the park, such as a...",
+          "shooting_style: The segment uses a dissolve transition between the outdoor group photo..."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 182.5,
+            "end_s": 206.986,
+            "text": "That's a start, turn your eyes unto the stars It's a treasure trove of dreamers to discover And find the place in your dream where that spark becomes a gleam Shine your light, you're gonna share it with each other"
+          },
+          {
+            "start_s": 208.167,
+            "end_s": 237.192,
+            "text": "Let your star shine unfurled And share it, child, cause you give us the world For the light of who you are Touches dreamers near and far That's when I will That's when I will That's when I will Becomes a star"
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "9u2I5D55tfU",
+            "start_s": 180.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_180_00_240_00",
+            "relpath": "artifacts/9u2I5D55tfU/clips/clip_180_00_240_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_005",
+        "start_s": 240.0,
+        "end_s": 288.388,
+        "overall_summary": "A montage of happy moments at a theme park begins. A young girl in a pink shirt smiles as she rides a carousel with her mother. The scene then cuts to a small, colorful train ride with children and adults, including a boy in a red shirt, laughing as they go...",
+        "caption_count": 2,
+        "asr_span_count": 1,
+        "attributes": [
+          "camera_state: The camera uses medium shots to capture the children's expressions and th...",
+          "video_background: The setting is a theme park, featuring a carousel with a stone wall b...",
+          "storyline: This segment introduces the theme of childhood joy and family fun at a theme...",
+          "shooting_style: This is a montage of short, distinct clips showing different rides and...",
+          "camera_state: The first shot is a medium shot of the girl on the swing. The second is a...",
+          "video_background: The first scene is a park with a swing set and green grass. The secon...",
+          "storyline: This segment continues to build on the theme of childhood happiness, focusin...",
+          "shooting_style: This is a montage of two distinct clips."
+        ],
+        "asr_preview": [
+          {
+            "start_s": 253.24,
+            "end_s": 257.965,
+            "text": "Share your light. Share your light and shine."
+          }
+        ],
+        "clips": [
+          {
+            "video_id": "9u2I5D55tfU",
+            "start_s": 240.0,
+            "end_s": 288.388,
+            "artifact_id": "clip_240_00_288_39",
+            "relpath": "artifacts/9u2I5D55tfU/clips/clip_240_00_288_39.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 0,
+    "observation_count": 0,
+    "counts_by_status": {},
+    "counts_by_tool": {},
+    "validated_evidence": [],
+    "recent_evidence": [],
+    "recent_observations": []
+  },
+  "artifact_context": {
+    "record_count": 0,
+    "counts_by_type": {},
+    "records": [],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 0,
+    "claims": []
+  }
+}

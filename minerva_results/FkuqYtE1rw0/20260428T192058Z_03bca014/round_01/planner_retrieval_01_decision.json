@@ -1,0 +1,48 @@
+{
+  "action": "retrieve",
+  "rationale": "Relevant existing text likely exists in preprocess ASR/dense-caption records for the Wild Shuffle Hands segment, but the current context only has query terms and not the needed span details for planning.",
+  "requests": [
+    {
+      "request_id": "wild_shuffle_asr_span",
+      "target": "preprocess",
+      "need": "The exact ASR span around the Wild Shuffle Hands explanation, especially after the narrator says players may end up with more or fewer cards, to anchor the event and nearby timing.",
+      "query": "Wild Shuffle Hands players may end up with more or fewer cards starting with the player to your left deal out all the cards",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 119.0,
+        "end_s": 145.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 5
+    },
+    {
+      "request_id": "wild_shuffle_dense_caption",
+      "target": "preprocess",
+      "need": "Dense-caption text describing the dealing sequence after the Wild Shuffle Hands card is shown, to determine how many cards the player on the left receives.",
+      "query": "shuffle hands dealing sequence player on the left receives cards",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 120.0,
+        "end_s": 180.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

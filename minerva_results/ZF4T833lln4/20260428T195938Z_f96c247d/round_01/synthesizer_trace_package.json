@@ -1,0 +1,507 @@
+{
+  "task_key": "ZF4T833lln4__db2737f0d79b",
+  "mode": "generate",
+  "evidence_entries": [
+    {
+      "evidence_id": "ev_final_frame_sequence",
+      "tool_name": "frame_retriever",
+      "evidence_text": "Retrieved frames at 317s, 318s, 319s, 320s, 321s, and 322s for the end of the match sequence.",
+      "inference_hint": null,
+      "confidence": 0.93,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 317.0,
+          "end_s": 322.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_317.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_317.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_317.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 195932
+          }
+        },
+        {
+          "artifact_id": "frame_318.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_318.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 196159
+          }
+        },
+        {
+          "artifact_id": "frame_319.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_319.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_319.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 187754
+          }
+        },
+        {
+          "artifact_id": "frame_320.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_320.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 189973
+          }
+        },
+        {
+          "artifact_id": "frame_321.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_321.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_321.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 191419
+          }
+        },
+        {
+          "artifact_id": "frame_322.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_322.00.png",
+          "media_type": "image",
+          "source_tool": "frame_retriever",
+          "metadata": {
+            "source_name": "frame_322.00.png",
+            "copied": true,
+            "media_type": "image",
+            "size_bytes": 191834
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_76937256cc75bff0",
+        "obs_a4d9893723cffc01",
+        "obs_1d74473cf823cbc0",
+        "obs_68db22aa6da6095b",
+        "obs_bfd7079ac34c18e9",
+        "obs_b612b5f396db4edc"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_conclusion_and_clear_board",
+      "tool_name": "generic_purpose",
+      "evidence_text": "At 319s the popup \"Congratulations, you won! Your opponent resigned\" marks the conclusion. Because that frame is obscured by the popup, the immediately preceding clear board frame at 318s is the appropriate final unobscured board state; 320s also shows the same board after the popup disappears.",
+      "inference_hint": null,
+      "confidence": 0.84,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 318.0,
+          "end_s": 320.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_318.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 318.0
+          }
+        },
+        {
+          "artifact_id": "frame_319.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_319.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 319.0
+          }
+        },
+        {
+          "artifact_id": "frame_320.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 320.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_eeb510b3fbca89e5",
+        "obs_5c573526d7e31497",
+        "obs_b353840d7967f2ea",
+        "obs_addb4b0027dd5fc2",
+        "obs_2a3e811e1341c7f1",
+        "obs_6597abe1a1427917",
+        "obs_2b3a92d1778b1ef9",
+        "obs_ff9298003152da90",
+        "obs_d0fdf48a07b203ff"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_white_remaining_count",
+      "tool_name": "generic_purpose",
+      "evidence_text": "In the chosen final unobscured board state (same board as Image 1/2/4), White has visible pieces: king at e8, rook at f8, and pawns at e7, a5, b5, c5, g5, and h5, for 8 remaining pieces total.",
+      "inference_hint": null,
+      "confidence": 0.8,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 317.0,
+      "time_intervals": [
+        {
+          "start_s": 317.0,
+          "end_s": 320.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_317.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_317.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 317.0
+          }
+        },
+        {
+          "artifact_id": "frame_318.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_318.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 318.0
+          }
+        },
+        {
+          "artifact_id": "frame_320.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_320.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 320.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_3d7ba708b004ceaa",
+        "obs_c38504264d46073b",
+        "obs_20fda7b194b0b18b",
+        "obs_35081669ae575918",
+        "obs_a33b576b0affc2b7",
+        "obs_1465f23ccede5083",
+        "obs_f53bd97054664ad3",
+        "obs_170fb6b8c9f4ee9b",
+        "obs_249e3d12745eabb6",
+        "obs_b1d22f37a924108d",
+        "obs_bdbe11edf4048dd8",
+        "obs_f22da045660a34c1",
+        "obs_5c573526d7e31497",
+        "obs_d0fdf48a07b203ff"
+      ],
+      "metadata": {}
+    },
+    {
+      "evidence_id": "ev_black_remaining_count_uncertain",
+      "tool_name": "generic_purpose",
+      "evidence_text": "For Black in the same final board state, the evidence explicitly supports a king at d6 and indicates Black still has a rook and pawns, but the provided atomic observations do not ground a complete final Black piece count. Some possible Black pieces are only mentioned tentatively or partially.",
+      "inference_hint": null,
+      "confidence": 0.42,
+      "status": "validated",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 317.0,
+      "time_intervals": [
+        {
+          "start_s": 317.0,
+          "end_s": 320.0
+        }
+      ],
+      "artifact_refs": [
+        {
+          "artifact_id": "frame_317.00",
+          "kind": "frame",
+          "relpath": "artifacts/ZF4T833lln4/frames/frame_317.00.png",
+          "media_type": "image",
+          "source_tool": "generic_purpose",
+          "metadata": {
+            "timestamp_s": 317.0
+          }
+        }
+      ],
+      "observation_ids": [
+        "obs_82a1fc119cfed19d",
+        "obs_0687225b6b57896f",
+        "obs_89eb3676b5d181e4",
+        "obs_1304696327886892",
+        "obs_d1dd7844294fc41b",
+        "obs_d3a20878543f30a3",
+        "obs_a468adc127dd19db"
+      ],
+      "metadata": {}
+    }
+  ],
+  "inference_steps": [
+    {
+      "step_id": 1,
+      "text": "Chronologically, the retrieved end-sequence frames are 317s, 318s, 319s, 320s, 321s, and 322s.",
+      "supporting_observation_ids": [
+        "obs_76937256cc75bff0",
+        "obs_a4d9893723cffc01",
+        "obs_1d74473cf823cbc0",
+        "obs_68db22aa6da6095b",
+        "obs_bfd7079ac34c18e9",
+        "obs_b612b5f396db4edc"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 317.0,
+          "end_s": 322.0
+        }
+      ]
+    },
+    {
+      "step_id": 2,
+      "text": "The match conclusion is marked at 319s by the popup saying the opponent resigned. Because that frame is obscured by the popup, the immediately preceding clear frame at 318s is the final unobscured board state to use; 320s shows the same board again after the popup disappears.",
+      "supporting_observation_ids": [
+        "obs_b353840d7967f2ea",
+        "obs_addb4b0027dd5fc2",
+        "obs_2a3e811e1341c7f1",
+        "obs_eeb510b3fbca89e5",
+        "obs_5c573526d7e31497",
+        "obs_6597abe1a1427917",
+        "obs_ff9298003152da90",
+        "obs_d0fdf48a07b203ff"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": [
+        {
+          "start_s": 318.0,
+          "end_s": 320.0
+        }
+      ]
+    },
+    {
+      "step_id": 3,
+      "text": "In that final board state, White's grounded remaining pieces are: king, rook, and six pawns (at e7, a5, b5, c5, g5, h5), for 8 remaining White pieces.",
+      "supporting_observation_ids": [
+        "obs_35081669ae575918",
+        "obs_a33b576b0affc2b7",
+        "obs_1465f23ccede5083",
+        "obs_f53bd97054664ad3",
+        "obs_170fb6b8c9f4ee9b",
+        "obs_249e3d12745eabb6",
+        "obs_b1d22f37a924108d",
+        "obs_bdbe11edf4048dd8",
+        "obs_f22da045660a34c1"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 317.0,
+      "time_intervals": [
+        {
+          "start_s": 317.0,
+          "end_s": 320.0
+        }
+      ]
+    },
+    {
+      "step_id": 4,
+      "text": "For Black, the evidence confirms at least a king and indicates a rook and pawns remain, but the provided grounded observations do not supply a complete reliable final Black piece count. Without that remaining Black count, the required arithmetic 16 minus Black's remaining pieces cannot be completed confidently.",
+      "supporting_observation_ids": [
+        "obs_82a1fc119cfed19d",
+        "obs_0687225b6b57896f",
+        "obs_89eb3676b5d181e4",
+        "obs_1304696327886892",
+        "obs_d1dd7844294fc41b",
+        "obs_d3a20878543f30a3",
+        "obs_a468adc127dd19db"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": 317.0,
+      "time_intervals": [
+        {
+          "start_s": 317.0,
+          "end_s": 320.0
+        }
+      ]
+    },
+    {
+      "step_id": 5,
+      "text": "The requested total would be computed as (16 - White remaining) + (16 - Black remaining). White remaining is grounded as 8, so White lost 8. But Black remaining is not fully grounded from the supplied observations, so the combined total lost cannot be mapped uniquely to one option without overclaiming.",
+      "supporting_observation_ids": [
+        "obs_f22da045660a34c1",
+        "obs_82a1fc119cfed19d",
+        "obs_0687225b6b57896f",
+        "obs_89eb3676b5d181e4"
+      ],
+      "answer_relevance": "high",
+      "time_start_s": null,
+      "time_end_s": null,
+      "frame_ts_s": null,
+      "time_intervals": []
+    }
+  ],
+  "final_answer": "",
+  "benchmark_renderings": {
+    "adhoc": {
+      "sample_key": "ZF4T833lln4__db2737f0d79b",
+      "trace": {
+        "inference_steps": [
+          "[317s to 322s] Chronologically, the retrieved end-sequence frames are 317s, 318s, 319s, 320s, 321s, and 322s.",
+          "[318s to 320s] The match conclusion is marked at 319s by the popup saying the opponent resigned. Because that frame is obscured by the popup, the immediately preceding clear frame at 318s is the final unobscured board state to use; 320s shows the same board again after the popup disappears.",
+          "[317s to 320s] In that final board state, White's grounded remaining pieces are: king, rook, and six pawns (at e7, a5, b5, c5, g5, h5), for 8 remaining White pieces.",
+          "[317s to 320s] For Black, the evidence confirms at least a king and indicates a rook and pawns remain, but the provided grounded observations do not supply a complete reliable final Black piece count. Without that remaining Black count, the required arithmetic 16 minus Black's remaining pieces cannot be completed confidently.",
+          "The requested total would be computed as (16 - White remaining) + (16 - Black remaining). White remaining is grounded as 8, so White lost 8. But Black remaining is not fully grounded from the supplied observations, so the combined total lost cannot be mapped uniquely to one option without overclaiming."
+        ],
+        "evidence": [
+          {
+            "tool_name": "frame_retriever",
+            "evidence_text": "Retrieved frames at 317s, 318s, 319s, 320s, 321s, and 322s for the end of the match sequence.",
+            "observation_ids": [
+              "obs_76937256cc75bff0",
+              "obs_a4d9893723cffc01",
+              "obs_1d74473cf823cbc0",
+              "obs_68db22aa6da6095b",
+              "obs_bfd7079ac34c18e9",
+              "obs_b612b5f396db4edc"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 317.0,
+                "end_s": 322.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "At 319s the popup \"Congratulations, you won! Your opponent resigned\" marks the conclusion. Because that frame is obscured by the popup, the immediately preceding clear board frame at 318s is the appropriate final unobscured board state; 320s also shows the same board after the popup disappears.",
+            "observation_ids": [
+              "obs_eeb510b3fbca89e5",
+              "obs_5c573526d7e31497",
+              "obs_b353840d7967f2ea",
+              "obs_addb4b0027dd5fc2",
+              "obs_2a3e811e1341c7f1",
+              "obs_6597abe1a1427917",
+              "obs_2b3a92d1778b1ef9",
+              "obs_ff9298003152da90",
+              "obs_d0fdf48a07b203ff"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": null,
+            "time_intervals": [
+              {
+                "start_s": 318.0,
+                "end_s": 320.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "In the chosen final unobscured board state (same board as Image 1/2/4), White has visible pieces: king at e8, rook at f8, and pawns at e7, a5, b5, c5, g5, and h5, for 8 remaining pieces total.",
+            "observation_ids": [
+              "obs_3d7ba708b004ceaa",
+              "obs_c38504264d46073b",
+              "obs_20fda7b194b0b18b",
+              "obs_35081669ae575918",
+              "obs_a33b576b0affc2b7",
+              "obs_1465f23ccede5083",
+              "obs_f53bd97054664ad3",
+              "obs_170fb6b8c9f4ee9b",
+              "obs_249e3d12745eabb6",
+              "obs_b1d22f37a924108d",
+              "obs_bdbe11edf4048dd8",
+              "obs_f22da045660a34c1",
+              "obs_5c573526d7e31497",
+              "obs_d0fdf48a07b203ff"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": 317.0,
+            "time_intervals": [
+              {
+                "start_s": 317.0,
+                "end_s": 320.0
+              }
+            ]
+          },
+          {
+            "tool_name": "generic_purpose",
+            "evidence_text": "For Black in the same final board state, the evidence explicitly supports a king at d6 and indicates Black still has a rook and pawns, but the provided atomic observations do not ground a complete final Black piece count. Some possible Black pieces are only mentioned tentatively or partially.",
+            "observation_ids": [
+              "obs_82a1fc119cfed19d",
+              "obs_0687225b6b57896f",
+              "obs_89eb3676b5d181e4",
+              "obs_1304696327886892",
+              "obs_d1dd7844294fc41b",
+              "obs_d3a20878543f30a3",
+              "obs_a468adc127dd19db"
+            ],
+            "time_start_s": null,
+            "time_end_s": null,
+            "frame_ts_s": 317.0,
+            "time_intervals": [
+              {
+                "start_s": 317.0,
+                "end_s": 320.0
+              }
+            ]
+          }
+        ]
+      },
+      "answer": ""
+    }
+  },
+  "metadata": {
+    "answer_status": "unresolved_due_to_incomplete_black_count",
+    "note": "Followed instruction to use the final unobscured board frame and keep uncertainty explicit where piece count is not fully grounded."
+  }
+}

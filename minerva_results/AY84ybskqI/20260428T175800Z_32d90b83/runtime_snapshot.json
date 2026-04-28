@@ -1,0 +1,109 @@
+{
+  "machine": {
+    "workspace_root": "<redacted>",
+    "cache_root": null,
+    "hf_cache": "<redacted>",
+    "ffmpeg_bin": "ffmpeg",
+    "datasets": [
+      "minerva",
+      "omnivideobench",
+      "videomathqa"
+    ],
+    "agent_endpoints": {
+      "default": {
+        "base_url": "https://api.openai.com/v1",
+        "api_key_env": "OPENAI_API_KEY",
+        "api_key": null
+      }
+    },
+    "gpu_assignments": {
+      "asr": "cuda:0",
+      "audio_temporal_grounder": "cuda:0",
+      "dense_captioner": "cuda:1",
+      "frame_retriever": "cuda:1",
+      "generic_purpose": "cuda:1",
+      "ocr": "cuda:1",
+      "spatial_grounder": "cuda:1",
+      "visual_temporal_grounder": "cuda:0"
+    },
+    "env_overrides": {
+      "HF_HOME": "/nfs-stor/ghazi.ahmad/HF_HOME",
+      "TEMPORAL_GROUNDER_DEVICE_INDEX": "0"
+    }
+  },
+  "runtime_environment": {
+    "cuda_visible_devices": "0,1",
+    "cuda_device_order": null,
+    "requested_nvidia_smi_gpu_indices": null,
+    "machine_profile_path": null,
+    "models_config_path": null
+  },
+  "agent_models": {
+    "atomicizer": {
+      "backend": "openai",
+      "model": "gpt-5.4",
+      "endpoint": "default",
+      "prompt_version": "atomicizer_v1"
+    },
+    "planner": {
+      "backend": "openai",
+      "model": "gpt-5.4",
+      "endpoint": "default",
+      "prompt_version": "planner_v2"
+    },
+    "trace_auditor": {
+      "backend": "openai",
+      "model": "gpt-5.4",
+      "endpoint": "default",
+      "prompt_version": "auditor_v2"
+    },
+    "trace_synthesizer": {
+      "backend": "openai",
+      "model": "gpt-5.4",
+      "endpoint": "default",
+      "prompt_version": "synthesizer_v2"
+    }
+  },
+  "tool_implementations": {
+    "asr": {
+      "implementation": "local_whisperx_v2",
+      "model": null,
+      "prompt_version": "tool_v2"
+    },
+    "audio_temporal_grounder": {
+      "implementation": "local_process",
+      "model": "Loie/SpotSound",
+      "prompt_version": "tool_v2"
+    },
+    "dense_captioner": {
+      "implementation": "local_process",
+      "model": "yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2"
+    },
+    "frame_retriever": {
+      "implementation": "local_process",
+      "model": "Qwen/Qwen3-VL-Embedding-8B",
+      "prompt_version": "tool_v2"
+    },
+    "generic_purpose": {
+      "implementation": "local_process",
+      "model": "Qwen/Qwen3.5-9B",
+      "prompt_version": "tool_v2"
+    },
+    "ocr": {
+      "implementation": "local_process",
+      "model": "PaddleOCR",
+      "prompt_version": "tool_v2"
+    },
+    "spatial_grounder": {
+      "implementation": "local_process",
+      "model": "Qwen/Qwen3.5-9B",
+      "prompt_version": "tool_v2"
+    },
+    "visual_temporal_grounder": {
+      "implementation": "local_process",
+      "model": "TencentARC/TimeLens-8B",
+      "prompt_version": "tool_v2"
+    }
+  }
+}

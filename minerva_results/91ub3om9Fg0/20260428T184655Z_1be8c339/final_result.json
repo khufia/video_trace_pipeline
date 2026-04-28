@@ -1,0 +1,1704 @@
+{
+  "run_dir": "runs/91ub3om9Fg0/20260428T184655Z_1be8c339",
+  "trace_package": {
+    "task_key": "91ub3om9Fg0__5713a0fb45d0",
+    "mode": "refine",
+    "evidence_entries": [
+      {
+        "evidence_id": "ev_01_c85d0a69",
+        "tool_name": "frame_retriever",
+        "evidence_text": "Frames were retrieved at 13.00s, 14.00s, 15.00s, 16.00s, 17.00s, and 18.00s around the relevant moment.",
+        "inference_hint": null,
+        "confidence": 0.0,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 13.0,
+            "end_s": 13.0
+          },
+          {
+            "start_s": 14.0,
+            "end_s": 14.0
+          },
+          {
+            "start_s": 15.0,
+            "end_s": 15.0
+          },
+          {
+            "start_s": 16.0,
+            "end_s": 16.0
+          },
+          {
+            "start_s": 17.0,
+            "end_s": 17.0
+          },
+          {
+            "start_s": 18.0,
+            "end_s": 18.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "frame_13.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_13.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_13.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 182388
+            }
+          },
+          {
+            "artifact_id": "frame_14.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_14.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_14.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 78034
+            }
+          },
+          {
+            "artifact_id": "frame_15.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_15.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_15.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 78550
+            }
+          },
+          {
+            "artifact_id": "frame_16.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_16.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_16.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 97867
+            }
+          },
+          {
+            "artifact_id": "frame_17.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_17.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_17.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 120928
+            }
+          },
+          {
+            "artifact_id": "frame_18.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_18.00.png",
+            "media_type": "image",
+            "source_tool": "frame_retriever",
+            "metadata": {
+              "source_name": "frame_18.00.png",
+              "copied": true,
+              "media_type": "image",
+              "size_bytes": 140380
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_c7d1f0b35df411fa",
+          "obs_e21dc2d7633fc78d",
+          "obs_3baabfc7d86e073f",
+          "obs_e7766e2ff0290146",
+          "obs_a32885a7c1779ccd",
+          "obs_6063d470b05201f4"
+        ],
+        "metadata": {
+          "request_hash": "c85d0a69397e9dc274ad0b47",
+          "cache_hit": false
+        }
+      },
+      {
+        "evidence_id": "ev_02_95e7b11e",
+        "tool_name": "generic_purpose",
+        "evidence_text": "A transcript span from 15.893s to 18.61s contains the quote: \"Oh, there's only one. Yeah, there's only one, but look.\" This is a temporal anchor near the presentation moment, not proof of the exact visual endpoints.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 15.893,
+            "end_s": 18.61
+          }
+        ],
+        "artifact_refs": [],
+        "observation_ids": [
+          "obs_a1d735622f411a7b",
+          "obs_b01cb365479faed3",
+          "obs_b2932114e183c0a3"
+        ],
+        "metadata": {
+          "request_hash": "95e7b11ef8c9995873eaba16",
+          "cache_hit": false
+        }
+      },
+      {
+        "evidence_id": "ev_01_f4f62838",
+        "tool_name": "generic_purpose",
+        "evidence_text": "Frame-by-frame visual summary from the sampled images: at 13s, two men are visible, the man in blue holds a device up, the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; at 14s the frame is very dark with no clear object/text; at 15s the frame remains blurry; at 16s \"TIME MACHINE\" is visible but blurry/out of focus; at 17s \"TIME MACHINE\" is still somewhat blurry though clearer than at 16s, with subtitle text including \"but look...\"; at 18s \"TIME MACHINE\" appears quite clear / at least legible.",
+        "inference_hint": null,
+        "confidence": null,
+        "status": "validated",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 13.0,
+            "end_s": 13.0
+          },
+          {
+            "start_s": 14.0,
+            "end_s": 14.0
+          },
+          {
+            "start_s": 15.0,
+            "end_s": 15.0
+          },
+          {
+            "start_s": 16.0,
+            "end_s": 16.0
+          },
+          {
+            "start_s": 17.0,
+            "end_s": 17.0
+          },
+          {
+            "start_s": 18.0,
+            "end_s": 18.0
+          }
+        ],
+        "artifact_refs": [
+          {
+            "artifact_id": "clip_000_00_060_00",
+            "kind": "clip",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4",
+            "media_type": "video",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 0.0,
+              "end_s": 60.0
+            }
+          },
+          {
+            "artifact_id": "frame_13.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_13.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "retrieved_artifact_context",
+              "video_id": "91ub3om9Fg0",
+              "timestamp_s": 13.0
+            }
+          },
+          {
+            "artifact_id": "frame_14.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_14.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "retrieved_artifact_context",
+              "video_id": "91ub3om9Fg0",
+              "timestamp_s": 14.0
+            }
+          },
+          {
+            "artifact_id": "frame_15.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_15.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "retrieved_artifact_context",
+              "video_id": "91ub3om9Fg0",
+              "timestamp_s": 15.0
+            }
+          },
+          {
+            "artifact_id": "frame_16.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_16.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "retrieved_artifact_context",
+              "video_id": "91ub3om9Fg0",
+              "timestamp_s": 16.0
+            }
+          },
+          {
+            "artifact_id": "frame_17.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_17.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "retrieved_artifact_context",
+              "video_id": "91ub3om9Fg0",
+              "timestamp_s": 17.0
+            }
+          },
+          {
+            "artifact_id": "frame_18.00",
+            "kind": "frame",
+            "relpath": "artifacts/91ub3om9Fg0/frames/frame_18.00.png",
+            "media_type": "image",
+            "source_tool": "generic_purpose",
+            "metadata": {
+              "source": "retrieved_artifact_context",
+              "video_id": "91ub3om9Fg0",
+              "timestamp_s": 18.0
+            }
+          }
+        ],
+        "observation_ids": [
+          "obs_f8612a549e46994b",
+          "obs_11de089e6c8ba971",
+          "obs_8983853f8ed96e72",
+          "obs_08180e3203183f17",
+          "obs_b527aebba1343c2c",
+          "obs_ac18c3e87e8911d1",
+          "obs_b3728567bbb2f2ec",
+          "obs_4f72a11a94a6ffea",
+          "obs_3baef28f5935b885",
+          "obs_00562c16a42b7c0d",
+          "obs_e3369efff2919b3e",
+          "obs_b2a63027cc5cbfb1",
+          "obs_a0e7e8ee8f858eb5",
+          "obs_5a34d51177c0c1dd",
+          "obs_01f917fc3b11e4fa",
+          "obs_3f851d6271a0d727",
+          "obs_465e19b422d586c0",
+          "obs_e9c9f7d1f5f7c0bc",
+          "obs_976b1fdd21bcf66a",
+          "obs_6947d7886887fdd7",
+          "obs_341d108647039017",
+          "obs_de0124edab41ada2",
+          "obs_6a434193c9975f25",
+          "obs_99e7b7910eadb299",
+          "obs_ae5321d7e96ba27d",
+          "obs_47b0c0e4f9458400"
+        ],
+        "metadata": {
+          "request_hash": "f4f62838002c6bb3a2f77cd8",
+          "cache_hit": false
+        }
+      }
+    ],
+    "inference_steps": [
+      {
+        "step_id": 1,
+        "text": "Chronologically, the sampled frames are 13s, 14s, 15s, 16s, 17s, and 18s, so the visual timing can only be localized to these 1-second samples rather than exact continuous-frame boundaries.",
+        "supporting_observation_ids": [
+          "obs_c7d1f0b35df411fa",
+          "obs_e21dc2d7633fc78d",
+          "obs_3baabfc7d86e073f",
+          "obs_e7766e2ff0290146",
+          "obs_a32885a7c1779ccd",
+          "obs_6063d470b05201f4"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 13.0,
+            "end_s": 18.0
+          }
+        ]
+      },
+      {
+        "step_id": 2,
+        "text": "The frame summaries ground the visual progression as follows: at 13s the man in blue is holding the device up while the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; 14s and 15s do not provide a clear readable view; at 16s \"TIME MACHINE\" is visible but out of focus; at 17s it is still somewhat blurry; at 18s it appears quite clear / at least legible.",
+        "supporting_observation_ids": [
+          "obs_f8612a549e46994b",
+          "obs_08180e3203183f17",
+          "obs_b3728567bbb2f2ec",
+          "obs_4f72a11a94a6ffea",
+          "obs_ac18c3e87e8911d1",
+          "obs_3baef28f5935b885",
+          "obs_e3369efff2919b3e",
+          "obs_b2a63027cc5cbfb1",
+          "obs_a0e7e8ee8f858eb5",
+          "obs_5a34d51177c0c1dd",
+          "obs_01f917fc3b11e4fa",
+          "obs_3f851d6271a0d727",
+          "obs_e9c9f7d1f5f7c0bc",
+          "obs_976b1fdd21bcf66a",
+          "obs_6947d7886887fdd7",
+          "obs_6a434193c9975f25",
+          "obs_99e7b7910eadb299",
+          "obs_ae5321d7e96ba27d"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 13.0,
+            "end_s": 18.0
+          }
+        ]
+      },
+      {
+        "step_id": 3,
+        "text": "Using only grounded visual endpoints, the earliest sampled showing/presentation timestamp is 13s, because that frame shows the man in blue holding the device up while the man in green looks toward him. The earliest sampled timestamp where \"TIME MACHINE\" is in focus enough to count as readable is 18s, because 16s is explicitly out of focus and 17s is still somewhat blurry.",
+        "supporting_observation_ids": [
+          "obs_b3728567bbb2f2ec",
+          "obs_4f72a11a94a6ffea",
+          "obs_3f851d6271a0d727",
+          "obs_6947d7886887fdd7",
+          "obs_ae5321d7e96ba27d",
+          "obs_47b0c0e4f9458400"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 13.0,
+            "end_s": 13.0
+          },
+          {
+            "start_s": 18.0,
+            "end_s": 18.0
+          }
+        ]
+      },
+      {
+        "step_id": 4,
+        "text": "The transcript phrase ending with \"but look\" occurs from 15.893s to 18.61s and aligns with the later close-up sequence, but it is only a temporal anchor and does not replace the visual endpoint grounding.",
+        "supporting_observation_ids": [
+          "obs_a1d735622f411a7b",
+          "obs_b01cb365479faed3",
+          "obs_b2932114e183c0a3",
+          "obs_de0124edab41ada2"
+        ],
+        "answer_relevance": "medium",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 15.893,
+            "end_s": 18.61
+          },
+          {
+            "start_s": 17.0,
+            "end_s": 17.0
+          }
+        ]
+      },
+      {
+        "step_id": 5,
+        "text": "From the grounded sampled timestamps, the elapsed time is 18s - 13s = 5 seconds. None of the provided options is 5 seconds, so the evidence does not support choosing A (1 second) or C (2 seconds), and the multiple-choice answer remains unresolved from the available sampled frames.",
+        "supporting_observation_ids": [
+          "obs_b3728567bbb2f2ec",
+          "obs_4f72a11a94a6ffea",
+          "obs_ae5321d7e96ba27d",
+          "obs_47b0c0e4f9458400",
+          "obs_08e1c4e210a6f0fb",
+          "obs_17ee0cbab10b3566"
+        ],
+        "answer_relevance": "high",
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 13.0,
+            "end_s": 13.0
+          },
+          {
+            "start_s": 18.0,
+            "end_s": 18.0
+          }
+        ]
+      }
+    ],
+    "final_answer": "",
+    "benchmark_renderings": {
+      "adhoc": {
+        "sample_key": "91ub3om9Fg0__5713a0fb45d0",
+        "trace": {
+          "inference_steps": [
+            "[13s to 18s] Chronologically, the sampled frames are 13s, 14s, 15s, 16s, 17s, and 18s, so the visual timing can only be localized to these 1-second samples rather than exact continuous-frame boundaries.",
+            "[13s to 18s] The frame summaries ground the visual progression as follows: at 13s the man in blue is holding the device up while the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; 14s and 15s do not provide a clear readable view; at 16s \"TIME MACHINE\" is visible but out of focus; at 17s it is still somewhat blurry; at 18s it appears quite clear / at least legible.",
+            "[13s; 18s] Using only grounded visual endpoints, the earliest sampled showing/presentation timestamp is 13s, because that frame shows the man in blue holding the device up while the man in green looks toward him. The earliest sampled timestamp where \"TIME MACHINE\" is in focus enough to count as readable is 18s, because 16s is explicitly out of focus and 17s is still somewhat blurry.",
+            "[15.893s to 18.61s; 17s] The transcript phrase ending with \"but look\" occurs from 15.893s to 18.61s and aligns with the later close-up sequence, but it is only a temporal anchor and does not replace the visual endpoint grounding.",
+            "[13s; 18s] From the grounded sampled timestamps, the elapsed time is 18s - 13s = 5 seconds. None of the provided options is 5 seconds, so the evidence does not support choosing A (1 second) or C (2 seconds), and the multiple-choice answer remains unresolved from the available sampled frames."
+          ],
+          "evidence": [
+            {
+              "tool_name": "frame_retriever",
+              "evidence_text": "Frames were retrieved at 13.00s, 14.00s, 15.00s, 16.00s, 17.00s, and 18.00s around the relevant moment.",
+              "observation_ids": [
+                "obs_c7d1f0b35df411fa",
+                "obs_e21dc2d7633fc78d",
+                "obs_3baabfc7d86e073f",
+                "obs_e7766e2ff0290146",
+                "obs_a32885a7c1779ccd",
+                "obs_6063d470b05201f4"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 13.0,
+                  "end_s": 13.0
+                },
+                {
+                  "start_s": 14.0,
+                  "end_s": 14.0
+                },
+                {
+                  "start_s": 15.0,
+                  "end_s": 15.0
+                },
+                {
+                  "start_s": 16.0,
+                  "end_s": 16.0
+                },
+                {
+                  "start_s": 17.0,
+                  "end_s": 17.0
+                },
+                {
+                  "start_s": 18.0,
+                  "end_s": 18.0
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "A transcript span from 15.893s to 18.61s contains the quote: \"Oh, there's only one. Yeah, there's only one, but look.\" This is a temporal anchor near the presentation moment, not proof of the exact visual endpoints.",
+              "observation_ids": [
+                "obs_a1d735622f411a7b",
+                "obs_b01cb365479faed3",
+                "obs_b2932114e183c0a3"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 15.893,
+                  "end_s": 18.61
+                }
+              ]
+            },
+            {
+              "tool_name": "generic_purpose",
+              "evidence_text": "Frame-by-frame visual summary from the sampled images: at 13s, two men are visible, the man in blue holds a device up, the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; at 14s the frame is very dark with no clear object/text; at 15s the frame remains blurry; at 16s \"TIME MACHINE\" is visible but blurry/out of focus; at 17s \"TIME MACHINE\" is still somewhat blurry though clearer than at 16s, with subtitle text including \"but look...\"; at 18s \"TIME MACHINE\" appears quite clear / at least legible.",
+              "observation_ids": [
+                "obs_f8612a549e46994b",
+                "obs_11de089e6c8ba971",
+                "obs_8983853f8ed96e72",
+                "obs_08180e3203183f17",
+                "obs_b527aebba1343c2c",
+                "obs_ac18c3e87e8911d1",
+                "obs_b3728567bbb2f2ec",
+                "obs_4f72a11a94a6ffea",
+                "obs_3baef28f5935b885",
+                "obs_00562c16a42b7c0d",
+                "obs_e3369efff2919b3e",
+                "obs_b2a63027cc5cbfb1",
+                "obs_a0e7e8ee8f858eb5",
+                "obs_5a34d51177c0c1dd",
+                "obs_01f917fc3b11e4fa",
+                "obs_3f851d6271a0d727",
+                "obs_465e19b422d586c0",
+                "obs_e9c9f7d1f5f7c0bc",
+                "obs_976b1fdd21bcf66a",
+                "obs_6947d7886887fdd7",
+                "obs_341d108647039017",
+                "obs_de0124edab41ada2",
+                "obs_6a434193c9975f25",
+                "obs_99e7b7910eadb299",
+                "obs_ae5321d7e96ba27d",
+                "obs_47b0c0e4f9458400"
+              ],
+              "time_start_s": null,
+              "time_end_s": null,
+              "frame_ts_s": null,
+              "time_intervals": [
+                {
+                  "start_s": 13.0,
+                  "end_s": 13.0
+                },
+                {
+                  "start_s": 14.0,
+                  "end_s": 14.0
+                },
+                {
+                  "start_s": 15.0,
+                  "end_s": 15.0
+                },
+                {
+                  "start_s": 16.0,
+                  "end_s": 16.0
+                },
+                {
+                  "start_s": 17.0,
+                  "end_s": 17.0
+                },
+                {
+                  "start_s": 18.0,
+                  "end_s": 18.0
+                }
+              ]
+            }
+          ]
+        },
+        "answer": ""
+      }
+    },
+    "metadata": {
+      "notes": "Refined to remove the unsupported 2-second selection. The trace now grounds the earliest sampled presentation at 13s and the earliest sampled readable/in-focus TIME MACHINE frame at 18s, yielding 5 seconds, which does not map to any provided option. Transcript 'but look' is retained only as an anchor."
+    }
+  },
+  "audit_report": {
+    "verdict": "FAIL",
+    "confidence": 0.95,
+    "scores": {
+      "logical_coherence": 3,
+      "completeness": 2,
+      "factual_correctness": 3,
+      "reasoning_order": 4
+    },
+    "findings": [
+      {
+        "severity": "HIGH",
+        "category": "INCOMPLETE_TRACE",
+        "message": "The trace does not complete the multiple-choice task: it leaves the final answer empty and concludes the result is unresolved, but the benchmark question requires selecting one provided option if justified.",
+        "evidence_ids": [
+          "ev_01_f4f62838",
+          "ev_01_c85d0a69"
+        ]
+      },
+      {
+        "severity": "HIGH",
+        "category": "TEMPORAL_GAP",
+        "message": "The answer-critical endpoints are only approximated from sparse 1-second samples. The trace grounds a sampled showing at 13s and a sampled readable view at 18s, but does not establish the exact elapsed duration needed to map confidently to one option.",
+        "evidence_ids": [
+          "ev_01_c85d0a69",
+          "ev_01_f4f62838",
+          "ev_02_95e7b11e"
+        ]
+      }
+    ],
+    "feedback": "The trace is orderly but remains incomplete for a multiple-choice answer. It only establishes sampled bounds for when the item is shown and when 'TIME MACHINE' becomes readable, without grounding the exact option-mapped duration.",
+    "missing_information": [
+      "the exact or sufficiently bounded elapsed time from when the man in blue shows the item to the man in green to when 'TIME MACHINE' is in focus",
+      "a grounded mapping from that elapsed time to one unique provided option"
+    ],
+    "diagnostics": {
+      "referent_alignment": "pass: the trace consistently uses the man in blue as the presenter and the man in green as the recipient based on the 13s frame summary.",
+      "temporal_alignment": "partial: 13s is treated as the earliest sampled presentation and 18s as the earliest sampled clear/legible view, but the evidence explicitly limits this to sampled frames rather than exact continuous endpoints.",
+      "option_alignment": "fail: the trace derives 5 seconds from sampled timestamps, which matches none of the provided options, and leaves final_answer empty.",
+      "evidence_sufficiency": "insufficient for PASS: the text supports a coarse progression toward focus but not a uniquely justified multiple-choice duration."
+    }
+  },
+  "benchmark_export": {
+    "sample_key": "91ub3om9Fg0__5713a0fb45d0",
+    "trace": {
+      "inference_steps": [
+        "[13s to 18s] Chronologically, the sampled frames are 13s, 14s, 15s, 16s, 17s, and 18s, so the visual timing can only be localized to these 1-second samples rather than exact continuous-frame boundaries.",
+        "[13s to 18s] The frame summaries ground the visual progression as follows: at 13s the man in blue is holding the device up while the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; 14s and 15s do not provide a clear readable view; at 16s \"TIME MACHINE\" is visible but out of focus; at 17s it is still somewhat blurry; at 18s it appears quite clear / at least legible.",
+        "[13s; 18s] Using only grounded visual endpoints, the earliest sampled showing/presentation timestamp is 13s, because that frame shows the man in blue holding the device up while the man in green looks toward him. The earliest sampled timestamp where \"TIME MACHINE\" is in focus enough to count as readable is 18s, because 16s is explicitly out of focus and 17s is still somewhat blurry.",
+        "[15.893s to 18.61s; 17s] The transcript phrase ending with \"but look\" occurs from 15.893s to 18.61s and aligns with the later close-up sequence, but it is only a temporal anchor and does not replace the visual endpoint grounding.",
+        "[13s; 18s] From the grounded sampled timestamps, the elapsed time is 18s - 13s = 5 seconds. None of the provided options is 5 seconds, so the evidence does not support choosing A (1 second) or C (2 seconds), and the multiple-choice answer remains unresolved from the available sampled frames."
+      ],
+      "evidence": [
+        {
+          "tool_name": "frame_retriever",
+          "evidence_text": "Frames were retrieved at 13.00s, 14.00s, 15.00s, 16.00s, 17.00s, and 18.00s around the relevant moment.",
+          "observation_ids": [
+            "obs_c7d1f0b35df411fa",
+            "obs_e21dc2d7633fc78d",
+            "obs_3baabfc7d86e073f",
+            "obs_e7766e2ff0290146",
+            "obs_a32885a7c1779ccd",
+            "obs_6063d470b05201f4"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 13.0,
+              "end_s": 13.0
+            },
+            {
+              "start_s": 14.0,
+              "end_s": 14.0
+            },
+            {
+              "start_s": 15.0,
+              "end_s": 15.0
+            },
+            {
+              "start_s": 16.0,
+              "end_s": 16.0
+            },
+            {
+              "start_s": 17.0,
+              "end_s": 17.0
+            },
+            {
+              "start_s": 18.0,
+              "end_s": 18.0
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "A transcript span from 15.893s to 18.61s contains the quote: \"Oh, there's only one. Yeah, there's only one, but look.\" This is a temporal anchor near the presentation moment, not proof of the exact visual endpoints.",
+          "observation_ids": [
+            "obs_a1d735622f411a7b",
+            "obs_b01cb365479faed3",
+            "obs_b2932114e183c0a3"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 15.893,
+              "end_s": 18.61
+            }
+          ]
+        },
+        {
+          "tool_name": "generic_purpose",
+          "evidence_text": "Frame-by-frame visual summary from the sampled images: at 13s, two men are visible, the man in blue holds a device up, the man in green looks toward him, and no visible \"TIME MACHINE\" text is shown; at 14s the frame is very dark with no clear object/text; at 15s the frame remains blurry; at 16s \"TIME MACHINE\" is visible but blurry/out of focus; at 17s \"TIME MACHINE\" is still somewhat blurry though clearer than at 16s, with subtitle text including \"but look...\"; at 18s \"TIME MACHINE\" appears quite clear / at least legible.",
+          "observation_ids": [
+            "obs_f8612a549e46994b",
+            "obs_11de089e6c8ba971",
+            "obs_8983853f8ed96e72",
+            "obs_08180e3203183f17",
+            "obs_b527aebba1343c2c",
+            "obs_ac18c3e87e8911d1",
+            "obs_b3728567bbb2f2ec",
+            "obs_4f72a11a94a6ffea",
+            "obs_3baef28f5935b885",
+            "obs_00562c16a42b7c0d",
+            "obs_e3369efff2919b3e",
+            "obs_b2a63027cc5cbfb1",
+            "obs_a0e7e8ee8f858eb5",
+            "obs_5a34d51177c0c1dd",
+            "obs_01f917fc3b11e4fa",
+            "obs_3f851d6271a0d727",
+            "obs_465e19b422d586c0",
+            "obs_e9c9f7d1f5f7c0bc",
+            "obs_976b1fdd21bcf66a",
+            "obs_6947d7886887fdd7",
+            "obs_341d108647039017",
+            "obs_de0124edab41ada2",
+            "obs_6a434193c9975f25",
+            "obs_99e7b7910eadb299",
+            "obs_ae5321d7e96ba27d",
+            "obs_47b0c0e4f9458400"
+          ],
+          "time_start_s": null,
+          "time_end_s": null,
+          "frame_ts_s": null,
+          "time_intervals": [
+            {
+              "start_s": 13.0,
+              "end_s": 13.0
+            },
+            {
+              "start_s": 14.0,
+              "end_s": 14.0
+            },
+            {
+              "start_s": 15.0,
+              "end_s": 15.0
+            },
+            {
+              "start_s": 16.0,
+              "end_s": 16.0
+            },
+            {
+              "start_s": 17.0,
+              "end_s": 17.0
+            },
+            {
+              "start_s": 18.0,
+              "end_s": 18.0
+            }
+          ]
+        }
+      ]
+    },
+    "answer": ""
+  },
+  "preprocess": {
+    "cache_hit": true,
+    "cache_dir": "preprocess/91ub3om9Fg0",
+    "manifest": {
+      "video_id": "91ub3om9Fg0",
+      "video_fingerprint": "df0e0d4ef3a6136d8f9345059b125db3ae0678dad157238f1f5891c782c44652",
+      "clip_duration_s": 60.0,
+      "model_id": "local_process__yaolily/TimeChat-Captioner-GRPO-7B",
+      "prompt_version": "tool_v2",
+      "preprocess_settings": {
+        "clip_duration_s": 60.0,
+        "sample_frames": 6,
+        "fps": 1.0,
+        "max_frames": 96,
+        "use_audio_in_video": false,
+        "include_asr": true,
+        "collect_sampled_frames": false,
+        "max_new_tokens": 700
+      },
+      "preprocess_signature": "26503208b9ce",
+      "segment_count": 4,
+      "planner_segment_count": 4,
+      "dense_caption_span_count": 7,
+      "transcript_segment_count": 6,
+      "transcript_count": 1,
+      "include_asr": true
+    },
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum builds in intensity, accompanied by a distinct glitchy sound effect as the logo appears.; TIME MACHINE; attributes: camera_state: The camera is static, holding a centered, medium shot on the loading wheel and logo., video_background: The background is entirely black, creating a sense of digital space or a digital interface., storyline: This segment serves as the title sequence, establishing the name of the show, 'TIME MACHINE,' and setting a modern, slightly edgy tone with its glitchy visual style., shooting_style: This is a title sequence featuring a simple animation and glitch effects. In a dimly lit room, a man in a grey hoodie walks up to another man sitting on a couch. The man on the couch, wearing a dark blue zip-up, is engrossed in his phone. The man in the hoodie holds a small, orange and brown object, possibly a wallet or case, and asks him a question. The seated man looks up, dismisses the offer, and then looks back down at his phone, gesturing with his thumb.; speech: Man in hoodie: Hey man! Do you want some cream? Man on couch: No. I am good. ...check her out.; acoustics: 1) Tone of speech: The man in the hoodie speaks casually, while the man on the couch is dismissive and focused. 2) Background sounds or music: Faint, ambient electronic music plays in the background.; attributes: camera_state: The camera is static, holding a medium shot of the two men as they interact on the couch., video_background: The setting is a dark, modern-looking room with a grey couch. The lighting is low and moody, with a greenish tint., storyline: This scene introduces two main characters and establishes a casual, slightly tense dynamic. One character is trying to offer something to the other, who is preoccupied and dismissive., shooting_style: This is a standard dialogue scene with a static camera.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum builds in intensity, accompanied by a distinct glitchy sound effect as the logo appears.",
+              "on_screen_text": [
+                "TIME MACHINE"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot on the loading wheel and logo.",
+                "video_background: The background is entirely black, creating a sense of digital space or a digital interface.",
+                "storyline: This segment serves as the title sequence, establishing the name of the show, 'TIME MACHINE,' and setting a modern, slightly edgy tone with its glitchy visual style.",
+                "shooting_style: This is a title sequence featuring a simple animation and glitch effects."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 7.0,
+              "visual": "In a dimly lit room, a man in a grey hoodie walks up to another man sitting on a couch. The man on the couch, wearing a dark blue zip-up, is engrossed in his phone. The man in the hoodie holds a small, orange and brown object, possibly a wallet or case, and asks him a question. The seated man looks up, dismisses the offer, and then looks back down at his phone, gesturing with his thumb.",
+              "audio": "speech: Man in hoodie: Hey man! Do you want some cream? Man on couch: No. I am good. ...check her out.; acoustics: 1) Tone of speech: The man in the hoodie speaks casually, while the man on the couch is dismissive and focused. 2) Background sounds or music: Faint, ambient electronic music plays in the background.",
+              "attributes": [
+                "camera_state: The camera is static, holding a medium shot of the two men as they interact on the couch.",
+                "video_background: The setting is a dark, modern-looking room with a grey couch. The lighting is low and moody, with a greenish tint.",
+                "storyline: This scene introduces two main characters and establishes a casual, slightly tense dynamic. One character is trying to offer something to the other, who is preoccupied and dismissive.",
+                "shooting_style: This is a standard dialogue scene with a static camera."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 15.893,
+            "end_s": 18.61,
+            "text": "Oh, there's only one. Yeah, there's only one, but look."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds a smartphone.; speech: Man in green hoodie: No need to explain. Man in blue zip-up: No, you're crazy.; acoustics: 1) Tone of speech: Amused, dismissive. 2) Background sounds or music: None.; attributes: camera_state: A medium shot, framed from the side, focusing on the two men on the couch. The camera is static., video_background: The scene is set in a dark, modern-looking room with a plain wall behind the couch. The lighting is low and dramatic., storyline: The scene introduces two characters who are reacting to something happening off-screen, establishing a sense of suspense and humor., shooting_style: This is a standard shot establishing the characters and their initial reactions. A person in a full white hazmat suit, with a gas mask and large headphones, holds up a homemade time machine. The machine is a black briefcase with a clear dome on top, containing a swirling, glowing purple and blue energy ball. The person speaks to the two men, who are now off-screen, and one of them asks a question.; speech: Person in hazmat suit: Let me show you. Man in green hoodie: What? Man in blue zip-up: Wait, what? Man in green hoodie: Is it like the one we see in movies? Man in blue zip-up: Yes, time-travel? Man in green hoodie: Wait!?; acoustics: 1) Tone of speech: Serious, intense, and inquisitive. 2) Background sounds or music: A low, humming electronic sound emanates from the time machine.; attributes: camera_state: The camera cuts between a medium shot of the person in the hazmat suit and a close-up of their face, emphasizing their intense expression and the time machine., video_background: The background is a simple, out-of-focus room with some indistinct posters on the wall., storyline: The central plot device, a homemade time machine, is introduced. The person operating it explains its function to the skeptical protagonists., shooting_style: The scene uses intercutting between the speaker and the listeners to show the dialogue exchange.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds a smartphone.",
+              "audio": "speech: Man in green hoodie: No need to explain. Man in blue zip-up: No, you're crazy.; acoustics: 1) Tone of speech: Amused, dismissive. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: A medium shot, framed from the side, focusing on the two men on the couch. The camera is static.",
+                "video_background: The scene is set in a dark, modern-looking room with a plain wall behind the couch. The lighting is low and dramatic.",
+                "storyline: The scene introduces two characters who are reacting to something happening off-screen, establishing a sense of suspense and humor.",
+                "shooting_style: This is a standard shot establishing the characters and their initial reactions."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 68.0,
+              "visual": "A person in a full white hazmat suit, with a gas mask and large headphones, holds up a homemade time machine. The machine is a black briefcase with a clear dome on top, containing a swirling, glowing purple and blue energy ball. The person speaks to the two men, who are now off-screen, and one of them asks a question.",
+              "audio": "speech: Person in hazmat suit: Let me show you. Man in green hoodie: What? Man in blue zip-up: Wait, what? Man in green hoodie: Is it like the one we see in movies? Man in blue zip-up: Yes, time-travel? Man in green hoodie: Wait!?; acoustics: 1) Tone of speech: Serious, intense, and inquisitive. 2) Background sounds or music: A low, humming electronic sound emanates from the time machine.",
+              "attributes": [
+                "camera_state: The camera cuts between a medium shot of the person in the hazmat suit and a close-up of their face, emphasizing their intense expression and the time machine.",
+                "video_background: The background is a simple, out-of-focus room with some indistinct posters on the wall.",
+                "storyline: The central plot device, a homemade time machine, is introduced. The person operating it explains its function to the skeptical protagonists.",
+                "shooting_style: The scene uses intercutting between the speaker and the listeners to show the dialogue exchange."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 50.032,
+            "end_s": 75.749,
+            "text": "What are you talking about? Are you crazy? Wait. Is it like the one we see in a movie? Can we time travel?"
+          },
+          {
+            "start_s": 80.187,
+            "end_s": 98.092,
+            "text": "It is based on quantum physics. There's a quasi-stable antimatter inside. It's placed with the fabric of the space-time. It's starting into a complex. How do we know this works? Wait and watch. Setting the radius to one meter north. Geo coordinates intact."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.; speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.; TIME MACHINE,; attributes: camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine., video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit., storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism., shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.",
+              "audio": "speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.",
+              "on_screen_text": [
+                "TIME MACHINE,"
+              ],
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine.",
+                "video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit.",
+                "storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism.",
+                "shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 120.164,
+            "end_s": 148.345,
+            "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+          },
+          {
+            "start_s": 149.982,
+            "end_s": 177.05,
+            "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88,
+              "artifact_id": "clip_180_00_225_88",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 225.88
+          },
+          "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.; speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.; attributes: camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel., video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group., storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning., shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters. A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.; speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.; attributes: camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group., video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal., storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation., shooting_style: A fast-paced montage is used to heighten the sense of panic and danger.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.",
+              "audio": "speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.",
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel.",
+                "video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group.",
+                "storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning.",
+                "shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 191.0,
+              "visual": "A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.",
+              "audio": "speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.",
+              "attributes": [
+                "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group.",
+                "video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal.",
+                "storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation.",
+                "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 182.18,
+            "end_s": 198.295,
+            "text": "what is this button?"
+          }
+        ]
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum builds in intensity, accompanied by a distinct glitchy sound effect as the logo appears.; TIME MACHINE; attributes: camera_state: The camera is static, holding a centered, medium shot on the loading wheel and logo., video_background: The background is entirely black, creating a sense of digital space or a digital interface., storyline: This segment serves as the title sequence, establishing the name of the show, 'TIME MACHINE,' and setting a modern, slightly edgy tone with its glitchy visual style., shooting_style: This is a title sequence featuring a simple animation and glitch effects. In a dimly lit room, a man in a grey hoodie walks up to another man sitting on a couch. The man on the couch, wearing a dark blue zip-up, is engrossed in his phone. The man in the hoodie holds a small, orange and brown object, possibly a wallet or case, and asks him a question. The seated man looks up, dismisses the offer, and then looks back down at his phone, gesturing with his thumb.; speech: Man in hoodie: Hey man! Do you want some cream? Man on couch: No. I am good. ...check her out.; acoustics: 1) Tone of speech: The man in the hoodie speaks casually, while the man on the couch is dismissive and focused. 2) Background sounds or music: Faint, ambient electronic music plays in the background.; attributes: camera_state: The camera is static, holding a medium shot of the two men as they interact on the couch., video_background: The setting is a dark, modern-looking room with a grey couch. The lighting is low and moody, with a greenish tint., storyline: This scene introduces two main characters and establishes a casual, slightly tense dynamic. One character is trying to offer something to the other, who is preoccupied and dismissive., shooting_style: This is a standard dialogue scene with a static camera.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum builds in intensity, accompanied by a distinct glitchy sound effect as the logo appears.",
+              "on_screen_text": [
+                "TIME MACHINE"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot on the loading wheel and logo.",
+                "video_background: The background is entirely black, creating a sense of digital space or a digital interface.",
+                "storyline: This segment serves as the title sequence, establishing the name of the show, 'TIME MACHINE,' and setting a modern, slightly edgy tone with its glitchy visual style.",
+                "shooting_style: This is a title sequence featuring a simple animation and glitch effects."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 7.0,
+              "visual": "In a dimly lit room, a man in a grey hoodie walks up to another man sitting on a couch. The man on the couch, wearing a dark blue zip-up, is engrossed in his phone. The man in the hoodie holds a small, orange and brown object, possibly a wallet or case, and asks him a question. The seated man looks up, dismisses the offer, and then looks back down at his phone, gesturing with his thumb.",
+              "audio": "speech: Man in hoodie: Hey man! Do you want some cream? Man on couch: No. I am good. ...check her out.; acoustics: 1) Tone of speech: The man in the hoodie speaks casually, while the man on the couch is dismissive and focused. 2) Background sounds or music: Faint, ambient electronic music plays in the background.",
+              "attributes": [
+                "camera_state: The camera is static, holding a medium shot of the two men as they interact on the couch.",
+                "video_background: The setting is a dark, modern-looking room with a grey couch. The lighting is low and moody, with a greenish tint.",
+                "storyline: This scene introduces two main characters and establishes a casual, slightly tense dynamic. One character is trying to offer something to the other, who is preoccupied and dismissive.",
+                "shooting_style: This is a standard dialogue scene with a static camera."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 15.893,
+            "end_s": 18.61,
+            "text": "Oh, there's only one. Yeah, there's only one, but look."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds a smartphone.; speech: Man in green hoodie: No need to explain. Man in blue zip-up: No, you're crazy.; acoustics: 1) Tone of speech: Amused, dismissive. 2) Background sounds or music: None.; attributes: camera_state: A medium shot, framed from the side, focusing on the two men on the couch. The camera is static., video_background: The scene is set in a dark, modern-looking room with a plain wall behind the couch. The lighting is low and dramatic., storyline: The scene introduces two characters who are reacting to something happening off-screen, establishing a sense of suspense and humor., shooting_style: This is a standard shot establishing the characters and their initial reactions. A person in a full white hazmat suit, with a gas mask and large headphones, holds up a homemade time machine. The machine is a black briefcase with a clear dome on top, containing a swirling, glowing purple and blue energy ball. The person speaks to the two men, who are now off-screen, and one of them asks a question.; speech: Person in hazmat suit: Let me show you. Man in green hoodie: What? Man in blue zip-up: Wait, what? Man in green hoodie: Is it like the one we see in movies? Man in blue zip-up: Yes, time-travel? Man in green hoodie: Wait!?; acoustics: 1) Tone of speech: Serious, intense, and inquisitive. 2) Background sounds or music: A low, humming electronic sound emanates from the time machine.; attributes: camera_state: The camera cuts between a medium shot of the person in the hazmat suit and a close-up of their face, emphasizing their intense expression and the time machine., video_background: The background is a simple, out-of-focus room with some indistinct posters on the wall., storyline: The central plot device, a homemade time machine, is introduced. The person operating it explains its function to the skeptical protagonists., shooting_style: The scene uses intercutting between the speaker and the listeners to show the dialogue exchange.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds a smartphone.",
+              "audio": "speech: Man in green hoodie: No need to explain. Man in blue zip-up: No, you're crazy.; acoustics: 1) Tone of speech: Amused, dismissive. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: A medium shot, framed from the side, focusing on the two men on the couch. The camera is static.",
+                "video_background: The scene is set in a dark, modern-looking room with a plain wall behind the couch. The lighting is low and dramatic.",
+                "storyline: The scene introduces two characters who are reacting to something happening off-screen, establishing a sense of suspense and humor.",
+                "shooting_style: This is a standard shot establishing the characters and their initial reactions."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 68.0,
+              "visual": "A person in a full white hazmat suit, with a gas mask and large headphones, holds up a homemade time machine. The machine is a black briefcase with a clear dome on top, containing a swirling, glowing purple and blue energy ball. The person speaks to the two men, who are now off-screen, and one of them asks a question.",
+              "audio": "speech: Person in hazmat suit: Let me show you. Man in green hoodie: What? Man in blue zip-up: Wait, what? Man in green hoodie: Is it like the one we see in movies? Man in blue zip-up: Yes, time-travel? Man in green hoodie: Wait!?; acoustics: 1) Tone of speech: Serious, intense, and inquisitive. 2) Background sounds or music: A low, humming electronic sound emanates from the time machine.",
+              "attributes": [
+                "camera_state: The camera cuts between a medium shot of the person in the hazmat suit and a close-up of their face, emphasizing their intense expression and the time machine.",
+                "video_background: The background is a simple, out-of-focus room with some indistinct posters on the wall.",
+                "storyline: The central plot device, a homemade time machine, is introduced. The person operating it explains its function to the skeptical protagonists.",
+                "shooting_style: The scene uses intercutting between the speaker and the listeners to show the dialogue exchange."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 50.032,
+            "end_s": 75.749,
+            "text": "What are you talking about? Are you crazy? Wait. Is it like the one we see in a movie? Can we time travel?"
+          },
+          {
+            "start_s": 80.187,
+            "end_s": 98.092,
+            "text": "It is based on quantum physics. There's a quasi-stable antimatter inside. It's placed with the fabric of the space-time. It's starting into a complex. How do we know this works? Wait and watch. Setting the radius to one meter north. Geo coordinates intact."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.; speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.; TIME MACHINE,; attributes: camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine., video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit., storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism., shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.",
+              "audio": "speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.",
+              "on_screen_text": [
+                "TIME MACHINE,"
+              ],
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine.",
+                "video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit.",
+                "storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism.",
+                "shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 120.164,
+            "end_s": 148.345,
+            "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+          },
+          {
+            "start_s": 149.982,
+            "end_s": 177.05,
+            "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88,
+              "artifact_id": "clip_180_00_225_88",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 225.88
+          },
+          "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.; speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.; attributes: camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel., video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group., storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning., shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters. A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.; speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.; attributes: camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group., video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal., storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation., shooting_style: A fast-paced montage is used to heighten the sense of panic and danger.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.",
+              "audio": "speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.",
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel.",
+                "video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group.",
+                "storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning.",
+                "shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 191.0,
+              "visual": "A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.",
+              "audio": "speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.",
+              "attributes": [
+                "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group.",
+                "video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal.",
+                "storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation.",
+                "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 182.18,
+            "end_s": 198.295,
+            "text": "what is this button?"
+          }
+        ]
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum builds in intensity, accompanied by a distinct glitchy sound effect as the logo appears.; TIME MACHINE; attributes: camera_state: The camera is static, holding a centered, medium shot on the loading wheel and logo., video_background: The background is entirely black, creating a sense of digital space or a digital interface., storyline: This segment serves as the title sequence, establishing the name of the show, 'TIME MACHINE,' and setting a modern, slightly edgy tone with its glitchy visual style., shooting_style: This is a title sequence featuring a simple animation and glitch effects. In a dimly lit room, a man in a grey hoodie walks up to another man sitting on a couch. The man on the couch, wearing a dark blue zip-up, is engrossed in his phone. The man in the hoodie holds a small, orange and brown object, possibly a wallet or case, and asks him a question. The seated man looks up, dismisses the offer, and then looks back down at his phone, gesturing with his thumb.; speech: Man in hoodie: Hey man! Do you want some cream? Man on couch: No. I am good. ...check her out.; acoustics: 1) Tone of speech: The man in the hoodie speaks casually, while the man on the couch is dismissive and focused. 2) Background sounds or music: Faint, ambient electronic music plays in the background.; attributes: camera_state: The camera is static, holding a medium shot of the two men as they interact on the couch., video_background: The setting is a dark, modern-looking room with a grey couch. The lighting is low and moody, with a greenish tint., storyline: This scene introduces two main characters and establishes a casual, slightly tense dynamic. One character is trying to offer something to the other, who is preoccupied and dismissive., shooting_style: This is a standard dialogue scene with a static camera.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum builds in intensity, accompanied by a distinct glitchy sound effect as the logo appears.",
+              "on_screen_text": [
+                "TIME MACHINE"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot on the loading wheel and logo.",
+                "video_background: The background is entirely black, creating a sense of digital space or a digital interface.",
+                "storyline: This segment serves as the title sequence, establishing the name of the show, 'TIME MACHINE,' and setting a modern, slightly edgy tone with its glitchy visual style.",
+                "shooting_style: This is a title sequence featuring a simple animation and glitch effects."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 7.0,
+              "visual": "In a dimly lit room, a man in a grey hoodie walks up to another man sitting on a couch. The man on the couch, wearing a dark blue zip-up, is engrossed in his phone. The man in the hoodie holds a small, orange and brown object, possibly a wallet or case, and asks him a question. The seated man looks up, dismisses the offer, and then looks back down at his phone, gesturing with his thumb.",
+              "audio": "speech: Man in hoodie: Hey man! Do you want some cream? Man on couch: No. I am good. ...check her out.; acoustics: 1) Tone of speech: The man in the hoodie speaks casually, while the man on the couch is dismissive and focused. 2) Background sounds or music: Faint, ambient electronic music plays in the background.",
+              "attributes": [
+                "camera_state: The camera is static, holding a medium shot of the two men as they interact on the couch.",
+                "video_background: The setting is a dark, modern-looking room with a grey couch. The lighting is low and moody, with a greenish tint.",
+                "storyline: This scene introduces two main characters and establishes a casual, slightly tense dynamic. One character is trying to offer something to the other, who is preoccupied and dismissive.",
+                "shooting_style: This is a standard dialogue scene with a static camera."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds a smartphone.; speech: Man in green hoodie: No need to explain. Man in blue zip-up: No, you're crazy.; acoustics: 1) Tone of speech: Amused, dismissive. 2) Background sounds or music: None.; attributes: camera_state: A medium shot, framed from the side, focusing on the two men on the couch. The camera is static., video_background: The scene is set in a dark, modern-looking room with a plain wall behind the couch. The lighting is low and dramatic., storyline: The scene introduces two characters who are reacting to something happening off-screen, establishing a sense of suspense and humor., shooting_style: This is a standard shot establishing the characters and their initial reactions. A person in a full white hazmat suit, with a gas mask and large headphones, holds up a homemade time machine. The machine is a black briefcase with a clear dome on top, containing a swirling, glowing purple and blue energy ball. The person speaks to the two men, who are now off-screen, and one of them asks a question.; speech: Person in hazmat suit: Let me show you. Man in green hoodie: What? Man in blue zip-up: Wait, what? Man in green hoodie: Is it like the one we see in movies? Man in blue zip-up: Yes, time-travel? Man in green hoodie: Wait!?; acoustics: 1) Tone of speech: Serious, intense, and inquisitive. 2) Background sounds or music: A low, humming electronic sound emanates from the time machine.; attributes: camera_state: The camera cuts between a medium shot of the person in the hazmat suit and a close-up of their face, emphasizing their intense expression and the time machine., video_background: The background is a simple, out-of-focus room with some indistinct posters on the wall., storyline: The central plot device, a homemade time machine, is introduced. The person operating it explains its function to the skeptical protagonists., shooting_style: The scene uses intercutting between the speaker and the listeners to show the dialogue exchange.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds a smartphone.",
+              "audio": "speech: Man in green hoodie: No need to explain. Man in blue zip-up: No, you're crazy.; acoustics: 1) Tone of speech: Amused, dismissive. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: A medium shot, framed from the side, focusing on the two men on the couch. The camera is static.",
+                "video_background: The scene is set in a dark, modern-looking room with a plain wall behind the couch. The lighting is low and dramatic.",
+                "storyline: The scene introduces two characters who are reacting to something happening off-screen, establishing a sense of suspense and humor.",
+                "shooting_style: This is a standard shot establishing the characters and their initial reactions."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 68.0,
+              "visual": "A person in a full white hazmat suit, with a gas mask and large headphones, holds up a homemade time machine. The machine is a black briefcase with a clear dome on top, containing a swirling, glowing purple and blue energy ball. The person speaks to the two men, who are now off-screen, and one of them asks a question.",
+              "audio": "speech: Person in hazmat suit: Let me show you. Man in green hoodie: What? Man in blue zip-up: Wait, what? Man in green hoodie: Is it like the one we see in movies? Man in blue zip-up: Yes, time-travel? Man in green hoodie: Wait!?; acoustics: 1) Tone of speech: Serious, intense, and inquisitive. 2) Background sounds or music: A low, humming electronic sound emanates from the time machine.",
+              "attributes": [
+                "camera_state: The camera cuts between a medium shot of the person in the hazmat suit and a close-up of their face, emphasizing their intense expression and the time machine.",
+                "video_background: The background is a simple, out-of-focus room with some indistinct posters on the wall.",
+                "storyline: The central plot device, a homemade time machine, is introduced. The person operating it explains its function to the skeptical protagonists.",
+                "shooting_style: The scene uses intercutting between the speaker and the listeners to show the dialogue exchange."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.; speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.; TIME MACHINE,; attributes: camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine., video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit., storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism., shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.",
+              "audio": "speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.",
+              "on_screen_text": [
+                "TIME MACHINE,"
+              ],
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine.",
+                "video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit.",
+                "storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism.",
+                "shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88,
+              "artifact_id": "clip_180_00_225_88",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 225.88
+          },
+          "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.; speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.; attributes: camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel., video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group., storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning., shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters. A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.; speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.; attributes: camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group., video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal., storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation., shooting_style: A fast-paced montage is used to heighten the sense of panic and danger.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.",
+              "audio": "speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.",
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel.",
+                "video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group.",
+                "storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning.",
+                "shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 191.0,
+              "visual": "A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.",
+              "audio": "speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.",
+              "attributes": [
+                "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group.",
+                "video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal.",
+                "storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation.",
+                "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_b63e9eb0dda4",
+        "clip": {
+          "video_id": "91ub3om9Fg0",
+          "start_s": 0.0,
+          "end_s": 225.88,
+          "artifact_id": "clip_000_00_225_88",
+          "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_225_88.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 15.893,
+            "end_s": 18.61,
+            "text": "Oh, there's only one. Yeah, there's only one, but look."
+          },
+          {
+            "start_s": 50.032,
+            "end_s": 75.749,
+            "text": "What are you talking about? Are you crazy? Wait. Is it like the one we see in a movie? Can we time travel?"
+          },
+          {
+            "start_s": 80.187,
+            "end_s": 98.092,
+            "text": "It is based on quantum physics. There's a quasi-stable antimatter inside. It's placed with the fabric of the space-time. It's starting into a complex. How do we know this works? Wait and watch. Setting the radius to one meter north. Geo coordinates intact."
+          },
+          {
+            "start_s": 120.164,
+            "end_s": 148.345,
+            "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+          },
+          {
+            "start_s": 149.982,
+            "end_s": 177.05,
+            "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+          },
+          {
+            "start_s": 182.18,
+            "end_s": 198.295,
+            "text": "what is this button?"
+          }
+        ]
+      }
+    ],
+    "planner_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black background.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum builds in intensity, accompanied by a distinct glitchy sound effect as the logo appears.; TIME MACHINE; attributes: camera_state: The camera is static, holding a centered, medium shot on the loading wheel and logo., video_background: The background is entirely black, creating a sense of digital space or a digital interface., storyline: This segment serves as the title sequence, establishing the name of the show, 'TIME MACHINE,' and setting a modern, slightly edgy tone with its glitchy visual style., shooting_style: This is a title sequence featuring a simple animation and glitch effects. In a dimly lit room, a man in a grey hoodie walks up to another man sitting on a couch. The man on the couch, wearing a dark blue zip-up, is engrossed in his phone. The man in the hoodie holds a small, orange and brown object, possibly a wallet or case, and asks him a question. The seated man looks up, dismisses the offer, and then looks back down at his phone, gesturing with his thumb.; speech: Man in hoodie: Hey man! Do you want some cream? Man on couch: No. I am good. ...check her out.; acoustics: 1) Tone of speech: The man in the hoodie speaks casually, while the man on the couch is dismissive and focused. 2) Background sounds or music: Faint, ambient electronic music plays in the background.; attributes: camera_state: The camera is static, holding a medium shot of the two men as they interact on the couch., video_background: The setting is a dark, modern-looking room with a grey couch. The lighting is low and moody, with a greenish tint., storyline: This scene introduces two main characters and establishes a casual, slightly tense dynamic. One character is trying to offer something to the other, who is preoccupied and dismissive., shooting_style: This is a standard dialogue scene with a static camera.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "The video begins with a black screen. A loading wheel, composed of white dots, spins in the center. The dots then flash, and the wheel transforms into the iconic 'TIME MACHINE' logo, which appears in a glitchy, distorted white font against the black background.",
+              "audio": "acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: A subtle, low-frequency electronic hum builds in intensity, accompanied by a distinct glitchy sound effect as the logo appears.",
+              "on_screen_text": [
+                "TIME MACHINE"
+              ],
+              "attributes": [
+                "camera_state: The camera is static, holding a centered, medium shot on the loading wheel and logo.",
+                "video_background: The background is entirely black, creating a sense of digital space or a digital interface.",
+                "storyline: This segment serves as the title sequence, establishing the name of the show, 'TIME MACHINE,' and setting a modern, slightly edgy tone with its glitchy visual style.",
+                "shooting_style: This is a title sequence featuring a simple animation and glitch effects."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 7.0,
+              "visual": "In a dimly lit room, a man in a grey hoodie walks up to another man sitting on a couch. The man on the couch, wearing a dark blue zip-up, is engrossed in his phone. The man in the hoodie holds a small, orange and brown object, possibly a wallet or case, and asks him a question. The seated man looks up, dismisses the offer, and then looks back down at his phone, gesturing with his thumb.",
+              "audio": "speech: Man in hoodie: Hey man! Do you want some cream? Man on couch: No. I am good. ...check her out.; acoustics: 1) Tone of speech: The man in the hoodie speaks casually, while the man on the couch is dismissive and focused. 2) Background sounds or music: Faint, ambient electronic music plays in the background.",
+              "attributes": [
+                "camera_state: The camera is static, holding a medium shot of the two men as they interact on the couch.",
+                "video_background: The setting is a dark, modern-looking room with a grey couch. The lighting is low and moody, with a greenish tint.",
+                "storyline: This scene introduces two main characters and establishes a casual, slightly tense dynamic. One character is trying to offer something to the other, who is preoccupied and dismissive.",
+                "shooting_style: This is a standard dialogue scene with a static camera."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 15.893,
+              "end_s": 18.61,
+              "text": "Oh, there's only one. Yeah, there's only one, but look."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds a smartphone.; speech: Man in green hoodie: No need to explain. Man in blue zip-up: No, you're crazy.; acoustics: 1) Tone of speech: Amused, dismissive. 2) Background sounds or music: None.; attributes: camera_state: A medium shot, framed from the side, focusing on the two men on the couch. The camera is static., video_background: The scene is set in a dark, modern-looking room with a plain wall behind the couch. The lighting is low and dramatic., storyline: The scene introduces two characters who are reacting to something happening off-screen, establishing a sense of suspense and humor., shooting_style: This is a standard shot establishing the characters and their initial reactions. A person in a full white hazmat suit, with a gas mask and large headphones, holds up a homemade time machine. The machine is a black briefcase with a clear dome on top, containing a swirling, glowing purple and blue energy ball. The person speaks to the two men, who are now off-screen, and one of them asks a question.; speech: Person in hazmat suit: Let me show you. Man in green hoodie: What? Man in blue zip-up: Wait, what? Man in green hoodie: Is it like the one we see in movies? Man in blue zip-up: Yes, time-travel? Man in green hoodie: Wait!?; acoustics: 1) Tone of speech: Serious, intense, and inquisitive. 2) Background sounds or music: A low, humming electronic sound emanates from the time machine.; attributes: camera_state: The camera cuts between a medium shot of the person in the hazmat suit and a close-up of their face, emphasizing their intense expression and the time machine., video_background: The background is a simple, out-of-focus room with some indistinct posters on the wall., storyline: The central plot device, a homemade time machine, is introduced. The person operating it explains its function to the skeptical protagonists., shooting_style: The scene uses intercutting between the speaker and the listeners to show the dialogue exchange.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 62.0,
+              "visual": "In a dimly lit room, a man in a green hoodie and a man in a dark blue zip-up sit on a couch, looking off-screen with expressions of disbelief and amusement. The man in the green hoodie holds a small, patterned object, while the man in the blue zip-up holds a smartphone.",
+              "audio": "speech: Man in green hoodie: No need to explain. Man in blue zip-up: No, you're crazy.; acoustics: 1) Tone of speech: Amused, dismissive. 2) Background sounds or music: None.",
+              "attributes": [
+                "camera_state: A medium shot, framed from the side, focusing on the two men on the couch. The camera is static.",
+                "video_background: The scene is set in a dark, modern-looking room with a plain wall behind the couch. The lighting is low and dramatic.",
+                "storyline: The scene introduces two characters who are reacting to something happening off-screen, establishing a sense of suspense and humor.",
+                "shooting_style: This is a standard shot establishing the characters and their initial reactions."
+              ]
+            },
+            {
+              "start_s": 63.0,
+              "end_s": 68.0,
+              "visual": "A person in a full white hazmat suit, with a gas mask and large headphones, holds up a homemade time machine. The machine is a black briefcase with a clear dome on top, containing a swirling, glowing purple and blue energy ball. The person speaks to the two men, who are now off-screen, and one of them asks a question.",
+              "audio": "speech: Person in hazmat suit: Let me show you. Man in green hoodie: What? Man in blue zip-up: Wait, what? Man in green hoodie: Is it like the one we see in movies? Man in blue zip-up: Yes, time-travel? Man in green hoodie: Wait!?; acoustics: 1) Tone of speech: Serious, intense, and inquisitive. 2) Background sounds or music: A low, humming electronic sound emanates from the time machine.",
+              "attributes": [
+                "camera_state: The camera cuts between a medium shot of the person in the hazmat suit and a close-up of their face, emphasizing their intense expression and the time machine.",
+                "video_background: The background is a simple, out-of-focus room with some indistinct posters on the wall.",
+                "storyline: The central plot device, a homemade time machine, is introduced. The person operating it explains its function to the skeptical protagonists.",
+                "shooting_style: The scene uses intercutting between the speaker and the listeners to show the dialogue exchange."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 50.032,
+              "end_s": 75.749,
+              "text": "What are you talking about? Are you crazy? Wait. Is it like the one we see in a movie? Can we time travel?"
+            },
+            {
+              "start_s": 80.187,
+              "end_s": 98.092,
+              "text": "It is based on quantum physics. There's a quasi-stable antimatter inside. It's placed with the fabric of the space-time. It's starting into a complex. How do we know this works? Wait and watch. Setting the radius to one meter north. Geo coordinates intact."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.; speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.; TIME MACHINE,; attributes: camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine., video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit., storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism., shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.",
+              "audio": "speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.",
+              "on_screen_text": [
+                "TIME MACHINE,"
+              ],
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine.",
+                "video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit.",
+                "storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism.",
+                "shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 120.164,
+              "end_s": 148.345,
+              "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+            },
+            {
+              "start_s": 149.982,
+              "end_s": 177.05,
+              "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88,
+              "artifact_id": "clip_180_00_225_88",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 225.88
+          },
+          "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.; speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.; attributes: camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel., video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group., storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning., shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters. A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.; speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.; attributes: camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group., video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal., storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation., shooting_style: A fast-paced montage is used to heighten the sense of panic and danger.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.",
+              "audio": "speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.",
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel.",
+                "video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group.",
+                "storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning.",
+                "shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 191.0,
+              "visual": "A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.",
+              "audio": "speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.",
+              "attributes": [
+                "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group.",
+                "video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal.",
+                "storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation.",
+                "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 182.18,
+              "end_s": 198.295,
+              "text": "what is this button?"
+            }
+          ]
+        }
+      }
+    ],
+    "video_fingerprint": "df0e0d4ef3a6136d8f9345059b125db3ae0678dad157238f1f5891c782c44652"
+  },
+  "rounds_executed": 2
+}

@@ -1,0 +1,107 @@
+{
+  "strategy": "Reuse the retrieved 81s-82s product-grid frames, localize the priced item cards, OCR the exact label-price text, then verify which items truly have visible prices and compute the exact option match in one grounded synthesis step.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "spatial_grounder",
+      "purpose": "Localize the product cards and their price regions in the stable General Supplies display so OCR can read item-price pairings rather than isolated fragments.",
+      "inputs": {
+        "frames": [
+          {
+            "video_id": "7eF4EjdYZ7k",
+            "timestamp_s": 81.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_81.00",
+            "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png"
+          },
+          {
+            "video_id": "7eF4EjdYZ7k",
+            "timestamp_s": 82.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_82.00",
+            "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png"
+          }
+        ],
+        "query": "Locate each visible product card in the General Supplies grid during 81s-82s, especially the top-row items and any other cards with a visible dollar price. Include regions that preserve the item title and its attached price together when possible."
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "regions": "localized product-card regions with label-price adjacency preserved",
+        "spatial_description": "description of which cards and price areas are visible in each frame"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "ocr",
+      "purpose": "Read the exact visible text from the localized product-card regions to recover item names and attached prices, including cents if legible.",
+      "inputs": {
+        "query": "Read the exact product names and attached prices from each localized product card region. Preserve dollar signs, decimals, and cents when visible."
+      },
+      "input_refs": {
+        "regions": [
+          {
+            "step_id": 1,
+            "field_path": "regions"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "text": "OCR text for localized item-price regions",
+        "lines": "line-level OCR outputs for each localized region"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "From the grounded frames, spatial layout, and OCR text, determine exactly which distinct items in 01:20-01:25 have visible prices, extract each exact price, sum them once each, and map the total to the correct option.",
+      "inputs": {
+        "evidence_ids": [
+          "ev_02_ccd065aa"
+        ],
+        "frames": [
+          {
+            "video_id": "7eF4EjdYZ7k",
+            "timestamp_s": 81.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_81.00",
+            "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png"
+          },
+          {
+            "video_id": "7eF4EjdYZ7k",
+            "timestamp_s": 82.0,
+            "metadata": {
+              "source": "retrieved_artifact_context"
+            },
+            "artifact_id": "frame_82.00",
+            "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png"
+          }
+        ],
+        "query": "Using only the 81s-82s General Supplies display within the asked 01:20-01:25 interval, identify every distinct item whose price is visibly readable enough to count. For each counted item, give the item name and exact visible price as shown, including cents if legible. Exclude items whose price is not actually visible or not confidently attached to that item. Deduplicate the same item across the two frames. Then compute the exact total and map it to one answer option. If cents remain unreadable, say so explicitly and do not force an exact option."
+      },
+      "input_refs": {
+        "text_contexts": [
+          {
+            "step_id": 1,
+            "field_path": "spatial_description"
+          },
+          {
+            "step_id": 2,
+            "field_path": "text"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "exact total and option mapping, or explicit unresolved status if cents are not grounded",
+        "supporting_points": "counted items, excluded items, and exact item-price pairings",
+        "analysis": "deduplication and inclusion/exclusion rationale tied to visible evidence"
+      }
+    }
+  ],
+  "refinement_instructions": "Preserve the prior interval anchor that the relevant priced grid is at 81s-82s and that 78s-80s are non-priced store/profile pages. Replace the prior approximate whole-dollar reasoning with grounded item-to-price pairings from the localized OCR regions. In the final trace, explicitly list each counted item, its exact visible price, and why any other visible cards are excluded. Do not infer cents from option patterns or from truncated OCR fragments alone. If the localized OCR plus frame inspection still cannot ground cents or exact pairings, keep the answer unresolved rather than selecting an exact option."
+}

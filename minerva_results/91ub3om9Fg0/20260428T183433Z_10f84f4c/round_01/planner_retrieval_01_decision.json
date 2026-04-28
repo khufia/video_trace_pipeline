@@ -1,0 +1,29 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess summaries suggest the answer is in the final conflict segment, but the current context lacks the specific dense-caption/ASR text needed to determine what the machine does during the argument.",
+  "requests": [
+    {
+      "request_id": "argue_machine_outcome",
+      "target": "mixed",
+      "need": "Existing text spans describing the argument over control of the machine and the machine's resulting effect, to distinguish whether it sucks them in, freezes them, splits, records them, or leads to sharing.",
+      "query": "argue control machine what happens sucks them in freeze split in two records image share button portal struggle hold black box glass dome swirling light",
+      "modalities": [
+        "visual",
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 180.0,
+        "end_s": 225.88
+      },
+      "source_tools": [
+        "dense_captioner",
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

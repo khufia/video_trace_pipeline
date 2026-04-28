@@ -1,0 +1,292 @@
+{
+  "query_terms": [
+    "color",
+    "last",
+    "physical",
+    "mahalo",
+    "dude",
+    "sticker",
+    "screen",
+    "green",
+    "black",
+    "white",
+    "red",
+    "yellow",
+    "dense",
+    "caption",
+    "spans",
+    "mention",
+    "appearance",
+    "near",
+    "occurrence",
+    "bike",
+    "close",
+    "visual",
+    "ocr"
+  ],
+  "retrieval_requests": [
+    {
+      "request_id": "last_mahalo_dense_caps",
+      "target": "dense_captions",
+      "need": "Dense-caption spans that mention the physical 'Mahalo my dude' sticker and its appearance near its last on-screen occurrence",
+      "query": "Mahalo my dude sticker yellow bike frame close-up last on-screen physical sticker",
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 60.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "limit": 10
+    }
+  ],
+  "preprocess_matches": {
+    "planner_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "GlecDUdZdkE",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/GlecDUdZdkE/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A close-up shot shows a person's hands carefully peeling a small, yellow sticker with the text 'Mahalo my dude' off the seat stay of a dark purple bicycle. The sticker is then shown in a close-up, stuck to the bike's frame, with the yellow text standing out against the dark purple paint.; acoustics: 1) N/A. 2) Upbeat, electronic music begins to play.; s hands carefully peeling a small, yellow sticker with the text | off the seat stay of a dark purple bicycle. The sticker is then shown in a close-up, stuck to the bike; attributes: camera_state: The camera is in a close-up, focusing on the hands and the sticker. It then cuts to an extreme close-up of the sticker on the bike frame., video_background: The background is a blurry, neutral-colored wall, keeping the focus on the bicycle and the sticker., storyline: This segment introduces the central theme of the video: creating and applying custom stickers., shooting_style: This is a montage of two quick, detailed shots to establish the subject. A montage of scenes unfolds: a hand places a small, green, circular sticker onto a pile of other stickers on a black cutting mat with a red LED light strip. The scene then cuts to a wide shot of two mountain bikes parked in a concrete parking garage. Next, a person's hands are shown peeling a sticker off the top tube of a silver bicycle. The final shot is a close-up of a hand placing a sticker on a black cutting mat, surrounded by various other stickers.; acoustics: 1) N/A. 2) The upbeat electronic music continues.; attributes: camera_state: The camera uses a series of quick cuts between different angles: a top-down view of the stickers, a wide static shot of the bikes, a close-up on the hands peeling the sticker, and another top-down view of stickers being arranged., video_background: The settings vary: a crafting table with a red light, a concrete parking garage, and a black cutting mat., storyline: This montage introduces the key elements of the video: sticker creation, bike customization, and the overall creative process., shooting_style: This is a fast-paced montage with quick cuts to showcase different aspects of the sticker-making process.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "A close-up shot shows a person's hands carefully peeling a small, yellow sticker with the text 'Mahalo my dude' off the seat stay of a dark purple bicycle. The sticker is then shown in a close-up, stuck to the bike's frame, with the yellow text standing out against the dark purple paint.",
+              "audio": "acoustics: 1) N/A. 2) Upbeat, electronic music begins to play.",
+              "on_screen_text": [
+                "s hands carefully peeling a small, yellow sticker with the text",
+                "off the seat stay of a dark purple bicycle. The sticker is then shown in a close-up, stuck to the bike"
+              ],
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the hands and the sticker. It then cuts to an extreme close-up of the sticker on the bike frame.",
+                "video_background: The background is a blurry, neutral-colored wall, keeping the focus on the bicycle and the sticker.",
+                "storyline: This segment introduces the central theme of the video: creating and applying custom stickers.",
+                "shooting_style: This is a montage of two quick, detailed shots to establish the subject."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 6.0,
+              "visual": "A montage of scenes unfolds: a hand places a small, green, circular sticker onto a pile of other stickers on a black cutting mat with a red LED light strip. The scene then cuts to a wide shot of two mountain bikes parked in a concrete parking garage. Next, a person's hands are shown peeling a sticker off the top tube of a silver bicycle. The final shot is a close-up of a hand placing a sticker on a black cutting mat, surrounded by various other stickers.",
+              "audio": "acoustics: 1) N/A. 2) The upbeat electronic music continues.",
+              "attributes": [
+                "camera_state: The camera uses a series of quick cuts between different angles: a top-down view of the stickers, a wide static shot of the bikes, a close-up on the hands peeling the sticker, and another top-down view of stickers being arranged.",
+                "video_background: The settings vary: a crafting table with a red light, a concrete parking garage, and a black cutting mat.",
+                "storyline: This montage introduces the key elements of the video: sticker creation, bike customization, and the overall creative process.",
+                "shooting_style: This is a fast-paced montage with quick cuts to showcase different aspects of the sticker-making process."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 1.668,
+              "end_s": 29.883,
+              "text": "So you want to learn how to make a sticker. Us mountain bikers love our stickers and here at IFHT we make a lot of them. Not only do we stick them on everything we own but for the last four years we've made tens of thousands of stickers and shipped them to over 80 countries from Canada to Norfolk Island and to tell you the truth I don't even know where that is. To let you in on a little secret here's how we make them and how you can too."
+            },
+            {
+              "start_s": 31.385,
+              "end_s": 51.449,
+              "text": "Here's what you need. The main tool is the cutter. We use the Silhouette Cameo. And yeah, it's used by scrapbooking moms, but for 300 bucks, it does the job. Aside from that, you'll need vinyl, transfer tape, scissors, an X-Acto knife, and a computer with Silhouette Studio, which comes with the cutter."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "GlecDUdZdkE",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A person's hands are shown writing the words 'Dirt Surfin' DIRT SURFIN' with a black marker on a small, white sticky note. The note is held over a black cutting mat with a red grid. The lighting is dramatic, with a red light illuminating the scene. The person writes the text multiple times, creating a small pile of identical notes.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, energetic electronic music with a driving beat begins to play.; s hands are shown writing the words | DIRT SURFIN; attributes: camera_state: The camera is positioned in a close-up, top-down shot, focusing on the hands and the sticky notes. The shot is static., video_background: The background is a black cutting mat with a red grid, illuminated by a strong red light source from above., storyline: The video begins with the creation of a physical design element, establishing the name 'Dirt Surfin' as the central theme for the project., shooting_style: This is a montage of quick, repetitive actions to show the process of writing the design. A hand holds up a smartphone to take a photo of the handwritten sticky note. The scene then transitions to a laptop screen, where the photo is opened in Adobe Photoshop. The user selects the 'Dirt Surfin' text, copies it, and pastes it onto a new layer, creating a digital version of the design.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat electronic music continues.; Dirt Surfin; attributes: camera_state: The camera starts with a close-up on the phone, then cuts to a screen recording of a laptop. The view is static and focused on the software interface., video_background: The background transitions from the red-lit cutting mat to the dark interface of Adobe Photoshop., storyline: The physical design is digitized. The user transfers the handwritten text from the sticky note into a digital design program, preparing it for further editing., shooting_style: The segment uses a montage of quick cuts, showing the process of digitizing the design from a physical object to a digital file.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 66.0,
+              "visual": "A person's hands are shown writing the words 'Dirt Surfin' DIRT SURFIN' with a black marker on a small, white sticky note. The note is held over a black cutting mat with a red grid. The lighting is dramatic, with a red light illuminating the scene. The person writes the text multiple times, creating a small pile of identical notes.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, energetic electronic music with a driving beat begins to play.",
+              "on_screen_text": [
+                "s hands are shown writing the words",
+                "DIRT SURFIN"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned in a close-up, top-down shot, focusing on the hands and the sticky notes. The shot is static.",
+                "video_background: The background is a black cutting mat with a red grid, illuminated by a strong red light source from above.",
+                "storyline: The video begins with the creation of a physical design element, establishing the name 'Dirt Surfin' as the central theme for the project.",
+                "shooting_style: This is a montage of quick, repetitive actions to show the process of writing the design."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 72.0,
+              "visual": "A hand holds up a smartphone to take a photo of the handwritten sticky note. The scene then transitions to a laptop screen, where the photo is opened in Adobe Photoshop. The user selects the 'Dirt Surfin' text, copies it, and pastes it onto a new layer, creating a digital version of the design.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat electronic music continues.",
+              "on_screen_text": [
+                "Dirt Surfin"
+              ],
+              "attributes": [
+                "camera_state: The camera starts with a close-up on the phone, then cuts to a screen recording of a laptop. The view is static and focused on the software interface.",
+                "video_background: The background transitions from the red-lit cutting mat to the dark interface of Adobe Photoshop.",
+                "storyline: The physical design is digitized. The user transfers the handwritten text from the sticky note into a digital design program, preparing it for further editing.",
+                "shooting_style: The segment uses a montage of quick cuts, showing the process of digitizing the design from a physical object to a digital file."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 51.449,
+              "end_s": 79.867,
+              "text": "I also like to refine my designs in Photoshop, but it's not necessary. Alright, now let's make a sticker. Firstly, you'll want to make the design. This can be a simple image, text, or even handwriting. I'm going to make a dirt surfing sticker, because there's nothing better than feeling surfy on your bike on some brown pow. I'm going to choose my favorite design, take a photo of it, and place it in Photoshop. What you want is to clean the image up and make it black and white."
+            },
+            {
+              "start_s": 81.318,
+              "end_s": 100.825,
+              "text": "If you have a tablet, you can also design with that. Keep in mind, the cutter can't do very intricate designs and you'll be peeling the negative space of the design manually. So you'll want to keep it simple. Once you have a clean image, you can bring it into the Silhouette Studio software."
+            },
+            {
+              "start_s": 100.977,
+              "end_s": 120.316,
+              "text": "This software has a trace feature you'll need to use to make the outline. To save vinyl, I like to fill the full width of it. In this case, I can fit three stickers at three inches a piece. You can plug the computer directly to the cutter, or you can load the designs onto a USB stick and plug that in."
+            }
+          ]
+        }
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "GlecDUdZdkE",
+              "start_s": 0.0,
+              "end_s": 60.0,
+              "artifact_id": "clip_000_00_060_00",
+              "relpath": "artifacts/GlecDUdZdkE/clips/clip_000_00_060_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 0.0,
+            "end_s": 60.0
+          },
+          "overall_summary": "A close-up shot shows a person's hands carefully peeling a small, yellow sticker with the text 'Mahalo my dude' off the seat stay of a dark purple bicycle. The sticker is then shown in a close-up, stuck to the bike's frame, with the yellow text standing out against the dark purple paint.; acoustics: 1) N/A. 2) Upbeat, electronic music begins to play.; s hands carefully peeling a small, yellow sticker with the text | off the seat stay of a dark purple bicycle. The sticker is then shown in a close-up, stuck to the bike; attributes: camera_state: The camera is in a close-up, focusing on the hands and the sticker. It then cuts to an extreme close-up of the sticker on the bike frame., video_background: The background is a blurry, neutral-colored wall, keeping the focus on the bicycle and the sticker., storyline: This segment introduces the central theme of the video: creating and applying custom stickers., shooting_style: This is a montage of two quick, detailed shots to establish the subject. A montage of scenes unfolds: a hand places a small, green, circular sticker onto a pile of other stickers on a black cutting mat with a red LED light strip. The scene then cuts to a wide shot of two mountain bikes parked in a concrete parking garage. Next, a person's hands are shown peeling a sticker off the top tube of a silver bicycle. The final shot is a close-up of a hand placing a sticker on a black cutting mat, surrounded by various other stickers.; acoustics: 1) N/A. 2) The upbeat electronic music continues.; attributes: camera_state: The camera uses a series of quick cuts between different angles: a top-down view of the stickers, a wide static shot of the bikes, a close-up on the hands peeling the sticker, and another top-down view of stickers being arranged., video_background: The settings vary: a crafting table with a red light, a concrete parking garage, and a black cutting mat., storyline: This montage introduces the key elements of the video: sticker creation, bike customization, and the overall creative process., shooting_style: This is a fast-paced montage with quick cuts to showcase different aspects of the sticker-making process.",
+          "captions": [
+            {
+              "start_s": 0.0,
+              "end_s": 2.0,
+              "visual": "A close-up shot shows a person's hands carefully peeling a small, yellow sticker with the text 'Mahalo my dude' off the seat stay of a dark purple bicycle. The sticker is then shown in a close-up, stuck to the bike's frame, with the yellow text standing out against the dark purple paint.",
+              "audio": "acoustics: 1) N/A. 2) Upbeat, electronic music begins to play.",
+              "on_screen_text": [
+                "s hands carefully peeling a small, yellow sticker with the text",
+                "off the seat stay of a dark purple bicycle. The sticker is then shown in a close-up, stuck to the bike"
+              ],
+              "attributes": [
+                "camera_state: The camera is in a close-up, focusing on the hands and the sticker. It then cuts to an extreme close-up of the sticker on the bike frame.",
+                "video_background: The background is a blurry, neutral-colored wall, keeping the focus on the bicycle and the sticker.",
+                "storyline: This segment introduces the central theme of the video: creating and applying custom stickers.",
+                "shooting_style: This is a montage of two quick, detailed shots to establish the subject."
+              ]
+            },
+            {
+              "start_s": 3.0,
+              "end_s": 6.0,
+              "visual": "A montage of scenes unfolds: a hand places a small, green, circular sticker onto a pile of other stickers on a black cutting mat with a red LED light strip. The scene then cuts to a wide shot of two mountain bikes parked in a concrete parking garage. Next, a person's hands are shown peeling a sticker off the top tube of a silver bicycle. The final shot is a close-up of a hand placing a sticker on a black cutting mat, surrounded by various other stickers.",
+              "audio": "acoustics: 1) N/A. 2) The upbeat electronic music continues.",
+              "attributes": [
+                "camera_state: The camera uses a series of quick cuts between different angles: a top-down view of the stickers, a wide static shot of the bikes, a close-up on the hands peeling the sticker, and another top-down view of stickers being arranged.",
+                "video_background: The settings vary: a crafting table with a red light, a concrete parking garage, and a black cutting mat.",
+                "storyline: This montage introduces the key elements of the video: sticker creation, bike customization, and the overall creative process.",
+                "shooting_style: This is a fast-paced montage with quick cuts to showcase different aspects of the sticker-making process."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "GlecDUdZdkE",
+              "start_s": 60.0,
+              "end_s": 120.0,
+              "artifact_id": "clip_060_00_120_00",
+              "relpath": "artifacts/GlecDUdZdkE/clips/clip_060_00_120_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 60.0,
+            "end_s": 120.0
+          },
+          "overall_summary": "A person's hands are shown writing the words 'Dirt Surfin' DIRT SURFIN' with a black marker on a small, white sticky note. The note is held over a black cutting mat with a red grid. The lighting is dramatic, with a red light illuminating the scene. The person writes the text multiple times, creating a small pile of identical notes.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, energetic electronic music with a driving beat begins to play.; s hands are shown writing the words | DIRT SURFIN; attributes: camera_state: The camera is positioned in a close-up, top-down shot, focusing on the hands and the sticky notes. The shot is static., video_background: The background is a black cutting mat with a red grid, illuminated by a strong red light source from above., storyline: The video begins with the creation of a physical design element, establishing the name 'Dirt Surfin' as the central theme for the project., shooting_style: This is a montage of quick, repetitive actions to show the process of writing the design. A hand holds up a smartphone to take a photo of the handwritten sticky note. The scene then transitions to a laptop screen, where the photo is opened in Adobe Photoshop. The user selects the 'Dirt Surfin' text, copies it, and pastes it onto a new layer, creating a digital version of the design.; speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat electronic music continues.; Dirt Surfin; attributes: camera_state: The camera starts with a close-up on the phone, then cuts to a screen recording of a laptop. The view is static and focused on the software interface., video_background: The background transitions from the red-lit cutting mat to the dark interface of Adobe Photoshop., storyline: The physical design is digitized. The user transfers the handwritten text from the sticky note into a digital design program, preparing it for further editing., shooting_style: The segment uses a montage of quick cuts, showing the process of digitizing the design from a physical object to a digital file.",
+          "captions": [
+            {
+              "start_s": 60.0,
+              "end_s": 66.0,
+              "visual": "A person's hands are shown writing the words 'Dirt Surfin' DIRT SURFIN' with a black marker on a small, white sticky note. The note is held over a black cutting mat with a red grid. The lighting is dramatic, with a red light illuminating the scene. The person writes the text multiple times, creating a small pile of identical notes.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: Upbeat, energetic electronic music with a driving beat begins to play.",
+              "on_screen_text": [
+                "s hands are shown writing the words",
+                "DIRT SURFIN"
+              ],
+              "attributes": [
+                "camera_state: The camera is positioned in a close-up, top-down shot, focusing on the hands and the sticky notes. The shot is static.",
+                "video_background: The background is a black cutting mat with a red grid, illuminated by a strong red light source from above.",
+                "storyline: The video begins with the creation of a physical design element, establishing the name 'Dirt Surfin' as the central theme for the project.",
+                "shooting_style: This is a montage of quick, repetitive actions to show the process of writing the design."
+              ]
+            },
+            {
+              "start_s": 67.0,
+              "end_s": 72.0,
+              "visual": "A hand holds up a smartphone to take a photo of the handwritten sticky note. The scene then transitions to a laptop screen, where the photo is opened in Adobe Photoshop. The user selects the 'Dirt Surfin' text, copies it, and pastes it onto a new layer, creating a digital version of the design.",
+              "audio": "speech: None.; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The upbeat electronic music continues.",
+              "on_screen_text": [
+                "Dirt Surfin"
+              ],
+              "attributes": [
+                "camera_state: The camera starts with a close-up on the phone, then cuts to a screen recording of a laptop. The view is static and focused on the software interface.",
+                "video_background: The background transitions from the red-lit cutting mat to the dark interface of Adobe Photoshop.",
+                "storyline: The physical design is digitized. The user transfers the handwritten text from the sticky note into a digital design program, preparing it for further editing.",
+                "shooting_style: The segment uses a montage of quick cuts, showing the process of digitizing the design from a physical object to a digital file."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

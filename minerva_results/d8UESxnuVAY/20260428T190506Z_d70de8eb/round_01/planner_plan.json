@@ -1,0 +1,131 @@
+{
+  "strategy": "Inspect stable late-game chess-overlay frames, identify the first moment black's evaluation exceeds 4 points, and read black's clock at that moment.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological set of readable frames from the likely late-game interval where the on-screen chess overlay may first show black above a 4-point advantage.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 120.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_120_00_180_00.mp4",
+            "metadata": {}
+          },
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 180.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_180_00_240_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 10,
+        "query": "readable frames showing the chess broadcast overlay with evaluation bar or score and both player clocks, especially around the first strong black advantage",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "150s",
+          "170s",
+          "190s",
+          "210s",
+          "225s"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological candidate overlay frames with readable evaluation and clock"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a tight chronological anchor window around the earliest qualifying moment so the threshold crossing and clock can be verified with local before/after context.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 120.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_120_00_180_00.mp4",
+            "metadata": {}
+          },
+          {
+            "video_id": "d8UESxnuVAY",
+            "start_s": 180.0,
+            "end_s": 240.0,
+            "artifact_id": "clip_180_00_240_00",
+            "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 2.0,
+        "num_frames": 5,
+        "query": "frames immediately before and after the first moment black's evaluation exceeds 4 points, with readable black clock",
+        "sequence_mode": "anchor_window",
+        "sort_order": "chronological",
+        "time_hints": [
+          "use the earliest qualifying timestamp identified in step 2"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "local chronological verification sequence around the first >4 black advantage moment"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "From the chronological overlay frames, determine the earliest frame where black's advantage first exceeds 4 points and identify which frame(s) best show that threshold crossing and the black clock.",
+      "inputs": {
+        "query": "Inspect these chess-overlay frames in chronological order. For each readable frame, identify the evaluation from black's perspective and whether it is greater than 4 points. Find the earliest frame where black first has an advantage over 4 points, reject later duplicates, and specify the timestamp of that earliest qualifying frame and what black's clock appears to show there."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "analysis": "earliest qualifying frame timestamp and provisional black clock reading"
+      }
+    },
+    {
+      "step_id": 4,
+      "tool_name": "generic_purpose",
+      "purpose": "Verify from the local sequence exactly when the evaluation first crosses above 4 for black and map the black clock reading to the answer options.",
+      "inputs": {
+        "query": "Using this local chronological sequence, verify the first frame where black's evaluation is above 4 points rather than equal to or below 4. Read black's clock at that first qualifying moment, compare it against the options, and return the matching option only if the clock is visually supported."
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 2,
+            "field_path": "frames"
+          }
+        ],
+        "text_contexts": [
+          {
+            "step_id": 3,
+            "field_path": "analysis"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "final option mapped from the verified black clock reading",
+        "supporting_points": "brief evidence about threshold crossing and clock reading"
+      }
+    }
+  ],
+  "refinement_instructions": "Do not answer from preprocess summaries alone. The trace should explicitly distinguish the earliest frame where black's evaluation is strictly greater than 4 from nearby frames where it is lower, equal, or unreadable. Use the local chronological sequence from step 4 as the decisive evidence, and only select an option if the black clock digits are visually readable at that first qualifying moment."
+}

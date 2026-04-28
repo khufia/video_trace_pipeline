@@ -1,0 +1,81 @@
+{
+  "strategy": "Use preprocess context to target likely visual intervals, retrieve a small chronological frame set across those intervals, and verify which non-racket/non-ball object the main player briefly holds.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve representative chronological frames from the likely intervals where Alex Replier appears off-court and on-court, so the held object can be visually verified against the answer options.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_000_00_060_00.mp4",
+            "metadata": {}
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_060_00_120_00.mp4",
+            "metadata": {}
+          },
+          {
+            "video_id": "-AY84ybskqI",
+            "start_s": 120.0,
+            "end_s": 172.272,
+            "artifact_id": "clip_120_00_172_27",
+            "relpath": "artifacts/AY84ybskqI/clips/clip_120_00_172_27.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 8,
+        "query": "frames where Alex Replier or the main female tennis player is holding an object other than a tennis racket or tennis ball, especially a water bottle, sunglasses, towel, wristband, or energy bar",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "3-8s montage of player smiling/talking and playing",
+          "60-62s group of players standing and talking",
+          "120-125s instructor/mentor scene where she may briefly hold another object before hitting"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "candidate frames across likely intervals showing any briefly held non-racket, non-ball object"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Inspect the retrieved frames and determine which answer option matches the other object the main character briefly holds.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Across these frames, identify the main female tennis player and determine whether she briefly holds any object besides a tennis ball and racket. Compare only these options: water bottle, wristband, sunglasses, towel, energy bar. Reject objects that are merely worn, in the background, or not actually held. Return the matching option and cite the frame timestamps that show the object in hand.",
+        "text_contexts": [
+          "Preprocess context suggests the video centers on Alex Replier, a tennis player, with likely candidate moments in the opening montage, the outdoor group scene around 60-62s, and the indoor teaching scene around 120-125s."
+        ],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "selected option for the briefly held other object",
+        "supporting_points": "timestamped visual observations showing the object in hand"
+      }
+    }
+  ],
+  "refinement_instructions": "Base the final answer on direct visual evidence from the retrieved frames, not on preprocess summaries alone. The key discriminator is whether the object is actually held briefly by the main player, not merely worn or nearby. If multiple candidate objects appear, prefer the one clearly shown in her hand and map exactly to the provided options."
+}

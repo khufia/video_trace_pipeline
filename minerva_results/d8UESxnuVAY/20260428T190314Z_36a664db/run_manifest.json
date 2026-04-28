@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "d8UESxnuVAY__eba6a570d663",
+  "video_id": "d8UESxnuVAY",
+  "run_id": "20260428T190314Z_36a664db",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "d8UESxnuVAY__eba6a570d663",
+    "question": "How much time was on black's clock when black first achieved an advantage over 4 points?",
+    "options": [
+      "A. 04:43.",
+      "B. 03:58.",
+      "C. 04:52.",
+      "D. 03:24.",
+      "E. 02:47."
+    ],
+    "video_id": "d8UESxnuVAY",
+    "question_id": null,
+    "gold_answer": "03:24.",
+    "initial_trace_steps": [
+      "As the game began at 00:20, a graphic display of the chess board appeared in the top half of the frame. I noticed that there was also a thin strip divided in half with white on top and black on the bottom to the left of the chess board graphic. When black took their first piece at 00:23, I noticed that the thin strip's black half grew slightly upward, signalling a very slight advantage in the game from having more pieces. I looked closely and noted that there was a number written at the bottom of the bar in white font that read \"0.1\" at 00:23, signaling that black's advantage at this time was 0.1 points. I understood that each piece has a point value according to its relative position, where a pawn is worth 1 point, bishops and knights are worth 3 points, rooks are worth 5 points, and queens are worth 9 points. I noticed that at 00:37, the black strip grew a bit larger from white's move, but black's advantage was not overwhelming at this point. As I continued watching, I saw that the strip fluctuated a few times but stayed fairly stable in the middle. Then, at 03:23, white's move caused the black bar to jump all the way up to the top of the bar so only a small fraction of white space remained. I read the advantage evaluation number at the bottom and saw that it read \"4.2\" at 03:23. Since this was the first time the value was over 4 points, I looked at the time on black's clock and saw that it read \"03:24\"."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/d8UESxnuVAY",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}

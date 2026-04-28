@@ -1,0 +1,47 @@
+{
+  "action": "retrieve",
+  "rationale": "Existing context lacks the ingredient list/order, but preprocess summaries and dense-caption text for the early recipe segment likely contain the mixer/grinding ingredients.",
+  "requests": [
+    {
+      "request_id": "ground_ingredients_early_segment",
+      "target": "preprocess",
+      "need": "Text describing the ingredients prepared in the mixer and their order, especially the second ingredient to be ground",
+      "query": "green chutney ingredients mixer grind ground ingredient order coriander mint leaves",
+      "modalities": [
+        "visual",
+        "ocr"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 60.0
+      },
+      "source_tools": [],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "dense_caption_mixer_step",
+      "target": "dense_captions",
+      "need": "Dense-caption spans around the mixer/grinding step to identify the second ingredient and its wording",
+      "query": "mixer grinding ingredients green chutney second ingredient",
+      "modalities": [
+        "visual"
+      ],
+      "time_range": {
+        "start_s": 0.0,
+        "end_s": 60.0
+      },
+      "source_tools": [
+        "dense_captioner"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

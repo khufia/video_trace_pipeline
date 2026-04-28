@@ -1,0 +1,400 @@
+{
+  "query_terms": [
+    "text",
+    "spans",
+    "describing",
+    "argument",
+    "control",
+    "machine",
+    "resulting",
+    "effect",
+    "distinguish",
+    "whether",
+    "sucks",
+    "them",
+    "freezes",
+    "splits",
+    "records",
+    "leads",
+    "sharing",
+    "argue",
+    "happens",
+    "freeze",
+    "split",
+    "two",
+    "image",
+    "share",
+    "button",
+    "portal",
+    "struggle",
+    "hold",
+    "black",
+    "box"
+  ],
+  "retrieval_requests": [
+    {
+      "request_id": "argue_machine_outcome",
+      "target": "mixed",
+      "need": "Existing text spans describing the argument over control of the machine and the machine's resulting effect, to distinguish whether it sucks them in, freezes them, splits, records them, or leads to sharing.",
+      "query": "argue control machine what happens sucks them in freeze split in two records image share button portal struggle hold black box glass dome swirling light",
+      "time_range": {
+        "start_s": 180.0,
+        "end_s": 225.88
+      },
+      "source_tools": [
+        "dense_captioner",
+        "asr"
+      ],
+      "limit": 10
+    }
+  ],
+  "preprocess_matches": {
+    "planner_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.; speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.; TIME MACHINE,; attributes: camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine., video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit., storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism., shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.",
+              "audio": "speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.",
+              "on_screen_text": [
+                "TIME MACHINE,"
+              ],
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine.",
+                "video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit.",
+                "storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism.",
+                "shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 120.164,
+              "end_s": 148.345,
+              "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+            },
+            {
+              "start_s": 149.982,
+              "end_s": 177.05,
+              "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88,
+              "artifact_id": "clip_180_00_225_88",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 225.88
+          },
+          "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.; speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.; attributes: camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel., video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group., storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning., shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters. A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.; speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.; attributes: camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group., video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal., storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation., shooting_style: A fast-paced montage is used to heighten the sense of panic and danger.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.",
+              "audio": "speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.",
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel.",
+                "video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group.",
+                "storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning.",
+                "shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 191.0,
+              "visual": "A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.",
+              "audio": "speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.",
+              "attributes": [
+                "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group.",
+                "video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal.",
+                "storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation.",
+                "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+              ]
+            }
+          ]
+        },
+        "asr": {
+          "transcript_spans": [
+            {
+              "start_s": 182.18,
+              "end_s": 198.295,
+              "text": "what is this button?"
+            }
+          ]
+        }
+      }
+    ],
+    "raw_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.; speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.; TIME MACHINE,; attributes: camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine., video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit., storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism., shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.",
+              "audio": "speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.",
+              "on_screen_text": [
+                "TIME MACHINE,"
+              ],
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine.",
+                "video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit.",
+                "storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism.",
+                "shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 120.164,
+            "end_s": 148.345,
+            "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+          },
+          {
+            "start_s": 149.982,
+            "end_s": 177.05,
+            "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88,
+              "artifact_id": "clip_180_00_225_88",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 225.88
+          },
+          "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.; speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.; attributes: camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel., video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group., storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning., shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters. A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.; speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.; attributes: camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group., video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal., storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation., shooting_style: A fast-paced montage is used to heighten the sense of panic and danger.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.",
+              "audio": "speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.",
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel.",
+                "video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group.",
+                "storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning.",
+                "shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 191.0,
+              "visual": "A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.",
+              "audio": "speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.",
+              "attributes": [
+                "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group.",
+                "video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal.",
+                "storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation.",
+                "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+              ]
+            }
+          ]
+        },
+        "transcript_segments": [
+          {
+            "start_s": 182.18,
+            "end_s": 198.295,
+            "text": "what is this button?"
+          }
+        ]
+      }
+    ],
+    "asr_transcripts": [
+      {
+        "transcript_id": "tx_b63e9eb0dda4",
+        "clip": {
+          "video_id": "91ub3om9Fg0",
+          "start_s": 0.0,
+          "end_s": 225.88,
+          "artifact_id": "clip_000_00_225_88",
+          "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_225_88.mp4"
+        },
+        "segments": [
+          {
+            "start_s": 15.893,
+            "end_s": 18.61,
+            "text": "Oh, there's only one. Yeah, there's only one, but look."
+          },
+          {
+            "start_s": 50.032,
+            "end_s": 75.749,
+            "text": "What are you talking about? Are you crazy? Wait. Is it like the one we see in a movie? Can we time travel?"
+          },
+          {
+            "start_s": 80.187,
+            "end_s": 98.092,
+            "text": "It is based on quantum physics. There's a quasi-stable antimatter inside. It's placed with the fabric of the space-time. It's starting into a complex. How do we know this works? Wait and watch. Setting the radius to one meter north. Geo coordinates intact."
+          },
+          {
+            "start_s": 120.164,
+            "end_s": 148.345,
+            "text": "What the? Like I said, it works. It's a time freezing machine. Freezing? What is your plan? We're going to rob a bank. In broad daylight. A big high street. Split three ways. Pack up the gears. It's time. I don't trust you. Maybe you never froze the time. You had an ice cream before. Just a sleight of hand. Alright. Not this one."
+          },
+          {
+            "start_s": 149.982,
+            "end_s": 177.05,
+            "text": "Just turn off the antenna and press this button. Alright buddy, we're gonna rob. You stay here, we split two ways. Safety always. I want this."
+          },
+          {
+            "start_s": 182.18,
+            "end_s": 198.295,
+            "text": "what is this button?"
+          }
+        ]
+      }
+    ],
+    "dense_caption_segments": [
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 120.0,
+              "end_s": 180.0,
+              "artifact_id": "clip_120_00_180_00",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_120_00_180_00.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 120.0,
+            "end_s": 180.0
+          },
+          "overall_summary": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.; speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.; TIME MACHINE,; attributes: camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine., video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit., storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism., shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine.",
+          "captions": [
+            {
+              "start_s": 120.0,
+              "end_s": 125.0,
+              "visual": "A man in a white hazmat suit holds up a small, wooden object with a 'M' logo on it, looking shocked. The scene cuts to two other men, one in a green hoodie and one in a blue turtleneck, who look on with serious expressions. The man in the hazmat suit then reveals a large, homemade machine with a glass dome, labeled 'TIME MACHINE,' and explains that it works as a time-freezing device.",
+              "audio": "speech: Man in hazmat suit: Whaa.. what happened?! ...it works as a... Time Freezing Machine.; acoustics: 1) Tone of speech: The inventor's tone is excited and slightly manic. 2) Background sounds or music: A low, tense, electronic hum begins as the time machine is revealed.",
+              "on_screen_text": [
+                "TIME MACHINE,"
+              ],
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the wooden object, then cuts to a medium shot of the two men. It then cuts to a medium shot of the man in the hazmat suit, focusing on the time machine.",
+                "video_background: The setting appears to be a dimly lit room or office with dark walls. A few pictures are visible on the wall behind the man in the hazmat suit.",
+                "storyline: The scene introduces a mysterious time machine and its inventor, who is explaining its function to two other characters. The inventor's excitement contrasts with the other two's skepticism.",
+                "shooting_style: The scene uses intercutting between the inventor and the two onlookers to show their different reactions to the time machine."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 225.88,
+        "dense_caption": {
+          "clips": [
+            {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 180.0,
+              "end_s": 225.88,
+              "artifact_id": "clip_180_00_225_88",
+              "relpath": "artifacts/91ub3om9Fg0/clips/clip_180_00_225_88.mp4"
+            }
+          ],
+          "captioned_range": {
+            "start_s": 180.0,
+            "end_s": 225.88
+          },
+          "overall_summary": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.; speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.; attributes: camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel., video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group., storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning., shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters. A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.; speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.; attributes: camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group., video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal., storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation., shooting_style: A fast-paced montage is used to heighten the sense of panic and danger.",
+          "captions": [
+            {
+              "start_s": 180.0,
+              "end_s": 185.0,
+              "visual": "A man in a white hooded jumpsuit stares intensely, his eyes wide with anger as he yells. The scene cuts to a group of people in a dark room, struggling to hold a black box with a glass dome. Inside the dome, a swirling, bright blue and white light, like an electrical portal, begins to form. A yellow text warning flashes on the screen.",
+              "audio": "speech: Man in white: Give it backkk!; acoustics: 1) Tone of speech: Angry, demanding. 2) Background sounds or music: A low, ominous hum builds as the portal forms, accompanied by a digital warning sound.",
+              "attributes": [
+                "camera_state: The scene starts with a close-up on the man's face, then cuts to a medium shot of the group holding the device. The camera is handheld and slightly shaky, adding to the chaotic feel.",
+                "video_background: The first shot is in a dimly lit room with a dark, blurry background. The second shot is in a dark, enclosed space, possibly a tent or a small room, with a black curtain behind the group.",
+                "storyline: The scene introduces a conflict where a group is trying to contain or control a powerful, unstable device. The man's anger suggests he is a key figure who wants the device back, and the device itself is malfunctioning.",
+                "shooting_style: This is a montage of quick, intercutting shots to build tension and introduce the central conflict and characters."
+              ]
+            },
+            {
+              "start_s": 186.0,
+              "end_s": 191.0,
+              "visual": "A rapid montage of extreme close-ups shows a man's sweaty, terrified face. His eyes are wide with fear and shock. These shots are intercut with scenes of the group struggling with the device, which now has a bright, fiery portal inside. The man in the white hooded suit gestures with his hands, trying to calm the situation.",
+              "audio": "speech: [no dialogue]; acoustics: 1) Tone of speech: N/A. 2) Background sounds or music: The ominous hum and electrical crackling of the portal are prominent, creating a tense and chaotic soundscape.",
+              "attributes": [
+                "camera_state: The camera uses extreme close-ups on the man's eyes and face, creating a sense of claustrophobia and intense emotion. These are intercut with medium shots of the group.",
+                "video_background: The background is dark and indistinct, keeping the focus entirely on the characters' reactions and the glowing portal.",
+                "storyline: The tension escalates as the portal's power seems to increase, causing fear in the observers. The man in the white suit appears to be in control, trying to manage the situation.",
+                "shooting_style: A fast-paced montage is used to heighten the sense of panic and danger."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "inputs": {
+    "evidence_ids": [
+      "ev_02_ccd065aa"
+    ],
+    "frames": [
+      {
+        "video_id": "7eF4EjdYZ7k",
+        "timestamp_s": 81.0,
+        "metadata": {
+          "source": "retrieved_artifact_context"
+        },
+        "artifact_id": "frame_81.00",
+        "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_81.00.png"
+      },
+      {
+        "video_id": "7eF4EjdYZ7k",
+        "timestamp_s": 82.0,
+        "metadata": {
+          "source": "retrieved_artifact_context"
+        },
+        "artifact_id": "frame_82.00",
+        "relpath": "artifacts/7eF4EjdYZ7k/frames/frame_82.00.png"
+      }
+    ],
+    "query": "Using only the 81s-82s General Supplies display within the asked 01:20-01:25 interval, identify every distinct item whose price is visibly readable enough to count. For each counted item, give the item name and exact visible price as shown, including cents if legible. Exclude items whose price is not actually visible or not confidently attached to that item. Deduplicate the same item across the two frames. Then compute the exact total and map it to one answer option. If cents remain unreadable, say so explicitly and do not force an exact option."
+  },
+  "input_refs": {
+    "text_contexts": [
+      {
+        "step_id": 1,
+        "field_path": "spatial_description"
+      },
+      {
+        "step_id": 2,
+        "field_path": "text"
+      }
+    ]
+  }
+}

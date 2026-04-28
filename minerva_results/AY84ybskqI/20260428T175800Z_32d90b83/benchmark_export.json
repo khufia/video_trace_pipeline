@@ -1,0 +1,92 @@
+{
+  "sample_key": "AY84ybskqI__45b90b353324",
+  "trace": {
+    "inference_steps": [
+      "[7s to 10s; 60s to 62s] The main character is best grounded by the 7s-10s action sequence, because those frames repeatedly center one female tennis player in play, whereas the 60s-62s material is a later group scene.",
+      "[7s to 10s] In the verified main-character frames at 7s-10s, the player holds only her racket, with the tennis ball visible at 7s; no other held object is clearly shown. That means sunglasses, a towel, a wristband, and an energy bar are unsupported for the main character in the retrieved frames.",
+      "[60s; 7s to 10s] Although a water bottle is observed at 60s, the holder is not the same person as the main action-sequence player: the main player wears a white visor, white tank top, and dark skirt and has dark hair in a ponytail, while the water-bottle holder appears in a white t-shirt without a visor and has brown hair in a ponytail. So the water bottle should be rejected for the main character.",
+      "[7s to 10s; 60s] After rejecting water bottle and finding no support for wristband, sunglasses, towel, or energy bar in the main-character frames, none of the listed options is grounded as an object briefly held by the main character."
+    ],
+    "evidence": [
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "Frames at 7s, 8s, 9s, and 10s show the same female tennis player in action. She wears a white tank top, dark skirt, and white visor. In these frames she is shown holding a racket; at 7s a tennis ball is also visible in the air. No other object is clearly visible in her hands in these action frames.",
+        "observation_ids": [
+          "obs_9b02b75d56309634",
+          "obs_69bb5b058460c8b7",
+          "obs_a65307fc87474c01",
+          "obs_7a277bdcc9391c29",
+          "obs_3a793fa551755a93",
+          "obs_a2d0aa59e57747c3",
+          "obs_ce026e2573974df9",
+          "obs_f70695b32ca9e5dc",
+          "obs_73485a72343b9880",
+          "obs_e4ff4c12b9274736",
+          "obs_ecf0c85aadfdd0d0"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 7.0,
+            "end_s": 10.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "The prompt refers to a single main female tennis player. The action sequence in frames 7s-10s clearly centers on one tennis player, while the later 60s-62s frames show a group of people rather than the same centered action subject.",
+        "observation_ids": [
+          "obs_23526e97e4482392",
+          "obs_7ee7b840b415112d",
+          "obs_8c83667f0c436644",
+          "obs_69abde834e411494"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 7.0,
+            "end_s": 10.0
+          },
+          {
+            "start_s": 60.0,
+            "end_s": 62.0
+          }
+        ]
+      },
+      {
+        "tool_name": "generic_purpose",
+        "evidence_text": "At 60s, a girl in a white shirt is drinking from and holding a white water bottle in a later group scene. Visual comparison across the retrieved frames indicates she is not the same person as the main action-sequence player: the action-sequence player wears a white visor, white tank top, and dark skirt and has dark hair in a ponytail, while the water-bottle holder appears in a white t-shirt without a visor and has brown hair in a ponytail.",
+        "observation_ids": [
+          "obs_a25074d503042a43",
+          "obs_b423451e7651d218",
+          "obs_d5b0e4fc0bb35d4b",
+          "obs_c988d75dbb57756c",
+          "obs_03006285c460e3ce",
+          "obs_505ba66589c325f6",
+          "obs_27822203ff141a08",
+          "obs_43096eb6c5956728",
+          "obs_ca802ea321a1a47b",
+          "obs_54cedb6d5bf6e442"
+        ],
+        "time_start_s": null,
+        "time_end_s": null,
+        "frame_ts_s": null,
+        "time_intervals": [
+          {
+            "start_s": 60.0,
+            "end_s": 60.0
+          },
+          {
+            "start_s": 7.0,
+            "end_s": 10.0
+          }
+        ]
+      }
+    ]
+  },
+  "answer": ""
+}

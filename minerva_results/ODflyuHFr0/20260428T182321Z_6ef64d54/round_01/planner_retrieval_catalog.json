@@ -1,0 +1,160 @@
+{
+  "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+  "query_terms": [
+    "1st",
+    "letter",
+    "2nd",
+    "word",
+    "ingredient",
+    "get",
+    "ground",
+    "mixer"
+  ],
+  "preprocess": {
+    "planner_segment_count": 4,
+    "raw_segment_count": 4,
+    "asr_transcript_count": 1,
+    "dense_caption_segment_count": 4,
+    "segments": [
+      {
+        "segment_id": "seg_001",
+        "start_s": 0.0,
+        "end_s": 60.0,
+        "overall_summary": "The video begins with a 3D animated logo for 'Rahul Music World' rotating against a white background. The logo features a treble clef and colorful musical notes on a rainbow-colored staff. Below the logo, the text 'A Anjana Rajesh Shinde Production' appears...",
+        "caption_count": 3,
+        "asr_span_count": 0,
+        "attributes": [
+          "camera_state: The camera is static, focused on the animated logo as it rotates and zoom...",
+          "video_background: The background is a clean, white, reflective surface with a slight vi...",
+          "storyline: This segment serves as the production company's title card, introducing the...",
+          "shooting_style: This is a 3D animated logo reveal.",
+          "camera_state: The camera is static, centered on the text and logos.",
+          "video_background: The background is plain white throughout this segment.",
+          "storyline: This segment introduces the sponsor of the recipe, Hakim Masala, and present...",
+          "shooting_style: This is a title card sequence with animated text and logo reveal.",
+          "camera_state: The camera uses a series of static, close-up, and medium shots of the ing...",
+          "video_background: The ingredients are displayed on a wooden surface and a white paper t...",
+          "storyline: This segment introduces the first component of the recipe: the green chutney...",
+          "shooting_style: This is a montage sequence using dissolves to transition between differ..."
+        ],
+        "clips": [
+          {
+            "video_id": "-ODflyuHFr0",
+            "start_s": 0.0,
+            "end_s": 60.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/ODflyuHFr0/clips/clip_000_00_060_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_002",
+        "start_s": 60.0,
+        "end_s": 120.0,
+        "overall_summary": "A person's hands are seen preparing ingredients for a sandwich. On a wooden cutting board, they use a knife to slice a piece of white bread. In the background, several small metal bowls contain prepped ingredients: sliced red tomatoes, sliced cucumbers, cho...",
+        "caption_count": 3,
+        "asr_span_count": 0,
+        "attributes": [
+          "camera_state: The camera is positioned in a static, top-down shot, providing a clear vi...",
+          "video_background: The scene is set on a dark, black countertop. The ingredients are nea...",
+          "storyline: The video begins with the initial steps of making a masala sandwich, startin...",
+          "shooting_style: This is a standard, instructional shot with no special effects or trans...",
+          "camera_state: The camera remains in a static, top-down position, focusing on the action...",
+          "video_background: The background remains the same, with all the prepped ingredients vis...",
+          "storyline: The first layer of the sandwich is added as the person applies the green chu...",
+          "shooting_style: A text overlay is used to provide instructions to the viewer.",
+          "camera_state: The camera is static and maintains its top-down perspective, keeping the...",
+          "video_background: The dark countertop with the array of ingredients remains the backdro...",
+          "storyline: The second layer of the sandwich is added as the person places the sliced cu...",
+          "shooting_style: A text overlay is used to guide the viewer through the recipe steps."
+        ],
+        "clips": [
+          {
+            "video_id": "-ODflyuHFr0",
+            "start_s": 60.0,
+            "end_s": 120.0,
+            "artifact_id": "clip_060_00_120_00",
+            "relpath": "artifacts/ODflyuHFr0/clips/clip_060_00_120_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_003",
+        "start_s": 120.0,
+        "end_s": 180.0,
+        "overall_summary": "A person's hands are shown from a top-down perspective, preparing a sandwich on a wooden cutting board. They are sprinkling a green, paste-like substance from a small white bowl onto a slice of white bread that already has a layer of green chutney and slice...",
+        "caption_count": 3,
+        "asr_span_count": 0,
+        "attributes": [
+          "camera_state: The camera is positioned directly overhead, providing a static, top-down...",
+          "video_background: The scene is set on a dark, flat surface, likely a kitchen counter. T...",
+          "storyline: The video begins with the first step of a recipe: assembling the sandwich's...",
+          "shooting_style: This is a continuous shot focused on the action.",
+          "camera_state: The camera remains in a static, top-down position, keeping the focus on t...",
+          "video_background: The background remains the same, with all the prepped ingredients vis...",
+          "storyline: The sandwich is further layered with spices and another vegetable, building...",
+          "shooting_style: This is a continuous shot.",
+          "camera_state: The camera maintains its static, top-down perspective, capturing the laye...",
+          "video_background: The kitchen counter with all ingredients is still the setting.",
+          "storyline: The sandwich assembly continues with the addition of tomatoes and more seaso...",
+          "shooting_style: This is a continuous shot."
+        ],
+        "clips": [
+          {
+            "video_id": "-ODflyuHFr0",
+            "start_s": 120.0,
+            "end_s": 180.0,
+            "artifact_id": "clip_120_00_180_00",
+            "relpath": "artifacts/ODflyuHFr0/clips/clip_120_00_180_00.mp4"
+          }
+        ]
+      },
+      {
+        "segment_id": "seg_004",
+        "start_s": 180.0,
+        "end_s": 224.542,
+        "overall_summary": "A person uses a large knife to cut a pre-made sandwich in half on a wooden cutting board. The sandwich is made with white bread, lettuce, and a red filling. In the background, several small metal bowls contain ingredients like sliced cucumbers, chopped onio...",
+        "caption_count": 2,
+        "asr_span_count": 0,
+        "attributes": [
+          "camera_state: The camera is positioned in a static, top-down shot, providing a clear vi...",
+          "video_background: The scene is set on a dark, textured surface, likely a kitchen counte...",
+          "storyline: The video begins with the final step of preparing a sandwich, showing the pe...",
+          "shooting_style: This is a standard, static shot focused on the action.",
+          "camera_state: The camera remains in a static, top-down position, but the framing has ch...",
+          "video_background: The background is the same dark surface, with the ingredients now arr...",
+          "storyline: This segment continues the preparation process, showing the making of anothe...",
+          "shooting_style: This is a static shot with a slight reframing from the previous segment."
+        ],
+        "clips": [
+          {
+            "video_id": "-ODflyuHFr0",
+            "start_s": 180.0,
+            "end_s": 224.542,
+            "artifact_id": "clip_180_00_224_54",
+            "relpath": "artifacts/ODflyuHFr0/clips/clip_180_00_224_54.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  "evidence_store": {
+    "evidence_entry_count": 0,
+    "observation_count": 0,
+    "counts_by_status": {},
+    "counts_by_tool": {},
+    "validated_evidence": [],
+    "recent_evidence": [],
+    "recent_observations": []
+  },
+  "artifact_context": {
+    "record_count": 0,
+    "counts_by_type": {},
+    "records": [],
+    "omitted_record_count": 0
+  },
+  "prior_trace": {
+    "claim_count": 0,
+    "claims": []
+  }
+}

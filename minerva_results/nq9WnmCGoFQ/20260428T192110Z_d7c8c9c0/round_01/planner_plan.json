@@ -1,0 +1,183 @@
+{
+  "strategy": "Use preprocess transcripts to identify the most-insulted ingredient, then inspect a chronological frame set across the burger video to count only the times that ingredient is visibly shown with a cutting board in the background.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological set of candidate frames across the full burger-making portion where the target ingredient may appear, preserving enough coverage to count distinct appearances with or without a cutting board background.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "nq9WnmCGoFQ",
+            "start_s": 0.0,
+            "end_s": 300.0
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 14,
+        "query": "chronological frames showing the ingredient identified as most insulted, especially lettuce or shredded crispy water, including all distinct appearances and whether a cutting board is visible in the background",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "0-3s finished burger on board may include lettuce",
+          "60-64s whole lettuce on floor",
+          "86-109s slicing and mention of crispy water",
+          "109-130s mise en place with shredded crispy water",
+          "120-125s ingredients laid out on cutting board",
+          "237-259s burger assembly with shredded crispy water"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological candidate frames spanning all likely appearances of the target ingredient"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Determine which ingredient is insulted the most from the existing preprocess transcripts, quoting the insulting lines and resolving whether the target ingredient is lettuce/crispy water or another ingredient.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From these transcripts, identify the ingredient that is insulted the most. Quote each insulting or mocking mention tied to an ingredient, group them by ingredient, and decide which ingredient is the target for the counting question. Return the ingredient name and the relevant quoted spans only.",
+        "text_contexts": [],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_001",
+            "clip": {
+              "video_id": "nq9WnmCGoFQ",
+              "start_s": 0.0,
+              "end_s": 60.0
+            },
+            "segments": [
+              {
+                "start_s": 0.031,
+                "end_s": 23.993,
+                "text": "Today we're making smash burgers which are a super violent burger with a very destructive taste. We're going to start by taking out some unsmashed beef. You can buy the pre-smashed stuff if you want but it won't taste nearly as wrecked. We've got a pound here with around 20% fat. You can use the super lean stuff if you want but it might cause you to lose too much weight so be very careful. We'll divide this into six even-ish beef balls."
+              },
+              {
+                "start_s": 26.255,
+                "end_s": 48.462,
+                "text": "Hey, your beef. Start acting like it. As far as toppings go, I'm just gonna go with what I have here. Nothing fancy. I've got a nice dank onion, some nice hood tomatoes. Let's just check inside here and hopefully, oh yeah, pickles. That's awesome. To me, this is essential. And then we'll just peel off a couple slices of cupboard cheese."
+              },
+              {
+                "start_s": 48.462,
+                "end_s": 68.189,
+                "text": "I think that's it, but let's just check and see if there's any, oh, okay. Hey, listen, this is kind of hard to say, but people are just using you when they put you on a burger to try to make it seem more healthy by including salad. All you really do is get soggy and you taste like nothing. So I just wanted you to know the truth."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_001",
+              "span_count": 3
+            }
+          },
+          {
+            "transcript_id": "preprocess_seg_002",
+            "clip": {
+              "video_id": "nq9WnmCGoFQ",
+              "start_s": 60.0,
+              "end_s": 120.0
+            },
+            "segments": [
+              {
+                "start_s": 68.189,
+                "end_s": 86.465,
+                "text": "Okay great. We're gonna make fresh potato buns which we'll do by taking a cup of flour, half tablespoon of sugar, one teaspoon of instant yeast, half teaspoon of salt, two cups of water, and two potatoes. Then we'll grab those potatoes and just smash them against the wall. If you do it right you'll get this nice crack right in the middle of the buns."
+              },
+              {
+                "start_s": 86.465,
+                "end_s": 109.128,
+                "text": "Oh look, it's like a miniature man tried to run through a cartoon wall. If you slice onions thin enough, they won't make you cry, provided you also have no tear ducts. And we'll slice up these magical flavor strips. Do not make a burger without them. If you don't like pickles, one thing you can do is seek help. Then we'll slice up the tomato. Okay, crispy water, you can join this once, but don't get cocky."
+              },
+              {
+                "start_s": 109.128,
+                "end_s": 130.424,
+                "text": "Now before we start cooking, we'll do a final check to make sure we have everything, which is known as mise en place, which is a French term for get all your together before you start. I've got the buns here, I've got my beef balls, I've got my sliced pickle ready to go, I've got the onions here, and I've got that shredded crispy water, sliced tomato, and I've got my cheese. So it looks like we're ready."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_002",
+              "span_count": 3
+            }
+          },
+          {
+            "transcript_id": "preprocess_seg_005",
+            "clip": {
+              "video_id": "nq9WnmCGoFQ",
+              "start_s": 240.0,
+              "end_s": 300.0
+            },
+            "segments": [
+              {
+                "start_s": 237.766,
+                "end_s": 259.417,
+                "text": "Now we'll just slap a flap of cheese on there. This could be cheddar or American or singles or an entire wheel of brie. Then we're basically ready to assemble. Bottom bun is sauced and in position and out of focus. Slap that burger on there. Then you can top it with the onions, the clean the lens off, the tomato, shredded crispy water, and the other half past the bun crack."
+              },
+              {
+                "start_s": 259.417,
+                "end_s": 286.518,
+                "text": "look at the oops i forgot the magical flavor strips let's slide those in there remember you can top your burger all day long but if you're more comfortable with bottoming then go for it no one should judge you you can also just do pickles and onions which is pretty classic and there we have our smash burger maybe the smashing is how much you want to smash this into your face right now or maybe the smash burger is the friends we made along the way which was zero we made zero friends along the way"
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_005",
+              "span_count": 2
+            }
+          }
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "name of the most-insulted ingredient",
+        "supporting_points": "quoted insulting transcript spans grouped by ingredient",
+        "analysis": "reasoning about which ingredient wins"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "From the retrieved frames plus the transcript-derived target ingredient, verify which frames actually show that ingredient and count distinct times it is shown with a cutting board in the background.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Using the transcript result for the target ingredient and these chronological frames, identify each distinct time the target ingredient is visibly shown. For each distinct appearance, state whether a cutting board is in the background. Deduplicate neighboring frames from the same appearance, count only appearances where the target ingredient is shown and a cutting board is in the background, and map the final count to the multiple-choice options.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ],
+        "text_contexts": [
+          {
+            "step_id": 2,
+            "field_path": "analysis"
+          },
+          {
+            "step_id": 2,
+            "field_path": "answer"
+          },
+          {
+            "step_id": 2,
+            "field_path": "supporting_points"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "final option and count",
+        "supporting_points": "distinct counted appearances with timestamps/background judgments",
+        "analysis": "deduped counting rationale"
+      }
+    }
+  ],
+  "refinement_instructions": "Treat step 1 only as identification of the target ingredient from transcript evidence; do not use transcript alone to count visual appearances. In step 3, count distinct appearances rather than raw frames, and reject frames where the ingredient is absent, ambiguous, or only implied by narration. The cutting board condition must be visually verified in the same appearance. If the retrieved frame set misses an early or late candidate appearance, keep the answer unresolved rather than guessing."
+}

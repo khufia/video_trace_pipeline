@@ -1,0 +1,48 @@
+{
+  "action": "retrieve",
+  "rationale": "Preprocess text likely contains the needed years, but the current context lacks the exact founder death year and the exact year phrase used for the bedrooms description.",
+  "requests": [
+    {
+      "request_id": "founder_death_year",
+      "target": "preprocess",
+      "need": "Transcript span stating when Tombstone founder Ed Sheflin died or nearby context that may identify the founder and relevant historical year",
+      "query": "Ed Sheflin founder died death year Tombstone founder Ed Sheflin",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 150.0,
+        "end_s": 203.403
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    },
+    {
+      "request_id": "bedrooms_year_phrase",
+      "target": "preprocess",
+      "need": "Transcript span where the narrator describes the rooms/bedrooms and mentions the historical year/style",
+      "query": "bedrooms rooms decorated year 1880s flair state-of-the-art rooms narrator",
+      "modalities": [
+        "asr"
+      ],
+      "time_range": {
+        "start_s": 40.0,
+        "end_s": 80.0
+      },
+      "source_tools": [
+        "asr"
+      ],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 10
+    }
+  ]
+}

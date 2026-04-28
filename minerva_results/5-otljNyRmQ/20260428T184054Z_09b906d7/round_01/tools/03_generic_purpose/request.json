@@ -1,0 +1,30 @@
+{
+  "inputs": {
+    "clips": [],
+    "evidence_ids": [],
+    "frames": [],
+    "query": "Using the transcript and the chronological frames from the accusation scene, determine which visible person is accused of being the kidnapper by the man in the light gray jacket. First identify the man in the light gray jacket in the frames. Then determine which other person he is accusing based on gaze, pointing, facing, turn-taking, and who gives the denial. Finally map the accused person to exactly one option: backwards baseball cap, wearing glasses, blonde wig, orange puff jacket, or plaid shirt. Reject options not present or not being addressed in this moment.",
+    "text_contexts": [],
+    "transcripts": []
+  },
+  "input_refs": {
+    "frames": [
+      {
+        "step_id": 1,
+        "field_path": "frames"
+      }
+    ],
+    "text_contexts": [
+      {
+        "step_id": 2,
+        "field_path": "analysis"
+      }
+    ],
+    "transcripts": [
+      {
+        "step_id": 2,
+        "field_path": "transcripts"
+      }
+    ]
+  }
+}

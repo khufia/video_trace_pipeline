@@ -1,0 +1,33 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "94624bb66ef4aa7d15d1523a",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "cxHtplim5Ic",
+        "start_s": 0.0,
+        "end_s": 337.92,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "0s opening logo",
+      "60-66s THE DRINKS",
+      "67-72s THE BILL",
+      "137-141s THE FART",
+      "188-201s THE PREP",
+      "244-261s THE INTERROGATION",
+      "300-319s end credits"
+    ],
+    "query": "readable frames showing title cards or text overlays at the hinted moments; include the opening logo and end credits for exclusion checks",
+    "num_frames": 7,
+    "sequence_mode": "ranked",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

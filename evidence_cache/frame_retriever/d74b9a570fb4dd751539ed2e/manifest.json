@@ -1,0 +1,36 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "d74b9a570fb4dd751539ed2e",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "ZF4T833lln4",
+        "start_s": 123.0,
+        "end_s": 237.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      },
+      {
+        "video_id": "ZF4T833lln4",
+        "start_s": 220.0,
+        "end_s": 239.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "02:03-03:57 unresolved candidate interval B; sample across the interval with emphasis on later interior after 02:05",
+      "03:40-03:59 candidate interval C; retrieve chronological frames across this whole window"
+    ],
+    "query": "chessboard states where the two white knights might be within one square of each other; prioritize readable full-board frames and preserve chronology",
+    "num_frames": 12,
+    "sequence_mode": "chronological",
+    "neighbor_radius_s": 0.0,
+    "include_anchor_neighbors": false,
+    "sort_order": "chronological"
+  }
+}

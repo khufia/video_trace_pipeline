@@ -1,0 +1,41 @@
+{
+  "verdict": "FAIL",
+  "confidence": 0.89,
+  "scores": {
+    "logical_coherence": 3,
+    "completeness": 2,
+    "factual_correctness": 3,
+    "reasoning_order": 4
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "category": "COUNTING_GAP",
+      "message": "The trace counts only four evidenced hits from three sampled intervals and concludes zero net hits from those checked events, but the question asks for the total number of times the woman in white hits into the net. The provided text does not justify that these are all relevant hits in the video, so the total-count answer is incomplete.",
+      "evidence_ids": [
+        "ev_serve_early",
+        "ev_rally_middle",
+        "ev_serve_late"
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "INCOMPLETE_TRACE",
+      "message": "For the middle rally, the evidence supports only that there is no clear visual confirmation of a net contact in the sampled frames. That is insufficient to convert the segment into a grounded count of zero net hits for the whole question without broader coverage or explicit exclusion of other candidate net-hit moments.",
+      "evidence_ids": [
+        "ev_rally_middle"
+      ]
+    }
+  ],
+  "feedback": "The trace is orderly, but it answers a total-count question from only a few sampled hit events. It needs grounded confirmation that all answer-relevant hits have been covered, not just that the checked examples are non-net or unconfirmed.",
+  "missing_information": [
+    "whether the sampled early, middle, and late intervals cover all answer-relevant hits by the woman in white in the video",
+    "the total number of grounded net-hit events by the woman in white across the full question-relevant span"
+  ],
+  "diagnostics": {
+    "referent_alignment": "pass: the trace consistently refers to the woman in white.",
+    "temporal_alignment": "partial: the cited intervals are chronological and internally consistent, but they do not establish full-video coverage for a total-count question.",
+    "option_alignment": "partial: the trace maps its derived count to option A correctly, but the derivation is under-supported for the full question.",
+    "evidence_sufficiency": "insufficient: text supports some non-net hits and lack of clear net-contact evidence in sampled rally frames, but not a complete total count of net hits."
+  }
+}

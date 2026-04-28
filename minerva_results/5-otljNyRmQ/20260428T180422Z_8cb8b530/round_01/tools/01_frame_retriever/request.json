@@ -1,0 +1,24 @@
+{
+  "tool_name": "frame_retriever",
+  "clips": [
+    {
+      "video_id": "5-otljNyRmQ",
+      "start_s": 0.0,
+      "end_s": 12.0,
+      "artifact_id": "clip_000_00_060_00",
+      "relpath": "artifacts/5-otljNyRmQ/clips/clip_000_00_060_00.mp4",
+      "metadata": {
+        "source": "preprocess_seg_001"
+      }
+    }
+  ],
+  "time_hints": [
+    "00:06"
+  ],
+  "query": "man at 00:06 and what he is doing; include object/action context such as dartboard, beer can, cards, ping pong, garage activity",
+  "num_frames": 5,
+  "sequence_mode": "anchor_window",
+  "neighbor_radius_s": 2.0,
+  "include_anchor_neighbors": true,
+  "sort_order": "chronological"
+}

@@ -1,0 +1,892 @@
+{
+  "tool_name": "frame_retriever",
+  "ok": true,
+  "data": {
+    "query": "frames before during and after each woman-in-white tennis hit showing racket-ball contact and whether the ball goes into the net",
+    "clips": [
+      {
+        "video_id": "a_90z_4CkA4",
+        "start_s": 70.0,
+        "end_s": 73.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      },
+      {
+        "video_id": "a_90z_4CkA4",
+        "start_s": 75.0,
+        "end_s": 78.0,
+        "artifact_id": null,
+        "relpath": null,
+        "metadata": {
+          "tool_backend": "timelens_transformers",
+          "model_path": "<redacted-path>"
+        }
+      }
+    ],
+    "frames": [
+      {
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 70.0,
+        "artifact_id": "frame_70.00",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_70.00.png",
+        "clip": {
+          "video_id": "a_90z_4CkA4",
+          "start_s": 70.0,
+          "end_s": 73.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.48795679211616516,
+          "device": "cuda:1",
+          "clip_start_s": 70.0,
+          "clip_end_s": 73.0,
+          "frame_pool_start_s": 68.5,
+          "frame_pool_end_s": 74.5,
+          "temporal_score": 0.48795679211616516,
+          "anchor_distance_s": 1.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 71.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 71.0,
+        "artifact_id": "frame_71.00",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_71.00.png",
+        "clip": {
+          "video_id": "a_90z_4CkA4",
+          "start_s": 70.0,
+          "end_s": 73.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.5264161825180054,
+          "device": "cuda:1",
+          "clip_start_s": 70.0,
+          "clip_end_s": 73.0,
+          "frame_pool_start_s": 68.5,
+          "frame_pool_end_s": 74.5,
+          "temporal_score": 0.5264161825180054,
+          "anchor_distance_s": 0.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 71.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 72.0,
+        "artifact_id": "frame_72.00",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_72.00.png",
+        "clip": {
+          "video_id": "a_90z_4CkA4",
+          "start_s": 70.0,
+          "end_s": 73.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.4749826490879059,
+          "device": "cuda:1",
+          "clip_start_s": 70.0,
+          "clip_end_s": 73.0,
+          "frame_pool_start_s": 68.5,
+          "frame_pool_end_s": 74.5,
+          "temporal_score": 0.4749826490879059,
+          "anchor_distance_s": 0.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 71.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 2,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 73.0,
+        "artifact_id": "frame_73.00",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_73.00.png",
+        "clip": {
+          "video_id": "a_90z_4CkA4",
+          "start_s": 70.0,
+          "end_s": 73.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.5297226905822754,
+          "device": "cuda:1",
+          "clip_start_s": 70.0,
+          "clip_end_s": 73.0,
+          "frame_pool_start_s": 68.5,
+          "frame_pool_end_s": 74.5,
+          "temporal_score": 0.5297226905822754,
+          "anchor_distance_s": 1.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 71.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "after",
+          "sequence_index": 3,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 75.0,
+        "artifact_id": "frame_75.00",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_75.00.png",
+        "clip": {
+          "video_id": "a_90z_4CkA4",
+          "start_s": 75.0,
+          "end_s": 78.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.5506193041801453,
+          "device": "cuda:1",
+          "clip_start_s": 75.0,
+          "clip_end_s": 78.0,
+          "frame_pool_start_s": 73.5,
+          "frame_pool_end_s": 79.5,
+          "temporal_score": 0.5506193041801453,
+          "anchor_distance_s": 1.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 76.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "before",
+          "sequence_index": 0,
+          "sequence_sort_order": "chronological"
+        }
+      },
+      {
+        "video_id": "a_90z_4CkA4",
+        "timestamp_s": 76.0,
+        "artifact_id": "frame_76.00",
+        "relpath": "artifacts/a_90z_4CkA4/frames/frame_76.00.png",
+        "clip": {
+          "video_id": "a_90z_4CkA4",
+          "start_s": 75.0,
+          "end_s": 78.0,
+          "artifact_id": null,
+          "relpath": null,
+          "metadata": {
+            "tool_backend": "timelens_transformers",
+            "model_path": "<redacted-path>"
+          }
+        },
+        "metadata": {
+          "relevance_score": 0.5104556083679199,
+          "device": "cuda:1",
+          "clip_start_s": 75.0,
+          "clip_end_s": 78.0,
+          "frame_pool_start_s": 73.5,
+          "frame_pool_end_s": 79.5,
+          "temporal_score": 0.5104556083679199,
+          "anchor_distance_s": 0.5,
+          "selection_reason": "anchor_window_sequence",
+          "requested_timestamp_s": 76.5,
+          "neighbor_radius_s": 1.5,
+          "sequence_mode": "anchor_window",
+          "sequence_role": "anchor",
+          "sequence_index": 1,
+          "sequence_sort_order": "chronological"
+        }
+      }
+    ],
+    "frame_groups": [
+      {
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 70.0,
+            "end_s": 73.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          }
+        ],
+        "time_hints": [],
+        "frames": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "timestamp_s": 70.0,
+            "artifact_id": "frame_70.00",
+            "relpath": "artifacts/a_90z_4CkA4/frames/frame_70.00.png",
+            "clip": {
+              "video_id": "a_90z_4CkA4",
+              "start_s": 70.0,
+              "end_s": 73.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.48795679211616516,
+              "device": "cuda:1",
+              "clip_start_s": 70.0,
+              "clip_end_s": 73.0,
+              "frame_pool_start_s": 68.5,
+              "frame_pool_end_s": 74.5,
+              "temporal_score": 0.48795679211616516,
+              "anchor_distance_s": 1.5,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 71.5,
+              "neighbor_radius_s": 1.5,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "a_90z_4CkA4",
+            "timestamp_s": 71.0,
+            "artifact_id": "frame_71.00",
+            "relpath": "artifacts/a_90z_4CkA4/frames/frame_71.00.png",
+            "clip": {
+              "video_id": "a_90z_4CkA4",
+              "start_s": 70.0,
+              "end_s": 73.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.5264161825180054,
+              "device": "cuda:1",
+              "clip_start_s": 70.0,
+              "clip_end_s": 73.0,
+              "frame_pool_start_s": 68.5,
+              "frame_pool_end_s": 74.5,
+              "temporal_score": 0.5264161825180054,
+              "anchor_distance_s": 0.5,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 71.5,
+              "neighbor_radius_s": 1.5,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "a_90z_4CkA4",
+            "timestamp_s": 72.0,
+            "artifact_id": "frame_72.00",
+            "relpath": "artifacts/a_90z_4CkA4/frames/frame_72.00.png",
+            "clip": {
+              "video_id": "a_90z_4CkA4",
+              "start_s": 70.0,
+              "end_s": 73.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.4749826490879059,
+              "device": "cuda:1",
+              "clip_start_s": 70.0,
+              "clip_end_s": 73.0,
+              "frame_pool_start_s": 68.5,
+              "frame_pool_end_s": 74.5,
+              "temporal_score": 0.4749826490879059,
+              "anchor_distance_s": 0.5,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 71.5,
+              "neighbor_radius_s": 1.5,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "a_90z_4CkA4",
+            "timestamp_s": 73.0,
+            "artifact_id": "frame_73.00",
+            "relpath": "artifacts/a_90z_4CkA4/frames/frame_73.00.png",
+            "clip": {
+              "video_id": "a_90z_4CkA4",
+              "start_s": 70.0,
+              "end_s": 73.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.5297226905822754,
+              "device": "cuda:1",
+              "clip_start_s": 70.0,
+              "clip_end_s": 73.0,
+              "frame_pool_start_s": 68.5,
+              "frame_pool_end_s": 74.5,
+              "temporal_score": 0.5297226905822754,
+              "anchor_distance_s": 1.5,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 71.5,
+              "neighbor_radius_s": 1.5,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 3,
+              "sequence_sort_order": "chronological"
+            }
+          }
+        ],
+        "cache_metadata": {
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 80,
+          "bounded_frame_count": 6,
+          "frame_pool_start_s": 68.5,
+          "frame_pool_end_s": 74.5,
+          "expanded_frame_pool_for_anchor_window": true,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": false,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [],
+          "neighbor_radius_s": 1.5,
+          "timings": {
+            "total_s": 19.0486
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 2,
+            "retry_count": 0,
+            "batch_attempt_count": 1,
+            "batch_failure_count": 0,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 0,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": null,
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.3811151711270213,
+            "frame_embed_s": 11.324218760011718,
+            "embedding_cache_ready": false
+          }
+        },
+        "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+      },
+      {
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 75.0,
+            "end_s": 78.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          }
+        ],
+        "time_hints": [],
+        "frames": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "timestamp_s": 75.0,
+            "artifact_id": "frame_75.00",
+            "relpath": "artifacts/a_90z_4CkA4/frames/frame_75.00.png",
+            "clip": {
+              "video_id": "a_90z_4CkA4",
+              "start_s": 75.0,
+              "end_s": 78.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.5506193041801453,
+              "device": "cuda:1",
+              "clip_start_s": 75.0,
+              "clip_end_s": 78.0,
+              "frame_pool_start_s": 73.5,
+              "frame_pool_end_s": 79.5,
+              "temporal_score": 0.5506193041801453,
+              "anchor_distance_s": 1.5,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 76.5,
+              "neighbor_radius_s": 1.5,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "before",
+              "sequence_index": 0,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "a_90z_4CkA4",
+            "timestamp_s": 76.0,
+            "artifact_id": "frame_76.00",
+            "relpath": "artifacts/a_90z_4CkA4/frames/frame_76.00.png",
+            "clip": {
+              "video_id": "a_90z_4CkA4",
+              "start_s": 75.0,
+              "end_s": 78.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.5104556083679199,
+              "device": "cuda:1",
+              "clip_start_s": 75.0,
+              "clip_end_s": 78.0,
+              "frame_pool_start_s": 73.5,
+              "frame_pool_end_s": 79.5,
+              "temporal_score": 0.5104556083679199,
+              "anchor_distance_s": 0.5,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 76.5,
+              "neighbor_radius_s": 1.5,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "anchor",
+              "sequence_index": 1,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "a_90z_4CkA4",
+            "timestamp_s": 77.0,
+            "artifact_id": "frame_77.00",
+            "relpath": "artifacts/a_90z_4CkA4/frames/frame_77.00.png",
+            "clip": {
+              "video_id": "a_90z_4CkA4",
+              "start_s": 75.0,
+              "end_s": 78.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.5376880168914795,
+              "device": "cuda:1",
+              "clip_start_s": 75.0,
+              "clip_end_s": 78.0,
+              "frame_pool_start_s": 73.5,
+              "frame_pool_end_s": 79.5,
+              "temporal_score": 0.5376880168914795,
+              "anchor_distance_s": 0.5,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 76.5,
+              "neighbor_radius_s": 1.5,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 2,
+              "sequence_sort_order": "chronological"
+            }
+          },
+          {
+            "video_id": "a_90z_4CkA4",
+            "timestamp_s": 78.0,
+            "artifact_id": "frame_78.00",
+            "relpath": "artifacts/a_90z_4CkA4/frames/frame_78.00.png",
+            "clip": {
+              "video_id": "a_90z_4CkA4",
+              "start_s": 75.0,
+              "end_s": 78.0,
+              "artifact_id": null,
+              "relpath": null,
+              "metadata": {
+                "tool_backend": "timelens_transformers",
+                "model_path": "<redacted-path>"
+              }
+            },
+            "metadata": {
+              "relevance_score": 0.517376720905304,
+              "device": "cuda:1",
+              "clip_start_s": 75.0,
+              "clip_end_s": 78.0,
+              "frame_pool_start_s": 73.5,
+              "frame_pool_end_s": 79.5,
+              "temporal_score": 0.517376720905304,
+              "anchor_distance_s": 1.5,
+              "selection_reason": "anchor_window_sequence",
+              "requested_timestamp_s": 76.5,
+              "neighbor_radius_s": 1.5,
+              "sequence_mode": "anchor_window",
+              "sequence_role": "after",
+              "sequence_index": 3,
+              "sequence_sort_order": "chronological"
+            }
+          }
+        ],
+        "cache_metadata": {
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 80,
+          "bounded_frame_count": 6,
+          "frame_pool_start_s": 73.5,
+          "frame_pool_end_s": 79.5,
+          "expanded_frame_pool_for_anchor_window": true,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": false,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [],
+          "neighbor_radius_s": 1.5,
+          "timings": {
+            "total_s": 18.5078
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 2,
+            "retry_count": 0,
+            "batch_attempt_count": 1,
+            "batch_failure_count": 0,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 0,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": null,
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.38508045789785683,
+            "frame_embed_s": 11.06799113121815,
+            "embedding_cache_ready": false
+          }
+        },
+        "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+      }
+    ],
+    "cache_groups": [
+      {
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 70.0,
+            "end_s": 73.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          }
+        ],
+        "time_hints": [],
+        "cache_metadata": {
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 80,
+          "bounded_frame_count": 6,
+          "frame_pool_start_s": 68.5,
+          "frame_pool_end_s": 74.5,
+          "expanded_frame_pool_for_anchor_window": true,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": false,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [],
+          "neighbor_radius_s": 1.5,
+          "timings": {
+            "total_s": 19.0486
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 2,
+            "retry_count": 0,
+            "batch_attempt_count": 1,
+            "batch_failure_count": 0,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 0,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": null,
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.3811151711270213,
+            "frame_embed_s": 11.324218760011718,
+            "embedding_cache_ready": false
+          }
+        }
+      },
+      {
+        "clips": [
+          {
+            "video_id": "a_90z_4CkA4",
+            "start_s": 75.0,
+            "end_s": 78.0,
+            "artifact_id": null,
+            "relpath": null,
+            "metadata": {
+              "tool_backend": "timelens_transformers",
+              "model_path": "<redacted-path>"
+            }
+          }
+        ],
+        "time_hints": [],
+        "cache_metadata": {
+          "dense_frame_cache_hit": true,
+          "dense_frame_count": 80,
+          "bounded_frame_count": 6,
+          "frame_pool_start_s": 73.5,
+          "frame_pool_end_s": 79.5,
+          "expanded_frame_pool_for_anchor_window": true,
+          "embedding_cache_ready": false,
+          "embedding_cache_scope": "none",
+          "persist_cache_on_bounded_request": false,
+          "time_hints_applied": false,
+          "sequence_mode": "anchor_window",
+          "anchor_window_applied": true,
+          "requested_anchor_timestamps_s": [],
+          "neighbor_radius_s": 1.5,
+          "timings": {
+            "total_s": 18.5078
+          },
+          "embedder": {
+            "requested_attn_implementation": "flash_attention_2",
+            "loaded_attn_implementation": "flash_attention_2",
+            "fallback_attn_implementations": [],
+            "embed_call_count": 2,
+            "retry_count": 0,
+            "batch_attempt_count": 1,
+            "batch_failure_count": 0,
+            "single_item_fallback_count": 0,
+            "zero_embedding_fallback_count": 0,
+            "dense_frame_embed_batch": 24,
+            "cache_load_error": null,
+            "cache_build_error": null,
+            "cache_write_error": null,
+            "query_error": null,
+            "frame_error": null,
+            "cache_load_s": 0.0,
+            "cache_build_s": 0.0,
+            "query_embed_s": 0.38508045789785683,
+            "frame_embed_s": 11.06799113121815,
+            "embedding_cache_ready": false
+          }
+        }
+      }
+    ],
+    "cache_metadata": {
+      "dense_frame_cache_hit": true,
+      "dense_frame_count": 80,
+      "bounded_frame_count": 12,
+      "embedding_cache_ready": false
+    },
+    "mode": "multi_clip_bounded",
+    "rationale": "Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\n\nFrames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor."
+  },
+  "raw_output_text": "{\"query\": \"frames before during and after each woman-in-white tennis hit showing racket-ball contact and whether the ball goes into the net\", \"frames\": [{\"frame_path\": \"workspace/cache/tool_wrappers/reference/a_90z_4CkA4/dense_frames/a_90z_4CkA4/frame_70.00.png\", \"timestamp_s\": 70.0, \"relevance_score\": 0.48795679211616516, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 70.0, \"clip_end_s\": 73.0, \"frame_pool_start_s\": 68.5, \"frame_pool_end_s\": 74.5, \"temporal_score\": 0.48795679211616516, \"anchor_distance_s\": 1.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 71.5, \"neighbor_radius_s\": 1.5, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 0, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/a_90z_4CkA4/dense_frames/a_90z_4CkA4/frame_71.00.png\", \"timestamp_s\": 71.0, \"relevance_score\": 0.5264161825180054, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 70.0, \"clip_end_s\": 73.0, \"frame_pool_start_s\": 68.5, \"frame_pool_end_s\": 74.5, \"temporal_score\": 0.5264161825180054, \"anchor_distance_s\": 0.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 71.5, \"neighbor_radius_s\": 1.5, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 1, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/a_90z_4CkA4/dense_frames/a_90z_4CkA4/frame_72.00.png\", \"timestamp_s\": 72.0, \"relevance_score\": 0.4749826490879059, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 70.0, \"clip_end_s\": 73.0, \"frame_pool_start_s\": 68.5, \"frame_pool_end_s\": 74.5, \"temporal_score\": 0.4749826490879059, \"anchor_distance_s\": 0.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 71.5, \"neighbor_radius_s\": 1.5, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 2, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/a_90z_4CkA4/dense_frames/a_90z_4CkA4/frame_73.00.png\", \"timestamp_s\": 73.0, \"relevance_score\": 0.5297226905822754, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 70.0, \"clip_end_s\": 73.0, \"frame_pool_start_s\": 68.5, \"frame_pool_end_s\": 74.5, \"temporal_score\": 0.5297226905822754, \"anchor_distance_s\": 1.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 71.5, \"neighbor_radius_s\": 1.5, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 3, \"sequence_sort_order\": \"chronological\"}}], \"mode\": \"clip_bounded\", \"cache_metadata\": {\"dense_frame_cache_hit\": true, \"dense_frame_count\": 80, \"bounded_frame_count\": 6, \"frame_pool_start_s\": 68.5, \"frame_pool_end_s\": 74.5, \"expanded_frame_pool_for_anchor_window\": true, \"embedding_cache_ready\": false, \"embedding_cache_scope\": \"none\", \"persist_cache_on_bounded_request\": false, \"time_hints_applied\": false, \"sequence_mode\": \"anchor_window\", \"anchor_window_applied\": true, \"requested_anchor_timestamps_s\": [], \"neighbor_radius_s\": 1.5, \"timings\": {\"total_s\": 19.0486}, \"embedder\": {\"requested_attn_implementation\": \"flash_attention_2\", \"loaded_attn_implementation\": \"flash_attention_2\", \"fallback_attn_implementations\": [], \"embed_call_count\": 2, \"retry_count\": 0, \"batch_attempt_count\": 1, \"batch_failure_count\": 0, \"single_item_fallback_count\": 0, \"zero_embedding_fallback_count\": 0, \"dense_frame_embed_batch\": 24, \"cache_load_error\": null, \"cache_build_error\": null, \"cache_write_error\": null, \"query_error\": null, \"frame_error\": null, \"cache_load_s\": 0.0, \"cache_build_s\": 0.0, \"query_embed_s\": 0.3811151711270213, \"frame_embed_s\": 11.324218760011718, \"embedding_cache_ready\": false}}, \"rationale\": \"Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\"}\n\n{\"query\": \"frames before during and after each woman-in-white tennis hit showing racket-ball contact and whether the ball goes into the net\", \"frames\": [{\"frame_path\": \"workspace/cache/tool_wrappers/reference/a_90z_4CkA4/dense_frames/a_90z_4CkA4/frame_75.00.png\", \"timestamp_s\": 75.0, \"relevance_score\": 0.5506193041801453, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 75.0, \"clip_end_s\": 78.0, \"frame_pool_start_s\": 73.5, \"frame_pool_end_s\": 79.5, \"temporal_score\": 0.5506193041801453, \"anchor_distance_s\": 1.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 76.5, \"neighbor_radius_s\": 1.5, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"before\", \"sequence_index\": 0, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/a_90z_4CkA4/dense_frames/a_90z_4CkA4/frame_76.00.png\", \"timestamp_s\": 76.0, \"relevance_score\": 0.5104556083679199, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 75.0, \"clip_end_s\": 78.0, \"frame_pool_start_s\": 73.5, \"frame_pool_end_s\": 79.5, \"temporal_score\": 0.5104556083679199, \"anchor_distance_s\": 0.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 76.5, \"neighbor_radius_s\": 1.5, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"anchor\", \"sequence_index\": 1, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/a_90z_4CkA4/dense_frames/a_90z_4CkA4/frame_77.00.png\", \"timestamp_s\": 77.0, \"relevance_score\": 0.5376880168914795, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 75.0, \"clip_end_s\": 78.0, \"frame_pool_start_s\": 73.5, \"frame_pool_end_s\": 79.5, \"temporal_score\": 0.5376880168914795, \"anchor_distance_s\": 0.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 76.5, \"neighbor_radius_s\": 1.5, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 2, \"sequence_sort_order\": \"chronological\"}}, {\"frame_path\": \"workspace/cache/tool_wrappers/reference/a_90z_4CkA4/dense_frames/a_90z_4CkA4/frame_78.00.png\", \"timestamp_s\": 78.0, \"relevance_score\": 0.517376720905304, \"metadata\": {\"device\": \"cuda:1\", \"clip_start_s\": 75.0, \"clip_end_s\": 78.0, \"frame_pool_start_s\": 73.5, \"frame_pool_end_s\": 79.5, \"temporal_score\": 0.517376720905304, \"anchor_distance_s\": 1.5, \"selection_reason\": \"anchor_window_sequence\", \"requested_timestamp_s\": 76.5, \"neighbor_radius_s\": 1.5, \"sequence_mode\": \"anchor_window\", \"sequence_role\": \"after\", \"sequence_index\": 3, \"sequence_sort_order\": \"chronological\"}}], \"mode\": \"clip_bounded\", \"cache_metadata\": {\"dense_frame_cache_hit\": true, \"dense_frame_count\": 80, \"bounded_frame_count\": 6, \"frame_pool_start_s\": 73.5, \"frame_pool_end_s\": 79.5, \"expanded_frame_pool_for_anchor_window\": true, \"embedding_cache_ready\": false, \"embedding_cache_scope\": \"none\", \"persist_cache_on_bounded_request\": false, \"time_hints_applied\": false, \"sequence_mode\": \"anchor_window\", \"anchor_window_applied\": true, \"requested_anchor_timestamps_s\": [], \"neighbor_radius_s\": 1.5, \"timings\": {\"total_s\": 18.5078}, \"embedder\": {\"requested_attn_implementation\": \"flash_attention_2\", \"loaded_attn_implementation\": \"flash_attention_2\", \"fallback_attn_implementations\": [], \"embed_call_count\": 2, \"retry_count\": 0, \"batch_attempt_count\": 1, \"batch_failure_count\": 0, \"single_item_fallback_count\": 0, \"zero_embedding_fallback_count\": 0, \"dense_frame_embed_batch\": 24, \"cache_load_error\": null, \"cache_build_error\": null, \"cache_write_error\": null, \"query_error\": null, \"frame_error\": null, \"cache_load_s\": 0.0, \"cache_build_s\": 0.0, \"query_embed_s\": 0.38508045789785683, \"frame_embed_s\": 11.06799113121815, \"embedding_cache_ready\": false}}, \"rationale\": \"Frames were returned as a chronological neighboring sequence around the requested timestamp or temporal anchor.\"}",
+  "artifact_refs": [
+    {
+      "artifact_id": "frame_70.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_70.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_70.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 392008
+      }
+    },
+    {
+      "artifact_id": "frame_71.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_71.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_71.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 381930
+      }
+    },
+    {
+      "artifact_id": "frame_72.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_72.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_72.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 380450
+      }
+    },
+    {
+      "artifact_id": "frame_73.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_73.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_73.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 368216
+      }
+    },
+    {
+      "artifact_id": "frame_75.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_75.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_75.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 385076
+      }
+    },
+    {
+      "artifact_id": "frame_76.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_76.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_76.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 374157
+      }
+    },
+    {
+      "artifact_id": "frame_77.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_77.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_77.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 370176
+      }
+    },
+    {
+      "artifact_id": "frame_78.00",
+      "kind": "frame",
+      "relpath": "artifacts/a_90z_4CkA4/frames/frame_78.00.png",
+      "media_type": "image",
+      "source_tool": "frame_retriever",
+      "metadata": {
+        "source_name": "frame_78.00.png",
+        "copied": true,
+        "media_type": "image",
+        "size_bytes": 367341
+      }
+    }
+  ],
+  "request_hash": "a146a2610c5d2a379193880c",
+  "cache_hit": false,
+  "summary": "Retrieved 6 frame(s) across 2 input clip(s).",
+  "metadata": {
+    "backend": "Qwen/Qwen3-VL-Embedding-8B",
+    "group_count": 2,
+    "confidence": 0.5506,
+    "confidence_avg": 0.5134,
+    "confidence_count": 6,
+    "confidence_kind": "frame_relevance",
+    "dense_frame_cache_hit": true,
+    "dense_frame_count": 80,
+    "bounded_frame_count": 12,
+    "embedding_cache_ready": false,
+    "timing": {
+      "started_at_utc": "2026-04-28T20:04:55.307869+00:00",
+      "finished_at_utc": "2026-04-28T20:05:53.555406+00:00",
+      "duration_s": 58.2476,
+      "cache_wait_s": 0.0006,
+      "execution_mode": "executed"
+    },
+    "observation_ids": [
+      "obs_d6193e553656f6f6",
+      "obs_c7378bbfd883d1c2",
+      "obs_aa979fa2082e5dba",
+      "obs_3629ccf85fae92dc",
+      "obs_2734d0e76bf42e28",
+      "obs_f328cfa2c3c704ec"
+    ]
+  }
+}

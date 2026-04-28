@@ -1,0 +1,53 @@
+{
+  "strategy": "Use the existing preprocess transcript coverage for the intro lineup mention, then have one reasoning step count the named comedians and map to the option.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "generic_purpose",
+      "purpose": "Extract the explicit lineup from the intro transcript, determine whether the speaker's 'and me' should be included as a featured comedian, deduplicate names, count the comedians featured in the show, and map that count to the answer options.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From this transcript coverage of the show's introduction, identify the explicit lineup of comedians featured in the show. Quote the relevant lineup phrase, list each distinct comedian named, decide whether the speaker's final phrase equivalent to 'and me' refers to the creator/speaker as an additional featured comedian, give the final count of featured comedians, and map that count to the provided options: A. 8, B. 1, C. 2, D. 6, E. 7.",
+        "text_contexts": [
+          "Retrieved preprocess context also shows a later segment explicitly identifying 'INDER MANOCHA, COMEDIAN', which supports that the lineup name rendered as 'Andin Minocha' in the intro transcript likely refers to Inder Manocha."
+        ],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_001",
+            "clip": {
+              "video_id": "YyIUsFAUFVU",
+              "start_s": 0.0,
+              "end_s": 60.0
+            },
+            "segments": [
+              {
+                "start_s": 18.965,
+                "end_s": 36.7,
+                "text": "Helo, fy enw i yw Sajila Kirsi ac rwy'n creadur Diariadau Imigrannol, sefyllfa stori-dweithredol comedi, rydyn ni'n troi o gwmpas. Yn ysgol, roedd fy enw i yn Nikila Kantha Mulgauwka. Mae'n eich gwahanol yn Stoke Basin yn y 1970au mewn gwirionedd, nid yw'n dweud hynny? Roedd fy nheulu, pan oedd hi'n cyfarfod gyda fi, yn dweud wrthi i mi, rydych chi'n Indiw, oh, da iawn!"
+              },
+              {
+                "start_s": 37.004,
+                "end_s": 61.793,
+                "text": "Rydyn ni yma heddiw yn y Cenedlaeth Cymru, 24 Ebrill, ac i ddarparu sioe. Lline-up hyfryd. Mae gennym Nicky Beardy, Daniel Taylor, Aziz Abraham, Christiana Backer, Andin Minocha, Dave Cohen a fi. Roedd fy ffrind, a oedd yn fwysig, yn gweithio gyda chynnydd gwydr a dywedodd i mi, Daniel, nid ydych chi'n fwysig, yn fwysig, ydych chi?"
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_001",
+              "span_count": 2
+            }
+          }
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "final option mapping for the comedian count",
+        "supporting_points": "quoted lineup phrase, normalized list of names, inclusion decision for the speaker, and final count",
+        "analysis": "reasoning about transcript normalization and count"
+      }
+    }
+  ],
+  "refinement_instructions": "Base the answer on the quoted intro lineup transcript, not on broad scene summaries alone. Preserve the exact named list from the transcript, note any normalization uncertainty such as 'Andin/Inder Manocha', and explicitly state whether 'and me' adds the speaker as another featured comedian before giving the count. If the transcript leaves that inclusion genuinely ambiguous, keep both candidate counts visible and explain which option is better supported."
+}

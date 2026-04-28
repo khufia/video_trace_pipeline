@@ -1,0 +1,69 @@
+{
+  "tool_name": "frame_retriever",
+  "clips": [
+    {
+      "video_id": "GlecDUdZdkE",
+      "start_s": 15.0,
+      "end_s": 17.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "GlecDUdZdkE",
+      "start_s": 72.0,
+      "end_s": 75.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "GlecDUdZdkE",
+      "start_s": 117.0,
+      "end_s": 119.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "GlecDUdZdkE",
+      "start_s": 131.0,
+      "end_s": 135.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    },
+    {
+      "video_id": "GlecDUdZdkE",
+      "start_s": 308.0,
+      "end_s": 310.0,
+      "artifact_id": null,
+      "relpath": null,
+      "metadata": {
+        "tool_backend": "timelens_transformers",
+        "model_path": "/nfs-stor/ghazi.ahmad/HF_HOME/models--TencentARC--TimeLens-8B/snapshots/5557f14bfad6b17379d9cfd68b90aaabdbd7d1a9"
+      }
+    }
+  ],
+  "time_hints": [
+    "around 74s if that remains the latest candidate, but prefer the latest smartphone-use interval returned by grounding"
+  ],
+  "query": "chronological frames showing the final smartphone-use moment and immediate neighbors, including the phone screen",
+  "num_frames": 5,
+  "sequence_mode": "anchor_window",
+  "neighbor_radius_s": 2.0,
+  "include_anchor_neighbors": true,
+  "sort_order": "chronological"
+}

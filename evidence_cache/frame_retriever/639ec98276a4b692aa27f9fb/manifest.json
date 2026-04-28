@@ -1,0 +1,35 @@
+{
+  "tool_name": "frame_retriever",
+  "request_hash": "639ec98276a4b692aa27f9fb",
+  "prompt_version": "tool_v2",
+  "request": {
+    "tool_name": "frame_retriever",
+    "clips": [
+      {
+        "video_id": "d8UESxnuVAY",
+        "start_s": 120.0,
+        "end_s": 240.0,
+        "artifact_id": "clip_120_00_180_00",
+        "relpath": "artifacts/d8UESxnuVAY/clips/clip_120_00_180_00.mp4",
+        "metadata": {}
+      },
+      {
+        "video_id": "d8UESxnuVAY",
+        "start_s": 180.0,
+        "end_s": 240.0,
+        "artifact_id": "clip_180_00_240_00",
+        "relpath": "artifacts/d8UESxnuVAY/clips/clip_180_00_240_00.mp4",
+        "metadata": {}
+      }
+    ],
+    "time_hints": [
+      "use the earliest qualifying timestamp identified in step 2"
+    ],
+    "query": "frames immediately before and after the first moment black's evaluation exceeds 4 points, with readable black clock",
+    "num_frames": 5,
+    "sequence_mode": "anchor_window",
+    "neighbor_radius_s": 2.0,
+    "include_anchor_neighbors": true,
+    "sort_order": "chronological"
+  }
+}

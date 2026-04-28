@@ -1,0 +1,67 @@
+{
+  "strategy": "Verify all on-screen subsection title cards across the full video, then count distinct titled subsections and map to the option.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a small chronological set of frames at the candidate title-card moments identified by preprocessing, including the ambiguous bill title and excluding credits/logo unless they are actual subsection headings.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "cxHtplim5Ic",
+            "start_s": 0.0,
+            "end_s": 337.92
+          }
+        ],
+        "include_anchor_neighbors": false,
+        "neighbor_radius_s": 0.0,
+        "num_frames": 8,
+        "query": "frames where large centered on-screen subsection title cards are most readable",
+        "sequence_mode": "chronological",
+        "sort_order": "chronological",
+        "time_hints": [
+          "0-2s production logo/title card",
+          "60-66s THE DRINKS",
+          "67-72s THE BILL",
+          "137-141s THE FART",
+          "188-201s THE PREP",
+          "244-261s THE INTERROGATION",
+          "300-319s end credits"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "representative frames for each candidate title-card occurrence across the video"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Inspect the retrieved frames and determine which ones are true titled subsections, read each title, deduplicate them, count them, and map the count to the multiple-choice option.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From these frames, identify every true subsection heading/title card shown in the video. Exclude the production logo/opening company card and end credits unless they function as subsection headings. For each accepted heading, read the title text, list distinct subsection titles in chronological order, give the total count, and map that count to the provided options: A 11, B 5, C 9, D 3, E 7.",
+        "text_contexts": [
+          "Preprocess candidates mention these possible on-screen titles: THE DRINKS, THE BILL, THE FART, THE PREP, THE INTERROGATION. The opening logo shows Turtle Canyon Comedy / PRESENTS, and the ending shows credits."
+        ],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "selected option for the number of titled subsections",
+        "supporting_points": "accepted and rejected candidate title cards with count rationale",
+        "analysis": "deduplicated chronological title list and total"
+      }
+    }
+  ],
+  "refinement_instructions": "Use the visual verification from the retrieved frames as the decisive evidence. Preserve the distinction between subsection headings versus non-subsection text such as the production logo and end credits. If the frame for the 67-72s candidate is unreadable or ambiguous, keep the answer unresolved rather than assuming THE BILL from preprocess alone."
+}

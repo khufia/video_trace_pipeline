@@ -1,0 +1,112 @@
+{
+  "strategy": "Use the transcript anchor to localize the showing moment, then inspect a chronological frame sequence around that anchor and determine when the 'TIME MACHINE' text first becomes clearly in focus relative to the show event.",
+  "steps": [
+    {
+      "step_id": 1,
+      "tool_name": "frame_retriever",
+      "purpose": "Retrieve a chronological local frame sequence around the likely showing moment so the downstream tool can see when the object is presented and when the 'TIME MACHINE' text becomes sharp/in focus.",
+      "inputs": {
+        "clips": [
+          {
+            "video_id": "91ub3om9Fg0",
+            "start_s": 12.0,
+            "end_s": 22.0,
+            "artifact_id": "clip_000_00_060_00",
+            "relpath": "artifacts/91ub3om9Fg0/clips/clip_000_00_060_00.mp4",
+            "metadata": {}
+          }
+        ],
+        "include_anchor_neighbors": true,
+        "neighbor_radius_s": 3.0,
+        "num_frames": 8,
+        "query": "chronological frames showing the man presenting the object and the object face where the words TIME MACHINE become readable and in focus",
+        "sequence_mode": "anchor_window",
+        "sort_order": "chronological",
+        "time_hints": [
+          "around 15.9s to 18.6s, especially near the phrase 'but look'"
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "frames": "chronological local sequence around the show event and focus transition"
+      }
+    },
+    {
+      "step_id": 2,
+      "tool_name": "generic_purpose",
+      "purpose": "Use the available preprocess transcript span to identify the likely anchor moment when the man showing the object says 'look,' which likely corresponds to presenting it.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "From this transcript span, identify the likely anchor moment for when the object is being shown, especially the moment corresponding to 'but look.' Return the relevant quoted phrase and approximate anchor timing within the clip.",
+        "text_contexts": [],
+        "transcripts": [
+          {
+            "transcript_id": "preprocess_seg_001",
+            "clip": {
+              "video_id": "91ub3om9Fg0",
+              "start_s": 0.0,
+              "end_s": 60.0
+            },
+            "segments": [
+              {
+                "start_s": 15.893,
+                "end_s": 18.61,
+                "text": "Oh, there's only one. Yeah, there's only one, but look."
+              }
+            ],
+            "metadata": {
+              "source": "preprocess",
+              "segment_id": "seg_001",
+              "span_count": 1
+            }
+          }
+        ]
+      },
+      "input_refs": {},
+      "expected_outputs": {
+        "answer": "quoted anchor phrase and approximate show-event timing",
+        "analysis": "anchor interpretation to guide local visual inspection"
+      }
+    },
+    {
+      "step_id": 3,
+      "tool_name": "generic_purpose",
+      "purpose": "From the chronological frames plus transcript anchor, determine the elapsed time between the object being shown and the moment the words 'TIME MACHINE' are clearly in focus, then map to the closest option.",
+      "inputs": {
+        "clips": [],
+        "evidence_ids": [],
+        "frames": [],
+        "query": "Using the chronological frame sequence and transcript anchor, identify: (1) the moment the man in the blue sweater/zip-up shows the object to the man in the green hoodie, and (2) the first moment the words 'TIME MACHINE' on the object are clearly in focus/readable. Estimate the elapsed time between those two moments in seconds and map it to the closest answer option.",
+        "text_contexts": [],
+        "transcripts": []
+      },
+      "input_refs": {
+        "frames": [
+          {
+            "step_id": 1,
+            "field_path": "frames"
+          }
+        ],
+        "text_contexts": [
+          {
+            "step_id": 2,
+            "field_path": "analysis"
+          }
+        ],
+        "transcripts": [
+          {
+            "step_id": 2,
+            "field_path": "transcripts"
+          }
+        ]
+      },
+      "expected_outputs": {
+        "answer": "elapsed time and mapped option",
+        "supporting_points": "timestamps or relative positions for show moment and in-focus text moment"
+      }
+    }
+  ],
+  "refinement_instructions": "Treat preprocess captions/transcript only as anchors, not final proof of the timing. Base the final discriminator on the chronological frames. Define the start as the first frame where the blue-clothed man is clearly presenting/showing the object toward the green-hoodied man, and the end as the first frame where the words 'TIME MACHINE' are clearly readable/in focus. If the frame sequence is too sparse to distinguish 1s vs 2s vs 4s, note that uncertainty explicitly rather than overclaiming."
+}

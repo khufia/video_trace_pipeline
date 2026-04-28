@@ -1,0 +1,31 @@
+{
+  "benchmark": "adhoc",
+  "sample_key": "7eF4EjdYZ7k__caebc0240ec6",
+  "video_id": "7eF4EjdYZ7k",
+  "run_id": "20260428T180802Z_363c5754",
+  "mode": "generate",
+  "task": {
+    "benchmark": "adhoc",
+    "sample_key": "7eF4EjdYZ7k__caebc0240ec6",
+    "question": "What would the total cost be of every item containing a price point that is visible from 01:20-01:25 in the video?",
+    "options": [
+      "A. $175.22.",
+      "B. $138.37.",
+      "C. $190.01.",
+      "D. $157.15.",
+      "E. $207.55."
+    ],
+    "video_id": "7eF4EjdYZ7k",
+    "question_id": null,
+    "gold_answer": "$190.01.",
+    "initial_trace_steps": [
+      "I watched the video from 01:20-01:25 to find every item that is visible in the video which has a price point next to it. From 01:20-01:22, I see five items on the top row of an Amazon page, and the items are priced at $19.82, $11.26, $8.37, $17.41, and $6.12. I continued watching to look for more items and prices. At 01:23, the Slime Tire Repair Kit Deluxe is shown, which is $6.12. At 01:24, more prices become visible, including $94.95 at the top of the page next to the text that reads \"AIR BEAD SEATER 5 Gallon Tire Seating Blaster Inflator ATV Tractor Car Truck 145 PSI YELLOW\". Another is toward the bottom of the page, which has text that reads \"Castrol 03083 Edge 5W-20 Advanced Full Synthetic Motor Oil, 5 Quarts\" which is $25.96 in price. No other items and prices appear. Adding all of these prices together, I reach a total of $190.01."
+    ],
+    "metadata": {
+      "source": "direct_cli"
+    }
+  },
+  "preprocess_cache": "preprocess/7eF4EjdYZ7k",
+  "clip_duration_s": 60.0,
+  "max_rounds": 2
+}
