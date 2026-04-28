@@ -31,6 +31,7 @@ def test_generic_purpose_prompt_includes_task_question_and_options():
     assert "compare full surface forms" in prompt
     assert "count whole named entities or repeated surface phrases" in prompt
     assert "longest repeated matching name/phrase" in prompt
+    assert "use the longer repeated phrase as the boundary" in prompt
     assert "not an answer key" in prompt
     assert "verify that attribute directly" in prompt
     assert "INPUT MEDIA:" in prompt
@@ -38,6 +39,7 @@ def test_generic_purpose_prompt_includes_task_question_and_options():
     assert "latest stable complete image" in prompt
     assert "Keep answer short" in prompt
     assert "one short sentence in analysis" in prompt
+    assert "Do not put phrases like 'Thinking Process'" in prompt
     assert '"answer":"B. Example Store, 20 percentage points"' in prompt
     assert '"answer":"C. Example phrase"' in prompt
 

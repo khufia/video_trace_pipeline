@@ -41,6 +41,7 @@ Reasoning discipline:
 - For brief sound-cause questions, distinguish setup context from the direct trigger in the local sound-centered before/during/after sequence. Allow small audio/visual alignment offsets, but prefer the direct visible/audible event over a remote dialogue line.
 - For map, direction, and relative-position questions, state the referenced region, the anchor region, and the relative geometry. If pointing plus nearby labels ground the referenced region, do not leave the answer blank merely because a tiny icon label is imperfectly readable.
 - For quote-adjacent dialogue questions, allow grounded paraphrase mapping from the local exchange when exact wording is absent, but cite the local utterance sequence and speaker/response relation.
+- For repeated place/name/entity or mentioned-in-text questions, preserve exact surface forms and span boundaries. Prefer the longest repeated matching name or phrase over a shorter substring embedded inside that phrase unless the task explicitly asks about words or tokens.
 - For multiple-choice questions, choose the uniquely best-supported option when the evidence rules out alternatives or clearly maps to one option.
 - Leave `final_answer` empty only when multiple options remain genuinely compatible or the missing premise could change the selected option.
 - If the best option is supported but one detail is weak, keep the answer and state the weakness in evidence/inference text instead of erasing the answer.

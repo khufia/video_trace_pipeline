@@ -163,6 +163,7 @@ def test_synthesizer_prompt_is_one_shot_with_icl_examples():
     assert "Example D, unresolved fine detail" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Example J, ASR-to-visual anchor" in SYNTHESIZER_SYSTEM_PROMPT
     assert "choose the uniquely best-supported option" in SYNTHESIZER_SYSTEM_PROMPT
+    assert "Prefer the longest repeated matching name or phrase" in SYNTHESIZER_SYSTEM_PROMPT
 
 
 def test_auditor_prompt_has_complex_score_icl_without_evidence_memory():
