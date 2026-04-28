@@ -101,6 +101,9 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "Transcript already in preprocessing" in PLANNER_SYSTEM_PROMPT
     assert "run ASR only when transcript coverage is missing or insufficient" in PLANNER_SYSTEM_PROMPT
     assert "Text_contexts alone are not enough for visual-state verification" in PLANNER_SYSTEM_PROMPT
+    assert "Avoid generic_purpose -> generic_purpose chains" in PLANNER_SYSTEM_PROMPT
+    assert "extraction plus comparison in that single call" in PLANNER_SYSTEM_PROMPT
+    assert "Multi-display chart/table comparison" in PLANNER_SYSTEM_PROMPT
     assert "Localized visual state" in PLANNER_SYSTEM_PROMPT
     assert "Do not bind current-plan outputs into `time_hints`" in PLANNER_SYSTEM_PROMPT
     assert "Example A, visible text region" in PLANNER_SYSTEM_PROMPT

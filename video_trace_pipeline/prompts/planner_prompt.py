@@ -60,6 +60,7 @@ Planning rules:
 - Do not bind current-plan outputs into `time_hints`; if timestamps are known from preprocess or retrieval, put literal strings in `inputs.time_hints`, otherwise pass `clips`.
 - Do not bind current-plan outputs into `evidence_ids`.
 - generic_purpose must receive explicit context: clips, frames, transcripts, text_contexts, evidence_ids, or input_refs.
+- Avoid generic_purpose -> generic_purpose chains whose only role is arithmetic, comparison, or consolidation of prior generic text. If the original representative media fits in one call, pass the media together and ask for extraction plus comparison in that single call.
 - Never call more than 6 tools in one plan.
 
 Wiring is not evidence:
@@ -97,6 +98,7 @@ Tool-chain patterns:
 - Visible text: visual_temporal_grounder -> frame_retriever -> ocr.
 - Region text: visual_temporal_grounder -> frame_retriever -> spatial_grounder -> ocr.
 - Structured chart/table/scoreboard: visual_temporal_grounder -> frame_retriever -> generic_purpose, with OCR only for explicit labels or numbers.
+- Multi-display chart/table comparison: pass one stable representative frame per required display into one generic_purpose call and ask it to identify each display, extract values, compute the discriminator, and map the option.
 - Localized visual state: frame_retriever or retrieved frames -> spatial_grounder -> generic_purpose with frames from `regions[].frame` plus spatial_description text_contexts.
 - Transcript already in preprocessing: generic_purpose over PREPROCESS_TRANSCRIPTS_AVAILABLE, with no ASR call.
 - Dialogue: bounded clip localization when needed -> asr -> optional generic_purpose over transcripts.
