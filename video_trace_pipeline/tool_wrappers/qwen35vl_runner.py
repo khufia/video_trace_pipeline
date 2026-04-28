@@ -38,6 +38,28 @@ def _format_time_range(start_s: Any, end_s: Any) -> str:
     return "[%s-%s]" % (_format_seconds(start_s), _format_seconds(end_s))
 
 
+def _media_line(index: int, payload: Dict[str, Any]) -> str:
+    parts = ["Image %d" % index]
+    artifact_id = str(payload.get("artifact_id") or "").strip()
+    if artifact_id:
+        parts.append("artifact_id=%s" % artifact_id)
+    timestamp_s = payload.get("timestamp_s", payload.get("timestamp"))
+    if timestamp_s not in (None, ""):
+        parts.append("timestamp=%s" % _format_seconds(timestamp_s))
+    relpath = str(payload.get("relpath") or payload.get("frame_path") or payload.get("source_frame_path") or "").strip()
+    if relpath:
+        parts.append("relpath=%s" % relpath)
+    video_id = str(payload.get("video_id") or "").strip()
+    if video_id:
+        parts.append("video_id=%s" % video_id)
+    clip = payload.get("clip") if isinstance(payload.get("clip"), dict) else {}
+    if clip:
+        clip_anchor = _format_time_range(clip.get("start_s"), clip.get("end_s"))
+        if clip_anchor:
+            parts.append("source_clip=%s" % clip_anchor)
+    return " | ".join(parts)
+
+
 def _evidence_line(record: Dict[str, Any]) -> str:
     text = str(
         record.get("atomic_text")
@@ -73,6 +95,7 @@ def _is_image_artifact(record: Dict[str, Any]) -> bool:
 def _frame_payload_from_artifact(artifact: Dict[str, Any], record: Dict[str, Any]) -> Dict[str, Any]:
     metadata = dict(artifact.get("metadata") or {})
     frame_payload: Dict[str, Any] = {
+        "artifact_id": artifact.get("artifact_id"),
         "relpath": artifact.get("relpath"),
         "metadata": metadata,
     }
@@ -170,6 +193,7 @@ def _build_prompt(
     transcript_text: str,
     evidence_lines: List[str],
     text_contexts: List[str],
+    media_lines: List[str] | None = None,
 ) -> str:
     parts = [
         "Answer the query using only the supplied evidence and any sampled media.",
@@ -182,11 +206,23 @@ def _build_prompt(
         "For cause-or-inference multiple-choice questions, prefer the option that best matches the directly grounded phenomenon; do not swap in a more remote presumed cause unless the evidence explicitly supports that causal step.",
         "For earliest/first questions with multiple candidate moments, identify the earliest validated candidate first and analyze only that candidate's downstream attribute; do not mix later-candidate details into the earliest event.",
         "For repeated-text, quoted-span, or mentioned-in-text tasks, compare full surface forms and exact span boundaries before considering substrings or paraphrases.",
+        "For chart, table, scoreboard, or graph images, read label-value pairs from explicit visual alignment. If multiple images show the same progressive display, prefer the latest stable complete image and do not treat missing early bars or labels as zero.",
+        "Use the INPUT MEDIA image numbers, artifact ids, and timestamps when comparing images; do not confuse Image N with timestamps or prior evidence ids.",
         "If the grounded evidence still leaves multiple answer options compatible, answer indeterminate instead of forcing a best guess.",
         "Return JSON only with keys: answer, supporting_points, confidence, analysis.",
+        "Return the JSON object directly; do not write a preamble, markdown, or private step-by-step reasoning.",
+        "Keep answer short: the final value/choice, or indeterminate. Put concise evidence bullets in supporting_points.",
         "Set confidence to a numeric score from 0.0 to 1.0, not a label like High, Medium, or Low.",
         "Do not mention hidden tools or APIs.",
     ]
+    parts.extend(
+        [
+            "",
+            "OUTPUT EXAMPLES:",
+            '{"answer":"B. Example Store, 20 percentage points","supporting_points":["Image 2 is the complete chart for Metric X.","Example Store: |70-50| = 20 points."],"confidence":0.82,"analysis":"The selected option has the largest grounded difference."}',
+            '{"answer":"indeterminate","supporting_points":["Image 1 shows the object, but its required state is occluded."],"confidence":0.35,"analysis":"The answer-critical state is not directly visible."}',
+        ]
+    )
     task_question = str(task.get("question") or "").strip()
     if task_question:
         parts.extend(["", "TASK QUESTION:", task_question])
@@ -195,6 +231,9 @@ def _build_prompt(
         parts.extend(["", "ANSWER OPTIONS:"])
         parts.extend("- %s" % option for option in options)
     parts.extend(["", "QUERY:", str(request.get("query") or "").strip()])
+    if media_lines:
+        parts.extend(["", "INPUT MEDIA:"])
+        parts.extend("- %s" % line for line in media_lines if str(line).strip())
     if transcript_text:
         parts.extend(["", "TRANSCRIPT:", transcript_text])
     if evidence_lines:
@@ -236,6 +275,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     evidence_records = [dict(item or {}) for item in list(payload.get("evidence_records") or []) if isinstance(item, dict)]
 
     image_paths: List[str] = []
+    media_lines: List[str] = []
     frame_payloads = []
     if isinstance(request.get("frames"), list) and request.get("frames"):
         frame_payloads.extend([dict(item or {}) for item in request.get("frames") or [] if isinstance(item, dict)])
@@ -245,6 +285,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
         frame_path = absolute_frame_path(frame_payload, runtime)
         if frame_path and frame_path not in image_paths:
             image_paths.append(frame_path)
+            media_lines.append(_media_line(len(image_paths), frame_payload))
 
     clip_payloads = []
     if isinstance(request.get("clips"), list) and request.get("clips"):
@@ -262,6 +303,13 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
                 frame_path = str(item["frame_path"])
                 if frame_path not in image_paths:
                     image_paths.append(frame_path)
+                    media_payload = {
+                        "frame_path": frame_path,
+                        "timestamp_s": item.get("timestamp_s"),
+                        "clip": clip_payload,
+                        "video_id": clip_payload.get("video_id") or task.get("video_id") or task.get("sample_key"),
+                    }
+                    media_lines.append(_media_line(len(image_paths), media_payload))
 
     transcript_payloads = []
     if isinstance(request.get("transcripts"), list) and request.get("transcripts"):
@@ -274,7 +322,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
         and str(item.get("atomic_text") or item.get("evidence_text") or item.get("text") or "").strip()
     ]
     text_contexts = [str(item).strip() for item in list(request.get("text_contexts") or []) if str(item).strip()]
-    prompt = _build_prompt(request, task, transcript_text, evidence_lines, text_contexts)
+    prompt = _build_prompt(request, task, transcript_text, evidence_lines, text_contexts, media_lines=media_lines)
     generation = resolve_generation_controls(runtime)
     attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
     runner = None
@@ -300,7 +348,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     try:
         raw_text = runner.generate(
             make_qwen_image_messages(prompt, image_paths),
-            max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 512),
+            max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 768),
         )
     finally:
         if owns_runner:

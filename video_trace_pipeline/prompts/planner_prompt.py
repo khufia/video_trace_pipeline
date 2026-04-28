@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+import re
+from typing import Any, Dict, List, Optional
 
 from .shared import pretty_json, render_tool_catalog
 
@@ -34,6 +35,14 @@ Retrieval use:
 - RETRIEVED_CONTEXT is the text-only retrieval package selected before this final plan. It may include preprocess spans, artifact context, prior atomic observations, evidence summaries, OCR text, spatial boxes, audit gaps, and prior trace claims.
 - Prefer validated retrieved observations and artifact context before starting broad searches.
 - If using previous evidence directly, pass literal `evidence_ids` from RETRIEVED_CONTEXT in `inputs`; do not invent IDs.
+
+Artifact timing and frame reuse:
+- Artifact context `artifact_id`, `relpath`, and `time.timestamp_s` are stronger anchors than prior trace prose or model-generated summaries.
+- If prior trace claims conflict with artifact-context times or contents, plan around the artifact-context records or include all conflicting candidate times.
+- If RETRIEVED_FRAME_REFS_AVAILABLE contains answer-critical frames, copy those frame objects directly into `inputs.frames` for generic_purpose, ocr, or spatial_grounder instead of calling frame_retriever again.
+- Call frame_retriever only when no suitable frame artifact exists, when neighboring context is required, or when the retrieved artifact context is explicitly insufficient.
+- RETRIEVED_FRAME_REFS_AVAILABLE may include redundant consecutive frames from one progressive display. For static chart/table/scoreboard tasks, select the smallest stable set, usually one latest complete frame per display, instead of passing every neighboring frame.
+- RETRIEVED_FRAME_SEQUENCES_AVAILABLE groups adjacent retrieved frames that may be an animation/progressive reveal. Choose frames by task semantics: first/earliest questions need first_frame plus neighbors, final/static completed-display questions often need latest_frame, before/after or change questions need chronological_frames, and peak/min/max visual-state questions need the frame where that state is visible.
 
 Planning rules:
 - Gather the smallest sufficient evidence set that resolves the answer-critical gap. Do not shrink context so much that temporal order, action state, referent identity, or option mapping becomes ungrounded.
@@ -74,6 +83,8 @@ Action-at-timestamp rule:
 Small-text rule:
 - For scoreboards, prices, labels, signs, nameplates, charts, menus, or control panels, use high-resolution frames, region grounding, OCR, and explicit label-value pairing.
 - Preserve spatial adjacency such as team-score, product-price, name-role, and label-value.
+- For progressive chart/table animations, use the stable later frame where all relevant labels/bars are visible; do not treat missing bars in a partially revealed chart as zero.
+- Do not ask a visual reader to resolve a static chart from many near-duplicate progressive frames if a single complete frame can answer it.
 
 Tool-chain patterns:
 - Visible text: visual_temporal_grounder -> frame_retriever -> ocr.
@@ -173,6 +184,18 @@ Example N, refine after audit:
 - Diagnosis: "The trace found the event but did not prove the object state."
 - Good plan: preserve the event timestamp, retrieve frames/regions at that timestamp, and verify only the missing state.
 - Bad plan: run a broad new event search and discard the prior timestamp.
+
+Example O, retrieved artifact frames in refine:
+- Diagnosis: "A chart/table value is missing from the current trace."
+- RETRIEVED_FRAME_REFS_AVAILABLE includes one complete frame for the primary metric and one complete frame for the comparison metric.
+- Good plan: pass those frame refs directly in generic_purpose `inputs.frames`, ask for the missing entity's values from the correct labels, and compare against preserved values.
+- Bad plan: trust a prior trace sentence that gives a conflicting timestamp and run frame_retriever only on that stale window.
+
+Example P, progressive chart frame selection:
+- Diagnosis: "The chart answer is ambiguous because earlier frames show partial bars."
+- RETRIEVED_FRAME_REFS_AVAILABLE includes several consecutive frames from one chart reveal and several consecutive frames from a second chart reveal.
+- Good plan: decide from the question whether it asks for the first state, final complete state, a before/after change, or a peak/min/max state; pass the smallest frame set that preserves that semantics.
+- Bad plan: pass all consecutive frames to generic_purpose and ask it to reconcile partial/revealed bars as if they were separate evidence.
 """
 
 
@@ -209,6 +232,7 @@ Decision rules:
 - Ask for narrow text records: relevant ids, time ranges, source tools, and statuses. Do not ask for raw pixels, audio, or video.
 - If the catalog shows no relevant existing source, return "ready" so the final Planner can collect new evidence with tools.
 - Stop retrieving once the current context contains enough text for the final Planner to either reuse evidence ids or target a narrow missing gap.
+- Treat artifact-context times and ids as more reliable anchors than prior trace prose. If they conflict, retrieve by artifact ids or a range that covers the artifact-context candidates rather than narrowing to the prior trace timestamp.
 
 ICL examples:
 
@@ -231,6 +255,11 @@ Example D, no relevant source:
 Catalog has only generic opening-scene captions, no evidence entries, no artifacts, and no ASR for the relevant event.
 Return:
 {"action":"ready","rationale":"No existing text source appears relevant; the final Planner should collect new evidence with tools.","requests":[]}
+
+Example E, conflicting prior trace timestamp:
+Prior trace says the relevant display is at one timestamp, but catalog artifact_context has concrete frame records at different timestamps. The missing fact may require the artifact-anchored frames instead of the prior prose timestamp.
+Return:
+{"action":"retrieve","rationale":"Artifact-context frame times conflict with the prior trace, so retrieve by the concrete frame ids before planning.","requests":[{"request_id":"display_frame_context","target":"artifact_context","need":"Relevant display observations from the candidate artifact frames","query":"display label value entity comparison metric","artifact_ids":["frame_A","frame_B"],"source_tools":["generic_purpose"],"limit":20}]}
 """
 
 
@@ -277,6 +306,121 @@ def _collect_retrieved_evidence_ids(retrieved_context: dict) -> List[str]:
         seen.add(evidence_id)
         evidence_ids.append(evidence_id)
     return evidence_ids
+
+
+def _frame_timestamp_from_artifact(record: Dict[str, Any]) -> Optional[float]:
+    time_payload = record.get("time") if isinstance(record.get("time"), dict) else {}
+    for value in (
+        time_payload.get("timestamp_s"),
+        record.get("timestamp_s"),
+        record.get("frame_ts_s"),
+    ):
+        if value in (None, ""):
+            continue
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            pass
+    text = " ".join(str(record.get(key) or "") for key in ("artifact_id", "relpath"))
+    match = re.search(r"frame[_-]([0-9]+(?:\.[0-9]+)?)", text)
+    if not match:
+        return None
+    try:
+        return float(match.group(1))
+    except (TypeError, ValueError):
+        return None
+
+
+def _is_frame_artifact(record: Dict[str, Any]) -> bool:
+    artifact_type = _normalize_text(record.get("artifact_type") or record.get("type")).lower()
+    artifact_id = _normalize_text(record.get("artifact_id")).lower()
+    relpath = _normalize_text(record.get("relpath")).lower()
+    return artifact_type == "frame" or artifact_id.startswith("frame_") or "/frames/" in relpath
+
+
+def _collect_retrieved_frame_refs(retrieved_context: dict, *, video_id: str) -> List[dict]:
+    refs: List[dict] = []
+    seen = set()
+    if not isinstance(retrieved_context, dict):
+        return refs
+    for record in list(retrieved_context.get("artifact_context") or []):
+        if not isinstance(record, dict) or not _is_frame_artifact(record):
+            continue
+        timestamp_s = _frame_timestamp_from_artifact(record)
+        if timestamp_s is None:
+            continue
+        artifact_id = _normalize_text(record.get("artifact_id"))
+        relpath = _normalize_text(record.get("relpath"))
+        signature = (artifact_id, relpath, timestamp_s)
+        if signature in seen:
+            continue
+        seen.add(signature)
+        metadata = {"source": "retrieved_artifact_context"}
+        ref = {
+            "video_id": video_id,
+            "timestamp_s": timestamp_s,
+            "metadata": metadata,
+        }
+        if artifact_id:
+            ref["artifact_id"] = artifact_id
+        if relpath:
+            ref["relpath"] = relpath
+        refs.append(ref)
+    return refs
+
+
+def _cluster_retrieved_frame_refs(frame_refs: List[dict], *, max_gap_s: float = 2.0) -> List[dict]:
+    ordered = sorted(
+        [dict(item) for item in list(frame_refs or []) if isinstance(item, dict) and item.get("timestamp_s") is not None],
+        key=lambda item: (str(item.get("video_id") or ""), float(item.get("timestamp_s") or 0.0), str(item.get("artifact_id") or "")),
+    )
+    clusters: List[List[dict]] = []
+    current: List[dict] = []
+    previous_video_id = ""
+    previous_timestamp: Optional[float] = None
+    for item in ordered:
+        video_id = _normalize_text(item.get("video_id"))
+        timestamp = float(item.get("timestamp_s") or 0.0)
+        if (
+            current
+            and video_id == previous_video_id
+            and previous_timestamp is not None
+            and 0.0 <= timestamp - previous_timestamp <= max_gap_s
+        ):
+            current.append(item)
+        else:
+            if len(current) > 1:
+                clusters.append(current)
+            current = [item]
+        previous_video_id = video_id
+        previous_timestamp = timestamp
+    if len(current) > 1:
+        clusters.append(current)
+
+    sequence_payloads: List[dict] = []
+    for index, cluster in enumerate(clusters, start=1):
+        timestamps = [float(item.get("timestamp_s") or 0.0) for item in cluster]
+        first_frame = min(cluster, key=lambda item: float(item.get("timestamp_s") or 0.0))
+        latest_frame = max(cluster, key=lambda item: float(item.get("timestamp_s") or 0.0))
+        sequence_payloads.append(
+            {
+                "sequence_id": "seq_%02d" % index,
+                "video_id": _normalize_text(latest_frame.get("video_id")),
+                "start_s": min(timestamps),
+                "end_s": max(timestamps),
+                "frame_count": len(cluster),
+                "artifact_ids": [
+                    _normalize_text(item.get("artifact_id"))
+                    for item in cluster
+                    if _normalize_text(item.get("artifact_id"))
+                ],
+                "first_frame": first_frame,
+                "latest_frame": latest_frame,
+                "chronological_frames": cluster,
+                "interpretation_hint": "Adjacent retrieved frames; may be an animated/progressive reveal. Select frames by task semantics: first/earliest, final/static, before/after/change, or peak/min/max state.",
+            }
+        )
+    return sequence_payloads
 
 
 def _canonicalize_audit_feedback(audit_feedback: Optional[dict]) -> Optional[dict]:
@@ -358,6 +502,11 @@ def build_planner_prompt(
         if value not in (None, "", [], {})
     }
     available_retrieved_evidence_ids = _collect_retrieved_evidence_ids(normalized_retrieved_context)
+    available_retrieved_frame_refs = _collect_retrieved_frame_refs(
+        normalized_retrieved_context,
+        video_id=str(task.video_id or task.sample_key),
+    )
+    available_retrieved_frame_sequences = _cluster_retrieved_frame_refs(available_retrieved_frame_refs)
 
     parts = [
         "MODE: %s" % mode,
@@ -416,6 +565,30 @@ def build_planner_prompt(
                 "",
                 "RETRIEVED_EVIDENCE_IDS_USAGE_NOTE:",
                 "Only these exact evidence_ids may be copied into generic_purpose inputs.evidence_ids for reinterpretation of previous textual evidence.",
+                "",
+            ]
+        )
+
+    if available_retrieved_frame_refs:
+        parts.extend(
+            [
+                "RETRIEVED_FRAME_REFS_AVAILABLE:",
+                pretty_json(available_retrieved_frame_refs),
+                "",
+                "RETRIEVED_FRAME_REFS_USAGE_NOTE:",
+                "These are concrete FrameRef objects from artifact_context. Copy them into tool inputs.frames when they are the answer-critical frames; artifact timestamps/relpaths beat prior trace prose if they conflict. For static progressive charts/tables, choose the latest complete representative frame per display rather than all consecutive frames.",
+                "",
+            ]
+        )
+
+    if available_retrieved_frame_sequences:
+        parts.extend(
+            [
+                "RETRIEVED_FRAME_SEQUENCES_AVAILABLE:",
+                pretty_json(available_retrieved_frame_sequences),
+                "",
+                "RETRIEVED_FRAME_SEQUENCES_USAGE_NOTE:",
+                "These are timestamp-adjacent frame clusters from retrieved artifacts. Treat them as candidate animated/progressive reveals. Select frames by the question's temporal semantics: first_frame for earliest/start questions, latest_frame for final completed-display questions, chronological_frames for before/after/change questions, or the visible peak/min/max state frame when that is the target.",
                 "",
             ]
         )

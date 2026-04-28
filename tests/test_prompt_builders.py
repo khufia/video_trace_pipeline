@@ -41,7 +41,22 @@ def test_build_planner_prompt_uses_rich_preprocess_and_retrieved_context():
         ],
         retrieved_context={
             "observations": [{"observation_id": "obs_1", "evidence_id": "ev_a", "atomic_text": "OCR reads Sales."}],
-            "artifact_context": [{"artifact_id": "frame_001", "contains": ["A readable chart is visible."]}],
+            "artifact_context": [
+                {
+                    "artifact_id": "frame_010.00",
+                    "artifact_type": "frame",
+                    "relpath": "artifacts/sample1/frames/frame_010.00.png",
+                    "time": {"timestamp_s": 10.0},
+                    "contains": ["A readable chart is visible."],
+                },
+                {
+                    "artifact_id": "frame_011.00",
+                    "artifact_type": "frame",
+                    "relpath": "artifacts/sample1/frames/frame_011.00.png",
+                    "time": {"timestamp_s": 11.0},
+                    "contains": ["The same readable chart is fully visible."],
+                }
+            ],
             "audit_gaps": ["exact chart label"],
         },
         audit_feedback={"missing_information": ["exact chart label"], "feedback": "Need label."},
@@ -57,7 +72,17 @@ def test_build_planner_prompt_uses_rich_preprocess_and_retrieved_context():
     assert "RETRIEVAL_CATALOG:" in prompt
     assert "RETRIEVED_CONTEXT:" in prompt
     assert "RETRIEVED_EVIDENCE_IDS_AVAILABLE:" in prompt
+    assert "RETRIEVED_FRAME_REFS_AVAILABLE:" in prompt
+    assert "RETRIEVED_FRAME_SEQUENCES_AVAILABLE:" in prompt
     assert '"ev_a"' in prompt
+    assert '"artifact_id": "frame_010.00"' in prompt
+    assert '"timestamp_s": 10.0' in prompt
+    assert '"first_frame"' in prompt
+    assert '"latest_frame"' in prompt
+    assert '"chronological_frames"' in prompt
+    assert '"artifact_id": "frame_011.00"' in prompt
+    assert "candidate animated/progressive reveals" in prompt
+    assert "artifact timestamps/relpaths beat prior trace prose" in prompt
     assert "PREPROCESS_PLANNING_MEMORY" not in prompt
     assert "PREVIOUS_ITERATIONS_SUMMARY" not in prompt
     assert "- never emit arguments, depends_on, use_summary" in prompt
@@ -72,6 +97,14 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "Example A, visible text region" in PLANNER_SYSTEM_PROMPT
     assert "Example C, sound trigger" in PLANNER_SYSTEM_PROMPT
     assert "Example K, object state anchored by speech" in PLANNER_SYSTEM_PROMPT
+    assert "Example O, retrieved artifact frames in refine" in PLANNER_SYSTEM_PROMPT
+    assert "Example P, progressive chart frame selection" in PLANNER_SYSTEM_PROMPT
+    assert "Artifact timing and frame reuse" in PLANNER_SYSTEM_PROMPT
+    assert "partially revealed chart" in PLANNER_SYSTEM_PROMPT
+    assert "latest complete frame per display" in PLANNER_SYSTEM_PROMPT
+    assert "RETRIEVED_FRAME_SEQUENCES_AVAILABLE groups adjacent retrieved frames" in PLANNER_SYSTEM_PROMPT
+    assert "Choose frames by task semantics" in PLANNER_SYSTEM_PROMPT
+    assert "first/earliest questions need first_frame plus neighbors" in PLANNER_SYSTEM_PROMPT
     assert "Wiring is not evidence" in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" not in PLANNER_SYSTEM_PROMPT
 
@@ -93,6 +126,8 @@ def test_build_planner_retrieval_prompt_exposes_catalog_and_schema():
     assert "PlannerRetrievalDecision schema reminder" in prompt
     assert "action: \"ready\" or \"retrieve\"" in prompt
     assert "Example B, retrieve by audit gap and prior timestamp" in PLANNER_RETRIEVAL_SYSTEM_PROMPT
+    assert "Example E, conflicting prior trace timestamp" in PLANNER_RETRIEVAL_SYSTEM_PROMPT
+    assert "artifact-context times and ids" in PLANNER_RETRIEVAL_SYSTEM_PROMPT
 
 
 def test_synthesizer_prompt_is_one_shot_with_icl_examples():

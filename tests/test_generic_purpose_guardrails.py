@@ -13,6 +13,7 @@ def test_generic_purpose_prompt_includes_task_question_and_options():
         transcript_text="Transcript goes here.",
         evidence_lines=[],
         text_contexts=[],
+        media_lines=["Image 1 | artifact_id=frame_demo | timestamp=10s | relpath=artifacts/demo/frames/frame_demo.png"],
     )
 
     assert "TASK QUESTION:" in prompt
@@ -28,6 +29,11 @@ def test_generic_purpose_prompt_includes_task_question_and_options():
     assert "best matches the directly grounded phenomenon" in prompt
     assert "identify the earliest validated candidate first" in prompt
     assert "compare full surface forms" in prompt
+    assert "INPUT MEDIA:" in prompt
+    assert "artifact_id=frame_demo" in prompt
+    assert "latest stable complete image" in prompt
+    assert "Keep answer short" in prompt
+    assert '"answer":"B. Example Store, 20 percentage points"' in prompt
 
 
 def test_generic_purpose_uses_image_artifacts_from_evidence_records(tmp_path, monkeypatch):
@@ -90,6 +96,10 @@ def test_generic_purpose_uses_image_artifacts_from_evidence_records(tmp_path, mo
     assert result["answer"] == "A"
     assert captured["messages"][0]["content"][0]["type"] == "image"
     assert captured["messages"][0]["content"][0]["image"] == str(artifact_path.resolve())
+    prompt_text = captured["messages"][0]["content"][-1]["text"]
+    assert "INPUT MEDIA:" in prompt_text
+    assert "artifact_id=art_01" in prompt_text
+    assert "timestamp=12s" in prompt_text
 
 
 def test_generic_purpose_adapter_omits_low_signal_output(monkeypatch):
