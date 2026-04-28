@@ -243,3 +243,38 @@ def test_plan_normalizer_rejects_context_free_generic_purpose():
 
     with pytest.raises(ValueError, match="context-free generic_purpose"):
         normalizer.normalize(_task(), plan)
+
+
+def test_plan_normalizer_rejects_unretrieved_evidence_ids():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Reuse evidence.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="generic_purpose",
+                purpose="Answer from prior evidence.",
+                inputs={"query": "Use existing evidence.", "evidence_ids": ["ev_missing"]},
+            ),
+        ],
+    )
+
+    with pytest.raises(ValueError, match="were not retrieved"):
+        normalizer.normalize(_task(), plan, retrieved_context={"evidence": [{"evidence_id": "ev_ready"}]})
+
+    normalized = normalizer.normalize(
+        _task(),
+        ExecutionPlan(
+            strategy="Reuse evidence.",
+            steps=[
+                PlanStep(
+                    step_id=1,
+                    tool_name="generic_purpose",
+                    purpose="Answer from prior evidence.",
+                    inputs={"query": "Use existing evidence.", "evidence_ids": ["ev_ready"]},
+                ),
+            ],
+        ),
+        retrieved_context={"observations": [{"observation_id": "obs_1", "evidence_id": "ev_ready"}]},
+    )
+    assert normalized.steps[0].inputs["evidence_ids"] == ["ev_ready"]

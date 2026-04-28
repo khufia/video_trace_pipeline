@@ -1,9 +1,11 @@
 from video_trace_pipeline.prompts import (
     AUDITOR_SYSTEM_PROMPT,
+    PLANNER_RETRIEVAL_SYSTEM_PROMPT,
     PLANNER_SYSTEM_PROMPT,
     SYNTHESIZER_SYSTEM_PROMPT,
     build_auditor_prompt,
     build_planner_prompt,
+    build_planner_retrieval_prompt,
     build_synthesizer_prompt,
     render_frame_sequence_context,
     render_tool_catalog,
@@ -48,9 +50,11 @@ def test_build_planner_prompt_uses_rich_preprocess_and_retrieved_context():
             "ocr": {"request_fields": ["frames", "query"]},
             "generic_purpose": {"request_fields": ["query", "text_contexts"]},
         },
+        retrieval_catalog={"evidence_store": {"evidence_entry_count": 1}},
     )
 
     assert "RICH_PREPROCESS_SEGMENTS:" in prompt
+    assert "RETRIEVAL_CATALOG:" in prompt
     assert "RETRIEVED_CONTEXT:" in prompt
     assert "RETRIEVED_EVIDENCE_IDS_AVAILABLE:" in prompt
     assert '"ev_a"' in prompt
@@ -70,6 +74,25 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "Example K, object state anchored by speech" in PLANNER_SYSTEM_PROMPT
     assert "Wiring is not evidence" in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" not in PLANNER_SYSTEM_PROMPT
+
+
+def test_build_planner_retrieval_prompt_exposes_catalog_and_schema():
+    prompt = build_planner_retrieval_prompt(
+        task=_task(),
+        mode="refine",
+        retrieval_catalog={"preprocess": {"planner_segment_count": 3}, "evidence_store": {"evidence_entry_count": 2}},
+        retrieved_context={"observations": [{"observation_id": "obs_1", "atomic_text": "OCR reads Sales."}]},
+        audit_feedback={"missing_information": ["exact chart label"]},
+        tool_catalog={"ocr": {"request_fields": ["frames", "query"]}},
+        iteration=1,
+        max_iterations=3,
+    )
+
+    assert "RETRIEVAL_CATALOG:" in prompt
+    assert "CURRENT_RETRIEVED_CONTEXT:" in prompt
+    assert "PlannerRetrievalDecision schema reminder" in prompt
+    assert "action: \"ready\" or \"retrieve\"" in prompt
+    assert "Example B, retrieve by audit gap and prior timestamp" in PLANNER_RETRIEVAL_SYSTEM_PROMPT
 
 
 def test_synthesizer_prompt_is_one_shot_with_icl_examples():

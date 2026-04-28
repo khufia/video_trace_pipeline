@@ -12,7 +12,7 @@ You do NOT answer the question and you do NOT write the trace.
 
 You are text-only:
 - You do not see video, audio, frames, crops, or hidden tool state.
-- Use only QUESTION, OPTIONS, RICH_PREPROCESS_SEGMENTS, RETRIEVED_CONTEXT, DIAGNOSIS, and AVAILABLE_TOOLS.
+- Use only QUESTION, OPTIONS, RICH_PREPROCESS_SEGMENTS, RETRIEVAL_CATALOG, RETRIEVED_CONTEXT, DIAGNOSIS, and AVAILABLE_TOOLS.
 - Return JSON only matching the active `ExecutionPlan` schema.
 
 Active plan schema:
@@ -30,7 +30,8 @@ Preprocess use:
 - If the needed detail is absent, ambiguous, conflicting, too broad, or depends on exact state/count/text/region/speaker, call tools.
 
 Retrieval use:
-- In refine mode, RETRIEVED_CONTEXT is the text-only retrieval package. It may include preprocess spans, artifact context, prior atomic observations, evidence summaries, OCR text, spatial boxes, audit gaps, and prior trace claims.
+- RETRIEVAL_CATALOG lists the available text stores before planning: preprocess windows, ASR/dense-caption stores, artifact context, evidence entries, observations, and prior trace claims.
+- RETRIEVED_CONTEXT is the text-only retrieval package selected before this final plan. It may include preprocess spans, artifact context, prior atomic observations, evidence summaries, OCR text, spatial boxes, audit gaps, and prior trace claims.
 - Prefer validated retrieved observations and artifact context before starting broad searches.
 - If using previous evidence directly, pass literal `evidence_ids` from RETRIEVED_CONTEXT in `inputs`; do not invent IDs.
 
@@ -175,6 +176,64 @@ Example N, refine after audit:
 """
 
 
+PLANNER_RETRIEVAL_SYSTEM_PROMPT = """You are the Planner retrieval controller in a benchmark trace pipeline.
+
+Your job is to decide whether the final Planner already has enough text context, or whether it should retrieve more text records before making an `ExecutionPlan`.
+You do NOT answer the task and you do NOT emit tool steps.
+
+You are text-only:
+- You do not see video, audio, frames, crops, or hidden tool state.
+- Use only QUESTION, OPTIONS, RETRIEVAL_CATALOG, CURRENT_RETRIEVED_CONTEXT, DIAGNOSIS, PRIOR_TRACE, and AVAILABLE_TOOLS.
+- Return JSON only matching the active `PlannerRetrievalDecision` schema.
+
+Active retrieval decision schema:
+- action: "ready" or "retrieve"
+- rationale: short reason
+- requests: list of retrieval requests when action is "retrieve"; empty when action is "ready"
+
+Retrieval request schema:
+- request_id: stable short id such as "need_object_state"
+- target: one of "existing_evidence", "evidence", "observations", "artifact_context", "preprocess", "asr_transcripts", "dense_captions", "prior_trace", or "mixed"
+- need: the precise missing answer-critical fact or context
+- query: lexical query terms for deterministic retrieval
+- modalities: optional text labels such as ["visual"], ["audio"], ["asr"], ["ocr"]
+- time_range: optional {"start_s": number, "end_s": number}
+- source_tools: optional exact tool names such as ["asr"], ["ocr"], ["generic_purpose"]
+- evidence_status: optional status such as "validated" or "provisional"
+- artifact_ids, evidence_ids, observation_ids: optional exact ids from the catalog/current context
+- limit: integer from 1 to 50
+
+Decision rules:
+- First inspect RETRIEVAL_CATALOG and CURRENT_RETRIEVED_CONTEXT. If existing observations or evidence already answer the missing fact, return "ready".
+- Prefer retrieving existing evidence, observations, artifact context, ASR transcripts, or dense-caption/preprocess spans before planning new tool calls.
+- Ask for narrow text records: relevant ids, time ranges, source tools, and statuses. Do not ask for raw pixels, audio, or video.
+- If the catalog shows no relevant existing source, return "ready" so the final Planner can collect new evidence with tools.
+- Stop retrieving once the current context contains enough text for the final Planner to either reuse evidence ids or target a narrow missing gap.
+
+ICL examples:
+
+Example A, evidence reuse:
+Catalog says validated OCR evidence `ev_score_1` and observation `obs_score_1` mention the visible scoreboard value. Current context already includes both ids and text.
+Return:
+{"action":"ready","rationale":"The visible value is already present as validated OCR evidence.","requests":[]}
+
+Example B, retrieve by audit gap and prior timestamp:
+Audit says the trace found the event but missed object state at 132s. Catalog has artifact frames near 132s and generic_purpose observations linked to those artifacts.
+Return:
+{"action":"retrieve","rationale":"Need existing visual observations for the audited timestamp before planning new frame tools.","requests":[{"request_id":"state_at_132s","target":"artifact_context","need":"Object state at the audited 132s event","query":"object state audited event", "time_range":{"start_s":130.0,"end_s":134.0},"source_tools":["generic_purpose"],"limit":10}]}
+
+Example C, retrieve ASR instead of re-transcribing:
+Question asks what a speaker said, and catalog shows ASR transcripts exist for the whole candidate interval.
+Return:
+{"action":"retrieve","rationale":"The transcript may already contain the quote, so retrieve ASR spans before planning an ASR tool call.","requests":[{"request_id":"quote_transcript","target":"asr_transcripts","need":"Exact quoted speech and neighboring turns","query":"quoted speech neighboring response","modalities":["asr"],"time_range":{"start_s":40.0,"end_s":70.0},"source_tools":["asr"],"limit":20}]}
+
+Example D, no relevant source:
+Catalog has only generic opening-scene captions, no evidence entries, no artifacts, and no ASR for the relevant event.
+Return:
+{"action":"ready","rationale":"No existing text source appears relevant; the final Planner should collect new evidence with tools.","requests":[]}
+"""
+
+
 def _normalize_text(value: object) -> str:
     return " ".join(str(value or "").strip().split())
 
@@ -284,12 +343,18 @@ def build_planner_prompt(
     retrieved_context: Dict[str, object],
     audit_feedback: Optional[dict],
     tool_catalog: Dict[str, Dict[str, object]],
+    retrieval_catalog: Optional[Dict[str, object]] = None,
 ) -> str:
     normalized_audit_feedback = _canonicalize_audit_feedback(audit_feedback)
     normalized_preprocess_segments = [dict(item) for item in list(planner_segments or []) if isinstance(item, dict)]
     normalized_retrieved_context = {
         key: value
         for key, value in dict(retrieved_context or {}).items()
+        if value not in (None, "", [], {})
+    }
+    normalized_retrieval_catalog = {
+        key: value
+        for key, value in dict(retrieval_catalog or {}).items()
         if value not in (None, "", [], {})
     }
     available_retrieved_evidence_ids = _collect_retrieved_evidence_ids(normalized_retrieved_context)
@@ -315,6 +380,18 @@ def build_planner_prompt(
                 "",
                 "RICH_PREPROCESS_SEGMENTS_USAGE_NOTE:",
                 "These are full first-round preprocess segments with dense captions, attributes, clips, overall summaries, and ASR transcript spans. Use them for broad context, but verify answer-critical fine detail with tools.",
+                "",
+            ]
+        )
+
+    if normalized_retrieval_catalog:
+        parts.extend(
+            [
+                "RETRIEVAL_CATALOG:",
+                pretty_json(normalized_retrieval_catalog),
+                "",
+                "RETRIEVAL_CATALOG_USAGE_NOTE:",
+                "This is the text catalog the retrieval controller inspected before final planning. Use it to avoid redundant tool calls when retrieved evidence already exists.",
                 "",
             ]
         )
@@ -357,6 +434,73 @@ def build_planner_prompt(
             "- input_refs may only reference earlier steps in this same plan",
             "- do not use input_refs for time_hints; put known timestamp hints directly in inputs.time_hints",
             "- never emit arguments, depends_on, use_summary, or list-style input_refs",
+            "",
+            "Return JSON only.",
+        ]
+    )
+    return "\n".join(parts).strip()
+
+
+def build_planner_retrieval_prompt(
+    task,
+    mode: str,
+    retrieval_catalog: Dict[str, object],
+    retrieved_context: Dict[str, object],
+    audit_feedback: Optional[dict],
+    tool_catalog: Dict[str, Dict[str, object]],
+    iteration: int,
+    max_iterations: int,
+) -> str:
+    normalized_audit_feedback = _canonicalize_audit_feedback(audit_feedback)
+    normalized_retrieval_catalog = {
+        key: value
+        for key, value in dict(retrieval_catalog or {}).items()
+        if value not in (None, "", [], {})
+    }
+    normalized_retrieved_context = {
+        key: value
+        for key, value in dict(retrieved_context or {}).items()
+        if value not in (None, "", [], {})
+    }
+
+    parts = [
+        "MODE: %s" % mode,
+        "RETRIEVAL_ITERATION: %s of %s" % (int(iteration), int(max_iterations)),
+        "",
+        "QUESTION:",
+        task.question,
+        "",
+        "OPTIONS:",
+        pretty_json(task.options),
+        "",
+        render_tool_catalog(tool_catalog),
+        "",
+        "RETRIEVAL_CATALOG:",
+        pretty_json(normalized_retrieval_catalog),
+        "",
+    ]
+
+    if normalized_retrieved_context:
+        parts.extend(
+            [
+                "CURRENT_RETRIEVED_CONTEXT:",
+                pretty_json(normalized_retrieved_context),
+                "",
+            ]
+        )
+
+    if normalized_audit_feedback:
+        parts.extend(["DIAGNOSIS:", pretty_json(normalized_audit_feedback), ""])
+
+    parts.extend(
+        [
+            "PlannerRetrievalDecision schema reminder:",
+            "- action: \"ready\" or \"retrieve\"",
+            "- rationale: short reason",
+            "- requests: [] when ready",
+            "- requests items contain request_id, target, need, query, modalities, time_range, source_tools, evidence_status, artifact_ids, evidence_ids, observation_ids, limit",
+            "- request narrow existing text records only; do not request raw image, audio, or video modality",
+            "- return ready when existing retrieved context is enough or no relevant existing text source is available",
             "",
             "Return JSON only.",
         ]

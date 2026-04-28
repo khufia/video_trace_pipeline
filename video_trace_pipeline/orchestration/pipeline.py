@@ -16,7 +16,7 @@ from ..tools.base import ToolExecutionContext
 from ..tools.specs import tool_implementation
 from .executor import PlanExecutor
 from .plan_normalizer import ExecutionPlanNormalizer
-from .planner_retrieval import PlannerContextRetriever
+from .planner_retrieval import PlannerContextRetriever, merge_retrieved_contexts
 from .preprocess import DenseCaptionPreprocessor
 
 
@@ -204,6 +204,113 @@ def _round_synthesis_context(execution_records: List[Dict[str, Any]]) -> tuple[L
             observations.append(observation)
 
     return evidence_entries, observations
+
+
+def _dedupe_evidence_entries(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    ordered: List[Dict[str, Any]] = []
+    seen = set()
+    for entry in list(entries or []):
+        if not isinstance(entry, dict):
+            continue
+        evidence_id = str(entry.get("evidence_id") or "").strip()
+        signature = evidence_id or json.dumps(entry, sort_keys=True, ensure_ascii=False, default=str)
+        if signature in seen:
+            continue
+        seen.add(signature)
+        ordered.append(dict(entry))
+    return ordered
+
+
+def _dedupe_observations(observations: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    ordered: List[Dict[str, Any]] = []
+    seen = set()
+    for observation in list(observations or []):
+        if not isinstance(observation, dict):
+            continue
+        observation_id = str(observation.get("observation_id") or "").strip()
+        evidence_id = str(observation.get("evidence_id") or "").strip()
+        text = str(observation.get("atomic_text") or observation.get("text") or "").strip()
+        signature = observation_id or (evidence_id, text) or json.dumps(observation, sort_keys=True, ensure_ascii=False, default=str)
+        if signature in seen:
+            continue
+        seen.add(signature)
+        ordered.append(dict(observation))
+    return ordered
+
+
+def _retrieved_synthesis_context(retrieved_context: Dict[str, Any]) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    evidence_entries: List[Dict[str, Any]] = []
+    observations: List[Dict[str, Any]] = []
+
+    for entry in list((retrieved_context or {}).get("evidence") or []):
+        if not isinstance(entry, dict):
+            continue
+        if str(entry.get("evidence_id") or "").strip():
+            evidence_entries.append(dict(entry))
+
+    for record in list((retrieved_context or {}).get("lookup_records") or []):
+        if not isinstance(record, dict):
+            continue
+        if str(record.get("observation_id") or "").strip():
+            observations.append(dict(record))
+        elif str(record.get("evidence_id") or "").strip():
+            evidence_entries.append(
+                {
+                    key: record.get(key)
+                    for key in (
+                        "evidence_id",
+                        "tool_name",
+                        "evidence_text",
+                        "confidence",
+                        "status",
+                        "time_start_s",
+                        "time_end_s",
+                        "frame_ts_s",
+                        "observation_ids",
+                        "artifact_refs",
+                        "metadata",
+                    )
+                    if record.get(key) not in (None, "", [], {})
+                }
+            )
+
+    for observation in list((retrieved_context or {}).get("observations") or []):
+        if isinstance(observation, dict):
+            observations.append(dict(observation))
+
+    for artifact in list((retrieved_context or {}).get("artifact_context") or []):
+        if not isinstance(artifact, dict):
+            continue
+        for observation in list(artifact.get("linked_observations") or []):
+            if not isinstance(observation, dict):
+                continue
+            item = dict(observation)
+            if "atomic_text" not in item and item.get("text"):
+                item["atomic_text"] = item.get("text")
+            observations.append(item)
+        for evidence in list(artifact.get("linked_evidence") or []):
+            if not isinstance(evidence, dict):
+                continue
+            evidence_id = str(evidence.get("evidence_id") or "").strip()
+            if evidence_id:
+                evidence_entries.append(
+                    {
+                        key: evidence.get(key)
+                        for key in ("evidence_id", "tool_name", "summary")
+                        if evidence.get(key) not in (None, "", [], {})
+                    }
+                )
+            for text in list(evidence.get("observation_texts") or []):
+                if str(text or "").strip():
+                    observations.append(
+                        {
+                            "evidence_id": evidence_id,
+                            "source_tool": evidence.get("tool_name"),
+                            "atomic_text": str(text).strip(),
+                        }
+                    )
+
+    return _dedupe_evidence_entries(evidence_entries), _dedupe_observations(observations)
 
 
 _BLOCKING_FINDING_CATEGORIES = {
@@ -526,7 +633,18 @@ class PipelineRunner(object):
         rounds_executed = 0
         while rounds_executed < max(1, int(max_rounds)):
             planning_mode = "generate" if current_trace is None else "refine"
+            round_index = rounds_executed + 1
+            round_dir = run.round_dir(round_index)
             preprocess_context_supplied = bool(planner_segments)
+            tool_catalog = self.tool_registry.tool_catalog()
+            retrieval_catalog = self.planner_retriever.build_catalog(
+                task=task,
+                preprocess_bundle=preprocess_output,
+                evidence_ledger=evidence_ledger,
+                audit_report=latest_audit,
+                current_trace=current_trace,
+            )
+            write_json(round_dir / "planner_retrieval_catalog.json", sanitize_for_persistence(retrieval_catalog))
             retrieved_context = self.planner_retriever.retrieve(
                 task=task,
                 preprocess_bundle=preprocess_output,
@@ -536,9 +654,52 @@ class PipelineRunner(object):
                 mode=planning_mode,
                 limit=50,
             )
+            write_json(round_dir / "planner_retrieval_seed.json", sanitize_for_persistence(retrieved_context))
+            max_retrieval_iterations = 3
+            for retrieval_iteration in range(1, max_retrieval_iterations + 1):
+                retrieval_request = self.planner.build_retrieval_request(
+                    task=task,
+                    mode=planning_mode,
+                    retrieval_catalog=retrieval_catalog,
+                    retrieved_context=retrieved_context,
+                    audit_feedback=latest_audit.dict() if latest_audit is not None else None,
+                    tool_catalog=tool_catalog,
+                    iteration=retrieval_iteration,
+                    max_iterations=max_retrieval_iterations,
+                )
+                write_json(
+                    round_dir / ("planner_retrieval_%02d_request.json" % retrieval_iteration),
+                    sanitize_for_persistence(retrieval_request),
+                )
+                _, retrieval_decision = self.planner.complete_retrieval_request(retrieval_request)
+                retrieval_decision_payload = retrieval_decision.dict()
+                write_json(
+                    round_dir / ("planner_retrieval_%02d_decision.json" % retrieval_iteration),
+                    sanitize_for_persistence(retrieval_decision_payload),
+                )
+                if retrieval_decision.action != "retrieve" or not retrieval_decision.requests:
+                    break
+                retrieval_results = self.planner_retriever.retrieve_for_requests(
+                    task=task,
+                    preprocess_bundle=preprocess_output,
+                    evidence_ledger=evidence_ledger,
+                    requests=list(retrieval_decision.requests or []),
+                    audit_report=latest_audit,
+                    current_trace=current_trace,
+                )
+                write_json(
+                    round_dir / ("planner_retrieval_%02d_results.json" % retrieval_iteration),
+                    sanitize_for_persistence(retrieval_results),
+                )
+                merged_context = merge_retrieved_contexts(retrieved_context, retrieval_results)
+                if merged_context == retrieved_context:
+                    retrieved_context = merged_context
+                    break
+                retrieved_context = merged_context
+            write_json(round_dir / "planner_retrieved_context.json", sanitize_for_persistence(retrieved_context))
             if progress_reporter is not None and hasattr(progress_reporter, "on_round_start"):
                 progress_reporter.on_round_start(
-                    round_index=rounds_executed + 1,
+                    round_index=round_index,
                     planning_mode=planning_mode,
                     preprocess_context=preprocess_context_supplied,
                     retrieved_count=len(list((retrieved_context or {}).get("observations") or [])),
@@ -549,9 +710,9 @@ class PipelineRunner(object):
                 planner_segments=planner_segments,
                 retrieved_context=retrieved_context,
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
-                tool_catalog=self.tool_registry.tool_catalog(),
+                tool_catalog=tool_catalog,
+                retrieval_catalog=retrieval_catalog,
             )
-            round_dir = run.round_dir(rounds_executed + 1)
             planner_request = self.planner.build_request(**planner_kwargs)
             write_json(round_dir / "planner_request.json", sanitize_for_persistence(planner_request))
             _, plan = self.planner.complete_request(planner_request)
@@ -563,7 +724,7 @@ class PipelineRunner(object):
             write_json(round_dir / "planner_plan.json", sanitize_for_persistence(plan.dict()))
             if progress_reporter is not None and hasattr(progress_reporter, "on_planner"):
                 progress_reporter.on_planner(
-                    round_index=rounds_executed + 1,
+                    round_index=round_index,
                     plan_payload=sanitize_for_persistence(plan.dict()),
                     round_dir=self.workspace.relative_path(round_dir),
                 )
@@ -574,10 +735,13 @@ class PipelineRunner(object):
                 evidence_ledger=evidence_ledger,
                 video_fingerprint=video_fingerprint,
                 progress_reporter=progress_reporter,
-                round_index=rounds_executed + 1,
+                round_index=round_index,
             )
 
-            round_evidence_entries, round_observations = _round_synthesis_context(execution_records)
+            retrieved_evidence_entries, retrieved_observations = _retrieved_synthesis_context(retrieved_context)
+            execution_evidence_entries, execution_observations = _round_synthesis_context(execution_records)
+            round_evidence_entries = _dedupe_evidence_entries(retrieved_evidence_entries + execution_evidence_entries)
+            round_observations = _dedupe_observations(retrieved_observations + execution_observations)
             synthesizer_request = self.synthesizer.build_request(
                 task=task,
                 mode=planning_mode,
@@ -597,7 +761,7 @@ class PipelineRunner(object):
             write_json(round_dir / "synthesizer_trace_package.json", sanitize_for_persistence(trace_package.dict()))
             if progress_reporter is not None and hasattr(progress_reporter, "on_trace"):
                 progress_reporter.on_trace(
-                    round_index=rounds_executed + 1,
+                    round_index=round_index,
                     trace_payload=sanitize_for_persistence(trace_package.dict()),
                     round_dir=self.workspace.relative_path(round_dir),
                 )
@@ -613,7 +777,7 @@ class PipelineRunner(object):
             write_json(round_dir / "auditor_report.json", latest_audit.dict())
             if progress_reporter is not None and hasattr(progress_reporter, "on_audit"):
                 progress_reporter.on_audit(
-                    round_index=rounds_executed + 1,
+                    round_index=round_index,
                     audit_payload=sanitize_for_persistence(latest_audit.dict()),
                     round_dir=self.workspace.relative_path(round_dir),
                 )

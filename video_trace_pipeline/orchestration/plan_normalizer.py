@@ -71,6 +71,28 @@ _TEXT_CONTEXT_SOURCE_FIELDS = frozenset(
 )
 
 
+def _retrieved_evidence_ids(retrieved_context: Dict[str, Any] | None) -> set[str]:
+    ids = set()
+    if not isinstance(retrieved_context, dict):
+        return ids
+    for item in list(retrieved_context.get("evidence") or []):
+        if isinstance(item, dict) and str(item.get("evidence_id") or "").strip():
+            ids.add(str(item.get("evidence_id")).strip())
+    for item in list(retrieved_context.get("observations") or []):
+        if isinstance(item, dict) and str(item.get("evidence_id") or "").strip():
+            ids.add(str(item.get("evidence_id")).strip())
+    for item in list(retrieved_context.get("lookup_records") or []):
+        if isinstance(item, dict) and str(item.get("evidence_id") or "").strip():
+            ids.add(str(item.get("evidence_id")).strip())
+    for artifact in list(retrieved_context.get("artifact_context") or []):
+        if not isinstance(artifact, dict):
+            continue
+        for evidence in list(artifact.get("linked_evidence") or []):
+            if isinstance(evidence, dict) and str(evidence.get("evidence_id") or "").strip():
+                ids.add(str(evidence.get("evidence_id")).strip())
+    return ids
+
+
 def _normalize_text(value: Any) -> str:
     return " ".join(str(value or "").strip().split())
 
@@ -348,6 +370,19 @@ class ExecutionPlanNormalizer(object):
                 % int(step.step_id)
             )
 
+    def _validate_retrieved_evidence_ids(self, steps: List[PlanStep], retrieved_context: Dict[str, Any] | None) -> None:
+        available_ids = _retrieved_evidence_ids(retrieved_context)
+        for step in list(steps or []):
+            evidence_ids = [str(item).strip() for item in list((step.inputs or {}).get("evidence_ids") or []) if str(item).strip()]
+            if not evidence_ids:
+                continue
+            missing = sorted(evidence_id for evidence_id in evidence_ids if evidence_id not in available_ids)
+            if missing:
+                raise ValueError(
+                    "Plan step %s uses evidence_ids that were not retrieved for this planning round: %s."
+                    % (int(step.step_id), ", ".join(missing))
+                )
+
     def _step_sort_key(self, step: PlanStep) -> Tuple[Any, ...]:
         return (
             tuple(_source_ids(step)),
@@ -435,10 +470,10 @@ class ExecutionPlanNormalizer(object):
 
     def normalize(self, task, plan: ExecutionPlan, retrieved_context: Dict[str, Any] | None = None) -> ExecutionPlan:
         del task
-        del retrieved_context
         normalized_steps = [self._normalize_step(step) for step in list(plan.steps or [])]
         self._validate_references(normalized_steps)
         self._validate_generic_purpose_context_contract(normalized_steps)
+        self._validate_retrieved_evidence_ids(normalized_steps, retrieved_context)
         ordered_steps = self._canonical_topological_order(normalized_steps)
         resequenced_steps = self._resequence(ordered_steps)
         self._validate_resequenced_order(resequenced_steps)

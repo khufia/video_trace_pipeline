@@ -8,6 +8,8 @@ from video_trace_pipeline.schemas import (
     InferenceStep,
     MachineProfile,
     ModelsConfig,
+    PlannerRetrievalDecision,
+    PlannerRetrievalQuery,
     TaskSpec,
     ToolConfig,
     TracePackage,
@@ -45,8 +47,11 @@ class FakePreprocessor(object):
 
 
 class FakePlanner(object):
-    def __init__(self):
+    def __init__(self, retrieval_decisions=None, plan=None):
         self.calls = []
+        self.retrieval_calls = []
+        self.retrieval_decisions = list(retrieval_decisions or [])
+        self.plan = plan
 
     def build_request(self, **kwargs):
         self.calls.append(dict(kwargs))
@@ -54,7 +59,17 @@ class FakePlanner(object):
 
     def complete_request(self, request):
         del request
-        return "{}", ExecutionPlan(strategy="No tools needed.", steps=[], refinement_instructions="")
+        return "{}", self.plan or ExecutionPlan(strategy="No tools needed.", steps=[], refinement_instructions="")
+
+    def build_retrieval_request(self, **kwargs):
+        self.retrieval_calls.append(dict(kwargs))
+        return {"endpoint_name": "default", "model_name": "gpt-5.4", "system_prompt": "retrieval", "user_prompt": "prompt"}
+
+    def complete_retrieval_request(self, request):
+        del request
+        if self.retrieval_decisions:
+            return "{}", self.retrieval_decisions.pop(0)
+        return "{}", PlannerRetrievalDecision(action="ready", rationale="No extra retrieval needed.", requests=[])
 
 
 class FakeExecutor(object):
@@ -124,6 +139,61 @@ class FakeAuditor(object):
         return "{}", AuditReport(verdict="PASS", confidence=0.9, scores={"completeness": 5}, findings=[], feedback="")
 
 
+class FakePlannerRetriever(object):
+    def __init__(self):
+        self.retrieve_for_requests_calls = []
+
+    def build_catalog(self, **kwargs):
+        preprocess_bundle = kwargs["preprocess_bundle"]
+        return {
+            "preprocess": {
+                "planner_segment_count": len(preprocess_bundle.get("planner_segments") or []),
+                "segments": [
+                    {
+                        "segment_id": item.get("segment_id"),
+                        "start_s": item.get("start_s"),
+                        "end_s": item.get("end_s"),
+                    }
+                    for item in list(preprocess_bundle.get("planner_segments") or [])
+                ],
+            },
+            "evidence_store": {"evidence_entry_count": 1, "observation_count": 1},
+        }
+
+    def retrieve(self, **kwargs):
+        del kwargs
+        return {}
+
+    def retrieve_for_requests(self, **kwargs):
+        self.retrieve_for_requests_calls.append(dict(kwargs))
+        return {
+            "retrieval_requests": [
+                {
+                    "request_id": kwargs["requests"][0].request_id,
+                    "target": kwargs["requests"][0].target,
+                    "need": kwargs["requests"][0].need,
+                }
+            ],
+            "evidence": [
+                {
+                    "evidence_id": "ev_ready",
+                    "tool_name": "ocr",
+                    "status": "validated",
+                    "evidence_text": "OCR reads the exact price label.",
+                    "observation_ids": ["obs_ready"],
+                }
+            ],
+            "observations": [
+                {
+                    "observation_id": "obs_ready",
+                    "evidence_id": "ev_ready",
+                    "evidence_status": "validated",
+                    "atomic_text": "The exact price label is visible.",
+                }
+            ],
+        }
+
+
 def _models_config():
     return ModelsConfig(
         agents={
@@ -136,10 +206,10 @@ def _models_config():
     )
 
 
-def _runner(tmp_path, auditor=None):
+def _runner(tmp_path, auditor=None, planner=None):
     runner = PipelineRunner(MachineProfile(workspace_root=str(tmp_path / "workspace")), _models_config())
     runner.preprocessor = FakePreprocessor()
-    runner.planner = FakePlanner()
+    runner.planner = planner or FakePlanner()
     runner.executor = FakeExecutor()
     runner.synthesizer = FakeSynthesizer()
     runner.auditor = auditor or FakeAuditor()
@@ -166,9 +236,12 @@ def test_pipeline_runner_passes_full_rich_preprocess_to_first_planner_round(tmp_
     result = runner.run_task(_task(tmp_path), mode="generate", max_rounds=1, clip_duration_s=30.0)
 
     assert result["trace_package"]["final_answer"] == "A"
+    assert runner.planner.retrieval_calls
+    assert runner.planner.retrieval_calls[0]["retrieval_catalog"]["preprocess"]["planner_segment_count"] == 1
     call = runner.planner.calls[0]
     assert call["planner_segments"][0]["dense_caption"]["overall_summary"] == "A short rich summary."
     assert call["planner_segments"][0]["asr"]["transcript_spans"][0]["text"] == "The price is forty two."
+    assert call["retrieval_catalog"]["preprocess"]["planner_segment_count"] == 1
     assert "preprocess_planning_memory" not in call
     assert "compact_rounds" not in call
 
@@ -184,6 +257,65 @@ def test_refine_planner_receives_retrieved_context_before_plan(tmp_path):
     assert call["mode"] == "refine"
     assert call["retrieved_context"]["audit_gaps"] == ["exact visible price label"]
     assert "planner_context" not in call
+
+
+def test_planner_retrieval_loop_accumulates_requested_preprocess_before_plan(tmp_path):
+    planner = FakePlanner(
+        retrieval_decisions=[
+            PlannerRetrievalDecision(
+                action="retrieve",
+                rationale="Need the existing rich segment.",
+                requests=[
+                    PlannerRetrievalQuery(
+                        request_id="price_segment",
+                        target="preprocess",
+                        need="Find the segment mentioning the price label.",
+                        query="price label forty two",
+                        limit=5,
+                    )
+                ],
+            ),
+            PlannerRetrievalDecision(action="ready", rationale="Context retrieved.", requests=[]),
+        ]
+    )
+    runner = _runner(tmp_path, planner=planner)
+
+    runner.run_task(_task(tmp_path), mode="generate", max_rounds=1, clip_duration_s=30.0)
+
+    assert len(planner.retrieval_calls) == 2
+    final_call = planner.calls[0]
+    assert final_call["retrieved_context"]["preprocess_matches"]["planner_segments"][0]["segment_id"] == "seg_001"
+    assert final_call["retrieval_catalog"]["preprocess"]["planner_segment_count"] == 1
+
+
+def test_retrieved_existing_evidence_reaches_synthesizer_without_tool_call(tmp_path):
+    planner = FakePlanner(
+        retrieval_decisions=[
+            PlannerRetrievalDecision(
+                action="retrieve",
+                rationale="Reuse existing OCR evidence.",
+                requests=[
+                    PlannerRetrievalQuery(
+                        request_id="existing_price",
+                        target="existing_evidence",
+                        need="Exact visible price label.",
+                        query="exact visible price label",
+                        evidence_status="validated",
+                    )
+                ],
+            ),
+            PlannerRetrievalDecision(action="ready", rationale="Existing evidence retrieved.", requests=[]),
+        ]
+    )
+    runner = _runner(tmp_path, planner=planner)
+    runner.planner_retriever = FakePlannerRetriever()
+
+    runner.run_task(_task(tmp_path), mode="generate", max_rounds=1, clip_duration_s=30.0)
+
+    synth_call = runner.synthesizer.calls[0]
+    assert synth_call["round_evidence_entries"][0]["evidence_id"] == "ev_ready"
+    assert synth_call["round_observations"][0]["observation_id"] == "obs_ready"
+    assert runner.planner_retriever.retrieve_for_requests_calls
 
 
 def test_pipeline_writes_final_outputs(tmp_path):

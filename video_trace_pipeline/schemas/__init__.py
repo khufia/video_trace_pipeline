@@ -8,7 +8,7 @@ from .config import (
     RuntimeSnapshot,
     ToolConfig,
 )
-from .plans import ExecutionPlan, InputRef, PlanStep
+from .plans import ExecutionPlan, InputRef, PlanStep, PlannerRetrievalDecision, PlannerRetrievalQuery
 from .task import TaskSpec
 from .tool_requests import (
     ASRRequest,
@@ -82,6 +82,8 @@ __all__ = [
     "OCRLineOutput",
     "OCROutput",
     "PlanStep",
+    "PlannerRetrievalDecision",
+    "PlannerRetrievalQuery",
     "RegionRef",
     "RetrievedFrame",
     "RuntimeSnapshot",

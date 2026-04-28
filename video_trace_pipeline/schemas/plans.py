@@ -134,3 +134,155 @@ class ExecutionPlan(BaseModel):
         if not value:
             raise ValueError("strategy must be non-empty")
         return value
+
+
+_RETRIEVAL_TARGETS = {
+    "artifact_context",
+    "asr_transcripts",
+    "dense_captions",
+    "evidence",
+    "existing_evidence",
+    "mixed",
+    "observations",
+    "preprocess",
+    "prior_trace",
+}
+
+
+def _normalize_text(value: Any) -> str:
+    return " ".join(str(value or "").strip().split())
+
+
+def _normalize_string_list(value: Any) -> List[str]:
+    if value is None:
+        return []
+    values = value if isinstance(value, list) else [value]
+    ordered: List[str] = []
+    seen = set()
+    for item in values:
+        text = _normalize_text(item)
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        ordered.append(text)
+    return ordered
+
+
+def _normalize_optional_float(value: Any) -> float | None:
+    if value in (None, ""):
+        return None
+    if isinstance(value, bool):
+        raise ValueError("time range values must be numeric")
+    try:
+        return float(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("time range values must be numeric") from exc
+
+
+class PlannerRetrievalQuery(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    request_id: str
+    target: str = "mixed"
+    need: str
+    query: str = ""
+    modalities: List[str] = Field(default_factory=list)
+    time_range: Dict[str, float] = Field(default_factory=dict)
+    source_tools: List[str] = Field(default_factory=list)
+    evidence_status: str = ""
+    artifact_ids: List[str] = Field(default_factory=list)
+    evidence_ids: List[str] = Field(default_factory=list)
+    observation_ids: List[str] = Field(default_factory=list)
+    limit: int = 20
+
+    @field_validator("request_id", "need", "query", "evidence_status")
+    @classmethod
+    def _validate_text(cls, value):  # noqa: N805
+        return _normalize_text(value)
+
+    @field_validator("request_id", "need")
+    @classmethod
+    def _require_text(cls, value):  # noqa: N805
+        if not value:
+            raise ValueError("field must be non-empty")
+        return value
+
+    @field_validator("target")
+    @classmethod
+    def _validate_target(cls, value):  # noqa: N805
+        normalized = _normalize_text(value).lower()
+        if normalized not in _RETRIEVAL_TARGETS:
+            raise ValueError("target must be one of: %s" % ", ".join(sorted(_RETRIEVAL_TARGETS)))
+        return normalized
+
+    @field_validator("modalities", "source_tools", "artifact_ids", "evidence_ids", "observation_ids", mode="before")
+    @classmethod
+    def _validate_string_lists(cls, value):
+        return _normalize_string_list(value)
+
+    @field_validator("time_range", mode="before")
+    @classmethod
+    def _validate_time_range(cls, value):
+        if value in (None, "", [], {}):
+            return {}
+        if not isinstance(value, dict):
+            raise ValueError("time_range must be an object")
+        normalized: Dict[str, float] = {}
+        for source_key, target_key in (
+            ("start_s", "start_s"),
+            ("end_s", "end_s"),
+            ("start", "start_s"),
+            ("end", "end_s"),
+        ):
+            if source_key not in value:
+                continue
+            parsed = _normalize_optional_float(value.get(source_key))
+            if parsed is not None:
+                normalized[target_key] = parsed
+        if (
+            normalized.get("start_s") is not None
+            and normalized.get("end_s") is not None
+            and normalized["start_s"] > normalized["end_s"]
+        ):
+            raise ValueError("time_range.start_s must be <= time_range.end_s")
+        return normalized
+
+    @field_validator("limit", mode="before")
+    @classmethod
+    def _validate_limit(cls, value):
+        if value in (None, ""):
+            return 20
+        if isinstance(value, bool):
+            raise ValueError("limit must be an integer")
+        parsed = int(value)
+        return max(1, min(50, parsed))
+
+
+class PlannerRetrievalDecision(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    action: str = "ready"
+    rationale: str = ""
+    requests: List[PlannerRetrievalQuery] = Field(default_factory=list)
+
+    @field_validator("action")
+    @classmethod
+    def _validate_action(cls, value):  # noqa: N805
+        normalized = _normalize_text(value).lower()
+        if normalized not in {"ready", "retrieve"}:
+            raise ValueError("action must be ready or retrieve")
+        return normalized
+
+    @field_validator("rationale")
+    @classmethod
+    def _validate_rationale(cls, value):  # noqa: N805
+        return _normalize_text(value)
+
+    @model_validator(mode="after")
+    def _validate_requests_for_action(self):
+        if self.action == "ready":
+            self.requests = []
+            return self
+        if not self.requests:
+            raise ValueError("retrieve action requires at least one request")
+        return self

@@ -1,7 +1,18 @@
 import pytest
 
 from video_trace_pipeline.common import traverse_path
-from video_trace_pipeline.schemas import ASRRequest, AuditReport, ClipRef, ExecutionPlan, FrameRetrieverRequest, OCRRequest, TracePackage, TranscriptRef
+from video_trace_pipeline.schemas import (
+    ASRRequest,
+    AuditReport,
+    ClipRef,
+    ExecutionPlan,
+    FrameRetrieverRequest,
+    OCRRequest,
+    PlannerRetrievalDecision,
+    PlannerRetrievalQuery,
+    TracePackage,
+    TranscriptRef,
+)
 from video_trace_pipeline.tools.base import ToolAdapter
 
 
@@ -150,6 +161,47 @@ def test_execution_plan_rejects_removed_fields():
                         "arguments": {"query": "old"},
                     }
                 ],
+            }
+        )
+
+
+def test_planner_retrieval_decision_schema_is_strict():
+    decision = PlannerRetrievalDecision.model_validate(
+        {
+            "action": "retrieve",
+            "rationale": "Need ASR spans.",
+            "requests": [
+                {
+                    "request_id": "quote",
+                    "target": "asr_transcripts",
+                    "need": "Exact quote near the middle of the clip.",
+                    "query": "exact quote",
+                    "time_range": {"start": "10", "end": 20},
+                    "source_tools": "asr",
+                    "limit": 200,
+                }
+            ],
+        }
+    )
+
+    assert decision.requests[0].time_range == {"start_s": 10.0, "end_s": 20.0}
+    assert decision.requests[0].source_tools == ["asr"]
+    assert decision.requests[0].limit == 50
+
+    with pytest.raises(ValueError, match="target"):
+        PlannerRetrievalQuery(
+            request_id="bad",
+            target="raw_video",
+            need="Need pixels.",
+        )
+
+    with pytest.raises(ValueError, match="Extra inputs"):
+        PlannerRetrievalDecision.model_validate(
+            {
+                "action": "ready",
+                "rationale": "done",
+                "requests": [],
+                "planner_context": {},
             }
         )
 

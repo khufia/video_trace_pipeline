@@ -92,15 +92,50 @@ The planner currently receives whatever context is pushed into the prompt and mu
 
 ### Fix
 
-Add a text-only retrieval system for the planner.
+Add a text-only retrieval system for the planner. This should run in both generate and refine rounds before the final execution plan is emitted.
 
-Refine planner flow:
+Planner flow:
 
 ```text
-audit diagnosis + evidence memory
-  -> planner/controller asks for relevant context
+task + options + audit diagnosis when present
+  -> build retrieval catalog from preprocess, evidence, observations, artifacts, prior trace
+  -> deterministic seed retrieval from task/audit terms
+  -> planner/controller inspects catalog + current retrieved context
+  -> planner/controller either returns ready or asks for narrower text context
   -> retriever returns text-only preprocess/evidence/artifact context
+  -> repeat until ready or max retrieval iterations
   -> planner emits ExecutionPlan
+```
+
+The planner/controller retrieval decision should be schema-bound:
+
+```json
+{
+  "action": "retrieve",
+  "rationale": "Need existing ASR spans before deciding whether to call ASR again.",
+  "requests": [
+    {
+      "request_id": "quote_transcript",
+      "target": "asr_transcripts",
+      "need": "Exact quoted speech and neighboring turns.",
+      "query": "quoted speech response",
+      "modalities": ["asr"],
+      "time_range": {"start_s": 40.0, "end_s": 70.0},
+      "source_tools": ["asr"],
+      "evidence_status": "",
+      "artifact_ids": [],
+      "evidence_ids": [],
+      "observation_ids": [],
+      "limit": 20
+    }
+  ]
+}
+```
+
+If existing retrieved evidence is enough, the controller should return:
+
+```json
+{"action": "ready", "rationale": "The exact OCR text is already available as validated evidence.", "requests": []}
 ```
 
 The retriever can access:
@@ -1102,11 +1137,11 @@ What the local changes likely fix:
 - Evidence memory gives planner/synthesizer/auditor a way to avoid silently forgetting earlier useful observations.
 - `frame_retriever` chronological/anchor-window language should reduce some order and timestamp regressions.
 
-What remains weak:
+What remained weak before this implementation:
 
 - No ICL examples are in the prompt code yet, so the current prompts rely on abstract rules.
 - The planner still sees `PREPROCESS_PLANNING_MEMORY`, even though the design says to remove planner context entirely.
 - The synthesizer can still overuse blank `final_answer` when one option is clearly best supported.
 - The auditor score rubric is abstract and can still produce wrong PASS or over-strict FAIL.
-- The planner still needs a retrieval/pause system for large preprocess/evidence context instead of relying on one prompt payload.
+- The planner still needs a retrieval/pause system for large preprocess/evidence context instead of relying on one prompt payload. The target implementation is the catalog + iterative retrieval controller described in Section 2.
 - The prompt code does not yet explicitly teach scoreboard/price/nameplate label-value adjacency with examples.

@@ -1,7 +1,12 @@
 from __future__ import annotations
 
-from ..prompts.planner_prompt import PLANNER_SYSTEM_PROMPT, build_planner_prompt
-from ..schemas import ExecutionPlan
+from ..prompts.planner_prompt import (
+    PLANNER_RETRIEVAL_SYSTEM_PROMPT,
+    PLANNER_SYSTEM_PROMPT,
+    build_planner_prompt,
+    build_planner_retrieval_prompt,
+)
+from ..schemas import ExecutionPlan, PlannerRetrievalDecision
 
 
 class PlannerAgent(object):
@@ -17,6 +22,7 @@ class PlannerAgent(object):
         retrieved_context,
         audit_feedback,
         tool_catalog,
+        retrieval_catalog=None,
     ):
         prompt = build_planner_prompt(
             task=task,
@@ -25,6 +31,7 @@ class PlannerAgent(object):
             retrieved_context=retrieved_context,
             audit_feedback=audit_feedback,
             tool_catalog=tool_catalog,
+            retrieval_catalog=retrieval_catalog,
         )
         return {
             "endpoint_name": self.agent_config.endpoint or "default",
@@ -38,6 +45,41 @@ class PlannerAgent(object):
     def complete_request(self, request):
         payload, raw = self.llm_client.complete_json(response_model=dict, **dict(request or {}))
         parsed = ExecutionPlan.model_validate(payload)
+        return raw, parsed
+
+    def build_retrieval_request(
+        self,
+        task,
+        mode,
+        retrieval_catalog,
+        retrieved_context,
+        audit_feedback,
+        tool_catalog,
+        iteration,
+        max_iterations,
+    ):
+        prompt = build_planner_retrieval_prompt(
+            task=task,
+            mode=mode,
+            retrieval_catalog=retrieval_catalog,
+            retrieved_context=retrieved_context,
+            audit_feedback=audit_feedback,
+            tool_catalog=tool_catalog,
+            iteration=iteration,
+            max_iterations=max_iterations,
+        )
+        return {
+            "endpoint_name": self.agent_config.endpoint or "default",
+            "model_name": self.agent_config.model,
+            "system_prompt": PLANNER_RETRIEVAL_SYSTEM_PROMPT,
+            "user_prompt": prompt,
+            "temperature": self.agent_config.temperature,
+            "max_tokens": self.agent_config.max_tokens,
+        }
+
+    def complete_retrieval_request(self, request):
+        payload, raw = self.llm_client.complete_json(response_model=dict, **dict(request or {}))
+        parsed = PlannerRetrievalDecision.model_validate(payload)
         return raw, parsed
 
     def plan(
