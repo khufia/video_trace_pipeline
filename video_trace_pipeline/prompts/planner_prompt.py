@@ -77,11 +77,14 @@ Evidence preservation rule:
 - Re-search broadly only when the diagnosis says the old anchor is wrong, contradicted, or incomplete.
 - If the audit names missing information, target that missing fact directly before starting a new semantic search.
 - If the audit says a prior answer missed an attribute such as empty/full/open/closed/count/state, do not pass answer-only generic evidence back as proof. Reuse media/transcripts/regions and only prior evidence that explicitly contains the missing attribute.
+- If the audit flags a repeated-name, occurrence, quote-span, or interval-boundary ambiguity, do not preserve the prior anchor by default. Re-evaluate the boundary candidate from the transcript and choose the exact surface form that makes the interval well-defined.
 
 Occurrence and chronology rule:
 - For first/last/before/after/ordered-list questions, collect all relevant candidate events in the bounded interval, sort by timestamp, and then choose the requested occurrence.
 - Never infer chronology from retrieval result order.
 - If an early/late candidate is missing, retrieve the full interval before answering.
+- For repeated place/name/entity questions, compare repeated full surface phrases before substrings. If a longer repeated phrase and a shorter embedded token begin at the same occurrence, use the longer repeated phrase as the boundary unless the task explicitly asks about words/tokens.
+- Do not downgrade a repeated organization, venue, event, brand, or institution name to the shorter place token inside it just because the question says "place name"; exact repeated text boundaries matter more than semantic category guesses.
 
 Action-at-timestamp rule:
 - Exact timestamps are anchors, not isolated proof.
@@ -190,6 +193,10 @@ Example L, repeated event count:
 Example M, absence/not-mentioned:
 - Good plan: use preprocessing transcript spans as `inputs.transcripts` when they cover the interval; run ASR only when transcript coverage is missing or insufficient, preserve exact spans for mentioned candidates, and compare every option against transcript evidence.
 - Bad plan: answer from broad scene captions or world knowledge.
+
+Example M2, repeated place phrase:
+- Good plan: when both "Example Transit" and "Example" repeat, use the repeated full surface phrase if it gives the first well-defined repeated-name interval; quote the exact text between the two full mentions and then test every option.
+- Bad plan: use the shorter embedded token from inside the full phrase, producing a tiny or ambiguous interval.
 
 Example N, refine after audit:
 - Diagnosis: "The trace found the event but did not prove the object state."

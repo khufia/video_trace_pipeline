@@ -105,6 +105,9 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "extraction plus comparison in that single call" in PLANNER_SYSTEM_PROMPT
     assert "Multi-display chart/table comparison" in PLANNER_SYSTEM_PROMPT
     assert "Localized visual state" in PLANNER_SYSTEM_PROMPT
+    assert "do not preserve the prior anchor by default" in PLANNER_SYSTEM_PROMPT
+    assert "Do not downgrade a repeated organization" in PLANNER_SYSTEM_PROMPT
+    assert "Example M2, repeated place phrase" in PLANNER_SYSTEM_PROMPT
     assert "Do not bind current-plan outputs into `time_hints`" in PLANNER_SYSTEM_PROMPT
     assert "Example A, visible text region" in PLANNER_SYSTEM_PROMPT
     assert "Example C, sound trigger" in PLANNER_SYSTEM_PROMPT
@@ -164,6 +167,7 @@ def test_synthesizer_prompt_is_one_shot_with_icl_examples():
     assert "Example J, ASR-to-visual anchor" in SYNTHESIZER_SYSTEM_PROMPT
     assert "choose the uniquely best-supported option" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Prefer the longest repeated matching name or phrase" in SYNTHESIZER_SYSTEM_PROMPT
+    assert "Do not downgrade a repeated organization" in SYNTHESIZER_SYSTEM_PROMPT
 
 
 def test_auditor_prompt_has_complex_score_icl_without_evidence_memory():

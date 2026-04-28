@@ -32,6 +32,7 @@ def test_generic_purpose_prompt_includes_task_question_and_options():
     assert "count whole named entities or repeated surface phrases" in prompt
     assert "longest repeated matching name/phrase" in prompt
     assert "use the longer repeated phrase as the boundary" in prompt
+    assert "if the full phrase repeats exactly" in prompt
     assert "not an answer key" in prompt
     assert "verify that attribute directly" in prompt
     assert "INPUT MEDIA:" in prompt
