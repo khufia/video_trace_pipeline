@@ -1,7 +1,12 @@
 import pytest
 
-from video_trace_pipeline.schemas import FrameRetrieverRequest, GenericPurposeRequest, OCRRequest
+from video_trace_pipeline.schemas import FrameRef, FrameRetrieverRequest, GenericPurposeRequest, OCRRequest, SpatialGrounderRequest
 from video_trace_pipeline.tools.base import ToolAdapter, _validate_request_payload
+from video_trace_pipeline.tools.process_adapters import (
+    GenericPurposeProcessAdapter,
+    OCRProcessAdapter,
+    SpatialGrounderProcessAdapter,
+)
 
 
 class _GenericPurposeAdapter(ToolAdapter):
@@ -39,6 +44,88 @@ def test_validate_request_payload_preserves_canonical_list_fields():
 
     assert payload["text_contexts"] == ["Alaska"]
     assert payload["evidence_ids"] == ["ocr-step-3"]
+
+
+def test_frame_retriever_request_accepts_sequence_fields():
+    payload = _validate_request_payload(
+        {
+            "clips": [{"video_id": "video-1", "start_s": 0.0, "end_s": 10.0}],
+            "time_hints": ["00:06"],
+            "sequence_mode": "anchor_window",
+            "neighbor_radius_s": 2.0,
+            "include_anchor_neighbors": True,
+            "sort_order": "chronological",
+        },
+        FrameRetrieverRequest,
+    )
+    request = FrameRetrieverRequest.parse_obj({"tool_name": "frame_retriever", **payload})
+
+    assert request.sequence_mode == "anchor_window"
+    assert request.sort_order == "chronological"
+
+
+def test_visual_adapters_append_frame_sequence_context(monkeypatch):
+    frame = FrameRef(
+        video_id="video-1",
+        timestamp_s=6.0,
+        metadata={
+            "requested_timestamp_s": 6.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "anchor",
+            "sequence_index": 1,
+            "sequence_sort_order": "chronological",
+        },
+    )
+
+    generic_seen = {}
+    generic = GenericPurposeProcessAdapter(name="generic_purpose", model_name="qwen")
+    monkeypatch.setattr(
+        generic,
+        "_run_json",
+        lambda context, request_payload: generic_seen.update(request_payload)
+        or ({"answer": "ok", "analysis": "ok", "supporting_points": [], "confidence": 0.7}, "{}"),
+    )
+    generic.execute(
+        GenericPurposeRequest(tool_name="generic_purpose", query="What happens?", frames=[frame]),
+        context=None,
+    )
+    assert "chronological sequence centered on timestamp 6s" in generic_seen["text_contexts"][0]
+    parsed_generic = generic.parse_request({"tool_name": "generic_purpose", "query": "What happens?", "frames": [frame.dict()]})
+    assert "chronological sequence centered on timestamp 6s" in parsed_generic.text_contexts[0]
+
+    ocr_seen = {}
+    ocr = OCRProcessAdapter(name="ocr", model_name="ocr")
+    monkeypatch.setattr(
+        ocr,
+        "_run_json",
+        lambda context, request_payload: ocr_seen.update(request_payload)
+        or ({"text": "", "lines": [], "query": request_payload.get("query")}, "{}"),
+    )
+    ocr.execute(OCRRequest(tool_name="ocr", query="Read the label.", frames=[frame]), context=None)
+    assert "Frame sequence context:" in ocr_seen["query"]
+    parsed_ocr = ocr.parse_request({"tool_name": "ocr", "query": "Read the label.", "frames": [frame.dict()]})
+    assert "Frame sequence context:" in parsed_ocr.query
+
+    spatial_seen = {}
+    spatial = SpatialGrounderProcessAdapter(name="spatial_grounder", model_name="qwen")
+    monkeypatch.setattr(
+        spatial,
+        "_run_json",
+        lambda context, request_payload: spatial_seen.update(request_payload)
+        or (
+            {
+                "query": request_payload.get("query"),
+                "detections": [],
+                "spatial_description": "",
+            },
+            "{}",
+        ),
+    )
+    spatial.execute(SpatialGrounderRequest(tool_name="spatial_grounder", query="Find the player.", frames=[frame]), context=None)
+    assert "Frame sequence context:" in spatial_seen["query"]
+    parsed_spatial = spatial.parse_request({"tool_name": "spatial_grounder", "query": "Find the player.", "frames": [frame.dict()]})
+    assert "Frame sequence context:" in parsed_spatial.query
 
 
 def test_tool_adapter_rejects_noncanonical_argument_alias():

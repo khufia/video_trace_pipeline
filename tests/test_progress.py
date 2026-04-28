@@ -122,7 +122,6 @@ def test_progress_reports_preprocess_context_without_summary_flag():
         round_index=1,
         plan_payload={
             "strategy": "Use direct evidence only.",
-            "use_summary": False,
             "steps": [],
             "refinement_instructions": "",
         },

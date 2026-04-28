@@ -21,38 +21,6 @@ def augment_dependency_output(payload: Dict[str, Any]) -> Dict[str, Any]:
     return dict(payload)
 
 
-def _hydrate_media_refs(value: Any, video_id: str, field_hint: str | None = None) -> Any:
-    if isinstance(value, list):
-        return [_hydrate_media_refs(item, video_id, field_hint) for item in value]
-    if not isinstance(value, dict):
-        return value
-    hydrated = {}
-    for key, item in value.items():
-        child_hint = key if key in {"clip", "clips"} else field_hint
-        hydrated[key] = _hydrate_media_refs(item, video_id, child_hint)
-    has_clip_bounds = any(key in hydrated for key in ("start_s", "end_s", "time_start_s", "time_end_s"))
-    if has_clip_bounds:
-        if "start_s" not in hydrated and "time_start_s" in hydrated:
-            hydrated["start_s"] = hydrated["time_start_s"]
-        if "end_s" not in hydrated and "time_end_s" in hydrated:
-            hydrated["end_s"] = hydrated["time_end_s"]
-        if "start_s" in hydrated and "end_s" in hydrated and "video_id" not in hydrated:
-            hydrated["video_id"] = video_id
-    has_frame_timestamp = any(key in hydrated for key in ("timestamp_s", "timestamp"))
-    if has_frame_timestamp and "timestamp_s" not in hydrated and "timestamp" in hydrated:
-        hydrated["timestamp_s"] = hydrated["timestamp"]
-    if has_frame_timestamp and "video_id" not in hydrated:
-        hydrated["video_id"] = video_id
-    return hydrated
-
-
-def hydrate_arguments_with_task_context(arguments: Dict[str, Any], task) -> Dict[str, Any]:
-    video_id = str(getattr(task, "video_id", None) or getattr(task, "sample_key", "")).strip()
-    if not video_id:
-        return dict(arguments or {})
-    return _hydrate_media_refs(dict(arguments or {}), video_id)
-
-
 def request_model_field_names(model_cls) -> List[str]:
     if hasattr(model_cls, "model_fields"):
         return list(getattr(model_cls, "model_fields").keys())
@@ -62,8 +30,6 @@ def request_model_field_names(model_cls) -> List[str]:
 
 
 _LIST_ARGUMENT_FIELDS = frozenset({"clips", "frames", "regions", "transcripts", "text_contexts", "evidence_ids", "time_hints"})
-
-
 def _coerce_dependency_list_value(value: Any) -> List[Any]:
     if value is None:
         return []
@@ -89,6 +55,12 @@ def _merge_dependency_values(existing: Any, new_value: Any, target_field: str) -
     return new_value
 
 
+def _iter_step_input_refs(step):
+    for target_field, refs in dict(getattr(step, "input_refs", {}) or {}).items():
+        for ref in list(refs or []):
+            yield str(target_field or "").strip(), ref
+
+
 class PlanExecutor(object):
     def __init__(self, tool_registry, evidence_cache: SharedEvidenceCache, extractor: ObservationExtractor, models_config):
         self.tool_registry = tool_registry
@@ -97,19 +69,19 @@ class PlanExecutor(object):
         self.models_config = models_config
 
     def _resolve_arguments(self, step, step_outputs: Dict[int, Dict[str, Any]]) -> Dict[str, Any]:
-        resolved = dict(step.arguments or {})
-        for binding in step.input_refs:
-            source_obj = step_outputs.get(binding.source.step_id)
+        resolved = dict(step.inputs or {})
+        for target_field, ref in _iter_step_input_refs(step):
+            source_obj = step_outputs.get(ref.step_id)
             if source_obj is None:
-                raise KeyError("Missing step output for step %s" % binding.source.step_id)
-            value = traverse_path(source_obj, binding.source.field_path)
+                raise KeyError("Missing step output for step %s" % ref.step_id)
+            value = traverse_path(source_obj, ref.field_path)
             if value is None:
                 raise KeyError(
-                    "Could not resolve %s from step %s" % (binding.source.field_path, binding.source.step_id)
+                    "Could not resolve %s from step %s" % (ref.field_path, ref.step_id)
                 )
-            existing_value = traverse_path(resolved, binding.target_field)
-            value = _merge_dependency_values(existing_value, value, binding.target_field)
-            assign_path(resolved, binding.target_field, value)
+            existing_value = traverse_path(resolved, target_field)
+            value = _merge_dependency_values(existing_value, value, target_field)
+            assign_path(resolved, target_field, value)
         return resolved
 
     def _load_cached_tool_result(self, cached: Dict[str, Any] | None):
@@ -128,6 +100,94 @@ class PlanExecutor(object):
         tool_result.cache_hit = True
         return tool_result, observations
 
+    def _record_unresolved_dependency_failure(
+        self,
+        *,
+        step,
+        exc: Exception,
+        execution_context: ToolExecutionContext,
+        evidence_ledger: EvidenceLedger,
+        progress_reporter=None,
+        round_index: int | None = None,
+    ) -> Dict[str, Any]:
+        error_text = str(exc)
+        summary = "Tool step skipped because a declared input reference could not be resolved: %s" % error_text
+        request_payload = {
+            "inputs": sanitize_for_persistence(dict(step.inputs or {})),
+            "input_refs": sanitize_for_persistence(
+                {
+                    target_field: [
+                        item.model_dump() if hasattr(item, "model_dump") else item.dict() if hasattr(item, "dict") else item
+                        for item in list(refs or [])
+                    ]
+                    for target_field, refs in dict(getattr(step, "input_refs", {}) or {}).items()
+                }
+            ),
+        }
+        request_hash = hash_payload(
+            {
+                "tool": step.tool_name,
+                "step_id": step.step_id,
+                "purpose": step.purpose,
+                "unresolved_dependency": error_text,
+                "request": request_payload,
+            }
+        )
+        timing_metadata = {
+            "started_at_utc": None,
+            "finished_at_utc": datetime.now(timezone.utc).isoformat(),
+            "duration_s": 0.0,
+            "cache_wait_s": 0.0,
+            "execution_mode": "unresolved_dependency",
+        }
+        tool_result = ToolResult(
+            tool_name=step.tool_name,
+            ok=False,
+            data={"error": error_text, "error_type": "unresolved_dependency"},
+            raw_output_text=summary,
+            request_hash=request_hash,
+            cache_hit=False,
+            summary=summary,
+            metadata={"error": error_text, "error_type": "unresolved_dependency", "timing": timing_metadata},
+        )
+        evidence_entry = EvidenceEntry(
+            evidence_id="ev_%02d_%s" % (step.step_id, request_hash[:8]),
+            tool_name=step.tool_name,
+            evidence_text=summary,
+            status="provisional",
+            artifact_refs=[],
+            observation_ids=[],
+            metadata={"request_hash": request_hash, "cache_hit": False, "error_type": "unresolved_dependency"},
+        )
+        evidence_ledger.append(evidence_entry, [])
+
+        step_dir = execution_context.run.tool_step_dir(step.step_id, step.tool_name, round_index=round_index)
+        write_json(step_dir / "request.json", request_payload)
+        write_json(step_dir / "result.json", sanitize_for_persistence(tool_result.dict()))
+        write_json(step_dir / "timing.json", sanitize_for_persistence(timing_metadata))
+        write_json(step_dir / "artifact_refs.json", [])
+        write_json(step_dir / "observations.json", [])
+
+        if progress_reporter is not None and hasattr(progress_reporter, "on_tool_end"):
+            progress_reporter.on_tool_end(
+                round_index=round_index or 0,
+                step_id=step.step_id,
+                tool_name=step.tool_name,
+                result_payload=sanitize_for_persistence(tool_result.dict()),
+                observations=[],
+                step_dir=str(step_dir),
+            )
+
+        return {
+            "step_id": step.step_id,
+            "tool_name": step.tool_name,
+            "purpose": step.purpose,
+            "request": request_payload,
+            "result": sanitize_for_persistence(tool_result.dict()),
+            "evidence_entry": evidence_entry.dict(),
+            "observations": [],
+        }
+
     def execute_plan(
         self,
         plan,
@@ -140,9 +200,27 @@ class PlanExecutor(object):
         results = []
         step_outputs = {}
         for step in sorted(plan.steps, key=lambda item: item.step_id):
-            resolved_arguments = self._resolve_arguments(step, step_outputs)
+            try:
+                resolved_arguments = self._resolve_arguments(step, step_outputs)
+            except KeyError as exc:
+                failure_record = self._record_unresolved_dependency_failure(
+                    step=step,
+                    exc=exc,
+                    execution_context=execution_context,
+                    evidence_ledger=evidence_ledger,
+                    progress_reporter=progress_reporter,
+                    round_index=round_index,
+                )
+                step_outputs[step.step_id] = {
+                    "ok": False,
+                    "summary": failure_record["result"].get("summary"),
+                    "raw_output_text": failure_record["result"].get("raw_output_text"),
+                    "error": failure_record["result"].get("data", {}).get("error"),
+                    "error_type": failure_record["result"].get("data", {}).get("error_type"),
+                }
+                results.append(failure_record)
+                continue
             adapter = self.tool_registry.get_adapter(step.tool_name)
-            resolved_arguments = hydrate_arguments_with_task_context(resolved_arguments, execution_context.task)
             try:
                 request = adapter.parse_request(resolved_arguments)
             except ValidationError as exc:

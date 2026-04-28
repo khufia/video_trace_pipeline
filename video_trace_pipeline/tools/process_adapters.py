@@ -10,6 +10,7 @@ from typing import Any, Dict, List, Optional, Type
 
 from ..common import extract_json_object, has_meaningful_text, hash_payload, is_low_signal_text, sanitize_for_persistence
 from ..model_cache import describe_model_resolution
+from ..prompts.shared import render_frame_sequence_context
 from ..runtime_devices import describe_device_mapping, resolve_device_label
 from ..tool_wrappers.local_multimodal import TimeChatCaptionerRunner
 from ..tool_wrappers.timechat_dense_caption_runner import execute_payload as execute_dense_caption_payload
@@ -65,6 +66,63 @@ def _confidence_metadata(values: List[Any], *, kind: str) -> Dict[str, Any]:
         "confidence_count": len(cleaned),
         "confidence_kind": str(kind or "confidence"),
     }
+
+
+def _model_to_dict(value: Any) -> Dict[str, Any]:
+    if isinstance(value, dict):
+        return dict(value)
+    if hasattr(value, "model_dump"):
+        return value.model_dump()
+    if hasattr(value, "dict"):
+        return value.dict()
+    return {}
+
+
+def _frame_sequence_context_for_request(request: Any) -> str:
+    frames: List[Dict[str, Any]] = []
+    for frame in list(getattr(request, "frames", []) or []):
+        payload = _model_to_dict(frame)
+        if payload:
+            frames.append(payload)
+    for region in list(getattr(request, "regions", []) or []):
+        region_payload = _model_to_dict(region)
+        frame_payload = region_payload.get("frame") if isinstance(region_payload, dict) else None
+        if isinstance(frame_payload, dict):
+            frames.append(dict(frame_payload))
+    return render_frame_sequence_context(frames)
+
+
+def _append_context_text(value: Optional[str], context_text: str) -> str:
+    base = str(value or "").strip()
+    context_text = str(context_text or "").strip()
+    if not context_text:
+        return base
+    if context_text in base:
+        return base
+    if not base:
+        return context_text
+    return "%s\n\nFrame sequence context: %s" % (base, context_text)
+
+
+def _request_with_query_sequence_context(model_cls, request: Any):
+    context_text = _frame_sequence_context_for_request(request)
+    if not context_text:
+        return request
+    payload = request.model_dump() if hasattr(request, "model_dump") else request.dict()
+    payload["query"] = _append_context_text(payload.get("query"), context_text)
+    return model_cls.parse_obj(payload)
+
+
+def _generic_request_with_sequence_context(model_cls, request: Any):
+    context_text = _frame_sequence_context_for_request(request)
+    if not context_text:
+        return request
+    payload = request.model_dump() if hasattr(request, "model_dump") else request.dict()
+    text_contexts = [str(item).strip() for item in list(payload.get("text_contexts") or []) if str(item).strip()]
+    if context_text not in text_contexts:
+        text_contexts.append(context_text)
+    payload["text_contexts"] = text_contexts
+    return model_cls.parse_obj(payload)
 
 
 class JsonProcessMixin(object):
@@ -377,6 +435,36 @@ def _frame_rank_sort_key(frame: Dict[str, Any]) -> tuple:
     return (-numeric_score, numeric_anchor_distance, timestamp_s)
 
 
+def _frame_is_chronological_sequence(frame: Dict[str, Any]) -> bool:
+    metadata = dict(frame.get("metadata") or {})
+    return (
+        str(metadata.get("sequence_mode") or "").strip().lower() in {"anchor_window", "chronological"}
+        and str(metadata.get("sequence_sort_order") or "").strip().lower() == "chronological"
+    )
+
+
+def _frame_sequence_sort_key(frame: Dict[str, Any]) -> tuple:
+    metadata = dict(frame.get("metadata") or {})
+
+    def _float_value(value: Any, default: float = float("inf")) -> float:
+        try:
+            return float(value)
+        except Exception:
+            return default
+
+    def _int_value(value: Any, default: int = 10**9) -> int:
+        try:
+            return int(value)
+        except Exception:
+            return default
+
+    timestamp_s = _float_value(frame.get("timestamp_s"), 0.0)
+    clip_start_s = _float_value(metadata.get("clip_start_s"), timestamp_s)
+    requested_timestamp_s = _float_value(metadata.get("requested_timestamp_s"), timestamp_s)
+    sequence_index = _int_value(metadata.get("sequence_index"))
+    return (clip_start_s, requested_timestamp_s, sequence_index, timestamp_s)
+
+
 def _select_multi_clip_frames(frame_groups: List[Dict[str, Any]], total_limit: int) -> List[Dict[str, Any]]:
     if total_limit <= 0:
         return []
@@ -389,6 +477,20 @@ def _select_multi_clip_frames(frame_groups: List[Dict[str, Any]], total_limit: i
             str(frame.get("relpath") or "").strip(),
             float(frame.get("timestamp_s") or 0.0),
         )
+
+    merged_frames = []
+    for group in list(frame_groups or []):
+        merged_frames.extend(list(group.get("frames") or []))
+    if any(_frame_is_chronological_sequence(frame) for frame in merged_frames):
+        for frame in sorted(merged_frames, key=_frame_sequence_sort_key):
+            key = _frame_key(frame)
+            if key in seen:
+                continue
+            seen.add(key)
+            selected.append(frame)
+            if len(selected) >= total_limit:
+                break
+        return selected
 
     ordered_groups = sorted(
         list(frame_groups or []),
@@ -406,9 +508,6 @@ def _select_multi_clip_frames(frame_groups: List[Dict[str, Any]], total_limit: i
         if len(selected) >= total_limit:
             return selected
 
-    merged_frames = []
-    for group in list(frame_groups or []):
-        merged_frames.extend(list(group.get("frames") or []))
     for frame in sorted(merged_frames, key=_frame_rank_sort_key):
         key = _frame_key(frame)
         if key in seen:
@@ -628,7 +727,12 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
         frames = []
         clip_ref = _first_list_item(getattr(request, "clips", []) or [])
         for item in parsed.frames:
-            artifact = context.workspace.store_file_artifact(item.frame_path, kind="frame", source_tool=self.name)
+            artifact = context.workspace.store_file_artifact(
+                item.frame_path,
+                kind="frame",
+                source_tool=self.name,
+                video_id=context.task.video_id or context.task.sample_key,
+            )
             artifact_refs.append(artifact)
             frames.append(
                 FrameRef(
@@ -682,6 +786,10 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                                 "query": request.query,
                                 "num_frames": request.num_frames,
                                 "time_hints": list(time_hints),
+                                "sequence_mode": request.sequence_mode,
+                                "neighbor_radius_s": request.neighbor_radius_s,
+                                "include_anchor_neighbors": request.include_anchor_neighbors,
+                                "sort_order": request.sort_order,
                             }
                         )
                     )
@@ -694,6 +802,10 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                                 "time_hints": [time_hint],
                                 "query": request.query,
                                 "num_frames": request.num_frames,
+                                "sequence_mode": request.sequence_mode,
+                                "neighbor_radius_s": request.neighbor_radius_s,
+                                "include_anchor_neighbors": request.include_anchor_neighbors,
+                                "sort_order": request.sort_order,
                             }
                         )
                     )
@@ -793,6 +905,43 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
     request_model = DenseCaptionRequest
     output_model = DenseCaptionOutput
 
+    def _reuse_preprocess_single(self, request, context):
+        if str(getattr(request, "focus_query", "") or "").strip():
+            return None
+        clip = _first_list_item(getattr(request, "clips", []) or [])
+        if clip is None:
+            return None
+        clip_payload = clip.model_dump() if hasattr(clip, "model_dump") else clip.dict() if hasattr(clip, "dict") else dict(clip)
+        start_s = float(clip_payload.get("start_s") or 0.0)
+        end_s = float(clip_payload.get("end_s") or start_s)
+        bundle = getattr(context, "preprocess_bundle", None)
+        for segment in list(dict(bundle or {}).get("dense_caption_segments") or []):
+            if not isinstance(segment, dict):
+                continue
+            if abs(float(segment.get("start_s") or 0.0) - start_s) > 1e-3:
+                continue
+            if abs(float(segment.get("end_s") or 0.0) - end_s) > 1e-3:
+                continue
+            dense_caption = dict(segment.get("dense_caption") or {})
+            data = {
+                key: value
+                for key, value in dense_caption.items()
+                if key != "backend" and value not in (None, "", [], {})
+            }
+            data.setdefault("clips", [clip_payload])
+            summary = str(data.get("overall_summary") or "Reused dense captions from preprocessing.").strip()
+            return ToolResult(
+                tool_name=self.name,
+                ok=True,
+                data=data,
+                raw_output_text=json.dumps(data, ensure_ascii=False),
+                artifact_refs=[],
+                request_hash=hash_payload({"tool": self.name, "request": request.dict(), "source": "preprocess_reuse"}),
+                summary=summary[:2000],
+                metadata={"source": "preprocess_reuse"},
+            )
+        return None
+
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_dense_caption_payload(payload, runner_pool=self.model_pool)
 
@@ -807,7 +956,12 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
             if not frame_path:
                 sampled_frames.append(dict(item))
                 continue
-            artifact = context.workspace.store_file_artifact(frame_path, kind="frame", source_tool=self.name)
+            artifact = context.workspace.store_file_artifact(
+                frame_path,
+                kind="frame",
+                source_tool=self.name,
+                video_id=context.task.video_id or context.task.sample_key,
+            )
             artifact_refs.append(artifact)
             enriched = dict(item)
             enriched["artifact_id"] = artifact.artifact_id
@@ -818,9 +972,9 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
             "captions": [item.dict() for item in parsed.captions],
             "overall_summary": parsed.overall_summary,
             "captioned_range": parsed.captioned_range.dict(),
-            "sampled_frames": sampled_frames,
-            "backend": parsed.backend or self.model_name,
         }
+        if sampled_frames:
+            data["sampled_frames"] = sampled_frames
         return ToolResult(
             tool_name=self.name,
             ok=True,
@@ -833,6 +987,9 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
         )
 
     def _execute_single(self, request, context):
+        reused = self._reuse_preprocess_single(request, context)
+        if reused is not None:
+            return reused
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         return self._build_tool_result(request, parsed, raw, context)
@@ -894,10 +1051,10 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
                 ],
                 "captions": captions,
                 "overall_summary": _join_text_blocks(summaries),
-                "sampled_frames": sampled_frames,
                 "caption_groups": caption_groups,
-                "backend": self.model_name,
             }
+            if sampled_frames:
+                merged_data["sampled_frames"] = sampled_frames
             return ToolResult(
                 tool_name=self.name,
                 ok=True,
@@ -989,13 +1146,22 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
     request_model = OCRRequest
     output_model = OCROutput
 
+    def parse_request(self, arguments: Dict[str, Any]):
+        request = super().parse_request(arguments)
+        return _request_with_query_sequence_context(self.request_model, request)
+
     def _execute_single(self, request, context):
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         artifact_refs = []
         if parsed.source_frame_path:
             artifact_refs.append(
-                context.workspace.store_file_artifact(parsed.source_frame_path, kind="frame", source_tool=self.name)
+                context.workspace.store_file_artifact(
+                    parsed.source_frame_path,
+                    kind="frame",
+                    source_tool=self.name,
+                    video_id=context.task.video_id or context.task.sample_key,
+                )
             )
         data = {
             "text": parsed.text,
@@ -1021,6 +1187,7 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
         )
 
     def execute(self, request, context):
+        request = _request_with_query_sequence_context(self.request_model, request)
         regions = list(getattr(request, "regions", []) or [])
         frames = list(getattr(request, "frames", []) or [])
         clips = list(getattr(request, "clips", []) or [])
@@ -1109,7 +1276,12 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
                 parsed = self._parse_output(result_payload)
                 if parsed.source_frame_path:
                     artifact_refs.append(
-                        context.workspace.store_file_artifact(parsed.source_frame_path, kind="frame", source_tool=self.name)
+                        context.workspace.store_file_artifact(
+                            parsed.source_frame_path,
+                            kind="frame",
+                            source_tool=self.name,
+                            video_id=context.task.video_id or context.task.sample_key,
+                        )
                     )
                 lines = [line.dict() for line in parsed.lines]
                 text = str(parsed.text or "").strip()
@@ -1159,6 +1331,10 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
     request_model = SpatialGrounderRequest
     output_model = SpatialGrounderOutput
 
+    def parse_request(self, arguments: Dict[str, Any]):
+        request = super().parse_request(arguments)
+        return _request_with_query_sequence_context(self.request_model, request)
+
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_spatial_grounder_payload(payload, runner_pool=self.model_pool)
 
@@ -1172,7 +1348,14 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
         frame_path = parsed.source_frame_path or ((frame_ref.metadata or {}).get("source_path") if frame_ref is not None else None)
         artifact_refs = []
         if frame_path:
-            artifact_refs.append(context.workspace.store_file_artifact(frame_path, kind="frame", source_tool=self.name))
+            artifact_refs.append(
+                context.workspace.store_file_artifact(
+                    frame_path,
+                    kind="frame",
+                    source_tool=self.name,
+                    video_id=context.task.video_id or context.task.sample_key,
+                )
+            )
         detections = [item.dict() for item in parsed.detections]
         regions = []
         for item in parsed.detections:
@@ -1210,6 +1393,7 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
         )
 
     def execute(self, request, context):
+        request = _request_with_query_sequence_context(self.request_model, request)
         frames = list(getattr(request, "frames", []) or [])
         if len(frames) > 1:
             subrequests = [
@@ -1283,6 +1467,10 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
     request_model = GenericPurposeRequest
     output_model = GenericPurposeOutput
 
+    def parse_request(self, arguments: Dict[str, Any]):
+        request = super().parse_request(arguments)
+        return _generic_request_with_sequence_context(self.request_model, request)
+
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_generic_purpose_payload(payload, runner_pool=self.model_pool)
 
@@ -1290,6 +1478,7 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
         return self._qwen_persistent_preload_spec(profile)
 
     def execute(self, request, context):
+        request = _generic_request_with_sequence_context(self.request_model, request)
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         low_signal_output = False

@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field, model_validator, validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator, validator
 
-from .artifacts import ClipRef
+from .artifacts import ClipRef, TranscriptRef
 
 
 _GENERIC_CONFIDENCE_LABELS = {
@@ -151,16 +151,17 @@ class ASRSegmentOutput(BaseModel):
 
 
 class ASROutput(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     clips: List[ClipRef] = Field(default_factory=list)
-    text: str = ""
-    segments: List[ASRSegmentOutput] = Field(default_factory=list)
-    backend: Optional[str] = None
+    transcripts: List[TranscriptRef] = Field(default_factory=list)
+    phrase_matches: List[Dict[str, Any]] = Field(default_factory=list)
 
     @model_validator(mode="after")
-    def _require_clips(self):
-        if self.clips:
+    def _require_clips_and_transcripts(self):
+        if self.clips and self.transcripts:
             return self
-        raise ValueError("asr output requires at least one clip")
+        raise ValueError("asr output requires at least one clip and one transcript")
 
 
 class DenseCaptionSpan(BaseModel):

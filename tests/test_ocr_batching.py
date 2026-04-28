@@ -94,11 +94,11 @@ def test_ocr_process_adapter_merges_batched_runner_results(monkeypatch):
         return payload, json.dumps(payload)
 
     class _FakeWorkspace:
-        def store_file_artifact(self, source_frame_path, *, kind, source_tool):
+        def store_file_artifact(self, source_frame_path, *, kind, source_tool, video_id):
             return ArtifactRef(
                 artifact_id=Path(source_frame_path).stem,
                 kind=kind,
-                relpath=Path(source_frame_path).name,
+                relpath="artifacts/%s/frames/%s" % (video_id, Path(source_frame_path).name),
                 source_tool=source_tool,
             )
 
@@ -114,7 +114,10 @@ def test_ocr_process_adapter_merges_batched_runner_results(monkeypatch):
             ],
         }
     )
-    context = SimpleNamespace(workspace=_FakeWorkspace())
+    context = SimpleNamespace(
+        workspace=_FakeWorkspace(),
+        task=SimpleNamespace(video_id="video-1", sample_key="sample-1"),
+    )
 
     result = adapter.execute(request, context)
 

@@ -42,9 +42,9 @@ def test_store_file_artifact_uses_custom_cache_root(tmp_path):
     source.write_bytes(b"fake image bytes")
     artifact = workspace.store_file_artifact(str(source), kind="frame", source_tool="frame_retriever")
     assert artifact.relpath is not None
-    copied = tmp_path / artifact.relpath
+    copied = workspace.workspace_root / artifact.relpath
     assert copied.exists()
-    assert str(copied).startswith(str(tmp_path / "repo_cache"))
+    assert str(copied).startswith(str(workspace.artifacts_root / "unknown_video" / "frames"))
 
 
 def test_sanitize_for_persistence_removes_absolute_paths():

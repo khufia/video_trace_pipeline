@@ -95,23 +95,22 @@ def test_clip_ref_validates_range():
 def test_execution_plan_normalizes_string_step_ids():
     payload = {
         "strategy": "Use grounded steps.",
-        "use_summary": True,
         "steps": [
             {
                 "step_id": "step_1",
                 "tool_name": "visual_temporal_grounder",
                 "purpose": "Find the relevant segment.",
-                "arguments": {"query": "person raises hand"},
-                "input_refs": [],
-                "depends_on": [],
+                "inputs": {"query": "person raises hand"},
+                "input_refs": {},
+                "expected_outputs": {"clips": "candidate moments"},
             },
             {
                 "step_id": "step_2",
                 "tool_name": "frame_retriever",
                 "purpose": "Pick a representative frame from the grounded clip.",
-                "arguments": {"query": "raised hand"},
-                "input_refs": [{"target_field": "clips", "source": {"step_id": "step_1", "field_path": "clips.0"}}],
-                "depends_on": ["step_1"],
+                "inputs": {"query": "raised hand"},
+                "input_refs": {"clips": [{"step_id": "step_1", "field_path": "clips[0]"}]},
+                "expected_outputs": {"frames": "representative frames"},
             },
         ],
         "refinement_instructions": "",
@@ -120,8 +119,43 @@ def test_execution_plan_normalizes_string_step_ids():
     plan = ExecutionPlan.parse_obj(payload)
 
     assert [step.step_id for step in plan.steps] == [1, 2]
-    assert plan.steps[1].input_refs[0].source.step_id == 1
-    assert plan.steps[1].depends_on == [1]
+    assert plan.steps[1].input_refs["clips"][0].step_id == 1
+
+
+def test_execution_plan_rejects_removed_fields():
+    with pytest.raises(ValueError, match="use_summary"):
+        ExecutionPlan.parse_obj({"strategy": "bad", "use_summary": True, "steps": []})
+
+    with pytest.raises(ValueError, match="removed field"):
+        ExecutionPlan.parse_obj(
+            {
+                "strategy": "bad",
+                "steps": [
+                    {
+                        "step_id": 1,
+                        "tool_name": "visual_temporal_grounder",
+                        "purpose": "bad",
+                        "arguments": {"query": "old"},
+                    }
+                ],
+            }
+        )
+
+    with pytest.raises(ValueError, match="field-keyed object"):
+        ExecutionPlan.parse_obj(
+            {
+                "strategy": "bad",
+                "steps": [
+                    {
+                        "step_id": 1,
+                        "tool_name": "frame_retriever",
+                        "purpose": "bad",
+                        "inputs": {"query": "old"},
+                        "input_refs": [{"target_field": "clips", "source": {"step_id": 1, "field_path": "clips"}}],
+                    }
+                ],
+            }
+        )
 
 
 def test_trace_package_normalizes_string_inference_step_ids():

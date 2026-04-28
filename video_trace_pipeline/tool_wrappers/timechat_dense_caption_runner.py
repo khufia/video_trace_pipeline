@@ -248,6 +248,8 @@ def execute_payload(
     runtime = dict(payload.get("runtime") or {})
 
     clip = dict((list(request.get("clips") or []) or [{}])[0] or {})
+    if not clip and isinstance(request.get("clip"), dict):
+        clip = dict(request.get("clip") or {})
     if not clip:
         fail_runtime("dense_captioner requires request.clips[0]")
 

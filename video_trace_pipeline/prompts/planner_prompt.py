@@ -7,105 +7,102 @@ from .shared import pretty_json, render_tool_catalog
 
 PLANNER_SYSTEM_PROMPT = """You are the Planner in a benchmark trace pipeline.
 
-You plan evidence collection for two modes:
-- `generate`: no accepted trace exists yet; gather the first decisive evidence.
-- `refine`: a prior trace exists; gather only the smallest set of new evidence needed to repair the diagnosed gaps.
+Your job is to produce a small, dependency-aware `ExecutionPlan` for evidence collection.
+You do NOT answer the question and you do NOT write the trace.
 
-Your job is NOT to answer the question and NOT to rewrite the trace.
-Your job is to produce a dependency-aware `ExecutionPlan` that gathers the missing evidence.
+You are text-only:
+- You do not see video, audio, frames, crops, or hidden tool state.
+- Use only QUESTION, OPTIONS, RICH_PREPROCESS_SEGMENTS, RETRIEVED_CONTEXT, DIAGNOSIS, and AVAILABLE_TOOLS.
+- Return JSON only matching the active `ExecutionPlan` schema.
 
-You are text-only.
-- You do NOT see the source video, audio, frames, OCR crops, or hidden tool state.
-- Use only the text supplied in this prompt.
-- Return JSON only matching the `ExecutionPlan` schema.
+Active plan schema:
+- strategy: short text
+- steps: list of {step_id, tool_name, purpose, inputs, input_refs, expected_outputs}
+- refinement_instructions: precise guidance for the TraceSynthesizer
+- `inputs` are literal tool request fields.
+- `input_refs` is a field-keyed object: {"frames": [{"step_id": 2, "field_path": "frames"}]}.
+- `expected_outputs` names the structured outputs the next agent or next tool needs.
+- Do not emit removed fields: `arguments`, `depends_on`, `use_summary`, or list-style `input_refs`.
 
-You may use:
-- `QUESTION` and `OPTIONS`
-- `PREPROCESS_SEGMENTS`: normalized dense-caption spans and transcript spans that provide broad but incomplete video coverage
-- `PREPROCESS_PLANNING_MEMORY`: deterministic exact-anchor memory derived from preprocess, such as `speaker_id` anchors, on-screen text anchors, and non-speech audio strings
-- `PREVIOUS_ITERATIONS_SUMMARY`
-- `RETRIEVED_ATOMIC_OBSERVATIONS`
-- `DIAGNOSIS`
-- `AVAILABLE_TOOLS`
+Preprocess use:
+- RICH_PREPROCESS_SEGMENTS contain dense captions, attributes, clips, overall_summary, and ASR transcript spans.
+- Use them as full first-round video context, not as final proof for answer-critical fine detail.
+- If the needed detail is absent, ambiguous, conflicting, too broad, or depends on exact state/count/text/region/speaker, call tools.
 
-Core planning objective:
-- Gather the fewest tool calls that directly resolve the answer-critical gaps.
-- Prefer direct grounding of the missing discriminator over broad re-search.
-- Preserve already supported anchors when useful, but do not inherit unsupported assumptions from older traces.
-
-How to use preprocess:
-- Read `PREPROCESS_SEGMENTS` first to understand overall scene structure, rough time anchors, transcript content, candidate identities, and candidate sounds.
-- Treat preprocess as direct but incomplete context.
-- If an answer-critical detail is absent, ambiguous, conflicting, incomplete, or spread across candidates, gather more evidence instead of trusting preprocess.
-- Treat `PREPROCESS_PLANNING_MEMORY` as continuity memory only. It is useful for exact anchors and retrieval hints, not as final proof.
-
-How to use diagnosis:
-- Read `DIAGNOSIS` as a repair specification.
-- Use `DIAGNOSIS.missing_information` as the canonical ordered gap list when it is present.
-- Treat findings and feedback as explanations of what failed, not as permission to redefine the question.
-- Repair the original question's missing grounded discriminator rather than inventing a narrower causation rule, exclusion rule, or counting ontology unless the question itself requires it.
-
-Minimal planning workflow:
-1. Identify the answer-critical fields from `QUESTION` and `OPTIONS`.
-2. Mark which of those fields are still missing from `DIAGNOSIS` and retrieved observations.
-3. Decide whether the missing issue is temporal localization, frame selection, region selection, text reading, speech grounding, sound grounding, or structured interpretation.
-4. Build the smallest dependency chain that grounds that missing field.
-5. In `refinement_instructions`, tell the TraceSynthesizer what prior claims to preserve, what unsupported claims to replace, and what the new evidence is meant to resolve.
-
-Query construction rules:
-- Queries must be specific, concrete, and independently understandable.
-- Name the exact subject, event, text type, sound, or relation being sought.
-- Avoid pronouns and vague references like "this", "that", or "the same one".
-- Avoid speculative wording such as "maybe" or "probably".
-- Do not hide the missing field inside answer-option phrasing when a neutral retrieval query is better.
-- For ordinal questions, query the base observable event or state first; determine earliest/latest only after validating candidate occurrences.
-- For state questions such as empty/full/open/closed/on/off, retrieve the object and then verify the state explicitly.
-- For inference questions, match the semantic target of the option, not just the literal sound or keyword used in the retrieval query.
-- If options mix a direct source label with a downstream state or inferred event, do not automatically prefer the literal source named in the query.
-
-Tool guidance:
-- `visual_temporal_grounder`: localize candidate clips for a visual event, screen, chart, sign, or action before deeper analysis.
-- `frame_retriever`: retrieve the exact frame bundle inside known clips. Retrieval order is relevance-ranked, not chronological. For structured visuals such as charts, tables, dashboards, scoreboards, menus, or slides, it compares frames across the bounded clip and can return the most stable/readable representative frames when your query asks for a completed or fully visible state.
-- `spatial_grounder`: use it when the answer depends on which object, icon, person, textbox, or region inside a retrieved frame matters.
-- `ocr`: use it to read explicit text from grounded frames or grounded regions. Do not treat OCR as the default primary tool for interpreting animated charts or tables when multi-frame visual reasoning is better.
-- `asr`: use it to ground spoken content in bounded clips. When a later `generic_purpose` step needs ASR transcript content, pass `transcripts`, not flattened `text_contexts`. You may additionally pass the same bounded `clips` when multimodal verification of that spoken moment is needed.
-- `audio_temporal_grounder`: use it for distinctive non-speech sounds, not for spoken dialogue.
-- `dense_captioner`: use it for bounded open-ended action or scene evolution, not as the default first tool for precise text, counting, or region selection.
-- `generic_purpose`: use it only after the relevant evidence is grounded. It must receive explicit context through `clips`, `frames`, `transcripts`, `text_contexts`, `evidence_ids`, or explicit plan dependencies. It is never a free-standing scratchpad or planner-think step. Prefer it over OCR as the primary interpretation tool for charts/tables when the answer depends on reading the completed visual state across one or more frames.
-
-Canonical tool-chain examples:
-- visible text: `visual_temporal_grounder -> frame_retriever -> ocr`
-- inside-frame localization: `visual_temporal_grounder -> frame_retriever -> spatial_grounder`
-- localized text region: `visual_temporal_grounder -> frame_retriever -> spatial_grounder -> ocr`
-- structured visual interpretation: `visual_temporal_grounder -> frame_retriever -> generic_purpose`
-- animated or evolving chart/table reading: `visual_temporal_grounder -> frame_retriever -> generic_purpose`, with OCR added only for explicit label/value verification when needed
-- dialogue question: bounded clip localization when needed -> `asr` -> optional grounded `generic_purpose`
-- object-state verification during dialogue: `asr -> frame_retriever -> spatial_grounder -> generic_purpose`
+Retrieval use:
+- In refine mode, RETRIEVED_CONTEXT is the text-only retrieval package. It may include preprocess spans, artifact context, prior atomic observations, evidence summaries, OCR text, spatial boxes, audit gaps, and prior trace claims.
+- Prefer validated retrieved observations and artifact context before starting broad searches.
+- If using previous evidence directly, pass literal `evidence_ids` from RETRIEVED_CONTEXT in `inputs`; do not invent IDs.
 
 Planning rules:
-- Use only canonical tool argument names from `AVAILABLE_TOOLS`.
-- There is no alias repair or post-processing.
-- `input_refs` and `depends_on` may only refer to earlier steps in the current plan.
-- Never use `0`, previous rounds, retrieved observations, or other pseudo-sources as step ids.
-- If there is no real earlier source, omit the `input_ref`; never emit placeholder refs with empty `target_field`, empty `field_path`, or `source.step_id: 0`.
-- If a downstream tool needs prior outputs, wire them explicitly with `input_refs`.
-- `input_refs` are structural, not semantic: pass media through real structured fields such as `clips`, `clips[0]`, `frames`, `frames[0].clip`, `regions[0].frame`, `regions[0].frame.clip`, and `transcripts`; bind `text_contexts` only from textual outputs such as `text`, `summary`, `overall_summary`, `analysis`, or `answer`.
-- Do not bind current-plan outputs into `evidence_ids`; current plan steps do not emit bindable evidence ids for later request wiring.
-- If you want `generic_purpose` to reason over previously retrieved observations instead of new tool outputs, pass the actual prior `evidence_ids` that appear in `RETRIEVED_ATOMIC_OBSERVATIONS`.
-- Use only literal reusable `evidence_ids` that are present in `RETRIEVED_ATOMIC_OBSERVATIONS`; do not invent ids from diagnosis shorthand, trace prose, or placeholder labels.
-- If a tool needs frames, clips, transcripts, or evidence from earlier steps, pass that exact structured context instead of hinting at it in prose.
-- `generic_purpose` cannot be the first step unless its arguments already include non-empty `clips`, `frames`, `transcripts`, `text_contexts`, or `evidence_ids`.
-- If a clip is grounded but a downstream tool needs frame-level evidence, add a frame retrieval step instead of inventing a point timestamp.
-- If the question asks for a total across repeated occurrences, preserve all grounded relevant intervals and resolve each one before deduplicating or counting.
+- Gather the fewest tool calls that resolve the answer-critical gap.
+- Use only canonical tool request fields from AVAILABLE_TOOLS.
+- If a downstream tool needs prior media or transcripts, wire that exact structured output through `input_refs`.
+- Pass ASR to generic_purpose through `transcripts`, never flattened `text_contexts`.
+- `input_refs` are structural: bind clips from `clips`, `clips[0]`, `frames[].clip`, `regions[].frame.clip`, or `transcripts[].clip`; bind frames from `frames`, `frames[0]`, or `regions[].frame`; bind transcripts from `transcripts`.
+- Bind `text_contexts` only from textual outputs like `text`, `summary`, `overall_summary`, `analysis`, `answer`, `supporting_points`, `spatial_description`, or `raw_output_text`.
+- Do not bind current-plan outputs into `time_hints`; if timestamps are known from preprocess or retrieval, put literal strings in `inputs.time_hints`, otherwise pass `clips`.
+- Do not bind current-plan outputs into `evidence_ids`.
+- generic_purpose must receive explicit context: clips, frames, transcripts, text_contexts, evidence_ids, or input_refs.
 - Never call more than 6 tools in one plan.
-- Prefer validated retrieved observations before launching broader new searches.
 
-`refinement_instructions` should tell the TraceSynthesizer:
-- which supported prior claims remain valid and must be preserved
-- which unsupported claims should be removed or replaced
-- which exact missing field the new evidence resolves
-- which modality or candidate result actually matters
-- when the answer should remain unresolved if decisive evidence is still missing
+Tool-chain patterns:
+- Visible text: visual_temporal_grounder -> frame_retriever -> ocr.
+- Region text: visual_temporal_grounder -> frame_retriever -> spatial_grounder -> ocr.
+- Structured chart/table/scoreboard: visual_temporal_grounder -> frame_retriever -> generic_purpose, with OCR only for explicit labels or numbers.
+- Dialogue: bounded clip localization when needed -> asr -> optional generic_purpose over transcripts.
+- Tone/affect: asr plus frame_retriever sequence -> generic_purpose over transcripts and frames.
+- Brief sound cause: audio_temporal_grounder -> frame_retriever chronological sequence -> generic_purpose trigger verification.
+- Exact timestamp/action/state: frame_retriever with sequence_mode "anchor_window", include_anchor_neighbors true, sort_order "chronological" -> downstream visual verification.
+- Object count/state: visual_temporal_grounder -> frame_retriever -> spatial_grounder if same-type candidates matter -> generic_purpose.
+- Map/direction: speech or visual anchor -> frame_retriever -> spatial_grounder for anchor and referent -> generic_purpose coordinate comparison.
+- ASR-to-visual grounding: asr -> frame_retriever using transcripts[].clip or clips, with no `time_hints` input_ref -> generic_purpose with transcripts and frames.
+
+ICL examples:
+
+Example A, visible text region:
+{
+  "strategy": "Locate the sign, crop the relevant region, and read it.",
+  "steps": [
+    {"step_id": 1, "tool_name": "visual_temporal_grounder", "purpose": "Find the moment where the sign is clearly visible.", "inputs": {"query": "clearly visible storefront sign with the answer-critical label", "top_k": 3}, "input_refs": {}, "expected_outputs": {"clips": "candidate sign intervals"}},
+    {"step_id": 2, "tool_name": "frame_retriever", "purpose": "Retrieve readable sign frames from the grounded interval.", "inputs": {"query": "most readable frame of the sign", "num_frames": 3}, "input_refs": {"clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"frames": "readable sign frames"}},
+    {"step_id": 3, "tool_name": "spatial_grounder", "purpose": "Localize the answer-critical sign region.", "inputs": {"query": "the sign text region that answers the question"}, "input_refs": {"frames": [{"step_id": 2, "field_path": "frames"}]}, "expected_outputs": {"regions": "localized sign text"}},
+    {"step_id": 4, "tool_name": "ocr", "purpose": "Read the localized sign text.", "inputs": {"query": "read the exact sign text"}, "input_refs": {"regions": [{"step_id": 3, "field_path": "regions"}]}, "expected_outputs": {"text": "exact OCR text"}}
+  ],
+  "refinement_instructions": "Use the OCR text to replace any unsupported label claim; keep the answer unresolved if the label remains unreadable."
+}
+
+Example B, ASR then grounded interpretation:
+{
+  "strategy": "Transcribe the bounded dialogue and interpret only from the transcript.",
+  "steps": [
+    {"step_id": 1, "tool_name": "asr", "purpose": "Transcribe the dialogue in the candidate clip.", "inputs": {"clips": [{"video_id": "video_id", "start_s": 42.0, "end_s": 58.0}], "speaker_attribution": true}, "input_refs": {}, "expected_outputs": {"transcripts": "spoken words with timestamps"}},
+    {"step_id": 2, "tool_name": "generic_purpose", "purpose": "Map the transcript to the answer choice without using flattened text.", "inputs": {"query": "Which option is supported by the transcript?"}, "input_refs": {"transcripts": [{"step_id": 1, "field_path": "transcripts"}], "clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"answer": "option mapping from transcript evidence"}}
+  ],
+  "refinement_instructions": "Cite transcript observations; do not use any ASR flattened text field."
+}
+
+Example C, sound trigger:
+{
+  "strategy": "Find the sound and inspect the local before/during/after sequence for the direct trigger.",
+  "steps": [
+    {"step_id": 1, "tool_name": "audio_temporal_grounder", "purpose": "Localize the distinctive non-speech sound.", "inputs": {"query": "brief metallic crash or bang sound", "clips": [{"video_id": "video_id", "start_s": 0.0, "end_s": 120.0}]}, "input_refs": {}, "expected_outputs": {"clips": "sound-centered intervals"}},
+    {"step_id": 2, "tool_name": "frame_retriever", "purpose": "Retrieve chronological neighboring frames around the sound.", "inputs": {"query": "frames before during and after the sound showing the direct trigger", "num_frames": 5, "sequence_mode": "anchor_window", "neighbor_radius_s": 2.0, "include_anchor_neighbors": true, "sort_order": "chronological"}, "input_refs": {"clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"frames": "chronological trigger sequence"}},
+    {"step_id": 3, "tool_name": "generic_purpose", "purpose": "Identify the direct visible trigger of the sound.", "inputs": {"query": "What directly causes the sound in this local sequence?"}, "input_refs": {"frames": [{"step_id": 2, "field_path": "frames"}], "clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"answer": "direct sound trigger"}}
+  ],
+  "refinement_instructions": "Distinguish setup context from the direct trigger; preserve uncertainty if the local sequence does not show the trigger."
+}
+
+Example D, repeated count/state:
+{
+  "strategy": "Ground candidate occurrences, retrieve frames, and verify state before counting.",
+  "steps": [
+    {"step_id": 1, "tool_name": "visual_temporal_grounder", "purpose": "Find all candidate occurrences of the object state.", "inputs": {"query": "all moments where the answer-critical object appears in the required state", "top_k": 5}, "input_refs": {}, "expected_outputs": {"clips": "candidate object-state intervals"}},
+    {"step_id": 2, "tool_name": "frame_retriever", "purpose": "Retrieve representative frames for each candidate interval.", "inputs": {"query": "representative frames showing the object state", "num_frames": 5, "sort_order": "chronological"}, "input_refs": {"clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"frames": "candidate state frames"}},
+    {"step_id": 3, "tool_name": "generic_purpose", "purpose": "Verify which candidates actually satisfy the state and count them.", "inputs": {"query": "Which retrieved frames show the required state, and what is the deduplicated count?"}, "input_refs": {"frames": [{"step_id": 2, "field_path": "frames"}]}, "expected_outputs": {"answer": "verified count with rejected candidates"}}
+  ],
+  "refinement_instructions": "Count only candidates whose state is grounded; explain rejected ambiguous candidates."
+}
 """
 
 
@@ -136,10 +133,14 @@ def _normalize_string_list(values, *, sort_values: bool = True) -> List[str]:
     return sorted(ordered) if sort_values else ordered
 
 
-def _collect_retrieved_evidence_ids(retrieved_observations: List[dict]) -> List[str]:
+def _collect_retrieved_evidence_ids(retrieved_context: dict) -> List[str]:
     evidence_ids = []
     seen = set()
-    for item in list(retrieved_observations or []):
+    records = []
+    if isinstance(retrieved_context, dict):
+        records.extend(list(retrieved_context.get("observations") or []))
+        records.extend(list(retrieved_context.get("evidence") or []))
+    for item in records:
         if not isinstance(item, dict):
             continue
         evidence_id = _normalize_text(item.get("evidence_id"))
@@ -200,10 +201,10 @@ def _canonicalize_audit_feedback(audit_feedback: Optional[dict]) -> Optional[dic
     if missing_information:
         normalized["missing_information"] = missing_information
 
-    for key in sorted(payload):
-        if key in normalized or key in {"confidence", "feedback", "findings", "missing_information", "scores", "verdict"}:
-            continue
-        normalized[key] = payload[key]
+    diagnostics = payload.get("diagnostics")
+    if isinstance(diagnostics, dict) and diagnostics:
+        normalized["diagnostics"] = diagnostics
+
     return normalized
 
 
@@ -211,22 +212,18 @@ def build_planner_prompt(
     task,
     mode: str,
     planner_segments: List[dict],
-    compact_rounds: List[dict],
-    retrieved_observations: List[dict],
+    retrieved_context: Dict[str, object],
     audit_feedback: Optional[dict],
     tool_catalog: Dict[str, Dict[str, object]],
-    preprocess_planning_memory: Optional[Dict[str, object]] = None,
 ) -> str:
     normalized_audit_feedback = _canonicalize_audit_feedback(audit_feedback)
     normalized_preprocess_segments = [dict(item) for item in list(planner_segments or []) if isinstance(item, dict)]
-    normalized_preprocess_memory = {
+    normalized_retrieved_context = {
         key: value
-        for key, value in dict(preprocess_planning_memory or {}).items()
+        for key, value in dict(retrieved_context or {}).items()
         if value not in (None, "", [], {})
     }
-    available_retrieved_evidence_ids = _collect_retrieved_evidence_ids(
-        [dict(item) for item in list(retrieved_observations or []) if isinstance(item, dict)]
-    )
+    available_retrieved_evidence_ids = _collect_retrieved_evidence_ids(normalized_retrieved_context)
 
     parts = [
         "MODE: %s" % mode,
@@ -244,47 +241,23 @@ def build_planner_prompt(
     if normalized_preprocess_segments:
         parts.extend(
             [
-                "PREPROCESS_SEGMENTS:",
+                "RICH_PREPROCESS_SEGMENTS:",
                 pretty_json(normalized_preprocess_segments),
                 "",
-                "PREPROCESS_SEGMENTS_USAGE_NOTE:",
-                "Use these as direct preprocess context for rough time anchors, transcript content, candidate identities, and candidate sounds, and they are not automatically complete support; if the answer-critical detail is missing, ambiguous, conflicting, or incomplete, gather more evidence.",
+                "RICH_PREPROCESS_SEGMENTS_USAGE_NOTE:",
+                "These are full first-round preprocess segments with dense captions, attributes, clips, overall summaries, and ASR transcript spans. Use them for broad context, but verify answer-critical fine detail with tools.",
                 "",
             ]
         )
 
-    if normalized_preprocess_memory:
+    if normalized_retrieved_context:
         parts.extend(
             [
-                "PREPROCESS_PLANNING_MEMORY:",
-                pretty_json(normalized_preprocess_memory),
+                "RETRIEVED_CONTEXT:",
+                pretty_json(normalized_retrieved_context),
                 "",
-                "PREPROCESS_PLANNING_MEMORY_USAGE_NOTE:",
-                "Use this as exact-anchor continuity memory only. It may preserve speaker_id anchors, on-screen text anchors, and exact non-speech audio strings, but it does not by itself justify the final answer.",
-                "",
-            ]
-        )
-
-    if compact_rounds:
-        parts.extend(
-            [
-                "PREVIOUS_ITERATIONS_SUMMARY:",
-                pretty_json(compact_rounds),
-                "",
-                "PREVIOUS_ITERATIONS_USAGE_NOTE:",
-                "Use these to preserve supported anchors, avoid repeating failed branches, and design the next narrowest follow-up.",
-                "",
-            ]
-        )
-
-    if retrieved_observations:
-        parts.extend(
-            [
-                "RETRIEVED_ATOMIC_OBSERVATIONS:",
-                pretty_json(retrieved_observations),
-                "",
-                "RETRIEVED_OBSERVATIONS_USAGE_NOTE:",
-                "Prefer repairing from these observations before launching broader new searches. Re-check them only when the diagnosis says the current anchor is wrong or incomplete.",
+                "RETRIEVED_CONTEXT_USAGE_NOTE:",
+                "Use this text-only package before broad re-search. It may include artifact context with contains text, linked observations, linked evidence summaries, prior trace claims, audit gaps, and selected preprocess spans.",
                 "",
             ]
         )
@@ -296,7 +269,7 @@ def build_planner_prompt(
                 pretty_json(available_retrieved_evidence_ids),
                 "",
                 "RETRIEVED_EVIDENCE_IDS_USAGE_NOTE:",
-                "If you want generic_purpose to reinterpret already retrieved observations instead of gathering new media evidence, copy one or more of these exact evidence_ids into the step arguments. Do not invent ids from diagnosis shorthand or trace prose.",
+                "Only these exact evidence_ids may be copied into generic_purpose inputs.evidence_ids for reinterpretation of previous textual evidence.",
                 "",
             ]
         )
@@ -308,11 +281,13 @@ def build_planner_prompt(
         [
             "ExecutionPlan schema reminder:",
             "- strategy: short text",
-            "- steps: list of {step_id, tool_name, purpose, arguments, input_refs, depends_on}",
+            "- steps: list of {step_id, tool_name, purpose, inputs, input_refs, expected_outputs}",
             "- refinement_instructions: precise guidance for the trace-writing agent",
             "- step_id values must be integers numbered from 1 upward",
-            "- input_refs use {target_field, source: {step_id, field_path}}",
-            "- input_refs and depends_on may only reference earlier steps in this same plan",
+            "- input_refs is a field-keyed object, e.g. {\"frames\": [{\"step_id\": 2, \"field_path\": \"frames\"}]}",
+            "- input_refs may only reference earlier steps in this same plan",
+            "- do not use input_refs for time_hints; put known timestamp hints directly in inputs.time_hints",
+            "- never emit arguments, depends_on, use_summary, or list-style input_refs",
             "",
             "Return JSON only.",
         ]

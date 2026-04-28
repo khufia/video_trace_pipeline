@@ -184,25 +184,45 @@ def has_meaningful_text(text: str) -> bool:
 
 
 def traverse_path(obj: Any, field_path: str) -> Any:
-    current = obj
-    for token in str(field_path or "").split("."):
+    tokens = [token for token in str(field_path or "").split(".") if token]
+
+    def _walk(current: Any, index: int) -> Any:
+        if index >= len(tokens):
+            return current
         if current is None:
             return None
+        token = tokens[index]
+
+        if token == "[]":
+            if not isinstance(current, list):
+                return None
+            values = [_walk(item, index + 1) for item in current]
+            values = [item for item in values if item is not None]
+            return values or None
+
+        wildcard_match = re.match(r"^([A-Za-z0-9_]+)\[\]$", token)
+        if wildcard_match:
+            key = wildcard_match.group(1)
+            current = current.get(key) if isinstance(current, dict) else None
+            if not isinstance(current, list):
+                return None
+            values = [_walk(item, index + 1) for item in current]
+            values = [item for item in values if item is not None]
+            return values or None
+
         if re.fullmatch(r"\d+", token):
-            index = int(token)
-            if isinstance(current, list) and 0 <= index < len(current):
-                current = current[index]
-                continue
+            item_index = int(token)
+            if isinstance(current, list) and 0 <= item_index < len(current):
+                return _walk(current[item_index], index + 1)
             return None
         match = re.match(r"^([A-Za-z0-9_]+)\[(\d+)\]$", token)
         if match:
             key = match.group(1)
-            index = int(match.group(2))
+            item_index = int(match.group(2))
             current = current.get(key) if isinstance(current, dict) else None
-            if isinstance(current, list) and index < len(current):
-                current = current[index]
-            else:
-                return None
+            if isinstance(current, list) and item_index < len(current):
+                return _walk(current[item_index], index + 1)
+            return None
         else:
             if isinstance(current, dict):
                 current = current.get(token)
@@ -224,7 +244,9 @@ def traverse_path(obj: Any, field_path: str) -> Any:
                 current = exact_match or fuzzy_match
             else:
                 return None
-    return current
+            return _walk(current, index + 1)
+
+    return _walk(obj, 0)
 
 
 def assign_path(target: Dict[str, Any], field_path: str, value: Any) -> Dict[str, Any]:

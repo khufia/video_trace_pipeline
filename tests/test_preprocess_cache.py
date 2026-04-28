@@ -1,8 +1,6 @@
 from video_trace_pipeline.orchestration.preprocess import DenseCaptionPreprocessor
 from video_trace_pipeline.schemas import AgentConfig, MachineProfile, ModelsConfig, TaskSpec, ToolConfig
 from video_trace_pipeline.storage import WorkspaceManager
-from video_trace_pipeline.tools.specs import tool_implementation
-from video_trace_pipeline.common import hash_payload, write_json
 
 
 class FakeDenseCaptionBackend(object):
@@ -17,76 +15,29 @@ class FakeDenseCaptionBackend(object):
                     "start": 0.0,
                     "end": float(clip_duration_s),
                     "dense_caption": {
-                        "overall_summary": "A short summary.",
+                        "clips": [{"video_id": task.video_id, "start_s": 0.0, "end_s": float(clip_duration_s)}],
+                        "captioned_range": {"start_s": 0.0, "end_s": float(clip_duration_s)},
+                        "overall_summary": "A shopper pushes a cart past a low-price display.",
                         "captions": [
                             {
                                 "start": 0.0,
                                 "end": float(clip_duration_s),
                                 "visual": "A shopper pushes a cart past a low-price display.",
-                                "audio": "",
+                                "audio": "A metallic bang echoes near the doorway.",
                                 "on_screen_text": "LOW PRICES",
                                 "actions": ["pushes a cart"],
                                 "objects": ["cart", "price display"],
-                                "attributes": ["camera_state: static", "bright aisle"],
+                                "attributes": [
+                                    "camera_state: static",
+                                    "video_background: bright aisle",
+                                    "storyline: a shopper moves through the store",
+                                    "shooting_style: handheld",
+                                ],
+                                "metadata": {},
                             }
                         ],
                         "sampled_frames": [],
-                    },
-                }
-            ],
-            "summary": "",
-        }
-
-
-class FakeLowSignalDenseCaptionBackend(object):
-    def __init__(self):
-        self.calls = 0
-
-    def build_dense_caption_cache(self, task, clip_duration_s):
-        self.calls += 1
-        return {
-            "segments": [
-                {
-                    "start": 0.0,
-                    "end": float(clip_duration_s),
-                    "dense_caption": {
-                        "overall_summary": "",
-                        "captions": [],
-                        "sampled_frames": [],
-                    },
-                }
-            ],
-            "summary": "",
-        }
-
-
-class FakeIdentityAudioDenseCaptionBackend(object):
-    def __init__(self):
-        self.calls = 0
-
-    def build_dense_caption_cache(self, task, clip_duration_s):
-        del task
-        self.calls += 1
-        return {
-            "segments": [
-                {
-                    "start": 0.0,
-                    "end": float(clip_duration_s),
-                    "dense_caption": {
-                        "overall_summary": "Phil enters the shop.",
-                        "captions": [
-                            {
-                                "start": 0.0,
-                                "end": min(float(clip_duration_s), 12.0),
-                                "visual": "Phil walks into the store and waves at the clerk.",
-                                "audio": "A metallic bang echoes near the doorway.",
-                                "on_screen_text": "PHIL",
-                                "actions": ["walks into the store"],
-                                "objects": ["man", "doorway"],
-                                "attributes": [],
-                            }
-                        ],
-                        "sampled_frames": [],
+                        "backend": "legacy_backend",
                     },
                 }
             ],
@@ -102,17 +53,23 @@ class FakeToolRegistry(object):
         self.asr_calls = 0
 
     def build_dense_caption_cache(self, task, clip_duration_s, context, preprocess_settings=None):
-        del context
+        del context, preprocess_settings
         return self.backend.build_dense_caption_cache(task, clip_duration_s)
 
     def build_asr_preprocess_transcript(self, task, context):
-        del task, context
+        del context
         self.asr_calls += 1
         return {
-            "clip": {"video_id": "sample1", "start_s": 0.0, "end_s": 60.0},
-            "text": "A narrator explains the store prices.",
+            "clip": {"video_id": task.video_id, "start_s": 0.0, "end_s": 60.0},
             "segments": list(self.transcript_segments),
-            "backend": "whisperx_local",
+            "transcripts": [
+                {
+                    "transcript_id": "tx_pre",
+                    "clip": {"video_id": task.video_id, "start_s": 0.0, "end_s": 60.0},
+                    "text": "The narrator mentions a price drop.",
+                    "segments": list(self.transcript_segments),
+                }
+            ],
         }
 
 
@@ -121,12 +78,7 @@ def _models_config(preprocess=None):
     if preprocess is not None:
         extra["preprocess"] = dict(preprocess)
     return ModelsConfig(
-        agents={
-            "planner": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
-            "trace_synthesizer": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
-            "trace_auditor": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
-            "atomicizer": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
-        },
+        agents={"planner": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default")},
         tools={
             "dense_captioner": ToolConfig(enabled=True, model="yaolily/TimeChat-Captioner-GRPO-7B", extra=extra),
             "asr": ToolConfig(enabled=True, extra={}),
@@ -134,224 +86,72 @@ def _models_config(preprocess=None):
     )
 
 
-def test_preprocess_cache_reuses_same_signature(tmp_path):
+def _task(tmp_path):
     video = tmp_path / "video.mp4"
     video.write_bytes(b"video-bytes")
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    workspace = WorkspaceManager(profile)
-    runtime = FakeDenseCaptionBackend()
-    preprocessor = DenseCaptionPreprocessor(
-        workspace,
-        FakeToolRegistry(runtime, transcript_segments=[{"start_s": 2.0, "end_s": 5.0, "text": "The narrator mentions a price drop."}]),
-        _models_config(),
-    )
-    task = TaskSpec(
+    return TaskSpec(
         benchmark="omnivideobench",
         sample_key="sample1",
+        video_id="video_1",
         question="What happens?",
         options=[],
         video_path=str(video),
     )
-    first = preprocessor.get_or_build(task, clip_duration_s=30.0)
-    second = preprocessor.get_or_build(task, clip_duration_s=30.0)
-    third = preprocessor.get_or_build(task, clip_duration_s=60.0)
-    assert first["cache_hit"] is False
-    assert second["cache_hit"] is True
-    assert third["cache_hit"] is False
-    assert runtime.calls == 2
-    assert first["planner_segments"][0]["dense_caption_spans"][0]["visual"] == "A shopper pushes a cart past a low-price display."
-    assert first["planner_segments"][0]["transcript_spans"][0]["text"] == "The narrator mentions a price drop."
 
 
-def test_preprocess_cache_signature_changes_when_preprocess_settings_change(tmp_path):
-    video = tmp_path / "video.mp4"
-    video.write_bytes(b"video-bytes")
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    workspace = WorkspaceManager(profile)
-    runtime = FakeDenseCaptionBackend()
-    transcript_segments = [{"start_s": 1.0, "end_s": 2.0, "text": "Milk is $2.18."}]
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What happens?",
-        options=[],
-        video_path=str(video),
-    )
-    first_preprocessor = DenseCaptionPreprocessor(
-        workspace,
-        FakeToolRegistry(runtime, transcript_segments=transcript_segments),
-        _models_config(preprocess={"clip_duration_s": 60, "sample_frames": 6}),
-    )
-    second_preprocessor = DenseCaptionPreprocessor(
-        workspace,
-        FakeToolRegistry(runtime, transcript_segments=transcript_segments),
-        _models_config(preprocess={"clip_duration_s": 60, "sample_frames": 8}),
-    )
-
-    first = first_preprocessor.get_or_build(task, clip_duration_s=None)
-    second = second_preprocessor.get_or_build(task, clip_duration_s=None)
-
-    assert first["cache_hit"] is False
-    assert second["cache_hit"] is False
-    assert first["manifest"]["preprocess_signature"] != second["manifest"]["preprocess_signature"]
-    assert runtime.calls == 2
-
-
-def test_preprocess_cache_merges_asr_once_and_records_planner_segment_metadata(tmp_path):
-    video = tmp_path / "video.mp4"
-    video.write_bytes(b"video-bytes")
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    workspace = WorkspaceManager(profile)
-    runtime = FakeDenseCaptionBackend()
+def test_preprocess_writes_video_id_layout_and_rich_planner_segments(tmp_path):
+    workspace = WorkspaceManager(MachineProfile(workspace_root=str(tmp_path / "workspace")))
+    backend = FakeDenseCaptionBackend()
     registry = FakeToolRegistry(
-        runtime,
-        transcript_segments=[{"start_s": 4.0, "end_s": 8.0, "text": "The narrator points out the low prices."}],
+        backend,
+        transcript_segments=[{"start_s": 2.0, "end_s": 5.0, "text": "The narrator mentions a price drop."}],
     )
     preprocessor = DenseCaptionPreprocessor(workspace, registry, _models_config())
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What happens?",
-        options=[],
-        video_path=str(video),
-    )
 
-    result = preprocessor.get_or_build(task, clip_duration_s=60.0)
+    first = preprocessor.get_or_build(_task(tmp_path), clip_duration_s=30.0)
+    second = preprocessor.get_or_build(_task(tmp_path), clip_duration_s=30.0)
 
+    cache_dir = tmp_path / "workspace" / "preprocess" / "video_1"
+    assert first["cache_hit"] is False
+    assert second["cache_hit"] is True
+    assert backend.calls == 1
     assert registry.asr_calls == 1
-    assert result["segments"][0]["transcript_segments"] == [
-        {"start_s": 4.0, "end_s": 8.0, "text": "The narrator points out the low prices."}
+    assert (cache_dir / "manifest.json").exists()
+    assert (cache_dir / "raw_segments.json").exists()
+    assert (cache_dir / "planner_segments.json").exists()
+    assert (cache_dir / "dense_caption" / "segments.json").exists()
+    assert (cache_dir / "asr" / "transcripts.json").exists()
+    assert not (cache_dir / "planner_context.json").exists()
+
+    segment = first["planner_segments"][0]
+    dense = segment["dense_caption"]
+    assert dense["overall_summary"] == "A shopper pushes a cart past a low-price display."
+    assert dense["clips"][0]["artifact_id"].startswith("clip_")
+    assert "artifacts/video_1/clips/" in dense["clips"][0]["relpath"]
+    assert dense["captions"][0]["attributes"] == [
+        "camera_state: static",
+        "video_background: bright aisle",
+        "storyline: a shopper moves through the store",
+        "shooting_style: handheld",
     ]
-    assert "summary_format" not in result["manifest"]
-    assert result["manifest"]["include_asr"] is True
+    assert segment["asr"]["transcript_spans"][0]["text"] == "The narrator mentions a price drop."
+    assert "backend" not in str(segment)
+    assert "sampled_frames" not in str(segment)
+
+
+def test_preprocess_manifest_records_counts_without_planner_context(tmp_path):
+    workspace = WorkspaceManager(MachineProfile(workspace_root=str(tmp_path / "workspace")))
+    registry = FakeToolRegistry(
+        FakeDenseCaptionBackend(),
+        transcript_segments=[{"start_s": 1.0, "end_s": 2.0, "text": "Milk is cheap."}],
+    )
+    preprocessor = DenseCaptionPreprocessor(workspace, registry, _models_config())
+
+    result = preprocessor.get_or_build(_task(tmp_path), clip_duration_s=30.0)
+
+    assert result["manifest"]["segment_count"] == 1
     assert result["manifest"]["planner_segment_count"] == 1
     assert result["manifest"]["dense_caption_span_count"] == 1
     assert result["manifest"]["transcript_segment_count"] == 1
-    assert result["planner_segments"][0]["transcript_spans"] == [
-        {"start_s": 4.0, "end_s": 8.0, "text": "The narrator points out the low prices."}
-    ]
-
-
-def test_preprocess_cache_exposes_identity_and_non_speech_audio_memory(tmp_path):
-    video = tmp_path / "video.mp4"
-    video.write_bytes(b"video-bytes")
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    workspace = WorkspaceManager(profile)
-    runtime = FakeIdentityAudioDenseCaptionBackend()
-    registry = FakeToolRegistry(
-        runtime,
-        transcript_segments=[{"start_s": 1.0, "end_s": 3.0, "speaker_id": "Phil", "text": "Please wait here."}],
-    )
-    preprocessor = DenseCaptionPreprocessor(workspace, registry, _models_config())
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="Who appears after the bang?",
-        options=[],
-        video_path=str(video),
-    )
-
-    result = preprocessor.get_or_build(task, clip_duration_s=30.0)
-
-    assert result["planner_segments"][0]["dense_caption_spans"][0]["audio"] == ["A metallic bang echoes near the doorway."]
-    identity_labels = [item["label"] for item in result["planner_context"]["identity_memory"]]
-    assert "Phil" in identity_labels
-    assert "PHIL" in identity_labels
-    audio_labels = [item["label"] for item in result["planner_context"]["audio_event_memory"]]
-    assert "A metallic bang echoes near the doorway." in audio_labels
-    assert result["manifest"]["identity_memory_count"] >= 1
-    assert result["manifest"]["audio_event_memory_count"] >= 1
-    assert "dialogue_claim_memory" not in result["planner_context"]
-    assert "timeline_alignment_memory" not in result["planner_context"]
-    assert "dialogue_claim_memory_count" not in result["manifest"]
-    assert "timeline_alignment_memory_count" not in result["manifest"]
-
-
-def test_preprocess_cache_rebuilds_legacy_bundle_missing_planner_json(tmp_path):
-    video = tmp_path / "video.mp4"
-    video.write_bytes(b"video-bytes")
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    workspace = WorkspaceManager(profile)
-    runtime = FakeDenseCaptionBackend()
-    registry = FakeToolRegistry(runtime, transcript_segments=[{"start_s": 2.0, "end_s": 5.0, "text": "The narrator mentions a price drop."}])
-    preprocessor = DenseCaptionPreprocessor(workspace, registry, _models_config())
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What happens?",
-        options=[],
-        video_path=str(video),
-    )
-    model_name = "yaolily/TimeChat-Captioner-GRPO-7B"
-    model_id = "%s__%s" % (tool_implementation("dense_captioner"), model_name)
-    preprocess_settings = preprocessor.resolve_preprocess_settings(30.0)
-    preprocess_signature = hash_payload(preprocess_settings, 12)
-    cache_dir = workspace.preprocess_dir(
-        video_fingerprint_value=workspace.video_fingerprint(task.video_path),
-        model_id=model_id,
-        clip_duration_s=preprocess_settings["clip_duration_s"],
-        prompt_version="v1",
-        settings_signature=preprocess_signature,
-    )
-    write_json(
-        cache_dir / "manifest.json",
-        {
-            "video_fingerprint": workspace.video_fingerprint(task.video_path),
-            "clip_duration_s": preprocess_settings["clip_duration_s"],
-            "model_id": model_id,
-            "prompt_version": "v1",
-            "preprocess_settings": preprocess_settings,
-            "preprocess_signature": preprocess_signature,
-            "segment_count": 1,
-        },
-    )
-    write_json(
-        cache_dir / "segments.json",
-        [
-            {
-                "start": 0.0,
-                "end": 30.0,
-                "dense_caption": {"overall_summary": "", "captions": [], "sampled_frames": []},
-            }
-        ],
-    )
-    first = preprocessor.get_or_build(task, clip_duration_s=30.0)
-    second = preprocessor.get_or_build(task, clip_duration_s=30.0)
-
-    assert first["cache_hit"] is False
-    assert first["planner_segments"][0]["dense_caption_spans"][0]["visual"] == "A shopper pushes a cart past a low-price display."
-    assert second["cache_hit"] is True
-    assert second["planner_segments"][0]["transcript_spans"][0]["text"] == "The narrator mentions a price drop."
-    assert second["manifest"]["preprocess_signature"] == preprocess_signature
-    assert runtime.calls == 1
-    assert registry.asr_calls == 1
-    assert not (cache_dir / "summary.txt").exists()
-    assert (cache_dir / "planner_segments.json").exists()
-    assert (cache_dir / "planner_context.json").exists()
-
-
-def test_preprocess_cache_keeps_unavailable_low_signal_bundle_without_rebuild(tmp_path):
-    video = tmp_path / "video.mp4"
-    video.write_bytes(b"video-bytes")
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    workspace = WorkspaceManager(profile)
-    runtime = FakeLowSignalDenseCaptionBackend()
-    preprocessor = DenseCaptionPreprocessor(workspace, FakeToolRegistry(runtime), _models_config())
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What happens?",
-        options=[],
-        video_path=str(video),
-    )
-
-    first = preprocessor.get_or_build(task, clip_duration_s=30.0)
-    second = preprocessor.get_or_build(task, clip_duration_s=30.0)
-
-    assert first["cache_hit"] is False
-    assert first["planner_segments"] == [{"start_s": 0.0, "end_s": 30.0}]
-    assert "summary_status" not in first["manifest"]
-    assert second["cache_hit"] is True
-    assert second["planner_segments"] == [{"start_s": 0.0, "end_s": 30.0}]
-    assert "summary_status" not in second["manifest"]
-    assert runtime.calls == 1
+    assert "identity_memory_count" not in result["manifest"]
+    assert "audio_event_memory_count" not in result["manifest"]

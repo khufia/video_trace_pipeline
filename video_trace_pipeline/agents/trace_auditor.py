@@ -10,7 +10,11 @@ class TraceAuditorAgent(object):
         self.agent_config = agent_config
 
     def build_request(self, task, trace_package, evidence_summary):
-        prompt = build_auditor_prompt(task=task, trace_package=trace_package, evidence_summary=evidence_summary)
+        prompt = build_auditor_prompt(
+            task=task,
+            trace_package=trace_package,
+            evidence_summary=evidence_summary,
+        )
         return {
             "endpoint_name": self.agent_config.endpoint or "default",
             "model_name": self.agent_config.model,

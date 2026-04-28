@@ -3,7 +3,6 @@ from __future__ import annotations
 import contextlib
 import json
 import os
-import re
 from typing import Any, Dict, List, Optional
 
 from ..agents import AtomicFactAgent, OpenAIChatClient, PlannerAgent, TraceAuditorAgent, TraceSynthesizerAgent
@@ -17,22 +16,8 @@ from ..tools.base import ToolExecutionContext
 from ..tools.specs import tool_implementation
 from .executor import PlanExecutor
 from .plan_normalizer import ExecutionPlanNormalizer
+from .planner_retrieval import PlannerContextRetriever
 from .preprocess import DenseCaptionPreprocessor
-
-
-def _query_terms(task, audit_report=None) -> List[str]:
-    tokens = re.findall(r"[A-Za-z0-9]+", "%s %s" % (task.question, " ".join(task.options)))
-    if audit_report is not None:
-        tokens.extend(re.findall(r"[A-Za-z0-9]+", json.dumps(audit_report, ensure_ascii=False)))
-    ordered = []
-    seen = set()
-    for token in tokens:
-        lowered = token.lower()
-        if lowered in seen or len(lowered) < 3:
-            continue
-        seen.add(lowered)
-        ordered.append(lowered)
-    return ordered[:30]
 
 
 def _truncate_text(value: Any, max_len: int = 220) -> str:
@@ -336,6 +321,7 @@ class PipelineRunner(object):
             persist_tool_models=persist_tool_models,
         )
         self.preprocessor = DenseCaptionPreprocessor(self.workspace, self.tool_registry, models_config)
+        self.planner_retriever = PlannerContextRetriever(self.workspace)
         self.executor = PlanExecutor(
             tool_registry=self.tool_registry,
             evidence_cache=SharedEvidenceCache(self.workspace),
@@ -477,7 +463,6 @@ class PipelineRunner(object):
             progress_reporter.on_preprocess_end(sanitize_for_persistence(preprocess_output))
         video_fingerprint = preprocess_output["video_fingerprint"]
         planner_segments = list(preprocess_output.get("planner_segments") or [])
-        preprocess_planning_memory = dict(preprocess_output.get("planner_context") or {})
         manifest_payload["preprocess_cache"] = preprocess_output["cache_dir"]
         manifest_payload["clip_duration_s"] = effective_clip_duration_s
         self.workspace.write_run_manifest(run, manifest_payload)
@@ -498,8 +483,6 @@ class PipelineRunner(object):
                 current_trace = TracePackage.parse_obj(json.loads(open(initial_trace_path, "r", encoding="utf-8").read()))
             elif task.initial_trace_steps:
                 current_trace = _trace_from_initial_steps(task, task.initial_trace_steps)
-
-        compact_rounds = []
         latest_audit = None
 
         if current_trace is not None:
@@ -507,7 +490,11 @@ class PipelineRunner(object):
             initial_round_dir = run.round_dir(0)
             write_json(initial_round_dir / "initial_trace_package.json", current_trace_dict)
             initial_summary = self._build_evidence_summary(evidence_ledger)
-            initial_audit_request = self.auditor.build_request(task, current_trace_dict, initial_summary)
+            initial_audit_request = self.auditor.build_request(
+                task,
+                current_trace_dict,
+                initial_summary,
+            )
             write_json(initial_round_dir / "auditor_request.json", sanitize_for_persistence(initial_audit_request))
             _, latest_audit = self.auditor.complete_request(initial_audit_request)
             write_json(initial_round_dir / "auditor_report.json", latest_audit.dict())
@@ -538,33 +525,28 @@ class PipelineRunner(object):
         rounds_executed = 0
         while rounds_executed < max(1, int(max_rounds)):
             planning_mode = "generate" if current_trace is None else "refine"
-            preprocess_context_supplied = bool(planner_segments or preprocess_planning_memory)
-            existing_entries = evidence_ledger.entries()
-            prefer_validated_reuse = any(str(item.get("status") or "").strip().lower() == "validated" for item in existing_entries)
-            retrieved_observations = evidence_ledger.retrieve(
-                query_terms=_query_terms(task, latest_audit.dict() if latest_audit else None),
-                evidence_status="validated" if prefer_validated_reuse else None,
+            preprocess_context_supplied = bool(planner_segments)
+            retrieved_context = self.planner_retriever.retrieve(
+                task=task,
+                preprocess_bundle=preprocess_output,
+                evidence_ledger=evidence_ledger,
+                audit_report=latest_audit,
+                current_trace=current_trace,
+                mode=planning_mode,
                 limit=50,
             )
-            if prefer_validated_reuse and not retrieved_observations:
-                retrieved_observations = evidence_ledger.retrieve(
-                    query_terms=_query_terms(task, latest_audit.dict() if latest_audit else None),
-                    limit=50,
-                )
             if progress_reporter is not None and hasattr(progress_reporter, "on_round_start"):
                 progress_reporter.on_round_start(
                     round_index=rounds_executed + 1,
                     planning_mode=planning_mode,
                     preprocess_context=preprocess_context_supplied,
-                    retrieved_count=len(list(retrieved_observations or [])),
+                    retrieved_count=len(list((retrieved_context or {}).get("observations") or [])),
                 )
             planner_kwargs = dict(
                 task=task,
                 mode=planning_mode,
                 planner_segments=planner_segments,
-                compact_rounds=compact_rounds,
-                retrieved_observations=retrieved_observations,
-                preprocess_planning_memory=preprocess_planning_memory,
+                retrieved_context=retrieved_context,
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
                 tool_catalog=self.tool_registry.tool_catalog(),
             )
@@ -575,7 +557,7 @@ class PipelineRunner(object):
             plan = self.plan_normalizer.normalize(
                 task,
                 plan,
-                preprocess_planning_memory=preprocess_planning_memory,
+                retrieved_context=retrieved_context,
             )
             write_json(round_dir / "planner_plan.json", sanitize_for_persistence(plan.dict()))
             if progress_reporter is not None and hasattr(progress_reporter, "on_planner"):
@@ -643,7 +625,6 @@ class PipelineRunner(object):
             )
             if evidence_updates:
                 evidence_ledger.update_entry_statuses(evidence_updates)
-            compact_rounds.append(_compact_round_summary(rounds_executed + 1, plan, execution_records, latest_audit))
             rounds_executed += 1
             if _should_accept_audit(latest_audit):
                 break

@@ -197,6 +197,7 @@ class AuditReport(BaseModel):
     findings: List[AuditFinding] = Field(default_factory=list)
     feedback: str = ""
     missing_information: List[str] = Field(default_factory=list)
+    diagnostics: Dict[str, Any] = Field(default_factory=dict)
 
     @validator("verdict")
     def _validate_verdict(cls, value):  # noqa: N805

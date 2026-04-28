@@ -124,6 +124,75 @@ def test_frame_retriever_runner_uses_time_hints_without_query(monkeypatch):
     assert emitted["rationale"] == "Frames were selected near the requested clip-local time hints."
 
 
+def test_frame_retriever_parses_exact_timestamp_hints():
+    assert frame_retriever_runner._time_hint_anchor_seconds("6s", 0.0, 10.0) == 6.0
+    assert frame_retriever_runner._time_hint_anchor_seconds("frame at 6.00 seconds", 0.0, 10.0) == 6.0
+    assert frame_retriever_runner._time_hint_anchor_seconds("00:06", 0.0, 10.0) == 6.0
+    assert frame_retriever_runner._time_hint_anchor_seconds("1:23", 0.0, 100.0) == 83.0
+
+
+def test_frame_retriever_exact_timestamp_returns_chronological_neighbors(monkeypatch):
+    emitted = {}
+
+    class _SequenceHarness(_FakeHarness):
+        def _list_dense_frame_paths(self, dataset_folder, video_path):
+            return (
+                [
+                    "/tmp/frame_4.00.png",
+                    "/tmp/frame_5.00.png",
+                    "/tmp/frame_6.00.png",
+                    "/tmp/frame_7.00.png",
+                    "/tmp/frame_8.00.png",
+                ],
+                "/tmp/reference/dense_frames",
+            )
+
+        def _qwen_score_frames(self, query, bounded, top_k, *, persist_cache=True):
+            self.persist_cache = persist_cache
+            return [
+                {
+                    "frame_path": item["frame_path"],
+                    "timestamp": item["timestamp"],
+                    "relevance_score": 1.0 - (abs(float(item["timestamp"]) - 6.0) * 0.05),
+                }
+                for item in bounded
+            ]
+
+    fake_harness = _SequenceHarness()
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "load_request",
+        lambda: {
+            "request": {
+                "query": "what happens at timestamp 00:06",
+                "clips": [{"start_s": 0.0, "end_s": 10.0}],
+                "time_hints": ["00:06"],
+                "num_frames": 3,
+                "sequence_mode": "anchor_window",
+                "neighbor_radius_s": 2.0,
+                "sort_order": "chronological",
+            },
+            "task": {},
+            "runtime": {},
+        },
+    )
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "_reference_harness_cls",
+        lambda: (lambda *args, **kwargs: fake_harness),
+    )
+    monkeypatch.setattr(frame_retriever_runner, "emit_json", lambda payload: emitted.update(payload))
+    monkeypatch.setattr(frame_retriever_runner, "resolved_device_label", lambda runtime: "cpu")
+
+    frame_retriever_runner.main()
+
+    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [4.0, 5.0, 6.0, 7.0, 8.0]
+    assert emitted["frames"][2]["metadata"]["sequence_role"] == "anchor"
+    assert emitted["frames"][2]["metadata"]["requested_timestamp_s"] == 6.0
+    assert emitted["frames"][0]["metadata"]["sequence_index"] == 0
+    assert emitted["cache_metadata"]["anchor_window_applied"] is True
+
+
 def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 
@@ -219,6 +288,61 @@ def test_frame_retriever_process_adapter_globally_reranks_multi_clip_frames(monk
     result = adapter.execute(request, context=None)
 
     assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 112.0]
+
+
+def test_frame_retriever_process_adapter_preserves_chronological_sequence_merge(monkeypatch):
+    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
+
+    def _fake_execute_single(request, context):
+        frames = []
+        for timestamp_s, sequence_index in (
+            (164.0, 2),
+            (163.0, 1),
+            (165.0, 3),
+            (162.0, 0),
+            (166.0, 4),
+        ):
+            frames.append(
+                {
+                    "video_id": "video-1",
+                    "timestamp_s": timestamp_s,
+                    "metadata": {
+                        "clip_start_s": 150.0,
+                        "requested_timestamp_s": 164.0,
+                        "sequence_mode": "anchor_window",
+                        "sequence_index": sequence_index,
+                        "sequence_sort_order": "chronological",
+                        "relevance_score": 1.0,
+                    },
+                }
+            )
+        return ToolResult(
+            tool_name="frame_retriever",
+            ok=True,
+            data={
+                "frames": frames,
+                "cache_metadata": {},
+                "rationale": "chronological sequence",
+            },
+            summary="Retrieved 5 frame(s).",
+        )
+
+    monkeypatch.setattr(adapter, "_execute_single", _fake_execute_single)
+    request = adapter.request_model.parse_obj(
+        {
+            "tool_name": "frame_retriever",
+            "query": "map frames",
+            "num_frames": 5,
+            "clips": [{"video_id": "video-1", "start_s": 150.0, "end_s": 166.0}],
+            "time_hints": ["164s", "165.98s utterance"],
+            "sequence_mode": "anchor_window",
+            "sort_order": "chronological",
+        }
+    )
+
+    result = adapter.execute(request, context=None)
+
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [162.0, 163.0, 164.0, 165.0, 166.0]
 
 
 def test_reference_adapter_installs_check_model_inputs_compat(monkeypatch):

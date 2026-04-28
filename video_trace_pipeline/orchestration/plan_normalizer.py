@@ -4,7 +4,7 @@ import re
 from typing import Any, Dict, List, Tuple
 
 from ..common import stable_json_dumps
-from ..schemas import ArgumentBinding, ExecutionPlan, InputRef, PlanStep
+from ..schemas import ExecutionPlan, InputRef, PlanStep
 from .executor import request_model_field_names
 
 _LIST_FIELDS = {
@@ -69,6 +69,7 @@ _TEXT_CONTEXT_SOURCE_FIELDS = frozenset(
         "raw_output_text",
     }
 )
+
 
 def _normalize_text(value: Any) -> str:
     return " ".join(str(value or "").strip().split())
@@ -136,16 +137,29 @@ def _is_allowed_structural_input_ref(target_field: str, field_path: str) -> bool
     return any(_matches_structural_pattern(field_path, pattern) for pattern in allowed_patterns)
 
 
-def _binding_signature(binding: ArgumentBinding) -> Tuple[str, int, str]:
+def _source_ids(step: PlanStep) -> List[int]:
+    ordered: List[int] = []
+    seen = set()
+    for refs in dict(step.input_refs or {}).values():
+        for ref in list(refs or []):
+            step_id = int(ref.step_id)
+            if step_id in seen:
+                continue
+            seen.add(step_id)
+            ordered.append(step_id)
+    return ordered
+
+
+def _ref_signature(target_field: str, ref: InputRef) -> Tuple[str, int, str]:
     return (
-        str(binding.target_field or "").strip(),
-        int(binding.source.step_id),
-        str(binding.source.field_path or "").strip(),
+        str(target_field or "").strip(),
+        int(ref.step_id),
+        str(ref.field_path or "").strip(),
     )
 
 
 class ExecutionPlanNormalizer(object):
-    VERSION = "deterministic_v1"
+    VERSION = "field_keyed_v2"
 
     def __init__(self, tool_registry):
         self.tool_registry = tool_registry
@@ -157,13 +171,12 @@ class ExecutionPlanNormalizer(object):
     def _normalized_field_name(self, field_name: str) -> str:
         return str(field_name or "").strip()
 
-    def _validate_asr_transcript_contract(self, *, step: PlanStep, binding: ArgumentBinding, source_tool_name: str) -> None:
+    def _validate_asr_transcript_contract(self, *, step: PlanStep, target_field: str, ref: InputRef, source_tool_name: str) -> None:
         if str(step.tool_name or "").strip() != "generic_purpose":
             return
         if str(source_tool_name or "").strip() != "asr":
             return
-        target_field = str(binding.target_field or "").strip()
-        field_path = str(binding.source.field_path or "").strip()
+        field_path = str(ref.field_path or "").strip()
         if target_field == "text_contexts":
             raise ValueError(
                 "Plan step %s must bind ASR transcript content to generic_purpose via transcripts -> transcripts, not %s -> %s."
@@ -175,14 +188,19 @@ class ExecutionPlanNormalizer(object):
                 % (int(step.step_id), field_path or "<empty>", target_field or "<empty>")
             )
 
-    def _validate_input_ref_contract(self, *, step: PlanStep, binding: ArgumentBinding) -> None:
+    def _validate_input_ref_contract(self, *, step: PlanStep, target_field: str, ref: InputRef) -> None:
         step_id = int(step.step_id)
-        target_field = str(binding.target_field or "").strip()
-        field_path = str(binding.source.field_path or "").strip()
+        field_path = str(ref.field_path or "").strip()
         if target_field == "evidence_ids":
             raise ValueError(
                 "Plan step %s binds input_refs into evidence_ids. Current-plan steps do not emit bindable evidence ids; "
                 "pass frames, clips, transcripts, or text_contexts instead."
+                % step_id
+            )
+        if target_field == "time_hints":
+            raise ValueError(
+                "Plan step %s binds input_refs into time_hints. Use literal strings in inputs.time_hints when the "
+                "timestamps are known from preprocess or retrieved context; otherwise pass clips explicitly."
                 % step_id
             )
         if target_field in _STRUCTURAL_INPUT_REF_FIELDS and not _is_allowed_structural_input_ref(target_field, field_path):
@@ -211,20 +229,13 @@ class ExecutionPlanNormalizer(object):
         tool_name = _normalize_text(step.tool_name)
         allowed_fields = set(self._allowed_fields(tool_name))
 
-        normalized_arguments: Dict[str, Any] = {}
-        for key in sorted(dict(step.arguments or {})):
+        normalized_inputs: Dict[str, Any] = {}
+        for key in sorted(dict(step.inputs or {})):
             canonical_key = self._normalized_field_name(key)
-            raw_value = dict(step.arguments or {}).get(key)
-            if canonical_key == "tool_name":
-                continue
-            if tool_name == "generic_purpose" and canonical_key == "text_contexts" and _looks_like_transcript_payload(raw_value):
+            raw_value = dict(step.inputs or {}).get(key)
+            if canonical_key == "tool_name" or canonical_key not in allowed_fields:
                 raise ValueError(
-                    "Plan step %s passes transcript payloads via text_contexts. Use transcripts instead."
-                    % int(step.step_id)
-                )
-            if canonical_key not in allowed_fields:
-                raise ValueError(
-                    "Plan step %s uses unexpected argument %r for %s. Use canonical request fields only: %s."
+                    "Plan step %s uses unexpected input %r for %s. Use canonical request fields only: %s."
                     % (
                         int(step.step_id),
                         canonical_key,
@@ -232,58 +243,59 @@ class ExecutionPlanNormalizer(object):
                         ", ".join(sorted(allowed_fields)),
                     )
                 )
-            normalized_arguments[canonical_key] = _merge_field_value(
+            if tool_name == "generic_purpose" and canonical_key == "text_contexts" and _looks_like_transcript_payload(raw_value):
+                raise ValueError(
+                    "Plan step %s passes transcript payloads via text_contexts. Use transcripts instead."
+                    % int(step.step_id)
+                )
+            normalized_inputs[canonical_key] = _merge_field_value(
                 canonical_key,
-                normalized_arguments.get(canonical_key),
+                normalized_inputs.get(canonical_key),
                 raw_value,
             )
-        normalized_arguments = {
-            key: normalized_arguments[key]
-            for key in sorted(normalized_arguments)
+        normalized_inputs = {
+            key: normalized_inputs[key]
+            for key in sorted(normalized_inputs)
         }
-        if "query" in normalized_arguments:
-            normalized_arguments["query"] = _normalize_text(normalized_arguments.get("query"))
+        if "query" in normalized_inputs:
+            normalized_inputs["query"] = _normalize_text(normalized_inputs.get("query"))
 
-        normalized_refs: List[ArgumentBinding] = []
+        normalized_refs: Dict[str, List[InputRef]] = {}
         seen_refs = set()
-        for binding in list(step.input_refs or []):
-            target_field = self._normalized_field_name(binding.target_field)
-            if target_field not in allowed_fields:
+        for target_field, refs in sorted(dict(step.input_refs or {}).items()):
+            canonical_target = self._normalized_field_name(target_field)
+            if canonical_target == "tool_name" or canonical_target not in allowed_fields:
                 raise ValueError(
-                    "Plan step %s uses unexpected input_ref target_field %r for %s. Use canonical request fields only: %s."
+                    "Plan step %s uses unexpected input_ref target field %r for %s. Use canonical request fields only: %s."
                     % (
                         int(step.step_id),
-                        target_field,
+                        canonical_target,
                         tool_name,
                         ", ".join(sorted(allowed_fields)),
                     )
                 )
-            normalized_binding = ArgumentBinding(
-                target_field=target_field,
-                source=InputRef(
-                    step_id=binding.source.step_id,
-                    field_path=_normalize_text(binding.source.field_path),
-                ),
-            )
-            signature = _binding_signature(normalized_binding)
-            if signature in seen_refs:
-                continue
-            seen_refs.add(signature)
-            normalized_refs.append(normalized_binding)
-        normalized_refs = sorted(normalized_refs, key=_binding_signature)
-
-        depends_on = sorted(
-            {int(item) for item in list(step.depends_on or [])}
-            | {int(binding.source.step_id) for binding in normalized_refs}
-        )
+            for ref in list(refs or []):
+                normalized_ref = InputRef(
+                    step_id=ref.step_id,
+                    field_path=_normalize_text(ref.field_path),
+                )
+                signature = _ref_signature(canonical_target, normalized_ref)
+                if signature in seen_refs:
+                    continue
+                seen_refs.add(signature)
+                normalized_refs.setdefault(canonical_target, []).append(normalized_ref)
+        normalized_refs = {
+            key: sorted(values, key=lambda ref: _ref_signature(key, ref))
+            for key, values in sorted(normalized_refs.items())
+        }
 
         return PlanStep(
             step_id=step.step_id,
             tool_name=tool_name,
             purpose=_normalize_text(step.purpose),
-            arguments=normalized_arguments,
+            inputs=normalized_inputs,
             input_refs=normalized_refs,
-            depends_on=depends_on,
+            expected_outputs=dict(step.expected_outputs or {}),
         )
 
     def _validate_references(self, steps: List[PlanStep]) -> None:
@@ -294,66 +306,63 @@ class ExecutionPlanNormalizer(object):
         step_by_id = {int(step.step_id): step for step in list(steps or [])}
         for step in list(steps or []):
             step_id = int(step.step_id)
-            for binding in list(step.input_refs or []):
-                source_id = int(binding.source.step_id)
-                if source_id not in step_ids:
-                    raise ValueError(
-                        "Plan step %s references missing input source step %s via %s."
-                        % (step_id, source_id, binding.target_field)
-                    )
-                if source_id == step_id:
-                    raise ValueError(
-                        "Plan step %s has a self-referential input_ref for %s."
-                        % (step_id, binding.target_field)
-                    )
-                source_step = step_by_id.get(source_id)
-                if source_step is not None:
-                    self._validate_input_ref_contract(step=step, binding=binding)
-                    self._validate_asr_transcript_contract(
-                        step=step,
-                        binding=binding,
-                        source_tool_name=source_step.tool_name,
-                    )
-            for dep in list(step.depends_on or []):
-                dep_id = int(dep)
-                if dep_id not in step_ids:
-                    raise ValueError("Plan step %s depends on missing step %s." % (step_id, dep_id))
-                if dep_id == step_id:
-                    raise ValueError("Plan step %s depends on itself." % step_id)
+            for target_field, refs in dict(step.input_refs or {}).items():
+                for ref in list(refs or []):
+                    source_id = int(ref.step_id)
+                    if source_id not in step_ids:
+                        raise ValueError(
+                            "Plan step %s references missing input source step %s via %s."
+                            % (step_id, source_id, target_field)
+                        )
+                    if source_id == step_id:
+                        raise ValueError(
+                            "Plan step %s has a self-referential input_ref for %s."
+                            % (step_id, target_field)
+                        )
+                    source_step = step_by_id.get(source_id)
+                    if source_step is not None:
+                        self._validate_input_ref_contract(step=step, target_field=target_field, ref=ref)
+                        self._validate_asr_transcript_contract(
+                            step=step,
+                            target_field=target_field,
+                            ref=ref,
+                            source_tool_name=source_step.tool_name,
+                        )
 
     def _validate_generic_purpose_context_contract(self, steps: List[PlanStep]) -> None:
         for step in list(steps or []):
             if str(step.tool_name or "").strip() != "generic_purpose":
                 continue
-            has_argument_context = any(
-                _normalize_text((step.arguments or {}).get(field_name))
-                if isinstance((step.arguments or {}).get(field_name), str)
-                else bool((step.arguments or {}).get(field_name))
+            has_input_context = any(
+                _normalize_text((step.inputs or {}).get(field_name))
+                if isinstance((step.inputs or {}).get(field_name), str)
+                else bool((step.inputs or {}).get(field_name))
                 for field_name in _GENERIC_PURPOSE_CONTEXT_FIELDS
             )
-            has_bound_context = bool(step.input_refs or []) or bool(step.depends_on or [])
-            if has_argument_context or has_bound_context:
+            has_bound_context = bool(step.input_refs or {})
+            if has_input_context or has_bound_context:
                 continue
             raise ValueError(
                 "Plan step %s is a context-free generic_purpose request. "
-                "Pass frames, clips, transcripts, text_contexts, evidence_ids, or an earlier dependency explicitly."
+                "Pass frames, clips, transcripts, text_contexts, evidence_ids, or an earlier input_ref explicitly."
                 % int(step.step_id)
             )
 
     def _step_sort_key(self, step: PlanStep) -> Tuple[Any, ...]:
         return (
-            tuple(int(item) for item in list(step.depends_on or [])),
+            tuple(_source_ids(step)),
             str(step.tool_name or "").strip(),
             str(step.purpose or "").strip().lower(),
-            stable_json_dumps(dict(step.arguments or {})),
+            stable_json_dumps(dict(step.inputs or {})),
             stable_json_dumps(
                 [
                     {
-                        "target_field": binding.target_field,
-                        "step_id": binding.source.step_id,
-                        "field_path": binding.source.field_path,
+                        "target_field": target_field,
+                        "step_id": ref.step_id,
+                        "field_path": ref.field_path,
                     }
-                    for binding in list(step.input_refs or [])
+                    for target_field, refs in sorted(dict(step.input_refs or {}).items())
+                    for ref in list(refs or [])
                 ]
             ),
             int(step.step_id),
@@ -369,11 +378,11 @@ class ExecutionPlanNormalizer(object):
             ready = [
                 step
                 for step in pending
-                if all(int(dep) in resolved_ids or int(dep) not in pending_ids for dep in list(step.depends_on or []))
+                if all(source_id in resolved_ids or source_id not in pending_ids for source_id in _source_ids(step))
             ]
             if not ready:
                 unresolved = {
-                    int(step.step_id): sorted(int(dep) for dep in list(step.depends_on or []) if int(dep) in pending_ids)
+                    int(step.step_id): sorted(source_id for source_id in _source_ids(step) if source_id in pending_ids)
                     for step in pending
                 }
                 raise ValueError(
@@ -392,23 +401,23 @@ class ExecutionPlanNormalizer(object):
         step_id_map = {step.step_id: index + 1 for index, step in enumerate(steps)}
         resequenced: List[PlanStep] = []
         for index, step in enumerate(steps, start=1):
+            input_refs: Dict[str, List[InputRef]] = {}
+            for target_field, refs in sorted(dict(step.input_refs or {}).items()):
+                input_refs[target_field] = [
+                    InputRef(
+                        step_id=step_id_map.get(ref.step_id, ref.step_id),
+                        field_path=ref.field_path,
+                    )
+                    for ref in list(refs or [])
+                ]
             resequenced.append(
                 PlanStep(
                     step_id=index,
                     tool_name=step.tool_name,
                     purpose=step.purpose,
-                    arguments=dict(step.arguments or {}),
-                    input_refs=[
-                        ArgumentBinding(
-                            target_field=binding.target_field,
-                            source=InputRef(
-                                step_id=step_id_map.get(binding.source.step_id, binding.source.step_id),
-                                field_path=binding.source.field_path,
-                            ),
-                        )
-                        for binding in list(step.input_refs or [])
-                    ],
-                    depends_on=sorted(step_id_map.get(dep, dep) for dep in list(step.depends_on or [])),
+                    inputs=dict(step.inputs or {}),
+                    input_refs=input_refs,
+                    expected_outputs=dict(step.expected_outputs or {}),
                 )
             )
         return resequenced
@@ -416,22 +425,17 @@ class ExecutionPlanNormalizer(object):
     def _validate_resequenced_order(self, steps: List[PlanStep]) -> None:
         for step in list(steps or []):
             step_id = int(step.step_id)
-            for binding in list(step.input_refs or []):
-                if int(binding.source.step_id) >= step_id:
-                    raise ValueError(
-                        "Plan normalization left step %s with non-earlier input_ref source step %s."
-                        % (step_id, binding.source.step_id)
-                    )
-            for dep in list(step.depends_on or []):
-                if int(dep) >= step_id:
-                    raise ValueError(
-                        "Plan normalization left step %s with non-earlier dependency step %s."
-                        % (step_id, dep)
-                    )
+            for refs in dict(step.input_refs or {}).values():
+                for ref in list(refs or []):
+                    if int(ref.step_id) >= step_id:
+                        raise ValueError(
+                            "Plan normalization left step %s with non-earlier input_ref source step %s."
+                            % (step_id, ref.step_id)
+                        )
 
-    def normalize(self, task, plan: ExecutionPlan, preprocess_planning_memory: Dict[str, Any] | None = None) -> ExecutionPlan:
+    def normalize(self, task, plan: ExecutionPlan, retrieved_context: Dict[str, Any] | None = None) -> ExecutionPlan:
         del task
-        del preprocess_planning_memory
+        del retrieved_context
         normalized_steps = [self._normalize_step(step) for step in list(plan.steps or [])]
         self._validate_references(normalized_steps)
         self._validate_generic_purpose_context_contract(normalized_steps)
@@ -440,7 +444,6 @@ class ExecutionPlanNormalizer(object):
         self._validate_resequenced_order(resequenced_steps)
         return ExecutionPlan(
             strategy=_normalize_text(plan.strategy),
-            use_summary=bool(plan.use_summary),
             steps=resequenced_steps,
             refinement_instructions=_normalize_text(plan.refinement_instructions),
         )

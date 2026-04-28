@@ -93,6 +93,11 @@ class EvidenceLedger(object):
                     inference_hint TEXT,
                     confidence REAL,
                     status TEXT NOT NULL DEFAULT 'provisional',
+                    time_start_s REAL,
+                    time_end_s REAL,
+                    frame_ts_s REAL,
+                    time_intervals_json TEXT NOT NULL DEFAULT '[]',
+                    artifact_refs_json TEXT NOT NULL DEFAULT '[]',
                     observation_ids_json TEXT NOT NULL,
                     metadata_json TEXT NOT NULL
                 );
@@ -132,10 +137,17 @@ class EvidenceLedger(object):
                 row["name"]
                 for row in connection.execute("PRAGMA table_info(evidence_entries)").fetchall()
             }
-            if "status" not in columns:
-                connection.execute(
-                    "ALTER TABLE evidence_entries ADD COLUMN status TEXT NOT NULL DEFAULT 'provisional'"
-                )
+            column_defaults = {
+                "status": "TEXT NOT NULL DEFAULT 'provisional'",
+                "time_start_s": "REAL",
+                "time_end_s": "REAL",
+                "frame_ts_s": "REAL",
+                "time_intervals_json": "TEXT NOT NULL DEFAULT '[]'",
+                "artifact_refs_json": "TEXT NOT NULL DEFAULT '[]'",
+            }
+            for column_name, ddl in column_defaults.items():
+                if column_name not in columns:
+                    connection.execute("ALTER TABLE evidence_entries ADD COLUMN %s %s" % (column_name, ddl))
             connection.commit()
 
     def _dedup_entry_payloads(self, entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -173,8 +185,9 @@ class EvidenceLedger(object):
                 """
                 INSERT OR REPLACE INTO evidence_entries (
                     evidence_id, tool_name, evidence_text, inference_hint, confidence,
-                    status, observation_ids_json, metadata_json
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    status, time_start_s, time_end_s, frame_ts_s, time_intervals_json,
+                    artifact_refs_json, observation_ids_json, metadata_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     entry.evidence_id,
@@ -183,6 +196,11 @@ class EvidenceLedger(object):
                     entry.inference_hint,
                     entry.confidence,
                     entry.status,
+                    entry.time_start_s,
+                    entry.time_end_s,
+                    entry.frame_ts_s,
+                    json.dumps([item.dict() if hasattr(item, "dict") else item for item in list(entry.time_intervals or [])], ensure_ascii=False),
+                    json.dumps([item.dict() if hasattr(item, "dict") else item for item in list(entry.artifact_refs or [])], ensure_ascii=False),
                     json.dumps(list(entry.observation_ids or []), ensure_ascii=False),
                     json.dumps(dict(entry.metadata or {}), ensure_ascii=False),
                 ),
@@ -223,7 +241,27 @@ class EvidenceLedger(object):
             connection.commit()
 
     def entries(self) -> List[Dict[str, Any]]:
-        return self._dedup_entry_payloads(read_jsonl(self.index_path))
+        if not self.sqlite_path.exists():
+            return self._dedup_entry_payloads(read_jsonl(self.index_path))
+        with self._connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT evidence_id, tool_name, evidence_text, inference_hint, confidence,
+                       status, time_start_s, time_end_s, frame_ts_s, time_intervals_json,
+                       artifact_refs_json, observation_ids_json, metadata_json
+                FROM evidence_entries
+                ORDER BY rowid
+                """
+            ).fetchall()
+        entries = []
+        for row in rows:
+            item = dict(row)
+            item["time_intervals"] = json.loads(item.pop("time_intervals_json") or "[]")
+            item["artifact_refs"] = json.loads(item.pop("artifact_refs_json") or "[]")
+            item["observation_ids"] = json.loads(item.pop("observation_ids_json") or "[]")
+            item["metadata"] = json.loads(item.pop("metadata_json") or "{}")
+            entries.append(item)
+        return self._dedup_entry_payloads(entries)
 
     def update_entry_statuses(self, status_by_id: Dict[str, str]) -> None:
         normalized_updates = {
@@ -256,7 +294,27 @@ class EvidenceLedger(object):
                 connection.commit()
 
     def observations(self) -> List[Dict[str, Any]]:
-        return read_jsonl(self.observations_path)
+        if not self.sqlite_path.exists():
+            return read_jsonl(self.observations_path)
+        with self._connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT observation_id, evidence_id, subject, subject_type, predicate, object_text,
+                       object_type, numeric_value, unit, time_start_s, time_end_s, frame_ts_s,
+                       bbox_json, speaker_id, confidence, source_tool, direct_or_derived,
+                       atomic_text, source_artifact_refs_json, metadata_json
+                FROM atomic_observations
+                ORDER BY rowid
+                """
+            ).fetchall()
+        parsed = []
+        for row in rows:
+            item = dict(row)
+            item["bbox"] = json.loads(item.pop("bbox_json") or "null")
+            item["source_artifact_refs"] = json.loads(item.pop("source_artifact_refs_json") or "[]")
+            item["metadata"] = json.loads(item.pop("metadata_json") or "{}")
+            parsed.append(item)
+        return parsed
 
     def lookup_records(self, ids: Iterable[str]) -> List[Dict[str, Any]]:
         requested_ids = [str(item).strip() for item in list(ids or []) if str(item).strip()]

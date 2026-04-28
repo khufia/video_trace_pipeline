@@ -89,15 +89,15 @@ def _iter_tool_steps(plan_payload: Dict[str, Any]) -> Iterable[str]:
         step_id = item.get("step_id")
         tool_name = str(item.get("tool_name") or "").strip()
         purpose = _display_text(item.get("purpose") or "", limit=140)
-        depends_on = list(item.get("depends_on") or [])
-        arguments = dict(item.get("arguments") or {})
+        inputs = dict(item.get("inputs") or {})
+        input_refs = dict(item.get("input_refs") or {})
         parts = ["%s. %s" % (step_id, tool_name or "tool")]
         if purpose:
             parts.append(purpose)
-        if arguments:
-            parts.append("args=%s" % _display_text(arguments, limit=180))
-        if depends_on:
-            parts.append("depends_on=%s" % ",".join(str(value) for value in depends_on))
+        if inputs:
+            parts.append("inputs=%s" % _display_text(inputs, limit=180))
+        if input_refs:
+            parts.append("input_refs=%s" % _display_text(input_refs, limit=180))
         yield " | ".join(parts)
 
 

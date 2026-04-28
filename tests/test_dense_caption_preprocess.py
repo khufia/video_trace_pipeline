@@ -115,7 +115,7 @@ def test_dense_caption_preprocess_reuses_single_runner_and_preserves_bundle_shap
     assert first_dense_caption["clips"][0]["start_s"] == 0.0
     assert "captions" in first_dense_caption
     assert "overall_summary" in first_dense_caption
-    assert "sampled_frames" in first_dense_caption
+    assert "sampled_frames" not in first_dense_caption
     assert result["summary"] == ""
     assert context.llm_client.calls == []
 

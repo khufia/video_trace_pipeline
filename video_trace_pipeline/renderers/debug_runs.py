@@ -59,7 +59,8 @@ def _collect_round(run_path: Path, round_index: int) -> Dict[str, Any]:
                 "step_id": item.get("step_id"),
                 "tool_name": str(item.get("tool_name") or "").strip(),
                 "purpose": str(item.get("purpose") or "").strip(),
-                "arguments": dict(item.get("arguments") or {}),
+                "inputs": dict(item.get("inputs") or {}),
+                "input_refs": dict(item.get("input_refs") or {}),
             }
         )
 

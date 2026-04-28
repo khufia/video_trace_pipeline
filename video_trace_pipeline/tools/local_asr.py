@@ -8,7 +8,7 @@ import os
 import re
 import wave
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from ..common import hash_payload
 from ..runtime_devices import resolve_device_label
@@ -364,10 +364,7 @@ class LocalASRAdapter(ToolAdapter):
         )
         data = {
             "clips": [clip_payload],
-            "text": "",
-            "segments": [],
             "transcripts": [transcript_payload],
-            "backend": "whisperx_local",
         }
         return ToolResult(
             tool_name=self.name,
@@ -380,7 +377,75 @@ class LocalASRAdapter(ToolAdapter):
             metadata=dict(metadata or {}),
         )
 
+    def _preprocess_segments_for_clip(self, context, clip_payload: Dict[str, object]) -> Optional[List[Dict[str, object]]]:
+        bundle = getattr(context, "preprocess_bundle", None)
+        transcripts = list(dict(bundle or {}).get("asr_transcripts") or [])
+        request_start = float(clip_payload.get("start_s") or 0.0)
+        request_end = float(clip_payload.get("end_s") or request_start)
+        matched_segments: List[Dict[str, object]] = []
+        covered = False
+        for transcript in transcripts:
+            if not isinstance(transcript, dict):
+                continue
+            transcript_clip = dict(transcript.get("clip") or {})
+            clip_start = float(transcript_clip.get("start_s") or 0.0)
+            clip_end = float(transcript_clip.get("end_s") or clip_start)
+            if clip_start > request_start + 1e-3 or clip_end < request_end - 1e-3:
+                continue
+            covered = True
+            for segment in list(transcript.get("segments") or []):
+                if not isinstance(segment, dict):
+                    continue
+                start_s = float(segment.get("start_s", segment.get("start", request_start)) or request_start)
+                end_s = float(segment.get("end_s", segment.get("end", start_s)) or start_s)
+                if end_s < request_start or start_s > request_end:
+                    continue
+                item = dict(segment)
+                item["start_s"] = max(request_start, start_s)
+                item["end_s"] = min(request_end, end_s)
+                matched_segments.append(item)
+        if not covered:
+            return None
+        return matched_segments
+
+    def _reuse_preprocess_single(self, request, context):
+        clip = request.clips[0] if getattr(request, "clips", None) else None
+        if clip is None:
+            return None
+        clip_payload = clip.model_dump()
+        segments = self._preprocess_segments_for_clip(context, clip_payload)
+        if segments is None:
+            return None
+        text = " ".join(str(item.get("text") or "").strip() for item in segments if str(item.get("text") or "").strip())
+        transcript_payload = self._build_transcript_payload(
+            clip_payload,
+            text,
+            segments,
+            "preprocess_reuse",
+            extra_metadata={"source": "preprocess_reuse"},
+        )
+        phrase_matches = _phrase_matches(getattr(context.task, "question", ""), text, segments)
+        data = {
+            "clips": [clip_payload],
+            "transcripts": [transcript_payload],
+        }
+        if phrase_matches:
+            data["phrase_matches"] = phrase_matches
+        return ToolResult(
+            tool_name=self.name,
+            ok=True,
+            data=data,
+            raw_output_text=json.dumps(data, ensure_ascii=False),
+            artifact_refs=[],
+            request_hash=hash_payload({"tool": self.name, "clip": clip_payload, "source": "preprocess_reuse"}),
+            summary=(text or "No speech detected in reused preprocess transcript.")[:2000],
+            metadata={"source": "preprocess_reuse"},
+        )
+
     def _execute_single(self, request, context):
+        reused = self._reuse_preprocess_single(request, context)
+        if reused is not None:
+            return reused
         clip = request.clips[0] if getattr(request, "clips", None) else None
         if clip is None:
             raise ValueError("ASR requires at least one clip")
@@ -417,20 +482,9 @@ class LocalASRAdapter(ToolAdapter):
                 )
             except Exception as exc:
                 error_text = str(exc)
-                failed_data = ASROutput.model_validate(
-                    {
-                        "clips": [clip_payload],
-                        "text": "",
-                        "segments": [],
-                        "backend": "whisperx_local",
-                    }
-                )
                 failure_payload = {
                     "clips": [clip_payload],
-                    "text": failed_data.text,
-                    "segments": [item.model_dump() for item in list(failed_data.segments or [])],
                     "transcripts": [],
-                    "backend": failed_data.backend,
                     "error": error_text,
                 }
                 return ToolResult(
@@ -461,25 +515,20 @@ class LocalASRAdapter(ToolAdapter):
             validated_output = ASROutput.model_validate(
                 {
                     "clips": [clip_payload],
-                    "text": text,
-                    "segments": segments,
-                    "backend": "whisperx_local",
+                    "transcripts": [
+                        self._build_transcript_payload(
+                            clip_payload,
+                            text,
+                            segments,
+                            "whisperx_local",
+                        )
+                    ],
                 }
             )
-            transcript_payload = {
-                **self._build_transcript_payload(
-                    clip_payload,
-                    validated_output.text,
-                    [item.model_dump() for item in list(validated_output.segments or [])],
-                    validated_output.backend,
-                )
-            }
+            transcript_payload = validated_output.transcripts[0].model_dump()
             data = {
                 "clips": [clip_payload],
-                "text": validated_output.text,
-                "segments": [item.model_dump() for item in list(validated_output.segments or [])],
                 "transcripts": [transcript_payload],
-                "backend": validated_output.backend,
             }
             if phrase_matches:
                 data["phrase_matches"] = phrase_matches
@@ -524,28 +573,23 @@ class LocalASRAdapter(ToolAdapter):
             ]
             subresults = [self._execute_single(item, context) for item in subrequests]
             raw_blocks = []
-            texts = []
-            segments = []
             transcripts = []
+            phrase_matches = []
             for subrequest, subresult in zip(subrequests, subresults):
                 if subresult.raw_output_text:
                     raw_blocks.append(subresult.raw_output_text)
-                text = str(subresult.data.get("text") or "").strip()
-                if text:
-                    texts.append(text)
-                sub_segments = list(subresult.data.get("segments") or [])
-                segments.extend(sub_segments)
                 transcripts.extend(list(subresult.data.get("transcripts") or []))
+                phrase_matches.extend(list(subresult.data.get("phrase_matches") or []))
+            data = {
+                "clips": [item.clips[0].model_dump() for item in subrequests if list(getattr(item, "clips", []) or [])],
+                "transcripts": transcripts,
+            }
+            if phrase_matches:
+                data["phrase_matches"] = phrase_matches
             return ToolResult(
                 tool_name=self.name,
                 ok=True,
-                data={
-                    "clips": [item.clips[0].model_dump() for item in subrequests if list(getattr(item, "clips", []) or [])],
-                    "text": _join_text_blocks(texts),
-                    "segments": segments,
-                    "transcripts": transcripts,
-                    "backend": transcripts[0].get("backend") if transcripts else "whisperx_local",
-                },
+                data=data,
                 raw_output_text=_join_text_blocks(raw_blocks),
                 request_hash=hash_payload({"tool": self.name, "request": request.model_dump()}),
                 summary="ASR completed for %d clip(s)." % len(transcripts),
@@ -573,9 +617,9 @@ class LocalASRAdapter(ToolAdapter):
             if _missing_audio_error(str(exc)):
                 return {
                     "clip": clip.model_dump(),
-                    "text": "",
-                    "segments": [],
-                    "backend": "whisperx_local",
+                    "transcripts": [
+                        self._build_transcript_payload(clip.model_dump(), "", [], "whisperx_local")
+                    ],
                     "warning": str(exc),
                 }
             raise
@@ -583,17 +627,15 @@ class LocalASRAdapter(ToolAdapter):
             clips = list(result.data.get("clips") or [])
             return {
                 "clip": clips[0] if clips else clip.model_dump(),
-                "text": str(result.data.get("text") or "").strip(),
-                "segments": list(result.data.get("segments") or []),
-                "backend": result.data.get("backend") or "whisperx_local",
+                "transcripts": list(result.data.get("transcripts") or []),
             }
         error_text = str((result.metadata or {}).get("error") or "").strip()
         if _missing_audio_error(error_text):
             return {
                 "clip": clip.model_dump(),
-                "text": "",
-                "segments": [],
-                "backend": "whisperx_local",
+                "transcripts": [
+                    self._build_transcript_payload(clip.model_dump(), "", [], "whisperx_local")
+                ],
                 "warning": error_text,
             }
         raise RuntimeError(error_text or "ASR preprocess failed")

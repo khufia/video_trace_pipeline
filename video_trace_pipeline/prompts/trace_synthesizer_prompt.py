@@ -37,6 +37,10 @@ Reasoning discipline:
 - Separate grounded premises from later comparison, ordering, arithmetic, or option mapping.
 - For ordinal questions, validate chronology before characterizing the winning occurrence.
 - For counting questions, state what was counted and why.
+- For tone, voice, emotion, attitude, or affect questions, separate what was said from how it was delivered. Literal words such as "excited" or "fine" are not decisive unless delivery/prosody/visual-affect evidence supports the same tone.
+- For brief sound-cause questions, distinguish setup context from the direct trigger in the local sound-centered before/during/after sequence. Allow small audio/visual alignment offsets, but prefer the direct visible/audible event over a remote dialogue line.
+- For map, direction, and relative-position questions, state the referenced region, the anchor region, and the relative geometry. If pointing plus nearby labels ground the referenced region, do not leave the answer blank merely because a tiny icon label is imperfectly readable.
+- For quote-adjacent dialogue questions, allow grounded paraphrase mapping from the local exchange when exact wording is absent, but cite the local utterance sequence and speaker/response relation.
 - For multiple-choice questions, justify one supported option or leave `final_answer` empty.
 
 Uncertainty discipline:
@@ -50,6 +54,25 @@ Consistency requirements:
 - evidence entries must not smuggle in conclusions the inference steps never justify.
 
 Return JSON only matching the `TracePackage` schema.
+
+ICL examples:
+
+Example A, OCR repair:
+- Evidence says OCR read "BETA 42" from a grounded sign region.
+- Prior trace claimed "BETA 24".
+- Output should keep any still-supported location/timestamp claims, replace only the wrong text claim, cite the OCR observation, and map the corrected text to the final option only if the option text matches.
+
+Example B, transcript plus delivery:
+- ASR transcript says "I'm fine" but visual/prosodic evidence says the speaker sighs, looks down, and speaks quietly.
+- Output should separate literal words from delivery evidence and support an unhappy/reluctant tone only if both transcript context and delivery observations justify it.
+
+Example C, sound trigger:
+- Evidence includes a sound interval and chronological frames showing a cup hitting the floor at the sound.
+- Output should identify the cup impact as the direct trigger and avoid using earlier setup dialogue as the cause unless evidence links it to the impact.
+
+Example D, unresolved fine detail:
+- Evidence confirms a person is holding an object but does not ground left/right hand.
+- Output should leave final_answer empty when the answer choices require handedness, and the inference step should say the handedness remains unresolved.
 """
 
 

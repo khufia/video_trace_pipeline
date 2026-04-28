@@ -144,28 +144,25 @@ def _model_nested_lines(model_cls, *, exclude_fields: set[str] | None = None) ->
 
 _CANONICAL_OUTPUT_OVERRIDES = {
     "asr": {
-        "output_fields": ["clips", "text", "segments", "transcripts", "backend"],
+        "output_fields": ["clips", "transcripts", "phrase_matches"],
         "output_schema": [
             "clips: List[ClipRef]",
-            "text: str",
-            "segments: List[ASRSegmentOutput]",
             "transcripts: List[TranscriptRef]",
-            "backend: Optional[str]",
+            "phrase_matches: List[Dict[str, Any]]",
         ],
         "output_nested": [
             "clips[] -> video_id: str, start_s: float, end_s: float, metadata: Dict[str, Any]",
-            "segments[] -> start_s: float, end_s: float, text: str, speaker_id: Optional[str], confidence: Optional[float]",
-            "transcripts[] -> transcript_id: str, clip: Optional[ClipRef], relpath: Optional[str], text: str, segments: List[Dict[str, Any]], metadata: Dict[str, Any]",
+            "transcripts[] -> transcript_id: str, clip: Optional[ClipRef], relpath: Optional[str], text: str, segments: List[TranscriptSegment], metadata: Dict[str, Any]",
         ],
     },
     "dense_captioner": {
-        "output_fields": ["clips", "captions", "overall_summary", "sampled_frames", "backend"],
+        "output_fields": ["clips", "captions", "overall_summary", "captioned_range", "sampled_frames"],
         "output_schema": [
             "clips: List[ClipRef]",
             "captions: List[DenseCaptionSpan]",
             "overall_summary: str",
+            "captioned_range: TimeRange",
             "sampled_frames: List[Dict[str, Any]]",
-            "backend: Optional[str]",
         ],
         "output_nested": [
             "clips[] -> video_id: str, start_s: float, end_s: float, metadata: Dict[str, Any]",

@@ -75,7 +75,7 @@ def test_write_run_debug_bundle_writes_json_only_payloads(tmp_path):
                     "step_id": 1,
                     "tool_name": "generic_purpose",
                     "purpose": "Count the triangles.",
-                    "arguments": {"query": "count triangles"},
+                    "inputs": {"query": "count triangles"},
                 }
             ],
             "refinement_instructions": "",

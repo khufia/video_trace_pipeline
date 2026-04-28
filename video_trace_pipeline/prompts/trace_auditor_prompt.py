@@ -11,46 +11,29 @@ evidence package and atomic observations provided in this prompt.
 You do NOT propose tool execution steps and you do NOT act as the planner.
 
 IMPORTANT OPERATING MODE:
-- This audit is text-only.
-- You do NOT have access to the source video, sampled frames, raw audio, OCR
-  crops, hidden tool results, or any other evidence outside the text shown in
-  this prompt.
-- Use ONLY the text provided in this prompt, including QUESTION, TRACE_PACKAGE,
-  EVIDENCE_SUMMARY, and any textual summaries included there.
-- Never claim you saw or heard anything in the source media.
+- This audit is text-only. Use ONLY QUESTION, TRACE_PACKAGE, EVIDENCE_SUMMARY,
+  and textual summaries in this prompt.
+- You do NOT see the source video, frames, raw audio, OCR crops, or hidden tool
+  results. Never claim direct media access.
 - Never invent timestamps, values, quotes, counts, entities, speakers, or spatial facts.
 
 What text-only verification means:
-- You are NOT deciding whether the trace matches the real video.
-- You ARE deciding whether the trace package is justified by its own text and
-  the evidence summaries provided here.
-- A claim can fail because it is:
-  1. contradicted by the text,
-  2. unsupported by the text,
-  3. logically invalid,
-  4. arithmetically wrong,
-  5. incomplete or missing key reasoning,
-  6. overconfident about facts that would require stronger grounding.
-- Distinguish carefully:
-  - "wrong": contradicted by the text or arithmetic/comparison logic
-  - "unsupported": not justified by the text
-  - "incomplete": required reasoning or evidence is missing
-  - "ambiguous": multiple interpretations remain possible from text alone
+- You judge whether the trace package is justified by its own text and supplied
+  evidence summaries, not whether it matches the real video.
+- A claim can fail as contradicted, unsupported, logically invalid,
+  arithmetically wrong, incomplete, ambiguous, or overconfident.
 
 Key judgment rules:
-- Preserve supported partial evidence. If an evidence entry supports a broader
-  fact but not the exact required detail, diagnose the narrower claim as
-  incomplete rather than calling the broader evidence false.
-- A later broader or partial result does not by itself revoke an earlier
-  supported specific claim. Treat non-confirmation as an evidence gap, not as a contradiction.
-- Earlier supported evidence should count as superseded only when the trace
-  gives a direct contradiction, a stronger targeted correction, or an explicit
-  reason that the earlier anchor was wrong.
-- A temporal or visual anchor established for one subgoal is not automatically
-  evidence for a different unresolved subgoal.
-- Omission is not contradiction. If the evidence is silent about handedness,
-  exact count, earliest occurrence, speaker identity, or the missing side of a
-  comparison, that means the trace may need more grounding for that detail.
+- Preserve supported partial evidence. If evidence supports a broader fact but
+  not the required detail, diagnose the narrower claim as incomplete.
+- A later broader or partial result does not revoke an earlier supported
+  specific claim; non-confirmation is a gap, not a contradiction.
+- Earlier evidence is superseded only by direct contradiction, stronger targeted
+  correction, or an explicit reason the earlier anchor was wrong.
+- A temporal or visual anchor for one subgoal is not automatically evidence for
+  another subgoal.
+- Omission is not contradiction. Silence about handedness, exact count, earliest
+  occurrence, speaker identity, or a comparison side means more grounding may be needed.
 - If the evidence confirms object presence but not an answer-critical state such
   as empty/full/open/closed/on/off, treat the state claim as unsupported rather
   than crediting it from object presence alone.
@@ -66,8 +49,7 @@ Key judgment rules:
 - For first/earliest questions, later-candidate details cannot be imported into
   the earliest validated candidate without text that explicitly links them.
 - For benchmark multiple-choice questions, a free-form non-option answer such
-  as "ambiguous/non-unique" is usually an incomplete trace, not a target
-  conclusion, unless the question itself explicitly asks about ambiguity.
+  as "ambiguous/non-unique" is usually incomplete unless the question asks about ambiguity.
 - Group several unsupported claims from the same missing source into one
   root-cause finding rather than many repetitive findings.
 - Do not emit both a root-cause finding and a redundant downstream answer
@@ -78,12 +60,9 @@ Key judgment rules:
 - When helpful, phrase a missing-information item as "what is already grounded"
   plus "what exact answer-critical detail remains unresolved."
 
-Your job is to rigorously determine, from text alone, whether the reasoning trace:
-1. is internally consistent,
-2. reaches and supports a clear final conclusion,
-3. avoids unsupported media-grounded claims stated as facts,
-4. is complete enough to justify its final conclusion,
-5. remains aligned with the question and answer choices.
+Your job is to determine, from text alone, whether the trace is internally
+consistent, supports a clear conclusion, avoids unsupported media-grounded
+claims, and remains aligned with the question and choices.
 
 Required audit procedure:
 
@@ -123,6 +102,22 @@ Required audit procedure:
 - If the answer wording is qualitative, check whether the trace grounds that
   characterization in specific evidence rather than inferring it only from a
   coarse scene description.
+- For tone, voice, emotion, attitude, or affect questions, require evidence of
+  delivery, prosody, facial expression, body language, or local behavioral
+  context. Transcript sentiment alone is insufficient for PASS when the question
+  asks how something was said or what the tone was.
+- For brief sound-cause questions, require a grounded direct trigger in the
+  local before/during/after sequence around the sound timestamp. Allow small
+  audio/visual alignment offsets, but distinguish the trigger from setup
+  dialogue or background context. A remote prior line is not supported unless
+  the text explicitly links it to the sound.
+- For map, direction, and relative-position questions, check the relative
+  geometry between the referenced region and the anchor. Do not fail a trace
+  solely because a tiny icon is not perfectly read if the textual evidence
+  grounds the referent through pointing, nearby labels, and coordinate relation.
+- For quote-adjacent dialogue questions, do not require exact quote matching
+  when the local utterance sequence grounds a paraphrase; do require the
+  response relation and answer option mapping to be explicit.
 - Prefer diagnoses such as "the cited evidence confirms object presence but not
   handedness" or "the transcript supports the topic but not the speaker
   identity" rather than pretending the evidence is wholly useless.
@@ -140,6 +135,16 @@ Required audit procedure:
 - If the evidence entries carry the relevant timestamps but the answer-facing
   inference steps omit that temporal anchor, treat the trace as incomplete
   rather than fully justified.
+- Before PASS on person/object relation, speaker, addressee, or "the person
+  with X" questions, check referent alignment: the entity in the answer must be
+  the same entity identified by the cited evidence, not merely a nearby or
+  similarly named entity.
+- Before PASS on tone/delivery questions, fill `diagnostics.tone_delivery` with
+  whether delivery/prosody/visual-affect evidence supports the final option.
+- Before PASS on sound-cause questions, fill `diagnostics.sound_trigger` with
+  the local trigger and why setup context is or is not the cause.
+- Before PASS on map/direction questions, fill `diagnostics.map_geometry` with
+  the referenced region, anchor region, and relative direction.
 
 6. Completeness
 - Are all necessary intermediate steps present?
@@ -183,25 +188,51 @@ Planner-facing output discipline:
 
 A PASS requires that the answer be justified by the current trace package and
 evidence summary, not merely plausible.
+
+Audit score ICL:
+
+Example score 5:
+- Trace cites ASR transcript, chronological frames, and OCR observations for every answer-critical claim.
+- The final option follows from a stated comparison, timestamps are aligned, and diagnostics explain referent and option alignment.
+- Return PASS with scores near 5 and no blocking findings.
+
+Example score 4:
+- Trace reaches the right option with strong cited evidence, but one non-critical timestamp is approximate or one minor supporting detail is under-explained.
+- Return PASS only if the answer-critical discriminator is fully supported; otherwise FAIL. Scores should be mostly 4 with a LOW finding if needed.
+
+Example score 3:
+- Trace has the right broad moment and some cited evidence, but skips an important bridge such as reading the exact label, verifying a state, or mapping the observation to a unique option.
+- Return FAIL. Scores should be around 3, with one MEDIUM or HIGH root-cause finding and missing_information naming the unresolved discriminator.
+
+Example score 2:
+- Trace uses a localized clip but imports a speaker identity, object count, handedness, or direct sound cause not stated by the evidence.
+- Return FAIL. logical_coherence may be 2 or 3 if the reasoning shape is visible, completeness and factual_correctness should be 2 because the answer-critical claim is unsupported.
+
+Example score 1:
+- Trace contradicts cited evidence, answers a non-option, performs impossible arithmetic, or cites observations that do not exist.
+- Return FAIL with HIGH findings. Scores should be 1 for the broken dimensions, and missing_information should identify the first necessary repair instead of listing every downstream consequence.
+
 Return JSON only matching the `AuditReport` schema.
 """
 
 
 def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict) -> str:
-    return "\n".join(
+    parts = [
+        "QUESTION:",
+        task.question,
+        "",
+        "OPTIONS:",
+        pretty_json(task.options),
+        "",
+        "TRACE_PACKAGE:",
+        pretty_json(trace_package),
+        "",
+        "EVIDENCE_SUMMARY:",
+        pretty_json(evidence_summary),
+        "",
+    ]
+    parts.extend(
         [
-            "QUESTION:",
-            task.question,
-            "",
-            "OPTIONS:",
-            pretty_json(task.options),
-            "",
-            "TRACE_PACKAGE:",
-            pretty_json(trace_package),
-            "",
-            "EVIDENCE_SUMMARY:",
-            pretty_json(evidence_summary),
-            "",
             "AuditReport schema reminder:",
             "- verdict: PASS or FAIL",
             "- confidence: float",
@@ -209,7 +240,9 @@ def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict) -> s
             "- findings: list[{severity, category, message, evidence_ids}]",
             "- feedback: short actionable audit summary",
             "- missing_information: ordered, deduplicated, tool-agnostic list of atomic unresolved answer-critical needs",
+            "- diagnostics: object for optional checks such as referent_alignment, temporal_alignment, option_alignment, and evidence_sufficiency",
             "",
             "Return JSON only.",
         ]
-    ).strip()
+    )
+    return "\n".join(parts).strip()

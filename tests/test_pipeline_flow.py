@@ -1,8 +1,6 @@
-import pytest
 from types import SimpleNamespace
 
-from video_trace_pipeline.agents.planner import PlannerAgent
-from video_trace_pipeline.orchestration.pipeline import PipelineRunner, _compact_round_summary
+from video_trace_pipeline.orchestration.pipeline import PipelineRunner
 from video_trace_pipeline.schemas import (
     AgentConfig,
     AuditReport,
@@ -11,10 +9,9 @@ from video_trace_pipeline.schemas import (
     MachineProfile,
     ModelsConfig,
     TaskSpec,
-    TracePackage,
     ToolConfig,
+    TracePackage,
 )
-from video_trace_pipeline.storage import EvidenceLedger
 
 
 class FakePreprocessor(object):
@@ -22,23 +19,27 @@ class FakePreprocessor(object):
         return {"clip_duration_s": float(clip_duration_s or 60.0)}
 
     def get_or_build(self, task, clip_duration_s):
-        del task, clip_duration_s
+        del clip_duration_s
         return {
-            "cache_hit": False,
-            "cache_dir": "cache/preprocess/fake",
-            "manifest": {},
-            "segments": [],
+            "cache_hit": True,
+            "cache_dir": "workspace/preprocess/video_1",
+            "manifest": {"video_id": task.video_id, "planner_segment_count": 1},
+            "raw_segments": [],
+            "asr_transcripts": [],
+            "dense_caption_segments": [],
             "planner_segments": [
                 {
+                    "segment_id": "seg_001",
                     "start_s": 0.0,
                     "end_s": 12.0,
-                    "dense_caption_spans": [{"start_s": 0.0, "end_s": 12.0, "visual": "A short summary."}],
+                    "dense_caption": {
+                        "overall_summary": "A short rich summary.",
+                        "clips": [{"video_id": task.video_id, "start_s": 0.0, "end_s": 12.0}],
+                        "captions": [{"start_s": 0.0, "end_s": 12.0, "visual": "A price label is shown."}],
+                    },
+                    "asr": {"transcript_spans": [{"start_s": 1.0, "end_s": 2.0, "text": "The price is forty two."}]},
                 }
             ],
-            "planner_context": {
-                "identity_memory": [{"label": "Phil", "kind": "named_anchor"}],
-                "audio_event_memory": [{"label": "metallic bang"}],
-            },
             "video_fingerprint": "vid123",
         }
 
@@ -53,9 +54,7 @@ class FakePlanner(object):
 
     def complete_request(self, request):
         del request
-        from video_trace_pipeline.schemas import ExecutionPlan
-
-        return "{}", ExecutionPlan(strategy="No tools needed.", use_summary=True, steps=[], refinement_instructions="")
+        return "{}", ExecutionPlan(strategy="No tools needed.", steps=[], refinement_instructions="")
 
 
 class FakeExecutor(object):
@@ -77,30 +76,19 @@ class FakeSynthesizer(object):
         refinement_instructions,
         audit_feedback=None,
     ):
-        self.calls.append(
-            {
-                "task": task,
-                "mode": mode,
-                "round_evidence_entries": list(round_evidence_entries or []),
-                "round_observations": list(round_observations or []),
-                "current_trace": current_trace,
-                "refinement_instructions": refinement_instructions,
-                "audit_feedback": audit_feedback,
-            }
-        )
+        self.calls.append(locals())
         return {"endpoint_name": "default", "model_name": "gpt-5.4", "system_prompt": "synth", "user_prompt": "prompt"}
 
     def complete_request(self, request):
         del request
-        task = SimpleNamespace(sample_key="sample1")
         trace = TracePackage(
-            task_key=task.sample_key,
+            task_key="sample1",
             mode="generate",
             evidence_entries=[],
             inference_steps=[
                 InferenceStep(
                     step_id=1,
-                    text="The summary directly answers the question.",
+                    text="The evidence supports option A.",
                     supporting_observation_ids=[],
                     answer_relevance="high",
                 )
@@ -112,30 +100,28 @@ class FakeSynthesizer(object):
 
 
 class FakeAuditor(object):
+    def __init__(self, fail_first=False):
+        self.calls = []
+        self.fail_first = fail_first
+        self.count = 0
+
     def build_request(self, task, trace_package, evidence_summary):
-        del task, trace_package, evidence_summary
+        self.calls.append({"task": task, "trace_package": trace_package, "evidence_summary": evidence_summary})
         return {"endpoint_name": "default", "model_name": "gpt-5.4", "system_prompt": "audit", "user_prompt": "prompt"}
 
     def complete_request(self, request):
         del request
-        return "{}", AuditReport(verdict="PASS", confidence=0.9, scores={"support": 1.0}, findings=[], feedback="")
-
-
-class FakeLLMClient(object):
-    def __init__(self):
-        self.calls = []
-
-    def complete_json(self, **kwargs):
-        self.calls.append(kwargs)
-        return (
-            {
-                "strategy": "Plan from prompt.",
-                "use_summary": True,
-                "steps": [],
-                "refinement_instructions": "",
-            },
-            "{}",
-        )
+        self.count += 1
+        if self.fail_first and self.count == 1:
+            return "{}", AuditReport(
+                verdict="FAIL",
+                confidence=0.8,
+                scores={"completeness": 2},
+                findings=[],
+                feedback="Need exact price.",
+                missing_information=["exact visible price label"],
+            )
+        return "{}", AuditReport(verdict="PASS", confidence=0.9, scores={"completeness": 5}, findings=[], feedback="")
 
 
 def _models_config():
@@ -146,386 +132,65 @@ def _models_config():
             "trace_auditor": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
             "atomicizer": AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
         },
-        tools={"dense_captioner": ToolConfig(enabled=True, model="yaolily/TimeChat-Captioner-GRPO-7B")},
+        tools={"dense_captioner": ToolConfig(enabled=True, model="test-model")},
     )
 
 
-def test_pipeline_runner_writes_final_outputs(tmp_path):
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    runner = PipelineRunner(profile, _models_config())
+def _runner(tmp_path, auditor=None):
+    runner = PipelineRunner(MachineProfile(workspace_root=str(tmp_path / "workspace")), _models_config())
     runner.preprocessor = FakePreprocessor()
     runner.planner = FakePlanner()
     runner.executor = FakeExecutor()
     runner.synthesizer = FakeSynthesizer()
-    runner.auditor = FakeAuditor()
-    task = TaskSpec(
+    runner.auditor = auditor or FakeAuditor()
+    return runner
+
+
+def _task(tmp_path, initial_trace_steps=None):
+    video = tmp_path / "video.mp4"
+    video.write_bytes(b"video")
+    return TaskSpec(
         benchmark="omnivideobench",
         sample_key="sample1",
+        video_id="video_1",
         question="What is the answer?",
         options=["A", "B"],
-        video_path=str(tmp_path / "video.mp4"),
+        video_path=str(video),
+        initial_trace_steps=initial_trace_steps,
     )
-    (tmp_path / "video.mp4").write_bytes(b"video")
-    result = runner.run_task(
-        task,
-        mode="generate",
-        max_rounds=1,
-        clip_duration_s=30.0,
-    )
-    final_result_path = tmp_path / "workspace" / result["run_dir"] / "final_result.json"
-    trace_package_path = tmp_path / "workspace" / result["run_dir"] / "trace_package.json"
-    debug_report_path = tmp_path / "workspace" / result["run_dir"] / "debug" / "overview.json"
-    planner_request_path = tmp_path / "workspace" / result["run_dir"] / "round_01" / "planner_request.json"
-    assert final_result_path.exists()
-    assert trace_package_path.exists()
-    assert debug_report_path.exists()
-    assert planner_request_path.exists()
+
+
+def test_pipeline_runner_passes_full_rich_preprocess_to_first_planner_round(tmp_path):
+    runner = _runner(tmp_path)
+
+    result = runner.run_task(_task(tmp_path), mode="generate", max_rounds=1, clip_duration_s=30.0)
+
     assert result["trace_package"]["final_answer"] == "A"
+    call = runner.planner.calls[0]
+    assert call["planner_segments"][0]["dense_caption"]["overall_summary"] == "A short rich summary."
+    assert call["planner_segments"][0]["asr"]["transcript_spans"][0]["text"] == "The price is forty two."
+    assert "preprocess_planning_memory" not in call
+    assert "compact_rounds" not in call
 
 
-def test_pipeline_runner_preloads_models_before_preprocess(tmp_path):
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    runner = PipelineRunner(
-        profile,
-        _models_config(),
-        persist_tool_models=["dense_captioner"],
-        preload_persisted_models=True,
-    )
+def test_refine_planner_receives_retrieved_context_before_plan(tmp_path):
+    runner = _runner(tmp_path, auditor=FakeAuditor(fail_first=True))
+    task = _task(tmp_path, initial_trace_steps=["The old trace says the answer is B."])
 
-    call_order = []
-
-    class OrderedPreprocessor(object):
-        def resolve_preprocess_settings(self, clip_duration_s):
-            return {"clip_duration_s": float(clip_duration_s or 60.0)}
-
-        def get_or_build(self, task, clip_duration_s):
-            call_order.append("preprocess")
-            return {
-                "cache_hit": False,
-                "cache_dir": "cache/preprocess/fake",
-                "manifest": {},
-                "segments": [],
-                "planner_segments": [{"start_s": 0.0, "end_s": 12.0}],
-                "video_fingerprint": "vid123",
-            }
-
-    runner.preprocessor = OrderedPreprocessor()
-    runner.planner = FakePlanner()
-    runner.executor = FakeExecutor()
-    runner.synthesizer = FakeSynthesizer()
-    runner.auditor = FakeAuditor()
-
-    def fake_preload():
-        call_order.append("preload")
-        return {
-            "enabled": True,
-            "requested_tools": ["dense_captioner"],
-            "loaded_models": [
-                {
-                    "tool_name": "dense_captioner",
-                    "runner_type": "timechat",
-                    "model_name": "yaolily/TimeChat-Captioner-GRPO-7B",
-                    "resolved_model_path": "/models/timechat",
-                    "device_label": "cuda:1",
-                }
-            ],
-            "parallel_workers": 1,
-            "shared_tools": [],
-        }
-
-    runner.tool_registry.preload_persistent_models = fake_preload
-
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What is the answer?",
-        options=["A", "B"],
-        video_path=str(tmp_path / "video.mp4"),
-    )
-    (tmp_path / "video.mp4").write_bytes(b"video")
-
-    runner.run_task(
-        task,
-        mode="generate",
-        max_rounds=1,
-        clip_duration_s=30.0,
-    )
-
-    assert call_order[:2] == ["preload", "preprocess"]
-
-
-def test_planner_agent_uses_prompt_based_request():
-    llm_client = FakeLLMClient()
-    planner = PlannerAgent(llm_client=llm_client, agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"))
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="Among the shown charts, which option has the largest percentage difference?",
-        options=["A. 10%", "B. 25%", "C. 40%"],
-        video_path="video.mp4",
-    )
-    tool_catalog = {
-        "visual_temporal_grounder": {"request_fields": ["query", "top_k"]},
-        "frame_retriever": {},
-        "ocr": {},
-        "generic_purpose": {},
-        "spatial_grounder": {},
-    }
-
-    raw, plan = planner.plan(
-        task=task,
-        mode="refine",
-        planner_segments=[{"start_s": 0.0, "end_s": 12.0, "dense_caption_spans": [{"start_s": 0.0, "end_s": 12.0, "visual": "summary"}]}],
-        compact_rounds=[],
-        retrieved_observations=[],
-        audit_feedback={"feedback": "Need direct readings of the values."},
-        tool_catalog=tool_catalog,
-    )
-    assert raw == "{}"
-    assert plan.strategy == "Plan from prompt."
-    assert llm_client.calls
-    assert llm_client.calls[0]["response_model"] is dict
-    assert llm_client.calls[0]["system_prompt"].startswith("You are the Planner")
-    assert "AVAILABLE_TOOLS:" in llm_client.calls[0]["user_prompt"]
-
-
-def test_pipeline_passes_preprocess_planning_memory_to_planner(tmp_path):
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    runner = PipelineRunner(profile, _models_config())
-    runner.preprocessor = FakePreprocessor()
-    runner.planner = FakePlanner()
-    runner.executor = FakeExecutor()
-    runner.synthesizer = FakeSynthesizer()
-    runner.auditor = FakeAuditor()
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What is the answer?",
-        options=["A", "B"],
-        video_path=str(tmp_path / "video.mp4"),
-    )
-    (tmp_path / "video.mp4").write_bytes(b"video")
-
-    runner.run_task(task, mode="generate", max_rounds=1, clip_duration_s=30.0)
+    runner.run_task(task, mode="refine", max_rounds=1, clip_duration_s=30.0)
 
     assert runner.planner.calls
-    assert runner.planner.calls[0]["planner_segments"][0]["dense_caption_spans"][0]["visual"] == "A short summary."
-    assert runner.planner.calls[0]["preprocess_planning_memory"]["identity_memory"][0]["label"] == "Phil"
-    assert runner.planner.calls[0]["preprocess_planning_memory"]["audio_event_memory"][0]["label"] == "metallic bang"
+    call = runner.planner.calls[0]
+    assert call["mode"] == "refine"
+    assert call["retrieved_context"]["audit_gaps"] == ["exact visible price label"]
+    assert "planner_context" not in call
 
 
-def test_pipeline_passes_round_local_synthesis_context(tmp_path):
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    runner = PipelineRunner(profile, _models_config())
-    runner.preprocessor = FakePreprocessor()
-    runner.planner = FakePlanner()
-    runner.synthesizer = FakeSynthesizer()
-    runner.auditor = FakeAuditor()
+def test_pipeline_writes_final_outputs(tmp_path):
+    runner = _runner(tmp_path)
+    result = runner.run_task(_task(tmp_path), mode="generate", max_rounds=1, clip_duration_s=30.0)
 
-    class ExecutorWithEvidence(object):
-        def execute_plan(self, **kwargs):
-            del kwargs
-            return [
-                {
-                    "step_id": 1,
-                    "tool_name": "frame_retriever",
-                    "purpose": "Retrieve the decisive frame.",
-                    "request": {"query": "best frame"},
-                    "result": {"summary": "Retrieved frame."},
-                    "evidence_entry": {
-                        "evidence_id": "ev_1",
-                        "tool_name": "frame_retriever",
-                        "evidence_text": "Frame at 12s shows the sign.",
-                        "observation_ids": ["obs_1"],
-                    },
-                    "observations": [
-                        {"observation_id": "obs_1", "subject": "sign", "predicate": "shows"},
-                        {"observation_id": "obs_1", "subject": "sign", "predicate": "shows"},
-                    ],
-                }
-            ]
-
-    runner.executor = ExecutorWithEvidence()
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What is the answer?",
-        options=["A", "B"],
-        video_path=str(tmp_path / "video.mp4"),
-    )
-    (tmp_path / "video.mp4").write_bytes(b"video")
-
-    runner.run_task(task, mode="generate", max_rounds=1, clip_duration_s=30.0)
-
-    assert runner.synthesizer.calls
-    assert runner.synthesizer.calls[0]["round_evidence_entries"] == [
-        {
-            "evidence_id": "ev_1",
-            "tool_name": "frame_retriever",
-            "evidence_text": "Frame at 12s shows the sign.",
-            "observation_ids": ["obs_1"],
-        }
-    ]
-    assert runner.synthesizer.calls[0]["round_observations"] == [
-        {"observation_id": "obs_1", "subject": "sign", "predicate": "shows"}
-    ]
-    assert runner.synthesizer.calls[0]["audit_feedback"] is None
-
-
-def test_planner_agent_surfaces_invalid_plan_schema():
-    class FakeLLMClientWithInvalidPlan(object):
-        def complete_json(self, **kwargs):
-            assert kwargs["response_model"] is dict
-            return (
-                {
-                    "strategy": "Plan from prompt.",
-                    "use_summary": True,
-                    "steps": [
-                        {
-                            "step_id": 0,
-                        "tool_name": "visual_temporal_grounder",
-                        "purpose": "Find the right clip.",
-                        "arguments": {"query": "Find the chart."},
-                        "input_refs": [],
-                        "depends_on": [],
-                        }
-                    ],
-                    "refinement_instructions": "",
-                },
-                "{}",
-            )
-
-    planner = PlannerAgent(
-        llm_client=FakeLLMClientWithInvalidPlan(),
-        agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
-    )
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="Among the shown charts, which option has the largest percentage difference?",
-        options=["A. 10%", "B. 25%", "C. 40%"],
-        video_path="video.mp4",
-    )
-
-    with pytest.raises(Exception, match="step_id must be positive"):
-        planner.plan(
-            task=task,
-            mode="refine",
-            planner_segments=[{"start_s": 0.0, "end_s": 12.0}],
-            compact_rounds=[],
-            retrieved_observations=[],
-            audit_feedback=None,
-            tool_catalog={},
-        )
-
-
-def test_planner_agent_drops_empty_placeholder_input_refs_before_validation():
-    class FakeLLMClientWithPlaceholderRef(object):
-        def complete_json(self, **kwargs):
-            assert kwargs["response_model"] is dict
-            return (
-                {
-                    "strategy": "Plan from prompt.",
-                    "use_summary": True,
-                    "steps": [
-                        {
-                            "step_id": 1,
-                            "tool_name": "frame_retriever",
-                            "purpose": "Retrieve the decisive frame.",
-                            "arguments": {"query": "best frame", "clips": []},
-                            "input_refs": [
-                                {
-                                    "target_field": "clips",
-                                    "source": {"step_id": 0, "field_path": ""},
-                                }
-                            ],
-                            "depends_on": [],
-                        }
-                    ],
-                    "refinement_instructions": "Use the frame to answer the question.",
-                },
-                "{}",
-            )
-
-    planner = PlannerAgent(
-        llm_client=FakeLLMClientWithPlaceholderRef(),
-        agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
-    )
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What is visible?",
-        options=["A", "B"],
-        video_path="video.mp4",
-    )
-
-    _, plan = planner.plan(
-        task=task,
-        mode="generate",
-        planner_segments=[{"start_s": 0.0, "end_s": 12.0}],
-        compact_rounds=[],
-        retrieved_observations=[],
-        audit_feedback=None,
-        tool_catalog={"frame_retriever": {"request_fields": ["query", "clips"]}},
-    )
-
-    assert plan.steps[0].step_id == 1
-    assert plan.steps[0].input_refs == []
-
-
-def test_pipeline_evidence_summary_is_stable_across_runs(tmp_path):
-    profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
-    runner = PipelineRunner(profile, _models_config())
-    task = TaskSpec(
-        benchmark="omnivideobench",
-        sample_key="sample1",
-        question="What is the answer?",
-        options=["A", "B"],
-        video_path=str(tmp_path / "video.mp4"),
-    )
-    (tmp_path / "video.mp4").write_bytes(b"video")
-
-    run_a = runner.workspace.create_run(task)
-    run_b = runner.workspace.create_run(task)
-    summary_a = runner._build_evidence_summary(EvidenceLedger(run_a))
-    summary_b = runner._build_evidence_summary(EvidenceLedger(run_b))
-
-    assert "database_path" not in summary_a
-    assert summary_a == summary_b
-
-
-def test_compact_round_summary_keeps_step_level_request_and_result_context():
-    plan = SimpleNamespace(
-        strategy="Reuse prior anchor.",
-        refinement_instructions="Keep the earlier named anchor and only repair the later anonymous clip.",
-    )
-    execution_records = [
-        {
-            "step_id": 2,
-            "tool_name": "generic_purpose",
-            "purpose": "Compare the anonymous later clip to the earlier named clip.",
-            "request": {
-                "query": "Compare whether the unnamed man matches Phil from the earlier clip.",
-                "clips": [
-                    {"video_id": "video-1", "start_s": 10.0, "end_s": 14.0},
-                    {"video_id": "video-1", "start_s": 22.0, "end_s": 26.0},
-                ],
-                "evidence_ids": ["ev_01_demo"],
-            },
-            "result": {
-                "summary": "The later clip shows the same jacket and cashier counter as the earlier Phil clip.",
-                "data": {"clips": [{"video_id": "video-1", "start_s": 22.0, "end_s": 26.0}]},
-            },
-            "evidence_entry": {"evidence_id": "ev_02_demo", "time_start_s": 22.0, "time_end_s": 26.0},
-            "observations": [{"observation_id": "obs_1"}, {"observation_id": "obs_2"}],
-        }
-    ]
-    audit = AuditReport(verdict="FAIL", confidence=0.5, scores={"completeness": 2}, findings=[], feedback="Need the exact identity.", missing_information=["exact identity"])
-
-    summary = _compact_round_summary(2, plan, execution_records, audit)
-
-    assert summary["step_summaries"][0]["request"]["evidence_ids"] == ["ev_01_demo"]
-    assert summary["step_summaries"][0]["result"]["time_start_s"] == 22.0
-    assert summary["step_summaries"][0]["result"]["evidence_id"] == "ev_02_demo"
-    assert summary["step_summaries"][0]["result"]["observation_count"] == 2
-    assert "use_summary" not in summary
+    final_result_path = tmp_path / "workspace" / result["run_dir"] / "final_result.json"
+    planner_request_path = tmp_path / "workspace" / result["run_dir"] / "round_01" / "planner_request.json"
+    assert final_result_path.exists()
+    assert planner_request_path.exists()
