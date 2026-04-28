@@ -53,6 +53,7 @@ Planning rules:
 - Pass ASR to generic_purpose through `transcripts`, never flattened `text_contexts`.
 - `input_refs` are structural: bind clips from `clips`, `clips[0]`, `frames[].clip`, `regions[].frame.clip`, or `transcripts[].clip`; bind frames from `frames`, `frames[0]`, or `regions[].frame`; bind transcripts from `transcripts`.
 - Bind `text_contexts` only from textual outputs like `text`, `summary`, `overall_summary`, `analysis`, `answer`, `supporting_points`, `spatial_description`, or `raw_output_text`.
+- If generic_purpose must verify a visual attribute after spatial_grounder, bind frames from `regions[].frame` or pass the original frames, and optionally bind `spatial_description` as text_contexts. Text_contexts alone are not enough for visual-state verification.
 - Do not bind current-plan outputs into `time_hints`; if timestamps are known from preprocess or retrieval, put literal strings in `inputs.time_hints`, otherwise pass `clips`.
 - Do not bind current-plan outputs into `evidence_ids`.
 - generic_purpose must receive explicit context: clips, frames, transcripts, text_contexts, evidence_ids, or input_refs.
@@ -93,6 +94,7 @@ Tool-chain patterns:
 - Visible text: visual_temporal_grounder -> frame_retriever -> ocr.
 - Region text: visual_temporal_grounder -> frame_retriever -> spatial_grounder -> ocr.
 - Structured chart/table/scoreboard: visual_temporal_grounder -> frame_retriever -> generic_purpose, with OCR only for explicit labels or numbers.
+- Localized visual state: frame_retriever or retrieved frames -> spatial_grounder -> generic_purpose with frames from `regions[].frame` plus spatial_description text_contexts.
 - Transcript already in preprocessing: generic_purpose over PREPROCESS_TRANSCRIPTS_AVAILABLE, with no ASR call.
 - Dialogue: bounded clip localization when needed -> asr -> optional generic_purpose over transcripts.
 - Tone/affect: asr plus frame_retriever sequence -> generic_purpose over transcripts and frames.
