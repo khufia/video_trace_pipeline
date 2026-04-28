@@ -69,6 +69,10 @@ def test_build_planner_prompt_uses_rich_preprocess_and_retrieved_context():
     )
 
     assert "RICH_PREPROCESS_SEGMENTS:" in prompt
+    assert "PREPROCESS_TRANSCRIPTS_AVAILABLE:" in prompt
+    assert "PREPROCESS_TRANSCRIPTS_USAGE_NOTE:" in prompt
+    assert '"transcript_id": "preprocess_seg_001"' in prompt
+    assert '"source": "preprocess"' in prompt
     assert "RETRIEVAL_CATALOG:" in prompt
     assert "RETRIEVED_CONTEXT:" in prompt
     assert "RETRIEVED_EVIDENCE_IDS_AVAILABLE:" in prompt
@@ -93,6 +97,9 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "field-keyed object" in PLANNER_SYSTEM_PROMPT
     assert "Do not emit removed fields" in PLANNER_SYSTEM_PROMPT
     assert "Pass ASR to generic_purpose through `transcripts`" in PLANNER_SYSTEM_PROMPT
+    assert "PREPROCESS_TRANSCRIPTS_AVAILABLE as structured `inputs.transcripts`" in PLANNER_SYSTEM_PROMPT
+    assert "Transcript already in preprocessing" in PLANNER_SYSTEM_PROMPT
+    assert "run ASR only when transcript coverage is missing or insufficient" in PLANNER_SYSTEM_PROMPT
     assert "Do not bind current-plan outputs into `time_hints`" in PLANNER_SYSTEM_PROMPT
     assert "Example A, visible text region" in PLANNER_SYSTEM_PROMPT
     assert "Example C, sound trigger" in PLANNER_SYSTEM_PROMPT

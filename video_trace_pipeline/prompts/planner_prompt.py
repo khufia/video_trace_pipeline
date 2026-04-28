@@ -28,6 +28,8 @@ Active plan schema:
 Preprocess use:
 - RICH_PREPROCESS_SEGMENTS contain dense captions, attributes, clips, overall_summary, and ASR transcript spans.
 - Use them as full first-round video context, not as final proof for answer-critical fine detail.
+- For transcript-only, quote, not-mentioned, or dialogue-content questions, use PREPROCESS_TRANSCRIPTS_AVAILABLE as structured `inputs.transcripts` for generic_purpose when the spans cover the needed interval.
+- Call ASR only when preprocessing has no transcript coverage, the existing transcript is contradicted/incomplete, or the task needs speaker attribution that is not present.
 - If the needed detail is absent, ambiguous, conflicting, too broad, or depends on exact state/count/text/region/speaker, call tools.
 
 Retrieval use:
@@ -90,6 +92,7 @@ Tool-chain patterns:
 - Visible text: visual_temporal_grounder -> frame_retriever -> ocr.
 - Region text: visual_temporal_grounder -> frame_retriever -> spatial_grounder -> ocr.
 - Structured chart/table/scoreboard: visual_temporal_grounder -> frame_retriever -> generic_purpose, with OCR only for explicit labels or numbers.
+- Transcript already in preprocessing: generic_purpose over PREPROCESS_TRANSCRIPTS_AVAILABLE, with no ASR call.
 - Dialogue: bounded clip localization when needed -> asr -> optional generic_purpose over transcripts.
 - Tone/affect: asr plus frame_retriever sequence -> generic_purpose over transcripts and frames.
 - Brief sound cause: audio_temporal_grounder -> frame_retriever chronological sequence -> generic_purpose trigger verification.
@@ -177,7 +180,7 @@ Example L, repeated event count:
 - Bad plan: count from sparse representative frames.
 
 Example M, absence/not-mentioned:
-- Good plan: run ASR over the relevant explanation window, preserve exact transcript spans for mentioned candidates, and compare every option against transcript evidence.
+- Good plan: use preprocessing transcript spans as `inputs.transcripts` when they cover the interval; run ASR only when transcript coverage is missing or insufficient, preserve exact spans for mentioned candidates, and compare every option against transcript evidence.
 - Bad plan: answer from broad scene captions or world knowledge.
 
 Example N, refine after audit:
@@ -369,6 +372,82 @@ def _collect_retrieved_frame_refs(retrieved_context: dict, *, video_id: str) -> 
     return refs
 
 
+def _collect_preprocess_transcript_refs(planner_segments: List[dict], *, video_id: str) -> List[dict]:
+    refs: List[dict] = []
+    seen = set()
+    for index, segment in enumerate(list(planner_segments or []), start=1):
+        if not isinstance(segment, dict):
+            continue
+        asr = segment.get("asr") if isinstance(segment.get("asr"), dict) else {}
+        spans = [dict(item) for item in list(asr.get("transcript_spans") or []) if isinstance(item, dict)]
+        if not spans:
+            continue
+
+        segment_id = _normalize_text(segment.get("segment_id")) or "seg_%03d" % index
+        clip_payload = None
+        clips = [dict(item) for item in list(segment.get("clips") or []) if isinstance(item, dict)]
+        if clips:
+            clip_payload = clips[0]
+        else:
+            try:
+                clip_payload = {
+                    "video_id": video_id,
+                    "start_s": float(segment.get("start_s") or 0.0),
+                    "end_s": float(segment.get("end_s") or segment.get("start_s") or 0.0),
+                }
+            except (TypeError, ValueError):
+                clip_payload = None
+        if clip_payload is not None:
+            clip_payload = {
+                key: value
+                for key, value in dict(clip_payload).items()
+                if key in {"video_id", "start_s", "end_s", "artifact_id", "relpath", "metadata"} and value not in (None, "", [], {})
+            }
+            clip_payload.setdefault("video_id", video_id)
+
+        normalized_spans = []
+        for span in spans:
+            text = _normalize_text(span.get("text"))
+            if not text:
+                continue
+            try:
+                start_s = float(span.get("start_s") or 0.0)
+                end_s = float(span.get("end_s") or start_s)
+            except (TypeError, ValueError):
+                continue
+            normalized_span = {
+                "start_s": start_s,
+                "end_s": end_s,
+                "text": text,
+            }
+            speaker_id = _normalize_text(span.get("speaker_id") or span.get("speaker"))
+            if speaker_id:
+                normalized_span["speaker_id"] = speaker_id
+            if span.get("confidence") not in (None, ""):
+                normalized_span["confidence"] = span.get("confidence")
+            normalized_spans.append(normalized_span)
+        if not normalized_spans:
+            continue
+
+        signature = tuple((item["start_s"], item["end_s"], item["text"]) for item in normalized_spans)
+        if signature in seen:
+            continue
+        seen.add(signature)
+        refs.append(
+            {
+                "transcript_id": "preprocess_%s" % segment_id,
+                "clip": clip_payload,
+                "segments": normalized_spans,
+                "metadata": {
+                    "source": "preprocess",
+                    "segment_id": segment_id,
+                    "span_count": len(normalized_spans),
+                },
+            }
+        )
+    return refs
+
+
 def _cluster_retrieved_frame_refs(frame_refs: List[dict], *, max_gap_s: float = 2.0) -> List[dict]:
     ordered = sorted(
         [dict(item) for item in list(frame_refs or []) if isinstance(item, dict) and item.get("timestamp_s") is not None],
@@ -507,6 +586,10 @@ def build_planner_prompt(
         video_id=str(task.video_id or task.sample_key),
     )
     available_retrieved_frame_sequences = _cluster_retrieved_frame_refs(available_retrieved_frame_refs)
+    available_preprocess_transcripts = _collect_preprocess_transcript_refs(
+        normalized_preprocess_segments,
+        video_id=str(task.video_id or task.sample_key),
+    )
 
     parts = [
         "MODE: %s" % mode,
@@ -529,6 +612,18 @@ def build_planner_prompt(
                 "",
                 "RICH_PREPROCESS_SEGMENTS_USAGE_NOTE:",
                 "These are full first-round preprocess segments with dense captions, attributes, clips, overall summaries, and ASR transcript spans. Use them for broad context, but verify answer-critical fine detail with tools.",
+                "",
+            ]
+        )
+
+    if available_preprocess_transcripts:
+        parts.extend(
+            [
+                "PREPROCESS_TRANSCRIPTS_AVAILABLE:",
+                pretty_json(available_preprocess_transcripts),
+                "",
+                "PREPROCESS_TRANSCRIPTS_USAGE_NOTE:",
+                "These are structured TranscriptRef objects built from preprocessing ASR spans. For transcript-only, quote, not-mentioned, or dialogue-content questions, copy the relevant objects into generic_purpose inputs.transcripts instead of calling ASR again. Call ASR only when these transcripts do not cover the needed interval, are contradicted/incomplete, or the task requires missing speaker attribution.",
                 "",
             ]
         )
