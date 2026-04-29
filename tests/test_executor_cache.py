@@ -14,6 +14,7 @@ from video_trace_pipeline.schemas import (
     TaskSpec,
     ToolConfig,
     ToolResult,
+    VerifierRequest,
     VisualTemporalGrounderRequest,
 )
 from video_trace_pipeline.storage import EvidenceLedger, SharedEvidenceCache, WorkspaceManager
@@ -108,6 +109,30 @@ class _Registry(object):
                     "supporting_points": list(request.get("text_contexts") or []),
                 },
             ),
+            "verifier": _Adapter(
+                "verifier",
+                VerifierRequest,
+                lambda request: {
+                    "claim_results": [
+                        {
+                            "claim_id": request["claims"][0]["claim_id"],
+                            "verdict": "supported",
+                            "confidence": 0.9,
+                            "supporting_observation_ids": [],
+                            "supporting_evidence_ids": request.get("evidence_ids", []),
+                            "refuting_observation_ids": [],
+                            "refuting_evidence_ids": [],
+                            "time_intervals": [],
+                            "artifact_refs": [],
+                            "rationale": "OCR and frame context support the claim.",
+                            "coverage": {"checked_inputs": ["frames", "ocr_results"], "missing_inputs": [], "sampling_summary": "checked one frame"},
+                        }
+                    ],
+                    "new_observations": [],
+                    "evidence_updates": [],
+                    "unresolved_gaps": [],
+                },
+            ),
             "asr": _Adapter(
                 "asr",
                 ASRRequest,
@@ -135,6 +160,7 @@ def _models_config():
         "spatial_grounder",
         "ocr",
         "generic_purpose",
+        "verifier",
         "asr",
         "dense_captioner",
     ]
@@ -226,6 +252,63 @@ def test_tool_chain_passes_structured_outputs_between_tools(tmp_path):
     assert registry.adapters["ocr"].calls[0]["regions"][0]["label"] == "price label"
     assert registry.adapters["generic_purpose"].calls[0]["text_contexts"] == ["PRICE 42"]
     assert registry.adapters["generic_purpose"].calls[0]["frames"][0]["timestamp_s"] == 12.0
+
+
+def test_ocr_to_verifier_passes_structured_regions_frames_and_reads(tmp_path):
+    workspace, task, run, context = _context(tmp_path)
+    registry = _Registry()
+    executor = _executor(workspace, registry)
+    ledger = EvidenceLedger(run)
+    plan = ExecutionPlan(
+        strategy="Ground, read, and verify price claim.",
+        steps=[
+            PlanStep(step_id=1, tool_name="visual_temporal_grounder", purpose="Find price moment.", inputs={"query": "price label", "top_k": 1}),
+            PlanStep(
+                step_id=2,
+                tool_name="frame_retriever",
+                purpose="Retrieve price frame.",
+                inputs={"query": "readable price frame", "num_frames": 1},
+                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
+            ),
+            PlanStep(
+                step_id=3,
+                tool_name="spatial_grounder",
+                purpose="Find price label region.",
+                inputs={"query": "price label"},
+                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
+            ),
+            PlanStep(
+                step_id=4,
+                tool_name="ocr",
+                purpose="Read price label.",
+                inputs={"query": "read exact price text"},
+                input_refs={"regions": [{"step_id": 3, "field_path": "regions"}]},
+            ),
+            PlanStep(
+                step_id=5,
+                tool_name="verifier",
+                purpose="Verify the OCR price claim.",
+                inputs={
+                    "query": "verify exact price claim",
+                    "claims": [{"claim_id": "claim_price", "text": "The visible price is 42.", "claim_type": "ocr"}],
+                },
+                input_refs={
+                    "frames": [{"step_id": 2, "field_path": "frames"}],
+                    "regions": [{"step_id": 3, "field_path": "regions"}],
+                    "ocr_results": [{"step_id": 4, "field_path": "reads"}],
+                },
+            ),
+        ],
+    )
+
+    records = executor.execute_plan(plan, context, ledger, video_fingerprint="vid", round_index=1)
+
+    assert len(records) == 5
+    verifier_request = registry.adapters["verifier"].calls[0]
+    assert verifier_request["frames"][0]["timestamp_s"] == 12.0
+    assert verifier_request["regions"][0]["label"] == "price label"
+    assert verifier_request["ocr_results"][0]["text"] == "PRICE 42"
+    assert records[-1]["result"]["data"]["claim_results"][0]["verdict"] == "supported"
 
 
 def test_asr_to_generic_passes_transcripts_never_text_contexts(tmp_path):

@@ -1,5 +1,4 @@
 from types import SimpleNamespace
-import json
 
 from video_trace_pipeline.orchestration.planner_retrieval import PlannerContextRetriever, query_terms_from_task_and_audit
 from video_trace_pipeline.schemas import MachineProfile, TaskSpec
@@ -19,7 +18,7 @@ class _Ledger(object):
             {
                 "evidence_id": "ev_asr_relevant",
                 "tool_name": "asr",
-                "status": "provisional",
+                "status": "candidate",
                 "evidence_text": "Come to Phil's Ammu Nation today.",
                 "observation_ids": ["obs_asr_relevant"],
             },
@@ -35,7 +34,7 @@ class _Ledger(object):
             {
                 "observation_id": "obs_asr_relevant",
                 "evidence_id": "ev_asr_relevant",
-                "evidence_status": "provisional",
+                "evidence_status": "candidate",
                 "source_tool": "asr",
                 "atomic_text": "The ASR transcript says: Come to Phil's Ammu Nation today.",
             },
@@ -149,73 +148,6 @@ def test_retriever_supplements_validated_evidence_and_ranks_preprocess(tmp_path)
     assert retrieved["audit_gaps"] == ["validated sound moment"]
 
 
-def test_retriever_compacts_artifact_context_to_relevant_text(tmp_path):
-    workspace = WorkspaceManager(MachineProfile(workspace_root=str(tmp_path / "workspace")))
-    task = TaskSpec(
-        benchmark="adhoc",
-        sample_key="video_13",
-        video_id="video_13",
-        question="How many empty beer bottles are on the table?",
-        options=[],
-        video_path=str(tmp_path / "video.mp4"),
-    )
-    artifact_context_path = workspace.artifacts_root / "video_13" / "artifact_context.jsonl"
-    artifact_context_path.parent.mkdir(parents=True, exist_ok=True)
-    record = {
-        "artifact_id": "frame_132.00",
-        "artifact_type": "frame",
-        "relpath": "artifacts/video_13/frames/frame_132.00.png",
-        "contains": [
-            "A generic background wall is visible.",
-            "The table contains two beer bottles.",
-            "Both beer bottles appear to contain liquid, so they are not clearly empty.",
-            "A distant poster is visible.",
-        ],
-        "linked_observations": [
-            {"observation_id": "obs_bg", "text": "The background wall is visible."},
-            {"observation_id": "obs_bottle", "text": "The beer bottles appear to contain liquid."},
-        ],
-        "linked_evidence": [
-            {
-                "evidence_id": "ev_generic",
-                "tool_name": "generic_purpose",
-                "summary": "The bottle state was inspected.",
-                "observation_texts": [
-                    "The wall is visible.",
-                    "The left beer bottle has light liquid.",
-                    "The right beer bottle has amber liquid.",
-                    "A game controller is visible.",
-                    "The bottles are not clearly empty.",
-                ],
-            }
-        ],
-    }
-    artifact_context_path.write_text(json.dumps(record) + "\n", encoding="utf-8")
-
-    retrieved = PlannerContextRetriever(workspace).retrieve(
-        task=task,
-        preprocess_bundle={},
-        evidence_ledger=_Ledger(),
-        audit_report={"missing_information": ["empty bottle state"]},
-        current_trace=None,
-        mode="refine",
-        limit=5,
-    )
-
-    artifact = retrieved["artifact_context"][0]
-    assert artifact["artifact_id"] == "frame_132.00"
-    assert "Both beer bottles appear to contain liquid" in " ".join(artifact["contains"])
-    assert all("wall" not in item.lower() for item in artifact["contains"])
-    assert artifact["linked_observations"] == [
-        {"observation_id": "obs_bottle", "text": "The beer bottles appear to contain liquid."}
-    ]
-    assert artifact["linked_evidence"][0]["observation_texts"] == [
-        "The left beer bottle has light liquid.",
-        "The right beer bottle has amber liquid.",
-        "The bottles are not clearly empty.",
-    ]
-
-
 def test_retrieval_catalog_lists_available_sources(tmp_path):
     workspace = WorkspaceManager(MachineProfile(workspace_root=str(tmp_path / "workspace")))
     task = TaskSpec(
@@ -244,26 +176,25 @@ def test_retrieval_catalog_lists_available_sources(tmp_path):
         "asr_transcripts": [{"transcript_id": "tx_1", "text": "forty two"}],
         "dense_caption_segments": [{"caption_id": "cap_1", "overall_summary": "price label"}],
     }
-    artifact_context_path = workspace.artifacts_root / "video_13" / "artifact_context.jsonl"
-    artifact_context_path.parent.mkdir(parents=True, exist_ok=True)
-    artifact_context_path.write_text(
-        json.dumps({"artifact_id": "frame_001", "artifact_type": "frame", "contains": ["A price label is visible."]}) + "\n",
-        encoding="utf-8",
-    )
-
     catalog = PlannerContextRetriever(workspace).build_catalog(
         task=task,
         preprocess_bundle=preprocess_bundle,
         evidence_ledger=_Ledger(),
         audit_report=None,
         current_trace=None,
+        task_state={
+            "task_key": "video_13",
+            "claim_results": [{"claim_id": "claim_price", "text": "The price label is visible.", "status": "unverified"}],
+            "open_questions": ["exact price label"],
+        },
     )
 
     assert catalog["preprocess"]["planner_segment_count"] == 1
     assert catalog["preprocess"]["segments"][0]["segment_id"] == "seg_price"
     assert catalog["preprocess"]["segments"][0]["asr_span_count"] == 1
     assert catalog["evidence_store"]["evidence_entry_count"] == 2
-    assert catalog["artifact_context"]["record_count"] == 1
+    assert catalog["task_state"]["claim_count"] == 1
+    assert "artifact_context" not in catalog
 
 
 def test_retrieve_for_requests_returns_requested_preprocess_and_existing_evidence(tmp_path):
@@ -297,21 +228,6 @@ def test_retrieve_for_requests_returns_requested_preprocess_and_existing_evidenc
         ],
         "dense_caption_segments": [],
     }
-    artifact_context_path = workspace.artifacts_root / "video_13" / "artifact_context.jsonl"
-    artifact_context_path.parent.mkdir(parents=True, exist_ok=True)
-    artifact_context_path.write_text(
-        json.dumps(
-            {
-                "artifact_id": "frame_132",
-                "artifact_type": "frame",
-                "time": {"timestamp_s": 132.0},
-                "contains": ["The table contains beer bottles near the Ammu Nation line."],
-            }
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-
     retrieved = PlannerContextRetriever(workspace).retrieve_for_requests(
         task=task,
         preprocess_bundle=preprocess_bundle,
@@ -334,19 +250,65 @@ def test_retrieve_for_requests_returns_requested_preprocess_and_existing_evidenc
                 "limit": 5,
             },
             {
-                "request_id": "artifact_table",
-                "target": "artifact_context",
-                "need": "Table content near 132s",
-                "query": "table beer bottles",
-                "time_range": {"start_s": 131.0, "end_s": 133.0},
+                "request_id": "state_asr",
+                "target": "task_state",
+                "need": "Ammu Nation claim state",
+                "query": "Ammu Nation line",
                 "limit": 5,
             },
         ],
         audit_report=None,
         current_trace=None,
+        task_state={
+            "task_key": "video_13",
+            "claim_results": [{"claim_id": "claim_asr", "text": "Ammu Nation line is present.", "status": "unverified"}],
+            "open_questions": ["Ammu Nation transcript line"],
+        },
     )
 
     assert retrieved["preprocess_matches"]["asr_transcripts"][0]["transcript_id"] == "tx_sound"
     assert retrieved["evidence"][0]["evidence_id"] == "ev_asr_relevant"
     assert retrieved["observations"][0]["observation_id"] == "obs_asr_relevant"
-    assert retrieved["artifact_context"][0]["artifact_id"] == "frame_132"
+    assert any(item.get("claim_id") == "claim_asr" for item in retrieved["task_state_matches"])
+    assert "artifact_context" not in retrieved
+
+
+def test_retriever_returns_task_state_records(tmp_path):
+    workspace = WorkspaceManager(MachineProfile(workspace_root=str(tmp_path / "workspace")))
+    task = TaskSpec(
+        benchmark="adhoc",
+        sample_key="video_state",
+        video_id="video_state",
+        question="Which bottle is empty?",
+        options=["left", "right"],
+        video_path=str(tmp_path / "video.mp4"),
+    )
+
+    retrieved = PlannerContextRetriever(workspace).retrieve_for_requests(
+        task=task,
+        preprocess_bundle={},
+        evidence_ledger=_Ledger(),
+        requests=[
+            {
+                "request_id": "state_claim",
+                "target": "task_state",
+                "need": "bottle state claim",
+                "query": "bottle empty",
+                "limit": 5,
+            }
+        ],
+        task_state={
+            "task_key": "video_state",
+            "claim_results": [
+                {
+                    "claim_id": "claim_left_empty",
+                    "text": "The left bottle is empty.",
+                    "status": "unknown",
+                    "claim_type": "visual_state",
+                }
+            ],
+            "open_questions": ["which bottle is empty"],
+        },
+    )
+
+    assert retrieved["task_state_matches"][0]["claim_id"] == "claim_left_empty"

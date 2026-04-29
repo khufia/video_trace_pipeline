@@ -47,6 +47,46 @@ def evidence_temporal_bounds(observations: List[AtomicObservation]) -> Dict[str,
     return temporal_payload_from_records(observations)
 
 
+def build_evidence_text_digest(tool_result: ToolResult, observations: List[AtomicObservation], *, max_observations: int = 8) -> str:
+    """Build the agent-readable evidence digest from canonical observations.
+
+    `EvidenceEntry.evidence_text` remains the text surface for planner and
+    synthesizer prompts, but the facts should come from linked observations
+    rather than being a second free-form truth source.
+    """
+
+    lines: List[str] = []
+    for observation in list(observations or [])[:max(1, int(max_observations))]:
+        text = str(getattr(observation, "atomic_text", "") or "").strip()
+        if not text:
+            continue
+        anchors = []
+        if getattr(observation, "time_start_s", None) is not None or getattr(observation, "time_end_s", None) is not None:
+            start_s = getattr(observation, "time_start_s", None)
+            end_s = getattr(observation, "time_end_s", None)
+            if start_s is None:
+                start_s = end_s
+            if end_s is None:
+                end_s = start_s
+            if start_s == end_s:
+                anchors.append("%.2fs" % float(start_s))
+            else:
+                anchors.append("%.2f-%.2fs" % (float(start_s), float(end_s)))
+        elif getattr(observation, "frame_ts_s", None) is not None:
+            anchors.append("frame %.2fs" % float(getattr(observation, "frame_ts_s")))
+        if getattr(observation, "source_artifact_refs", None):
+            anchors.extend(str(item) for item in list(observation.source_artifact_refs or [])[:2] if str(item).strip())
+        prefix = "[%s] " % " | ".join(anchors) if anchors else ""
+        lines.append("%s%s" % (prefix, text))
+    if lines:
+        suffix = ""
+        if len(list(observations or [])) > len(lines):
+            suffix = "\n... %d additional linked observation(s)." % (len(list(observations or [])) - len(lines))
+        return "\n".join(lines)[:2000] + suffix
+    fallback = str(tool_result.summary or tool_result.raw_output_text or "").strip()
+    return fallback[:2000]
+
+
 def _artifact_ids_from_payload(payload: Any) -> List[str]:
     if not isinstance(payload, dict):
         return []
@@ -80,16 +120,22 @@ class ObservationExtractor(object):
         observations = list(getattr(tool_result, "_observations", []) or [])
         observation_ids = [item.metadata.get("observation_id") for item in observations]
         observation_ids = [item for item in observation_ids if item]
+        evidence_text = build_evidence_text_digest(tool_result, observations)
         return EvidenceEntry(
             evidence_id="ev_%02d_%s" % (int(step_id), hash_payload({"step": step_id, "tool": tool_result.tool_name}, 8)),
             tool_name=tool_result.tool_name,
-            evidence_text=tool_result.summary or tool_result.raw_output_text or "",
+            evidence_text=evidence_text,
             confidence=tool_result.metadata.get("confidence") if isinstance(tool_result.metadata, dict) else None,
-            status="provisional",
+            status="candidate",
             **evidence_temporal_bounds(observations),
             artifact_refs=tool_result.artifact_refs,
             observation_ids=observation_ids,
-            metadata={"request_hash": tool_result.request_hash, "cache_hit": tool_result.cache_hit},
+            metadata={
+                "request_hash": tool_result.request_hash,
+                "cache_hit": tool_result.cache_hit,
+                "digest_source_observation_ids": observation_ids,
+                "digest_version": "observations_v1",
+            },
         )
 
     def extract(self, tool_result: ToolResult) -> List[AtomicObservation]:
@@ -113,6 +159,8 @@ class ObservationExtractor(object):
             observations = self._from_spatial(data, artifact_ids=artifact_ids)
         elif tool_name == "generic_purpose":
             observations = self._from_generic(data, artifact_ids=artifact_ids)
+        elif tool_name == "verifier":
+            observations = self._from_verifier(data, artifact_ids=artifact_ids)
         else:
             observations = self._fallback(data, tool_name, artifact_ids=artifact_ids)
         for item in observations:
@@ -495,6 +543,7 @@ class ObservationExtractor(object):
                             object_text=text,
                             object_type="text",
                             atomic_text='OCR detected text: "%s".' % text,
+                            numeric_value=_numeric_value_from_text(text),
                             bbox=bbox,
                             frame_ts_s=float(timestamp) if timestamp is not None else None,
                             source_artifact_refs=source_artifact_refs,
@@ -525,6 +574,7 @@ class ObservationExtractor(object):
                     object_text=text,
                     object_type="text",
                     atomic_text='OCR detected text: "%s".' % text,
+                    numeric_value=_numeric_value_from_text(text),
                     bbox=bbox,
                     source_artifact_refs=artifact_ids,
                 )
@@ -626,6 +676,59 @@ class ObservationExtractor(object):
             )
         return observations
 
+    def _from_verifier(self, data: Dict[str, Any], artifact_ids: Optional[List[str]] = None) -> List[AtomicObservation]:
+        observations = []
+        for result in list(data.get("claim_results") or []):
+            if not isinstance(result, dict):
+                continue
+            claim_id = str(result.get("claim_id") or "claim").strip() or "claim"
+            verdict = str(result.get("verdict") or "unknown").strip().lower() or "unknown"
+            rationale = str(result.get("rationale") or "").strip()
+            answer_value = result.get("answer_value")
+            object_text = verdict if answer_value in (None, "") else "%s: %s" % (verdict, answer_value)
+            atomic_text = "Verifier marked %s as %s." % (claim_id, verdict)
+            if rationale:
+                atomic_text = "%s %s" % (atomic_text, rationale)
+            observations.append(
+                self._make_observation(
+                    "verifier",
+                    subject=claim_id,
+                    subject_type="claim",
+                    predicate="verdict",
+                    object_text=object_text,
+                    object_type="verification_verdict",
+                    atomic_text=atomic_text,
+                    confidence=result.get("confidence"),
+                    source_artifact_refs=artifact_ids,
+                    direct_or_derived="derived",
+                )
+            )
+        for item in list(data.get("new_observations") or []):
+            if not isinstance(item, dict):
+                continue
+            text = str(item.get("atomic_text") or item.get("text") or "").strip()
+            if not text:
+                continue
+            observations.append(
+                self._make_observation(
+                    "verifier",
+                    subject=str(item.get("subject") or "verifier").strip() or "verifier",
+                    subject_type=str(item.get("subject_type") or "claim").strip() or "claim",
+                    predicate=str(item.get("predicate") or "reported").strip() or "reported",
+                    object_text=str(item.get("object_text") or text).strip(),
+                    object_type=str(item.get("object_type") or "text").strip() or "text",
+                    atomic_text=text,
+                    time_start_s=item.get("time_start_s"),
+                    time_end_s=item.get("time_end_s"),
+                    frame_ts_s=item.get("frame_ts_s"),
+                    bbox=item.get("bbox"),
+                    confidence=item.get("confidence"),
+                    source_artifact_refs=item.get("source_artifact_refs") or artifact_ids,
+                    direct_or_derived="derived",
+                )
+            )
+        return observations
+
     def _fallback(self, data: Dict[str, Any], tool_name: str, artifact_ids: Optional[List[str]] = None) -> List[AtomicObservation]:
         text = json.dumps(data, ensure_ascii=False)
         return [
@@ -641,3 +744,16 @@ class ObservationExtractor(object):
                 source_artifact_refs=artifact_ids,
             )
         ]
+
+
+def _numeric_value_from_text(text: Any) -> Optional[float]:
+    value = str(text or "").strip()
+    if not value:
+        return None
+    match = re.search(r"[-+]?\$?\s*(\d+(?:,\d{3})*(?:\.\d+)?|\.\d+)\s*%?", value)
+    if not match:
+        return None
+    try:
+        return float(match.group(1).replace(",", ""))
+    except Exception:
+        return None

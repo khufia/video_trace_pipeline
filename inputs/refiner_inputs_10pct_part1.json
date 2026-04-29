@@ -1,0 +1,536 @@
+[
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_485.mp4",
+    "question": "How does the relationship between the robot, the cat, and the human characters evolve throughout the video?",
+    "options": [
+      "A. Initially, the robot and cat serve the humans, but they eventually betray the humans by trapping them and causing a fire.",
+      "B. The robot and cat are initially pets and appliances, but they gain sentience and escape the abusive humans.",
+      "C. The cat and robot are always adversaries to the humans, directly confronting them to establish dominance.",
+      "D. The robot tries to replace the cat as the human's companion, leading to a conflict between the robot and the cat."
+    ],
+    "initial_trace_steps": [
+      "the robot was cooking. At 00:08, the robot was cooking.",
+      "the robot was serving the humans. At 00:17, the robot brought the meal to the humans.",
+      "the robot and the cat betrayed their human owners. At 00:07, the cat said, 'we play along gain their trust, but never let them know of our alliance.'",
+      "the robot left the apartment. At 00:54, the robot  left the apartment.",
+      "the cat left the apartment. At 00:54,  the cat left the apartment.",
+      "the kitchen was on fire. At 01:17, the kitchen was on fire.",
+      "the humans found themselves unable to exit the apartment. At 01:24, the man couldn\u2019t open the door."
+    ],
+    "answer": "Initially, the robot and cat serve the humans, but they eventually betray the humans by trapping them and causing a fire."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_60.mp4",
+    "question": "What was the woman's tone of voice before and after (she found out about) the pregnancy?",
+    "options": [
+      "A. Approve->objective",
+      "B. Objective->things went against expectations.",
+      "C. Approving->things went against expectations.",
+      "D. Objective->argumentative."
+    ],
+    "initial_trace_steps": [
+      "locate this point. at 8:07,a pregnant woman is happy.",
+      "she is approving. after a man said' she is happy, isn't she?', a woman said 'yeah'.",
+      "things went against expectations. then, she said 'when things went against expectations....'."
+    ],
+    "answer": "Approving->things went against expectations."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_80.mp4",
+    "question": "What directly happens if the fuse blows?",
+    "options": [
+      "A.Crops cannot be planted",
+      "B.The circuit will be paralyzed",
+      "C.Control panel' value displays as 0",
+      "D.Peanuts can still be planted"
+    ],
+    "initial_trace_steps": [
+      "Exlain to audience how to observe the displaying information. The narrator states that the value displayed on the control panel indicates the pounds of pressure within the airbags.",
+      "We should pay attention to these readings while working. The video visually shows the control panel with a numerical reading.",
+      "Confrim the target pressure level. The narrator mentions that the target pressure for planting peanuts is 14.",
+      "If the fuse blows, it would lead to the control panel's value displaying as 0. It is explained that a blown fuse will cause the air compressor to stop working."
+    ],
+    "answer": "Control panel' value displays as 0"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_79.mp4",
+    "question": "Regarding the sequence of the following video content, which one is correct?",
+    "options": [
+      "A.Introduce the overall plan->Checking the purchased items->Shopping for a power bank while wandering the streets->Ticket accident",
+      "B.Shopping for a power bank while wandering the streets->Shopping at the camera store->Ticket accident->Organizing daily necessities",
+      "C.Shopping at the camera store->Checking the purchased items->Ticket accident->Organizing daily necessities->Eating",
+      "D.Introduce the overall plan->Shopping for a power bank while wandering the streets->Eating->Ticket accident"
+    ],
+    "initial_trace_steps": [
+      "The first step is introducing the overall plan. From  the beginning of the video, the female lead begins with the overall plan.",
+      "From now on, she was going out for shopping. From 3:49 of the video, she says'I have arrived at the camera store'",
+      "The second step is shopping for a power bank while wandering the streets. From 4:11 of the video, she bought a power bank while wandering the streets.",
+      "The third step is organizing daily necessities. From 5:47 of the video, she said:'we are going to pack everything'.",
+      "There is a ticket accident happened. From 15:48 of the video, she said'the train we are planning to take tomorrow is fully booked '"
+    ],
+    "answer": "Introduce the overall plan->Shopping for a power bank while wandering the streets->Organizing daily necessities->Ticket accident"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_554.mp4",
+    "question": "Which statement about the brief gasp sound is correct?",
+    "options": [
+      "A. The baby's crying causes the mother to gasp.",
+      "B. The baby's crying causes the parents to gasp.",
+      "C. The baby being pretended as someone else's child causes the mother to gasp.",
+      "D. The baby being pretended as someone else's child causes the parents to gasp."
+    ],
+    "initial_trace_steps": [
+      "the baby is crying. At 0: 07, the baby is crying.",
+      "after hearing the baby's crying, other person or people gasp. At 0:08, a brief gasp sound can be heard.",
+      "the crying is from the baby in yellow. At 0:07, the baby in yellow is crying.",
+      "The baby's crying causes the father to gasp. At 0: 09, the father pig opened his mouth in amazement.",
+      "The baby's crying causes parents to gasp. At 0:10, the mother pig who holds baby opens her mouth in amazement, too."
+    ],
+    "answer": "The baby's crying causes the parents to gasp."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_1.mp4",
+    "question": "Which direction of the Suijing Hall does the girl in the video mention as a place where one can sit and watch TV?",
+    "options": [
+      "A.Northwest",
+      "B.Southwest",
+      "C.Southeast",
+      "D.Northeast"
+    ],
+    "initial_trace_steps": [
+      "Get the point they talked about. At 2:42, the woman said there is a place where one can sit and watch TV.",
+      "Northeast. At 2:42, the girl pointed to which is located in the northeast direction of Suijing Hall on the map."
+    ],
+    "answer": "Northeast"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_29.mp4",
+    "question": "What was the tone like behind the textile dyer regarding the picture that was taken out?",
+    "options": [
+      "A. a cherished tone",
+      "B. a calm tone",
+      "C. a negative tone ",
+      "D. an excited ton"
+    ],
+    "initial_trace_steps": [
+      "He might ask the protagonist about this picture. At 0:10, the host held up a picture.",
+      "Pay attention to the tone of the protagonist's response. At 0:10, the host asked the protagonist 'Are you excited about this?'.",
+      "So the answer is 'a calm tone'. At 0:12, the protagonist answered calmly 'I'm super excited.'."
+    ],
+    "answer": "a calm tone"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_71.mp4",
+    "question": "What were my emotions like when I initially got in the car?",
+    "options": [
+      "A. Easiness.",
+      "B. Shock.",
+      "C. Fear.",
+      "D. Joyance."
+    ],
+    "initial_trace_steps": [
+      "the man was about to get into the car. At 00:29, the man opened the car door.",
+      "it's dirty. At 00:29, there is a dirty patch on the road beside the car.",
+      "the man was shocked. At 00:29, the man said 'what the hell is that'."
+    ],
+    "answer": "Shock."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_590.mp4",
+    "question": "What is the word in the frame before the guest-related term mentioned by the woman?",
+    "options": [
+      "A.to wipe",
+      "B.do the dishes",
+      "C.to polish",
+      "D.to load the dishwater"
+    ],
+    "initial_trace_steps": [
+      "Get the point they talked about. At 3:13, the woman said 'you can polish silverware before your guests arrive.'.",
+      "Pay attention the before. At that moment, the vision shows 'to polish'.",
+      "to wipe. Before that moment, 'to wipe'is showed in the frame."
+    ],
+    "answer": "to wipe"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_32.mp4",
+    "question": "What does the suddenly enlarged red ghost face indicate?",
+    "options": [
+      "A. Toxic communities on Reddit showing malice toward animation creators.",
+      "B. Animation creators fearing harm from toxic communities on Reddit.",
+      "C. Animation creators fearing their created images are not realistic enough.",
+      "D. The author feeling helpless toward toxic communities on Reddit."
+    ],
+    "initial_trace_steps": [
+      "Get the location. At 5:41, the ghostly face suddenly enlarged.",
+      "Toxic communities on Reddit showing malice toward animation. creators. The man said that animation creators have huge pressure and toxic communities is roasting them,"
+    ],
+    "answer": "Toxic communities on Reddit showing malice toward animation creators."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_246.mp4",
+    "question": "After giving the example of 'studying the gender of squirrels,' what example did the teacher give next?",
+    "options": [
+      "A.Studying the migration patterns of squirrels",
+      "B.Studying the Earth's orbit",
+      "C.Studying the trajectory of trains crossing bridges",
+      "D.Studying of the Earth's rotation"
+    ],
+    "initial_trace_steps": [
+      "The question is asking for what example did the teacher give right after this timestamp. At 8:08, the teacher talked about 'studying the gender of squirrels'.",
+      "The teacher give the example of 'studying of the Earth's rotation' right after giving the example of 'studying the gender of squirrels'. At 9:00, the teacher talked about 'studying of the Earth's rotation'."
+    ],
+    "answer": "Studying of the Earth's rotation"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_611.mp4",
+    "question": "Why was a character briefly surrounded by flames?",
+    "options": [
+      "A. He was tricked into an unsafe place.",
+      "B. His teammate refused boys helping boys.",
+      "C. His teammate mocked him as like Ma Boqian.",
+      "D. He fell into the water in two rounds."
+    ],
+    "initial_trace_steps": [
+      "Mark the point about the question that needs attention. At 10:43, Zhang Zhenyuan is surrounded by flames.",
+      "Song Yuqi is 2, Zhang Zhenyuan is 1. At 7:49, Song Yuqi asks Zhang Zhenyuan to change their seats and Zhang Zhenyuan agrees.",
+      "If not change, Zhang Zhenyuan is 2 and is safe as well, so his is angry. At 8:36, 1 is ejected."
+    ],
+    "answer": "He was tricked into an unsafe place."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_48.mp4",
+    "question": "How many dragons fly overhead in the dragon's nest?",
+    "options": [
+      "A. 6",
+      "B. 8",
+      "C. 7",
+      "D. 9"
+    ],
+    "initial_trace_steps": [
+      "locate this point. At 1:38,a man said 'this is dragon's nest'.",
+      "8 in the nest, there are 8 dragons fly overhead in the dragon's nest."
+    ],
+    "answer": " 8"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_551.mp4",
+    "question": "How many times did Blue superdog use the wrench?",
+    "options": [
+      "A.7",
+      "B.8",
+      "C.9",
+      "D.10"
+    ],
+    "initial_trace_steps": [
+      "Mark the beginning of the counting. At 0:21, Blue superdog brings a wrench.",
+      "There're three times. At 0.22, the sound effect with wrench appeared three times.",
+      "There're nine times in total. At 0:25, the sound effect with wrench appeared six times."
+    ],
+    "answer": "9"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_553.mp4",
+    "question": "What did the girl drawn on the whiteboard say?",
+    "options": [
+      "A. Persuade another girl not to move.",
+      "B. Narrate how to lock Aether down.",
+      "C. Introduce a good fried radish stand nearby.",
+      "D. Talk about buying new equipment with Yelan."
+    ],
+    "initial_trace_steps": [
+      "Locate the girl. A girl is drawing on the whiteboard at 0:03.",
+      "The girl wants to draw on the face of the girl with green hair. The girl's brush points at the face of the girl with green hair at 0:04.",
+      "The girl persuades another girl not to move. Then girl says 'Please stop moving' to the girl with green hair."
+    ],
+    "answer": "Persuade another girl not to move."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_555.mp4",
+    "question": "What was the woman doing while the puppy was licking the cola bottle?",
+    "options": [
+      "A. The woman is drinking coca cola.",
+      "B. The woman is looking for the dog.",
+      "C. The woman is reading a book.",
+      "D. The woman is playing with the puppy."
+    ],
+    "initial_trace_steps": [
+      "Identify the timestamp. At 0:07, the puppy was licking the cola bottle.",
+      "The woman is looking for the dog. At the same time, the woman said 'How did you get here?'."
+    ],
+    "answer": "The woman is looking for the dog."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_556.mp4",
+    "question": "Whose name is most likely to be 'Henry'?",
+    "options": [
+      "A.The fan.",
+      "B.The anchor.",
+      "C.The bodyguard on the right.",
+      "D.The bodyguard on the left."
+    ],
+    "initial_trace_steps": [
+      "Identify the scope the answer. Thee are four main characters in the video.",
+      "Mark the point that needs attention. At 0:50, the fan gives a bottle of water to the bodyguard on the left.",
+      "The bodyguard on the left is called 'Henry'. At 0:51, the fan says 'It's for you, Henry.'"
+    ],
+    "answer": "The bodyguard on the left."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_583.mp4",
+    "question": "When it comes to 'No, that was the old way', what color is the largest bottle on the shelf?",
+    "options": [
+      "A.grey",
+      "B.red",
+      "C.brown",
+      "D.yellow"
+    ],
+    "initial_trace_steps": [
+      "Get the point they talked about. At 0:47, locate the line 'No, that was the old way'.",
+      "yellow from vision, observe the shelf and identify the color of the largest bottle."
+    ],
+    "answer": "yellow"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_587.mp4",
+    "question": "What is the third letter of Larry's license plate number?",
+    "options": [
+      "A.7",
+      "B.8",
+      "C.9",
+      "D.E"
+    ],
+    "initial_trace_steps": [
+      "The man is Larry An middle-aged man reply to the woman's greeting at timestamp 3:54",
+      "The car is Larry's Larry gets out from a grey car at timestamp 0:45",
+      "The third letter is 8. Larry's license plate appear at timestamp 0:01 saying '7E89ZY'"
+    ],
+    "answer": "8"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_593.mp4",
+    "question": "What would happen if the protagonist hadn't been caught by another partner with a rope?",
+    "options": [
+      "A. The mission ends in failure.",
+      "B. Remaining companions will finish the mission first, then rescue him",
+      "C. Remaining companions will rescue him first, then finish the mission.",
+      "D. The mission doesn't fail; remaining companions can keep going.."
+    ],
+    "initial_trace_steps": [
+      "He is in danger. At 3:13, one team member is captured.",
+      "The leader sticks to the mission to achieve their objective. At 3:19, the team leader immediately orders the others to 'carry on with the mission'.",
+      "the event central to the hypothetical question. At 04:11, the protagonist nearly falls into a fondue vat."
+    ],
+    "answer": "The mission doesn\u2019t fail; remaining companions can keep going."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_601.mp4",
+    "question": "Where is Monica sitting?",
+    "options": [
+      "A.On the left side of Rachel",
+      "B.On the left side of Joey",
+      "C.On the left side of the blonde lady in black",
+      "D.On the left side of the man wearing a tie"
+    ],
+    "initial_trace_steps": [
+      "Remind people to notice the question. At the very beginning, the man wearing a tie introduces Monica.",
+      "This woman is Monica. During the man's introduction, the woman keeps adding information about Monica.",
+      "This is the place where Monica is. Monica sits on the left side of the man wearing a tie."
+    ],
+    "answer": "On the left side of the man wearing a tie"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_620.mp4",
+    "question": "Which musical genre and instrument are prominently featured by the character with the red guitar?",
+    "options": [
+      "A. Funk Rock, Electric Guitar",
+      "B. Acoustic Pop, Acoustic Guitar",
+      "C. Heavy Metal, Electric Guitar",
+      "D. Classical Rock, Piano"
+    ],
+    "initial_trace_steps": [
+      "So the instrument mentioned in the question is the electric guitar. At 0:05, a female character holding an electric guitar appears.",
+      "So the musical genre mentioned in the question is Fuck Rock. At 0:08, a funk-rock style background music starts playing."
+    ],
+    "answer": "Funk Rock, Electric Guitar"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_3.mp4",
+    "question": "Which statement accurately reflects the relationship and behavior of the two dogs?",
+    "options": [
+      "A. Zaizai and Choumei are a couple who often compete for attention but also like playing together outdoors.",
+      "B. The grey dog is the father, and the white dog is the daughter; they are best friends but sometimes compete for attention.",
+      "C. Choumei is the father, and the grey dog is the daughter; they are always playing together outdoors.",
+      "D. Both dogs are male siblings who are outgoing and enjoy running around together outside."
+    ],
+    "initial_trace_steps": [
+      "The white dog is Choumei. At 0:57, the narrator said 'and the white one is Chou mei...'.",
+      "Choumei is the daughter and Zaizai is the father. At 1:00, the narrator said 'the daughter of Zai Zai...'.",
+      "The grey dog is Zaizai. At 1:02, a grey dog is shown in the scene.",
+      "This indicates that the two dogs are best friends. At 1:19, the narrator said 'they are also best friends...'.",
+      "This indicates that the two dogs but sometimes compete for attention. At 1:21, the narrator said 'but sometimes competitors competing for our family's attention....'."
+    ],
+    "answer": "The grey dog is the father, and the white dog is the daughter; they are best friends but sometimes compete for attention."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_5.mp4",
+    "question": "What emotions did the dad have towards the man at the first time he wanted to propose?",
+    "options": [
+      "A. Thankful",
+      "B. Dislike",
+      "C. Angry",
+      "D. Indifferent"
+    ],
+    "initial_trace_steps": [
+      "he is dad. At 0:05, someone said 'my daughter is the good one'.",
+      "identify the dad. at 0:06,the man who wears glasses is her dad.",
+      "maybe he wants to propose. at 0:50,the man holds a ring box.",
+      "he is angry. At 0:59, the dad said 'don't say anything'."
+    ],
+    "answer": "Angry"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_62.mp4",
+    "question": "170 days before launch, the woman recommended several brand partnerships to the man and showed brand posters. In the subsequent video, which of these proposed brands were not mentioned?",
+    "options": [
+      "A. Tang and Omega",
+      "B. Omega and Crest",
+      "C. Fruit of the Loom and Crest",
+      "D. Tang and Fruit of the Loom"
+    ],
+    "initial_trace_steps": [
+      "locate this point. At 1:31, the man said ' what's else here?'.",
+      "get these brands. the woman recommended Omega, Crest toothpaste , Tang and Fruit of the Loom.",
+      "get the 'Tang'. At 5:24, 'Tang' is mentioned.",
+      "get the 'Tang','Omega', no Fruit of the Loom and Crest. At 5:44, 'Omega' is mentioned."
+    ],
+    "answer": "Fruit of the Loom and Crest"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_221.mp4",
+    "question": "What was I doing after the second vibrant chirping of birds?",
+    "options": [
+      "A.I was being dragged along the road by a car.",
+      "B.Take a shower and wash your face.",
+      "C.Have tea by the river.",
+      "D.Fishing on the boat."
+    ],
+    "initial_trace_steps": [
+      "This is the first bird chirp. The first vibrant bird chirp occurs at 1:04.",
+      "I was drinking tea during the first chirp. At 1:04, I am drinking tea.",
+      "This is the second bird chirp. The second vibrant bird chirp occurs at 1:28.",
+      "I was fishing on the boat after the second chirp. At 1:28, I am fishing on a boat."
+    ],
+    "answer": "Fishing on the boat."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_563.mp4",
+    "question": "What causes the man to react with surprise when attempting to lift the bucket?",
+    "options": [
+      "A. He was surprised because the man in the blue jumpsuit could easily do pull-ups with the bucket.",
+      "B. He was surprised because the mop he was handed was much heavier than an ordinary mop.",
+      "C. He initially claimed the bucket was light, but discovered it actually weighed 32 kilograms, which is very heavy.",
+      "D. He was surprised because his friend in the white vest easily lifted a 20-kilogram weight using a belt."
+    ],
+    "initial_trace_steps": [
+      "This statement establishes his initial belief that the bucket is not heavy. 00:43, the man in the maroon shirt dismisses the bucket, saying, 'This is light. Everyone can do it with an empty bucket.'",
+      "He fails to lift it easily. At 00:46, when the man in the maroon shirt tries to lift the bucket, his facial expression immediately turns to one of shock, and his body language shows extreme strain.",
+      "It is very heavy. At 00:46,a text overlay appears stating '32 KG BUCKET'."
+    ],
+    "answer": "He initially claimed the bucket was light, but discovered it actually weighed 32 kilograms, which is very heavy."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_599.mp4",
+    "question": "What did the chef consider perfect right before adding the oil? ",
+    "options": [
+      "A. Noodles absorb all the moisture.",
+      "B. Mix the two pieces of dough and put in.",
+      "C. Add a perfectly fried egg.",
+      "D. The spicy and sweet taste is delicious."
+    ],
+    "initial_trace_steps": [
+      "The perfect time to add oil is when the water becomes dry. At 3:50, chef says 'all water become to dry. Like this it's perfect.'",
+      "Before adding the oil, chef have to wait noodles absorb all the moisture. At 3:55, instant noodles absorb water."
+    ],
+    "answer": "Noodles absorb all the moisture."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_614.mp4",
+    "question": "What was the standing position of Miss Rabbit, who had sung a song, in the filming studio?",
+    "options": [
+      "A. In the first position.",
+      "B. In the second position.",
+      "C. In the third position.",
+      "D. In the fourth position."
+    ],
+    "initial_trace_steps": [
+      "Set the point to check who is the one singing at the moment. At 5:35, a voice starts to sing.",
+      "It's the Miss Rabbit with brown hat and clothes who is singing. At the momemt, it is the Miss Rabbit with brown hat and clothes in the video.",
+      "So Miss Rabbit, who had sung a song, standed in the 3rd position. At 17:01, 4 Miss Rabbits were standing. Among them, the 3rd one is the Miss Rabbit with brown hat and clothes who has sung a song before."
+    ],
+    "answer": "In the third position."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_615.mp4",
+    "question": "When an animal asking 'What's the occasion?', which store's owner is this?",
+    "options": [
+      "A.Balloon Shop",
+      "B.Clothing store",
+      "C.Cake shop",
+      "D.Spectacles store"
+    ],
+    "initial_trace_steps": [
+      "Locate the moment the store appears. One asks 'What's the occasion?'",
+      "It's a spectacles store. There are many spectacles in the store when one asks 'What's the occasion?'."
+    ],
+    "answer": "Spectacles store"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_621.mp4",
+    "question": "How many distinct numbers did the commentators explicitly state before the Dire tower was pushed over by Radiant heroes?",
+    "options": [
+      "A. 3",
+      "B. 4",
+      "C. 5",
+      "D. 6"
+    ],
+    "initial_trace_steps": [
+      "The commentators are about to state numbers. At 0:35, a man says: Count numbers!",
+      "1 distinct number stated so far. At 0:36, another commentator says: 41.",
+      "2 distinct numbers stated so far. At 0:37, another commentator says: 42.",
+      "3 distinct numbers stated so far. At 0:39, another commentator says: 43.",
+      "3 distinct numbers stated so far. At 0:42, the dire tower is pushed over by Radiant heroes."
+    ],
+    "answer": "3"
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_16.mp4",
+    "question": "How much extra did the rider spend on that extra jar of garlic sauce?",
+    "options": [
+      "A. 75 cents.",
+      "B. 5 dollars.",
+      "C. 0 dollars.",
+      "D. 50 cents."
+    ],
+    "initial_trace_steps": [
+      "get the point. At 0:18, the delivery person comes into the store.",
+      "get the 'garlic sauce'. At 0:18, the delivery person said that 'is there extra garlic sauce.'",
+      "needn't pay extra money. At 0:24, the delivery person said that the consumer added this."
+    ],
+    "answer": " $0."
+  },
+  {
+    "video_path": "/fs/nexus-scratch/gnanesh/cot/OmniVideoBench/videos/video_19.mp4",
+    "question": "Which sentence was said by the tallest person?",
+    "options": [
+      "A. I understand the game perfectly and I think it's bad.",
+      "B. I want to be a concubine.",
+      "C. He has the same glazed look as when we rented Farewell My Concubine.",
+      "D. I just preferred Mrs. Doubtfire.."
+    ],
+    "initial_trace_steps": [
+      "get the tallest person. There is the tallest person.",
+      "Get the words 'I just preferred Mrs. Doubtfire..'. At 0:21, The man said that 'I just preferred Mrs. Doubtfire..'"
+    ],
+    "answer": "I just preferred Mrs. Doubtfire.."
+  }
+]

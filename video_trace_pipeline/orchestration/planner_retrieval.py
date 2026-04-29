@@ -2,10 +2,9 @@ from __future__ import annotations
 
 import json
 import re
-from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from ..common import read_jsonl, sanitize_path_component
+from .task_state import compact_task_state
 
 
 _QUERY_STOPWORDS = frozenset(
@@ -206,44 +205,6 @@ def _top_text_items(items: List[Any], terms: List[str], *, limit: int) -> List[A
         source = candidates
     source.sort(key=lambda pair: (-pair[0], pair[1]))
     return [item for _, _, item in source[:limit]]
-
-
-def _compact_artifact_context_record(record: Dict[str, Any], terms: List[str]) -> Dict[str, Any]:
-    compact = {
-        key: record.get(key)
-        for key in ("artifact_id", "artifact_type", "relpath", "time")
-        if record.get(key) not in (None, "", [], {})
-    }
-    contains = _top_text_items(list(record.get("contains") or []), terms, limit=12)
-    if contains:
-        compact["contains"] = contains
-    linked_observations = _top_text_items(list(record.get("linked_observations") or []), terms, limit=8)
-    if linked_observations:
-        compact["linked_observations"] = linked_observations
-    linked_evidence = []
-    for item in _top_text_items(list(record.get("linked_evidence") or []), terms, limit=5):
-        if not isinstance(item, dict):
-            continue
-        evidence_item = {
-            key: item.get(key)
-            for key in ("evidence_id", "tool_name", "summary")
-            if item.get(key) not in (None, "", [], {})
-        }
-        if _is_prompt_meta_text(evidence_item.get("summary", "")):
-            evidence_item.pop("summary", None)
-        observation_texts = _top_text_items(list(item.get("observation_texts") or []), terms, limit=4)
-        observation_texts = [text for text in observation_texts if not _is_prompt_meta_text(str(text))]
-        if observation_texts:
-            evidence_item["observation_texts"] = observation_texts
-        if evidence_item:
-            linked_evidence.append(evidence_item)
-    if linked_evidence:
-        compact["linked_evidence"] = linked_evidence
-    return compact
-
-
-def _top_artifact_context_records(records: List[Dict[str, Any]], terms: List[str], *, limit: int) -> List[Dict[str, Any]]:
-    return [_compact_artifact_context_record(item, terms) for item in _top_matching_records(records, terms, limit=limit)]
 
 
 def _trace_claims(trace_package: Optional[Any]) -> List[Dict[str, Any]]:
@@ -461,28 +422,35 @@ def _compact_observation_catalog_entry(observation: Dict[str, Any]) -> Dict[str,
     }
 
 
-def _compact_artifact_catalog_record(record: Dict[str, Any]) -> Dict[str, Any]:
-    contains = list(record.get("contains") or [])
-    linked_observations = list(record.get("linked_observations") or [])
-    linked_evidence = list(record.get("linked_evidence") or [])
-    compact = {
-        "artifact_id": record.get("artifact_id"),
-        "artifact_type": record.get("artifact_type"),
-        "relpath": record.get("relpath"),
-        "time": record.get("time"),
-        "contains_preview": [_compact_text(item, max_len=160) for item in contains[:4] if str(item or "").strip()],
-        "linked_observation_count": len(linked_observations),
-        "linked_evidence_ids": [
-            item.get("evidence_id")
-            for item in linked_evidence[:8]
-            if isinstance(item, dict) and item.get("evidence_id")
-        ],
-    }
-    return {
-        key: value
-        for key, value in compact.items()
-        if value not in (None, "", [], {})
-    }
+def _task_state_records(task_state: Any) -> List[Dict[str, Any]]:
+    payload = compact_task_state(task_state)
+    records: List[Dict[str, Any]] = []
+    for item in list(payload.get("claim_results") or []):
+        if isinstance(item, dict):
+            record = dict(item)
+            record["record_type"] = "claim_result"
+            record["text"] = _compact_text(record.get("notes") or record.get("text") or record.get("claim_id"), max_len=260)
+            records.append(record)
+    for key, record_type, id_field in (
+        ("referent_slots", "referent_slot", "referent_id"),
+        ("counter_records", "counter_record", "counter_id"),
+        ("coverage_records", "coverage_record", "coverage_id"),
+        ("ocr_occurrences", "ocr_occurrence", "occurrence_id"),
+        ("temporal_events", "temporal_event", "event_id"),
+        ("evidence_status_updates", "evidence_status_update", "evidence_id"),
+    ):
+        for item in list(payload.get(key) or []):
+            if isinstance(item, dict):
+                record = dict(item)
+                record["record_type"] = record_type
+                record["id"] = record.get(id_field)
+                record["text"] = _compact_text(json.dumps(record, ensure_ascii=False, default=str), max_len=320)
+                records.append(record)
+    for index, item in enumerate(list(payload.get("open_questions") or []), start=1):
+        text = _compact_text(item, max_len=260)
+        if text:
+            records.append({"record_type": "open_question", "id": "open_%02d" % index, "text": text})
+    return records
 
 
 def _dedupe_dicts(records: List[Dict[str, Any]], key_fields: List[str], *, limit: Optional[int] = None) -> List[Dict[str, Any]]:
@@ -537,10 +505,10 @@ def merge_retrieved_contexts(*contexts: Dict[str, Any]) -> Dict[str, Any]:
                 key_fields = {
                     "observations": ["observation_id", "evidence_id"],
                     "evidence": ["evidence_id"],
-                    "artifact_context": ["artifact_id", "relpath"],
                     "retrieval_requests": ["request_id"],
                     "lookup_records": ["record_id", "observation_id", "evidence_id"],
                     "prior_trace_claims": ["step_id", "text"],
+                    "task_state_matches": ["claim_id", "id", "text"],
                 }.get(key, ["id", "text"])
                 merged[key] = _dedupe_dicts(list(merged.get(key) or []) + list(value or []), key_fields, limit=80)
                 continue
@@ -557,17 +525,11 @@ class PlannerContextRetriever(object):
 
     It does not call models or tools. The planner remains one LLM call, but its
     refine prompt receives a focused text package from canonical preprocess,
-    evidence, and artifact-context stores.
+    SQLite evidence, observations, prior trace claims, and preprocess stores.
     """
 
     def __init__(self, workspace):
         self.workspace = workspace
-
-    def _artifact_context_path(self, video_id: str) -> Path:
-        return self.workspace.artifacts_root / sanitize_path_component(video_id or "video") / "artifact_context.jsonl"
-
-    def _artifact_context_records(self, task) -> List[Dict[str, Any]]:
-        return read_jsonl(self._artifact_context_path(task.video_id or task.sample_key))
 
     def build_catalog(
         self,
@@ -577,6 +539,7 @@ class PlannerContextRetriever(object):
         evidence_ledger,
         audit_report=None,
         current_trace=None,
+        task_state=None,
     ) -> Dict[str, Any]:
         audit_payload = audit_report.dict() if hasattr(audit_report, "dict") else audit_report
         terms = query_terms_from_task_and_audit(task, audit_payload)
@@ -586,8 +549,8 @@ class PlannerContextRetriever(object):
         planner_segments = list(preprocess_bundle.get("planner_segments") or [])
         asr_transcripts = list(preprocess_bundle.get("asr_transcripts") or [])
         dense_caption_segments = list(preprocess_bundle.get("dense_caption_segments") or [])
-        artifact_context = self._artifact_context_records(task)
-        artifact_catalog_records = [_compact_artifact_catalog_record(item) for item in artifact_context if isinstance(item, dict)]
+        task_state_payload = compact_task_state(task_state)
+        task_records = _task_state_records(task_state)
 
         claims = _trace_claims(current_trace)
         audit_missing = []
@@ -599,7 +562,7 @@ class PlannerContextRetriever(object):
             ]
 
         catalog = {
-            "retrieval_design": "deterministic lexical retrieval over SQLite evidence, artifact_context.jsonl, and canonical preprocess JSON",
+            "retrieval_design": "deterministic lexical retrieval over SQLite evidence, prior trace claims, and canonical preprocess JSON",
             "query_terms": terms,
             "preprocess": {
                 "planner_segment_count": len(planner_segments),
@@ -621,17 +584,19 @@ class PlannerContextRetriever(object):
                 "recent_evidence": [_compact_evidence_catalog_entry(item) for item in entries[-30:]],
                 "recent_observations": [_compact_observation_catalog_entry(item) for item in observations[-40:]],
             },
-            "artifact_context": {
-                "record_count": len(artifact_context),
-                "counts_by_type": _count_by(artifact_context, "artifact_type"),
-                "records": artifact_catalog_records[:250],
-                "omitted_record_count": max(0, len(artifact_catalog_records) - 250),
-            },
             "prior_trace": {
                 "claim_count": len(claims),
                 "claims": claims[:40],
             },
         }
+        if task_state_payload:
+            catalog["task_state"] = {
+                "claim_count": len(task_state_payload.get("claim_results") or []),
+                "open_question_count": len(task_state_payload.get("open_questions") or []),
+                "ready_for_synthesis": task_state_payload.get("ready_for_synthesis", False),
+                "status_counts": _count_by(list(task_state_payload.get("claim_results") or []), "status"),
+                "records": _top_matching_records(task_records, terms, limit=40),
+            }
         if audit_missing:
             catalog["audit_gaps"] = audit_missing
         return {
@@ -649,14 +614,15 @@ class PlannerContextRetriever(object):
         requests: List[Any],
         audit_report=None,
         current_trace=None,
+        task_state=None,
     ) -> Dict[str, Any]:
         audit_payload = audit_report.dict() if hasattr(audit_report, "dict") else audit_report
         raw_segments = list(preprocess_bundle.get("raw_segments") or preprocess_bundle.get("segments") or [])
         planner_segments = list(preprocess_bundle.get("planner_segments") or [])
         asr_transcripts = list(preprocess_bundle.get("asr_transcripts") or [])
         dense_caption_segments = list(preprocess_bundle.get("dense_caption_segments") or [])
-        artifact_context = self._artifact_context_records(task)
         entries = evidence_ledger.entries()
+        task_records = _task_state_records(task_state)
         entries_by_id = {
             str(item.get("evidence_id") or "").strip(): dict(item)
             for item in entries
@@ -667,9 +633,9 @@ class PlannerContextRetriever(object):
         all_terms: List[str] = []
         collected_observations: List[Dict[str, Any]] = []
         collected_evidence: List[Dict[str, Any]] = []
-        collected_artifacts: List[Dict[str, Any]] = []
         collected_lookup_records: List[Dict[str, Any]] = []
         collected_claims: List[Dict[str, Any]] = []
+        collected_task_state: List[Dict[str, Any]] = []
         preprocess_matches: Dict[str, List[Dict[str, Any]]] = {
             "planner_segments": [],
             "raw_segments": [],
@@ -688,7 +654,6 @@ class PlannerContextRetriever(object):
             evidence_status = str(request.get("evidence_status") or "").strip().lower()
             evidence_ids = [str(item).strip() for item in list(request.get("evidence_ids") or []) if str(item).strip()]
             observation_ids = [str(item).strip() for item in list(request.get("observation_ids") or []) if str(item).strip()]
-            artifact_ids = {str(item).strip() for item in list(request.get("artifact_ids") or []) if str(item).strip()}
             terms = _terms_from_text(request.get("need"), request.get("query"), " ".join(request.get("modalities") or []))
             if not terms:
                 terms = query_terms_from_task_and_audit(task, audit_payload)
@@ -704,7 +669,6 @@ class PlannerContextRetriever(object):
                         "time_range": request.get("time_range"),
                         "source_tools": source_tools,
                         "evidence_status": evidence_status,
-                        "artifact_ids": sorted(artifact_ids),
                         "evidence_ids": evidence_ids,
                         "observation_ids": observation_ids,
                         "limit": limit,
@@ -723,9 +687,9 @@ class PlannerContextRetriever(object):
 
             wants_evidence = target in {"mixed", "existing_evidence", "evidence"}
             wants_observations = target in {"mixed", "existing_evidence", "observations"}
-            wants_artifacts = target in {"mixed", "artifact_context"}
             wants_preprocess = target in {"mixed", "preprocess", "asr_transcripts", "dense_captions"}
             wants_trace = target in {"mixed", "prior_trace"}
+            wants_task_state = target in {"mixed", "task_state"}
 
             if wants_observations:
                 if source_tools:
@@ -778,16 +742,6 @@ class PlannerContextRetriever(object):
                 entry_candidates = _filter_by_time(entry_candidates, start_s, end_s)
                 collected_evidence.extend(_top_matching_records(entry_candidates, terms, limit=limit))
 
-            if wants_artifacts:
-                artifact_candidates = [
-                    item
-                    for item in artifact_context
-                    if isinstance(item, dict)
-                    and (not artifact_ids or str(item.get("artifact_id") or "").strip() in artifact_ids)
-                ]
-                artifact_candidates = _filter_by_time(artifact_candidates, start_s, end_s)
-                collected_artifacts.extend(_top_artifact_context_records(artifact_candidates, terms, limit=limit))
-
             if wants_preprocess:
                 if target in {"mixed", "preprocess", "dense_captions"}:
                     planner_candidates = _filter_by_time(planner_segments, start_s, end_s)
@@ -803,6 +757,8 @@ class PlannerContextRetriever(object):
 
             if wants_trace:
                 collected_claims.extend(_top_matching_records(claims, terms, limit=limit))
+            if wants_task_state:
+                collected_task_state.extend(_top_matching_records(task_records, terms, limit=limit))
 
         payload = {
             "query_terms": _terms_from_text(" ".join(all_terms), limit=60),
@@ -810,13 +766,13 @@ class PlannerContextRetriever(object):
             "lookup_records": _dedupe_dicts(collected_lookup_records, ["record_id", "observation_id", "evidence_id"], limit=80),
             "observations": _dedupe_dicts(collected_observations, ["observation_id", "evidence_id"], limit=80),
             "evidence": _dedupe_dicts(collected_evidence, ["evidence_id"], limit=80),
-            "artifact_context": _dedupe_dicts(collected_artifacts, ["artifact_id", "relpath"], limit=80),
             "preprocess_matches": {
                 key: _dedupe_dicts(value, ["segment_id", "transcript_id", "caption_id"], limit=40)
                 for key, value in preprocess_matches.items()
                 if value
             },
             "prior_trace_claims": _dedupe_dicts(collected_claims, ["step_id", "text"], limit=40),
+            "task_state_matches": _dedupe_dicts(collected_task_state, ["claim_id", "id", "text"], limit=40),
         }
         return {
             key: value
@@ -834,10 +790,12 @@ class PlannerContextRetriever(object):
         current_trace=None,
         mode: str = "generate",
         limit: int = 50,
+        task_state=None,
     ) -> Dict[str, Any]:
         audit_payload = audit_report.dict() if hasattr(audit_report, "dict") else audit_report
         terms = query_terms_from_task_and_audit(task, audit_payload)
         entries = evidence_ledger.entries()
+        task_records = _task_state_records(task_state)
         prefer_validated = any(str(item.get("status") or "").strip().lower() == "validated" for item in entries)
         if prefer_validated:
             observations = evidence_ledger.retrieve(query_terms=terms, evidence_status="validated", limit=limit)
@@ -863,13 +821,12 @@ class PlannerContextRetriever(object):
 
         raw_segments = list(preprocess_bundle.get("raw_segments") or preprocess_bundle.get("segments") or [])
         planner_segments = list(preprocess_bundle.get("planner_segments") or [])
-        artifact_context = read_jsonl(self._artifact_context_path(task.video_id or task.sample_key))
 
         payload = {
             "query_terms": terms,
             "observations": observations,
             "evidence": _top_matching_records(entries, terms, limit=20),
-            "artifact_context": _top_artifact_context_records(artifact_context, terms, limit=20),
+            "task_state_matches": _top_matching_records(task_records, terms, limit=20),
         }
         if str(mode or "").strip() == "refine":
             payload["preprocess_matches"] = {

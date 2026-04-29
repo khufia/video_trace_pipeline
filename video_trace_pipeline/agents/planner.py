@@ -23,6 +23,7 @@ class PlannerAgent(object):
         audit_feedback,
         tool_catalog,
         retrieval_catalog=None,
+        task_state=None,
     ):
         prompt = build_planner_prompt(
             task=task,
@@ -32,6 +33,7 @@ class PlannerAgent(object):
             audit_feedback=audit_feedback,
             tool_catalog=tool_catalog,
             retrieval_catalog=retrieval_catalog,
+            task_state=task_state,
         )
         return {
             "endpoint_name": self.agent_config.endpoint or "default",
@@ -57,6 +59,7 @@ class PlannerAgent(object):
         tool_catalog,
         iteration,
         max_iterations,
+        task_state=None,
     ):
         prompt = build_planner_retrieval_prompt(
             task=task,
@@ -67,6 +70,7 @@ class PlannerAgent(object):
             tool_catalog=tool_catalog,
             iteration=iteration,
             max_iterations=max_iterations,
+            task_state=task_state,
         )
         return {
             "endpoint_name": self.agent_config.endpoint or "default",
@@ -90,6 +94,7 @@ class PlannerAgent(object):
         retrieved_context,
         audit_feedback,
         tool_catalog,
+        task_state=None,
     ):
         return self.complete_request(
             self.build_request(
@@ -99,5 +104,6 @@ class PlannerAgent(object):
                 retrieved_context=retrieved_context,
                 audit_feedback=audit_feedback,
                 tool_catalog=tool_catalog,
+                task_state=task_state,
             )
         )

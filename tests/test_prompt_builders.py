@@ -41,22 +41,6 @@ def test_build_planner_prompt_uses_rich_preprocess_and_retrieved_context():
         ],
         retrieved_context={
             "observations": [{"observation_id": "obs_1", "evidence_id": "ev_a", "atomic_text": "OCR reads Sales."}],
-            "artifact_context": [
-                {
-                    "artifact_id": "frame_010.00",
-                    "artifact_type": "frame",
-                    "relpath": "artifacts/sample1/frames/frame_010.00.png",
-                    "time": {"timestamp_s": 10.0},
-                    "contains": ["A readable chart is visible."],
-                },
-                {
-                    "artifact_id": "frame_011.00",
-                    "artifact_type": "frame",
-                    "relpath": "artifacts/sample1/frames/frame_011.00.png",
-                    "time": {"timestamp_s": 11.0},
-                    "contains": ["The same readable chart is fully visible."],
-                }
-            ],
             "audit_gaps": ["exact chart label"],
         },
         audit_feedback={"missing_information": ["exact chart label"], "feedback": "Need label."},
@@ -64,11 +48,18 @@ def test_build_planner_prompt_uses_rich_preprocess_and_retrieved_context():
             "frame_retriever": {"request_fields": ["clips", "query", "num_frames"]},
             "ocr": {"request_fields": ["frames", "query"]},
             "generic_purpose": {"request_fields": ["query", "text_contexts"]},
+            "verifier": {"request_fields": ["query", "claims", "frames", "ocr_results"]},
         },
         retrieval_catalog={"evidence_store": {"evidence_entry_count": 1}},
+        task_state={
+            "claim_results": [{"claim_id": "claim_1", "status": "unverified", "claim_type": "ocr"}],
+            "open_questions": ["exact chart label"],
+        },
     )
 
     assert "RICH_PREPROCESS_SEGMENTS:" in prompt
+    assert "TASK_STATE:" in prompt
+    assert "TASK_STATE_USAGE_NOTE:" in prompt
     assert "PREPROCESS_TRANSCRIPTS_AVAILABLE:" in prompt
     assert "PREPROCESS_TRANSCRIPTS_USAGE_NOTE:" in prompt
     assert '"transcript_id": "preprocess_seg_001"' in prompt
@@ -76,17 +67,10 @@ def test_build_planner_prompt_uses_rich_preprocess_and_retrieved_context():
     assert "RETRIEVAL_CATALOG:" in prompt
     assert "RETRIEVED_CONTEXT:" in prompt
     assert "RETRIEVED_EVIDENCE_IDS_AVAILABLE:" in prompt
-    assert "RETRIEVED_FRAME_REFS_AVAILABLE:" in prompt
-    assert "RETRIEVED_FRAME_SEQUENCES_AVAILABLE:" in prompt
     assert '"ev_a"' in prompt
-    assert '"artifact_id": "frame_010.00"' in prompt
-    assert '"timestamp_s": 10.0' in prompt
-    assert '"first_frame"' in prompt
-    assert '"latest_frame"' in prompt
-    assert '"chronological_frames"' in prompt
-    assert '"artifact_id": "frame_011.00"' in prompt
-    assert "candidate animated/progressive reveals" in prompt
-    assert "artifact timestamps/relpaths beat prior trace prose" in prompt
+    assert "artifact_context" not in prompt
+    assert "RETRIEVED_FRAME_REFS_AVAILABLE:" not in prompt
+    assert "RETRIEVED_FRAME_SEQUENCES_AVAILABLE:" not in prompt
     assert "PREPROCESS_PLANNING_MEMORY" not in prompt
     assert "PREVIOUS_ITERATIONS_SUMMARY" not in prompt
     assert "- never emit arguments, depends_on, use_summary" in prompt
@@ -119,20 +103,32 @@ def test_build_planner_prompt_adds_multi_referent_relation_hint():
 def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "steps: list of {step_id, tool_name, purpose, inputs, input_refs, expected_outputs}" in PLANNER_SYSTEM_PROMPT
     assert "field-keyed object" in PLANNER_SYSTEM_PROMPT
+    assert "Omit empty literal fields from `inputs`" in PLANNER_SYSTEM_PROMPT
     assert "Do not emit removed fields" in PLANNER_SYSTEM_PROMPT
+    assert "Never invent helper fields such as `query_context`" in PLANNER_SYSTEM_PROMPT
     assert "Pass ASR to generic_purpose through `transcripts`" in PLANNER_SYSTEM_PROMPT
+    assert "Never bind `transcripts` from a clip/frame path" in PLANNER_SYSTEM_PROMPT
+    assert "never earlier step inputs such as `inputs.transcripts`" in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_TRANSCRIPTS_AVAILABLE as structured `inputs.transcripts`" in PLANNER_SYSTEM_PROMPT
     assert "Transcript already in preprocessing" in PLANNER_SYSTEM_PROMPT
     assert "run ASR only when transcript coverage is missing or insufficient" in PLANNER_SYSTEM_PROMPT
     assert "audio/count question is conditioned on a visible object, action, or state" in PLANNER_SYSTEM_PROMPT
+    assert "the visible object/action is the anchor" in PLANNER_SYSTEM_PROMPT
+    assert "non-speech audio option comparisons" in PLANNER_SYSTEM_PROMPT
+    assert "Non-speech audio option comparison" in PLANNER_SYSTEM_PROMPT
     assert "Visual-conditioned audio/count" in PLANNER_SYSTEM_PROMPT
     assert "relationship or comparison questions" in PLANNER_SYSTEM_PROMPT
     assert "Multi-referent relation/comparison" in PLANNER_SYSTEM_PROMPT
     assert "Example Q, multi-referent relation" in PLANNER_SYSTEM_PROMPT
+    assert "Task-state use:" in PLANNER_SYSTEM_PROMPT
+    assert "Verifier use:" in PLANNER_SYSTEM_PROMPT
+    assert "finish the chain with `verifier`" in PLANNER_SYSTEM_PROMPT
     assert "Text_contexts alone are not enough for visual-state verification" in PLANNER_SYSTEM_PROMPT
     assert "Avoid generic_purpose -> generic_purpose chains" in PLANNER_SYSTEM_PROMPT
     assert "extraction plus comparison in that single call" in PLANNER_SYSTEM_PROMPT
     assert "Multi-display chart/table comparison" in PLANNER_SYSTEM_PROMPT
+    assert "blackboards, whiteboards, visible letters/words" in PLANNER_SYSTEM_PROMPT
+    assert "arithmetic over visible/transcribed numbers" in PLANNER_SYSTEM_PROMPT
     assert "Localized visual state" in PLANNER_SYSTEM_PROMPT
     assert "do not preserve the prior anchor by default" in PLANNER_SYSTEM_PROMPT
     assert "Do not downgrade a repeated organization" in PLANNER_SYSTEM_PROMPT
@@ -140,20 +136,18 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "Do not bind current-plan outputs into `time_hints`" in PLANNER_SYSTEM_PROMPT
     assert "Example A, visible text region" in PLANNER_SYSTEM_PROMPT
     assert "Example C, sound trigger" in PLANNER_SYSTEM_PROMPT
+    assert "Example C2, non-speech sound-effect option comparison" in PLANNER_SYSTEM_PROMPT
+    assert "Example C3, visible-use anchored sound count" in PLANNER_SYSTEM_PROMPT
+    assert "Example G2, arithmetic with a missing visual number" in PLANNER_SYSTEM_PROMPT
+    assert "Example G3, exact blackboard or visible-letter task" in PLANNER_SYSTEM_PROMPT
     assert "Example K, object state anchored by speech" in PLANNER_SYSTEM_PROMPT
-    assert "Example O, retrieved artifact frames in refine" in PLANNER_SYSTEM_PROMPT
+    assert "Example O, retrieved evidence in refine" in PLANNER_SYSTEM_PROMPT
     assert "Example P, progressive chart frame selection" in PLANNER_SYSTEM_PROMPT
-    assert "Artifact timing and frame reuse" in PLANNER_SYSTEM_PROMPT
     assert "partially revealed chart" in PLANNER_SYSTEM_PROMPT
-    assert "latest complete frame per display" in PLANNER_SYSTEM_PROMPT
-    assert "contains` text as provisional model-observation text" in PLANNER_SYSTEM_PROMPT
-    assert "preserve distinct retrieved frame sequences" in PLANNER_SYSTEM_PROMPT
-    assert "pass representative frames from each candidate sequence" in PLANNER_SYSTEM_PROMPT
-    assert "RETRIEVED_FRAME_SEQUENCES_AVAILABLE groups adjacent retrieved frames" in PLANNER_SYSTEM_PROMPT
-    assert "Choose frames by task semantics" in PLANNER_SYSTEM_PROMPT
-    assert "first/earliest questions need first_frame plus neighbors" in PLANNER_SYSTEM_PROMPT
     assert "do not pass answer-only generic evidence back as proof" in PLANNER_SYSTEM_PROMPT
     assert "Wiring is not evidence" in PLANNER_SYSTEM_PROMPT
+    assert "artifact_context" not in PLANNER_SYSTEM_PROMPT
+    assert "RETRIEVED_FRAME_REFS_AVAILABLE" not in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" not in PLANNER_SYSTEM_PROMPT
 
 
@@ -167,15 +161,19 @@ def test_build_planner_retrieval_prompt_exposes_catalog_and_schema():
         tool_catalog={"ocr": {"request_fields": ["frames", "query"]}},
         iteration=1,
         max_iterations=3,
+        task_state={"open_questions": ["exact chart label"]},
     )
 
+    assert "TASK_STATE:" in prompt
     assert "RETRIEVAL_CATALOG:" in prompt
     assert "CURRENT_RETRIEVED_CONTEXT:" in prompt
     assert "PlannerRetrievalDecision schema reminder" in prompt
     assert "action: \"ready\" or \"retrieve\"" in prompt
     assert "Example B, retrieve by audit gap and prior timestamp" in PLANNER_RETRIEVAL_SYSTEM_PROMPT
     assert "Example E, conflicting prior trace timestamp" in PLANNER_RETRIEVAL_SYSTEM_PROMPT
-    assert "artifact-context times and ids" in PLANNER_RETRIEVAL_SYSTEM_PROMPT
+    assert '"task_state"' in PLANNER_RETRIEVAL_SYSTEM_PROMPT
+    assert "artifact_context" not in PLANNER_RETRIEVAL_SYSTEM_PROMPT
+    assert "artifact_ids" not in PLANNER_RETRIEVAL_SYSTEM_PROMPT
 
 
 def test_synthesizer_prompt_is_one_shot_with_icl_examples():
@@ -187,8 +185,10 @@ def test_synthesizer_prompt_is_one_shot_with_icl_examples():
         current_trace={"final_answer": "A"},
         refinement_instructions="Replace the unsupported label claim.",
         audit_feedback={"missing_information": ["exact chart label"]},
+        task_state={"claim_results": [{"claim_id": "claim_1", "status": "unknown"}]},
     )
 
+    assert "TASK_STATE:" in prompt
     assert "ROUND_EVIDENCE_ENTRIES:" in prompt
     assert "ROUND_ATOMIC_OBSERVATIONS:" in prompt
     assert "EVIDENCE_MEMORY" not in prompt
@@ -199,6 +199,7 @@ def test_synthesizer_prompt_is_one_shot_with_icl_examples():
     assert "choose the uniquely best-supported option" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Prefer the longest repeated matching name or phrase" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Do not downgrade a repeated organization" in SYNTHESIZER_SYSTEM_PROMPT
+    assert "verifier claim_results and TASK_STATE statuses" in SYNTHESIZER_SYSTEM_PROMPT
 
 
 def test_auditor_prompt_has_complex_score_icl_without_evidence_memory():
@@ -206,8 +207,10 @@ def test_auditor_prompt_has_complex_score_icl_without_evidence_memory():
         task=_task(),
         trace_package={"final_answer": "A", "inference_steps": []},
         evidence_summary={"observations": []},
+        task_state={"claim_results": [{"claim_id": "claim_1", "status": "candidate"}]},
     )
 
+    assert "TASK_STATE:" in prompt
     assert "ordered, deduplicated, tool-agnostic list of atomic unresolved answer-critical needs" in prompt
     assert "diagnostics: object" in prompt
     assert "Example A, strong multimodal PASS" in AUDITOR_SYSTEM_PROMPT

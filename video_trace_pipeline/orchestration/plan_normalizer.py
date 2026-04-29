@@ -15,6 +15,10 @@ _LIST_FIELDS = {
     "text_contexts",
     "evidence_ids",
     "time_hints",
+    "claims",
+    "ocr_results",
+    "dense_captions",
+    "observations",
 }
 
 _GENERIC_PURPOSE_CONTEXT_FIELDS = frozenset(
@@ -84,12 +88,6 @@ def _retrieved_evidence_ids(retrieved_context: Dict[str, Any] | None) -> set[str
     for item in list(retrieved_context.get("lookup_records") or []):
         if isinstance(item, dict) and str(item.get("evidence_id") or "").strip():
             ids.add(str(item.get("evidence_id")).strip())
-    for artifact in list(retrieved_context.get("artifact_context") or []):
-        if not isinstance(artifact, dict):
-            continue
-        for evidence in list(artifact.get("linked_evidence") or []):
-            if isinstance(evidence, dict) and str(evidence.get("evidence_id") or "").strip():
-                ids.add(str(evidence.get("evidence_id")).strip())
     return ids
 
 

@@ -1,43 +1,36 @@
 #!/bin/bash
-#SBATCH --job-name=video_trace_pipeline
-#SBATCH --output=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%A_%a.out
-#SBATCH --error=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%A_%a.err
-#SBATCH --time=12:00:00
-#SBATCH --partition=gamma
-#SBATCH --account=gamma
-#SBATCH --qos=high
-#SBATCH --gres=gpu:l40s:4
-#SBATCH --mem=120G
-#SBATCH --mail-user=gnanesh@umd.edu
-#SBATCH --mail-type=END,FAIL
-
 set -Eeuo pipefail
 
-# Edit these values directly before running the script.
+# Direct runner for an existing interactive srun allocation. This is not a
+# Slurm submission file; it self-detaches with nohup by default.
+
 REPO_ROOT="${REPO_ROOT:-/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline}"
 COT_ROOT="${COT_ROOT:-/fs/nexus-scratch/gnanesh/cot}"
 VENV_PATH="${VENV_PATH:-/fs/nexus-scratch/gnanesh/venv_vdr3}"
+
+DETACH="${DETACH:-1}"
+if [[ "$DETACH" == "1" && "${VTP_DETACHED:-0}" != "1" ]]; then
+  mkdir -p "$REPO_ROOT/logs"
+  RUN_LABEL="${RUN_LABEL:-$(date +%Y%m%d_%H%M%S)}"
+  LOG_OUT="${LOG_OUT:-$REPO_ROOT/logs/video_trace_pipeline_srun_${RUN_LABEL}.out}"
+  LOG_ERR="${LOG_ERR:-$REPO_ROOT/logs/video_trace_pipeline_srun_${RUN_LABEL}.err}"
+  PID_FILE="${PID_FILE:-$REPO_ROOT/logs/video_trace_pipeline_srun_${RUN_LABEL}.pid}"
+
+  VTP_DETACHED=1 DETACH=0 nohup setsid bash "$0" "$@" >"$LOG_OUT" 2>"$LOG_ERR" < /dev/null &
+  echo "$!" > "$PID_FILE"
+  echo "Started detached pipeline PID=$(cat "$PID_FILE")"
+  echo "stdout: $LOG_OUT"
+  echo "stderr: $LOG_ERR"
+  exit 0
+fi
 
 PROFILE="${PROFILE:-$REPO_ROOT/configs/machine.nexus.yaml}"
 MODELS="${MODELS:-$REPO_ROOT/configs/models.yaml}"
 WORKSPACE_ROOT="${WORKSPACE_ROOT:-$REPO_ROOT/workspace}"
 
 MODE="${MODE:-generate}"
-# INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
 INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part1.json}"
-# INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part2.json}"
-# INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part3.json}"
-# Accept a single index or a comma/space-separated list, e.g. INPUT_INDEX="6 7 8" or "6,7,8".
-# INPUT_INDEX="${INPUT_INDEX:-6 9}"
-# INPUT_INDEX="${INPUT_INDEX:-1 4 7}"
-# INPUT_INDEX="${INPUT_INDEX:-2 5 8}"
-# INPUT_INDEX="${INPUT_INDEX:-10 11 12}"
-# INPUT_INDEX="${INPUT_INDEX:-13 14 15}"
-# INPUT_INDEX="${INPUT_INDEX:-18}"
-# INPUT_INDEX="${INPUT_INDEX:-19 20 21}"
 INPUT_INDEX="${INPUT_INDEX:-3 4 5 6 7 8 9 10 11 12 13 14 15}"
-# INPUT_INDEX="${INPUT_INDEX:-16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33}"
-# INPUT_INDEX="${INPUT_INDEX:-17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33}"
 CLIP_DURATION="${CLIP_DURATION:-30}"
 MAX_ROUNDS="${MAX_ROUNDS:-3}"
 INITIAL_TRACE_PATH="${INITIAL_TRACE_PATH:-}"
@@ -46,17 +39,17 @@ PREPROCESS_FIRST="${PREPROCESS_FIRST:-0}"
 CHECK_ENV_ONLY="${CHECK_ENV_ONLY:-0}"
 RUN_CHECK_ENV="${RUN_CHECK_ENV:-0}"
 STRICT_ENV_CHECK="${STRICT_ENV_CHECK:-1}"
-SHOW_PROGRESS="${SHOW_PROGRESS:-1}"
-# Default to on-demand model loading for direct bash runs. Opt into
-# persisted/preloaded tool models only when the allocation has enough GPU headroom.
+SHOW_PROGRESS="${SHOW_PROGRESS:-0}"
 PERSIST_TOOL_MODELS="${PERSIST_TOOL_MODELS:-}"
 PRELOAD_PERSISTED_MODELS="${PRELOAD_PERSISTED_MODELS:-0}"
 
 OPENAI_KEY_FILE="${OPENAI_KEY_FILE:-$COT_ROOT/OPENAI_API_KEY.txt}"
 HF_TOKEN_FILE="${HF_TOKEN_FILE:-$COT_ROOT/HF_TOKEN.txt}"
 
+export PYTHONUNBUFFERED=1
+
 if [[ $# -gt 0 ]]; then
-  echo "This script no longer parses command-line arguments. Edit the config block at the top instead." >&2
+  echo "This script does not parse command-line arguments. Set environment variables before running it." >&2
   exit 2
 fi
 

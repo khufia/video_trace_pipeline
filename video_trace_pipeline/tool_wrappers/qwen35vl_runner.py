@@ -209,7 +209,7 @@ def _build_prompt(
         "For repeated place/name/entity questions, count whole named entities or repeated surface phrases. Prefer the longest repeated matching name/phrase over a shorter substring embedded inside that phrase unless the task explicitly asks about words or tokens.",
         "If a repeated longer phrase and a shorter substring start at the same occurrence, use the longer repeated phrase as the boundary; do not use the shorter substring unless the task asks for words or tokens.",
         "Do not reject a repeated organization, venue, event, brand, or institution phrase merely because it contains extra non-place words; if the full phrase repeats exactly, it is a valid surface phrase for text-boundary tasks.",
-        "Treat prior structured evidence and answer options as provisional context, not an answer key. If the query asks you to verify a missing attribute, use the supplied media/transcripts to verify that attribute directly.",
+        "Treat prior structured evidence and answer options as candidate context, not an answer key. If the query asks you to verify a missing attribute, use the supplied media/transcripts to verify that attribute directly.",
         "For chart, table, scoreboard, or graph images, read label-value pairs from explicit visual alignment. If multiple images show the same progressive display, prefer the latest stable complete image and do not treat missing early bars or labels as zero.",
         "Use the INPUT MEDIA image numbers, artifact ids, and timestamps when comparing images; do not confuse Image N with timestamps or prior evidence ids.",
         "If the grounded evidence still leaves multiple answer options compatible, answer indeterminate instead of forcing a best guess.",

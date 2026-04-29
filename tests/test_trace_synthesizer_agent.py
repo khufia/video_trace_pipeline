@@ -137,7 +137,7 @@ def test_trace_synthesizer_rejects_noncanonical_trace_payloads():
         agent_config=AgentConfig(backend="openai", model="gpt-5.4", endpoint="default"),
     )
 
-    with pytest.raises(Exception, match="status must be validated, provisional, or superseded"):
+    with pytest.raises(Exception, match="status must be one of"):
         agent.synthesize(
             task=_task(),
             mode="generate",

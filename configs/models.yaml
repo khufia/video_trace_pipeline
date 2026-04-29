@@ -163,3 +163,18 @@ tools:
       attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
+  verifier:
+    enabled: true
+    description: Strict claim verifier over supplied media, transcripts, OCR, observations, and evidence.
+    model: Qwen/Qwen3-VL-8B-Instruct
+    prompt_version: verifier_v1
+    extra:
+      command:
+        - python3
+        - -m
+        - video_trace_pipeline.tool_wrappers.verifier_runner
+      backend_name: qwen3vl_verifier
+      attn_implementation: flash_attention_2
+      temperature: 0.0
+      do_sample: false
+      max_new_tokens: 1024

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator, validator
 
@@ -115,4 +115,67 @@ class GenericPurposeRequest(ToolRequest):
     def _normalize_lists(self):
         self.text_contexts = [str(item).strip() for item in list(self.text_contexts or []) if str(item).strip()]
         self.evidence_ids = [str(item).strip() for item in list(self.evidence_ids or []) if str(item).strip()]
+        return self
+
+
+class VerifierClaimInput(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    claim_id: str
+    text: str
+    claim_type: str = "option_mapping"
+    expected_answer_option: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _require_text_fields(self):
+        self.claim_id = str(self.claim_id or "").strip()
+        self.text = str(self.text or "").strip()
+        self.claim_type = str(self.claim_type or "option_mapping").strip() or "option_mapping"
+        if self.expected_answer_option is not None:
+            self.expected_answer_option = str(self.expected_answer_option or "").strip() or None
+        if not self.claim_id or not self.text:
+            raise ValueError("verifier claims require claim_id and text")
+        return self
+
+
+class VerifierRequest(ToolRequest):
+    query: str
+    claims: List[VerifierClaimInput] = Field(default_factory=list)
+    clips: List[ClipRef] = Field(default_factory=list)
+    frames: List[FrameRef] = Field(default_factory=list)
+    regions: List[RegionRef] = Field(default_factory=list)
+    transcripts: List[TranscriptRef] = Field(default_factory=list)
+    text_contexts: List[str] = Field(default_factory=list)
+    ocr_results: List[Dict[str, Any]] = Field(default_factory=list)
+    dense_captions: List[Dict[str, Any]] = Field(default_factory=list)
+    evidence_ids: List[str] = Field(default_factory=list)
+    observations: List[Dict[str, Any]] = Field(default_factory=list)
+    retrieved_context: Dict[str, Any] = Field(default_factory=dict)
+    verification_policy: Dict[str, Any] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def _normalize_and_require_context(self):
+        self.query = str(self.query or "").strip()
+        self.text_contexts = [str(item).strip() for item in list(self.text_contexts or []) if str(item).strip()]
+        self.evidence_ids = [str(item).strip() for item in list(self.evidence_ids or []) if str(item).strip()]
+        if not self.query:
+            raise ValueError("verifier requires a non-empty query")
+        if not self.claims:
+            raise ValueError("verifier requires at least one claim")
+        has_context = any(
+            [
+                self.clips,
+                self.frames,
+                self.regions,
+                self.transcripts,
+                self.text_contexts,
+                self.ocr_results,
+                self.dense_captions,
+                self.evidence_ids,
+                self.observations,
+                bool(self.retrieved_context),
+            ]
+        )
+        if not has_context:
+            raise ValueError("verifier requires at least one evidence/media/text context input")
         return self

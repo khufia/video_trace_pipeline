@@ -16,6 +16,7 @@ from ..tool_wrappers.local_multimodal import TimeChatCaptionerRunner
 from ..tool_wrappers.timechat_dense_caption_runner import execute_payload as execute_dense_caption_payload
 from ..tool_wrappers.qwen35vl_runner import execute_payload as execute_generic_purpose_payload
 from ..tool_wrappers.spatial_grounder_runner import execute_payload as execute_spatial_grounder_payload
+from ..tool_wrappers.verifier_runner import execute_payload as execute_verifier_payload
 from ..tool_wrappers.shared import resolve_generation_controls, resolve_model_path, resolved_device_label
 from ..tool_wrappers.timelens_runner import execute_payload as execute_visual_temporal_grounder_payload
 from ..schemas import (
@@ -36,6 +37,8 @@ from ..schemas import (
     SpatialGrounderOutput,
     SpatialGrounderRequest,
     ToolResult,
+    VerifierOutput,
+    VerifierRequest,
     VisualTemporalGrounderOutput,
     VisualTemporalGrounderRequest,
 )
@@ -1558,5 +1561,57 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
                 "backend": self.model_name,
                 "low_signal_output": low_signal_output,
                 **_confidence_metadata([parsed.confidence], kind="answer_confidence"),
+            },
+        )
+
+
+class VerifierProcessAdapter(BaseProcessToolAdapter):
+    request_model = VerifierRequest
+    output_model = VerifierOutput
+
+    def parse_request(self, arguments: Dict[str, Any]):
+        request = super().parse_request(arguments)
+        return _generic_request_with_sequence_context(self.request_model, request)
+
+    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        return execute_verifier_payload(payload, runner_pool=self.model_pool)
+
+    def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        return self._qwen_persistent_preload_spec(profile)
+
+    def execute(self, request, context):
+        request = _generic_request_with_sequence_context(self.request_model, request)
+        payload, raw = self._run_json(context, request.dict())
+        parsed = self._parse_output(payload)
+        artifact_refs = _request_artifact_refs(request, source_tool=self.name)
+        supported = sum(1 for item in parsed.claim_results if item.verdict == "supported")
+        refuted = sum(1 for item in parsed.claim_results if item.verdict == "refuted")
+        unknown = sum(1 for item in parsed.claim_results if item.verdict == "unknown")
+        partial = sum(1 for item in parsed.claim_results if item.verdict == "partially_supported")
+        data = {
+            "claim_results": [item.dict() for item in parsed.claim_results],
+            "new_observations": list(parsed.new_observations or []),
+            "evidence_updates": list(parsed.evidence_updates or []),
+            "checklist_updates": list(parsed.checklist_updates or []),
+            "counter_updates": list(parsed.counter_updates or []),
+            "referent_updates": list(parsed.referent_updates or []),
+            "ocr_occurrence_updates": list(parsed.ocr_occurrence_updates or []),
+            "unresolved_gaps": list(parsed.unresolved_gaps or []),
+        }
+        return ToolResult(
+            tool_name=self.name,
+            ok=True,
+            data=data,
+            raw_output_text=raw,
+            artifact_refs=artifact_refs,
+            request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
+            summary="Verifier results: supported=%d, refuted=%d, partial=%d, unknown=%d." % (supported, refuted, partial, unknown),
+            metadata={
+                "backend": self.model_name,
+                "supported_count": supported,
+                "refuted_count": refuted,
+                "partial_count": partial,
+                "unknown_count": unknown,
+                **_confidence_metadata([item.confidence for item in parsed.claim_results], kind="verifier_claim"),
             },
         )

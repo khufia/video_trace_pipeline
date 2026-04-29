@@ -10,7 +10,7 @@ from ..common import assign_path, hash_payload, sanitize_for_persistence, traver
 from ..schemas import AtomicObservation, EvidenceEntry, ToolResult
 from ..storage import EvidenceLedger, SharedEvidenceCache
 from ..tools import ObservationExtractor
-from ..tools.extractors import evidence_temporal_bounds
+from ..tools.extractors import build_evidence_text_digest, evidence_temporal_bounds
 from ..tools.base import ToolExecutionContext
 from ..tools.specs import tool_implementation
 
@@ -148,7 +148,7 @@ class PlanExecutor(object):
             evidence_id="ev_%02d_%s" % (step.step_id, request_hash[:8]),
             tool_name=step.tool_name,
             evidence_text=summary,
-            status="provisional",
+            status="unknown",
             artifact_refs=[],
             observation_ids=[],
             metadata={"request_hash": request_hash, "cache_hit": False, "error_type": error_type},
@@ -349,6 +349,7 @@ class PlanExecutor(object):
                         }
                         tool_result.metadata = {**dict(tool_result.metadata or {}), "timing": timing_metadata}
                         observations = self.extractor.extract(tool_result)
+                        evidence_text = build_evidence_text_digest(tool_result, observations)
                         self.evidence_cache.store_unlocked(
                             tool_name=step.tool_name,
                             request_hash=request_hash,
@@ -358,21 +359,51 @@ class PlanExecutor(object):
                                 "prompt_version": self.models_config.tools[step.tool_name].prompt_version,
                                 "request": sanitize_for_persistence(request.dict()),
                             },
-                            result=sanitize_for_persistence(tool_result.dict()),
+                            result=sanitize_for_persistence(
+                                {
+                                    **tool_result.dict(),
+                                    "summary": evidence_text,
+                                    "metadata": {
+                                        **dict(tool_result.metadata or {}),
+                                        "digest_source_observation_ids": [
+                                            item.observation_id for item in list(observations or [])
+                                        ],
+                                        "digest_version": "observations_v1",
+                                    },
+                                }
+                            ),
                             observations=[sanitize_for_persistence(item.dict()) for item in observations],
                         )
+                        tool_result.summary = evidence_text
+                        tool_result.metadata = {
+                            **dict(tool_result.metadata or {}),
+                            "digest_source_observation_ids": [item.observation_id for item in list(observations or [])],
+                            "digest_version": "observations_v1",
+                        }
             tool_result.metadata = {**dict(tool_result.metadata or {}), "timing": timing_metadata}
+            evidence_text = build_evidence_text_digest(tool_result, observations)
+            tool_result.summary = evidence_text
+            tool_result.metadata = {
+                **dict(tool_result.metadata or {}),
+                "digest_source_observation_ids": [item.observation_id for item in list(observations or [])],
+                "digest_version": "observations_v1",
+            }
 
             evidence_entry = EvidenceEntry(
                 evidence_id="ev_%02d_%s" % (step.step_id, request_hash[:8]),
                 tool_name=step.tool_name,
-                evidence_text=tool_result.summary or tool_result.raw_output_text or "",
+                evidence_text=evidence_text,
                 confidence=tool_result.metadata.get("confidence") if isinstance(tool_result.metadata, dict) else None,
-                status="provisional",
+                status="candidate",
                 **evidence_temporal_bounds(observations),
                 artifact_refs=tool_result.artifact_refs,
                 observation_ids=[item.observation_id for item in observations],
-                metadata={"request_hash": request_hash, "cache_hit": tool_result.cache_hit},
+                metadata={
+                    "request_hash": request_hash,
+                    "cache_hit": tool_result.cache_hit,
+                    "digest_source_observation_ids": [item.observation_id for item in list(observations or [])],
+                    "digest_version": "observations_v1",
+                },
             )
             evidence_ledger.append(evidence_entry, observations)
             write_json(step_dir / "result.json", sanitize_for_persistence(tool_result.dict()))

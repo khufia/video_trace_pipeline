@@ -7,6 +7,16 @@ from pydantic import BaseModel, Field, validator
 
 from .artifacts import ArtifactRef
 
+EVIDENCE_STATUSES = {
+    "candidate",
+    "validated",
+    "refuted",
+    "irrelevant",
+    "superseded",
+    "stale",
+    "unknown",
+}
+
 _CONFIDENCE_LABELS = {
     "very low": 0.1,
     "low": 0.25,
@@ -142,7 +152,7 @@ class EvidenceEntry(BaseModel):
     evidence_text: str
     inference_hint: Optional[str] = None
     confidence: Optional[float] = None
-    status: str = "provisional"
+    status: str = "candidate"
     time_start_s: Optional[float] = None
     time_end_s: Optional[float] = None
     frame_ts_s: Optional[float] = None
@@ -153,9 +163,9 @@ class EvidenceEntry(BaseModel):
 
     @validator("status")
     def _validate_status(cls, value):  # noqa: N805
-        normalized = str(value or "provisional").strip().lower()
-        if normalized not in {"validated", "provisional", "superseded"}:
-            raise ValueError("status must be validated, provisional, or superseded")
+        normalized = str(value or "candidate").strip().lower()
+        if normalized not in EVIDENCE_STATUSES:
+            raise ValueError("status must be one of: %s" % ", ".join(sorted(EVIDENCE_STATUSES)))
         return normalized
 
     @validator("confidence", pre=True)

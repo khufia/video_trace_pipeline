@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from .shared import pretty_json
 
@@ -27,6 +27,7 @@ Grounding discipline:
 - Keep `inference_steps` tool-free, reader-facing, and self-contained.
 - Every answer-critical inference step must cite `supporting_observation_ids`.
 - If support comes from multiple disjoint spans, keep them as intervals rather than collapsing them into one broad range.
+- Use TASK_STATE as the canonical checklist for claim statuses, coverage, counters, OCR occurrences, referents, and evidence status updates. Do not duplicate broad evidence text when an atomic observation or task-state claim status is available.
 
 Refinement discipline:
 - Preserve supported prior facts even when the new evidence resolves only one missing detail.
@@ -55,6 +56,7 @@ Chronology synthesis rule:
 Atomic evidence rule:
 - Prefer atomic observations as the citation surface for answer-critical claims.
 - Use evidence summaries as handles only; do not treat a broad evidence summary as proof of details absent from linked observations.
+- Treat verifier claim_results and TASK_STATE statuses as the claim-level reducer. Evidence summaries remain context; validated/refuted claim statuses decide whether a final answer can be selected.
 
 Prior-evidence rule:
 - In refine mode, preserve prior supported evidence unless new evidence directly contradicts it, corrects it, or proves the old anchor wrong.
@@ -140,6 +142,7 @@ def build_synthesizer_prompt(
     current_trace: Optional[dict],
     refinement_instructions: str,
     audit_feedback: Optional[dict] = None,
+    task_state: Optional[Dict[str, object]] = None,
 ) -> str:
     parts = [
         "TASK_KEY: %s" % task.sample_key,
@@ -157,6 +160,17 @@ def build_synthesizer_prompt(
             [
                 "PRIOR_AUDIT_DIAGNOSIS:",
                 pretty_json(audit_feedback),
+                "",
+            ]
+        )
+    if task_state:
+        parts.extend(
+            [
+                "TASK_STATE:",
+                pretty_json(task_state),
+                "",
+                "TASK_STATE_USAGE_NOTE:",
+                "Use TASK_STATE as the compact handoff of what is validated, refuted, unknown, already checked, and still open. Do not restate duplicate evidence unless it is needed for a cited inference step.",
                 "",
             ]
         )
@@ -185,7 +199,7 @@ def build_synthesizer_prompt(
             "TracePackage schema reminder:",
             "- task_key: string",
             "- mode: string",
-            "- evidence_entries: list[{evidence_id, tool_name, evidence_text, inference_hint?, confidence?, status? (only provisional|validated|superseded; default provisional), time_start_s?, time_end_s?, frame_ts_s?, time_intervals?: list[{start_s, end_s}], artifact_refs, observation_ids, metadata}]",
+            "- evidence_entries: list[{evidence_id, tool_name, evidence_text, inference_hint?, confidence?, status? (candidate|validated|refuted|irrelevant|superseded|stale|unknown; default candidate), time_start_s?, time_end_s?, frame_ts_s?, time_intervals?: list[{start_s, end_s}], artifact_refs, observation_ids, metadata}]",
             "- inference_steps: list[{step_id, text, supporting_observation_ids, answer_relevance, time_start_s?, time_end_s?, frame_ts_s?, time_intervals?: list[{start_s, end_s}]}]",
             "- final_answer: string",
             "- benchmark_renderings: object",

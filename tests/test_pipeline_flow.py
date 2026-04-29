@@ -99,6 +99,7 @@ class FakeSynthesizer(object):
         current_trace,
         refinement_instructions,
         audit_feedback=None,
+        task_state=None,
     ):
         self.calls.append(locals())
         return {"endpoint_name": "default", "model_name": "gpt-5.4", "system_prompt": "synth", "user_prompt": "prompt"}
@@ -129,8 +130,8 @@ class FakeAuditor(object):
         self.fail_first = fail_first
         self.count = 0
 
-    def build_request(self, task, trace_package, evidence_summary):
-        self.calls.append({"task": task, "trace_package": trace_package, "evidence_summary": evidence_summary})
+    def build_request(self, task, trace_package, evidence_summary, task_state=None):
+        self.calls.append({"task": task, "trace_package": trace_package, "evidence_summary": evidence_summary, "task_state": task_state})
         return {"endpoint_name": "default", "model_name": "gpt-5.4", "system_prompt": "audit", "user_prompt": "prompt"}
 
     def complete_request(self, request):
@@ -258,6 +259,8 @@ def test_pipeline_runner_passes_full_rich_preprocess_to_first_planner_round(tmp_
     assert call["planner_segments"][0]["dense_caption"]["overall_summary"] == "A short rich summary."
     assert call["planner_segments"][0]["asr"]["transcript_spans"][0]["text"] == "The price is forty two."
     assert call["retrieval_catalog"]["preprocess"]["planner_segment_count"] == 1
+    assert "task_state" in call
+    assert call["task_state"]["claim_results"]
     assert "preprocess_planning_memory" not in call
     assert "compact_rounds" not in call
 
@@ -272,6 +275,7 @@ def test_refine_planner_receives_retrieved_context_before_plan(tmp_path):
     call = runner.planner.calls[0]
     assert call["mode"] == "refine"
     assert call["retrieved_context"]["audit_gaps"] == ["exact visible price label"]
+    assert call["task_state"]["open_questions"]
     assert "planner_context" not in call
 
 
@@ -331,6 +335,7 @@ def test_retrieved_existing_evidence_reaches_synthesizer_without_tool_call(tmp_p
     synth_call = runner.synthesizer.calls[0]
     assert synth_call["round_evidence_entries"][0]["evidence_id"] == "ev_ready"
     assert synth_call["round_observations"][0]["observation_id"] == "obs_ready"
+    assert synth_call["task_state"]["retrieval_memory"]
     assert runner.planner_retriever.retrieve_for_requests_calls
 
 
@@ -342,6 +347,8 @@ def test_pipeline_writes_final_outputs(tmp_path):
     planner_request_path = tmp_path / "workspace" / result["run_dir"] / "round_01" / "planner_request.json"
     assert final_result_path.exists()
     assert planner_request_path.exists()
+    assert "task_state" in result
+    assert (tmp_path / "workspace" / result["run_dir"] / "round_01" / "task_state_after_audit.json").exists()
 
 
 def test_pipeline_retries_invalid_planner_plan_once(tmp_path):

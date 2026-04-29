@@ -168,7 +168,7 @@ def test_evidence_ledger_lookup_records_resolves_evidence_and_observation_ids(tm
     assert by_observation[0]["observation_id"] == "obs_demo"
 
 
-def test_evidence_ledger_exports_artifact_context_with_contains_text(tmp_path):
+def test_evidence_ledger_does_not_export_artifact_context(tmp_path):
     profile = MachineProfile(workspace_root=str(tmp_path / "workspace"))
     workspace = WorkspaceManager(profile)
     task = TaskSpec(
@@ -223,10 +223,5 @@ def test_evidence_ledger_exports_artifact_context_with_contains_text(tmp_path):
     ledger.append(entry, [observation, prompt_observation])
 
     artifact_context_path = workspace.artifacts_root / "video1" / "artifact_context.jsonl"
-    assert artifact_context_path.exists()
-    rows = [line for line in artifact_context_path.read_text(encoding="utf-8").splitlines() if line.strip()]
-    assert len(rows) == 1
-    assert "The frame shows two bottles on the table." in rows[0]
-    assert "obs_bottles" in rows[0]
-    assert "obs_prompt" not in rows[0]
-    assert "The prompt asks" not in rows[0]
+    assert not artifact_context_path.exists()
+    assert ledger.lookup_records(["ev_01_demo"])[0]["artifact_refs"][0]["artifact_id"] == "frame_132_00"

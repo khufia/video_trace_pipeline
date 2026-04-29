@@ -137,7 +137,6 @@ class ExecutionPlan(BaseModel):
 
 
 _RETRIEVAL_TARGETS = {
-    "artifact_context",
     "asr_transcripts",
     "dense_captions",
     "evidence",
@@ -146,6 +145,7 @@ _RETRIEVAL_TARGETS = {
     "observations",
     "preprocess",
     "prior_trace",
+    "task_state",
 }
 
 
@@ -190,7 +190,6 @@ class PlannerRetrievalQuery(BaseModel):
     time_range: Dict[str, float] = Field(default_factory=dict)
     source_tools: List[str] = Field(default_factory=list)
     evidence_status: str = ""
-    artifact_ids: List[str] = Field(default_factory=list)
     evidence_ids: List[str] = Field(default_factory=list)
     observation_ids: List[str] = Field(default_factory=list)
     limit: int = 20
@@ -215,7 +214,7 @@ class PlannerRetrievalQuery(BaseModel):
             raise ValueError("target must be one of: %s" % ", ".join(sorted(_RETRIEVAL_TARGETS)))
         return normalized
 
-    @field_validator("modalities", "source_tools", "artifact_ids", "evidence_ids", "observation_ids", mode="before")
+    @field_validator("modalities", "source_tools", "evidence_ids", "observation_ids", mode="before")
     @classmethod
     def _validate_string_lists(cls, value):
         return _normalize_string_list(value)

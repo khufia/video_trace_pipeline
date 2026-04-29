@@ -1145,3 +1145,287 @@ What remained weak before this implementation:
 - The auditor score rubric is abstract and can still produce wrong PASS or over-strict FAIL.
 - The planner still needs a retrieval/pause system for large preprocess/evidence context instead of relying on one prompt payload. The target implementation is the catalog + iterative retrieval controller described in Section 2.
 - The prompt code does not yet explicitly teach scoreboard/price/nameplate label-value adjacency with examples.
+
+## 10. Out-Of-Box Tooling Changes After Minerva/OmniVideoBench Failures
+
+Prompt changes alone are not enough. The inspected failures show repeated capability and state-management gaps:
+
+- Wrong temporal window: `video_485` missed fire/trapped evidence at 77-88s and searched the ending instead; Minerva `0XB0BWhzNc` stopped at the first 3rd-quarter 0:00.0 frame and missed the updated 55-40 scoreboard a few seconds later.
+- Sparse-frame counting: flag waves, net hits, side steps, ball tosses, UNO cards, and ingredient appearances cannot be counted reliably from a handful of representative frames.
+- Small/structured text: scoreboard, price grids, UI labels, chess clocks, ingredient lists, and ice text need OCR with region/layout preservation.
+- Referent and speaker attribution: kidnapper, dog/mother/person relation, and dialogue-purpose questions need explicit identity slots and local turn-taking evidence.
+- Auditor false positives: several traces were internally coherent but wrong against gold, meaning the auditor must check coverage and option discriminators, not just prose consistency.
+
+### 10.1 Use `generic_purpose` As A Visual Verifier Only With A Stricter Contract
+
+`generic_purpose` already accepts clips, frames, transcripts, and text context, so a separate visual-verifier backend is not required as the first implementation.
+
+The flaw is that the current `generic_purpose` contract is too loose:
+
+- It does not guarantee dense coverage of a clip.
+- It does not expose the sampling policy used for a clip.
+- It returns broad prose rather than claim-by-claim verification.
+- It can answer from sparse frames while sounding certain.
+- It is weak at proving absence, motion, counts, and before/after transitions.
+
+Fix: add a verifier mode or a thin `visual_verifier` adapter that can initially reuse the `generic_purpose` model/backend but changes the request and output contract.
+
+Target request:
+
+```json
+{
+  "clips": [{"video_id": "video_id", "start_s": 70.0, "end_s": 90.0}],
+  "sampling": {
+    "mode": "dense",
+    "fps": 2.0,
+    "include_scene_changes": true,
+    "max_frames": 48
+  },
+  "claims": [
+    "fire is visible",
+    "humans are trapped or unable to exit",
+    "the robot/cat alliance precedes or causes the danger"
+  ],
+  "query": "Verify each claim from the sampled clip only."
+}
+```
+
+Target output:
+
+```json
+{
+  "coverage": {
+    "clip_start_s": 70.0,
+    "clip_end_s": 90.0,
+    "sampled_timestamps_s": [70.0, 70.5, 71.0],
+    "coverage_notes": "Dense frames and scene-change frames were inspected."
+  },
+  "claim_results": [
+    {
+      "claim": "fire is visible",
+      "status": "supported",
+      "time_ranges": [{"start_s": 77.0, "end_s": 79.0}],
+      "evidence_text": "Visible flames appear in the room/kitchen.",
+      "supporting_artifacts": ["frame_077.00", "frame_078.00"]
+    },
+    {
+      "claim": "humans are trapped or unable to exit",
+      "status": "supported",
+      "time_ranges": [{"start_s": 84.0, "end_s": 88.0}],
+      "evidence_text": "The humans are at the door and appear unable to get out.",
+      "supporting_artifacts": ["frame_084.00", "frame_088.00"]
+    }
+  ]
+}
+```
+
+Planner change:
+
+- The planner must control `sampling.mode`, `fps`, `max_frames`, and temporal windows.
+- For action/state/count/absence questions, the planner should prefer verifier mode over free-form `generic_purpose`.
+- The synthesizer and auditor should trust verifier outputs only when `coverage` covers the answer-critical interval.
+
+### 10.2 Option-Aware Temporal Search Should Be A Planning Subroutine, Not Preprocessing
+
+`visual_temporal_grounder` already exists and should remain the low-level visual search tool. The missing piece is a controller that decomposes the question/options into atomic search claims and verifies coverage.
+
+Do not make this pure preprocessing. The search targets are task-specific:
+
+- `video_485` option A requires separate searches for service, betrayal, fire, and trapped humans.
+- A scoreboard question requires end-of-quarter and post-buzzer update windows.
+- A "last smartphone use" question requires all smartphone-use candidates and then the last one.
+- A repeated-place question requires exact phrase occurrences, not generic scene captions.
+
+Target flow:
+
+```text
+question + options + optional initial_trace_steps
+  -> decompose each option into atomic visual/audio/text claims
+  -> build search requests for unverified claims
+  -> call visual_temporal_grounder, preprocess text retrieval, ASR retrieval, and artifact/evidence retrieval
+  -> merge candidate clips by claim
+  -> mark which option atoms have candidate support
+  -> planner emits execution plan only for unresolved or high-risk atoms
+```
+
+This controller can call `visual_temporal_grounder`; it should not replace it.
+
+Target option-claim search state:
+
+```json
+{
+  "option_claims": [
+    {
+      "option_id": "A",
+      "claim_id": "A.fire",
+      "claim": "fire is visible",
+      "modality": "visual",
+      "status": "candidate_found",
+      "candidate_clips": [{"start_s": 76.0, "end_s": 80.0}],
+      "source": "visual_temporal_grounder"
+    },
+    {
+      "option_id": "A",
+      "claim_id": "A.trapped_humans",
+      "claim": "humans are trapped or unable to exit",
+      "modality": "visual",
+      "status": "unverified",
+      "candidate_clips": []
+    }
+  ]
+}
+```
+
+Initial trace use:
+
+- In generate mode, `initial_trace_steps` should be treated as hypotheses only.
+- If an initial trace says "fire at 01:17", add a candidate search/verification window around 01:17.
+- Never treat initial trace text as evidence without tool verification.
+
+### 10.3 Checklist And Counter State Should Be Active Pipeline State
+
+Evidence is passive memory: it stores what was observed. It does not say what remains to be proven.
+
+Add an active `TaskChecklist` that is created before planning, updated after each tool call, and passed to planner, synthesizer, and auditor.
+
+Observed benchmark question structures:
+
+| Benchmark/source | Dominant structures seen | Required checklist modules |
+| --- | --- | --- |
+| OmniVideoBench/refiner inputs | occurrence/order, dialogue/audio anchors, relation/identity, exact timestamp actions, small text | temporal anchors, referent slots, ASR/quote spans, exact-timestamp verifier, OCR targets |
+| Minerva random sample | scoreboard/text, count/motion, option event ordering, speaker/referent attribution, arithmetic over OCR values | option-claim checklist, counter ledger, OCR/layout ledger, referent tracker, arithmetic workspace |
+| VideoMathQA MCQ/MBIN | chart/table reading, geometric/counting tasks, arithmetic, final diagram/graph state, step ordering | visual math workspace, chart/table extractor, final-frame selector, count ledger, formula/arithmetic ledger |
+
+Target schema:
+
+```json
+{
+  "task_type": ["multi_choice", "temporal", "count", "ocr", "relation"],
+  "option_claims": [
+    {
+      "option_id": "A",
+      "claim_id": "A.fire",
+      "text": "fire is visible",
+      "required": true,
+      "status": "unverified",
+      "supporting_evidence_ids": [],
+      "blocking_reason": null
+    }
+  ],
+  "temporal_anchors": [
+    {
+      "anchor_id": "old_trace_fire_0117",
+      "source": "initial_trace_hypothesis",
+      "time_s": 77.0,
+      "status": "needs_verification"
+    }
+  ],
+  "referent_slots": [
+    {
+      "slot_id": "accuser",
+      "description": "man in the light gray jacket",
+      "candidate_artifacts": [],
+      "status": "unresolved"
+    }
+  ],
+  "counter": {
+    "event_definition": "complete flag wave cycle while ball lands near spectator",
+    "candidates": [
+      {
+        "candidate_id": "wave_001",
+        "time_range": {"start_s": 357.0, "end_s": 363.0},
+        "status": "unverified",
+        "cycle_count": null,
+        "dedupe_group": null
+      }
+    ],
+    "count": null
+  },
+  "ocr_targets": [
+    {
+      "target_id": "scoreboard_end_q3",
+      "text_kind": "scoreboard",
+      "needs": ["team labels", "scores", "quarter", "clock"],
+      "status": "unverified"
+    }
+  ],
+  "arithmetic": [
+    {
+      "expression": "sum visible prices",
+      "operands": [],
+      "status": "blocked_until_ocr_grounded"
+    }
+  ]
+}
+```
+
+Can the current pipeline accommodate this?
+
+Yes, but not as prompt-only state.
+
+Needed integration points:
+
+- Create the checklist before planner retrieval.
+- Let planner retrieval query by checklist item, not only free-text task terms.
+- Let tools update checklist items with support, rejection, or unresolved status.
+- Store checklist snapshots in each round directory for debugging.
+- Synthesize final answer from checklist-resolved atoms, not only from prose evidence.
+- Audit against checklist coverage: do not PASS if required atoms are unverified.
+
+This preserves the current flow while making the state explicit:
+
+```text
+preprocess -> task checklist -> planner retrieval -> execution plan -> tools/evidence -> checklist update -> one-shot synthesizer -> auditor
+```
+
+### 10.4 Single OCR Model Recommendation
+
+If only one OCR model is allowed, use PaddleOCR-VL rather than classic PaddleOCR.
+
+Reason:
+
+- Many failures are layout-aware OCR failures, not just character recognition failures.
+- Scoreboards, product grids, ingredient overlays, chess clocks, UI options, and chart/table values need text plus structure.
+- PaddleOCR-VL is designed as a VLM-style document/OCR parser and is more aligned with these needs than plain OCR line detection.
+
+Target OCR request:
+
+```json
+{
+  "frames": [{"video_id": "video_id", "timestamp_s": 130.0}],
+  "regions": [],
+  "query": "Read the scoreboard. Return team labels, scores, quarter, and clock with spatial pairing.",
+  "output_format": "structured"
+}
+```
+
+Target OCR output:
+
+```json
+{
+  "text": "BRISTOL CENT. 55 | E. CATHOLIC 40 | 3rd | 0:00.0",
+  "blocks": [
+    {"text": "BRISTOL CENT.", "bbox": [0.20, 0.88, 0.35, 0.94], "role": "team_label"},
+    {"text": "55", "bbox": [0.36, 0.88, 0.40, 0.94], "role": "score"},
+    {"text": "E. CATHOLIC", "bbox": [0.46, 0.88, 0.62, 0.94], "role": "team_label"},
+    {"text": "40", "bbox": [0.63, 0.88, 0.67, 0.94], "role": "score"}
+  ],
+  "pairings": [
+    {"label": "BRISTOL CENT.", "value": "55"},
+    {"label": "E. CATHOLIC", "value": "40"}
+  ],
+  "confidence": 0.0
+}
+```
+
+Download/cache target:
+
+- Repository: `PaddlePaddle/PaddleOCR-VL`
+- Cache root: `/fs/nexus-scratch/gnanesh/.cache/huggingface`
+- Hub cache: `/fs/nexus-scratch/gnanesh/.cache/huggingface/hub`
+- Convenience symlink target after download: `/fs/nexus-scratch/gnanesh/.cache/huggingface/hub/PaddleOCR-VL`
+
+Adoption rule:
+
+- First test it on known failures: Minerva scoreboard `0XB0BWhzNc`, price grid `7eF4EjdYZ7k`, ice text `0ZosUeqDg0`, UI option `GlecDUdZdkE`, ingredient overlay `ODflyuHFr0`, and chess clock/eval overlay `d8UESxnuVAY`.
+- Adopt it only if it improves exact text plus label-value pairing on these samples.

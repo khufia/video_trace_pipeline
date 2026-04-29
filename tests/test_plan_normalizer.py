@@ -10,6 +10,7 @@ from video_trace_pipeline.schemas import (
     PlanStep,
     SpatialGrounderRequest,
     TaskSpec,
+    VerifierRequest,
     VisualTemporalGrounderRequest,
 )
 
@@ -27,6 +28,7 @@ class _Registry(object):
             "spatial_grounder": _Adapter(SpatialGrounderRequest),
             "ocr": _Adapter(OCRRequest),
             "generic_purpose": _Adapter(GenericPurposeRequest),
+            "verifier": _Adapter(VerifierRequest),
             "asr": _Adapter(ASRRequest),
         }
 
@@ -278,3 +280,43 @@ def test_plan_normalizer_rejects_unretrieved_evidence_ids():
         retrieved_context={"observations": [{"observation_id": "obs_1", "evidence_id": "ev_ready"}]},
     )
     assert normalized.steps[0].inputs["evidence_ids"] == ["ev_ready"]
+
+
+def test_plan_normalizer_allows_verifier_claim_wiring():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Read and verify text.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="frame_retriever",
+                purpose="Retrieve readable frame.",
+                inputs={"query": "readable sign", "time_hints": ["middle of the video"]},
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="ocr",
+                purpose="Read the sign.",
+                inputs={"query": "read exact sign text"},
+                input_refs={"frames": [{"step_id": 1, "field_path": "frames"}]},
+            ),
+            PlanStep(
+                step_id=3,
+                tool_name="verifier",
+                purpose="Verify the OCR claim.",
+                inputs={
+                    "query": "verify the sign text claim",
+                    "claims": [{"claim_id": "claim_sign", "text": "The sign text supports option A.", "claim_type": "ocr"}],
+                },
+                input_refs={
+                    "frames": [{"step_id": 1, "field_path": "frames"}],
+                    "ocr_results": [{"step_id": 2, "field_path": "reads"}],
+                },
+            ),
+        ],
+    )
+
+    normalized = normalizer.normalize(_task(), plan)
+
+    assert normalized.steps[-1].tool_name == "verifier"
+    assert sorted(normalized.steps[-1].input_refs) == ["frames", "ocr_results"]

@@ -17,6 +17,7 @@ from .process_adapters import (
     GenericPurposeProcessAdapter,
     OCRProcessAdapter,
     SpatialGrounderProcessAdapter,
+    VerifierProcessAdapter,
     VisualTemporalGrounderProcessAdapter,
 )
 from .specs import tool_implementation
@@ -254,6 +255,13 @@ class ToolRegistry(object):
                 )
             elif tool_name == "generic_purpose":
                 adapters[tool_name] = GenericPurposeProcessAdapter(
+                    name=tool_name,
+                    model_name=config.model or tool_name,
+                    extra=config.extra,
+                    model_pool=self.model_pool,
+                )
+            elif tool_name == "verifier":
+                adapters[tool_name] = VerifierProcessAdapter(
                     name=tool_name,
                     model_name=config.model or tool_name,
                     extra=config.extra,

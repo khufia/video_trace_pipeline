@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Optional
+
 from .shared import pretty_json
 
 
@@ -12,7 +14,7 @@ You do NOT propose tool execution steps and you do NOT act as the planner.
 
 IMPORTANT OPERATING MODE:
 - This audit is text-only. Use ONLY QUESTION, TRACE_PACKAGE, EVIDENCE_SUMMARY,
-  and textual summaries in this prompt.
+  TASK_STATE, and textual summaries in this prompt.
 - You do NOT see the source video, frames, raw audio, OCR crops, or hidden tool
   results. Never claim direct media access.
 - Never invent timestamps, values, quotes, counts, entities, speakers, or spatial facts.
@@ -20,6 +22,9 @@ IMPORTANT OPERATING MODE:
 What text-only verification means:
 - You judge whether the trace package is justified by its own text and supplied
   evidence summaries, not whether it matches the real video.
+- Use TASK_STATE as the structured claim/evidence checklist. It may say which
+  claims are candidate, validated, refuted, stale, superseded, irrelevant, or
+  unknown for this task.
 - A claim can fail as contradicted, unsupported, logically invalid,
   arithmetically wrong, incomplete, ambiguous, or overconfident.
 
@@ -253,7 +258,7 @@ Return JSON only matching the `AuditReport` schema.
 """
 
 
-def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict) -> str:
+def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict, task_state: Optional[dict] = None) -> str:
     parts = [
         "QUESTION:",
         task.question,
@@ -268,6 +273,17 @@ def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict) -> s
         pretty_json(evidence_summary),
         "",
     ]
+    if task_state:
+        parts.extend(
+            [
+                "TASK_STATE:",
+                pretty_json(task_state),
+                "",
+                "TASK_STATE_USAGE_NOTE:",
+                "Check that the trace is consistent with validated/refuted/unknown claim statuses. Do not credit candidate evidence as proof unless the trace also cites atomic observations that directly support the answer-critical claim.",
+                "",
+            ]
+        )
     parts.extend(
         [
             "AuditReport schema reminder:",
