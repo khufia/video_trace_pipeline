@@ -1,0 +1,143 @@
+tools:
+  planner:
+    enabled: true
+    backend: openai
+    model: gpt-5.4
+    endpoint: default
+    temperature: 0.0
+    max_tokens: 6000
+    command: [python3, -m, video_trace_pipeline_simple.tools.planner]
+  synthesizer:
+    enabled: true
+    backend: openai
+    model: gpt-5.4
+    endpoint: default
+    temperature: 0.0
+    max_tokens: 12000
+    command: [python3, -m, video_trace_pipeline_simple.tools.synthesizer]
+  auditor:
+    enabled: true
+    backend: openai
+    model: gpt-5.4
+    endpoint: default
+    temperature: 0.0
+    max_tokens: 4000
+    command: [python3, -m, video_trace_pipeline_simple.tools.auditor]
+  dense_captioner:
+    enabled: true
+    backend: local
+    model: yaolily/TimeChat-Captioner-GRPO-7B
+    command: [python3, -m, video_trace_pipeline_simple.tools.dense_captioner]
+    extra:
+      backend_name: timechat_captioner
+      sample_frames: 10
+      fps: 2.0
+      max_frames: 160
+      max_pixels: 297920
+      video_max_pixels: 297920
+      use_audio_in_video: true
+      preprocess:
+        clip_duration_s: 60
+        sample_frames: 6
+        fps: 1.0
+        max_frames: 96
+        use_audio_in_video: false
+        include_asr: true
+        collect_sampled_frames: false
+        max_new_tokens: 700
+      attn_implementation: flash_attention_2
+      temperature: 0.0
+      do_sample: false
+  asr:
+    enabled: true
+    backend: local
+    model: large-v3
+    command: [python3, -m, video_trace_pipeline_simple.tools.asr]
+    extra:
+      model_name: large-v3
+      language: null
+  visual_temporal_grounder:
+    enabled: true
+    backend: local
+    model: TencentARC/TimeLens-8B
+    command: [python3, -m, video_trace_pipeline_simple.tools.visual_temporal_grounder]
+    extra:
+      backend_name: timelens
+      clip_duration_s: 60
+      use_embedding_prefilter: false
+      prefilter_embedder_model: Qwen/Qwen3-VL-Embedding-8B
+      prefilter_top_frames: 16
+      prefilter_window_budget: 16
+      prefilter_neighbor_radius: 1
+      dense_frame_embed_batch: 16
+      attn_implementation: flash_attention_2
+      temperature: 0.0
+      do_sample: false
+  frame_retriever:
+    enabled: true
+    backend: local
+    model: Qwen/Qwen3-VL-Embedding-8B
+    command: [python3, -m, video_trace_pipeline_simple.tools.frame_retriever]
+    extra:
+      backend_name: qwen_frame_retriever
+      reranker_model: Qwen/Qwen3-VL-Reranker-8B
+      use_reranker: true
+      candidate_frames: 12
+      dense_frame_embed_batch: 16
+      attn_implementation: flash_attention_2
+      temperature: 0.0
+      do_sample: false
+  ocr:
+    enabled: true
+    backend: local
+    model: PaddleOCR
+    command: [python3, -m, video_trace_pipeline_simple.tools.ocr]
+    extra:
+      backend_name: paddleocr
+      lang: en
+      ocr_version: PP-OCRv5
+      require_gpu: false
+      use_textline_orientation: false
+      max_longest_dim: 1600
+  audio_temporal_grounder:
+    enabled: true
+    backend: local
+    model: Loie/SpotSound
+    command: [python3, -m, video_trace_pipeline_simple.tools.audio_temporal_grounder]
+    extra:
+      backend_name: spotsound
+      base_model: nvidia/audio-flamingo-3-hf
+      temperature: 0.0
+      do_sample: false
+  spatial_grounder:
+    enabled: true
+    backend: local
+    model: Qwen/Qwen3.5-9B
+    command: [python3, -m, video_trace_pipeline_simple.tools.spatial_grounder]
+    extra:
+      backend_name: qwen35vl_spatial
+      attn_implementation: flash_attention_2
+      temperature: 0.0
+      do_sample: false
+      max_new_tokens: 1536
+  multimodal_reasoner:
+    enabled: true
+    backend: local
+    model: Qwen/Qwen3.5-9B
+    command: [python3, -m, video_trace_pipeline_simple.tools.multimodal_reasoner]
+    extra:
+      backend_name: qwen35vl
+      attn_implementation: flash_attention_2
+      temperature: 0.0
+      do_sample: false
+  verifier:
+    enabled: true
+    backend: local
+    model: Qwen/Qwen3-VL-8B-Instruct
+    command: [python3, -m, video_trace_pipeline_simple.tools.verifier]
+    extra:
+      backend_name: qwen3vl_verifier
+      attn_implementation: flash_attention_2
+      temperature: 0.0
+      do_sample: false
+      max_new_tokens: 4096
