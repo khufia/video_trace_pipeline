@@ -188,9 +188,8 @@ def _ref_signature(target_field: str, ref: InputRef) -> Tuple[str, int, str]:
 def _step_search_text(step: PlanStep) -> str:
     parts: List[str] = [str(step.purpose or "")]
     inputs = dict(step.inputs or {})
-    for key in ("query", "sequence_mode", "sort_order"):
-        if inputs.get(key) is not None:
-            parts.append(str(inputs.get(key)))
+    if inputs.get("query") is not None:
+        parts.append(str(inputs.get("query")))
     for item in list(inputs.get("time_hints") or []):
         parts.append(str(item))
     for key, value in sorted(dict(step.expected_outputs or {}).items()):
@@ -200,9 +199,6 @@ def _step_search_text(step: PlanStep) -> str:
 
 
 def _frame_step_has_explicit_frame_artifact_need(step: PlanStep) -> bool:
-    inputs = dict(step.inputs or {})
-    if str(inputs.get("sequence_mode") or "").strip().lower() == "anchor_window":
-        return True
     text = _step_search_text(step)
     return bool(_EXPLICIT_FRAME_ARTIFACT_NEED_RE.search(text) or _EXACT_TIMESTAMP_RE.search(text))
 
@@ -432,7 +428,7 @@ class ExecutionPlanNormalizer(object):
                 raise ValueError(
                     "Plan step %s uses frame_retriever as a bridge from visual_temporal_grounder to %s "
                     "without an explicit frame-specific need. Pass grounded clips directly to %s, or make "
-                    "the frame_retriever purpose state an exact/readable/static/OCR/anchor-window frame need."
+                    "the frame_retriever purpose state an exact/readable/static/OCR/frame-by-frame need."
                     % (frame_step_id, consumer_tool, consumer_tool)
                 )
 

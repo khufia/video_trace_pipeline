@@ -37,10 +37,10 @@ Multimodal reasoning use:
 
 Frame retrieval use:
 - `generic_purpose`, `ocr`, `spatial_grounder`, `asr`, `dense_captioner`, and `audio_temporal_grounder` can consume grounded clips directly. After `visual_temporal_grounder`, pass clips directly to these tools unless an actual frame artifact is required.
-- Use `frame_retriever` after temporal grounding only when the next step explicitly needs frame artifacts: an exact/particular frame or timestamp, readable/static/high-resolution frame, OCR-quality still, static fine detail, anchor-window neighbors, or true frame-by-frame inspection. The `frame_retriever` purpose must state that frame-specific need.
+- Use `frame_retriever` after temporal grounding only when the next step explicitly needs frame artifacts: an exact/particular frame or timestamp, readable/static/high-resolution frame, OCR-quality still, static fine detail, or true frame-by-frame inspection. The `frame_retriever` purpose must state that frame-specific need.
 - Do not insert `frame_retriever` before clip-capable tools just to hand them visual evidence. `spatial_grounder` and `ocr` can accept grounded clips and internally choose frame material when a separate frame artifact is not required.
 - Do not use `spatial_grounder` as an OCR cropper. OCR must use complete frames or grounded clips directly; use `spatial_grounder` only for localization/spatial reasoning, not as a preprocessing bridge into OCR.
-- For interval-level count, motion, shot/cut order, repeated-action, or changing-state reasoning after visual grounding, pass grounded clips directly to a clip-capable downstream tool by default; request frames only when the plan states a concrete frame-by-frame or anchor-window need.
+- For interval-level count, motion, shot/cut order, repeated-action, or changing-state reasoning after visual grounding, pass grounded clips directly to a clip-capable downstream tool by default; request frames only when the plan states a concrete frame-by-frame, exact-frame, or readable-static-frame need.
 
 Planning rules:
 - Gather the smallest sufficient evidence set that resolves the answer-critical gap. Do not shrink context so much that temporal order, action state, referent identity, or option mapping becomes ungrounded.
@@ -72,7 +72,7 @@ Wiring is not evidence:
 
 Chain sufficiency rule:
 - A chain is sufficient only if its output can ground the final discriminator, not merely locate a related moment.
-- For sequence/order/count/action tasks, prefer grounded chronological clips over isolated top-k frames; use frame sequences only for exact/readable/static frame needs or explicit anchor-window inspection.
+- For sequence/order/count/action tasks, prefer grounded chronological clips over isolated top-k frames; use frame retrieval only for exact/readable/static frame needs or true frame-by-frame inspection.
 - For visible text tasks, preserve full-frame label-value adjacency until OCR has read the target text.
 
 Evidence preservation rule:
@@ -92,8 +92,8 @@ Occurrence and chronology rule:
 
 Action-at-timestamp rule:
 - Exact timestamps are anchors, not isolated proof.
-- For action, motion, state change, count, or identity at a timestamp, retrieve the anchor frame plus chronological neighbors.
-- The downstream tool must receive the structured frame sequence and answer from the local sequence.
+- For action, motion, state change, count, or identity at a timestamp, use `frame_retriever` with literal `time_hints`, a focused `query`, and enough `num_frames` for local context.
+- The downstream tool must use the returned frame timestamps when reasoning about local temporal order.
 
 Small-text rule:
 - For scoreboards, prices, labels, signs, nameplates, blackboards, whiteboards, visible letters/words, charts, menus, or control panels, use high-resolution full frames or grounded clips with OCR and explicit label-value pairing.
@@ -111,11 +111,11 @@ Tool-chain patterns:
 - Localized visual state: visual_temporal_grounder -> spatial_grounder with clips -> generic_purpose with clips or frames from `regions[].frame` plus spatial_description text_contexts.
 - Dialogue: bounded clip localization when needed -> asr -> optional generic_purpose over transcripts.
 - Tone/affect: asr plus grounded clips -> generic_purpose over transcripts and clips; use frame_retriever only for an explicit delivery-frame sequence.
-- Brief sound cause: audio_temporal_grounder -> frame_retriever chronological sequence -> generic_purpose over the direct trigger.
+- Brief sound cause: audio_temporal_grounder -> frame_retriever for local source/action frames -> generic_purpose over the direct trigger.
 - Non-speech audio option comparison: audio_temporal_grounder with option-aware sound queries over the full bounded interval -> optional frame_retriever for source/action -> generic_purpose over the grounded clips/frames.
 - Visual-conditioned audio/count: visual_temporal_grounder for all visible-use/action candidates -> audio_temporal_grounder on those candidate clips -> generic_purpose over accepted/rejected visual occurrences, non-use sounds, and deduplicated sound types; add frame_retriever only for explicit frame-by-frame visual confirmation.
-- Exact timestamp/action/state: frame_retriever with sequence_mode "anchor_window", include_anchor_neighbors true, sort_order "chronological" -> generic_purpose.
-- Object count/state: visual_temporal_grounder -> generic_purpose with clips for broad state/count; use spatial_grounder with clips if same-type candidates need localization; add frame_retriever only for exact/readable/static/anchor-window frame needs.
+- Exact timestamp/action/state: frame_retriever with literal time_hints, focused query, and enough num_frames -> generic_purpose.
+- Object count/state: visual_temporal_grounder -> generic_purpose with clips for broad state/count; use spatial_grounder with clips if same-type candidates need localization; add frame_retriever only for exact/readable/static/frame-by-frame needs.
 - Multi-referent relation/comparison: identify referent slots from the question -> retrieve/ground each slot in its own scope -> pass all slot frames plus relationship transcripts/text to generic_purpose for relation mapping.
 - Complex visual-temporal ordinal: visual_temporal_grounder for anchor candidates + visual_temporal_grounder for target-event candidates -> generic_purpose to sort/correlate/select target clips -> generic_purpose over selected clips for answer/count.
 - Map/direction: speech or visual anchor -> frame_retriever -> spatial_grounder for anchor and referent -> generic_purpose coordinate comparison.
@@ -149,8 +149,8 @@ Example C, sound trigger:
   "strategy": "Find the sound and inspect the local before/during/after sequence for the direct trigger.",
   "steps": [
     {"step_id": 1, "tool_name": "audio_temporal_grounder", "purpose": "Localize the distinctive non-speech sound.", "inputs": {"query": "brief metallic crash or bang sound", "clips": [{"video_id": "video_id", "start_s": 0.0, "end_s": 120.0}]}, "input_refs": {}, "expected_outputs": {"clips": "sound-centered intervals"}},
-    {"step_id": 2, "tool_name": "frame_retriever", "purpose": "Retrieve chronological neighboring frames around the sound.", "inputs": {"query": "frames before during and after the sound showing the direct trigger", "num_frames": 5, "sequence_mode": "anchor_window", "neighbor_radius_s": 2.0, "include_anchor_neighbors": true, "sort_order": "chronological"}, "input_refs": {"clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"frames": "chronological trigger sequence"}},
-    {"step_id": 3, "tool_name": "generic_purpose", "purpose": "Identify the direct visible trigger from the local sound-centered sequence.", "inputs": {"query": "What directly triggers the sound in the local before/during/after sequence? Use only the supplied clips and chronological frames."}, "input_refs": {"frames": [{"step_id": 2, "field_path": "frames"}], "clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"answer": "direct trigger or unresolved", "analysis": "why the local sequence supports it"}}
+    {"step_id": 2, "tool_name": "frame_retriever", "purpose": "Retrieve local frames around the sound that may show the direct trigger.", "inputs": {"query": "frames around the sound showing the direct visible trigger", "num_frames": 5}, "input_refs": {"clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"frames": "local trigger frames with timestamps"}},
+    {"step_id": 3, "tool_name": "generic_purpose", "purpose": "Identify the direct visible trigger from the local sound-centered frames.", "inputs": {"query": "What directly triggers the sound? Use only the supplied clips and frames, and use frame timestamps for local temporal order."}, "input_refs": {"frames": [{"step_id": 2, "field_path": "frames"}], "clips": [{"step_id": 1, "field_path": "clips"}]}, "expected_outputs": {"answer": "direct trigger or unresolved", "analysis": "why the local frames support it"}}
   ],
   "refinement_instructions": "Distinguish setup context from the direct trigger; preserve uncertainty if the local sequence does not show the trigger."
 }
@@ -178,11 +178,11 @@ Example D2, complex visual-temporal ordinal:
 - Good plan: visual_temporal_grounder("all reviewed-play or replay-review moments") plus visual_temporal_grounder("all shot/delivery candidates with nearby spectator flag waving or ball landing") -> generic_purpose sorts timestamps, identifies the second reviewed play, correlates candidate shots, and selects the target interval -> generic_purpose counts only complete flag-wave cycles in the selected target clips.
 
 Example E, ordered labels:
-- Good plan: retrieve the bounded montage as a chronological frame sequence, OCR each visible label, then synthesize the ordered label list.
+- Good plan: retrieve readable frames from the bounded montage, OCR each visible label, then synthesize the ordered label list by frame timestamps.
 - Bad plan: retrieve top-k relevant frames and treat returned relevance order as chronology.
 
 Example F, exact timestamp action:
-- Good plan: retrieve the anchor frame plus +/- 2s chronological neighbors, then determine the action/state from the sequence.
+- Good plan: use `frame_retriever` with the exact timestamp in `time_hints`, a focused action/state query, and enough frames for local context; then determine the action/state using frame timestamps.
 - Bad plan: inspect only the exact frame and ignore adjacent motion context.
 
 Example G, label-value display:
@@ -210,11 +210,11 @@ Example J, speaker/addressee attribution:
 - Bad plan: assume the nearest named person in the transcript is the speaker or addressee.
 
 Example K, object state anchored by speech:
-- Good plan: use ASR to find the utterance time, retrieve frames around it, spatially ground the object, and determine state such as empty/full/open/closed/on/off from the supplied media.
+- Good plan: use ASR to find the utterance time, retrieve frames with that time in `time_hints`, spatially ground the object, and determine state such as empty/full/open/closed/on/off from the supplied media.
 - Bad plan: use the transcript topic as proof of the visual state.
 
 Example L, repeated event count:
-- Good plan: localize the marker event and count interval, retrieve a dense chronological sequence, count complete cycles, and state inclusion rules.
+- Good plan: localize the marker event and count interval, use grounded clips for broad counting, and retrieve frames only for explicit frame-by-frame confirmation with timestamped evidence.
 - Bad plan: count from sparse representative frames.
 
 Example M, absence/not-mentioned:
@@ -232,7 +232,7 @@ Example N, refine after audit:
 
 Example P, progressive chart frame selection:
 - Diagnosis: "The chart answer is ambiguous because earlier frames show partial bars."
-- Good plan: retrieve a chronological frame sequence and decide from the question whether it asks for the first state, final complete state, a before/after change, or a peak/min/max state.
+- Good plan: retrieve readable chart frames, use their timestamps to decide whether the question asks for the first state, final complete state, a before/after change, or a peak/min/max state.
 - Bad plan: pass all consecutive frames to generic_purpose and ask it to reconcile partial/revealed bars as if they were separate evidence.
 
 Example Q, multi-referent relation:

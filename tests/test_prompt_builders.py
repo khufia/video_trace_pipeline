@@ -162,6 +162,11 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert _removed_block("RETRIEVED" + "-CONTEXT") not in PLANNER_SYSTEM_PROMPT
     assert "RETRIEVED_FRAME_REFS_AVAILABLE" not in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" not in PLANNER_SYSTEM_PROMPT
+    assert "sequence_mode" not in PLANNER_SYSTEM_PROMPT
+    assert "neighbor_radius_s" not in PLANNER_SYSTEM_PROMPT
+    assert "include_anchor_neighbors" not in PLANNER_SYSTEM_PROMPT
+    assert "sort_order" not in PLANNER_SYSTEM_PROMPT
+    assert "anchor-window" not in PLANNER_SYSTEM_PROMPT
 
 
 def test_synthesizer_prompt_is_one_shot_with_icl_examples():
@@ -225,24 +230,18 @@ def test_render_tool_catalog_includes_output_fields():
     assert "output_nested: frames[] -> frame_path: str, timestamp_s: float, relevance_score: Optional[float]" in rendered
 
 
-def test_render_frame_sequence_context_mentions_anchor_and_neighbors():
+def test_render_frame_sequence_context_mentions_frame_timestamps():
     rendered = render_frame_sequence_context(
         [
             {
                 "timestamp_s": 6.0,
-                "metadata": {
-                    "requested_timestamp_s": 6.0,
-                    "neighbor_radius_s": 2.0,
-                    "sequence_mode": "anchor_window",
-                    "sequence_role": "anchor",
-                    "sequence_index": 1,
-                },
+                "metadata": {"relevance_score": 0.9},
             }
         ]
     )
 
-    assert "chronological sequence centered on timestamp 6s" in rendered
-    assert "neighboring frames before and after" in rendered
+    assert "Frame timestamps: 6s" in rendered
+    assert "do not infer chronology from retrieval order alone" in rendered
 
 
 def test_tool_registry_catalog_exposes_new_asr_outputs():
@@ -260,5 +259,11 @@ def test_tool_registry_catalog_exposes_new_asr_outputs():
     catalog = registry.tool_catalog()
 
     assert "clips" in catalog["frame_retriever"]["request_fields"]
+    assert "time_hints" in catalog["frame_retriever"]["request_fields"]
     assert "frames" in catalog["frame_retriever"]["output_fields"]
-    assert "sequence_mode: Literal[ranked, anchor_window, chronological]" in catalog["frame_retriever"]["request_schema"]
+    schema_text = "\n".join(catalog["frame_retriever"]["request_schema"])
+    assert "time_hints: List[str]" in schema_text
+    assert "sequence_mode" not in schema_text
+    assert "neighbor_radius_s" not in schema_text
+    assert "include_anchor_neighbors" not in schema_text
+    assert "sort_order" not in schema_text

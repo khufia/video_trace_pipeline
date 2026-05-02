@@ -132,7 +132,7 @@ def test_frame_retriever_parses_exact_timestamp_hints():
     assert frame_retriever_runner._time_hint_anchor_seconds("1:23", 0.0, 100.0) == 83.0
 
 
-def test_frame_retriever_exact_timestamp_returns_chronological_neighbors(monkeypatch):
+def test_frame_retriever_exact_timestamp_biases_selection_without_sequence_metadata(monkeypatch):
     emitted = {}
 
     class _SequenceHarness(_FakeHarness):
@@ -169,9 +169,6 @@ def test_frame_retriever_exact_timestamp_returns_chronological_neighbors(monkeyp
                 "clips": [{"start_s": 0.0, "end_s": 10.0}],
                 "time_hints": ["00:06"],
                 "num_frames": 3,
-                "sequence_mode": "anchor_window",
-                "neighbor_radius_s": 2.0,
-                "sort_order": "chronological",
             },
             "task": {},
             "runtime": {},
@@ -187,14 +184,18 @@ def test_frame_retriever_exact_timestamp_returns_chronological_neighbors(monkeyp
 
     frame_retriever_runner.main()
 
-    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [4.0, 5.0, 6.0, 7.0, 8.0]
-    assert emitted["frames"][2]["metadata"]["sequence_role"] == "anchor"
-    assert emitted["frames"][2]["metadata"]["requested_timestamp_s"] == 6.0
-    assert emitted["frames"][0]["metadata"]["sequence_index"] == 0
-    assert emitted["cache_metadata"]["anchor_window_applied"] is True
+    assert emitted["frames"][0]["timestamp_s"] == 6.0
+    assert len(emitted["frames"]) == 3
+    for frame in emitted["frames"]:
+        assert "sequence_role" not in frame["metadata"]
+        assert "sequence_index" not in frame["metadata"]
+        assert "sequence_mode" not in frame["metadata"]
+        assert "neighbor_radius_s" not in frame["metadata"]
+    assert "anchor_window_applied" not in emitted["cache_metadata"]
+    assert "neighbor_radius_s" not in emitted["cache_metadata"]
 
 
-def test_anchor_window_expands_frame_pool_beyond_short_clip(monkeypatch):
+def test_frame_retriever_time_hints_do_not_expand_clip_pool(monkeypatch):
     emitted = {}
 
     class _SequenceHarness(_FakeHarness):
@@ -233,10 +234,6 @@ def test_anchor_window_expands_frame_pool_beyond_short_clip(monkeypatch):
                 "clips": [{"start_s": 11.6, "end_s": 12.384}],
                 "time_hints": ["11.60s-12.384s event interval; center near 11.99s"],
                 "num_frames": 5,
-                "sequence_mode": "anchor_window",
-                "neighbor_radius_s": 2.5,
-                "include_anchor_neighbors": True,
-                "sort_order": "chronological",
             },
             "task": {},
             "runtime": {},
@@ -252,11 +249,11 @@ def test_anchor_window_expands_frame_pool_beyond_short_clip(monkeypatch):
 
     frame_retriever_runner.main()
 
-    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [10.0, 11.0, 12.0, 13.0, 14.0]
-    assert emitted["cache_metadata"]["frame_pool_start_s"] == 9.1
-    assert emitted["cache_metadata"]["frame_pool_end_s"] == 14.884
-    assert emitted["cache_metadata"]["expanded_frame_pool_for_anchor_window"] is True
-    assert emitted["frames"][0]["metadata"]["frame_pool_start_s"] == 9.1
+    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [12.0]
+    assert emitted["cache_metadata"]["frame_pool_start_s"] == 11.6
+    assert emitted["cache_metadata"]["frame_pool_end_s"] == 12.384
+    assert "expanded_frame_pool_for_anchor_window" not in emitted["cache_metadata"]
+    assert emitted["frames"][0]["metadata"]["frame_pool_start_s"] == 11.6
 
 
 def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
@@ -362,7 +359,7 @@ def test_frame_retriever_process_adapter_keeps_num_frames_per_clip(monkeypatch):
     assert result.data["cache_metadata"]["returned_frame_count"] == 4
 
 
-def test_frame_retriever_process_adapter_chronological_multi_clip_keeps_each_clip(monkeypatch):
+def test_frame_retriever_process_adapter_ranked_multi_clip_keeps_each_clip(monkeypatch):
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 
     def _fake_execute_single(request, context):
@@ -397,7 +394,6 @@ def test_frame_retriever_process_adapter_chronological_multi_clip_keeps_each_cli
             "tool_name": "frame_retriever",
             "query": "chart frame sequence",
             "num_frames": 2,
-            "sort_order": "chronological",
             "clips": [
                 {"video_id": "video-1", "start_s": 10.0, "end_s": 20.0},
                 {"video_id": "video-1", "start_s": 110.0, "end_s": 120.0},
@@ -407,7 +403,7 @@ def test_frame_retriever_process_adapter_chronological_multi_clip_keeps_each_cli
 
     result = adapter.execute(request, context=None)
 
-    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 13.0, 112.0, 113.0]
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 112.0, 13.0, 114.0]
     assert result.data["cache_metadata"]["returned_frame_count"] == 4
 
 
@@ -444,61 +440,6 @@ def test_frame_retriever_process_adapter_single_clip_uses_single_execution(monke
 
     assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 13.0, 14.0]
     assert result.data["cache_metadata"]["returned_frame_count"] == 3
-
-
-def test_frame_retriever_process_adapter_preserves_chronological_sequence_merge(monkeypatch):
-    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
-
-    def _fake_execute_single(request, context):
-        frames = []
-        for timestamp_s, sequence_index in (
-            (164.0, 2),
-            (163.0, 1),
-            (165.0, 3),
-            (162.0, 0),
-            (166.0, 4),
-        ):
-            frames.append(
-                {
-                    "video_id": "video-1",
-                    "timestamp_s": timestamp_s,
-                    "metadata": {
-                        "clip_start_s": 150.0,
-                        "requested_timestamp_s": 164.0,
-                        "sequence_mode": "anchor_window",
-                        "sequence_index": sequence_index,
-                        "sequence_sort_order": "chronological",
-                        "relevance_score": 1.0,
-                    },
-                }
-            )
-        return ToolResult(
-            tool_name="frame_retriever",
-            ok=True,
-            data={
-                "frames": frames,
-                "cache_metadata": {},
-                "rationale": "chronological sequence",
-            },
-            summary="Retrieved 5 frame(s).",
-        )
-
-    monkeypatch.setattr(adapter, "_execute_single", _fake_execute_single)
-    request = adapter.request_model.parse_obj(
-        {
-            "tool_name": "frame_retriever",
-            "query": "map frames",
-            "num_frames": 5,
-            "clips": [{"video_id": "video-1", "start_s": 150.0, "end_s": 166.0}],
-            "time_hints": ["164s", "165.98s utterance"],
-            "sequence_mode": "anchor_window",
-            "sort_order": "chronological",
-        }
-    )
-
-    result = adapter.execute(request, context=None)
-
-    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [162.0, 163.0, 164.0, 165.0, 166.0]
 
 
 def test_reference_adapter_installs_check_model_inputs_compat(monkeypatch):

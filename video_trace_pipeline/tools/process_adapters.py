@@ -509,36 +509,6 @@ def _frame_rank_sort_key(frame: Dict[str, Any]) -> tuple:
     return (-numeric_score, numeric_anchor_distance, timestamp_s)
 
 
-def _frame_is_chronological_sequence(frame: Dict[str, Any]) -> bool:
-    metadata = dict(frame.get("metadata") or {})
-    return (
-        str(metadata.get("sequence_mode") or "").strip().lower() in {"anchor_window", "chronological"}
-        and str(metadata.get("sequence_sort_order") or "").strip().lower() == "chronological"
-    )
-
-
-def _frame_sequence_sort_key(frame: Dict[str, Any]) -> tuple:
-    metadata = dict(frame.get("metadata") or {})
-
-    def _float_value(value: Any, default: float = float("inf")) -> float:
-        try:
-            return float(value)
-        except Exception:
-            return default
-
-    def _int_value(value: Any, default: int = 10**9) -> int:
-        try:
-            return int(value)
-        except Exception:
-            return default
-
-    timestamp_s = _float_value(frame.get("timestamp_s"), 0.0)
-    clip_start_s = _float_value(metadata.get("clip_start_s"), timestamp_s)
-    requested_timestamp_s = _float_value(metadata.get("requested_timestamp_s"), timestamp_s)
-    sequence_index = _int_value(metadata.get("sequence_index"))
-    return (clip_start_s, requested_timestamp_s, sequence_index, timestamp_s)
-
-
 def _frame_key(frame: Dict[str, Any]) -> tuple:
     return (
         str(frame.get("artifact_id") or "").strip(),
@@ -550,9 +520,6 @@ def _frame_key(frame: Dict[str, Any]) -> tuple:
 def _select_multi_clip_frames(
     frame_groups: List[Dict[str, Any]],
     frames_per_input: int,
-    *,
-    sort_order: str = "ranked",
-    sequence_mode: str = "ranked",
 ) -> List[Dict[str, Any]]:
     if frames_per_input <= 0:
         return []
@@ -560,19 +527,10 @@ def _select_multi_clip_frames(
     seen = set()
     per_input_limit = max(1, int(frames_per_input or 1))
     groups = list(frame_groups or [])
-    merged_frames = [frame for group in groups for frame in list(group.get("frames") or [])]
-    chronological = (
-        str(sort_order or "").strip().lower() == "chronological"
-        or str(sequence_mode or "").strip().lower() in {"anchor_window", "chronological"}
-        or any(_frame_is_chronological_sequence(frame) for frame in merged_frames)
-    )
-
-    group_sort_key = _frame_sequence_sort_key if chronological else _frame_rank_sort_key
-    final_sort_key = _frame_sequence_sort_key if chronological else _frame_rank_sort_key
 
     for group in groups:
         group_selected = 0
-        for frame in sorted(list(group.get("frames") or []), key=group_sort_key):
+        for frame in sorted(list(group.get("frames") or []), key=_frame_rank_sort_key):
             key = _frame_key(frame)
             if key in seen:
                 continue
@@ -581,7 +539,7 @@ def _select_multi_clip_frames(
             group_selected += 1
             if group_selected >= per_input_limit:
                 break
-    return sorted(selected, key=final_sort_key)
+    return sorted(selected, key=_frame_rank_sort_key)
 
 
 class VisualTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
@@ -852,10 +810,6 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                                 "query": request.query,
                                 "num_frames": request.num_frames,
                                 "time_hints": list(time_hints),
-                                "sequence_mode": request.sequence_mode,
-                                "neighbor_radius_s": request.neighbor_radius_s,
-                                "include_anchor_neighbors": request.include_anchor_neighbors,
-                                "sort_order": request.sort_order,
                             }
                         )
                     )
@@ -868,10 +822,6 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                                 "time_hints": [time_hint],
                                 "query": request.query,
                                 "num_frames": request.num_frames,
-                                "sequence_mode": request.sequence_mode,
-                                "neighbor_radius_s": request.neighbor_radius_s,
-                                "include_anchor_neighbors": request.include_anchor_neighbors,
-                                "sort_order": request.sort_order,
                             }
                         )
                     )
@@ -932,12 +882,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
             if embedding_cache_ready:
                 cache_metadata["embedding_cache_ready"] = all(embedding_cache_ready)
             frames_per_input = max(1, int(request.num_frames or 1))
-            selected_frames = _select_multi_clip_frames(
-                frame_groups,
-                frames_per_input,
-                sort_order=request.sort_order,
-                sequence_mode=request.sequence_mode,
-            )
+            selected_frames = _select_multi_clip_frames(frame_groups, frames_per_input)
             cache_metadata.update(
                 {
                     "frame_count_policy": "per_clip",

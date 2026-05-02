@@ -264,7 +264,7 @@ def test_plan_normalizer_rejects_visual_grounding_frame_bridge_to_generic_purpos
                 step_id=2,
                 tool_name="frame_retriever",
                 purpose="Retrieve representative frames for each candidate interval.",
-                inputs={"query": "representative frames showing the action", "num_frames": 5, "sort_order": "chronological"},
+                inputs={"query": "representative frames showing the action", "num_frames": 5},
                 input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
             ),
             PlanStep(
@@ -296,7 +296,7 @@ def test_plan_normalizer_rejects_dense_chronological_frame_bridge_to_generic_pur
                 step_id=2,
                 tool_name="frame_retriever",
                 purpose="Retrieve dense chronological coverage for count and state reasoning.",
-                inputs={"query": "dense chronological visual coverage", "num_frames": 12, "sequence_mode": "chronological", "sort_order": "chronological"},
+                inputs={"query": "dense chronological visual coverage", "num_frames": 12},
                 input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
             ),
             PlanStep(
@@ -524,14 +524,14 @@ def test_plan_normalizer_accepts_explicit_frame_need_before_generic_purpose():
             PlanStep(
                 step_id=2,
                 tool_name="frame_retriever",
-                purpose="Retrieve exact anchor-window neighboring frames around the timestamp.",
-                inputs={"query": "anchor frame and neighbors", "num_frames": 5, "sequence_mode": "anchor_window", "sort_order": "chronological"},
+                purpose="Retrieve exact neighboring frames around timestamp 00:06.",
+                inputs={"query": "frames near timestamp 00:06", "time_hints": ["00:06"], "num_frames": 5},
                 input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
             ),
             PlanStep(
                 step_id=3,
                 tool_name="generic_purpose",
-                purpose="Answer from the exact anchor-window frame sequence.",
+                purpose="Answer from the exact timestamp-local frames.",
                 inputs={"query": "Determine the state at the timestamp from the neighboring frames."},
                 input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
             ),
