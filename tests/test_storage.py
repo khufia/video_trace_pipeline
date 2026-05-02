@@ -61,16 +61,16 @@ def test_sanitize_for_persistence_removes_absolute_paths():
 
 def test_sanitize_for_persistence_relativizes_repo_paths():
     repo_root = Path(__file__).resolve().parents[1]
-    repo_path = repo_root / "workspace" / "cache" / "preprocess" / "demo"
+    repo_path = repo_root / "workspace" / "cache" / "tool" / "demo"
     payload = {
         "cache_dir": str(repo_path),
         "note": "bundle stored at %s" % repo_path,
-        "relative_note": "cache/preprocess/demo",
+        "relative_note": "cache/tool/demo",
     }
     cleaned = sanitize_for_persistence(payload)
-    assert cleaned["cache_dir"] == "workspace/cache/preprocess/demo"
-    assert cleaned["note"] == "bundle stored at workspace/cache/preprocess/demo"
-    assert cleaned["relative_note"] == "cache/preprocess/demo"
+    assert cleaned["cache_dir"] == "workspace/cache/tool/demo"
+    assert cleaned["note"] == "bundle stored at workspace/cache/tool/demo"
+    assert cleaned["relative_note"] == "cache/tool/demo"
 
 
 def test_evidence_ledger_persists_sqlite_index(tmp_path):

@@ -9,7 +9,9 @@ def test_main_models_config_uses_planner_and_synthesizer_token_bump():
 
     assert config.agents["planner"].max_tokens == 6000
     assert config.agents["trace_synthesizer"].max_tokens == 16000
-    assert "summary_format" not in dict((config.tools["dense_captioner"].extra or {}).get("preprocess") or {})
+    assert "preprocess" not in dict(config.tools["dense_captioner"].extra or {})
+    assert config.tools["frame_retriever"].extra["use_reranker"] is False
+    assert config.tools["frame_retriever"].extra["device_map"] == "first_two_cuda"
 
 
 def test_example_tool_server_config_uses_planner_and_synthesizer_token_bump():
@@ -18,3 +20,5 @@ def test_example_tool_server_config_uses_planner_and_synthesizer_token_bump():
 
     assert config.agents["planner"].max_tokens == 6000
     assert config.agents["trace_synthesizer"].max_tokens == 16000
+    assert config.tools["frame_retriever"].extra["use_reranker"] is False
+    assert config.tools["frame_retriever"].extra["device_map"] == "first_two_cuda"

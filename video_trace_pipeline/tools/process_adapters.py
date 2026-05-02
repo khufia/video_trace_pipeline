@@ -12,11 +12,9 @@ from ..common import extract_json_object, has_meaningful_text, hash_payload, is_
 from ..model_cache import describe_model_resolution
 from ..prompts.shared import render_frame_sequence_context
 from ..runtime_devices import describe_device_mapping, resolve_device_label
-from ..tool_wrappers.local_multimodal import TimeChatCaptionerRunner
 from ..tool_wrappers.timechat_dense_caption_runner import execute_payload as execute_dense_caption_payload
 from ..tool_wrappers.qwen35vl_runner import execute_payload as execute_generic_purpose_payload
 from ..tool_wrappers.spatial_grounder_runner import execute_payload as execute_spatial_grounder_payload
-from ..tool_wrappers.verifier_runner import execute_payload as execute_verifier_payload
 from ..tool_wrappers.shared import resolve_generation_controls, resolve_model_path, resolved_device_label
 from ..tool_wrappers.timelens_runner import execute_payload as execute_visual_temporal_grounder_payload
 from ..schemas import (
@@ -37,13 +35,10 @@ from ..schemas import (
     SpatialGrounderOutput,
     SpatialGrounderRequest,
     ToolResult,
-    VerifierOutput,
-    VerifierRequest,
     VisualTemporalGrounderOutput,
     VisualTemporalGrounderRequest,
 )
 from .base import ToolAdapter
-from .media import get_video_duration
 
 
 def _safe_confidences(values: List[Any]) -> List[float]:
@@ -303,6 +298,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
         *,
         processor_use_fast: Optional[bool] = None,
         processor_model_path: Optional[str] = None,
+        device_map: Optional[str] = None,
     ) -> Optional[Dict[str, Any]]:
         if self.model_pool is None or not self.model_pool.should_persist(self.name):
             return None
@@ -323,6 +319,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
                 generate_do_sample=bool(generation.get("do_sample")),
                 generate_temperature=generation.get("temperature"),
                 attn_implementation=attn_implementation,
+                device_map=device_map,
             ),
             "model_name": self.model_name,
             "resolved_model_path": model_path,
@@ -332,6 +329,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
             "generate_do_sample": bool(generation.get("do_sample")),
             "generate_temperature": generation.get("temperature"),
             "attn_implementation": attn_implementation,
+            "device_map": device_map,
         }
 
     def _penguin_persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
@@ -464,6 +462,32 @@ def _first_list_item(values: List[Any]) -> Any:
     return items[0] if items else None
 
 
+def _spatial_frame_ref_for_result(request, parsed) -> Optional[FrameRef]:
+    frame_ref = _first_list_item(getattr(request, "frames", []) or [])
+    frame_path = getattr(parsed, "source_frame_path", None)
+    if frame_ref is not None:
+        if frame_path and not dict(frame_ref.metadata or {}).get("source_path"):
+            payload = _model_to_dict(frame_ref)
+            metadata = dict(payload.get("metadata") or {})
+            metadata["source_path"] = frame_path
+            payload["metadata"] = metadata
+            return FrameRef.parse_obj(payload)
+        return frame_ref
+
+    clip_ref = _first_list_item(getattr(request, "clips", []) or [])
+    if clip_ref is None:
+        return None
+    timestamp_s = getattr(parsed, "timestamp_s", None)
+    if timestamp_s is None:
+        timestamp_s = (float(clip_ref.start_s) + float(clip_ref.end_s)) / 2.0
+    return FrameRef(
+        video_id=clip_ref.video_id,
+        timestamp_s=float(timestamp_s),
+        clip=clip_ref,
+        metadata={},
+    )
+
+
 def _frame_rank_sort_key(frame: Dict[str, Any]) -> tuple:
     metadata = dict(frame.get("metadata") or {})
     temporal_score = metadata.get("temporal_score")
@@ -515,58 +539,49 @@ def _frame_sequence_sort_key(frame: Dict[str, Any]) -> tuple:
     return (clip_start_s, requested_timestamp_s, sequence_index, timestamp_s)
 
 
-def _select_multi_clip_frames(frame_groups: List[Dict[str, Any]], total_limit: int) -> List[Dict[str, Any]]:
-    if total_limit <= 0:
+def _frame_key(frame: Dict[str, Any]) -> tuple:
+    return (
+        str(frame.get("artifact_id") or "").strip(),
+        str(frame.get("relpath") or "").strip(),
+        float(frame.get("timestamp_s") or 0.0),
+    )
+
+
+def _select_multi_clip_frames(
+    frame_groups: List[Dict[str, Any]],
+    frames_per_input: int,
+    *,
+    sort_order: str = "ranked",
+    sequence_mode: str = "ranked",
+) -> List[Dict[str, Any]]:
+    if frames_per_input <= 0:
         return []
     selected: List[Dict[str, Any]] = []
     seen = set()
+    per_input_limit = max(1, int(frames_per_input or 1))
+    groups = list(frame_groups or [])
+    merged_frames = [frame for group in groups for frame in list(group.get("frames") or [])]
+    chronological = (
+        str(sort_order or "").strip().lower() == "chronological"
+        or str(sequence_mode or "").strip().lower() in {"anchor_window", "chronological"}
+        or any(_frame_is_chronological_sequence(frame) for frame in merged_frames)
+    )
 
-    def _frame_key(frame: Dict[str, Any]) -> tuple:
-        return (
-            str(frame.get("artifact_id") or "").strip(),
-            str(frame.get("relpath") or "").strip(),
-            float(frame.get("timestamp_s") or 0.0),
-        )
+    group_sort_key = _frame_sequence_sort_key if chronological else _frame_rank_sort_key
+    final_sort_key = _frame_sequence_sort_key if chronological else _frame_rank_sort_key
 
-    merged_frames = []
-    for group in list(frame_groups or []):
-        merged_frames.extend(list(group.get("frames") or []))
-    if any(_frame_is_chronological_sequence(frame) for frame in merged_frames):
-        for frame in sorted(merged_frames, key=_frame_sequence_sort_key):
+    for group in groups:
+        group_selected = 0
+        for frame in sorted(list(group.get("frames") or []), key=group_sort_key):
             key = _frame_key(frame)
             if key in seen:
                 continue
             seen.add(key)
             selected.append(frame)
-            if len(selected) >= total_limit:
+            group_selected += 1
+            if group_selected >= per_input_limit:
                 break
-        return selected
-
-    ordered_groups = sorted(
-        list(frame_groups or []),
-        key=lambda item: _frame_rank_sort_key((item.get("frames") or [{}])[0]) if list(item.get("frames") or []) else (0.0, float("inf"), 0.0),
-    )
-    for group in ordered_groups:
-        frames = sorted(list(group.get("frames") or []), key=_frame_rank_sort_key)
-        if not frames:
-            continue
-        key = _frame_key(frames[0])
-        if key in seen:
-            continue
-        seen.add(key)
-        selected.append(frames[0])
-        if len(selected) >= total_limit:
-            return selected
-
-    for frame in sorted(merged_frames, key=_frame_rank_sort_key):
-        key = _frame_key(frame)
-        if key in seen:
-            continue
-        seen.add(key)
-        selected.append(frame)
-        if len(selected) >= total_limit:
-            break
-    return selected
+    return sorted(selected, key=final_sort_key)
 
 
 class VisualTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
@@ -577,7 +592,7 @@ class VisualTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
         return execute_visual_temporal_grounder_payload(payload, runner_pool=self.model_pool)
 
     def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
-        return self._qwen_persistent_preload_spec(profile)
+        return self._qwen_persistent_preload_spec(profile, device_map="first_two_cuda")
 
     def execute(self, request, context):
         payload, raw = self._run_json(context, request.dict())
@@ -737,6 +752,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
             str(runtime.get("resolved_model_path") or ""),
             str(extra.get("reranker_model") or ""),
             str(extra.get("attn_implementation") or ""),
+            str(extra.get("device_map") or ""),
             round(float(clip_duration_s), 3),
         )
 
@@ -915,7 +931,20 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                 cache_metadata["bounded_frame_count"] = sum(bounded_frame_counts)
             if embedding_cache_ready:
                 cache_metadata["embedding_cache_ready"] = all(embedding_cache_ready)
-            selected_frames = _select_multi_clip_frames(frame_groups, max(1, int(request.num_frames or 1)))
+            frames_per_input = max(1, int(request.num_frames or 1))
+            selected_frames = _select_multi_clip_frames(
+                frame_groups,
+                frames_per_input,
+                sort_order=request.sort_order,
+                sequence_mode=request.sequence_mode,
+            )
+            cache_metadata.update(
+                {
+                    "frame_count_policy": "per_clip",
+                    "frames_per_input": frames_per_input,
+                    "returned_frame_count": len(selected_frames),
+                }
+            )
             merged_data = {
                 "query": request.query,
                 "clips": [
@@ -954,43 +983,6 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
 class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
     request_model = DenseCaptionRequest
     output_model = DenseCaptionOutput
-
-    def _reuse_preprocess_single(self, request, context):
-        if str(getattr(request, "focus_query", "") or "").strip():
-            return None
-        clip = _first_list_item(getattr(request, "clips", []) or [])
-        if clip is None:
-            return None
-        clip_payload = clip.model_dump() if hasattr(clip, "model_dump") else clip.dict() if hasattr(clip, "dict") else dict(clip)
-        start_s = float(clip_payload.get("start_s") or 0.0)
-        end_s = float(clip_payload.get("end_s") or start_s)
-        bundle = getattr(context, "preprocess_bundle", None)
-        for segment in list(dict(bundle or {}).get("dense_caption_segments") or []):
-            if not isinstance(segment, dict):
-                continue
-            if abs(float(segment.get("start_s") or 0.0) - start_s) > 1e-3:
-                continue
-            if abs(float(segment.get("end_s") or 0.0) - end_s) > 1e-3:
-                continue
-            dense_caption = dict(segment.get("dense_caption") or {})
-            data = {
-                key: value
-                for key, value in dense_caption.items()
-                if key != "backend" and value not in (None, "", [], {})
-            }
-            data.setdefault("clips", [clip_payload])
-            summary = str(data.get("overall_summary") or "Reused dense captions from preprocessing.").strip()
-            return ToolResult(
-                tool_name=self.name,
-                ok=True,
-                data=data,
-                raw_output_text=json.dumps(data, ensure_ascii=False),
-                artifact_refs=[],
-                request_hash=hash_payload({"tool": self.name, "request": request.dict(), "source": "preprocess_reuse"}),
-                summary=summary[:2000],
-                metadata={"source": "preprocess_reuse"},
-            )
-        return None
 
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_dense_caption_payload(payload, runner_pool=self.model_pool)
@@ -1037,23 +1029,9 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
         )
 
     def _execute_single(self, request, context):
-        reused = self._reuse_preprocess_single(request, context)
-        if reused is not None:
-            return reused
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         return self._build_tool_result(request, parsed, raw, context)
-
-    def _preprocess_payload(self, request, context, preprocess_settings: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        payload = self._request_envelope(context, request.dict())
-        runtime = dict(payload.get("runtime") or {})
-        extra = dict(runtime.get("extra") or {})
-        for key in ("sample_frames", "fps", "max_frames", "use_audio_in_video", "collect_sampled_frames", "max_new_tokens"):
-            if preprocess_settings is not None and key in preprocess_settings:
-                extra[key] = preprocess_settings[key]
-        runtime["extra"] = extra
-        payload["runtime"] = runtime
-        return payload
 
     def execute(self, request, context):
         clips = list(getattr(request, "clips", []) or [])
@@ -1117,81 +1095,6 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
             )
         return self._execute_single(request, context)
 
-    def build_segment_cache(self, task, clip_duration_s: float, context, preprocess_settings: Optional[Dict[str, Any]] = None):
-        settings = dict(preprocess_settings or {})
-        effective_clip_duration_s = max(1.0, float(settings.get("clip_duration_s") or clip_duration_s or 1.0))
-        runtime = self._runtime_payload(context)
-        generation = resolve_generation_controls(runtime)
-        model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
-        device_label = resolved_device_label(runtime)
-        attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
-        use_audio_in_video = bool(settings.get("use_audio_in_video", (runtime.get("extra") or {}).get("use_audio_in_video", True)))
-        runner = None
-        owns_runner = False
-        if self.model_pool is not None:
-            runner = self.model_pool.acquire_timechat_runner(
-                tool_name=self.name,
-                model_path=model_path,
-                device_label=device_label,
-                generate_do_sample=bool(generation.get("do_sample")),
-                generate_temperature=generation.get("temperature"),
-                use_audio_in_video=use_audio_in_video,
-                attn_implementation=attn_implementation,
-            )
-        if runner is None:
-            runner = TimeChatCaptionerRunner(
-                model_path=model_path,
-                device_label=device_label,
-                generate_do_sample=bool(generation.get("do_sample")),
-                generate_temperature=generation.get("temperature"),
-                use_audio_in_video=use_audio_in_video,
-                attn_implementation=attn_implementation,
-            )
-            owns_runner = True
-        duration = get_video_duration(task.video_path)
-        segments = []
-        start = 0.0
-        try:
-            while start < duration:
-                end = min(duration, start + effective_clip_duration_s)
-                request = self.request_model.parse_obj(
-                    {
-                        "tool_name": self.name,
-                        "clips": [
-                            {
-                            "video_id": task.video_id or task.sample_key,
-                            "start_s": start,
-                            "end_s": end,
-                            }
-                        ],
-                        "granularity": "segment",
-                        "focus_query": "",
-                    }
-                )
-                payload = self._preprocess_payload(request, context, preprocess_settings=settings)
-                result_payload = execute_dense_caption_payload(payload, runner=runner)
-                result = self._build_tool_result(
-                    request,
-                    self._parse_output(result_payload),
-                    json.dumps(result_payload, ensure_ascii=False),
-                    context,
-                )
-                segments.append(
-                    {
-                        "start": float(start),
-                        "end": float(end),
-                        "dense_caption": result.data,
-                    }
-                )
-                if end <= start:
-                    break
-                start = end
-        finally:
-            if owns_runner and runner is not None:
-                runner.close()
-        return {"segments": segments, "summary": ""}
-
-
 class OCRProcessAdapter(BaseProcessToolAdapter):
     request_model = OCRRequest
     output_model = OCROutput
@@ -1204,7 +1107,7 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         artifact_refs = []
-        if parsed.source_frame_path:
+        if parsed.source_frame_path and context is not None:
             artifact_refs.append(
                 context.workspace.store_file_artifact(
                     parsed.source_frame_path,
@@ -1221,6 +1124,10 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
             "source_frame_path": parsed.source_frame_path,
             "backend": parsed.backend or self.model_name,
         }
+        if isinstance(payload, dict):
+            for source_key in ("region", "frame", "clip"):
+                if isinstance(payload.get(source_key), dict):
+                    data[source_key] = dict(payload.get(source_key) or {})
         confidence_metadata = _confidence_metadata(
             [item.confidence for item in parsed.lines],
             kind="ocr_line",
@@ -1241,7 +1148,7 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
         regions = list(getattr(request, "regions", []) or [])
         frames = list(getattr(request, "frames", []) or [])
         clips = list(getattr(request, "clips", []) or [])
-        if len(regions) > 1 or len(frames) > 1 or len(clips) > 1:
+        if len(regions) > 1 or len(frames) > 1 or clips:
             if regions:
                 units = [("region", item) for item in regions]
             elif frames:
@@ -1249,8 +1156,51 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
             else:
                 units = [("clip", item) for item in clips]
             payload, raw = self._run_json(context, request.dict())
-            batch_results = list(payload.get("results") or []) if isinstance(payload, dict) else []
-            if not batch_results:
+            has_batch_results = isinstance(payload, dict) and "results" in payload
+            batch_results = list(payload.get("results") or []) if has_batch_results else []
+            if not has_batch_results:
+                if len(units) == 1:
+                    parsed = self._parse_output(payload)
+                    artifact_refs = []
+                    if parsed.source_frame_path and context is not None:
+                        artifact_refs.append(
+                            context.workspace.store_file_artifact(
+                                parsed.source_frame_path,
+                                kind="frame",
+                                source_tool=self.name,
+                                video_id=context.task.video_id or context.task.sample_key,
+                            )
+                        )
+                    lines = [item.dict() for item in parsed.lines]
+                    text = str(parsed.text or "").strip()
+                    data = {
+                        "text": text,
+                        "lines": lines,
+                        "query": parsed.query,
+                        "timestamp_s": parsed.timestamp_s,
+                        "source_frame_path": parsed.source_frame_path,
+                        "backend": parsed.backend or self.model_name,
+                    }
+                    if isinstance(payload, dict):
+                        for source_key in ("region", "frame", "clip"):
+                            if isinstance(payload.get(source_key), dict):
+                                data[source_key] = dict(payload.get(source_key) or {})
+                    return ToolResult(
+                        tool_name=self.name,
+                        ok=True,
+                        data=data,
+                        raw_output_text=raw,
+                        artifact_refs=artifact_refs,
+                        request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
+                        summary=(text or "No text detected.")[:2000],
+                        metadata={
+                            "backend": data["backend"],
+                            **_confidence_metadata(
+                                [line.get("confidence") for line in lines],
+                                kind="ocr_line",
+                            ),
+                        },
+                    )
                 subrequests = []
                 for field_name, item in units:
                     single_payload = {"tool_name": self.name, "query": request.query}
@@ -1309,7 +1259,11 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
                         ),
                     },
                 )
-            if len(batch_results) != len(units):
+            has_embedded_sources = any(
+                isinstance(item, dict) and any(isinstance(item.get(source_key), dict) for source_key in ("region", "frame", "clip"))
+                for item in batch_results
+            )
+            if len(batch_results) != len(units) and not has_embedded_sources:
                 raise ValueError(
                     "OCR batch runner returned %d result(s) for %d input item(s)." % (len(batch_results), len(units))
                 )
@@ -1318,13 +1272,12 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
             merged_lines = []
             reads = []
             batch_backend = str(payload.get("backend") or "").strip() if isinstance(payload, dict) else ""
-            for field_name, item, result_payload in zip(
-                [name for name, _ in units],
-                [value for _, value in units],
-                batch_results,
-            ):
+            for index, result_payload in enumerate(batch_results):
+                if not isinstance(result_payload, dict):
+                    result_payload = {}
+                field_name, item = units[index] if index < len(units) else (None, None)
                 parsed = self._parse_output(result_payload)
-                if parsed.source_frame_path:
+                if parsed.source_frame_path and context is not None:
                     artifact_refs.append(
                         context.workspace.store_file_artifact(
                             parsed.source_frame_path,
@@ -1339,16 +1292,19 @@ class OCRProcessAdapter(BaseProcessToolAdapter):
                     texts.append(text)
                 merged_lines.extend(lines)
                 backend = parsed.backend or batch_backend or self.model_name
-                reads.append(
-                    {
-                        field_name: item.dict() if hasattr(item, "dict") else item,
-                        "text": text,
-                        "lines": lines,
-                        "timestamp_s": parsed.timestamp_s,
-                        "source_frame_path": parsed.source_frame_path,
-                        "backend": backend,
-                    }
-                )
+                read = {
+                    "text": text,
+                    "lines": lines,
+                    "timestamp_s": parsed.timestamp_s,
+                    "source_frame_path": parsed.source_frame_path,
+                    "backend": backend,
+                }
+                for source_key in ("region", "frame", "clip"):
+                    if isinstance(result_payload.get(source_key), dict):
+                        read[source_key] = dict(result_payload.get(source_key) or {})
+                if field_name and field_name not in read and item is not None:
+                    read[field_name] = item.dict() if hasattr(item, "dict") else item
+                reads.append(read)
             merged_data = {
                 "query": request.query,
                 "text": _join_text_blocks(texts),
@@ -1394,10 +1350,10 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
     def _execute_single(self, request, context):
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
-        frame_ref = _first_list_item(getattr(request, "frames", []) or [])
+        frame_ref = _spatial_frame_ref_for_result(request, parsed)
         frame_path = parsed.source_frame_path or ((frame_ref.metadata or {}).get("source_path") if frame_ref is not None else None)
         artifact_refs = []
-        if frame_path:
+        if frame_path and context is not None:
             artifact_refs.append(
                 context.workspace.store_file_artifact(
                     frame_path,
@@ -1409,7 +1365,7 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
         detections = [item.dict() for item in parsed.detections]
         regions = []
         for item in parsed.detections:
-            if item.bbox is None:
+            if item.bbox is None or frame_ref is None:
                 continue
             regions.append(
                 RegionRef(
@@ -1445,16 +1401,19 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
     def execute(self, request, context):
         request = _request_with_query_sequence_context(self.request_model, request)
         frames = list(getattr(request, "frames", []) or [])
-        if len(frames) > 1:
+        clips = list(getattr(request, "clips", []) or [])
+        media_field = "frames" if frames else "clips"
+        media_items = frames if frames else clips
+        if len(media_items) > 1:
             subrequests = [
                 self.request_model.parse_obj(
                     {
                         "tool_name": self.name,
-                        "frames": [item.dict() if hasattr(item, "dict") else item],
+                        media_field: [item.dict() if hasattr(item, "dict") else item],
                         "query": request.query,
                     }
                 )
-                for item in frames
+                for item in media_items
             ]
             subresults = [self._execute_single(item, context) for item in subrequests]
             artifact_refs = []
@@ -1471,10 +1430,10 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
                     summaries.append(subresult.summary)
                 detections.extend(list(subresult.data.get("detections") or []))
                 regions.extend(list(subresult.data.get("regions") or []))
-                grounding_frame = _first_list_item(getattr(subrequest, "frames", []) or [])
+                grounding_frame = _first_list_item(subresult.data.get("frames") or [])
                 groundings.append(
                     {
-                        "frames": [grounding_frame.dict() if hasattr(grounding_frame, "dict") else grounding_frame] if grounding_frame is not None else [],
+                        "frames": [grounding_frame] if grounding_frame is not None else [],
                         "detections": list(subresult.data.get("detections") or []),
                         "regions": list(subresult.data.get("regions") or []),
                         "spatial_description": subresult.data.get("spatial_description") or "",
@@ -1483,8 +1442,8 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
             merged_data = {
                 "query": request.query,
                 "frames": [
-                    first_frame.dict()
-                    for first_frame in (_first_list_item(getattr(item, "frames", []) or []) for item in subrequests)
+                    first_frame
+                    for first_frame in (_first_list_item(item.data.get("frames") or []) for item in subresults)
                     if first_frame is not None
                 ],
                 "detections": detections,
@@ -1500,7 +1459,7 @@ class SpatialGrounderProcessAdapter(BaseProcessToolAdapter):
                 raw_output_text=_join_text_blocks(raw_blocks),
                 artifact_refs=_dedupe_artifact_refs(artifact_refs),
                 request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
-                summary="Spatial grounding completed for %d frame(s)." % len(groundings),
+                summary="Spatial grounding completed for %d input item(s)." % len(groundings),
                 metadata={
                     "backend": self.model_name,
                     "group_count": len(groundings),
@@ -1561,57 +1520,5 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
                 "backend": self.model_name,
                 "low_signal_output": low_signal_output,
                 **_confidence_metadata([parsed.confidence], kind="answer_confidence"),
-            },
-        )
-
-
-class VerifierProcessAdapter(BaseProcessToolAdapter):
-    request_model = VerifierRequest
-    output_model = VerifierOutput
-
-    def parse_request(self, arguments: Dict[str, Any]):
-        request = super().parse_request(arguments)
-        return _generic_request_with_sequence_context(self.request_model, request)
-
-    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
-        return execute_verifier_payload(payload, runner_pool=self.model_pool)
-
-    def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
-        return self._qwen_persistent_preload_spec(profile)
-
-    def execute(self, request, context):
-        request = _generic_request_with_sequence_context(self.request_model, request)
-        payload, raw = self._run_json(context, request.dict())
-        parsed = self._parse_output(payload)
-        artifact_refs = _request_artifact_refs(request, source_tool=self.name)
-        supported = sum(1 for item in parsed.claim_results if item.verdict == "supported")
-        refuted = sum(1 for item in parsed.claim_results if item.verdict == "refuted")
-        unknown = sum(1 for item in parsed.claim_results if item.verdict == "unknown")
-        partial = sum(1 for item in parsed.claim_results if item.verdict == "partially_supported")
-        data = {
-            "claim_results": [item.dict() for item in parsed.claim_results],
-            "new_observations": list(parsed.new_observations or []),
-            "evidence_updates": list(parsed.evidence_updates or []),
-            "checklist_updates": list(parsed.checklist_updates or []),
-            "counter_updates": list(parsed.counter_updates or []),
-            "referent_updates": list(parsed.referent_updates or []),
-            "ocr_occurrence_updates": list(parsed.ocr_occurrence_updates or []),
-            "unresolved_gaps": list(parsed.unresolved_gaps or []),
-        }
-        return ToolResult(
-            tool_name=self.name,
-            ok=True,
-            data=data,
-            raw_output_text=raw,
-            artifact_refs=artifact_refs,
-            request_hash=hash_payload({"tool": self.name, "request": request.dict(), "model": self.model_name}),
-            summary="Verifier results: supported=%d, refuted=%d, partial=%d, unknown=%d." % (supported, refuted, partial, unknown),
-            metadata={
-                "backend": self.model_name,
-                "supported_count": supported,
-                "refuted_count": refuted,
-                "partial_count": partial,
-                "unknown_count": unknown,
-                **_confidence_metadata([item.confidence for item in parsed.claim_results], kind="verifier_claim"),
             },
         )

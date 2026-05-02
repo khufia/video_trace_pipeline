@@ -340,7 +340,27 @@ def _patch_qwen35_flash_attention_position_ids() -> None:
         attention_cls._video_trace_pipeline_position_ids_patch = True
 
 
-def _qwen_style_model(model_path: str, device_label: str, *, attn_implementation: str | None = None):
+def _first_two_cuda_max_memory() -> Dict[int, int]:
+    import torch
+
+    if not torch.cuda.is_available() or torch.cuda.device_count() < 2:
+        raise RuntimeError(
+            "device_map='first_two_cuda' requires at least two visible CUDA devices "
+            "(local cuda:0 and cuda:1)."
+        )
+    return {
+        0: int(torch.cuda.get_device_properties(0).total_memory),
+        1: int(torch.cuda.get_device_properties(1).total_memory),
+    }
+
+
+def _qwen_style_model(
+    model_path: str,
+    device_label: str,
+    *,
+    attn_implementation: str | None = None,
+    device_map: str | None = None,
+):
     import torch
     import transformers
     from transformers import AutoModelForImageTextToText
@@ -350,12 +370,20 @@ def _qwen_style_model(model_path: str, device_label: str, *, attn_implementation
         transformers_version=getattr(transformers, "__version__", None),
     )
 
-    dtype = torch_dtype_for_device(device_label)
+    normalized_device_map = str(device_map or "").strip() or None
+    if normalized_device_map not in (None, "first_two_cuda"):
+        raise RuntimeError("Unsupported Qwen-style device_map %r." % normalized_device_map)
+    sharded_first_two_cuda = normalized_device_map == "first_two_cuda"
+    primary_device_label = "cuda:0" if sharded_first_two_cuda else device_label
+    dtype = torch_dtype_for_device(primary_device_label)
     common_kwargs = {
         "trust_remote_code": True,
         "local_files_only": True,
         "low_cpu_mem_usage": True,
     }
+    if sharded_first_two_cuda:
+        common_kwargs["device_map"] = "balanced"
+        common_kwargs["max_memory"] = _first_two_cuda_max_memory()
     if attn_implementation:
         common_kwargs["attn_implementation"] = str(attn_implementation)
     load_attempts = [
@@ -368,10 +396,13 @@ def _qwen_style_model(model_path: str, device_label: str, *, attn_implementation
     last_error = None
     for kwargs in load_attempts:
         try:
-            return AutoModelForImageTextToText.from_pretrained(
+            model = AutoModelForImageTextToText.from_pretrained(
                 model_path,
                 **kwargs,
-            ).to(device_label).eval()
+            )
+            if sharded_first_two_cuda:
+                return model.eval()
+            return model.to(device_label).eval()
         except Exception as exc:
             last_error = exc
     if last_error is not None:
@@ -435,11 +466,13 @@ class QwenStyleRunner:
         generate_do_sample: bool = False,
         generate_temperature: float | None = None,
         attn_implementation: str | None = None,
+        device_map: str | None = None,
     ):
         from transformers import AutoProcessor
 
         self.model_path = model_path
-        self.device_label = device_label
+        self.device_map = str(device_map or "").strip() or None
+        self.device_label = "cuda:0" if self.device_map == "first_two_cuda" else device_label
         self.requested_attn_implementation = str(attn_implementation or "").strip() or None
         self.loaded_attn_implementation = None
         processor_source = str(processor_model_path or model_path)
@@ -463,8 +496,9 @@ class QwenStyleRunner:
         _patch_qwen35_flash_attention_position_ids()
         self.model = _qwen_style_model(
             model_path,
-            device_label,
+            self.device_label,
             attn_implementation=self.requested_attn_implementation,
+            device_map=self.device_map,
         )
         self.loaded_attn_implementation = self.requested_attn_implementation or "default"
         self.generate_kwargs = _apply_generation_controls(
@@ -553,6 +587,7 @@ def run_qwen_style_messages(
     generate_do_sample: bool = False,
     generate_temperature: float | None = None,
     attn_implementation: str | None = None,
+    device_map: str | None = None,
 ) -> str:
     runner = QwenStyleRunner(
         model_path=model_path,
@@ -562,6 +597,7 @@ def run_qwen_style_messages(
         generate_do_sample=generate_do_sample,
         generate_temperature=generate_temperature,
         attn_implementation=attn_implementation,
+        device_map=device_map,
     )
     try:
         return runner.generate(messages, max_new_tokens=max_new_tokens)

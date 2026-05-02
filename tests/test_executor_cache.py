@@ -14,10 +14,9 @@ from video_trace_pipeline.schemas import (
     TaskSpec,
     ToolConfig,
     ToolResult,
-    VerifierRequest,
     VisualTemporalGrounderRequest,
 )
-from video_trace_pipeline.storage import EvidenceLedger, SharedEvidenceCache, WorkspaceManager
+from video_trace_pipeline.storage import EvidenceLedger, WorkspaceManager
 from video_trace_pipeline.tools import ObservationExtractor
 from video_trace_pipeline.tools.base import ToolExecutionContext
 
@@ -109,30 +108,6 @@ class _Registry(object):
                     "supporting_points": list(request.get("text_contexts") or []),
                 },
             ),
-            "verifier": _Adapter(
-                "verifier",
-                VerifierRequest,
-                lambda request: {
-                    "claim_results": [
-                        {
-                            "claim_id": request["claims"][0]["claim_id"],
-                            "verdict": "supported",
-                            "confidence": 0.9,
-                            "supporting_observation_ids": [],
-                            "supporting_evidence_ids": request.get("evidence_ids", []),
-                            "refuting_observation_ids": [],
-                            "refuting_evidence_ids": [],
-                            "time_intervals": [],
-                            "artifact_refs": [],
-                            "rationale": "OCR and frame context support the claim.",
-                            "coverage": {"checked_inputs": ["frames", "ocr_results"], "missing_inputs": [], "sampling_summary": "checked one frame"},
-                        }
-                    ],
-                    "new_observations": [],
-                    "evidence_updates": [],
-                    "unresolved_gaps": [],
-                },
-            ),
             "asr": _Adapter(
                 "asr",
                 ASRRequest,
@@ -160,7 +135,6 @@ def _models_config():
         "spatial_grounder",
         "ocr",
         "generic_purpose",
-        "verifier",
         "asr",
         "dense_captioner",
     ]
@@ -188,14 +162,13 @@ def _context(tmp_path):
         run=run,
         task=task,
         models_config=_models_config(),
-        preprocess_bundle={},
     )
 
 
 def _executor(workspace, registry):
+    del workspace
     return PlanExecutor(
         tool_registry=registry,
-        evidence_cache=SharedEvidenceCache(workspace),
         extractor=ObservationExtractor(),
         models_config=_models_config(),
     )
@@ -207,7 +180,7 @@ def test_tool_chain_passes_structured_outputs_between_tools(tmp_path):
     executor = _executor(workspace, registry)
     ledger = EvidenceLedger(run)
     plan = ExecutionPlan(
-        strategy="Ground text through visual chain.",
+        strategy="Ground text through full-frame OCR chain.",
         steps=[
             PlanStep(step_id=1, tool_name="visual_temporal_grounder", purpose="Find price moment.", inputs={"query": "price label", "top_k": 1}),
             PlanStep(
@@ -219,25 +192,18 @@ def test_tool_chain_passes_structured_outputs_between_tools(tmp_path):
             ),
             PlanStep(
                 step_id=3,
-                tool_name="spatial_grounder",
-                purpose="Find price label region.",
-                inputs={"query": "price label"},
+                tool_name="ocr",
+                purpose="Read price label from the complete frame.",
+                inputs={"query": "read exact price text"},
                 input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
             ),
             PlanStep(
                 step_id=4,
-                tool_name="ocr",
-                purpose="Read price label.",
-                inputs={"query": "read exact price text"},
-                input_refs={"regions": [{"step_id": 3, "field_path": "regions"}]},
-            ),
-            PlanStep(
-                step_id=5,
                 tool_name="generic_purpose",
                 purpose="Answer from OCR text.",
                 inputs={"query": "Which option matches the OCR text?"},
                 input_refs={
-                    "text_contexts": [{"step_id": 4, "field_path": "text"}],
+                    "text_contexts": [{"step_id": 3, "field_path": "text"}],
                     "frames": [{"step_id": 2, "field_path": "frames"}],
                 },
             ),
@@ -246,69 +212,11 @@ def test_tool_chain_passes_structured_outputs_between_tools(tmp_path):
 
     records = executor.execute_plan(plan, context, ledger, video_fingerprint="vid", round_index=1)
 
-    assert len(records) == 5
+    assert len(records) == 4
     assert registry.adapters["frame_retriever"].calls[0]["clips"][0]["start_s"] == 10.0
-    assert registry.adapters["spatial_grounder"].calls[0]["frames"][0]["timestamp_s"] == 12.0
-    assert registry.adapters["ocr"].calls[0]["regions"][0]["label"] == "price label"
+    assert registry.adapters["ocr"].calls[0]["frames"][0]["timestamp_s"] == 12.0
     assert registry.adapters["generic_purpose"].calls[0]["text_contexts"] == ["PRICE 42"]
     assert registry.adapters["generic_purpose"].calls[0]["frames"][0]["timestamp_s"] == 12.0
-
-
-def test_ocr_to_verifier_passes_structured_regions_frames_and_reads(tmp_path):
-    workspace, task, run, context = _context(tmp_path)
-    registry = _Registry()
-    executor = _executor(workspace, registry)
-    ledger = EvidenceLedger(run)
-    plan = ExecutionPlan(
-        strategy="Ground, read, and verify price claim.",
-        steps=[
-            PlanStep(step_id=1, tool_name="visual_temporal_grounder", purpose="Find price moment.", inputs={"query": "price label", "top_k": 1}),
-            PlanStep(
-                step_id=2,
-                tool_name="frame_retriever",
-                purpose="Retrieve price frame.",
-                inputs={"query": "readable price frame", "num_frames": 1},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-            PlanStep(
-                step_id=3,
-                tool_name="spatial_grounder",
-                purpose="Find price label region.",
-                inputs={"query": "price label"},
-                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
-            ),
-            PlanStep(
-                step_id=4,
-                tool_name="ocr",
-                purpose="Read price label.",
-                inputs={"query": "read exact price text"},
-                input_refs={"regions": [{"step_id": 3, "field_path": "regions"}]},
-            ),
-            PlanStep(
-                step_id=5,
-                tool_name="verifier",
-                purpose="Verify the OCR price claim.",
-                inputs={
-                    "query": "verify exact price claim",
-                    "claims": [{"claim_id": "claim_price", "text": "The visible price is 42.", "claim_type": "ocr"}],
-                },
-                input_refs={
-                    "frames": [{"step_id": 2, "field_path": "frames"}],
-                    "regions": [{"step_id": 3, "field_path": "regions"}],
-                    "ocr_results": [{"step_id": 4, "field_path": "reads"}],
-                },
-            ),
-        ],
-    )
-
-    records = executor.execute_plan(plan, context, ledger, video_fingerprint="vid", round_index=1)
-
-    assert len(records) == 5
-    verifier_request = registry.adapters["verifier"].calls[0]
-    assert verifier_request["frames"][0]["timestamp_s"] == 12.0
-    assert verifier_request["regions"][0]["label"] == "price label"
-    assert verifier_request["ocr_results"][0]["text"] == "PRICE 42"
-    assert records[-1]["result"]["data"]["claim_results"][0]["verdict"] == "supported"
 
 
 def test_asr_to_generic_passes_transcripts_never_text_contexts(tmp_path):
@@ -400,19 +308,14 @@ def test_invalid_wiring_records_failure_before_downstream_tool_call(tmp_path):
     assert registry.adapters["frame_retriever"].calls == []
 
 
-def test_empty_resolved_media_records_invalid_request_before_tool_call(tmp_path):
+def test_empty_resolved_frames_records_invalid_request_before_tool_call(tmp_path):
     workspace, task, run, context = _context(tmp_path)
     registry = _Registry()
-    registry.adapters["spatial_grounder"].output = lambda request: {
-        "query": request["query"],
-        "frames": request["frames"],
-        "regions": [],
-        "spatial_description": "No matching region found.",
-    }
+    registry.adapters["frame_retriever"].output = lambda request: {"query": request.get("query"), "frames": []}
     executor = _executor(workspace, registry)
     ledger = EvidenceLedger(run)
     plan = ExecutionPlan(
-        strategy="OCR only if spatial grounding finds a region.",
+        strategy="OCR only if full-frame retrieval returns frames.",
         steps=[
             PlanStep(
                 step_id=1,
@@ -429,25 +332,18 @@ def test_empty_resolved_media_records_invalid_request_before_tool_call(tmp_path)
             ),
             PlanStep(
                 step_id=3,
-                tool_name="spatial_grounder",
-                purpose="Find price region.",
-                inputs={"query": "price label"},
-                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
-            ),
-            PlanStep(
-                step_id=4,
                 tool_name="ocr",
-                purpose="Read price label.",
+                purpose="Read price label from the complete frame.",
                 inputs={"query": "read exact price"},
-                input_refs={"regions": [{"step_id": 3, "field_path": "regions"}]},
+                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
             ),
         ],
     )
 
     records = executor.execute_plan(plan, context, ledger, video_fingerprint="vid", round_index=1)
 
-    assert len(records) == 4
-    assert records[3]["result"]["ok"] is False
-    assert records[3]["result"]["data"]["error_type"] == "invalid_request"
-    assert records[3]["request"]["resolved_arguments"]["regions"] == []
+    assert len(records) == 3
+    assert records[2]["result"]["ok"] is False
+    assert records[2]["result"]["data"]["error_type"] == "invalid_request"
+    assert records[2]["request"]["resolved_arguments"]["frames"] == []
     assert registry.adapters["ocr"].calls == []

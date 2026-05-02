@@ -47,7 +47,7 @@ tools:
       prefilter_top_frames: 16
       prefilter_window_budget: 16
       prefilter_neighbor_radius: 1
-      dense_frame_embed_batch: 24
+      dense_frame_embed_batch: 8
       attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
@@ -63,9 +63,10 @@ tools:
         - video_trace_pipeline.tool_wrappers.frame_retriever_runner
       backend_name: qwen_frame_retriever
       reranker_model: Qwen/Qwen3-VL-Reranker-8B
-      use_reranker: true
+      use_reranker: false
+      device_map: first_two_cuda
       candidate_frames: 12
-      dense_frame_embed_batch: 24
+      dense_frame_embed_batch: 8
       attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
@@ -107,15 +108,6 @@ tools:
       max_pixels: 297920
       video_max_pixels: 297920
       use_audio_in_video: true
-      preprocess:
-        clip_duration_s: 60
-        sample_frames: 6
-        fps: 1.0
-        max_frames: 96
-        use_audio_in_video: false
-        include_asr: true
-        collect_sampled_frames: false
-        max_new_tokens: 700
       attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
@@ -163,18 +155,3 @@ tools:
       attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
-  verifier:
-    enabled: true
-    description: Strict claim verifier over supplied media, transcripts, OCR, observations, and evidence.
-    model: Qwen/Qwen3-VL-8B-Instruct
-    prompt_version: verifier_v1
-    extra:
-      command:
-        - python3
-        - -m
-        - video_trace_pipeline.tool_wrappers.verifier_runner
-      backend_name: qwen3vl_verifier
-      attn_implementation: flash_attention_2
-      temperature: 0.0
-      do_sample: false
-      max_new_tokens: 1024

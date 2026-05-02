@@ -129,3 +129,85 @@ def test_ocr_process_adapter_merges_batched_runner_results(monkeypatch):
     assert "Walmart 95%" in result.data["text"]
     assert "Target 91%" in result.data["text"]
     assert len(result.artifact_refs) == 2
+
+
+def test_ocr_process_adapter_merges_single_clip_sampled_frame_results(monkeypatch):
+    adapter = OCRProcessAdapter(name="ocr", model_name="PaddleOCR")
+    clip = {"video_id": "video-1", "start_s": 10.0, "end_s": 13.0}
+    seen = {}
+
+    def _fake_run_json(context, request_payload):
+        del context
+        seen["request_payload"] = request_payload
+        payload = {
+            "results": [
+                {
+                    "text": "HUGO'S",
+                    "lines": [{"text": "HUGO'S", "bbox": None, "confidence": 0.9}],
+                    "query": "read rink text",
+                    "timestamp_s": 10.5,
+                    "source_frame_path": "/tmp/clip_frame_01.jpg",
+                    "backend": "paddleocr",
+                    "clip": clip,
+                    "frame": {
+                        "video_id": "video-1",
+                        "timestamp_s": 10.5,
+                        "clip": clip,
+                        "metadata": {"source_path": "/tmp/clip_frame_01.jpg", "ocr_source": "clip"},
+                    },
+                },
+                {
+                    "text": "ICE",
+                    "lines": [{"text": "ICE", "bbox": None, "confidence": 0.8}],
+                    "query": "read rink text",
+                    "timestamp_s": 11.0,
+                    "source_frame_path": "/tmp/clip_frame_02.jpg",
+                    "backend": "paddleocr",
+                    "clip": clip,
+                    "frame": {
+                        "video_id": "video-1",
+                        "timestamp_s": 11.0,
+                        "clip": clip,
+                        "metadata": {"source_path": "/tmp/clip_frame_02.jpg", "ocr_source": "clip"},
+                    },
+                },
+            ],
+            "backend": "paddleocr",
+        }
+        return payload, json.dumps(payload)
+
+    class _FakeWorkspace:
+        def store_file_artifact(self, source_frame_path, *, kind, source_tool, video_id):
+            return ArtifactRef(
+                artifact_id=Path(source_frame_path).stem,
+                kind=kind,
+                relpath="artifacts/%s/frames/%s" % (video_id, Path(source_frame_path).name),
+                source_tool=source_tool,
+            )
+
+    monkeypatch.setattr(adapter, "_run_json", _fake_run_json)
+
+    request = adapter.request_model.parse_obj(
+        {
+            "tool_name": "ocr",
+            "query": "read rink text",
+            "clips": [clip],
+        }
+    )
+    context = SimpleNamespace(
+        workspace=_FakeWorkspace(),
+        task=SimpleNamespace(video_id="video-1", sample_key="sample-1"),
+    )
+
+    result = adapter.execute(request, context)
+
+    assert len(seen["request_payload"]["clips"]) == 1
+    assert result.metadata["group_count"] == 2
+    assert result.metadata["batch_execution"] == "single_subprocess"
+    assert len(result.data["reads"]) == 2
+    assert result.data["reads"][0]["clip"]["start_s"] == 10.0
+    assert result.data["reads"][0]["frame"]["timestamp_s"] == 10.5
+    assert result.data["reads"][0]["frame"]["clip"]["end_s"] == 13.0
+    assert "HUGO'S" in result.data["text"]
+    assert "ICE" in result.data["text"]
+    assert len(result.artifact_refs) == 2

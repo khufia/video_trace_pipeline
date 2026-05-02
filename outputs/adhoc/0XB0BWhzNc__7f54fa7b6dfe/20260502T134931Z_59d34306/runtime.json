@@ -1,0 +1,247 @@
+{
+  "machine": {
+    "agent_endpoints": {
+      "default": {
+        "api_key": null,
+        "api_key_env": "OPENAI_API_KEY",
+        "base_url": "https://api.openai.com/v1"
+      }
+    },
+    "datasets": [
+      "minerva",
+      "omnivideobench",
+      "videomathqa"
+    ],
+    "env_overrides": {
+      "HF_HOME": "/nfs-stor/ghazi.ahmad/HF_HOME",
+      "TEMPORAL_GROUNDER_DEVICE_INDEX": "0"
+    },
+    "ffmpeg_bin": "ffmpeg",
+    "gpu_assignments": {
+      "asr": "cuda:0",
+      "audio_temporal_grounder": "cuda:0",
+      "dense_captioner": "cuda:1",
+      "frame_retriever": "cuda:1",
+      "generic_purpose": "cuda:1",
+      "ocr": "cuda:1",
+      "spatial_grounder": "cuda:1",
+      "visual_temporal_grounder": "cuda:0"
+    },
+    "hf_cache": "<redacted>",
+    "workspace_root": "/nfs-stor/ghazi.ahmad/video_trace_pipeline"
+  },
+  "tools": {
+    "asr": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.asr"
+      ],
+      "enabled": true,
+      "extra": {
+        "language": null,
+        "model_name": "large-v3"
+      },
+      "model": "large-v3"
+    },
+    "audio_temporal_grounder": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.audio_temporal_grounder"
+      ],
+      "enabled": true,
+      "extra": {
+        "backend_name": "spotsound",
+        "base_model": "nvidia/audio-flamingo-3-hf",
+        "do_sample": false,
+        "temperature": 0.0
+      },
+      "model": "Loie/SpotSound"
+    },
+    "auditor": {
+      "backend": "openai",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.auditor"
+      ],
+      "enabled": true,
+      "endpoint": "default",
+      "max_tokens": 4000,
+      "model": "gpt-5.4",
+      "temperature": 0.0
+    },
+    "dense_captioner": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.dense_captioner"
+      ],
+      "enabled": true,
+      "extra": {
+        "attn_implementation": "flash_attention_2",
+        "backend_name": "timechat_captioner",
+        "do_sample": false,
+        "fps": 2.0,
+        "max_frames": 160,
+        "max_pixels": 297920,
+        "preprocess": {
+          "clip_duration_s": 60,
+          "collect_sampled_frames": false,
+          "fps": 1.0,
+          "include_asr": true,
+          "max_frames": 96,
+          "max_new_tokens": 700,
+          "sample_frames": 6,
+          "use_audio_in_video": false
+        },
+        "sample_frames": 10,
+        "temperature": 0.0,
+        "use_audio_in_video": true,
+        "video_max_pixels": 297920
+      },
+      "model": "yaolily/TimeChat-Captioner-GRPO-7B"
+    },
+    "frame_retriever": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.frame_retriever"
+      ],
+      "enabled": true,
+      "extra": {
+        "attn_implementation": "flash_attention_2",
+        "backend_name": "qwen_frame_retriever",
+        "candidate_frames": 12,
+        "dense_frame_embed_batch": 16,
+        "do_sample": false,
+        "reranker_model": "Qwen/Qwen3-VL-Reranker-8B",
+        "temperature": 0.0,
+        "use_reranker": true
+      },
+      "model": "Qwen/Qwen3-VL-Embedding-8B"
+    },
+    "multimodal_reasoner": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.multimodal_reasoner"
+      ],
+      "enabled": true,
+      "extra": {
+        "attn_implementation": "flash_attention_2",
+        "backend_name": "qwen35vl",
+        "do_sample": false,
+        "temperature": 0.0
+      },
+      "model": "Qwen/Qwen3.5-9B"
+    },
+    "ocr": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.ocr"
+      ],
+      "enabled": true,
+      "extra": {
+        "backend_name": "paddleocr",
+        "lang": "en",
+        "max_longest_dim": 1600,
+        "ocr_version": "PP-OCRv5",
+        "require_gpu": false,
+        "use_textline_orientation": false
+      },
+      "model": "PaddleOCR"
+    },
+    "planner": {
+      "backend": "openai",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.planner"
+      ],
+      "enabled": true,
+      "endpoint": "default",
+      "max_tokens": 6000,
+      "model": "gpt-5.4",
+      "temperature": 0.0
+    },
+    "spatial_grounder": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.spatial_grounder"
+      ],
+      "enabled": true,
+      "extra": {
+        "attn_implementation": "flash_attention_2",
+        "backend_name": "qwen35vl_spatial",
+        "do_sample": false,
+        "max_new_tokens": 1536,
+        "temperature": 0.0
+      },
+      "model": "Qwen/Qwen3.5-9B"
+    },
+    "synthesizer": {
+      "backend": "openai",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.synthesizer"
+      ],
+      "enabled": true,
+      "endpoint": "default",
+      "max_tokens": 12000,
+      "model": "gpt-5.4",
+      "temperature": 0.0
+    },
+    "verifier": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.verifier"
+      ],
+      "enabled": true,
+      "extra": {
+        "attn_implementation": "flash_attention_2",
+        "backend_name": "qwen3vl_verifier",
+        "do_sample": false,
+        "max_new_tokens": 4096,
+        "temperature": 0.0
+      },
+      "model": "Qwen/Qwen3-VL-8B-Instruct"
+    },
+    "visual_temporal_grounder": {
+      "backend": "local",
+      "command": [
+        "python3",
+        "-m",
+        "video_trace_pipeline.tools.visual_temporal_grounder"
+      ],
+      "enabled": true,
+      "extra": {
+        "attn_implementation": "flash_attention_2",
+        "backend_name": "timelens",
+        "clip_duration_s": 60,
+        "dense_frame_embed_batch": 16,
+        "do_sample": false,
+        "prefilter_embedder_model": "Qwen/Qwen3-VL-Embedding-8B",
+        "prefilter_neighbor_radius": 1,
+        "prefilter_top_frames": 16,
+        "prefilter_window_budget": 16,
+        "temperature": 0.0,
+        "use_embedding_prefilter": false
+      },
+      "model": "TencentARC/TimeLens-8B"
+    }
+  }
+}

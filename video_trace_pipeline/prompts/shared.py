@@ -8,6 +8,51 @@ def pretty_json(value) -> str:
     return json.dumps(value, ensure_ascii=False, indent=2)
 
 
+def compact_json_rules() -> str:
+    return (
+        "Return one valid JSON object only. Do not include markdown fences, prose preambles, "
+        "hidden chain-of-thought, or comments. Use empty arrays or null only when the schema needs them."
+    )
+
+
+def _clip_text(value: Any, limit: int = 900) -> str:
+    text = " ".join(str(value or "").split())
+    if len(text) <= limit:
+        return text
+    return text[: max(0, limit - 1)].rstrip() + "."
+
+
+def format_task(task: Dict[str, Any]) -> str:
+    return pretty_json(
+        {
+            "benchmark": task.get("benchmark"),
+            "sample_key": task.get("sample_key"),
+            "video_id": task.get("video_id"),
+            "question": task.get("question"),
+            "options": task.get("options") or [],
+            "initial_trace": task.get("initial_trace"),
+            "initial_trace_steps": task.get("initial_trace_steps") or [],
+        }
+    )
+
+
+def format_tool_outputs(previous_steps: List[Dict[str, Any]]) -> str:
+    compact = []
+    for record in list(previous_steps or [])[-20:]:
+        step = dict(record.get("step") or {})
+        result = dict(record.get("result") or {})
+        compact.append(
+            {
+                "round": record.get("round"),
+                "step": step,
+                "ok": result.get("ok"),
+                "output": result.get("output"),
+                "error": result.get("error"),
+            }
+        )
+    return pretty_json(compact)
+
+
 def _coerce_seconds(value: Any) -> float | None:
     try:
         return float(value)
@@ -92,11 +137,11 @@ def render_frame_sequence_context(frames: List[dict]) -> str:
 TOOL_PURPOSES = {
     "visual_temporal_grounder": "Find candidate visual time windows for a specific event, object state, chart appearance, or scene phase.",
     "audio_temporal_grounder": "Find candidate audio time windows for a sound event or spoken-content-related audio cue.",
-    "frame_retriever": "Choose the most useful static frame(s) from a known clip; never use it as a full-video search.",
+    "frame_retriever": "Materialize bounded frames only when an exact/readable/static frame, OCR-quality still, anchor-window neighbors, or true frame-by-frame inspection is explicitly required; never use it as a full-video search.",
     "asr": "Transcribe speech in a clip, ideally with timestamps and speaker attribution.",
     "dense_captioner": "Summarize a bounded clip with dense visual/audio descriptions and on-screen text hints.",
-    "ocr": "Read visible text or numbers from a frame or localized region.",
-    "spatial_grounder": "Localize the answer-critical object, person, mark, or region inside already retrieved frame(s), especially when multiple same-type candidates appear.",
+    "ocr": "Read visible text or numbers from grounded clips or complete frames.",
+    "spatial_grounder": "Localize the answer-critical object, person, mark, or region inside grounded clip(s) or frame(s), especially when multiple same-type candidates appear.",
     "generic_purpose": "Perform targeted multimodal extraction or evidence-conditioned reasoning when no narrower tool fits.",
 }
 

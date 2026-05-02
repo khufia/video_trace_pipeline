@@ -159,8 +159,6 @@ class ObservationExtractor(object):
             observations = self._from_spatial(data, artifact_ids=artifact_ids)
         elif tool_name == "generic_purpose":
             observations = self._from_generic(data, artifact_ids=artifact_ids)
-        elif tool_name == "verifier":
-            observations = self._from_verifier(data, artifact_ids=artifact_ids)
         else:
             observations = self._fallback(data, tool_name, artifact_ids=artifact_ids)
         for item in observations:
@@ -672,59 +670,6 @@ class ObservationExtractor(object):
                     atomic_text=chunk,
                     direct_or_derived="derived",
                     source_artifact_refs=source_artifact_refs,
-                )
-            )
-        return observations
-
-    def _from_verifier(self, data: Dict[str, Any], artifact_ids: Optional[List[str]] = None) -> List[AtomicObservation]:
-        observations = []
-        for result in list(data.get("claim_results") or []):
-            if not isinstance(result, dict):
-                continue
-            claim_id = str(result.get("claim_id") or "claim").strip() or "claim"
-            verdict = str(result.get("verdict") or "unknown").strip().lower() or "unknown"
-            rationale = str(result.get("rationale") or "").strip()
-            answer_value = result.get("answer_value")
-            object_text = verdict if answer_value in (None, "") else "%s: %s" % (verdict, answer_value)
-            atomic_text = "Verifier marked %s as %s." % (claim_id, verdict)
-            if rationale:
-                atomic_text = "%s %s" % (atomic_text, rationale)
-            observations.append(
-                self._make_observation(
-                    "verifier",
-                    subject=claim_id,
-                    subject_type="claim",
-                    predicate="verdict",
-                    object_text=object_text,
-                    object_type="verification_verdict",
-                    atomic_text=atomic_text,
-                    confidence=result.get("confidence"),
-                    source_artifact_refs=artifact_ids,
-                    direct_or_derived="derived",
-                )
-            )
-        for item in list(data.get("new_observations") or []):
-            if not isinstance(item, dict):
-                continue
-            text = str(item.get("atomic_text") or item.get("text") or "").strip()
-            if not text:
-                continue
-            observations.append(
-                self._make_observation(
-                    "verifier",
-                    subject=str(item.get("subject") or "verifier").strip() or "verifier",
-                    subject_type=str(item.get("subject_type") or "claim").strip() or "claim",
-                    predicate=str(item.get("predicate") or "reported").strip() or "reported",
-                    object_text=str(item.get("object_text") or text).strip(),
-                    object_type=str(item.get("object_type") or "text").strip() or "text",
-                    atomic_text=text,
-                    time_start_s=item.get("time_start_s"),
-                    time_end_s=item.get("time_end_s"),
-                    frame_ts_s=item.get("frame_ts_s"),
-                    bbox=item.get("bbox"),
-                    confidence=item.get("confidence"),
-                    source_artifact_refs=item.get("source_artifact_refs") or artifact_ids,
-                    direct_or_derived="derived",
                 )
             )
         return observations

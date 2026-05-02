@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator, validator
 
-from .artifacts import ArtifactRef, ClipRef, TranscriptRef
+from .artifacts import ClipRef, TranscriptRef
 
 
 _GENERIC_CONFIDENCE_LABELS = {
@@ -255,63 +255,3 @@ class GenericPurposeOutput(BaseModel):
     def _normalize_confidence(cls, value):  # noqa: N805
         return _coerce_optional_generic_confidence(value)
 
-
-class VerifierCoverageOutput(BaseModel):
-    checked_inputs: List[str] = Field(default_factory=list)
-    missing_inputs: List[str] = Field(default_factory=list)
-    sampling_summary: str = ""
-
-
-class VerifierClaimResult(BaseModel):
-    claim_id: str
-    verdict: str
-    confidence: Optional[float] = None
-    answer_value: Any = None
-    supporting_observation_ids: List[str] = Field(default_factory=list)
-    supporting_evidence_ids: List[str] = Field(default_factory=list)
-    refuting_observation_ids: List[str] = Field(default_factory=list)
-    refuting_evidence_ids: List[str] = Field(default_factory=list)
-    time_intervals: List[Dict[str, Any]] = Field(default_factory=list)
-    artifact_refs: List[ArtifactRef] = Field(default_factory=list)
-    rationale: str = ""
-    coverage: VerifierCoverageOutput = Field(default_factory=VerifierCoverageOutput)
-
-    @validator("confidence", pre=True)
-    def _normalize_confidence(cls, value):  # noqa: N805
-        return _coerce_optional_generic_confidence(value)
-
-    @validator("verdict")
-    def _validate_verdict(cls, value):  # noqa: N805
-        normalized = str(value or "").strip().lower()
-        aliases = {
-            "support": "supported",
-            "supports": "supported",
-            "true": "supported",
-            "yes": "supported",
-            "contradicted": "refuted",
-            "false": "refuted",
-            "no": "refuted",
-            "partial": "partially_supported",
-            "partially validated": "partially_supported",
-        }
-        normalized = aliases.get(normalized, normalized)
-        if normalized not in {"supported", "refuted", "unknown", "partially_supported"}:
-            raise ValueError("verdict must be supported, refuted, unknown, or partially_supported")
-        return normalized
-
-
-class VerifierOutput(BaseModel):
-    claim_results: List[VerifierClaimResult] = Field(default_factory=list)
-    new_observations: List[Dict[str, Any]] = Field(default_factory=list)
-    evidence_updates: List[Dict[str, Any]] = Field(default_factory=list)
-    checklist_updates: List[Dict[str, Any]] = Field(default_factory=list)
-    counter_updates: List[Dict[str, Any]] = Field(default_factory=list)
-    referent_updates: List[Dict[str, Any]] = Field(default_factory=list)
-    ocr_occurrence_updates: List[Dict[str, Any]] = Field(default_factory=list)
-    unresolved_gaps: List[str] = Field(default_factory=list)
-
-    @model_validator(mode="after")
-    def _require_claim_results(self):
-        if not self.claim_results:
-            raise ValueError("verifier output requires at least one claim_result")
-        return self

@@ -4,11 +4,30 @@ import json
 import os
 
 import pytest
-import numpy as np
-import torch
 from packaging import version
 
+torch = pytest.importorskip("torch")
+
 from video_trace_pipeline.tool_wrappers import local_multimodal
+
+try:
+    import numpy as np
+except ModuleNotFoundError:
+    class _NumpyFallback:
+        uint8 = object()
+
+        @staticmethod
+        def zeros(shape, dtype=None):
+            del dtype
+
+            def _fill(dimensions):
+                if not dimensions:
+                    return 0
+                return [_fill(dimensions[1:]) for _ in range(int(dimensions[0]))]
+
+            return _fill(tuple(shape))
+
+    np = _NumpyFallback()
 
 
 def test_qwen_style_runner_forwards_processor_use_fast(monkeypatch):
@@ -51,12 +70,13 @@ def test_qwen_style_runner_honors_requested_attn_implementation(monkeypatch):
     fake_transformers.AutoProcessor = FakeAutoProcessor
     monkeypatch.setitem(sys.modules, "transformers", fake_transformers)
 
-    def fake_qwen_style_model(model_path, device_label, *, attn_implementation=None):
+    def fake_qwen_style_model(model_path, device_label, *, attn_implementation=None, device_map=None):
         calls.append(
             {
                 "model_path": model_path,
                 "device_label": device_label,
                 "attn_implementation": attn_implementation,
+                "device_map": device_map,
             }
         )
         return object()
@@ -74,10 +94,111 @@ def test_qwen_style_runner_honors_requested_attn_implementation(monkeypatch):
             "model_path": "/tmp/demo-model",
             "device_label": "cuda:0",
             "attn_implementation": "flash_attention_2",
+            "device_map": None,
         }
     ]
     assert runner.loaded_attn_implementation == "flash_attention_2"
     runner.model = None
+
+
+def test_qwen_style_model_single_gpu_moves_model_to_device(monkeypatch):
+    calls = []
+
+    class FakeModel:
+        def __init__(self):
+            self.to_calls = []
+            self.eval_called = False
+
+        def to(self, device_label):
+            self.to_calls.append(device_label)
+            return self
+
+        def eval(self):
+            self.eval_called = True
+            return self
+
+    class FakeAutoModel:
+        @classmethod
+        def from_pretrained(cls, model_path, **kwargs):
+            calls.append({"model_path": model_path, **kwargs})
+            return FakeModel()
+
+    fake_transformers = types.ModuleType("transformers")
+    fake_transformers.__version__ = "5.2.0"
+    fake_transformers.AutoModelForImageTextToText = FakeAutoModel
+    monkeypatch.setitem(sys.modules, "transformers", fake_transformers)
+
+    model = local_multimodal._qwen_style_model("/tmp/demo-model", "cuda:3")
+
+    assert calls
+    assert "device_map" not in calls[0]
+    assert "max_memory" not in calls[0]
+    assert model.to_calls == ["cuda:3"]
+    assert model.eval_called is True
+
+
+def test_qwen_style_model_first_two_cuda_uses_balanced_map_and_skips_to(monkeypatch):
+    calls = []
+
+    class FakeModel:
+        def __init__(self):
+            self.to_calls = []
+            self.eval_called = False
+
+        def to(self, device_label):
+            self.to_calls.append(device_label)
+            return self
+
+        def eval(self):
+            self.eval_called = True
+            return self
+
+    class FakeAutoModel:
+        @classmethod
+        def from_pretrained(cls, model_path, **kwargs):
+            calls.append({"model_path": model_path, **kwargs})
+            return FakeModel()
+
+    fake_transformers = types.ModuleType("transformers")
+    fake_transformers.__version__ = "5.2.0"
+    fake_transformers.AutoModelForImageTextToText = FakeAutoModel
+    monkeypatch.setitem(sys.modules, "transformers", fake_transformers)
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: True)
+    monkeypatch.setattr(torch.cuda, "device_count", lambda: 2)
+    monkeypatch.setattr(
+        torch.cuda,
+        "get_device_properties",
+        lambda index: types.SimpleNamespace(total_memory=(index + 1) * 1024),
+    )
+
+    model = local_multimodal._qwen_style_model(
+        "/tmp/demo-model",
+        "cuda:0",
+        device_map="first_two_cuda",
+    )
+
+    assert calls
+    assert calls[0]["device_map"] == "balanced"
+    assert calls[0]["max_memory"] == {0: 1024, 1: 2048}
+    assert "cpu" not in calls[0]["max_memory"]
+    assert model.to_calls == []
+    assert model.eval_called is True
+
+
+def test_qwen_style_model_first_two_cuda_requires_two_visible_devices(monkeypatch):
+    fake_transformers = types.ModuleType("transformers")
+    fake_transformers.__version__ = "5.2.0"
+    fake_transformers.AutoModelForImageTextToText = object()
+    monkeypatch.setitem(sys.modules, "transformers", fake_transformers)
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: True)
+    monkeypatch.setattr(torch.cuda, "device_count", lambda: 1)
+
+    with pytest.raises(RuntimeError, match="at least two visible CUDA devices"):
+        local_multimodal._qwen_style_model(
+            "/tmp/demo-model",
+            "cuda:0",
+            device_map="first_two_cuda",
+        )
 
 
 def test_patch_qwen35_flash_attention_position_ids_reduces_multirope_positions(monkeypatch):

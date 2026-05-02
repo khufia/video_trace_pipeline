@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
+import math
 import os
 from pathlib import Path
 from typing import Any, Dict, List
@@ -16,6 +17,7 @@ from .shared import (
     scratch_dir,
     workspace_root_from_runtime,
 )
+from ..tools.media import sample_frames
 
 
 def _normalize_bbox(raw_bbox: Any) -> List[float] | None:
@@ -198,12 +200,80 @@ def _extract_request_items(request: Dict[str, Any]) -> List[Dict[str, Any]]:
     return [dict(request or {})]
 
 
+def _ocr_sample_fps(runtime: Dict[str, Any]) -> float:
+    extra = dict(runtime.get("extra") or {})
+    raw = extra.get("fps")
+    if raw in (None, ""):
+        raw = extra.get("ocr_fps")
+    try:
+        fps = float(raw)
+    except Exception:
+        fps = 2.0
+    return max(0.01, fps)
+
+
+def _clip_sample_count(clip: Dict[str, Any], fps: float) -> int:
+    start_s = float(clip.get("start_s") or 0.0)
+    end_s = float(clip.get("end_s") if clip.get("end_s") is not None else start_s)
+    return max(1, int(math.ceil(max(0.0, end_s - start_s) * float(fps))))
+
+
+def _request_clip_frame_items(
+    request: Dict[str, Any],
+    task: Dict[str, Any],
+    runtime: Dict[str, Any],
+    frame_out_dir: Path,
+) -> List[Dict[str, Any]]:
+    clips = list(request.get("clips") or [])
+    if not clips:
+        return [request]
+    video_path = str(task.get("video_path") or "").strip()
+    if not video_path:
+        raise RuntimeError("OCR clip input requires task.video_path for frame sampling.")
+
+    query = str(request.get("query") or "").strip() or None
+    fps = _ocr_sample_fps(runtime)
+    expanded: List[Dict[str, Any]] = []
+    for clip_index, raw_clip in enumerate(clips):
+        clip = dict(raw_clip or {})
+        clip.setdefault("metadata", {})
+        start_s = float(clip.get("start_s") or 0.0)
+        end_s = float(clip.get("end_s") if clip.get("end_s") is not None else start_s)
+        frame_count = _clip_sample_count(clip, fps)
+        sampled = sample_frames(
+            video_path,
+            start_s,
+            end_s,
+            frame_count,
+            str(frame_out_dir),
+            prefix="ocr_clip_%02d" % (clip_index + 1),
+        )
+        if not sampled:
+            raise RuntimeError("Could not sample OCR frames from clip %.3f-%.3fs." % (start_s, end_s))
+        for sample in sampled:
+            timestamp_s = float(sample.get("timestamp_s") or start_s)
+            frame = {
+                "video_id": clip.get("video_id") or task.get("video_id") or task.get("sample_key") or "video",
+                "timestamp_s": timestamp_s,
+                "clip": clip,
+                "metadata": {
+                    "source_path": str(sample.get("frame_path") or ""),
+                    "ocr_sample_fps": fps,
+                    "ocr_source": "clip",
+                },
+            }
+            expanded.append({"tool_name": "ocr", "query": query, "frames": [frame]})
+    return expanded
+
+
 def _prepare_single_request(request: Dict[str, Any], task: Dict[str, Any], runtime: Dict[str, Any], frame_out_dir: Path):
     region = dict((request.get("regions") or [{}])[0] or {})
     region_frame = dict(region.get("frame") or {}) if region else {}
-    frame_path = absolute_frame_path(region_frame, runtime)
+    frame_payload = dict((request.get("frames") or [{}])[0] or {})
+    frame_path = absolute_frame_path(region_frame or frame_payload, runtime)
     if frame_path:
-        timestamp_s = float(region_frame.get("timestamp_s") or region_frame.get("timestamp") or 0.0)
+        timestamp_payload = region_frame or frame_payload
+        timestamp_s = float(timestamp_payload.get("timestamp_s") or timestamp_payload.get("timestamp") or 0.0)
     else:
         frame_path, timestamp_s = ensure_frame_for_request(
             request,
@@ -223,6 +293,66 @@ def _prepare_single_request(request: Dict[str, Any], task: Dict[str, Any], runti
     prepared_frame_path = _prepare_ocr_image(frame_path, frame_out_dir, max_longest_dim=max(256, max_longest_dim))
     query = str(request.get("query") or "").strip()
     return prepared_frame_path, source_frame_path, float(timestamp_s), query
+
+
+def _prepared_request_source(
+    request: Dict[str, Any],
+    *,
+    source_frame_path: str,
+    timestamp_s: float,
+) -> Dict[str, Any]:
+    region = dict((request.get("regions") or [{}])[0] or {})
+    frame = dict((request.get("frames") or [{}])[0] or {})
+    clip = dict((request.get("clips") or [{}])[0] or {})
+
+    if region:
+        region_frame = dict(region.get("frame") or {})
+        if region_frame:
+            frame = region_frame
+            if not clip:
+                clip = dict(frame.get("clip") or {})
+        return {"region": region, "frame": frame or None, "clip": clip or None}
+
+    if frame:
+        metadata = dict(frame.get("metadata") or {})
+        if source_frame_path and not metadata.get("source_path"):
+            metadata["source_path"] = source_frame_path
+            frame["metadata"] = metadata
+        frame["timestamp_s"] = float(frame.get("timestamp_s") or timestamp_s)
+        if not clip:
+            clip = dict(frame.get("clip") or {})
+        return {"frame": frame, "clip": clip or None}
+
+    if clip:
+        return {"clip": clip}
+    return {}
+
+
+def _prepare_ocr_item(
+    request: Dict[str, Any],
+    *,
+    task: Dict[str, Any],
+    runtime: Dict[str, Any],
+    frame_out_dir: Path,
+) -> Dict[str, Any]:
+    prepared_frame_path, source_frame_path, timestamp_s, query = _prepare_single_request(
+        request,
+        task,
+        runtime,
+        frame_out_dir,
+    )
+    source = _prepared_request_source(
+        request,
+        source_frame_path=source_frame_path,
+        timestamp_s=timestamp_s,
+    )
+    return {
+        "prepared_frame_path": prepared_frame_path,
+        "source_frame_path": source_frame_path,
+        "timestamp_s": float(timestamp_s),
+        "query": query,
+        **source,
+    }
 
 
 def _configure_paddleocr_environment(runtime: Dict[str, Any]) -> Path:
@@ -256,6 +386,16 @@ def _paddleocr_device_label(runtime: Dict[str, Any]) -> str:
 def _optional_runtime_value(extra: Dict[str, Any], key: str) -> str | None:
     value = str(extra.get(key) or "").strip()
     return value or None
+
+
+def _optional_runtime_int(extra: Dict[str, Any], key: str) -> int | None:
+    value = extra.get(key)
+    if value in (None, ""):
+        return None
+    try:
+        return max(1, int(value))
+    except Exception:
+        return None
 
 
 def _probe_paddleocr_device(device_label: str) -> Dict[str, Any]:
@@ -325,6 +465,8 @@ def create_paddleocr_engine(runtime: Dict[str, Any]):
         "text_detection_model_dir": _optional_runtime_value(extra, "text_detection_model_dir"),
         "text_recognition_model_dir": _optional_runtime_value(extra, "text_recognition_model_dir"),
         "textline_orientation_model_dir": _optional_runtime_value(extra, "textline_orientation_model_dir"),
+        "text_recognition_batch_size": _optional_runtime_int(extra, "text_recognition_batch_size") or 16,
+        "textline_orientation_batch_size": _optional_runtime_int(extra, "textline_orientation_batch_size"),
     }
     init_kwargs = {key: value for key, value in init_kwargs.items() if value is not None}
     attempted_devices = []
@@ -405,12 +547,43 @@ def run_paddleocr_image(engine: Any, image_path: str, *, use_textline_orientatio
     return _extract_lines(raw_result)
 
 
+def run_paddleocr_batch(engine: Any, image_paths: List[str], *, use_textline_orientation: bool) -> List[List[Dict[str, Any]]]:
+    paths = [str(path) for path in list(image_paths or [])]
+    if not paths:
+        return []
+    if len(paths) > 1 and hasattr(engine, "predict"):
+        try:
+            raw_result = engine.predict(
+                input=paths,
+                use_textline_orientation=use_textline_orientation,
+            )
+            if isinstance(raw_result, list):
+                raw_items = raw_result
+            else:
+                raw_items = list(raw_result or [])
+            if len(raw_items) == len(paths):
+                return [_extract_lines(item) for item in raw_items]
+        except Exception:
+            pass
+    return [
+        run_paddleocr_image(
+            engine,
+            image_path,
+            use_textline_orientation=use_textline_orientation,
+        )
+        for image_path in paths
+    ]
+
+
 def _normalize_single_output(
     lines: List[Dict[str, Any]],
     *,
     query: str,
     timestamp_s: float,
     source_frame_path: str,
+    frame: Dict[str, Any] | None = None,
+    clip: Dict[str, Any] | None = None,
+    region: Dict[str, Any] | None = None,
 ) -> Dict[str, Any]:
     cleaned_lines = []
     for item in list(lines or []):
@@ -424,7 +597,7 @@ def _normalize_single_output(
         if normalized is not None:
             cleaned_lines.append(normalized)
     text = "\n".join(item["text"] for item in cleaned_lines)
-    return {
+    payload = {
         "text": text,
         "lines": cleaned_lines,
         "query": query or None,
@@ -432,6 +605,13 @@ def _normalize_single_output(
         "source_frame_path": source_frame_path,
         "backend": "paddleocr",
     }
+    if frame:
+        payload["frame"] = frame
+    if clip:
+        payload["clip"] = clip
+    if region:
+        payload["region"] = region
+    return payload
 
 
 def _run_single_request(
@@ -442,23 +622,54 @@ def _run_single_request(
     frame_out_dir: Path,
     engine: Any,
 ) -> Dict[str, Any]:
-    prepared_frame_path, source_frame_path, timestamp_s, query = _prepare_single_request(
+    prepared = _prepare_ocr_item(
         request,
-        task,
-        runtime,
-        frame_out_dir,
+        task=task,
+        runtime=runtime,
+        frame_out_dir=frame_out_dir,
     )
     lines = run_paddleocr_image(
         engine,
-        prepared_frame_path,
+        prepared["prepared_frame_path"],
         use_textline_orientation=bool((runtime.get("extra") or {}).get("use_textline_orientation", False)),
     )
     return _normalize_single_output(
         lines,
-        query=query,
-        timestamp_s=timestamp_s,
-        source_frame_path=source_frame_path,
+        query=prepared["query"],
+        timestamp_s=prepared["timestamp_s"],
+        source_frame_path=prepared["source_frame_path"],
+        frame=prepared.get("frame"),
+        clip=prepared.get("clip"),
+        region=prepared.get("region"),
     )
+
+
+def _run_prepared_requests(
+    prepared_items: List[Dict[str, Any]],
+    *,
+    runtime: Dict[str, Any],
+    engine: Any,
+) -> List[Dict[str, Any]]:
+    use_textline_orientation = bool((runtime.get("extra") or {}).get("use_textline_orientation", False))
+    lines_by_item = run_paddleocr_batch(
+        engine,
+        [item["prepared_frame_path"] for item in prepared_items],
+        use_textline_orientation=use_textline_orientation,
+    )
+    results = []
+    for prepared, lines in zip(prepared_items, lines_by_item):
+        results.append(
+            _normalize_single_output(
+                lines,
+                query=prepared["query"],
+                timestamp_s=prepared["timestamp_s"],
+                source_frame_path=prepared["source_frame_path"],
+                frame=prepared.get("frame"),
+                clip=prepared.get("clip"),
+                region=prepared.get("region"),
+            )
+        )
+    return results
 
 
 def main() -> None:
@@ -468,18 +679,24 @@ def main() -> None:
     runtime = dict(payload.get("runtime") or {})
     frame_out_dir = scratch_dir(runtime, "ocr")
     request_items = _extract_request_items(request)
-    engine = create_paddleocr_engine(runtime)
-    results = []
+    expanded_items = []
     for item in request_items:
-        results.append(
-            _run_single_request(
-                item,
-                task=task,
-                runtime=runtime,
-                frame_out_dir=frame_out_dir,
-                engine=engine,
-            )
+        expanded_items.extend(_request_clip_frame_items(item, task, runtime, frame_out_dir))
+    prepared_items = [
+        _prepare_ocr_item(
+            item,
+            task=task,
+            runtime=runtime,
+            frame_out_dir=frame_out_dir,
         )
+        for item in expanded_items
+    ]
+    engine = create_paddleocr_engine(runtime)
+    results = _run_prepared_requests(
+        prepared_items,
+        runtime=runtime,
+        engine=engine,
+    )
     if len(results) <= 1:
         emit_json(results[0] if results else _normalize_single_output([], query="", timestamp_s=0.0, source_frame_path=""))
         return

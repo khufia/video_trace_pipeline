@@ -7,8 +7,8 @@ from typing import Any, Dict, List
 from pydantic import ValidationError
 
 from ..common import assign_path, hash_payload, sanitize_for_persistence, traverse_path, write_json
-from ..schemas import AtomicObservation, EvidenceEntry, ToolResult
-from ..storage import EvidenceLedger, SharedEvidenceCache
+from ..schemas import EvidenceEntry, ToolResult
+from ..storage import EvidenceLedger
 from ..tools import ObservationExtractor
 from ..tools.extractors import build_evidence_text_digest, evidence_temporal_bounds
 from ..tools.base import ToolExecutionContext
@@ -62,9 +62,8 @@ def _iter_step_input_refs(step):
 
 
 class PlanExecutor(object):
-    def __init__(self, tool_registry, evidence_cache: SharedEvidenceCache, extractor: ObservationExtractor, models_config):
+    def __init__(self, tool_registry, extractor: ObservationExtractor, models_config):
         self.tool_registry = tool_registry
-        self.evidence_cache = evidence_cache
         self.extractor = extractor
         self.models_config = models_config
 
@@ -83,22 +82,6 @@ class PlanExecutor(object):
             value = _merge_dependency_values(existing_value, value, target_field)
             assign_path(resolved, target_field, value)
         return resolved
-
-    def _load_cached_tool_result(self, cached: Dict[str, Any] | None):
-        if not cached:
-            return None
-        try:
-            tool_result = ToolResult.parse_obj(cached.get("result") or {})
-        except Exception:
-            return None
-        if not tool_result.ok:
-            return None
-        try:
-            observations = [AtomicObservation.parse_obj(item) for item in cached.get("observations") or []]
-        except Exception:
-            return None
-        tool_result.cache_hit = True
-        return tool_result, observations
 
     def _record_tool_step_failure(
         self,
@@ -305,7 +288,6 @@ class PlanExecutor(object):
                     "extraction_version": getattr(self.extractor, "VERSION", "v1"),
                 }
             )
-            cached = self.evidence_cache.load(step.tool_name, request_hash)
             step_dir = execution_context.run.tool_step_dir(step.step_id, step.tool_name, round_index=round_index)
             write_json(step_dir / "request.json", request.dict())
             if hasattr(adapter, "_runtime_payload"):
@@ -318,68 +300,23 @@ class PlanExecutor(object):
                 "finished_at_utc": None,
                 "duration_s": 0.0,
                 "cache_wait_s": 0.0,
-                "execution_mode": "cache_hit",
+                "execution_mode": "executed",
             }
-            cached_payload = self._load_cached_tool_result(cached)
-            if cached_payload is not None:
-                tool_result, observations = cached_payload
-            else:
-                cache_lock = self.evidence_cache.lock(step.tool_name, request_hash)
-                cache_wait_started_at = time.perf_counter()
-                with cache_lock:
-                    timing_metadata["cache_wait_s"] = round(time.perf_counter() - cache_wait_started_at, 4)
-                    cached = self.evidence_cache.load(step.tool_name, request_hash)
-                    cached_payload = self._load_cached_tool_result(cached)
-                    if cached_payload is not None:
-                        timing_metadata["execution_mode"] = "cache_hit_after_lock"
-                        tool_result, observations = cached_payload
-                    else:
-                        tool_started_at = datetime.now(timezone.utc)
-                        execution_started_at = time.perf_counter()
-                        tool_result = adapter.execute(request, execution_context)
-                        tool_finished_at = datetime.now(timezone.utc)
-                        tool_result.request_hash = request_hash
-                        tool_result.cache_hit = False
-                        timing_metadata = {
-                            "started_at_utc": tool_started_at.isoformat(),
-                            "finished_at_utc": tool_finished_at.isoformat(),
-                            "duration_s": round(time.perf_counter() - execution_started_at, 4),
-                            "cache_wait_s": timing_metadata["cache_wait_s"],
-                            "execution_mode": "executed",
-                        }
-                        tool_result.metadata = {**dict(tool_result.metadata or {}), "timing": timing_metadata}
-                        observations = self.extractor.extract(tool_result)
-                        evidence_text = build_evidence_text_digest(tool_result, observations)
-                        self.evidence_cache.store_unlocked(
-                            tool_name=step.tool_name,
-                            request_hash=request_hash,
-                            manifest={
-                                "tool_name": step.tool_name,
-                                "request_hash": request_hash,
-                                "prompt_version": self.models_config.tools[step.tool_name].prompt_version,
-                                "request": sanitize_for_persistence(request.dict()),
-                            },
-                            result=sanitize_for_persistence(
-                                {
-                                    **tool_result.dict(),
-                                    "summary": evidence_text,
-                                    "metadata": {
-                                        **dict(tool_result.metadata or {}),
-                                        "digest_source_observation_ids": [
-                                            item.observation_id for item in list(observations or [])
-                                        ],
-                                        "digest_version": "observations_v1",
-                                    },
-                                }
-                            ),
-                            observations=[sanitize_for_persistence(item.dict()) for item in observations],
-                        )
-                        tool_result.summary = evidence_text
-                        tool_result.metadata = {
-                            **dict(tool_result.metadata or {}),
-                            "digest_source_observation_ids": [item.observation_id for item in list(observations or [])],
-                            "digest_version": "observations_v1",
-                        }
+            tool_started_at = datetime.now(timezone.utc)
+            execution_started_at = time.perf_counter()
+            tool_result = adapter.execute(request, execution_context)
+            tool_finished_at = datetime.now(timezone.utc)
+            tool_result.request_hash = request_hash
+            tool_result.cache_hit = False
+            timing_metadata = {
+                "started_at_utc": tool_started_at.isoformat(),
+                "finished_at_utc": tool_finished_at.isoformat(),
+                "duration_s": round(time.perf_counter() - execution_started_at, 4),
+                "cache_wait_s": 0.0,
+                "execution_mode": "executed",
+            }
+            tool_result.metadata = {**dict(tool_result.metadata or {}), "timing": timing_metadata}
+            observations = self.extractor.extract(tool_result)
             tool_result.metadata = {**dict(tool_result.metadata or {}), "timing": timing_metadata}
             evidence_text = build_evidence_text_digest(tool_result, observations)
             tool_result.summary = evidence_text

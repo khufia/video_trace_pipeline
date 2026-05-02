@@ -3,70 +3,11 @@ from __future__ import annotations
 import json
 import sqlite3
 from collections import defaultdict
-from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from filelock import FileLock
-
-from ..common import append_jsonl, ensure_dir, read_json, read_jsonl, write_json
+from ..common import append_jsonl, read_jsonl
 from ..schemas import AtomicObservation, EvidenceEntry, ToolResult
-from .workspace import RunContext, WorkspaceManager
-
-
-class SharedEvidenceCache(object):
-    def __init__(self, workspace: WorkspaceManager):
-        self.workspace = workspace
-
-    def lock(self, tool_name: str, request_hash: str) -> FileLock:
-        cache_dir = self.workspace.evidence_cache_dir(tool_name, request_hash)
-        return FileLock(str(cache_dir / ".lock"))
-
-    def load(self, tool_name: str, request_hash: str) -> Optional[Dict[str, Any]]:
-        cache_dir = self.workspace.evidence_cache_dir(tool_name, request_hash)
-        manifest_path = cache_dir / "manifest.json"
-        result_path = cache_dir / "result.json"
-        observations_path = cache_dir / "observations.jsonl"
-        if not manifest_path.exists() or not result_path.exists():
-            return None
-        return {
-            "manifest": read_json(manifest_path),
-            "result": read_json(result_path),
-            "observations": read_jsonl(observations_path),
-        }
-
-    def store_unlocked(
-        self,
-        tool_name: str,
-        request_hash: str,
-        manifest: Dict[str, Any],
-        result: Dict[str, Any],
-        observations: Iterable[Dict[str, Any]],
-    ) -> Path:
-        cache_dir = self.workspace.evidence_cache_dir(tool_name, request_hash)
-        write_json(cache_dir / "manifest.json", manifest)
-        write_json(cache_dir / "result.json", result)
-        obs_path = cache_dir / "observations.jsonl"
-        obs_path.unlink(missing_ok=True)  # type: ignore[attr-defined]
-        append_jsonl(obs_path, observations)
-        return cache_dir
-
-    def store(
-        self,
-        tool_name: str,
-        request_hash: str,
-        manifest: Dict[str, Any],
-        result: Dict[str, Any],
-        observations: Iterable[Dict[str, Any]],
-    ) -> Path:
-        lock = self.lock(tool_name, request_hash)
-        with lock:
-            return self.store_unlocked(
-                tool_name=tool_name,
-                request_hash=request_hash,
-                manifest=manifest,
-                result=result,
-                observations=observations,
-            )
+from .workspace import RunContext
 
 
 class EvidenceLedger(object):

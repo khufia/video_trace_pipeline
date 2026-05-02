@@ -1,7 +1,8 @@
 from contextlib import nullcontext
+import sys
+import types
 
-import torch
-import transformers.utils.generic as hf_generic
+import pytest
 
 from video_trace_pipeline.tool_wrappers import frame_retriever_runner
 from video_trace_pipeline.tool_wrappers import reference_adapter
@@ -306,11 +307,14 @@ def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
     assert result.data["cache_metadata"]["dense_frame_count"] == 362
     assert result.data["cache_metadata"]["bounded_frame_count"] == 18
     assert result.data["cache_metadata"]["embedding_cache_ready"] is True
+    assert result.data["cache_metadata"]["frame_count_policy"] == "per_clip"
+    assert result.data["cache_metadata"]["frames_per_input"] == 1
+    assert result.data["cache_metadata"]["returned_frame_count"] == 2
     assert len(result.data["cache_groups"]) == 2
     assert result.metadata["dense_frame_cache_hit"] is True
 
 
-def test_frame_retriever_process_adapter_globally_reranks_multi_clip_frames(monkeypatch):
+def test_frame_retriever_process_adapter_keeps_num_frames_per_clip(monkeypatch):
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 
     def _fake_execute_single(request, context):
@@ -352,7 +356,94 @@ def test_frame_retriever_process_adapter_globally_reranks_multi_clip_frames(monk
 
     result = adapter.execute(request, context=None)
 
-    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 112.0]
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 112.0, 13.0, 113.0]
+    assert result.data["cache_metadata"]["frame_count_policy"] == "per_clip"
+    assert result.data["cache_metadata"]["frames_per_input"] == 2
+    assert result.data["cache_metadata"]["returned_frame_count"] == 4
+
+
+def test_frame_retriever_process_adapter_chronological_multi_clip_keeps_each_clip(monkeypatch):
+    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
+
+    def _fake_execute_single(request, context):
+        clip = request.clips[0].dict()
+        start_s = float(clip["start_s"])
+        if start_s < 100.0:
+            frames = [
+                {"video_id": "video-1", "timestamp_s": 14.0, "metadata": {"relevance_score": 0.20}},
+                {"video_id": "video-1", "timestamp_s": 12.0, "metadata": {"relevance_score": 0.95}},
+                {"video_id": "video-1", "timestamp_s": 13.0, "metadata": {"relevance_score": 0.40}},
+            ]
+        else:
+            frames = [
+                {"video_id": "video-1", "timestamp_s": 114.0, "metadata": {"relevance_score": 0.20}},
+                {"video_id": "video-1", "timestamp_s": 112.0, "metadata": {"relevance_score": 0.80}},
+                {"video_id": "video-1", "timestamp_s": 113.0, "metadata": {"relevance_score": 0.10}},
+            ]
+        return ToolResult(
+            tool_name="frame_retriever",
+            ok=True,
+            data={
+                "frames": frames,
+                "cache_metadata": {},
+                "rationale": "clip-specific rationale",
+            },
+            summary="Retrieved %d frame(s)." % len(frames),
+        )
+
+    monkeypatch.setattr(adapter, "_execute_single", _fake_execute_single)
+    request = adapter.request_model.parse_obj(
+        {
+            "tool_name": "frame_retriever",
+            "query": "chart frame sequence",
+            "num_frames": 2,
+            "sort_order": "chronological",
+            "clips": [
+                {"video_id": "video-1", "start_s": 10.0, "end_s": 20.0},
+                {"video_id": "video-1", "start_s": 110.0, "end_s": 120.0},
+            ],
+        }
+    )
+
+    result = adapter.execute(request, context=None)
+
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 13.0, 112.0, 113.0]
+    assert result.data["cache_metadata"]["returned_frame_count"] == 4
+
+
+def test_frame_retriever_process_adapter_single_clip_uses_single_execution(monkeypatch):
+    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
+
+    def _fake_execute_single(request, context):
+        return ToolResult(
+            tool_name="frame_retriever",
+            ok=True,
+            data={
+                "frames": [
+                    {"video_id": "video-1", "timestamp_s": 12.0, "metadata": {"relevance_score": 0.95}},
+                    {"video_id": "video-1", "timestamp_s": 13.0, "metadata": {"relevance_score": 0.40}},
+                    {"video_id": "video-1", "timestamp_s": 14.0, "metadata": {"relevance_score": 0.20}},
+                ],
+                "cache_metadata": {"returned_frame_count": 3},
+                "rationale": "single clip",
+            },
+            summary="Retrieved 3 frame(s).",
+        )
+
+    monkeypatch.setattr(adapter, "_execute_single", _fake_execute_single)
+    request = adapter.request_model.parse_obj(
+        {
+            "tool_name": "frame_retriever",
+            "query": "best chart frame",
+            "num_frames": 2,
+            "clips": [{"video_id": "video-1", "start_s": 10.0, "end_s": 20.0}],
+        }
+    )
+
+    result = adapter.execute(request, context=None)
+
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 13.0, 14.0]
+    assert result.data["cache_metadata"]["returned_frame_count"] == 3
 
 
 def test_frame_retriever_process_adapter_preserves_chronological_sequence_merge(monkeypatch):
@@ -411,6 +502,7 @@ def test_frame_retriever_process_adapter_preserves_chronological_sequence_merge(
 
 
 def test_reference_adapter_installs_check_model_inputs_compat(monkeypatch):
+    hf_generic = pytest.importorskip("transformers.utils.generic")
     monkeypatch.delattr(hf_generic, "check_model_inputs", raising=False)
 
     reference_adapter._install_transformers_generic_compat()
@@ -460,6 +552,98 @@ def test_reference_adapter_loads_local_model_helper(tmp_path, monkeypatch):
     ) is helper_cls
 
 
+def test_reference_adapter_frame_embedder_uses_first_two_cuda_device_map(tmp_path, monkeypatch):
+    torch = pytest.importorskip("torch")
+    calls = {}
+    module = types.ModuleType("fake_qwen3_vl_embedding_sharded")
+
+    class _FakeModel:
+        @classmethod
+        def from_pretrained(cls, model_name_or_path, **kwargs):
+            calls["model_name_or_path"] = model_name_or_path
+            calls["model_kwargs"] = dict(kwargs)
+            return cls()
+
+        def eval(self):
+            calls["model_eval"] = True
+            return self
+
+    class _FakeProcessor:
+        @classmethod
+        def from_pretrained(cls, model_name_or_path, **kwargs):
+            calls["processor_name_or_path"] = model_name_or_path
+            calls["processor_kwargs"] = dict(kwargs)
+            return cls()
+
+    class _FakeEmbedder:
+        pass
+
+    _FakeEmbedder.__module__ = module.__name__
+    module.Qwen3VLEmbedder = _FakeEmbedder
+    module.Qwen3VLForEmbedding = _FakeModel
+    module.Qwen3VLProcessor = _FakeProcessor
+    monkeypatch.setitem(sys.modules, module.__name__, module)
+
+    monkeypatch.setattr(reference_adapter, "get_video_duration", lambda _video_path: 12.0)
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: True)
+    monkeypatch.setattr(torch.cuda, "device_count", lambda: 2)
+    monkeypatch.setattr(torch.cuda, "is_bf16_supported", lambda: False)
+    monkeypatch.setattr(torch.cuda, "device", lambda _idx: nullcontext())
+    monkeypatch.setattr(
+        torch.cuda,
+        "get_device_properties",
+        lambda idx: type("Props", (), {"total_memory": (idx + 1) * 1024})(),
+    )
+
+    harness = reference_adapter.ReferenceHarness(
+        task={"video_path": str(tmp_path / "sample.mp4"), "video_id": "video-1"},
+        runtime={
+            "workspace_root": str(tmp_path),
+            "model_name": str(tmp_path),
+            "extra": {"device_map": "first_two_cuda"},
+        },
+        clip_duration_s=5.0,
+        embedder_model=str(tmp_path),
+    )
+    monkeypatch.setattr(harness, "_load_model_helper_class", lambda *args, **kwargs: _FakeEmbedder)
+
+    embedder = harness._get_or_load_frame_embedder()
+
+    assert isinstance(embedder, _FakeEmbedder)
+    assert calls["model_kwargs"]["device_map"] == "balanced"
+    assert calls["model_kwargs"]["max_memory"] == {0: 1024, 1: 2048}
+    assert calls["processor_kwargs"] == {"padding_side": "right"}
+    assert harness._frame_embedder_device_index() == 0
+    assert harness._frame_embedder_runtime_metadata()["device_map"] == "first_two_cuda"
+
+
+def test_reference_adapter_frame_embedder_default_uses_helper_constructor(tmp_path, monkeypatch):
+    torch = pytest.importorskip("torch")
+    calls = {}
+
+    class _FakeEmbedder:
+        def __init__(self, model_name_or_path, **kwargs):
+            calls["model_name_or_path"] = model_name_or_path
+            calls["kwargs"] = dict(kwargs)
+
+    monkeypatch.setattr(reference_adapter, "get_video_duration", lambda _video_path: 12.0)
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: False)
+    harness = reference_adapter.ReferenceHarness(
+        task={"video_path": str(tmp_path / "sample.mp4"), "video_id": "video-1"},
+        runtime={"workspace_root": str(tmp_path), "model_name": str(tmp_path)},
+        clip_duration_s=5.0,
+        embedder_model=str(tmp_path),
+    )
+    monkeypatch.setattr(harness, "_load_model_helper_class", lambda *args, **kwargs: _FakeEmbedder)
+
+    embedder = harness._get_or_load_frame_embedder()
+
+    assert isinstance(embedder, _FakeEmbedder)
+    assert calls["model_name_or_path"] == str(tmp_path)
+    assert "device_map" not in calls["kwargs"]
+    assert harness._frame_embedder_runtime_metadata()["device_map"] is None
+
+
 def test_reference_adapter_lists_dense_frames_in_timestamp_order(tmp_path, monkeypatch):
     monkeypatch.setattr(reference_adapter, "get_video_duration", lambda _video_path: 12.0)
     harness = reference_adapter.ReferenceHarness(
@@ -505,6 +689,7 @@ def test_resolve_model_path_prefers_requested_snapshot_over_runtime_resolved(tmp
 
 
 def test_reference_adapter_qwen_score_frames_retries_without_flash_attention(tmp_path, monkeypatch):
+    torch = pytest.importorskip("torch")
     monkeypatch.setattr(reference_adapter, "get_video_duration", lambda _video_path: 12.0)
     harness = reference_adapter.ReferenceHarness(
         task={"video_path": str(tmp_path / "sample.mp4"), "video_id": "video-1"},

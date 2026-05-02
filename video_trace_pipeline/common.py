@@ -310,3 +310,7 @@ def sanitize_for_persistence(value: Any) -> Any:
     if isinstance(value, str):
         return _sanitize_string_value(value)
     return value
+
+
+def sanitize_for_json(value: Any) -> Any:
+    return sanitize_for_persistence(value)

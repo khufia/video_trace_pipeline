@@ -374,73 +374,6 @@ def check_env(
 
 
 @app.command()
-def preprocess(
-    profile: str = typer.Option(..., help="Machine profile YAML"),
-    models: str = typer.Option("configs/models.yaml", help="Models config YAML"),
-    benchmark: Optional[str] = typer.Option(None, help="Benchmark name"),
-    index: Optional[int] = typer.Option(None, help="Single sample index"),
-    limit: Optional[int] = typer.Option(None, help="Limit number of tasks"),
-    video_path: Optional[str] = typer.Option(None, help="Direct video path for an ad hoc run"),
-    question: Optional[str] = typer.Option(None, help="Question for the direct video input"),
-    options_json: Optional[str] = typer.Option(None, help="Options as a JSON list or `||`-separated string"),
-    sample_key: Optional[str] = typer.Option(None, help="Optional sample key override for direct video input"),
-    video_id: Optional[str] = typer.Option(None, help="Optional video id override for direct video input"),
-    question_id: Optional[str] = typer.Option(None, help="Optional question id override for direct video input"),
-    gold_answer: Optional[str] = typer.Option(None, help="Optional gold answer for direct video input"),
-    initial_trace_steps_json: Optional[str] = typer.Option(None, help="Initial trace steps as JSON list or `||`-separated string"),
-    inputs_json: Optional[str] = typer.Option(None, help="JSON file containing a list of direct-input samples"),
-    input_index: Optional[int] = typer.Option(None, help="Sample index inside `inputs_json`"),
-    clip_duration: Optional[float] = typer.Option(None, help="Dense-caption clip duration in seconds"),
-    workspace_root: Optional[str] = typer.Option(None, help="Override workspace root"),
-    persist_tool_models: Optional[str] = typer.Option(
-        None,
-        "--persist-tool-models",
-        help="Tool names as a JSON list or `||`-separated string to keep loaded on GPU during this CLI run",
-    ),
-    preload_persisted_models: bool = typer.Option(
-        False,
-        "--preload-persisted-models/--no-preload-persisted-models",
-        help="Eagerly load persisted tool models at startup, in parallel across distinct devices",
-    ),
-):
-    runner = _load_runner(
-        profile=profile,
-        models=models,
-        workspace_root=workspace_root,
-        persist_tool_models=_parse_tool_names(persist_tool_models),
-        preload_persisted_models=preload_persisted_models,
-    )
-    try:
-        runner.preload_models()
-        tasks = _load_tasks(
-            runner,
-            benchmark=benchmark,
-            index=index,
-            limit=limit,
-            video_path=video_path,
-            question=question,
-            options_text=options_json,
-            sample_key=sample_key,
-            video_id=video_id,
-            question_id=question_id,
-            gold_answer=gold_answer,
-            initial_trace_steps_text=initial_trace_steps_json,
-            inputs_json=inputs_json,
-            input_index=input_index,
-        )
-        for task in tasks:
-            output = runner.preprocessor.get_or_build(task, clip_duration_s=clip_duration)
-            console.print(
-                "[green]preprocess[/green]",
-                task.sample_key,
-                "cache_hit=%s" % output["cache_hit"],
-                "cache_dir=%s" % output["cache_dir"],
-            )
-    finally:
-        runner.close()
-
-
-@app.command()
 def run(
     profile: str = typer.Option(..., help="Machine profile YAML"),
     models: str = typer.Option("configs/models.yaml", help="Models config YAML"),
@@ -458,7 +391,6 @@ def run(
     initial_trace_steps_json: Optional[str] = typer.Option(None, help="Initial trace steps as JSON list or `||`-separated string"),
     inputs_json: Optional[str] = typer.Option(None, help="JSON file containing a list of direct-input samples"),
     input_index: Optional[int] = typer.Option(None, help="Sample index inside `inputs_json`"),
-    clip_duration: Optional[float] = typer.Option(None, help="Dense-caption clip duration in seconds"),
     max_rounds: int = typer.Option(3, help="Maximum generation/refinement rounds"),
     initial_trace_path: Optional[str] = typer.Option(None, help="Optional initial trace package JSON"),
     workspace_root: Optional[str] = typer.Option(None, help="Override workspace root"),
@@ -504,7 +436,6 @@ def run(
                 task=task,
                 mode=mode,
                 max_rounds=max_rounds,
-                clip_duration_s=clip_duration,
                 initial_trace_path=initial_trace_path,
                 progress_reporter=progress_reporter,
             )

@@ -172,17 +172,20 @@ class ReferenceHarness:
             1,
             int(extra.get("dense_frame_embed_batch") or extra.get("candidate_frames") or 8),
         )
-        self.use_retrieved_context = False
         self.segment_size_s = float(self.clip_duration)
         self._temporal_grounder_embedder_class = None
         self._temporal_grounder_reranker_class = None
         self._frame_embedder = None
         self._frame_embedder_attn_override = None
         self._frame_embedder_requested_attn_implementation = str(extra.get("attn_implementation") or "").strip() or None
+        self._frame_embedder_device_map = str(extra.get("device_map") or "").strip() or None
+        if self._frame_embedder_device_map not in (None, "first_two_cuda"):
+            raise RuntimeError("Unsupported frame embedder device_map %r." % self._frame_embedder_device_map)
         self._frame_embedder_loaded_attn_implementation = None
         self._frame_embedder_diagnostics: Dict[str, Any] = {
             "requested_attn_implementation": self._frame_embedder_requested_attn_implementation or "default",
             "loaded_attn_implementation": None,
+            "device_map": self._frame_embedder_device_map,
             "fallback_attn_implementations": [],
             "embed_call_count": 0,
             "retry_count": 0,
@@ -203,13 +206,14 @@ class ReferenceHarness:
         }
 
         device_label = resolved_device_label(runtime)
-        device_idx = device_index(device_label)
+        frame_device_label = "cuda:0" if self._frame_embedder_device_map == "first_two_cuda" else device_label
+        device_idx = device_index(frame_device_label)
         os.environ["FRAME_EMBEDDER_DEVICE_INDEX"] = str(device_idx if device_idx is not None else 0)
         os.environ["TEMPORAL_GROUNDER_DEVICE_INDEX"] = str(device_idx if device_idx is not None else 0)
-        os.environ["CLAP_DEVICE"] = device_label
+        os.environ["CLAP_DEVICE"] = frame_device_label
 
-        self.chart_device = device_label
-        self.asr_device = device_label
+        self.chart_device = frame_device_label
+        self.asr_device = frame_device_label
         self.asr_compute_type = None
         self.temporal_grounder_backend = "qwen"
         self.temporal_grounder_model_name = resolve_model_path(
@@ -306,6 +310,52 @@ class ReferenceHarness:
         if attn_implementation:
             kwargs["attn_implementation"] = attn_implementation
         return kwargs
+
+    @staticmethod
+    def _first_two_cuda_max_memory() -> Dict[int, int]:
+        import torch
+
+        if not torch.cuda.is_available() or torch.cuda.device_count() < 2:
+            raise RuntimeError(
+                "device_map='first_two_cuda' requires at least two visible CUDA devices "
+                "(local cuda:0 and cuda:1)."
+            )
+        return {
+            0: int(torch.cuda.get_device_properties(0).total_memory),
+            1: int(torch.cuda.get_device_properties(1).total_memory),
+        }
+
+    def _load_first_two_cuda_frame_embedder(self, Embedder, model_kwargs: Dict[str, Any]):
+        module = sys.modules.get(getattr(Embedder, "__module__", ""))
+        Model = getattr(module, "Qwen3VLForEmbedding", None) if module is not None else None
+        Processor = getattr(module, "Qwen3VLProcessor", None) if module is not None else None
+        if Model is None or Processor is None:
+            raise RuntimeError("Qwen3-VL embedding helper does not expose sharded-load classes.")
+
+        embedder = Embedder.__new__(Embedder)
+        embedder.max_length = int(getattr(module, "MAX_LENGTH", 8192))
+        embedder.min_pixels = int(getattr(module, "MIN_PIXELS", 4096))
+        embedder.max_pixels = int(getattr(module, "MAX_PIXELS", 1800 * 32 * 32))
+        embedder.total_pixels = int(getattr(module, "MAX_TOTAL_PIXELS", 10 * 768 * 32 * 32))
+        embedder.fps = float(getattr(module, "FPS", 1))
+        embedder.num_frames = int(getattr(module, "MAX_FRAMES", 64))
+        embedder.max_frames = int(getattr(module, "MAX_FRAMES", 64))
+        embedder.default_instruction = "Represent the user's input."
+
+        kwargs = dict(model_kwargs)
+        kwargs["device_map"] = "balanced"
+        kwargs["max_memory"] = self._first_two_cuda_max_memory()
+        embedder.model = Model.from_pretrained(
+            str(self.temporal_grounder_model_name),
+            trust_remote_code=True,
+            **kwargs,
+        )
+        embedder.processor = Processor.from_pretrained(
+            str(self.temporal_grounder_model_name),
+            padding_side="right",
+        )
+        embedder.model.eval()
+        return embedder
 
     def _frame_embedding_cache_ready(self) -> bool:
         emb_path, paths_path = self._dense_frame_embed_cache_paths()
@@ -445,10 +495,13 @@ class ReferenceHarness:
         embed_dev_idx = self._frame_embedder_device_index()
         device_context = torch.cuda.device(embed_dev_idx) if torch.cuda.is_available() else nullcontext()
         with device_context:
-            self._frame_embedder = Embedder(
-                model_name_or_path=str(self.temporal_grounder_model_name),
-                **model_kwargs,
-            )
+            if self._frame_embedder_device_map == "first_two_cuda":
+                self._frame_embedder = self._load_first_two_cuda_frame_embedder(Embedder, model_kwargs)
+            else:
+                self._frame_embedder = Embedder(
+                    model_name_or_path=str(self.temporal_grounder_model_name),
+                    **model_kwargs,
+                )
         self._frame_embedder_loaded_attn_implementation = str(
             self._frame_embedder_attn_override or self._frame_embedder_requested_attn_implementation or "default"
         )
@@ -480,8 +533,12 @@ class ReferenceHarness:
                     pass
         gc.collect()
         if torch.cuda.is_available():
-            with torch.cuda.device(embed_dev_idx):
-                torch.cuda.empty_cache()
+            device_indices = [embed_dev_idx]
+            if self._frame_embedder_device_map == "first_two_cuda":
+                device_indices = list(range(min(2, torch.cuda.device_count())))
+            for device_index_value in device_indices:
+                with torch.cuda.device(device_index_value):
+                    torch.cuda.empty_cache()
         self._frame_embedder = None
         self._frame_embedder_loaded_attn_implementation = None
 

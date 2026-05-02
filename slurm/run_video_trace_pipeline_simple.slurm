@@ -33,8 +33,6 @@ OPTIONS_JSON="${OPTIONS_JSON:-}"
 
 MAX_ROUNDS="${MAX_ROUNDS:-3}"
 OUTPUT_DIR="${OUTPUT_DIR:-}"
-USE_TASK_STATE="${USE_TASK_STATE:-0}"
-NO_PREPROCESS_CACHE="${NO_PREPROCESS_CACHE:-0}"
 DRY_RUN_PLAN="${DRY_RUN_PLAN:-0}"
 SHOW_PROGRESS="${SHOW_PROGRESS:-1}"
 SHOW_COLOR="${SHOW_COLOR:-1}"
@@ -110,12 +108,6 @@ COMMON_ARGS=(
 
 if [[ -n "$OUTPUT_DIR" ]]; then
   COMMON_ARGS+=(--output-dir "$OUTPUT_DIR")
-fi
-if [[ "$USE_TASK_STATE" == "1" ]]; then
-  COMMON_ARGS+=(--use-task-state)
-fi
-if [[ "$NO_PREPROCESS_CACHE" == "1" ]]; then
-  COMMON_ARGS+=(--no-preprocess-cache)
 fi
 if [[ "$DRY_RUN_PLAN" == "1" ]]; then
   COMMON_ARGS+=(--dry-run-plan)

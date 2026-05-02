@@ -15,10 +15,6 @@ _LIST_FIELDS = {
     "text_contexts",
     "evidence_ids",
     "time_hints",
-    "claims",
-    "ocr_results",
-    "dense_captions",
-    "observations",
 }
 
 _GENERIC_PURPOSE_CONTEXT_FIELDS = frozenset(
@@ -74,21 +70,32 @@ _TEXT_CONTEXT_SOURCE_FIELDS = frozenset(
     }
 )
 
+_CLIP_CAPABLE_DOWNSTREAM_TOOLS = frozenset(
+    {
+        "generic_purpose",
+        "ocr",
+        "spatial_grounder",
+        "asr",
+        "dense_captioner",
+        "audio_temporal_grounder",
+    }
+)
 
-def _retrieved_evidence_ids(retrieved_context: Dict[str, Any] | None) -> set[str]:
-    ids = set()
-    if not isinstance(retrieved_context, dict):
-        return ids
-    for item in list(retrieved_context.get("evidence") or []):
-        if isinstance(item, dict) and str(item.get("evidence_id") or "").strip():
-            ids.add(str(item.get("evidence_id")).strip())
-    for item in list(retrieved_context.get("observations") or []):
-        if isinstance(item, dict) and str(item.get("evidence_id") or "").strip():
-            ids.add(str(item.get("evidence_id")).strip())
-    for item in list(retrieved_context.get("lookup_records") or []):
-        if isinstance(item, dict) and str(item.get("evidence_id") or "").strip():
-            ids.add(str(item.get("evidence_id")).strip())
-    return ids
+_EXACT_TIMESTAMP_RE = re.compile(
+    r"\b\d{1,3}:\d{2}(?::\d{2})?(?:\.\d+)?\b"
+    r"|\b(?:timestamp|time|at|around|near|second|sec)\s*(?:=|:)?\s*\d+(?:\.\d+)?\s*(?:seconds?|secs?|s)?\b"
+    r"|\b\d+(?:\.\d+)?\s*(?:seconds?|secs?|s)\b",
+    re.IGNORECASE,
+)
+
+_EXPLICIT_FRAME_ARTIFACT_NEED_RE = re.compile(
+    r"\b("
+    r"readable|legible|static|still|single|particular|specific|exact|timestamp|anchor|neighboring?|"
+    r"high[- ]?res(?:olution)?|ocr|text|small|fine|subtle|detail|crop|"
+    r"frame[- ]by[- ]frame|individual frames|per[- ]frame"
+    r")\b",
+    re.IGNORECASE,
+)
 
 
 def _normalize_text(value: Any) -> str:
@@ -178,6 +185,46 @@ def _ref_signature(target_field: str, ref: InputRef) -> Tuple[str, int, str]:
     )
 
 
+def _step_search_text(step: PlanStep) -> str:
+    parts: List[str] = [str(step.purpose or "")]
+    inputs = dict(step.inputs or {})
+    for key in ("query", "sequence_mode", "sort_order"):
+        if inputs.get(key) is not None:
+            parts.append(str(inputs.get(key)))
+    for item in list(inputs.get("time_hints") or []):
+        parts.append(str(item))
+    for key, value in sorted(dict(step.expected_outputs or {}).items()):
+        parts.append(str(key))
+        parts.append(stable_json_dumps(value) if isinstance(value, (dict, list)) else str(value))
+    return _normalize_text(" ".join(parts))
+
+
+def _frame_step_has_explicit_frame_artifact_need(step: PlanStep) -> bool:
+    inputs = dict(step.inputs or {})
+    if str(inputs.get("sequence_mode") or "").strip().lower() == "anchor_window":
+        return True
+    text = _step_search_text(step)
+    return bool(_EXPLICIT_FRAME_ARTIFACT_NEED_RE.search(text) or _EXACT_TIMESTAMP_RE.search(text))
+
+
+def _step_consumes_output_from(step: PlanStep, source_step_id: int) -> bool:
+    for refs in dict(step.input_refs or {}).values():
+        for ref in list(refs or []):
+            if int(ref.step_id) == int(source_step_id):
+                return True
+    return False
+
+
+def _frame_retriever_depends_on_visual_temporal_grounder(step: PlanStep, step_by_id: Dict[int, PlanStep]) -> bool:
+    if str(step.tool_name or "").strip() != "frame_retriever":
+        return False
+    for ref in list(dict(step.input_refs or {}).get("clips") or []):
+        source_step = step_by_id.get(int(ref.step_id))
+        if source_step is not None and str(source_step.tool_name or "").strip() == "visual_temporal_grounder":
+            return True
+    return False
+
+
 class ExecutionPlanNormalizer(object):
     VERSION = "field_keyed_v2"
 
@@ -220,7 +267,7 @@ class ExecutionPlanNormalizer(object):
         if target_field == "time_hints":
             raise ValueError(
                 "Plan step %s binds input_refs into time_hints. Use literal strings in inputs.time_hints when the "
-                "timestamps are known from preprocess or retrieved context; otherwise pass clips explicitly."
+                "timestamps are known from retrieved context; otherwise pass clips explicitly."
                 % step_id
             )
         if target_field in _STRUCTURAL_INPUT_REF_FIELDS and not _is_allowed_structural_input_ref(target_field, field_path):
@@ -368,18 +415,42 @@ class ExecutionPlanNormalizer(object):
                 % int(step.step_id)
             )
 
-    def _validate_retrieved_evidence_ids(self, steps: List[PlanStep], retrieved_context: Dict[str, Any] | None) -> None:
-        available_ids = _retrieved_evidence_ids(retrieved_context)
-        for step in list(steps or []):
-            evidence_ids = [str(item).strip() for item in list((step.inputs or {}).get("evidence_ids") or []) if str(item).strip()]
-            if not evidence_ids:
+    def _validate_grounded_clip_bridge_policy(self, steps: List[PlanStep]) -> None:
+        step_by_id = {int(step.step_id): step for step in list(steps or [])}
+        for frame_step in list(steps or []):
+            frame_step_id = int(frame_step.step_id)
+            if not _frame_retriever_depends_on_visual_temporal_grounder(frame_step, step_by_id):
                 continue
-            missing = sorted(evidence_id for evidence_id in evidence_ids if evidence_id not in available_ids)
-            if missing:
+            if _frame_step_has_explicit_frame_artifact_need(frame_step):
+                continue
+            for consumer_step in list(steps or []):
+                consumer_tool = str(consumer_step.tool_name or "").strip()
+                if consumer_tool not in _CLIP_CAPABLE_DOWNSTREAM_TOOLS:
+                    continue
+                if not _step_consumes_output_from(consumer_step, frame_step_id):
+                    continue
                 raise ValueError(
-                    "Plan step %s uses evidence_ids that were not retrieved for this planning round: %s."
-                    % (int(step.step_id), ", ".join(missing))
+                    "Plan step %s uses frame_retriever as a bridge from visual_temporal_grounder to %s "
+                    "without an explicit frame-specific need. Pass grounded clips directly to %s, or make "
+                    "the frame_retriever purpose state an exact/readable/static/OCR/anchor-window frame need."
+                    % (frame_step_id, consumer_tool, consumer_tool)
                 )
+
+    def _validate_ocr_full_frame_policy(self, steps: List[PlanStep]) -> None:
+        step_by_id = {int(step.step_id): step for step in list(steps or [])}
+        for step in list(steps or []):
+            if str(step.tool_name or "").strip() != "ocr":
+                continue
+            for refs in dict(step.input_refs or {}).values():
+                for ref in list(refs or []):
+                    source_step = step_by_id.get(int(ref.step_id))
+                    if source_step is None or str(source_step.tool_name or "").strip() != "spatial_grounder":
+                        continue
+                    raise ValueError(
+                        "Plan step %s routes spatial_grounder output into OCR. Do not use spatial_grounder "
+                        "as an OCR cropper; OCR must use complete frames or grounded clips directly."
+                        % int(step.step_id)
+                    )
 
     def _step_sort_key(self, step: PlanStep) -> Tuple[Any, ...]:
         return (
@@ -466,12 +537,13 @@ class ExecutionPlanNormalizer(object):
                             % (step_id, ref.step_id)
                         )
 
-    def normalize(self, task, plan: ExecutionPlan, retrieved_context: Dict[str, Any] | None = None) -> ExecutionPlan:
+    def normalize(self, task, plan: ExecutionPlan) -> ExecutionPlan:
         del task
         normalized_steps = [self._normalize_step(step) for step in list(plan.steps or [])]
         self._validate_references(normalized_steps)
+        self._validate_grounded_clip_bridge_policy(normalized_steps)
+        self._validate_ocr_full_frame_policy(normalized_steps)
         self._validate_generic_purpose_context_contract(normalized_steps)
-        self._validate_retrieved_evidence_ids(normalized_steps, retrieved_context)
         ordered_steps = self._canonical_topological_order(normalized_steps)
         resequenced_steps = self._resequence(ordered_steps)
         self._validate_resequenced_order(resequenced_steps)

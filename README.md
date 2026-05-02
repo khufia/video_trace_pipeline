@@ -10,7 +10,7 @@ The pipeline is organized around:
 
 - `Planner`
 - `TraceSynthesizer` (`refiner` replacement: it can generate or revise traces)
-- `TraceAuditor` (`verifier` replacement: it audits traces and returns feedback)
+- `TraceAuditor` (audits traces and returns feedback)
 - a typed tool registry
 - native in-repo tool backends
 - a readable evidence ledger backed by JSON/JSONL/Markdown plus a SQLite evidence database on disk

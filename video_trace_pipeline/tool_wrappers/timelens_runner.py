@@ -8,7 +8,6 @@ from .local_multimodal import QwenStyleRunner, make_qwen_video_message
 from .protocol import emit_json, fail_runtime, load_request
 from .shared import (
     extract_interval_candidates,
-    extracted_clip,
     iter_windows,
     merge_intervals,
     resolve_generation_controls,
@@ -211,7 +210,6 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
 
     device_label = resolved_device_label(runtime)
     model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
-    window_s = float((runtime.get("extra") or {}).get("clip_duration_s") or 60.0)
     sample_fps = float((runtime.get("extra") or {}).get("fps") or 2.0)
     max_new_tokens = int((runtime.get("extra") or {}).get("max_new_tokens") or 256)
     generation = resolve_generation_controls(runtime)
@@ -219,14 +217,13 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     duration_s = float(get_video_duration(video_path) or 0.0)
     video_id = str(task.get("video_id") or task.get("sample_key") or "")
     top_k = max(1, int(request.get("top_k") or 5))
-    candidate_windows, prefilter_metadata = _prefilter_windows(
-        task=task,
-        runtime=runtime,
-        query=query,
-        duration_s=duration_s,
-        window_s=window_s,
-        top_k=top_k,
-    )
+    prefilter_metadata = {
+        "enabled": False,
+        "total_windows": 1,
+        "candidate_windows": 1,
+        "configured": bool((runtime.get("extra") or {}).get("use_embedding_prefilter", True)),
+        "reason": "full_video_mode",
+    }
 
     runner = None
     owns_runner = False
@@ -238,6 +235,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
             attn_implementation=attn_implementation,
+            device_map="first_two_cuda",
         )
     if runner is None:
         runner = QwenStyleRunner(
@@ -246,26 +244,26 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
             attn_implementation=attn_implementation,
+            device_map="first_two_cuda",
         )
         owns_runner = True
     try:
-        raw_candidates: List[Dict[str, Any]] = []
-        for window_start_s, window_end_s in candidate_windows:
-            prompt = (
-                "You are a precise visual temporal grounding model.\n"
-                "Find every interval in this clip where the queried visual event is present.\n"
-                "If the event is absent, return an empty interval list.\n"
-                "Return JSON only with keys: found, intervals, explanation.\n"
-                "Each intervals item must be an object with start_s, end_s, confidence.\n"
-                "Use seconds relative to this clip, not the full video.\n\n"
-                f"Query: {query}"
-            )
-            with extracted_clip(video_path, window_start_s, window_end_s) as clip_path:
-                raw_text = runner.generate(
-                    make_qwen_video_message(prompt, clip_path, fps=sample_fps),
-                    max_new_tokens=max_new_tokens,
-                )
-            raw_candidates.extend(_window_candidates(raw_text, window_start_s=window_start_s))
+        prompt = (
+            "You are a precise visual temporal grounding model.\n"
+            "Find chronological intervals in this full video where the queried visual event is present.\n"
+            f"Return at most {top_k} intervals, and each interval must satisfy all query predicates, not just a related aftermath or celebration.\n"
+            "For ordinal or replay queries, include enough candidate occurrences to establish order before choosing matches.\n"
+            "If the event is absent, return an empty interval list.\n"
+            "Return JSON only with keys: found, intervals, explanation.\n"
+            "Each intervals item must be an object with start_s, end_s, confidence.\n"
+            "Use seconds relative to the full video.\n\n"
+            f"Query: {query}"
+        )
+        raw_text = runner.generate(
+            make_qwen_video_message(prompt, video_path, fps=sample_fps),
+            max_new_tokens=max_new_tokens,
+        )
+        raw_candidates = _window_candidates(raw_text, window_start_s=0.0)
         merged = merge_intervals(
             [(item["start_s"], item["end_s"]) for item in raw_candidates],
             tolerance_s=0.75,

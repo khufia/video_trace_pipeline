@@ -10,21 +10,12 @@ from ..common import sanitize_for_persistence, write_json
 from ..config import save_runtime_snapshot
 from ..renderers import export_trace_for_benchmark, write_run_debug_bundle
 from ..schemas import InferenceStep, TracePackage
-from ..storage import EvidenceLedger, SharedEvidenceCache, WorkspaceManager
+from ..storage import EvidenceLedger, WorkspaceManager
 from ..tools import ObservationExtractor, ToolRegistry
 from ..tools.base import ToolExecutionContext
 from ..tools.specs import tool_implementation
 from .executor import PlanExecutor
 from .plan_normalizer import ExecutionPlanNormalizer
-from .planner_retrieval import PlannerContextRetriever, merge_retrieved_contexts
-from .preprocess import DenseCaptionPreprocessor
-from .task_state import (
-    build_initial_task_state,
-    compact_task_state,
-    record_retrieval_memory,
-    update_task_state_after_audit,
-    update_task_state_after_execution,
-)
 
 
 def _truncate_text(value: Any, max_len: int = 220) -> str:
@@ -262,49 +253,6 @@ def _dedupe_observations(observations: List[Dict[str, Any]]) -> List[Dict[str, A
     return ordered
 
 
-def _retrieved_synthesis_context(retrieved_context: Dict[str, Any]) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
-    evidence_entries: List[Dict[str, Any]] = []
-    observations: List[Dict[str, Any]] = []
-
-    for entry in list((retrieved_context or {}).get("evidence") or []):
-        if not isinstance(entry, dict):
-            continue
-        if str(entry.get("evidence_id") or "").strip():
-            evidence_entries.append(dict(entry))
-
-    for record in list((retrieved_context or {}).get("lookup_records") or []):
-        if not isinstance(record, dict):
-            continue
-        if str(record.get("observation_id") or "").strip():
-            observations.append(dict(record))
-        elif str(record.get("evidence_id") or "").strip():
-            evidence_entries.append(
-                {
-                    key: record.get(key)
-                    for key in (
-                        "evidence_id",
-                        "tool_name",
-                        "evidence_text",
-                        "confidence",
-                        "status",
-                        "time_start_s",
-                        "time_end_s",
-                        "frame_ts_s",
-                        "observation_ids",
-                        "artifact_refs",
-                        "metadata",
-                    )
-                    if record.get(key) not in (None, "", [], {})
-                }
-            )
-
-    for observation in list((retrieved_context or {}).get("observations") or []):
-        if isinstance(observation, dict):
-            observations.append(dict(observation))
-
-    return _dedupe_evidence_entries(evidence_entries), _dedupe_observations(observations)
-
-
 _BLOCKING_FINDING_CATEGORIES = {
     "ANSWER_ERROR",
     "ATTRIBUTION_GAP",
@@ -419,11 +367,8 @@ class PipelineRunner(object):
             llm_client=self.llm_client,
             persist_tool_models=persist_tool_models,
         )
-        self.preprocessor = DenseCaptionPreprocessor(self.workspace, self.tool_registry, models_config)
-        self.planner_retriever = PlannerContextRetriever(self.workspace)
         self.executor = PlanExecutor(
             tool_registry=self.tool_registry,
-            evidence_cache=SharedEvidenceCache(self.workspace),
             extractor=ObservationExtractor(
                 atomicizer=AtomicFactAgent(self.llm_client, models_config.agents["atomicizer"])
                 if models_config.agents.get("atomicizer") is not None
@@ -557,8 +502,7 @@ class PipelineRunner(object):
         initial_trace_path: Optional[str] = None,
         progress_reporter=None,
     ) -> Dict[str, object]:
-        preprocess_settings = self.preprocessor.resolve_preprocess_settings(clip_duration_s)
-        effective_clip_duration_s = float(preprocess_settings["clip_duration_s"])
+        del clip_duration_s
         self._write_runtime_snapshot(run)
         manifest_payload = {
             "benchmark": task.benchmark,
@@ -567,8 +511,6 @@ class PipelineRunner(object):
             "run_id": run.run_id,
             "mode": mode,
             "task": task.persistable_dict(),
-            "preprocess_cache": None,
-            "clip_duration_s": effective_clip_duration_s,
             "max_rounds": int(max_rounds),
         }
         self.workspace.write_run_manifest(run, manifest_payload)
@@ -578,22 +520,11 @@ class PipelineRunner(object):
                 run_dir=self.workspace.relative_path(run.run_dir),
                 mode=mode,
                 max_rounds=max_rounds,
-                clip_duration_s=effective_clip_duration_s,
+                clip_duration_s=None,
             )
         self.preload_models(progress_reporter=progress_reporter)
-        if progress_reporter is not None and hasattr(progress_reporter, "on_preprocess_start"):
-            progress_reporter.on_preprocess_start()
-        preprocess_output = self.preprocessor.get_or_build(task, clip_duration_s=clip_duration_s)
-        if progress_reporter is not None and hasattr(progress_reporter, "on_preprocess_end"):
-            progress_reporter.on_preprocess_end(sanitize_for_persistence(preprocess_output))
-        video_fingerprint = preprocess_output["video_fingerprint"]
-        planner_segments = list(preprocess_output.get("planner_segments") or [])
-        manifest_payload["preprocess_cache"] = preprocess_output["cache_dir"]
-        manifest_payload["clip_duration_s"] = effective_clip_duration_s
-        self.workspace.write_run_manifest(run, manifest_payload)
+        video_fingerprint = self.workspace.video_fingerprint(task.video_path)
         evidence_ledger = EvidenceLedger(run)
-        task_state = build_initial_task_state(task, preprocess_output)
-        write_json(run.round_dir(0) / "task_state_initial.json", sanitize_for_persistence(task_state.dict()))
         execution_context = ToolExecutionContext(
             workspace=self.workspace,
             run=run,
@@ -601,7 +532,6 @@ class PipelineRunner(object):
             models_config=self.models_config,
             llm_client=self.llm_client,
             evidence_lookup=evidence_ledger.lookup_records,
-            preprocess_bundle=preprocess_output,
         )
 
         current_trace = None
@@ -621,7 +551,6 @@ class PipelineRunner(object):
                 task,
                 current_trace_dict,
                 initial_summary,
-                task_state=compact_task_state(task_state),
             )
             write_json(initial_round_dir / "auditor_request.json", sanitize_for_persistence(initial_audit_request))
             _, latest_audit = self.auditor.complete_request(initial_audit_request)
@@ -635,12 +564,6 @@ class PipelineRunner(object):
             )
             if evidence_updates:
                 evidence_ledger.update_entry_statuses(evidence_updates)
-            task_state = update_task_state_after_audit(
-                task_state,
-                latest_audit,
-                accepted=_should_accept_audit(latest_audit),
-            )
-            write_json(initial_round_dir / "task_state_after_audit.json", sanitize_for_persistence(task_state.dict()))
             if _should_accept_audit(latest_audit):
                 export_payload = self._persist_trace(run, task, current_trace)
                 final_payload = {
@@ -648,7 +571,6 @@ class PipelineRunner(object):
                     "trace_package": sanitize_for_persistence(current_trace.dict()),
                     "audit_report": latest_audit.dict(),
                     "benchmark_export": export_payload,
-                    "task_state": sanitize_for_persistence(task_state.dict()),
                 }
                 write_json(run.final_result_path, final_payload)
                 with contextlib.suppress(Exception):
@@ -662,105 +584,18 @@ class PipelineRunner(object):
             planning_mode = "generate" if current_trace is None else "refine"
             round_index = rounds_executed + 1
             round_dir = run.round_dir(round_index)
-            write_json(round_dir / "task_state_before_plan.json", sanitize_for_persistence(task_state.dict()))
-            preprocess_context_supplied = bool(planner_segments)
             tool_catalog = self.tool_registry.tool_catalog()
-            retrieval_catalog = self.planner_retriever.build_catalog(
-                task=task,
-                preprocess_bundle=preprocess_output,
-                evidence_ledger=evidence_ledger,
-                audit_report=latest_audit,
-                current_trace=current_trace,
-                task_state=task_state,
-            )
-            write_json(round_dir / "planner_retrieval_catalog.json", sanitize_for_persistence(retrieval_catalog))
-            retrieved_context = self.planner_retriever.retrieve(
-                task=task,
-                preprocess_bundle=preprocess_output,
-                evidence_ledger=evidence_ledger,
-                audit_report=latest_audit,
-                current_trace=current_trace,
-                mode=planning_mode,
-                limit=50,
-                task_state=task_state,
-            )
-            task_state = record_retrieval_memory(
-                task_state,
-                query="seed:%s" % planning_mode,
-                target="mixed",
-                results=retrieved_context,
-            )
-            write_json(round_dir / "planner_retrieval_seed.json", sanitize_for_persistence(retrieved_context))
-            max_retrieval_iterations = 3
-            for retrieval_iteration in range(1, max_retrieval_iterations + 1):
-                retrieval_request = self.planner.build_retrieval_request(
-                    task=task,
-                    mode=planning_mode,
-                    retrieval_catalog=retrieval_catalog,
-                    retrieved_context=retrieved_context,
-                    audit_feedback=latest_audit.dict() if latest_audit is not None else None,
-                    tool_catalog=tool_catalog,
-                    iteration=retrieval_iteration,
-                    max_iterations=max_retrieval_iterations,
-                    task_state=compact_task_state(task_state),
-                )
-                write_json(
-                    round_dir / ("planner_retrieval_%02d_request.json" % retrieval_iteration),
-                    sanitize_for_persistence(retrieval_request),
-                )
-                _, retrieval_decision = self.planner.complete_retrieval_request(retrieval_request)
-                retrieval_decision_payload = retrieval_decision.dict()
-                write_json(
-                    round_dir / ("planner_retrieval_%02d_decision.json" % retrieval_iteration),
-                    sanitize_for_persistence(retrieval_decision_payload),
-                )
-                if retrieval_decision.action != "retrieve" or not retrieval_decision.requests:
-                    break
-                retrieval_results = self.planner_retriever.retrieve_for_requests(
-                    task=task,
-                    preprocess_bundle=preprocess_output,
-                    evidence_ledger=evidence_ledger,
-                    requests=list(retrieval_decision.requests or []),
-                    audit_report=latest_audit,
-                    current_trace=current_trace,
-                    task_state=task_state,
-                )
-                task_state = record_retrieval_memory(
-                    task_state,
-                    query=" ".join(
-                        str(getattr(item, "query", "") or getattr(item, "need", "") or "")
-                        for item in list(retrieval_decision.requests or [])
-                    ),
-                    target="planner_requested",
-                    results=retrieval_results,
-                )
-                write_json(
-                    round_dir / ("planner_retrieval_%02d_results.json" % retrieval_iteration),
-                    sanitize_for_persistence(retrieval_results),
-                )
-                merged_context = merge_retrieved_contexts(retrieved_context, retrieval_results)
-                if merged_context == retrieved_context:
-                    retrieved_context = merged_context
-                    break
-                retrieved_context = merged_context
-            write_json(round_dir / "planner_retrieved_context.json", sanitize_for_persistence(retrieved_context))
-            write_json(round_dir / "task_state_after_retrieval.json", sanitize_for_persistence(task_state.dict()))
             if progress_reporter is not None and hasattr(progress_reporter, "on_round_start"):
                 progress_reporter.on_round_start(
                     round_index=round_index,
                     planning_mode=planning_mode,
-                    preprocess_context=preprocess_context_supplied,
-                    retrieved_count=len(list((retrieved_context or {}).get("observations") or [])),
+                    retrieved_count=0,
                 )
             planner_kwargs = dict(
                 task=task,
                 mode=planning_mode,
-                planner_segments=planner_segments,
-                retrieved_context=retrieved_context,
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
                 tool_catalog=tool_catalog,
-                retrieval_catalog=retrieval_catalog,
-                task_state=compact_task_state(task_state),
             )
             planner_request = self.planner.build_request(**planner_kwargs)
             write_json(round_dir / "planner_request.json", sanitize_for_persistence(planner_request))
@@ -770,7 +605,6 @@ class PipelineRunner(object):
                 plan = self.plan_normalizer.normalize(
                     task,
                     plan,
-                    retrieved_context=retrieved_context,
                 )
             except ValueError as exc:
                 write_json(
@@ -787,7 +621,6 @@ class PipelineRunner(object):
                 plan = self.plan_normalizer.normalize(
                     task,
                     repair_plan,
-                    retrieved_context=retrieved_context,
                 )
             write_json(round_dir / "planner_plan.json", sanitize_for_persistence(plan.dict()))
             if progress_reporter is not None and hasattr(progress_reporter, "on_planner"):
@@ -805,17 +638,10 @@ class PipelineRunner(object):
                 progress_reporter=progress_reporter,
                 round_index=round_index,
             )
-            task_state = update_task_state_after_execution(
-                task_state,
-                execution_records,
-                round_index=round_index,
-            )
-            write_json(round_dir / "task_state_after_execution.json", sanitize_for_persistence(task_state.dict()))
 
-            retrieved_evidence_entries, retrieved_observations = _retrieved_synthesis_context(retrieved_context)
             execution_evidence_entries, execution_observations = _round_synthesis_context(execution_records)
-            round_evidence_entries = _dedupe_evidence_entries(retrieved_evidence_entries + execution_evidence_entries)
-            round_observations = _dedupe_observations(retrieved_observations + execution_observations)
+            round_evidence_entries = _dedupe_evidence_entries(execution_evidence_entries)
+            round_observations = _dedupe_observations(execution_observations)
             synthesizer_request = self.synthesizer.build_request(
                 task=task,
                 mode=planning_mode,
@@ -824,7 +650,6 @@ class PipelineRunner(object):
                 current_trace=sanitize_for_persistence(current_trace.dict()) if current_trace is not None else None,
                 refinement_instructions=plan.refinement_instructions,
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
-                task_state=compact_task_state(task_state),
             )
             write_json(round_dir / "synthesizer_request.json", sanitize_for_persistence(synthesizer_request))
             _, trace_package = self.synthesizer.complete_request(synthesizer_request)
@@ -846,7 +671,6 @@ class PipelineRunner(object):
                 task=task,
                 trace_package=sanitize_for_persistence(trace_package.dict()),
                 evidence_summary=evidence_summary,
-                task_state=compact_task_state(task_state),
             )
             write_json(round_dir / "auditor_request.json", sanitize_for_persistence(auditor_request))
             _, latest_audit = self.auditor.complete_request(auditor_request)
@@ -866,12 +690,6 @@ class PipelineRunner(object):
             )
             if evidence_updates:
                 evidence_ledger.update_entry_statuses(evidence_updates)
-            task_state = update_task_state_after_audit(
-                task_state,
-                latest_audit,
-                accepted=_should_accept_audit(latest_audit),
-            )
-            write_json(round_dir / "task_state_after_audit.json", sanitize_for_persistence(task_state.dict()))
             rounds_executed += 1
             if _should_accept_audit(latest_audit):
                 break
@@ -882,8 +700,6 @@ class PipelineRunner(object):
             "trace_package": sanitize_for_persistence(current_trace.dict()) if current_trace is not None else None,
             "audit_report": latest_audit.dict() if latest_audit is not None else None,
             "benchmark_export": sanitize_for_persistence(export_payload),
-            "preprocess": sanitize_for_persistence(preprocess_output),
-            "task_state": sanitize_for_persistence(task_state.dict()),
             "rounds_executed": rounds_executed,
         }
         write_json(run.final_result_path, final_payload)

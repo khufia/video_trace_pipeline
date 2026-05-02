@@ -105,11 +105,12 @@ class LiveRunReporter(object):
     def __init__(self, console):
         self.console = console
 
-    def on_run_start(self, *, task, run_dir: str, mode: str, max_rounds: int, clip_duration_s: float):
+    def on_run_start(self, *, task, run_dir: str, mode: str, max_rounds: int, clip_duration_s: float | None = None):
+        del clip_duration_s
         self.console.print("")
         self.console.print(
-            "[bold cyan]Run[/bold cyan] %s | mode=%s | max_rounds=%s | clip_duration=%ss"
-            % (task.sample_key, mode, int(max_rounds), int(float(clip_duration_s)))
+            "[bold cyan]Run[/bold cyan] %s | mode=%s | max_rounds=%s"
+            % (task.sample_key, mode, int(max_rounds))
         )
         self.console.print("question: %s" % _display_text(task.question, limit=240))
         if list(task.options or []):
@@ -145,32 +146,6 @@ class LiveRunReporter(object):
             if tool_name and shared_with:
                 self.console.print("  - %s shares the persisted runner with %s" % (tool_name, shared_with))
 
-    def on_preprocess_start(self):
-        self.console.print("")
-        self.console.print("[bold cyan]Preprocess[/bold cyan] dense-caption and transcript context")
-
-    def on_preprocess_end(self, preprocess_output: Dict[str, Any]):
-        manifest = dict(preprocess_output.get("manifest") or {})
-        segment_count = manifest.get("segment_count")
-        if segment_count is None:
-            segment_count = len(list(preprocess_output.get("segments") or []))
-        planner_segment_count = manifest.get("planner_segment_count")
-        if planner_segment_count is None:
-            planner_segment_count = len(list(preprocess_output.get("planner_segments") or []))
-        dense_caption_span_count = manifest.get("dense_caption_span_count")
-        transcript_segment_count = manifest.get("transcript_segment_count")
-        parts = [
-            "cache_hit=%s" % bool(preprocess_output.get("cache_hit")),
-            "cache_dir=%s" % str(preprocess_output.get("cache_dir") or ""),
-            "segments=%s" % int(segment_count or 0),
-            "planner_segments=%s" % int(planner_segment_count or 0),
-        ]
-        if dense_caption_span_count is not None:
-            parts.append("dense_spans=%s" % int(dense_caption_span_count or 0))
-        if transcript_segment_count is not None:
-            parts.append("transcript_spans=%s" % int(transcript_segment_count or 0))
-        self.console.print(" | ".join(parts))
-
     def on_initial_audit(self, audit_payload: Dict[str, Any]):
         self.console.print("")
         self.console.print("[bold cyan]Initial Audit[/bold cyan]")
@@ -190,13 +165,12 @@ class LiveRunReporter(object):
         *,
         round_index: int,
         planning_mode: str,
-        preprocess_context: bool,
         retrieved_count: int,
     ):
         self.console.print("")
         self.console.print(
-            "[bold green]Round %02d[/bold green] mode=%s | preprocess_context=%s | retrieved_observations=%s"
-            % (int(round_index), planning_mode, bool(preprocess_context), int(retrieved_count))
+            "[bold green]Round %02d[/bold green] mode=%s | retrieved_observations=%s"
+            % (int(round_index), planning_mode, int(retrieved_count))
         )
 
     def on_planner(self, *, round_index: int, plan_payload: Dict[str, Any], round_dir: Optional[str] = None):

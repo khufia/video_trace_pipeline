@@ -17,7 +17,6 @@ from .process_adapters import (
     GenericPurposeProcessAdapter,
     OCRProcessAdapter,
     SpatialGrounderProcessAdapter,
-    VerifierProcessAdapter,
     VisualTemporalGrounderProcessAdapter,
 )
 from .specs import tool_implementation
@@ -260,13 +259,6 @@ class ToolRegistry(object):
                     extra=config.extra,
                     model_pool=self.model_pool,
                 )
-            elif tool_name == "verifier":
-                adapters[tool_name] = VerifierProcessAdapter(
-                    name=tool_name,
-                    model_name=config.model or tool_name,
-                    extra=config.extra,
-                    model_pool=self.model_pool,
-                )
             else:
                 raise ValueError("Unsupported tool %s" % tool_name)
         return adapters
@@ -280,23 +272,6 @@ class ToolRegistry(object):
         adapter = self.get_adapter(tool_name)
         request = adapter.parse_request(arguments)
         return adapter.execute(request, context)
-
-    def build_dense_caption_cache(self, task, clip_duration_s: float, context, preprocess_settings=None):
-        adapter = self.get_adapter("dense_captioner")
-        if not hasattr(adapter, "build_segment_cache"):
-            raise RuntimeError("dense_captioner adapter does not support preprocessing")
-        return adapter.build_segment_cache(
-            task=task,
-            clip_duration_s=clip_duration_s,
-            context=context,
-            preprocess_settings=preprocess_settings,
-        )
-
-    def build_asr_preprocess_transcript(self, task, context):
-        adapter = self.get_adapter("asr")
-        if not hasattr(adapter, "build_preprocess_transcript"):
-            raise RuntimeError("asr adapter does not support preprocessing")
-        return adapter.build_preprocess_transcript(task=task, context=context)
 
     def implementation_name(self, tool_name: str) -> str:
         return tool_implementation(tool_name)
@@ -320,6 +295,7 @@ class ToolRegistry(object):
                 generate_do_sample=bool(spec.get("generate_do_sample")),
                 generate_temperature=spec.get("generate_temperature"),
                 attn_implementation=str(spec.get("attn_implementation") or "") or None,
+                device_map=str(spec.get("device_map") or "") or None,
             )
         elif runner_type == "penguin":
             self.model_pool.acquire_penguin_runner(

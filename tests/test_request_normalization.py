@@ -1,6 +1,6 @@
 import pytest
 
-from video_trace_pipeline.schemas import FrameRef, FrameRetrieverRequest, GenericPurposeRequest, OCRRequest, SpatialGrounderRequest
+from video_trace_pipeline.schemas import ClipRef, FrameRef, FrameRetrieverRequest, GenericPurposeRequest, OCRRequest, SpatialGrounderRequest
 from video_trace_pipeline.tools.base import ToolAdapter, _validate_request_payload
 from video_trace_pipeline.tools.process_adapters import (
     GenericPurposeProcessAdapter,
@@ -126,6 +126,58 @@ def test_visual_adapters_append_frame_sequence_context(monkeypatch):
     assert "Frame sequence context:" in spatial_seen["query"]
     parsed_spatial = spatial.parse_request({"tool_name": "spatial_grounder", "query": "Find the player.", "frames": [frame.dict()]})
     assert "Frame sequence context:" in parsed_spatial.query
+
+
+def test_spatial_grounder_request_and_adapter_accept_clips(monkeypatch):
+    clip = ClipRef(video_id="video-1", start_s=10.0, end_s=15.0)
+    frame = FrameRef(video_id="video-1", timestamp_s=12.0, clip=clip)
+
+    clip_request = SpatialGrounderRequest(tool_name="spatial_grounder", query="Find the player.", clips=[clip])
+    assert clip_request.clips == [clip]
+    assert clip_request.frames == []
+
+    frame_request = SpatialGrounderRequest(
+        tool_name="spatial_grounder",
+        query="Find the player.",
+        clips=[clip],
+        frames=[frame],
+    )
+    assert frame_request.frames == [frame]
+    assert frame_request.clips == []
+
+    spatial = SpatialGrounderProcessAdapter(name="spatial_grounder", model_name="qwen")
+    parsed = spatial.parse_request(
+        {
+            "tool_name": "spatial_grounder",
+            "query": "Find the player.",
+            "clips": [clip.dict()],
+        }
+    )
+    assert parsed.clips[0].start_s == 10.0
+
+    seen = {}
+    monkeypatch.setattr(
+        spatial,
+        "_run_json",
+        lambda context, request_payload: seen.update(request_payload)
+        or (
+            {
+                "query": request_payload.get("query"),
+                "timestamp_s": 12.5,
+                "detections": [{"label": "player", "bbox": [1, 2, 3, 4], "confidence": 0.9}],
+                "spatial_description": "player is visible",
+                "backend": "fake",
+            },
+            "{}",
+        ),
+    )
+
+    result = spatial.execute(clip_request, context=None)
+
+    assert seen["clips"][0]["start_s"] == 10.0
+    assert result.data["frames"][0]["timestamp_s"] == 12.5
+    assert result.data["frames"][0]["clip"]["start_s"] == 10.0
+    assert result.data["regions"][0]["frame"]["timestamp_s"] == 12.5
 
 
 def test_tool_adapter_rejects_noncanonical_argument_alias():

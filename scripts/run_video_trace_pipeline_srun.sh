@@ -31,11 +31,9 @@ WORKSPACE_ROOT="${WORKSPACE_ROOT:-$REPO_ROOT/workspace}"
 MODE="${MODE:-generate}"
 INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part1.json}"
 INPUT_INDEX="${INPUT_INDEX:-3 4 5 6 7 8 9 10 11 12 13 14 15}"
-CLIP_DURATION="${CLIP_DURATION:-30}"
 MAX_ROUNDS="${MAX_ROUNDS:-3}"
 INITIAL_TRACE_PATH="${INITIAL_TRACE_PATH:-}"
 
-PREPROCESS_FIRST="${PREPROCESS_FIRST:-0}"
 CHECK_ENV_ONLY="${CHECK_ENV_ONLY:-0}"
 RUN_CHECK_ENV="${RUN_CHECK_ENV:-0}"
 STRICT_ENV_CHECK="${STRICT_ENV_CHECK:-1}"
@@ -146,7 +144,6 @@ for input_index in "${INPUT_INDEX_VALUES[@]}"; do
     --profile "$PROFILE"
     --models "$MODELS"
     --workspace-root "$WORKSPACE_ROOT"
-    --clip-duration "$CLIP_DURATION"
     --inputs-json "$INPUTS_JSON"
     --input-index "$input_index"
   )
@@ -156,10 +153,6 @@ for input_index in "${INPUT_INDEX_VALUES[@]}"; do
   fi
   if [[ "$PRELOAD_PERSISTED_MODELS" == "1" ]]; then
     COMMON_ARGS+=(--preload-persisted-models)
-  fi
-
-  if [[ "$PREPROCESS_FIRST" == "1" ]]; then
-    python -m video_trace_pipeline.cli.main preprocess "${COMMON_ARGS[@]}"
   fi
 
   RUN_ARGS=(

@@ -108,14 +108,13 @@ def test_visual_temporal_grounder_prefilter_is_disabled_in_code():
     assert metadata["reason"] == "prefilter_disabled_in_code"
 
 
-def test_progress_reports_preprocess_context_without_summary_flag():
+def test_progress_reports_round_without_summary_flag():
     console = Console(record=True, width=160)
     reporter = LiveRunReporter(console)
 
     reporter.on_round_start(
         round_index=1,
         planning_mode="refine",
-        preprocess_context=True,
         retrieved_count=0,
     )
     reporter.on_planner(
@@ -128,7 +127,7 @@ def test_progress_reports_preprocess_context_without_summary_flag():
     )
 
     rendered = console.export_text()
-    assert "preprocess_context=True" in rendered
+    assert "retrieved_observations=0" in rendered
     assert "plan_use_summary" not in rendered
 
 

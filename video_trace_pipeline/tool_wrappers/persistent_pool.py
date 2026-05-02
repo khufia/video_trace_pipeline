@@ -46,6 +46,7 @@ class PersistentModelPool(object):
         generate_do_sample: bool = False,
         generate_temperature: float | None = None,
         attn_implementation: str | None = None,
+        device_map: str | None = None,
     ):
         return (
             self._share_scope(tool_name),
@@ -56,6 +57,7 @@ class PersistentModelPool(object):
             bool(generate_do_sample),
             None if generate_temperature is None else float(generate_temperature),
             str(attn_implementation or ""),
+            str(device_map or ""),
         )
 
     def penguin_key(
@@ -107,6 +109,7 @@ class PersistentModelPool(object):
         generate_do_sample: bool = False,
         generate_temperature: float | None = None,
         attn_implementation: str | None = None,
+        device_map: str | None = None,
     ):
         if not self.should_persist(tool_name):
             return None
@@ -119,6 +122,7 @@ class PersistentModelPool(object):
             generate_do_sample=generate_do_sample,
             generate_temperature=generate_temperature,
             attn_implementation=attn_implementation,
+            device_map=device_map,
         )
         runner = self._qwen_style_runners.get(key)
         if runner is None:
@@ -130,6 +134,7 @@ class PersistentModelPool(object):
                 generate_do_sample=generate_do_sample,
                 generate_temperature=generate_temperature,
                 attn_implementation=attn_implementation,
+                device_map=device_map,
             )
             self._qwen_style_runners[key] = runner
         return runner
