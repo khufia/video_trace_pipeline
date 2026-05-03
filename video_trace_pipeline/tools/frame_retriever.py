@@ -123,16 +123,46 @@ def _runner_request(request: Request, task: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _time_hints_inside_clip(time_hints: list[str], clip: dict[str, Any]) -> list[str]:
+    hints = [str(item).strip() for item in list(time_hints or []) if str(item).strip()]
+    if not hints:
+        return hints
+    try:
+        start_s = float(clip.get("start_s") or 0.0)
+        end_s = float(clip.get("end_s") or start_s)
+    except Exception:
+        return hints
+    try:
+        from ..tool_wrappers.frame_retriever_runner import _time_hint_anchor_seconds
+    except Exception:
+        return hints
+    kept: list[str] = []
+    for hint in hints:
+        try:
+            anchor_s = _time_hint_anchor_seconds(hint, start_s, end_s)
+        except Exception:
+            anchor_s = None
+        if anchor_s is not None:
+            kept.append(hint)
+    return kept
+
+
 def run(payload: ToolPayload, request: Request) -> Result:
     runtime = _runtime(payload)
     runner_request = _runner_request(request, payload.task)
     clips = [dict(item or {}) for item in list(runner_request.get("clips") or []) if isinstance(item, dict)]
     time_hints = [str(item).strip() for item in list(runner_request.get("time_hints") or []) if str(item).strip()]
     subrequests: list[dict[str, Any]] = []
+    skipped_time_hint_clip_count = 0
     if len(clips) > 1:
         for clip in clips:
+            clip_time_hints = _time_hints_inside_clip(time_hints, clip)
+            if time_hints and not clip_time_hints:
+                skipped_time_hint_clip_count += 1
+                continue
             sub = dict(runner_request)
             sub["clips"] = [clip]
+            sub["time_hints"] = clip_time_hints
             subrequests.append(sub)
     elif not clips and len(time_hints) > 1:
         for time_hint in time_hints:
@@ -141,6 +171,12 @@ def run(payload: ToolPayload, request: Request) -> Result:
             subrequests.append(sub)
     else:
         subrequests = [runner_request]
+
+    if not subrequests:
+        raise RuntimeError(
+            "frame_retriever could not match any time_hints to the provided clips; "
+            "provide a clip containing the anchor timestamp or use chronological mode without time_hints."
+        )
 
     frames: list[dict[str, Any]] = []
     frame_groups: list[dict[str, Any]] = []
@@ -171,7 +207,10 @@ def run(payload: ToolPayload, request: Request) -> Result:
         ok=True,
         output=Output.model_validate(output),
         artifacts=[{"kind": "frame", **frame} for frame in frames],
-        metadata={"frame_groups": frame_groups},
+        metadata={
+            "frame_groups": frame_groups,
+            "skipped_out_of_window_time_hint_clip_count": skipped_time_hint_clip_count,
+        },
     )
 
 

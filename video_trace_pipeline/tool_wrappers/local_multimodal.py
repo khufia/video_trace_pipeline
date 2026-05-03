@@ -481,6 +481,7 @@ class QwenStyleRunner:
         generate_temperature: float | None = None,
         attn_implementation: str | None = None,
         device_map: str | None = None,
+        enable_thinking: bool | None = None,
     ):
         from transformers import AutoProcessor
 
@@ -489,6 +490,7 @@ class QwenStyleRunner:
         self.device_label = cuda_device_map_primary_label(self.device_map, device_label)
         self.requested_attn_implementation = str(attn_implementation or "").strip() or None
         self.loaded_attn_implementation = None
+        self.enable_thinking = None if enable_thinking is None else bool(enable_thinking)
         processor_source = str(processor_model_path or model_path)
         processor_kwargs: Dict[str, Any] = {
             "trust_remote_code": True,
@@ -525,11 +527,20 @@ class QwenStyleRunner:
         _patch_qwen_vl_video_reader_bounds()
         from qwen_vl_utils import process_vision_info
 
-        prompt_text = self.processor.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True,
-        )
+        template_kwargs = {
+            "tokenize": False,
+            "add_generation_prompt": True,
+        }
+        if self.enable_thinking is not None:
+            with contextlib.suppress(Exception):
+                signature = inspect.signature(self.processor.apply_chat_template)
+                if "enable_thinking" in signature.parameters:
+                    template_kwargs["enable_thinking"] = bool(self.enable_thinking)
+        try:
+            prompt_text = self.processor.apply_chat_template(messages, **template_kwargs)
+        except TypeError:
+            template_kwargs.pop("enable_thinking", None)
+            prompt_text = self.processor.apply_chat_template(messages, **template_kwargs)
         vision_payload = process_vision_info(
             messages,
             return_video_kwargs=True,
@@ -602,6 +613,7 @@ def run_qwen_style_messages(
     generate_temperature: float | None = None,
     attn_implementation: str | None = None,
     device_map: str | None = None,
+    enable_thinking: bool | None = None,
 ) -> str:
     runner = QwenStyleRunner(
         model_path=model_path,
@@ -612,6 +624,7 @@ def run_qwen_style_messages(
         generate_temperature=generate_temperature,
         attn_implementation=attn_implementation,
         device_map=device_map,
+        enable_thinking=enable_thinking,
     )
     try:
         return runner.generate(messages, max_new_tokens=max_new_tokens)

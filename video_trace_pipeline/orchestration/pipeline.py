@@ -15,8 +15,10 @@ from ..storage import EvidenceLedger, WorkspaceManager
 from ..tools import ObservationExtractor, ToolRegistry
 from ..tools.base import ToolExecutionContext
 from ..tools.specs import tool_implementation
+from .context_packer import build_evidence_cards, build_preprocess_context_pack
 from .executor import PlanExecutor
 from .preprocess import DenseCaptionPreprocessor
+from .request_compiler import compile_planner_tool_request
 
 
 def _truncate_text(value: Any, max_len: int = 220) -> str:
@@ -212,7 +214,7 @@ def _combined_preprocess_context(preprocess_output: Any) -> Optional[Dict[str, A
     if not isinstance(planner_segments, list):
         return None
     context = {
-        "source": "planner_segments.json",
+        "source": preprocess_output.get("planner_segments_source") or "planner_segments.json",
         "cache_dir": preprocess_output.get("cache_dir"),
         "manifest": {
             "video_id": preprocess_output.get("video_id"),
@@ -483,6 +485,7 @@ class PipelineRunner(object):
             "evidence_status_counts": statuses,
             "top_subjects": sorted(subjects.items(), key=lambda pair: (-pair[1], pair[0]))[:15],
             "top_predicates": sorted(predicates.items(), key=lambda pair: (-pair[1], pair[0]))[:15],
+            "evidence_cards": build_evidence_cards(entries, observations, limit=12),
             "evidence_entries": entries[-10:],
             "recent_observations": [
                 {
@@ -573,6 +576,26 @@ class PipelineRunner(object):
             raise RuntimeError(
                 "Preprocessing is enabled, but the preprocess bundle did not contain planner_segments from planner_segments.json."
             )
+        agent_preprocess_context = build_preprocess_context_pack(preprocess_context, task) if preprocess_context is not None else None
+        if preprocess_enabled and agent_preprocess_context is None:
+            raise RuntimeError(
+                "Preprocessing is enabled, but planner_segments could not be converted into an agent preprocess context pack."
+            )
+        if agent_preprocess_context is not None:
+            write_json(run.run_dir / "preprocess_context_pack.json", sanitize_for_persistence(agent_preprocess_context))
+            preprocess_manifest = dict(agent_preprocess_context.get("manifest") or {})
+            full_preprocess_tokens = int(preprocess_manifest.get("full_planner_segments_token_estimate") or 0)
+            packed_preprocess_tokens = int(preprocess_manifest.get("packed_token_estimate") or 0)
+            if full_preprocess_tokens >= 100000 or packed_preprocess_tokens >= 24000:
+                warning_payload = {
+                    "type": "large_preprocess_context",
+                    "full_planner_segments_token_estimate": full_preprocess_tokens,
+                    "packed_token_estimate": packed_preprocess_tokens,
+                    "message": "Preprocess context was packed for agents; full planner_segments remain in preprocess artifacts.",
+                }
+                manifest_payload.setdefault("warnings", []).append(warning_payload)
+                self.workspace.write_run_manifest(run, manifest_payload)
+                write_json(run.run_dir / "preprocess_context_warning.json", warning_payload)
         video_fingerprint = (
             str(preprocess_output.get("video_fingerprint"))
             if isinstance(preprocess_output, dict) and preprocess_output.get("video_fingerprint")
@@ -606,7 +629,7 @@ class PipelineRunner(object):
                 task,
                 current_trace_dict,
                 initial_summary,
-                preprocess_context=preprocess_context,
+                preprocess_context=agent_preprocess_context,
             )
             write_json(initial_round_dir / "auditor_request.json", sanitize_for_persistence(initial_audit_request))
             _, latest_audit = self.auditor.complete_request(initial_audit_request)
@@ -628,6 +651,7 @@ class PipelineRunner(object):
                     "audit_report": latest_audit.dict(),
                     "benchmark_export": export_payload,
                     "preprocess": sanitize_for_persistence(preprocess_output) if preprocess_output is not None else None,
+                    "preprocess_context_pack": sanitize_for_persistence(agent_preprocess_context) if agent_preprocess_context is not None else None,
                 }
                 write_json(run.final_result_path, final_payload)
                 with contextlib.suppress(Exception):
@@ -667,7 +691,7 @@ class PipelineRunner(object):
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
                 tool_catalog=tool_catalog,
                 evidence_summary=planner_evidence_summary,
-                preprocess_context=preprocess_context,
+                preprocess_context=agent_preprocess_context,
                 action_history=action_history,
                 current_trace=sanitize_for_persistence(current_trace.dict()) if current_trace is not None else None,
             )
@@ -677,7 +701,7 @@ class PipelineRunner(object):
                 warning_payload = {
                     "type": "large_planner_prompt",
                     "estimated_prompt_tokens": estimated_prompt_tokens,
-                    "message": "Planner prompt is large because full planner_segments preprocess context is included.",
+                    "message": "Planner prompt is large even after preprocess/evidence packing; execution continues with a warning.",
                 }
                 manifest_payload.setdefault("warnings", []).append(warning_payload)
                 self.workspace.write_run_manifest(run, manifest_payload)
@@ -715,13 +739,31 @@ class PipelineRunner(object):
                 tool_request.setdefault("tool_name", action.tool_name)
                 if action.tool_name == "verifier":
                     raise ValueError("Planner attempted to call disabled verifier tool.")
+                compiled_request = compile_planner_tool_request(str(action.tool_name), tool_request, task=task)
+                write_json(round_dir / "compiled_tool_request.json", sanitize_for_persistence(compiled_request))
+                action_record["compiled_tool_request"] = sanitize_for_persistence(
+                    {
+                        "original_tool_name": compiled_request.get("original_tool_name"),
+                        "tool_name": compiled_request.get("tool_name"),
+                        "action": compiled_request.get("action"),
+                        "diagnostics": compiled_request.get("diagnostics") or [],
+                        "original_valid": compiled_request.get("original_valid"),
+                        "original_error": compiled_request.get("original_error"),
+                        "compiled_valid": compiled_request.get("compiled_valid"),
+                        "compiled_error": compiled_request.get("compiled_error"),
+                    }
+                )
+                effective_tool_name = str(compiled_request.get("tool_name") or action.tool_name)
+                effective_tool_request = dict(compiled_request.get("tool_request") or tool_request)
+                if effective_tool_name == "verifier":
+                    raise ValueError("Planner attempted to call disabled verifier tool after request compilation.")
                 plan = SimpleNamespace(
                     steps=[
                         PlanStep(
                             step_id=rounds_executed + 1,
-                            tool_name=str(action.tool_name),
+                            tool_name=effective_tool_name,
                             purpose=action.expected_observation or action.rationale,
-                            inputs=tool_request,
+                            inputs=effective_tool_request,
                         )
                     ]
                 )
@@ -762,7 +804,7 @@ class PipelineRunner(object):
                 current_trace=sanitize_for_persistence(current_trace.dict()) if current_trace is not None else None,
                 refinement_instructions=action.synthesis_instructions or action.rationale,
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
-                preprocess_context=preprocess_context,
+                preprocess_context=agent_preprocess_context,
             )
             write_json(round_dir / "synthesizer_request.json", sanitize_for_persistence(synthesizer_request))
             _, trace_package = self.synthesizer.complete_request(synthesizer_request)
@@ -784,7 +826,7 @@ class PipelineRunner(object):
                 task=task,
                 trace_package=sanitize_for_persistence(trace_package.dict()),
                 evidence_summary=evidence_summary,
-                preprocess_context=preprocess_context,
+                preprocess_context=agent_preprocess_context,
             )
             write_json(round_dir / "auditor_request.json", sanitize_for_persistence(auditor_request))
             _, latest_audit = self.auditor.complete_request(auditor_request)
@@ -822,6 +864,7 @@ class PipelineRunner(object):
             "audit_report": latest_audit.dict() if latest_audit is not None else None,
             "benchmark_export": sanitize_for_persistence(export_payload),
             "preprocess": sanitize_for_persistence(preprocess_output) if preprocess_output is not None else None,
+            "preprocess_context_pack": sanitize_for_persistence(agent_preprocess_context) if agent_preprocess_context is not None else None,
             "rounds_executed": rounds_executed,
             "planner_turns": planner_turns,
             "synthesis_attempts": synthesis_attempts,

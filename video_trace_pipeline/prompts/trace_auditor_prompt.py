@@ -271,11 +271,11 @@ def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict, prep
     if preprocess_context:
         parts.extend(
             [
-                "FULL_PREPROCESS_CONTENT:",
+                "PREPROCESS_CONTEXT_PACK:",
                 pretty_json(preprocess_context),
                 "",
                 "PREPROCESS_TRUST_POLICY:",
-                "Preprocess is candidate context and coverage background. It may reveal conflicts or missing coverage, but dense captions alone are not final proof of answer-critical claims. Check whether trace citations are backed by validated tool evidence or adequate ASR spans.",
+                "Preprocess is candidate context and coverage background. It may reveal conflicts or missing coverage, but dense captions alone are not final proof of answer-critical claims. Check whether trace citations are backed by validated tool evidence or adequate ASR spans. Generic-purpose/Qwen evidence marked raw_untrusted_vlm_observation is candidate context only, not final proof.",
                 "",
             ]
         )

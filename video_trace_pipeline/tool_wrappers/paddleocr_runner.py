@@ -356,13 +356,29 @@ def _prepare_ocr_item(
 
 
 def _configure_paddleocr_environment(runtime: Dict[str, Any]) -> Path:
-    base = workspace_root_from_runtime(runtime) / "cache" / "paddleocr_runtime"
+    hf_cache = str(runtime.get("hf_cache") or os.environ.get("HF_HOME") or "").strip()
+    if hf_cache:
+        base = Path(hf_cache).expanduser().resolve()
+    else:
+        base = workspace_root_from_runtime(runtime) / "cache" / "paddleocr_runtime"
     paddlex_cache = base / "paddlex"
     matplotlib_cache = base / "matplotlib"
-    fallback_home = base / "home"
+    fallback_home = base / "paddleocr_home"
+    hub_cache = base / "hub"
     for path in (paddlex_cache, matplotlib_cache, fallback_home):
         path.mkdir(parents=True, exist_ok=True)
+    hub_cache.mkdir(parents=True, exist_ok=True)
 
+    paddlex_hub_link = paddlex_cache / "hub"
+    if not paddlex_hub_link.exists() and not paddlex_hub_link.is_symlink():
+        try:
+            paddlex_hub_link.symlink_to(hub_cache, target_is_directory=True)
+        except OSError:
+            pass
+
+    os.environ.setdefault("HF_HOME", str(base))
+    os.environ.setdefault("HUGGINGFACE_HUB_CACHE", str(hub_cache))
+    os.environ.setdefault("HF_HUB_CACHE", str(hub_cache))
     os.environ["PADDLE_PDX_CACHE_HOME"] = str(paddlex_cache)
     os.environ["MPLCONFIGDIR"] = str(matplotlib_cache)
     os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"

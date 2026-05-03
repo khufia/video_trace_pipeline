@@ -31,6 +31,7 @@ class AgentConfig(BaseModel):
     temperature: float = 0.2
     max_tokens: int = 4096
     prompt_version: str = "v1"
+    extra: Dict[str, Any] = Field(default_factory=dict)
 
 
 class ToolConfig(BaseModel):
@@ -52,6 +53,7 @@ class ModelsConfig(BaseModel):
 class MachineProfile(BaseModel):
     workspace_root: str
     cache_root: Optional[str] = None
+    preprocess_cache_root: Optional[str] = None
     hf_cache: Optional[str] = None
     ffmpeg_bin: str = "ffmpeg"
     datasets: Dict[str, DatasetConfig] = Field(default_factory=dict)
@@ -63,6 +65,7 @@ class MachineProfile(BaseModel):
         return {
             "workspace_root": "<redacted>",
             "cache_root": "<redacted>" if self.cache_root else None,
+            "preprocess_cache_root": "<redacted>" if self.preprocess_cache_root else None,
             "hf_cache": "<redacted>" if self.hf_cache else None,
             "ffmpeg_bin": self.ffmpeg_bin,
             "datasets": sorted(self.datasets.keys()),

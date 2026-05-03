@@ -504,6 +504,100 @@ class DenseCaptionPreprocessor(object):
             "dense_caption_segments": dense_segments,
             "asr_transcripts": transcripts,
             "planner_segments": planner_segments,
+            "source": "planner_segments.json",
+        }
+
+    def _legacy_bundle_if_complete(self, cache_dir: Path, *, video_id: str):
+        manifest_path = cache_dir / "manifest.json"
+        preprocess_path = cache_dir / "preprocess.json"
+        if not manifest_path.exists() or not preprocess_path.exists():
+            return None
+        manifest = read_json(manifest_path)
+        preprocess = read_json(preprocess_path)
+        if not isinstance(manifest, dict) or not isinstance(preprocess, dict):
+            return None
+        legacy_segments = preprocess.get("segments")
+        if not isinstance(legacy_segments, list):
+            return None
+
+        raw_segments: List[Dict[str, Any]] = []
+        for index, segment in enumerate(legacy_segments, start=1):
+            if not isinstance(segment, dict):
+                continue
+            start_s = _float_or(segment.get("start_s", segment.get("start", 0.0)), 0.0)
+            end_s = _float_or(segment.get("end_s", segment.get("end", start_s)), start_s)
+            if end_s < start_s:
+                end_s = start_s
+            legacy_captions = segment.get("dense_captions")
+            if not isinstance(legacy_captions, list):
+                legacy_captions = []
+            dense_caption = _normalize_dense_caption(
+                {
+                    "clips": [{"video_id": video_id, "start_s": start_s, "end_s": end_s}],
+                    "captioned_range": {"start_s": start_s, "end_s": end_s},
+                    "overall_summary": segment.get("dense_caption_summary") or segment.get("caption"),
+                    "captions": legacy_captions,
+                },
+                workspace=self.workspace,
+                video_id=video_id,
+                default_start=start_s,
+                default_end=end_s,
+            )
+            transcript_segments = [
+                item
+                for item in (
+                    _normalize_transcript_segment(transcript, default_start=start_s, default_end=end_s)
+                    for transcript in list(segment.get("transcript") or segment.get("transcript_segments") or [])
+                )
+                if item is not None
+            ]
+            raw_segments.append(
+                _prune_empty(
+                    {
+                        "segment_id": segment.get("segment_id") or segment.get("id") or "seg_%03d" % index,
+                        "start_s": round(start_s, 3),
+                        "end_s": round(end_s, 3),
+                        "dense_caption": dense_caption,
+                        "transcript_segments": transcript_segments,
+                    }
+                )
+            )
+
+        planner_segments = _planner_segments_from_raw_segments(raw_segments)
+        if not planner_segments:
+            return None
+        dense_caption_segments = [
+            _prune_empty(
+                {
+                    "segment_id": segment.get("segment_id"),
+                    "start_s": segment.get("start_s"),
+                    "end_s": segment.get("end_s"),
+                    "dense_caption": segment.get("dense_caption"),
+                }
+            )
+            for segment in raw_segments
+        ]
+        transcripts = _normalize_transcripts(
+            {"transcripts": preprocess.get("asr_transcripts") or []},
+            workspace=self.workspace,
+            video_id=video_id,
+        )
+        normalized_manifest = _normalize_manifest(
+            {
+                **manifest,
+                "legacy_preprocess_cache": True,
+            },
+            raw_segments=raw_segments,
+            planner_segments=planner_segments,
+            transcripts=transcripts,
+        )
+        return {
+            "manifest": normalized_manifest,
+            "raw_segments": raw_segments,
+            "dense_caption_segments": dense_caption_segments,
+            "asr_transcripts": transcripts,
+            "planner_segments": planner_segments,
+            "source": "preprocess.json",
         }
 
     def get_or_build(self, task, clip_duration_s: Optional[float] = None) -> Dict[str, object]:
@@ -529,6 +623,8 @@ class DenseCaptionPreprocessor(object):
         lock = FileLock(str(cache_dir / ".lock"))
         with lock:
             bundle = self._bundle_if_complete(cache_dir)
+            if bundle is None:
+                bundle = self._legacy_bundle_if_complete(cache_dir, video_id=video_id)
             if bundle is not None:
                 return {
                     "cache_hit": True,
@@ -539,6 +635,7 @@ class DenseCaptionPreprocessor(object):
                     "dense_caption_segments": bundle["dense_caption_segments"],
                     "asr_transcripts": bundle["asr_transcripts"],
                     "planner_segments": bundle["planner_segments"],
+                    "planner_segments_source": bundle.get("source"),
                     "video_fingerprint": video_fingerprint,
                 }
 

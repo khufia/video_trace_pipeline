@@ -60,6 +60,85 @@ def _media_line(index: int, payload: Dict[str, Any]) -> str:
     return " | ".join(parts)
 
 
+def _renumber_media_lines(media_lines: List[str], *, start_index: int) -> List[str]:
+    renumbered = []
+    for local_index, line in enumerate(list(media_lines or []), start=1):
+        parts = str(line or "").split(" | ")
+        global_index = int(start_index) + local_index
+        if parts:
+            parts[0] = "Image %d (global_image=%d)" % (local_index, global_index)
+        renumbered.append(" | ".join(parts))
+    return renumbered
+
+
+def _generic_result_from_raw(raw_text: str) -> Dict[str, Any]:
+    parsed = extract_json_object(raw_text) or {}
+    answer = str(parsed.get("answer") or "").strip()
+    supporting_points = parsed.get("supporting_points")
+    if not isinstance(supporting_points, list):
+        supporting_points = []
+    analysis = str(parsed.get("analysis") or answer or raw_text).strip()
+    return {
+        "answer": answer or raw_text.strip(),
+        "supporting_points": [str(item).strip() for item in supporting_points if str(item).strip()],
+        "confidence": parsed.get("confidence"),
+        "analysis": analysis,
+    }
+
+
+def _render_batch_summary(batch_index: int, batch_count: int, start_index: int, end_index: int, raw_text: str) -> str:
+    result = _generic_result_from_raw(raw_text)
+    payload = {
+        "batch": "%d/%d" % (batch_index, batch_count),
+        "global_images": "%d-%d" % (start_index + 1, end_index),
+        "answer": result.get("answer"),
+        "supporting_points": result.get("supporting_points"),
+        "confidence": result.get("confidence"),
+        "analysis": result.get("analysis"),
+    }
+    return "BATCH_FRAME_SUMMARY %d/%d: %s" % (
+        batch_index,
+        batch_count,
+        json.dumps(payload, ensure_ascii=False),
+    )
+
+
+def _max_images_per_call(runtime: Dict[str, Any]) -> int:
+    extra = dict((runtime or {}).get("extra") or {})
+    for key in ("max_images_per_call", "max_input_images"):
+        try:
+            value = int(extra.get(key) or 0)
+        except Exception:
+            value = 0
+        if value > 0:
+            return value
+    return 12
+
+
+def _batch_query(original_query: str, batch_index: int, batch_count: int) -> str:
+    return "\n\n".join(
+        [
+            str(original_query or "").strip(),
+            "BATCHED_FRAME_PASS:",
+            "This is image batch %d of %d. Inspect only the supplied images in this batch."
+            % (batch_index, batch_count),
+            "Report answer-critical observations for this batch only. For counts or repeated actions, give the count within this batch and mention any boundary uncertainty. Use image numbers, artifact ids, and timestamps from INPUT MEDIA.",
+        ]
+    ).strip()
+
+
+def _final_batch_query(original_query: str, batch_count: int) -> str:
+    return "\n\n".join(
+        [
+            str(original_query or "").strip(),
+            "FINAL_BATCH_AGGREGATION:",
+            "Use the %d BATCH_FRAME_SUMMARY entries in TEXT CONTEXT as candidate observations from direct frame inspection."
+            % batch_count,
+            "Aggregate across batches without inventing unseen visual evidence. For counts, sum only distinct directly supported events and call out boundary ambiguity. If the summaries are incomplete, conflicting, or insufficient, answer indeterminate.",
+        ]
+    ).strip()
+
+
 def _evidence_line(record: Dict[str, Any]) -> str:
     text = str(
         record.get("atomic_text")
@@ -330,7 +409,10 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     text_contexts = [str(item).strip() for item in list(request.get("text_contexts") or []) if str(item).strip()]
     prompt = _build_prompt(request, task, transcript_text, evidence_lines, text_contexts, media_lines=media_lines)
     generation = resolve_generation_controls(runtime)
-    attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
+    extra = dict((runtime.get("extra") or {}) or {})
+    attn_implementation = str(extra.get("attn_implementation") or "").strip() or None
+    enable_thinking_value = extra.get("enable_thinking")
+    enable_thinking = None if enable_thinking_value is None else bool(enable_thinking_value)
     runner = None
     owns_runner = False
     if runner_pool is not None:
@@ -341,6 +423,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
             attn_implementation=attn_implementation,
+            enable_thinking=enable_thinking,
         )
     if runner is None:
         runner = QwenStyleRunner(
@@ -349,27 +432,56 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
             attn_implementation=attn_implementation,
+            enable_thinking=enable_thinking,
         )
         owns_runner = True
     try:
-        raw_text = runner.generate(
-            make_qwen_image_messages(prompt, image_paths),
-            max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 768),
-        )
+        max_new_tokens = int((runtime.get("extra") or {}).get("max_new_tokens") or 768)
+        max_images = _max_images_per_call(runtime)
+        if image_paths and len(image_paths) > max_images:
+            batch_summaries: List[str] = []
+            batch_count = (len(image_paths) + max_images - 1) // max_images
+            batch_max_new_tokens = int((runtime.get("extra") or {}).get("batch_max_new_tokens") or min(max_new_tokens, 512))
+            for batch_index, start in enumerate(range(0, len(image_paths), max_images), start=1):
+                end = min(len(image_paths), start + max_images)
+                batch_request = dict(request)
+                batch_request["query"] = _batch_query(query, batch_index, batch_count)
+                batch_prompt = _build_prompt(
+                    batch_request,
+                    task,
+                    transcript_text,
+                    evidence_lines,
+                    text_contexts,
+                    media_lines=_renumber_media_lines(media_lines[start:end], start_index=start),
+                )
+                batch_raw = runner.generate(
+                    make_qwen_image_messages(batch_prompt, image_paths[start:end]),
+                    max_new_tokens=batch_max_new_tokens,
+                )
+                batch_summaries.append(_render_batch_summary(batch_index, batch_count, start, end, batch_raw))
+            final_request = dict(request)
+            final_request["query"] = _final_batch_query(query, batch_count)
+            final_prompt = _build_prompt(
+                final_request,
+                task,
+                transcript_text,
+                evidence_lines,
+                list(text_contexts) + batch_summaries,
+                media_lines=[],
+            )
+            raw_text = runner.generate(
+                make_qwen_image_messages(final_prompt, []),
+                max_new_tokens=max_new_tokens,
+            )
+        else:
+            raw_text = runner.generate(
+                make_qwen_image_messages(prompt, image_paths),
+                max_new_tokens=max_new_tokens,
+            )
     finally:
         if owns_runner:
             runner.close()
-    parsed = extract_json_object(raw_text) or {}
-    answer = str(parsed.get("answer") or "").strip()
-    supporting_points = parsed.get("supporting_points")
-    if not isinstance(supporting_points, list):
-        supporting_points = []
-    return {
-        "answer": answer or raw_text.strip(),
-        "supporting_points": [str(item).strip() for item in supporting_points if str(item).strip()],
-        "confidence": parsed.get("confidence"),
-        "analysis": str(parsed.get("analysis") or answer or raw_text).strip(),
-    }
+    return _generic_result_from_raw(raw_text)
 
 
 def main() -> None:

@@ -147,6 +147,93 @@ class PlannerAction(BaseModel):
     synthesis_instructions: str = ""
     missing_information: List[str] = Field(default_factory=list)
 
+    @model_validator(mode="before")
+    @classmethod
+    def _normalize_common_action_envelopes(cls, value):
+        if not isinstance(value, dict) or value.get("action_type"):
+            return value
+
+        for key in ("planner_action", "next_action", "action"):
+            nested = value.get(key)
+            if isinstance(nested, dict):
+                return nested
+
+        if "synthesis_instructions" in value:
+            instructions = str(value.get("synthesis_instructions") or "").strip()
+            if instructions:
+                return {
+                    "action_type": "synthesize",
+                    "rationale": str(value.get("rationale") or instructions).strip(),
+                    "synthesis_instructions": instructions,
+                }
+
+        missing_information = value.get("missing_information")
+        if missing_information:
+            return {
+                "action_type": "stop_unresolved",
+                "rationale": str(value.get("rationale") or "The remaining answer-critical information is unresolved.").strip(),
+                "missing_information": missing_information,
+            }
+
+        tool_request = value.get("tool_request") if isinstance(value.get("tool_request"), dict) else None
+        tool_name = str(value.get("tool_name") or (tool_request or {}).get("tool_name") or "").strip()
+        if not tool_name and tool_request is None:
+            keys = {str(key) for key in value.keys()}
+            if {"video_id", "start_s", "end_s"}.issubset(keys):
+                tool_name = "frame_retriever"
+            elif keys & {"ocr_sample_fps", "ocr_source"} and keys & {"clips", "frames", "regions"}:
+                tool_name = "ocr"
+            elif keys & {"sequence_mode", "neighbor_radius_s", "include_anchor_neighbors", "num_frames", "time_hints"}:
+                tool_name = "frame_retriever"
+            elif keys & {"speaker_attribution"} and "clips" in keys:
+                tool_name = "asr"
+            elif keys & {"granularity", "focus_query"} and "clips" in keys:
+                tool_name = "dense_captioner"
+            elif keys & {"text_contexts", "transcripts", "evidence_ids"}:
+                tool_name = "generic_purpose"
+            elif "query" in keys and "top_k" in keys:
+                tool_name = "visual_temporal_grounder"
+
+        if tool_name:
+            request_fields = {
+                key: item
+                for key, item in value.items()
+                if key
+                not in {
+                    "action_type",
+                    "rationale",
+                    "tool_name",
+                    "tool_request",
+                    "expected_observation",
+                    "synthesis_instructions",
+                    "missing_information",
+                }
+            }
+            if tool_request is None and {"video_id", "start_s", "end_s"}.issubset(set(request_fields.keys())):
+                clip = {
+                    key: request_fields[key]
+                    for key in ("video_id", "start_s", "end_s", "artifact_id", "relpath", "metadata")
+                    if key in request_fields
+                }
+                normalized_request = {
+                    "clips": [clip],
+                    "query": str(value.get("query") or "clear answer-critical visual frames inside the supplied time window").strip(),
+                    "sequence_mode": "chronological",
+                    "sort_order": "chronological",
+                }
+            else:
+                normalized_request = dict(tool_request or request_fields)
+            normalized_request.setdefault("tool_name", tool_name)
+            return {
+                "action_type": "tool_call",
+                "rationale": str(value.get("rationale") or "Run %s to collect the next answer-critical evidence." % tool_name).strip(),
+                "tool_name": tool_name,
+                "tool_request": normalized_request,
+                "expected_observation": str(value.get("expected_observation") or "Answer-critical evidence returned by %s." % tool_name).strip(),
+            }
+
+        return value
+
     @field_validator("rationale")
     @classmethod
     def _validate_rationale(cls, value):  # noqa: N805

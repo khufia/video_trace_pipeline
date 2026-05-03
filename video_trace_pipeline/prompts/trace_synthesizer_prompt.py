@@ -173,11 +173,11 @@ def build_synthesizer_prompt(
     if preprocess_context:
         parts.extend(
             [
-                "FULL_PREPROCESS_CONTENT:",
+                "PREPROCESS_CONTEXT_PACK:",
                 pretty_json(preprocess_context),
                 "",
                 "PREPROCESS_TRUST_POLICY:",
-                "Use preprocessed ASR transcript spans as candidate transcript evidence when coverage is adequate. Do not use dense captions as final proof of answer-critical visual/audio claims; prefer validated tool evidence and explicitly note unresolved conflicts.",
+                "Use preprocessed ASR transcript spans as candidate transcript evidence when coverage is adequate. Do not use dense captions as final proof of answer-critical visual/audio claims; prefer validated tool evidence and explicitly note unresolved conflicts. Generic-purpose/Qwen evidence marked raw_untrusted_vlm_observation is candidate context only, not final proof.",
                 "",
             ]
         )

@@ -154,3 +154,70 @@ def test_generic_purpose_adapter_coerces_labeled_confidence(monkeypatch):
     assert result.data["confidence"] == 0.85
     assert result.metadata["confidence"] == 0.85
     assert result.metadata["confidence_kind"] == "answer_confidence"
+
+
+def test_generic_purpose_batches_large_frame_sets(tmp_path, monkeypatch):
+    workspace_root = tmp_path / "workspace"
+    image_paths = []
+    frames = []
+    for index in range(5):
+        path = workspace_root / "cache" / "artifacts" / "demo" / ("frame_%02d.png" % index)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"fake image")
+        image_paths.append(path)
+        frames.append(
+            {
+                "video_id": "sample1",
+                "timestamp_s": float(index),
+                "artifact_id": "frame_%02d" % index,
+                "relpath": str(path.relative_to(workspace_root)),
+            }
+        )
+
+    captured = {"calls": []}
+
+    class FakeRunner(object):
+        def __init__(self, **kwargs):
+            del kwargs
+
+        def generate(self, messages, max_new_tokens):
+            captured["calls"].append({"messages": messages, "max_new_tokens": max_new_tokens})
+            text = messages[0]["content"][-1]["text"]
+            if "FINAL_BATCH_AGGREGATION" in text:
+                assert "BATCH_FRAME_SUMMARY 1/3" in text
+                assert "BATCH_FRAME_SUMMARY 3/3" in text
+                return '{"answer":"2","supporting_points":["Batch summaries support two actions."],"confidence":0.7,"analysis":"Aggregated from three frame batches."}'
+            assert "BATCHED_FRAME_PASS" in text
+            return '{"answer":"batch observation","supporting_points":["local batch checked"],"confidence":0.6,"analysis":"ok"}'
+
+        def close(self):
+            return None
+
+    monkeypatch.setattr(qwen35vl_runner, "QwenStyleRunner", FakeRunner)
+    monkeypatch.setattr(qwen35vl_runner, "resolve_model_path", lambda *args, **kwargs: "/tmp/fake-model")
+
+    result = qwen35vl_runner.execute_payload(
+        {
+            "request": {
+                "tool_name": "generic_purpose",
+                "query": "Count the visible table slaps.",
+                "frames": frames,
+            },
+            "task": {
+                "question": "How many times does she slap the table?",
+                "options": [],
+            },
+            "runtime": {
+                "model_name": "Qwen/Qwen3.5-9B",
+                "workspace_root": str(workspace_root),
+                "extra": {"max_images_per_call": 2, "batch_max_new_tokens": 128},
+            },
+            "evidence_records": [],
+        }
+    )
+
+    assert result["answer"] == "2"
+    assert len(captured["calls"]) == 4
+    assert captured["calls"][0]["max_new_tokens"] == 128
+    assert len([item for item in captured["calls"][0]["messages"][0]["content"] if item["type"] == "image"]) == 2
+    assert len([item for item in captured["calls"][-1]["messages"][0]["content"] if item["type"] == "image"]) == 0

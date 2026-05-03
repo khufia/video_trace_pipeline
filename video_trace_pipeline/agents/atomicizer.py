@@ -39,6 +39,7 @@ class AtomicFactAgent(object):
             ]
         )
         parsed, _ = self.llm_client.complete_json(
+            backend=self.agent_config.backend,
             endpoint_name=self.agent_config.endpoint or "default",
             model_name=self.agent_config.model,
             system_prompt=ATOMICIZER_SYSTEM_PROMPT,
@@ -46,5 +47,6 @@ class AtomicFactAgent(object):
             response_model=AtomicFactResponse,
             temperature=self.agent_config.temperature,
             max_tokens=self.agent_config.max_tokens,
+            agent_extra=dict(getattr(self.agent_config, "extra", {}) or {}),
         )
         return [item.model_dump() for item in parsed.facts]

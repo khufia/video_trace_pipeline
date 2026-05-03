@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shlex
 import subprocess
 import sys
@@ -84,6 +85,34 @@ def _model_to_dict(value: Any) -> Dict[str, Any]:
     return {}
 
 
+def _time_hints_inside_clip(time_hints: List[str], clip: Any) -> List[str]:
+    hints = [str(item).strip() for item in list(time_hints or []) if str(item).strip()]
+    if not hints or clip is None:
+        return hints
+
+    clip_data = _model_to_dict(clip)
+    try:
+        start_s = float(clip_data.get("start_s") or 0.0)
+        end_s = float(clip_data.get("end_s") or start_s)
+    except Exception:
+        return hints
+
+    try:
+        from ..tool_wrappers.frame_retriever_runner import _time_hint_anchor_seconds
+    except Exception:
+        return hints
+
+    kept: List[str] = []
+    for hint in hints:
+        try:
+            anchor_s = _time_hint_anchor_seconds(hint, start_s, end_s)
+        except Exception:
+            anchor_s = None
+        if anchor_s is not None:
+            kept.append(hint)
+    return kept
+
+
 def _frame_sequence_context_for_request(request: Any) -> str:
     frames: List[Dict[str, Any]] = []
     for frame in list(getattr(request, "frames", []) or []):
@@ -129,6 +158,46 @@ def _generic_request_with_sequence_context(model_cls, request: Any):
         text_contexts.append(context_text)
     payload["text_contexts"] = text_contexts
     return model_cls.parse_obj(payload)
+
+
+RAW_VLM_REASONING_RE = re.compile(
+    r"\b(the user wants|let'?s|we need|i need|thinking process|step[- ]?by[- ]?step|first,|wait,|therefore,|"
+    r"i will|i should|my answer)\b",
+    re.I,
+)
+
+
+def generic_output_quality_flags(parsed: GenericPurposeOutput, raw: str = "") -> List[str]:
+    flags: List[str] = []
+    answer = str(getattr(parsed, "answer", "") or "").strip()
+    analysis = str(getattr(parsed, "analysis", "") or "").strip()
+    supporting_points = [
+        str(item).strip()
+        for item in list(getattr(parsed, "supporting_points", []) or [])
+        if str(item).strip()
+    ]
+    combined = "\n".join(item for item in (answer, analysis, raw or "") if str(item).strip())
+    if answer and len(answer.split()) > 48:
+        flags.append("answer_too_long_for_strict_value")
+    if combined and RAW_VLM_REASONING_RE.search(combined):
+        flags.append("raw_reasoning_or_preamble_detected")
+    if answer and not supporting_points:
+        flags.append("missing_supporting_points")
+    if getattr(parsed, "confidence", None) is None:
+        flags.append("missing_numeric_confidence")
+    if raw and raw.lstrip().startswith(("```", "Here", "Sure", "The ")):
+        flags.append("non_json_surface_text")
+    return flags
+
+
+def generic_output_strict_json_usable(parsed: GenericPurposeOutput, raw: str = "") -> bool:
+    flags = set(generic_output_quality_flags(parsed, raw))
+    blocking = {
+        "answer_too_long_for_strict_value",
+        "raw_reasoning_or_preamble_detected",
+        "non_json_surface_text",
+    }
+    return not bool(flags & blocking)
 
 
 class JsonProcessMixin(object):
@@ -318,6 +387,8 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
         model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
         device_label = resolved_device_label(runtime)
         attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
+        enable_thinking_value = (runtime.get("extra") or {}).get("enable_thinking")
+        enable_thinking = None if enable_thinking_value is None else bool(enable_thinking_value)
         return {
             "tool_name": self.name,
             "runner_type": "qwen_style",
@@ -331,6 +402,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
                 generate_temperature=generation.get("temperature"),
                 attn_implementation=attn_implementation,
                 device_map=device_map,
+                enable_thinking=enable_thinking,
             ),
             "model_name": self.model_name,
             "resolved_model_path": model_path,
@@ -341,6 +413,7 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
             "generate_temperature": generation.get("temperature"),
             "attn_implementation": attn_implementation,
             "device_map": device_map,
+            "enable_thinking": enable_thinking,
         }
 
     def _penguin_persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
@@ -914,8 +987,13 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
         time_hints = [str(item).strip() for item in list(getattr(request, "time_hints", []) or []) if str(item).strip()]
         if len(clips) > 1 or len(time_hints) > 1:
             subrequests = []
+            skipped_time_hint_clip_count = 0
             if clips:
                 for clip in clips:
+                    clip_time_hints = _time_hints_inside_clip(time_hints, clip)
+                    if time_hints and not clip_time_hints:
+                        skipped_time_hint_clip_count += 1
+                        continue
                     subrequests.append(
                         self.request_model.parse_obj(
                             {
@@ -923,7 +1001,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                                 "clips": [clip.dict() if hasattr(clip, "dict") else clip],
                                 "query": request.query,
                                 "num_frames": request.num_frames,
-                                "time_hints": list(time_hints),
+                                "time_hints": list(clip_time_hints),
                                 "sequence_mode": request.sequence_mode,
                                 "neighbor_radius_s": request.neighbor_radius_s,
                                 "include_anchor_neighbors": request.include_anchor_neighbors,
@@ -947,6 +1025,11 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                             }
                         )
                     )
+            if not subrequests:
+                raise RuntimeError(
+                    "frame_retriever could not match any time_hints to the provided clips; "
+                    "provide a clip containing the anchor timestamp or use chronological mode without time_hints."
+                )
             subresults = [self._execute_single(item, context) for item in subrequests]
             merged_frames = []
             frame_groups = []
@@ -963,11 +1046,13 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                 group_cache_metadata = dict(subresult.data.get("cache_metadata") or {})
                 merged_frames.extend(group_frames)
                 group_clip = _first_list_item(getattr(subrequest, "clips", []) or [])
-                group_time_hint = _first_list_item(getattr(subrequest, "time_hints", []) or [])
+                group_time_hints = [
+                    str(item) for item in list(getattr(subrequest, "time_hints", []) or []) if str(item).strip()
+                ]
                 frame_groups.append(
                     {
                         "clips": [group_clip.dict() if hasattr(group_clip, "dict") else group_clip] if group_clip is not None else [],
-                        "time_hints": [group_time_hint] if group_time_hint else [],
+                        "time_hints": group_time_hints,
                         "frames": group_frames,
                         "cache_metadata": group_cache_metadata,
                         "rationale": subresult.data.get("rationale") or subresult.summary,
@@ -977,7 +1062,7 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                     cache_groups.append(
                         {
                             "clips": [group_clip.dict() if hasattr(group_clip, "dict") else group_clip] if group_clip is not None else [],
-                            "time_hints": [group_time_hint] if group_time_hint else [],
+                            "time_hints": group_time_hints,
                             "cache_metadata": group_cache_metadata,
                         }
                     )
@@ -1003,6 +1088,8 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                 cache_metadata["bounded_frame_count"] = sum(bounded_frame_counts)
             if embedding_cache_ready:
                 cache_metadata["embedding_cache_ready"] = all(embedding_cache_ready)
+            if skipped_time_hint_clip_count:
+                cache_metadata["skipped_out_of_window_time_hint_clip_count"] = skipped_time_hint_clip_count
             frames_per_input = max(1, int(request.num_frames or 1))
             selected_frames = _select_multi_clip_frames(
                 frame_groups,
@@ -1694,13 +1781,26 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
         if candidate_chunks and all(is_low_signal_text(item) for item in candidate_chunks):
             low_signal_output = True
             parsed = GenericPurposeOutput(answer="", analysis="", supporting_points=[], confidence=parsed.confidence)
+        quality_flags = generic_output_quality_flags(parsed, raw)
+        strict_json_usable = generic_output_strict_json_usable(parsed, raw)
+        raw_untrusted = bool(not strict_json_usable and not low_signal_output)
+        raw_untrusted_text = ""
+        if raw_untrusted:
+            raw_untrusted_text = (
+                str(raw or "").strip()
+                or str(parsed.answer or parsed.analysis or "").strip()
+            )
         data = {
-            "response": parsed.answer,
-            "answer": parsed.answer,
-            "analysis": parsed.analysis or parsed.answer,
-            "supporting_points": list(parsed.supporting_points or []),
+            "response": "" if raw_untrusted else parsed.answer,
+            "answer": "" if raw_untrusted else parsed.answer,
+            "analysis": "" if raw_untrusted else (parsed.analysis or parsed.answer),
+            "supporting_points": [] if raw_untrusted else list(parsed.supporting_points or []),
             "confidence": parsed.confidence,
         }
+        if raw_untrusted:
+            data["raw_untrusted_vlm_observation"] = raw_untrusted_text[:4000]
+            data["raw_candidate_answer"] = str(parsed.answer or "").strip()[:1000]
+            data["raw_candidate_analysis"] = str(parsed.analysis or "").strip()[:1000]
         return ToolResult(
             tool_name=self.name,
             ok=True,
@@ -1711,11 +1811,19 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
             summary=(
                 "generic_purpose produced a low-signal response and it was omitted from evidence."
                 if low_signal_output
+                else (
+                    "generic_purpose returned raw/untrusted VLM text instead of a usable strict answer; "
+                    "treat as candidate context only: %s" % raw_untrusted_text[:1800]
+                )
+                if raw_untrusted
                 else (parsed.answer or parsed.analysis or "")[:2000]
             ),
             metadata={
                 "backend": self.model_name,
                 "low_signal_output": low_signal_output,
+                "strict_json_usable": strict_json_usable,
+                "raw_untrusted_vlm_observation": raw_untrusted,
+                "quality_flags": quality_flags,
                 **_confidence_metadata([parsed.confidence], kind="answer_confidence"),
             },
         )

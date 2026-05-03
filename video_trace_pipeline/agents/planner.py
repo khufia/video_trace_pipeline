@@ -31,17 +31,18 @@ class PlannerAgent(object):
             current_trace=current_trace,
         )
         return {
+            "backend": self.agent_config.backend,
             "endpoint_name": self.agent_config.endpoint or "default",
             "model_name": self.agent_config.model,
             "system_prompt": PLANNER_SYSTEM_PROMPT,
             "user_prompt": prompt,
             "temperature": self.agent_config.temperature,
             "max_tokens": self.agent_config.max_tokens,
+            "agent_extra": dict(getattr(self.agent_config, "extra", {}) or {}),
         }
 
     def complete_request(self, request):
-        payload, raw = self.llm_client.complete_json(response_model=dict, **dict(request or {}))
-        parsed = PlannerAction.model_validate(payload)
+        parsed, raw = self.llm_client.complete_json(response_model=PlannerAction, **dict(request or {}))
         return raw, parsed
 
     def plan(

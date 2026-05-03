@@ -220,7 +220,7 @@ def test_synthesizer_prompt_is_one_shot_with_icl_examples():
     assert f"{_removed_block('TASK' + '-STATE')}:" not in prompt
     assert "ROUND_EVIDENCE_ENTRIES:" in prompt
     assert "ROUND_ATOMIC_OBSERVATIONS:" in prompt
-    assert "FULL_PREPROCESS_CONTENT:" in prompt
+    assert "PREPROCESS_CONTEXT_PACK:" in prompt
     assert "EVIDENCE_MEMORY" not in prompt
     assert "Example D, unresolved fine detail" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Example J, ASR-to-visual anchor" in SYNTHESIZER_SYSTEM_PROMPT
@@ -243,7 +243,7 @@ def test_auditor_prompt_has_complex_score_icl_without_evidence_memory():
     assert f"{_removed_block('TASK' + '-STATE')}:" not in prompt
     assert "ordered, deduplicated, tool-agnostic list of atomic unresolved answer-critical needs" in prompt
     assert "diagnostics: object" in prompt
-    assert "FULL_PREPROCESS_CONTENT:" in prompt
+    assert "PREPROCESS_CONTEXT_PACK:" in prompt
     assert "Example A, strong multimodal PASS" in AUDITOR_SYSTEM_PROMPT
     assert "Example J, truncated task" in AUDITOR_SYSTEM_PROMPT
     assert "EVIDENCE_MEMORY" not in prompt

@@ -235,7 +235,7 @@ class PlanExecutor(object):
             adapter = self.tool_registry.get_adapter(step.tool_name)
             try:
                 request = adapter.parse_request(resolved_arguments)
-            except ValidationError as exc:
+            except (ValidationError, ValueError) as exc:
                 failure_record = self._record_tool_step_failure(
                     step=step,
                     exc=exc,

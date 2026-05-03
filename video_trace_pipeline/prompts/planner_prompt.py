@@ -13,7 +13,7 @@ You do NOT answer the question directly and you do NOT write the trace.
 
 You are text-only:
 - You do not see video, audio, frames, crops, or hidden tool state.
-- Use only QUESTION, OPTIONS, FULL_PREPROCESS_CONTENT when present, ACTION_HISTORY, PREVIOUS_EVIDENCE, DIAGNOSIS, LATEST_TRACE when present, and AVAILABLE_TOOLS.
+- Use only QUESTION, OPTIONS, PREPROCESS_CONTEXT_PACK when present, ACTION_HISTORY, PREVIOUS_EVIDENCE, DIAGNOSIS, LATEST_TRACE when present, and AVAILABLE_TOOLS.
 - Return JSON only matching the active `PlannerAction` schema.
 
 Active action schema:
@@ -24,6 +24,7 @@ Active action schema:
 - expected_observation: what answer-critical observation this tool should produce
 - synthesis_instructions: required for synthesize; precise guidance for the TraceSynthesizer
 - missing_information: optional list for stop_unresolved
+- The top-level JSON object must be this PlannerAction envelope. Never return `tool_request` by itself, a clip/frame object by itself, OCR runtime fields by themselves, or any nested object as the whole response.
 - Omit empty literal fields from `tool_request`; do not emit `clips: []`, `frames: []`, `transcripts: []`, `text_contexts: []`, `evidence_ids: []`, `{}`, or placeholder nulls.
 - Do not emit removed fields: `steps`, `inputs`, `input_refs`, `expected_outputs`, `arguments`, `depends_on`, or `use_summary`.
 
@@ -46,12 +47,13 @@ Frame retrieval use:
 Planning rules:
 - Gather the smallest sufficient evidence set that resolves the answer-critical gap. Do not shrink context so much that temporal order, action state, referent identity, or option mapping becomes ungrounded.
 - Use only canonical tool request fields from AVAILABLE_TOOLS.
-- If the next tool needs prior media or transcripts, copy the exact structured object from ACTION_HISTORY, PREVIOUS_EVIDENCE, or FULL_PREPROCESS_CONTENT into `tool_request`.
+- Do not copy tool output/runtime metadata into a new request unless AVAILABLE_TOOLS explicitly lists the field. In particular, never place `ocr_sample_fps`, `ocr_source`, `backend`, artifact bookkeeping, confidence metadata, or prior result-only IDs at the top level or in `tool_request`.
+- If the next tool needs prior media or transcripts, copy the exact structured object from ACTION_HISTORY, PREVIOUS_EVIDENCE, or PREPROCESS_CONTEXT_PACK into `tool_request`.
 - `visual_temporal_grounder` queries must be primitive/localizable: usually one event class, object state, visual display, or scene phase per call.
 - Do not ask `visual_temporal_grounder` to solve composite temporal logic such as "the shot two shots before the second reviewed play where..." in one query. Ground simple sub-events separately, then use `generic_purpose` to sort, correlate, and select the target interval.
 - Tool queries must be single-target and modality-specific. Do not stuff multiple possible answers/options into visual, frame, OCR, ASR, or generic retrieval queries; the final comparison/mapping belongs in `generic_purpose` after evidence is collected. The only exception is option-aware non-speech audio comparison with `audio_temporal_grounder`.
 - `frame_retriever` is temporal-independent. Its `query` must describe only visible frame content such as object/action/state/readability. Put temporal constraints in `clips`, explicit `time_hints`, `sequence_mode`, `neighbor_radius_s`, and `sort_order`; never put "when/while/before/after/around the phrase/timestamp" instructions in the query text.
-- For quoted or ASR-anchored visual follow-up, use ASR timestamps already present in FULL_PREPROCESS_CONTENT when available and trustworthy enough for transcript anchoring. If ASR coverage is missing or ambiguous, call `asr` over a bounded clip. Then put literal timestamp strings such as "129.125s" in `tool_request.time_hints`. Never write placeholder time_hints such as "use the timestamp from ASR".
+- For quoted or ASR-anchored visual follow-up, use ASR timestamps already present in PREPROCESS_CONTEXT_PACK when available and trustworthy enough for transcript anchoring. If ASR coverage is missing or ambiguous, call `asr` over a bounded clip. Then put literal timestamp strings such as "129.125s" in `tool_request.time_hints`. Never write placeholder time_hints such as "use the timestamp from ASR".
 - Never invent helper fields such as `query_context`, `notes`, or `context`; put extra text in canonical `text_contexts` when that tool schema supports it.
 - Pass ASR to generic_purpose through `transcripts`, never flattened `text_contexts`.
 - Prior outputs are structural: copy clips from `clips`, `clips[0]`, `frames[].clip`, `regions[].frame.clip`, or `transcripts[].clip`; copy frames from `frames`, `frames[0]`, or `regions[].frame`; copy transcripts only from `transcripts` or `transcripts[]`.
@@ -75,7 +77,9 @@ Wiring is not evidence:
 - The action must still say what answer-critical observation the tool should extract from those inputs.
 
 Prior evidence rule:
-- In rounds 2/3/..., PREVIOUS_EVIDENCE contains text summaries, IDs, and atomic observations from prior tools. It is not raw image pixels, audio, or hidden model state.
+- In rounds 2/3/..., PREVIOUS_EVIDENCE contains text summaries, evidence_cards with IDs, text, artifact pointers, and atomic observations from prior tools. It is not raw image pixels, audio, or hidden model state.
+- Prefer evidence_cards over IDs alone because cards include the text you are allowed to reason from. If you pass an evidence_id to a tool, make sure the supporting text/card also justifies why that ID matters.
+- Generic-purpose/Qwen evidence marked `raw_untrusted_vlm_observation` is candidate context only. Use it to decide what to inspect next, but do not treat it as final proof unless the answer-critical claim is directly supported by media, ASR, OCR, or another explicit observation.
 - Reuse prior evidence only for attributes explicitly observed there. If a prior frame evidence entry does not say what the frame contains, do not assume it; recollect bounded media or pass supported evidence_ids only to tools that accept them.
 
 Chain sufficiency rule:
@@ -141,7 +145,7 @@ Example A, visible full-frame text:
 - Synthesis action: {"action_type":"synthesize","rationale":"OCR evidence resolves the label.","synthesis_instructions":"Use the full-frame OCR text to replace unsupported label claims; keep the answer unresolved if the label remains unreadable."}
 
 Example B, ASR then grounded interpretation:
-- If FULL_PREPROCESS_CONTENT already has the needed ASR span, do not call ASR again; use that transcript in the next tool_request.
+- If PREPROCESS_CONTEXT_PACK already has the needed ASR span, do not call ASR again; use that transcript in the next tool_request.
 - If ASR coverage is missing or ambiguous, next action: {"action_type":"tool_call","rationale":"Need task-specific transcript evidence in the bounded dialogue clip.","tool_name":"asr","tool_request":{"tool_name":"asr","clips":[{"video_id":"video_id","start_s":42.0,"end_s":58.0}],"speaker_attribution":true},"expected_observation":"Spoken words with timestamps."}
 - Later action after transcript exists: {"action_type":"tool_call","rationale":"Map the transcript to the answer choice without flattened text.","tool_name":"generic_purpose","tool_request":{"tool_name":"generic_purpose","query":"Which option is supported by the transcript?","transcripts":[{"transcript_id":"tx_1","clip":{"video_id":"video_id","start_s":42.0,"end_s":58.0},"segments":[{"start_s":44.0,"end_s":46.0,"text":"example"}]}]},"expected_observation":"Option mapping from transcript evidence."}
 
@@ -302,6 +306,24 @@ def _canonicalize_evidence_summary(evidence_summary: Optional[dict]) -> Optional
         "top_predicates": list(payload.get("top_predicates") or [])[:15],
     }
 
+    cards = []
+    for item in list(payload.get("evidence_cards") or [])[-12:]:
+        if not isinstance(item, dict):
+            continue
+        card = {
+            "evidence_id": _normalize_text(item.get("evidence_id")),
+            "source_tool": _normalize_text(item.get("source_tool") or item.get("tool_name")),
+            "status": _normalize_text(item.get("status")),
+            "time": _normalize_text(item.get("time")),
+            "text": _truncate_text(item.get("text"), 1800),
+            "observation_ids": list(item.get("observation_ids") or [])[:12],
+            "artifact_refs": list(item.get("artifact_refs") or [])[:6],
+            "metadata": dict(item.get("metadata") or {}),
+        }
+        cards.append({key: value for key, value in card.items() if value not in ("", [], {})})
+    if cards:
+        normalized["evidence_cards"] = cards
+
     entries = []
     for item in list(payload.get("evidence_entries") or [])[-10:]:
         if not isinstance(item, dict):
@@ -435,7 +457,7 @@ def build_planner_prompt(
     if preprocess_context:
         parts.extend(
             [
-                "FULL_PREPROCESS_CONTENT:",
+                "PREPROCESS_CONTEXT_PACK:",
                 pretty_json(preprocess_context),
                 "",
                 "PREPROCESS_TRUST_POLICY:",
@@ -471,6 +493,7 @@ def build_planner_prompt(
             "- expected_observation: what the selected tool should extract",
             "- synthesis_instructions: required for synthesize",
             "- missing_information: optional list for stop_unresolved",
+            "- the top-level object must include action_type and rationale; never return only tool arguments such as ocr_sample_fps/ocr_source",
             "- return exactly one action; do not emit steps, inputs, input_refs, expected_outputs, arguments, depends_on, or use_summary",
             "",
             "Return JSON only.",

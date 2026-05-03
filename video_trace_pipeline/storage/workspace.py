@@ -52,7 +52,12 @@ class WorkspaceManager(object):
         self.cache_root = ensure_dir(
             Path(cache_root_value).expanduser().resolve() if cache_root_value else (self.workspace_root / "cache")
         )
-        self.preprocess_root = ensure_dir(self.workspace_root / "preprocess")
+        preprocess_root_value = str(profile.preprocess_cache_root or "").strip()
+        self.preprocess_root = ensure_dir(
+            Path(preprocess_root_value).expanduser().resolve()
+            if preprocess_root_value
+            else (self.workspace_root / "preprocess")
+        )
         self.artifacts_root = ensure_dir(self.workspace_root / "artifacts")
         self.runs_root = ensure_dir(self.workspace_root / "runs")
 

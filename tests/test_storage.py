@@ -47,6 +47,27 @@ def test_store_file_artifact_uses_custom_cache_root(tmp_path):
     assert str(copied).startswith(str(workspace.artifacts_root / "unknown_video" / "frames"))
 
 
+def test_workspace_uses_custom_preprocess_cache_root(tmp_path):
+    preprocess_cache = tmp_path / "preprocess_cache"
+    profile = MachineProfile(
+        workspace_root=str(tmp_path / "workspace"),
+        preprocess_cache_root=str(preprocess_cache),
+    )
+    workspace = WorkspaceManager(profile)
+
+    cache_dir = workspace.preprocess_dir(
+        video_fingerprint_value="fingerprint",
+        model_id="model",
+        clip_duration_s=8.0,
+        prompt_version="v1",
+        video_id="video_1",
+    )
+
+    assert workspace.preprocess_root == preprocess_cache.resolve()
+    assert cache_dir == preprocess_cache.resolve() / "video_1"
+    assert cache_dir.exists()
+
+
 def test_sanitize_for_persistence_removes_absolute_paths():
     payload = {
         "frame": {"source_path": "/tmp/frame.png", "relpath": "cache/artifacts/frame.png"},

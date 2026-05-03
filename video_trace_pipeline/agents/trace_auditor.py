@@ -17,12 +17,14 @@ class TraceAuditorAgent(object):
             preprocess_context=preprocess_context,
         )
         return {
+            "backend": self.agent_config.backend,
             "endpoint_name": self.agent_config.endpoint or "default",
             "model_name": self.agent_config.model,
             "system_prompt": AUDITOR_SYSTEM_PROMPT,
             "user_prompt": prompt,
             "temperature": self.agent_config.temperature,
             "max_tokens": self.agent_config.max_tokens,
+            "agent_extra": dict(getattr(self.agent_config, "extra", {}) or {}),
         }
 
     def complete_request(self, request):

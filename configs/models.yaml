@@ -1,32 +1,56 @@
 agents:
   planner:
-    backend: openai
-    model: gpt-5.4
+    backend: local_qwen
+    model: Qwen/Qwen3.5-9B
     endpoint: default
     temperature: 0.0
     max_tokens: 6000
     prompt_version: planner_v2
+    extra:
+      device: cuda:2
+      device_map: balanced_cuda:2,3
+      attn_implementation: flash_attention_2
+      do_sample: false
+      enable_thinking: false
   trace_synthesizer:
-    backend: openai
-    model: gpt-5.4
+    backend: local_qwen
+    model: Qwen/Qwen3.5-9B
     endpoint: default
     temperature: 0.0
     max_tokens: 16000
     prompt_version: synthesizer_v2
+    extra:
+      device: cuda:2
+      device_map: balanced_cuda:2,3
+      attn_implementation: flash_attention_2
+      do_sample: false
+      enable_thinking: false
   trace_auditor:
-    backend: openai
-    model: gpt-5.4
+    backend: local_qwen
+    model: Qwen/Qwen3.5-9B
     endpoint: default
     temperature: 0.0
     max_tokens: 3000
     prompt_version: auditor_v2
+    extra:
+      device: cuda:2
+      device_map: balanced_cuda:2,3
+      attn_implementation: flash_attention_2
+      do_sample: false
+      enable_thinking: false
   atomicizer:
-    backend: openai
-    model: gpt-5.4
+    backend: local_qwen
+    model: Qwen/Qwen3.5-9B
     endpoint: default
     temperature: 0.0
     max_tokens: 3000
     prompt_version: atomicizer_v1
+    extra:
+      device: cuda:2
+      device_map: balanced_cuda:2,3
+      attn_implementation: flash_attention_2
+      do_sample: false
+      enable_thinking: false
 
 tools:
   visual_temporal_grounder:
@@ -135,7 +159,7 @@ tools:
       backend_name: paddleocr
       lang: en
       ocr_version: PP-OCRv5
-      require_gpu: false
+      require_gpu: true
       use_textline_orientation: false
       max_longest_dim: 1600
   spatial_grounder:
@@ -167,6 +191,9 @@ tools:
       attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
+      enable_thinking: false
+      max_images_per_call: 12
+      batch_max_new_tokens: 512
   verifier:
     enabled: false
     description: Strict claim verifier over supplied media, transcripts, OCR, observations, and evidence.

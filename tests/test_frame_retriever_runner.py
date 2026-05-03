@@ -524,6 +524,56 @@ def test_frame_retriever_process_adapter_chronological_multi_clip_keeps_each_cli
     assert result.data["cache_metadata"]["returned_frame_count"] == 4
 
 
+def test_frame_retriever_process_adapter_filters_out_of_clip_time_hints(monkeypatch):
+    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
+    seen_requests = []
+
+    def _fake_execute_single(request, context):
+        del context
+        seen_requests.append(request)
+        clip = request.clips[0].dict()
+        return ToolResult(
+            tool_name="frame_retriever",
+            ok=True,
+            data={
+                "frames": [
+                    {
+                        "video_id": "video-1",
+                        "timestamp_s": 196.0,
+                        "metadata": {"relevance_score": 0.95},
+                    }
+                ],
+                "cache_metadata": {},
+                "rationale": "anchor clip",
+            },
+            summary="Retrieved 1 frame from %.1f." % float(clip["start_s"]),
+        )
+
+    monkeypatch.setattr(adapter, "_execute_single", _fake_execute_single)
+    request = adapter.request_model.parse_obj(
+        {
+            "tool_name": "frame_retriever",
+            "query": "boats by the shore",
+            "num_frames": 1,
+            "clips": [
+                {"video_id": "video-1", "start_s": 180.0, "end_s": 210.0},
+                {"video_id": "video-1", "start_s": 210.0, "end_s": 240.0},
+            ],
+            "time_hints": ["195.983s"],
+            "sequence_mode": "anchor_window",
+            "sort_order": "chronological",
+        }
+    )
+
+    result = adapter.execute(request, context=None)
+
+    assert len(seen_requests) == 1
+    assert seen_requests[0].clips[0].start_s == 180.0
+    assert seen_requests[0].time_hints == ["195.983s"]
+    assert result.data["cache_metadata"]["skipped_out_of_window_time_hint_clip_count"] == 1
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [196.0]
+
+
 def test_frame_retriever_process_adapter_keeps_full_chronological_clip_sequences(monkeypatch):
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 

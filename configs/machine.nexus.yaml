@@ -1,5 +1,6 @@
 workspace_root: /fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/workspace
 cache_root: /fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/workspace/cache
+preprocess_cache_root: /fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/workspace/preprocess_cache
 hf_cache: /fs/nexus-scratch/gnanesh/.cache/huggingface
 ffmpeg_bin: /fs/nexus-scratch/gnanesh/ffmpeg-7.0.2-amd64-static/ffmpeg
 
@@ -11,6 +12,10 @@ datasets:
   omnivideobench:
     root: /fs/nexus-scratch/gnanesh/cot/OmniVideoBench
     annotations: /fs/nexus-scratch/gnanesh/cot/OmniVideoBench/data.jsonl
+    videos_subdir: videos
+  minerva:
+    root: /fs/nexus-scratch/gnanesh/cot/minerva
+    annotations: /fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/inputs/refiner_inputs_minerva.json
     videos_subdir: videos
 
 agent_endpoints:
