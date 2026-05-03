@@ -8,7 +8,7 @@ import re
 import uuid
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Iterable, Optional
+from typing import Any, Dict, Iterable, List, Optional
 
 
 _REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -124,25 +124,83 @@ def fingerprint_file(path: str) -> str:
     return hasher.hexdigest()
 
 
-def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
+def _parse_json_dict(candidate: str) -> Optional[Dict[str, Any]]:
+    try:
+        parsed = json.loads(str(candidate or "").strip())
+        return parsed if isinstance(parsed, dict) else None
+    except Exception:
+        return None
+
+
+def _balanced_json_candidates(raw: str) -> Iterable[str]:
+    starts = [index for index, char in enumerate(raw) if char == "{"]
+    for start in reversed(starts):
+        depth = 0
+        in_string = False
+        escaped = False
+        for index in range(start, len(raw)):
+            char = raw[index]
+            if in_string:
+                if escaped:
+                    escaped = False
+                elif char == "\\":
+                    escaped = True
+                elif char == '"':
+                    in_string = False
+                continue
+            if char == '"':
+                in_string = True
+            elif char == "{":
+                depth += 1
+            elif char == "}":
+                depth -= 1
+                if depth == 0:
+                    yield raw[start : index + 1]
+                    break
+
+
+def extract_json_objects(text: str) -> List[Dict[str, Any]]:
     raw = str(text or "").strip()
     if not raw:
-        return None
-    try:
-        parsed = json.loads(raw)
-        return parsed if isinstance(parsed, dict) else None
-    except Exception:
-        pass
-    start = raw.find("{")
-    end = raw.rfind("}")
-    if start == -1 or end == -1 or end <= start:
-        return None
-    candidate = raw[start : end + 1]
-    try:
-        parsed = json.loads(candidate)
-        return parsed if isinstance(parsed, dict) else None
-    except Exception:
-        return None
+        return []
+    objects: List[Dict[str, Any]] = []
+    seen = set()
+
+    def add(parsed: Optional[Dict[str, Any]]) -> None:
+        if parsed is None:
+            return
+        signature = stable_json_dumps(parsed)
+        if signature in seen:
+            return
+        seen.add(signature)
+        objects.append(parsed)
+
+    parsed = _parse_json_dict(raw)
+    add(parsed)
+
+    final_match = re.search(r"<final>(.*?)</final>", raw, flags=re.DOTALL | re.IGNORECASE)
+    if final_match:
+        for item in extract_json_objects(final_match.group(1)):
+            add(item)
+
+    fence_matches = re.findall(r"```(?:json)?\s*(.*?)```", raw, flags=re.DOTALL | re.IGNORECASE)
+    for block in reversed(fence_matches):
+        for item in extract_json_objects(block):
+            add(item)
+
+    if "</think>" in raw.lower():
+        after_think = re.split(r"</think>", raw, flags=re.IGNORECASE)[-1]
+        for item in extract_json_objects(after_think):
+            add(item)
+
+    for candidate in _balanced_json_candidates(raw):
+        add(_parse_json_dict(candidate))
+    return objects
+
+
+def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
+    objects = extract_json_objects(text)
+    return objects[0] if objects else None
 
 
 def is_low_signal_text(text: str) -> bool:

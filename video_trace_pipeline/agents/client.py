@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Type
 
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_fixed
 
-from ..common import extract_json_object
+from ..common import extract_json_objects
 from ..config import resolve_api_key
 from ..schemas import MachineProfile, ModelsConfig
 
@@ -178,6 +178,7 @@ class OpenAIChatClient(object):
 
         text = ""
         payload = None
+        last_validation_error = None
         for index, budget in enumerate(candidate_budgets):
             text = self._request_text(
                 endpoint_name=endpoint_name,
@@ -189,17 +190,28 @@ class OpenAIChatClient(object):
                 image_paths=image_paths,
                 response_format=response_format,
             )
-            payload = extract_json_object(text)
-            if payload is not None:
-                break
+            payload_candidates = extract_json_objects(text)
+            payload = payload_candidates[0] if payload_candidates else None
+            if response_model is dict:
+                if payload is not None:
+                    return payload, text
+            else:
+                for candidate_payload in payload_candidates:
+                    try:
+                        if hasattr(response_model, "model_validate"):
+                            parsed = response_model.model_validate(candidate_payload)
+                        else:
+                            parsed = response_model.parse_obj(candidate_payload)
+                    except Exception as exc:
+                        last_validation_error = exc
+                        continue
+                    return parsed, text
             if index + 1 >= len(candidate_budgets):
                 break
-            if not str(text or "").lstrip().startswith("{"):
+            if not payload_candidates and not str(text or "").lstrip().startswith("{"):
                 break
         if payload is None:
             raise ValueError("Model did not return a JSON object: %s" % text[:1000])
-        if response_model is dict:
-            return payload, text
-        if hasattr(response_model, "model_validate"):
-            return response_model.model_validate(payload), text
-        return response_model.parse_obj(payload), text
+        if last_validation_error is not None:
+            raise last_validation_error
+        raise ValueError("Model JSON did not validate as %s: %s" % (getattr(response_model, "__name__", response_model), text[:1000]))

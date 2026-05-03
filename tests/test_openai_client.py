@@ -3,7 +3,7 @@ from types import SimpleNamespace
 from pydantic import BaseModel
 
 from video_trace_pipeline.agents.client import OpenAIChatClient
-from video_trace_pipeline.schemas import ApiEndpointConfig, MachineProfile, ModelsConfig
+from video_trace_pipeline.schemas import ApiEndpointConfig, MachineProfile, ModelsConfig, TracePackage
 
 
 class _DummyResponseModel(BaseModel):
@@ -118,3 +118,44 @@ def test_complete_json_retries_once_with_larger_budget_for_truncated_json(tmp_pa
     assert len(fake_completions.calls) == 2
     assert fake_completions.calls[0]["max_completion_tokens"] == 8000
     assert fake_completions.calls[1]["max_completion_tokens"] == 16000
+
+
+def test_complete_json_chooses_schema_valid_object_over_nested_time_interval(tmp_path):
+    fake_completions = _FakeChatCompletions(
+        """
+        Here is the final trace JSON:
+        {
+          "task_key": "sample1",
+          "mode": "generate",
+          "evidence_entries": [],
+          "inference_steps": [
+            {
+              "step_id": 1,
+              "text": "The visual evidence supports option A.",
+              "supporting_observation_ids": [],
+              "answer_relevance": "high",
+              "time_intervals": [{"start_s": 149.0, "end_s": 149.0}]
+            }
+          ],
+          "final_answer": "A",
+          "benchmark_renderings": {},
+          "metadata": {}
+        }
+        """
+    )
+    client = _make_client(
+        fake_completions,
+        workspace_root=tmp_path / "workspace",
+        cache_root=tmp_path / "cache",
+    )
+
+    parsed, _ = client.complete_json(
+        endpoint_name="default",
+        model_name="gpt-5.4",
+        system_prompt="Return JSON only.",
+        user_prompt="Synthesize this trace.",
+        response_model=TracePackage,
+    )
+
+    assert parsed.task_key == "sample1"
+    assert parsed.inference_steps[0].time_intervals[0].start_s == 149.0
