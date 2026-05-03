@@ -52,6 +52,7 @@ class WorkspaceManager(object):
         self.cache_root = ensure_dir(
             Path(cache_root_value).expanduser().resolve() if cache_root_value else (self.workspace_root / "cache")
         )
+        self.preprocess_root = ensure_dir(self.workspace_root / "preprocess")
         self.artifacts_root = ensure_dir(self.workspace_root / "artifacts")
         self.runs_root = ensure_dir(self.workspace_root / "runs")
 
@@ -62,6 +63,18 @@ class WorkspaceManager(object):
 
     def video_fingerprint(self, video_path: str) -> str:
         return fingerprint_file(video_path)
+
+    def preprocess_dir(
+        self,
+        video_fingerprint_value: str,
+        model_id: str,
+        clip_duration_s: float,
+        prompt_version: str,
+        settings_signature: Optional[str] = None,
+        video_id: Optional[str] = None,
+    ) -> Path:
+        del video_fingerprint_value, model_id, clip_duration_s, prompt_version, settings_signature
+        return ensure_dir(self.preprocess_root / sanitize_path_component(video_id or "video"))
 
     def artifact_path_for_file(self, source_path: str, *, kind: str, video_id: Optional[str] = None) -> Path:
         source = Path(source_path)

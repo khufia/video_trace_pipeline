@@ -17,6 +17,8 @@ from video_trace_pipeline.schemas import (
     SpatialGrounderOutput,
     SpatialGrounderRequest,
     TaskSpec,
+    VerifierOutput,
+    VerifierRequest,
     VisualTemporalGrounderOutput,
     VisualTemporalGrounderRequest,
 )
@@ -37,6 +39,7 @@ class _Registry(object):
             "spatial_grounder": _Adapter(SpatialGrounderRequest, SpatialGrounderOutput),
             "ocr": _Adapter(OCRRequest, OCROutput),
             "generic_purpose": _Adapter(GenericPurposeRequest, GenericPurposeOutput),
+            "verifier": _Adapter(VerifierRequest, VerifierOutput),
             "asr": _Adapter(ASRRequest, ASROutput),
         }
 
@@ -441,6 +444,46 @@ def test_plan_normalizer_rejects_unretrieved_evidence_ids():
     assert normalized.steps[0].inputs["evidence_ids"] == ["ev_ready"]
 
 
+def test_plan_normalizer_allows_verifier_claim_wiring():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    plan = ExecutionPlan(
+        strategy="Read and verify text.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="frame_retriever",
+                purpose="Retrieve readable frame.",
+                inputs={"query": "readable sign", "time_hints": ["middle of the video"]},
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="ocr",
+                purpose="Read the sign.",
+                inputs={"query": "read exact sign text"},
+                input_refs={"frames": [{"step_id": 1, "field_path": "frames"}]},
+            ),
+            PlanStep(
+                step_id=3,
+                tool_name="verifier",
+                purpose="Verify the OCR claim.",
+                inputs={
+                    "query": "verify the sign text claim",
+                    "claims": [{"claim_id": "claim_sign", "text": "The sign text supports option A.", "claim_type": "ocr"}],
+                },
+                input_refs={
+                    "frames": [{"step_id": 1, "field_path": "frames"}],
+                    "ocr_results": [{"step_id": 2, "field_path": "reads"}],
+                },
+            ),
+        ],
+    )
+
+    normalized = normalizer.normalize(_task(), plan)
+
+    assert normalized.steps[-1].tool_name == "verifier"
+    assert sorted(normalized.steps[-1].input_refs) == ["frames", "ocr_results"]
+
+
 def test_plan_normalizer_rejects_nonexistent_and_wrong_target_output_fields():
     normalizer = ExecutionPlanNormalizer(_Registry())
     bad_generic_transcript = ExecutionPlan(
@@ -463,3 +506,55 @@ def test_plan_normalizer_rejects_nonexistent_and_wrong_target_output_fields():
     )
     with pytest.raises(ValueError, match="emits only"):
         normalizer.normalize(_task(), bad_generic_transcript)
+
+    bad_ocr_result = ExecutionPlan(
+        strategy="Bad OCR binding.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="ocr",
+                purpose="Read text.",
+                inputs={
+                    "query": "Read.",
+                    "frames": [{"video_id": "sample1", "timestamp_s": 1.0, "relpath": "frame.png"}],
+                },
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="verifier",
+                purpose="Verify OCR.",
+                inputs={
+                    "query": "verify",
+                    "claims": [{"claim_id": "claim_text", "text": "The text supports A."}],
+                },
+                input_refs={"ocr_results": [{"step_id": 1, "field_path": "text"}]},
+            ),
+        ],
+    )
+    with pytest.raises(ValueError, match="ocr_results only accepts source fields"):
+        normalizer.normalize(_task(), bad_ocr_result)
+
+    bad_verifier_analysis = ExecutionPlan(
+        strategy="Bad verifier output.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="verifier",
+                purpose="Verify.",
+                inputs={
+                    "query": "verify",
+                    "claims": [{"claim_id": "claim_a", "text": "A is supported."}],
+                    "text_contexts": ["context"],
+                },
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="generic_purpose",
+                purpose="Use nonexistent verifier analysis.",
+                inputs={"query": "Answer."},
+                input_refs={"text_contexts": [{"step_id": 1, "field_path": "analysis"}]},
+            ),
+        ],
+    )
+    with pytest.raises(ValueError, match="emits only"):
+        normalizer.normalize(_task(), bad_verifier_analysis)

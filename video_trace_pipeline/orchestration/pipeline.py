@@ -16,6 +16,7 @@ from ..tools.base import ToolExecutionContext
 from ..tools.specs import tool_implementation
 from .executor import PlanExecutor
 from .plan_normalizer import ExecutionPlanNormalizer
+from .preprocess import DenseCaptionPreprocessor
 
 
 def _truncate_text(value: Any, max_len: int = 220) -> str:
@@ -369,6 +370,7 @@ class PipelineRunner(object):
             llm_client=self.llm_client,
             persist_tool_models=persist_tool_models,
         )
+        self.preprocessor = DenseCaptionPreprocessor(self.workspace, self.tool_registry, models_config)
         self.executor = PlanExecutor(
             tool_registry=self.tool_registry,
             extractor=ObservationExtractor(
@@ -504,7 +506,13 @@ class PipelineRunner(object):
         initial_trace_path: Optional[str] = None,
         progress_reporter=None,
     ) -> Dict[str, object]:
-        del clip_duration_s
+        preprocess_enabled = self.preprocessor.is_enabled()
+        preprocess_settings = self.preprocessor.resolve_preprocess_settings(clip_duration_s) if preprocess_enabled else {}
+        effective_clip_duration_s = (
+            float(preprocess_settings["clip_duration_s"])
+            if preprocess_enabled and preprocess_settings.get("clip_duration_s") is not None
+            else None
+        )
         self._write_runtime_snapshot(run)
         manifest_payload = {
             "benchmark": task.benchmark,
@@ -513,6 +521,9 @@ class PipelineRunner(object):
             "run_id": run.run_id,
             "mode": mode,
             "task": task.persistable_dict(),
+            "preprocess_enabled": bool(preprocess_enabled),
+            "preprocess_cache": None,
+            "clip_duration_s": effective_clip_duration_s,
             "max_rounds": int(max_rounds),
         }
         self.workspace.write_run_manifest(run, manifest_payload)
@@ -522,10 +533,24 @@ class PipelineRunner(object):
                 run_dir=self.workspace.relative_path(run.run_dir),
                 mode=mode,
                 max_rounds=max_rounds,
-                clip_duration_s=None,
+                clip_duration_s=effective_clip_duration_s,
             )
         self.preload_models(progress_reporter=progress_reporter)
-        video_fingerprint = self.workspace.video_fingerprint(task.video_path)
+        preprocess_output = None
+        if preprocess_enabled:
+            if progress_reporter is not None and hasattr(progress_reporter, "on_preprocess_start"):
+                progress_reporter.on_preprocess_start()
+            preprocess_output = self.preprocessor.get_or_build(task, clip_duration_s=clip_duration_s)
+            if progress_reporter is not None and hasattr(progress_reporter, "on_preprocess_end"):
+                progress_reporter.on_preprocess_end(sanitize_for_persistence(preprocess_output))
+            manifest_payload["preprocess_cache"] = preprocess_output.get("cache_dir")
+            manifest_payload["clip_duration_s"] = effective_clip_duration_s
+            self.workspace.write_run_manifest(run, manifest_payload)
+        video_fingerprint = (
+            str(preprocess_output.get("video_fingerprint"))
+            if isinstance(preprocess_output, dict) and preprocess_output.get("video_fingerprint")
+            else self.workspace.video_fingerprint(task.video_path)
+        )
         evidence_ledger = EvidenceLedger(run)
         execution_context = ToolExecutionContext(
             workspace=self.workspace,
@@ -534,6 +559,7 @@ class PipelineRunner(object):
             models_config=self.models_config,
             llm_client=self.llm_client,
             evidence_lookup=evidence_ledger.lookup_records,
+            preprocess_bundle=preprocess_output,
         )
 
         current_trace = None
@@ -573,6 +599,7 @@ class PipelineRunner(object):
                     "trace_package": sanitize_for_persistence(current_trace.dict()),
                     "audit_report": latest_audit.dict(),
                     "benchmark_export": export_payload,
+                    "preprocess": sanitize_for_persistence(preprocess_output) if preprocess_output is not None else None,
                 }
                 write_json(run.final_result_path, final_payload)
                 with contextlib.suppress(Exception):
@@ -706,6 +733,7 @@ class PipelineRunner(object):
             "trace_package": sanitize_for_persistence(current_trace.dict()) if current_trace is not None else None,
             "audit_report": latest_audit.dict() if latest_audit is not None else None,
             "benchmark_export": sanitize_for_persistence(export_payload),
+            "preprocess": sanitize_for_persistence(preprocess_output) if preprocess_output is not None else None,
             "rounds_executed": rounds_executed,
         }
         write_json(run.final_result_path, final_payload)

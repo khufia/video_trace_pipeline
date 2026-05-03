@@ -23,8 +23,8 @@ MODELS="${MODELS:-$REPO_ROOT/configs/models.yaml}"
 WORKSPACE_ROOT="${WORKSPACE_ROOT:-$REPO_ROOT/workspace}"
 
 MODE="${MODE:-generate}"
-# INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
-INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part1.json}"
+INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs.json}"
+# INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part1.json}"
 # INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part2.json}"
 # INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part3.json}"
 # Accept a single index or a comma/space-separated list, e.g. INPUT_INDEX="6 7 8" or "6,7,8".
@@ -35,7 +35,8 @@ INPUTS_JSON="${INPUTS_JSON:-$REPO_ROOT/inputs/refiner_inputs_10pct_part1.json}"
 # INPUT_INDEX="${INPUT_INDEX:-13 14 15}"
 # INPUT_INDEX="${INPUT_INDEX:-18}"
 # INPUT_INDEX="${INPUT_INDEX:-19 20 21}"
-INPUT_INDEX="${INPUT_INDEX:-3 4 5 6 7 8 9 10 11 12 13 14 15}"
+INPUT_INDEX="${INPUT_INDEX:-0 1 2 3 4 5 6 7 8 9 10}"
+# INPUT_INDEX="${INPUT_INDEX:-3 4 5 6 7 8 9 10 11 12 13 14 15}"
 # INPUT_INDEX="${INPUT_INDEX:-16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33}"
 # INPUT_INDEX="${INPUT_INDEX:-17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33}"
 MAX_ROUNDS="${MAX_ROUNDS:-3}"
@@ -47,6 +48,16 @@ STRICT_ENV_CHECK="${STRICT_ENV_CHECK:-1}"
 SHOW_PROGRESS="${SHOW_PROGRESS:-1}"
 # Default to on-demand model loading for direct bash runs. Opt into
 # persisted/preloaded tool models only when the allocation has enough GPU headroom.
+#
+# Four-GPU note:
+# - The safest persistent set is empty: models load only when a tool is called.
+# - If you want a warm shared model, persist generic_purpose||spatial_grounder
+#   on cuda:3; they share the same Qwen3.5 runtime in configs/machine.nexus.yaml.
+# - Consider adding dense_captioner only when dense captions/preprocess are frequent.
+# - Keep visual_temporal_grounder on demand for full OmniVideoBench videos, since it
+#   can spike memory and benefits from being released between calls.
+# - Keep frame_retriever on demand unless frame retrieval dominates the run; by
+#   default it uses cuda:2 from the machine profile and no multi-GPU device_map.
 PERSIST_TOOL_MODELS="${PERSIST_TOOL_MODELS:-}"
 PRELOAD_PERSISTED_MODELS="${PRELOAD_PERSISTED_MODELS:-0}"
 

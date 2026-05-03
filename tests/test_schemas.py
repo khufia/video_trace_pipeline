@@ -9,8 +9,11 @@ from video_trace_pipeline.schemas import (
     EvidenceEntry,
     FrameRetrieverRequest,
     OCRRequest,
+    TaskState,
     TracePackage,
     TranscriptRef,
+    VerifierOutput,
+    VerifierRequest,
 )
 from video_trace_pipeline.tools.base import ToolAdapter
 
@@ -186,6 +189,61 @@ def test_evidence_statuses_use_canonical_values():
     assert EvidenceEntry(evidence_id="ev_1", tool_name="ocr", evidence_text="Candidate read.").status == "candidate"
     with pytest.raises(ValueError, match="status must be one of"):
         EvidenceEntry(evidence_id="ev_old", tool_name="ocr", evidence_text="Old.", status="provisional")
+
+
+def test_verifier_request_and_output_are_strict_claim_contracts():
+    request = VerifierRequest.model_validate(
+        {
+            "tool_name": "verifier",
+            "query": "verify the visible price claim",
+            "claims": [{"claim_id": "claim_price", "text": "The visible price is 42.", "claim_type": "ocr"}],
+            "text_contexts": ["OCR read 42 from the localized price tag."],
+        }
+    )
+
+    assert request.text_contexts == ["OCR read 42 from the localized price tag."]
+
+    with pytest.raises(ValueError, match="at least one evidence"):
+        VerifierRequest.model_validate(
+            {
+                "tool_name": "verifier",
+                "query": "verify",
+                "claims": [{"claim_id": "claim_1", "text": "A claim."}],
+            }
+        )
+
+    output = VerifierOutput.model_validate(
+        {
+            "claim_results": [
+                {
+                    "claim_id": "claim_price",
+                    "verdict": "true",
+                    "confidence": "high",
+                    "claimed_value": 42,
+                    "observed_value": "42",
+                    "match_status": "match",
+                    "target_presence": "present",
+                    "rationale": "The OCR text directly supports it.",
+                }
+            ]
+        }
+    )
+
+    assert output.claim_results[0].verdict == "supported"
+    assert output.claim_results[0].confidence == 0.85
+
+
+def test_task_state_statuses_use_canonical_values():
+    state = TaskState.model_validate(
+        {
+            "task_key": "sample1",
+            "claim_results": [{"claim_id": "claim_1", "text": "A claim.", "status": "unknown"}],
+            "evidence_status_updates": [{"evidence_id": "ev_1", "new_status": "candidate"}],
+        }
+    )
+
+    assert state.claim_results[0].status == "unknown"
+    assert state.evidence_status_updates[0].new_status == "candidate"
 
 
 def test_trace_package_normalizes_string_inference_step_ids():

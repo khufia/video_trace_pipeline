@@ -143,6 +143,7 @@ TOOL_PURPOSES = {
     "ocr": "Read visible text or numbers from grounded clips or complete frames.",
     "spatial_grounder": "Localize the answer-critical object, person, mark, or region inside grounded clip(s) or frame(s), especially when multiple same-type candidates appear.",
     "generic_purpose": "Perform targeted multimodal extraction or evidence-conditioned reasoning when no narrower tool fits.",
+    "verifier": "Reduce supplied evidence into supported/refuted/unknown claim results, option comparisons, counters, and task-state updates.",
 }
 
 

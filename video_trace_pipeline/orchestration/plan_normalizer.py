@@ -15,6 +15,10 @@ _LIST_FIELDS = {
     "text_contexts",
     "evidence_ids",
     "time_hints",
+    "claims",
+    "ocr_results",
+    "dense_captions",
+    "observations",
 }
 
 _GENERIC_PURPOSE_CONTEXT_FIELDS = frozenset(
@@ -24,6 +28,21 @@ _GENERIC_PURPOSE_CONTEXT_FIELDS = frozenset(
         "transcripts",
         "text_contexts",
         "evidence_ids",
+    }
+)
+
+_VERIFIER_CONTEXT_FIELDS = frozenset(
+    {
+        "clips",
+        "frames",
+        "regions",
+        "transcripts",
+        "text_contexts",
+        "ocr_results",
+        "dense_captions",
+        "evidence_ids",
+        "observations",
+        "retrieved_context",
     }
 )
 
@@ -91,6 +110,11 @@ _CANONICAL_OUTPUT_FIELD_OVERRIDES = {
     "ocr": {"query", "text", "lines", "reads", "timestamp_s", "source_frame_path", "backend"},
     "spatial_grounder": {"query", "frames", "detections", "regions", "groundings", "spatial_description", "backend"},
 }
+
+_TARGET_FIELD_SOURCE_FIELDS = {
+    "ocr_results": {"reads", "lines"},
+}
+
 
 def _retrieved_evidence_ids(retrieved_context: Dict[str, Any] | None) -> set[str]:
     ids = set()
@@ -381,6 +405,19 @@ class ExecutionPlanNormalizer(object):
                     ", ".join(sorted(_TEXT_CONTEXT_SOURCE_FIELDS)),
                 )
             )
+        source_field_allowlist = _TARGET_FIELD_SOURCE_FIELDS.get(target_field)
+        if source_field_allowlist is not None and _field_path_head(field_path) not in source_field_allowlist:
+            raise ValueError(
+                "Plan step %s binds %s into %s, but %s only accepts source fields: %s."
+                % (
+                    step_id,
+                    field_path or "<empty>",
+                    target_field,
+                    target_field,
+                    ", ".join(sorted(source_field_allowlist)),
+                )
+            )
+
     def _validate_source_output_field(self, *, step: PlanStep, target_field: str, ref: InputRef, source_step: PlanStep) -> None:
         del target_field
         field_head = _field_path_head(ref.field_path)
@@ -569,16 +606,18 @@ class ExecutionPlanNormalizer(object):
             "audio_temporal_grounder": {"clips"},
             "asr": {"clips"},
             "dense_captioner": {"clips"},
-            "spatial_grounder": {"clips", "frames"},
+            "spatial_grounder": {"frames"},
             "ocr": {"clips", "frames", "regions"},
+            "verifier": set(_VERIFIER_CONTEXT_FIELDS),
         }
         descriptions = {
             "frame_retriever": "literal clips, literal time_hints, or clips input_refs",
             "audio_temporal_grounder": "clips",
             "asr": "clips",
             "dense_captioner": "clips",
-            "spatial_grounder": "clips or frames",
+            "spatial_grounder": "frames",
             "ocr": "clips, frames, or regions",
+            "verifier": "media, transcripts, OCR results, dense captions, observations, evidence_ids, or retrieved_context",
         }
         for step in list(steps or []):
             tool_name = str(step.tool_name or "").strip()

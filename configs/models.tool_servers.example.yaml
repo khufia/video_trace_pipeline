@@ -113,6 +113,16 @@ tools:
       max_pixels: 297920
       video_max_pixels: 297920
       use_audio_in_video: true
+      preprocess:
+        enabled: false
+        clip_duration_s: 30
+        sample_frames: 6
+        fps: 1.0
+        max_frames: 96
+        use_audio_in_video: false
+        include_asr: true
+        collect_sampled_frames: false
+        max_new_tokens: 700
       attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false

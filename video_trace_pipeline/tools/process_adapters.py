@@ -8,13 +8,18 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Type
 
+from pydantic import ValidationError
+
 from ..common import extract_json_object, has_meaningful_text, hash_payload, is_low_signal_text, sanitize_for_persistence
 from ..model_cache import describe_model_resolution
 from ..prompts.shared import render_frame_sequence_context
 from ..runtime_devices import describe_device_mapping, resolve_device_label
+from ..tools.media import get_video_duration
+from ..tool_wrappers.local_multimodal import TimeChatCaptionerRunner
 from ..tool_wrappers.timechat_dense_caption_runner import execute_payload as execute_dense_caption_payload
 from ..tool_wrappers.qwen35vl_runner import execute_payload as execute_generic_purpose_payload
 from ..tool_wrappers.spatial_grounder_runner import execute_payload as execute_spatial_grounder_payload
+from ..tool_wrappers.verifier_runner import execute_payload as execute_verifier_payload
 from ..tool_wrappers.shared import resolve_generation_controls, resolve_model_path, resolved_device_label
 from ..tool_wrappers.timelens_runner import execute_payload as execute_visual_temporal_grounder_payload
 from ..schemas import (
@@ -35,6 +40,8 @@ from ..schemas import (
     SpatialGrounderOutput,
     SpatialGrounderRequest,
     ToolResult,
+    VerifierOutput,
+    VerifierRequest,
     VisualTemporalGrounderOutput,
     VisualTemporalGrounderRequest,
 )
@@ -454,6 +461,56 @@ def _request_artifact_refs(request, *, source_tool: str) -> List[ArtifactRef]:
         if clip_artifact is not None:
             artifacts.append(clip_artifact)
     return _dedupe_artifact_refs(artifacts)
+
+
+def _unknown_verifier_output_for_validation_error(request, exc: Exception, payload: Dict[str, Any]) -> Dict[str, Any]:
+    error_text = str(exc).replace("\n", " ")[:1000]
+    try:
+        payload_prefix = json.dumps(payload, ensure_ascii=False)[:1000]
+    except Exception:
+        payload_prefix = str(payload)[:1000]
+    claim_results = []
+    for claim in list(getattr(request, "claims", []) or []):
+        claim_payload = _model_to_dict(claim)
+        claim_id = str(claim_payload.get("claim_id") or "").strip()
+        if not claim_id:
+            continue
+        claim_results.append(
+            {
+                "claim_id": claim_id,
+                "verdict": "unknown",
+                "confidence": 0.0,
+                "answer_value": None,
+                "claimed_value": None,
+                "observed_value": None,
+                "match_status": "unknown",
+                "target_presence": "unknown",
+                "supporting_observation_ids": [],
+                "supporting_evidence_ids": [],
+                "refuting_observation_ids": [],
+                "refuting_evidence_ids": [],
+                "time_intervals": [],
+                "artifact_refs": [],
+                "rationale": "Verifier output did not match the schema, so this claim was not validated.",
+                "coverage": {
+                    "checked_inputs": [],
+                    "missing_inputs": ["valid verifier JSON schema"],
+                    "sampling_summary": "Verifier output was discarded after schema validation failed.",
+                },
+            }
+        )
+    return {
+        "claim_results": claim_results,
+        "new_observations": [],
+        "evidence_updates": [],
+        "checklist_updates": [],
+        "counter_updates": [],
+        "referent_updates": [],
+        "ocr_occurrence_updates": [],
+        "unresolved_gaps": [
+            "verifier_schema_validation_error: %s payload_prefix=%s" % (error_text, payload_prefix)
+        ],
+    }
 
 
 def _join_text_blocks(items: List[str]) -> str:
@@ -999,6 +1056,43 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
     request_model = DenseCaptionRequest
     output_model = DenseCaptionOutput
 
+    def _reuse_preprocess_single(self, request, context):
+        if str(getattr(request, "focus_query", "") or "").strip():
+            return None
+        clip = _first_list_item(getattr(request, "clips", []) or [])
+        if clip is None:
+            return None
+        clip_payload = clip.model_dump() if hasattr(clip, "model_dump") else clip.dict() if hasattr(clip, "dict") else dict(clip)
+        start_s = float(clip_payload.get("start_s") or 0.0)
+        end_s = float(clip_payload.get("end_s") or start_s)
+        bundle = getattr(context, "preprocess_bundle", None) if context is not None else None
+        for segment in list(dict(bundle or {}).get("dense_caption_segments") or []):
+            if not isinstance(segment, dict):
+                continue
+            if abs(float(segment.get("start_s") or 0.0) - start_s) > 1e-3:
+                continue
+            if abs(float(segment.get("end_s") or 0.0) - end_s) > 1e-3:
+                continue
+            dense_caption = dict(segment.get("dense_caption") or {})
+            data = {
+                key: value
+                for key, value in dense_caption.items()
+                if key != "backend" and value not in (None, "", [], {})
+            }
+            data.setdefault("clips", [clip_payload])
+            summary = str(data.get("overall_summary") or "Reused dense captions from preprocessing.").strip()
+            return ToolResult(
+                tool_name=self.name,
+                ok=True,
+                data=data,
+                raw_output_text=json.dumps(data, ensure_ascii=False),
+                artifact_refs=[],
+                request_hash=hash_payload({"tool": self.name, "request": request.dict(), "source": "preprocess_reuse"}),
+                summary=summary[:2000],
+                metadata={"source": "preprocess_reuse"},
+            )
+        return None
+
     def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return execute_dense_caption_payload(payload, runner_pool=self.model_pool)
 
@@ -1044,9 +1138,23 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
         )
 
     def _execute_single(self, request, context):
+        reused = self._reuse_preprocess_single(request, context)
+        if reused is not None:
+            return reused
         payload, raw = self._run_json(context, request.dict())
         parsed = self._parse_output(payload)
         return self._build_tool_result(request, parsed, raw, context)
+
+    def _preprocess_payload(self, request, context, preprocess_settings: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        payload = self._request_envelope(context, request.dict())
+        runtime = dict(payload.get("runtime") or {})
+        extra = dict(runtime.get("extra") or {})
+        for key in ("sample_frames", "fps", "max_frames", "use_audio_in_video", "collect_sampled_frames", "max_new_tokens"):
+            if preprocess_settings is not None and key in preprocess_settings:
+                extra[key] = preprocess_settings[key]
+        runtime["extra"] = extra
+        payload["runtime"] = runtime
+        return payload
 
     def execute(self, request, context):
         clips = list(getattr(request, "clips", []) or [])
@@ -1109,6 +1217,80 @@ class DenseCaptionProcessAdapter(BaseProcessToolAdapter):
                 metadata={"backend": self.model_name, "group_count": len(caption_groups)},
             )
         return self._execute_single(request, context)
+
+    def build_segment_cache(self, task, clip_duration_s: float, context, preprocess_settings: Optional[Dict[str, Any]] = None):
+        settings = dict(preprocess_settings or {})
+        effective_clip_duration_s = max(1.0, float(settings.get("clip_duration_s") or clip_duration_s or 1.0))
+        runtime = self._runtime_payload(context)
+        generation = resolve_generation_controls(runtime)
+        model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
+        device_label = resolved_device_label(runtime)
+        attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
+        use_audio_in_video = bool(settings.get("use_audio_in_video", (runtime.get("extra") or {}).get("use_audio_in_video", True)))
+        runner = None
+        owns_runner = False
+        if self.model_pool is not None:
+            runner = self.model_pool.acquire_timechat_runner(
+                tool_name=self.name,
+                model_path=model_path,
+                device_label=device_label,
+                generate_do_sample=bool(generation.get("do_sample")),
+                generate_temperature=generation.get("temperature"),
+                use_audio_in_video=use_audio_in_video,
+                attn_implementation=attn_implementation,
+            )
+        if runner is None:
+            runner = TimeChatCaptionerRunner(
+                model_path=model_path,
+                device_label=device_label,
+                generate_do_sample=bool(generation.get("do_sample")),
+                generate_temperature=generation.get("temperature"),
+                use_audio_in_video=use_audio_in_video,
+                attn_implementation=attn_implementation,
+            )
+            owns_runner = True
+        duration = get_video_duration(task.video_path) or 0.0
+        segments = []
+        start = 0.0
+        try:
+            while start < duration:
+                end = min(duration, start + effective_clip_duration_s)
+                request = self.request_model.parse_obj(
+                    {
+                        "tool_name": self.name,
+                        "clips": [
+                            {
+                                "video_id": task.video_id or task.sample_key,
+                                "start_s": start,
+                                "end_s": end,
+                            }
+                        ],
+                        "granularity": "segment",
+                        "focus_query": "",
+                    }
+                )
+                payload = self._preprocess_payload(request, context, preprocess_settings=settings)
+                result_payload = execute_dense_caption_payload(payload, runner=runner)
+                result = self._build_tool_result(
+                    request,
+                    self._parse_output(result_payload),
+                    json.dumps(result_payload, ensure_ascii=False),
+                    context,
+                )
+                segments.append(
+                    {
+                        "start": float(start),
+                        "end": float(end),
+                        "dense_caption": result.data,
+                    }
+                )
+                if end <= start:
+                    break
+                start = end
+        finally:
+            if owns_runner and runner is not None:
+                runner.close()
+        return {"segments": segments, "summary": ""}
 
 class OCRProcessAdapter(BaseProcessToolAdapter):
     request_model = OCRRequest
@@ -1535,5 +1717,68 @@ class GenericPurposeProcessAdapter(BaseProcessToolAdapter):
                 "backend": self.model_name,
                 "low_signal_output": low_signal_output,
                 **_confidence_metadata([parsed.confidence], kind="answer_confidence"),
+            },
+        )
+
+
+class VerifierProcessAdapter(BaseProcessToolAdapter):
+    request_model = VerifierRequest
+    output_model = VerifierOutput
+
+    def parse_request(self, arguments: Dict[str, Any]):
+        request = super().parse_request(arguments)
+        return _generic_request_with_sequence_context(self.request_model, request)
+
+    def _run_persisted_json(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        return execute_verifier_payload(payload, runner_pool=self.model_pool)
+
+    def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
+        return self._qwen_persistent_preload_spec(profile)
+
+    def execute(self, request, context):
+        request = _generic_request_with_sequence_context(self.request_model, request)
+        request_payload = request.model_dump() if hasattr(request, "model_dump") else request.dict()
+        task_options = list(getattr(getattr(context, "task", None), "options", []) or [])
+        if len(task_options) >= 2 and request_payload.get("verification_mode") == "strict":
+            request_payload["verification_mode"] = "mcq_comparative"
+        payload, raw = self._run_json(context, request_payload)
+        schema_validation_failed = False
+        try:
+            parsed = self._parse_output(payload)
+        except ValidationError as exc:
+            schema_validation_failed = True
+            payload = _unknown_verifier_output_for_validation_error(request, exc, payload)
+            parsed = self._parse_output(payload)
+        artifact_refs = _request_artifact_refs(request, source_tool=self.name)
+        supported = sum(1 for item in parsed.claim_results if item.verdict == "supported")
+        refuted = sum(1 for item in parsed.claim_results if item.verdict == "refuted")
+        unknown = sum(1 for item in parsed.claim_results if item.verdict == "unknown")
+        partial = sum(1 for item in parsed.claim_results if item.verdict == "partially_supported")
+        data = {
+            "claim_results": [item.dict() for item in parsed.claim_results],
+            "new_observations": list(parsed.new_observations or []),
+            "evidence_updates": list(parsed.evidence_updates or []),
+            "checklist_updates": list(parsed.checklist_updates or []),
+            "counter_updates": list(parsed.counter_updates or []),
+            "referent_updates": list(parsed.referent_updates or []),
+            "ocr_occurrence_updates": list(parsed.ocr_occurrence_updates or []),
+            "unresolved_gaps": list(parsed.unresolved_gaps or []),
+        }
+        return ToolResult(
+            tool_name=self.name,
+            ok=True,
+            data=data,
+            raw_output_text=raw,
+            artifact_refs=artifact_refs,
+            request_hash=hash_payload({"tool": self.name, "request": request_payload, "model": self.model_name}),
+            summary="Verifier results: supported=%d, refuted=%d, partial=%d, unknown=%d." % (supported, refuted, partial, unknown),
+            metadata={
+                "backend": self.model_name,
+                "supported_count": supported,
+                "refuted_count": refuted,
+                "partial_count": partial,
+                "unknown_count": unknown,
+                "schema_validation_failed": schema_validation_failed,
+                **_confidence_metadata([item.confidence for item in parsed.claim_results], kind="verifier_claim"),
             },
         )

@@ -27,6 +27,7 @@ gpu_assignments:
   audio_temporal_grounder: cuda:2
   spatial_grounder: cuda:3
   generic_purpose: cuda:3
+  verifier: cuda:3
 
 env_overrides:
   HF_HOME: /fs/nexus-scratch/gnanesh/.cache/huggingface

@@ -27,12 +27,16 @@ def _build_prompt(request: Dict[str, Any], *, image_size: tuple[int, int] | None
     query = str(request.get("query") or "").strip()
     parts = [
         "Locate the target in the image.",
-        "Return JSON only with keys: detections, spatial_description.",
+        "Return exactly one complete JSON object. No markdown, no fenced blocks, no analysis outside JSON.",
+        "The JSON object must have keys: detections, spatial_description.",
         "Each detection must be an object with: label, bbox, confidence.",
         "bbox must be [x1, y1, x2, y2] in image pixel coordinates.",
         "Do not write prose outside the JSON object.",
         "Every bbox must fit inside the actual image coordinate system; if uncertain, set bbox to null instead of guessing off-image coordinates.",
         "For visible text targets, localize the visible text region that matches the requested relation; do not invent the word.",
+        "Prefer the whole answer-critical object, person, display, chart/table, sign, or object group requested by TARGET.",
+        "Do not crop tiny internal parts of a system unless TARGET explicitly asks for that part or exact text region.",
+        "For OCR-bound displays, include enough surrounding region to preserve label-value adjacency.",
     ]
     if image_size and image_size[0] > 0 and image_size[1] > 0:
         parts.extend(
@@ -216,11 +220,12 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             attn_implementation=attn_implementation,
         )
         owns_runner = True
+    max_new_tokens = int((runtime.get("extra") or {}).get("max_new_tokens") or 1536)
     try:
         if use_frame_input:
             raw_text = runner.generate(
                 make_qwen_image_messages(prompt, [frame_path]),
-                max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 384),
+                max_new_tokens=max_new_tokens,
             )
         else:
             start_s = float(clip_payload.get("start_s") or 0.0)
@@ -228,7 +233,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             with extracted_clip(video_path, start_s, end_s, include_audio=False) as video_clip_path:
                 raw_text = runner.generate(
                     make_qwen_video_message(prompt, video_clip_path, fps=sample_fps),
-                    max_new_tokens=int((runtime.get("extra") or {}).get("max_new_tokens") or 384),
+                    max_new_tokens=max_new_tokens,
                 )
     finally:
         if owns_runner:

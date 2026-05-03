@@ -196,7 +196,9 @@ def _load_benchmark_tasks(benchmark: str, profile: dict[str, Any]) -> list[dict[
                 continue
             video_path = Path(str(raw_video_path))
             if not video_path.is_absolute():
-                video_path = (videos_dir / video_path).resolve()
+                root_candidate = (root / video_path).resolve()
+                videos_candidate = (videos_dir / video_path).resolve()
+                video_path = root_candidate if root_candidate.exists() else videos_candidate
             question_id = item.get("question_id")
             tasks.append(
                 _task_from_payload(

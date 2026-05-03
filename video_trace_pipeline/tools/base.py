@@ -44,6 +44,7 @@ class ToolExecutionContext(object):
         models_config: ModelsConfig,
         llm_client=None,
         evidence_lookup=None,
+        preprocess_bundle=None,
     ):
         self.workspace = workspace
         self.run = run
@@ -51,6 +52,7 @@ class ToolExecutionContext(object):
         self.models_config = models_config
         self.llm_client = llm_client
         self.evidence_lookup = evidence_lookup
+        self.preprocess_bundle = preprocess_bundle
 
 
 class ToolAdapter(object):
