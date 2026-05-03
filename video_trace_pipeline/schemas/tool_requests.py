@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator, validator
 
@@ -30,6 +30,10 @@ class FrameRetrieverRequest(ToolRequest):
     time_hints: List[str] = Field(default_factory=list)
     query: Optional[str] = None
     num_frames: int = 5
+    sequence_mode: Literal["ranked", "anchor_window", "chronological"] = "ranked"
+    neighbor_radius_s: float = 2.0
+    include_anchor_neighbors: bool = True
+    sort_order: Literal["ranked", "chronological"] = "ranked"
 
     @model_validator(mode="after")
     def _require_clips_or_time_hints(self):

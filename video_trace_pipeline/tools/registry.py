@@ -184,6 +184,22 @@ _CANONICAL_OUTPUT_OVERRIDES = {
             "regions[] -> frame: FrameRef, bbox: List[float], label: Optional[str], artifact_id: Optional[str], relpath: Optional[str], metadata: Dict[str, Any]",
         ],
     },
+    "ocr": {
+        "output_fields": ["query", "text", "lines", "reads", "timestamp_s", "source_frame_path", "backend"],
+        "output_schema": [
+            "query: Optional[str]",
+            "text: str",
+            "lines: List[OCRLineOutput]",
+            "reads: List[Dict[str, Any]]",
+            "timestamp_s: Optional[float]",
+            "source_frame_path: Optional[str]",
+            "backend: Optional[str]",
+        ],
+        "output_nested": [
+            "lines[] -> text: str, bbox: Optional[List[float]], confidence: Optional[float]",
+            "reads[] -> frame|region|clip: input media object, text: str, lines: List[OCRLineOutput], timestamp_s: Optional[float], source_frame_path: Optional[str], backend: Optional[str]",
+        ],
+    },
 }
 
 

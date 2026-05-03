@@ -82,25 +82,62 @@ def _frame_timestamp(frame: Any) -> float | None:
 
 
 def render_frame_sequence_context(frames: List[dict]) -> str:
-    timestamps = sorted(
-        timestamp
-        for timestamp in (_frame_timestamp(frame) for frame in list(frames or []))
-        if timestamp is not None
-    )
-    if not timestamps:
+    sequence_frames = []
+    for frame in list(frames or []):
+        metadata = _frame_metadata(frame)
+        if not metadata:
+            continue
+        if not any(
+            metadata.get(key) is not None
+            for key in (
+                "requested_timestamp_s",
+                "neighbor_radius_s",
+                "sequence_mode",
+                "sequence_role",
+                "sequence_index",
+                "sequence_sort_order",
+            )
+        ):
+            continue
+        sequence_frames.append((frame, metadata))
+    if not sequence_frames:
         return ""
 
+    anchors = [
+        _coerce_seconds(metadata.get("requested_timestamp_s"))
+        for _, metadata in sequence_frames
+        if _coerce_seconds(metadata.get("requested_timestamp_s")) is not None
+    ]
+    radii = [
+        _coerce_seconds(metadata.get("neighbor_radius_s"))
+        for _, metadata in sequence_frames
+        if _coerce_seconds(metadata.get("neighbor_radius_s")) is not None
+    ]
+    timestamps = sorted(
+        timestamp
+        for timestamp in (_frame_timestamp(frame) for frame, _ in sequence_frames)
+        if timestamp is not None
+    )
+
+    anchor_text = _format_seconds(anchors[0]) if anchors else "the requested timestamp"
+    radius_text = _format_seconds(radii[0]) if radii else ""
     timestamp_text = ", ".join(_format_seconds(item) for item in timestamps[:12])
-    return (
-        "Frame timestamps: %s. Use frame timestamps when temporal order matters; "
-        "do not infer chronology from retrieval order alone."
-    ) % timestamp_text
+
+    parts = [
+        "These frames are a chronological sequence centered on timestamp %s." % anchor_text,
+        "Use neighboring frames before and after the anchor to understand action/state; do not treat one still frame as decisive.",
+    ]
+    if radius_text:
+        parts.append("The requested neighbor radius is %s." % radius_text)
+    if timestamp_text:
+        parts.append("Frame timestamps in this sequence: %s." % timestamp_text)
+    return " ".join(parts)
 
 
 TOOL_PURPOSES = {
     "visual_temporal_grounder": "Find candidate visual time windows for a specific event, object state, chart appearance, or scene phase.",
     "audio_temporal_grounder": "Find candidate audio time windows for a sound event or spoken-content-related audio cue.",
-    "frame_retriever": "Materialize bounded frames only when an exact/readable/static frame, OCR-quality still, or true frame-by-frame inspection is explicitly required; never use it as a full-video search.",
+    "frame_retriever": "Materialize bounded frames only when an exact/readable/static frame, OCR-quality still, anchor-window neighbors, or true frame-by-frame inspection is explicitly required; never use it as a full-video search.",
     "asr": "Transcribe speech in a clip, ideally with timestamps and speaker attribution.",
     "dense_captioner": "Summarize a bounded clip with dense visual/audio descriptions and on-screen text hints.",
     "ocr": "Read visible text or numbers from grounded clips or complete frames.",

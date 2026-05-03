@@ -47,3 +47,14 @@ def test_describe_device_mapping_uses_visible_device_hint(monkeypatch):
     assert mapping["local_index"] == 1
     assert mapping["physical_index_hint"] == "3"
     assert mapping["mapping_source"] == "CUDA_VISIBLE_DEVICES"
+
+
+def test_parse_cuda_device_map_accepts_explicit_balanced_indices():
+    assert runtime_devices.parse_cuda_device_map("balanced_cuda:1,3") == [1, 3]
+    assert runtime_devices.parse_cuda_device_map("cuda:0,2") == [0, 2]
+    assert runtime_devices.parse_cuda_device_map(None) is None
+
+
+def test_cuda_device_map_primary_label_uses_first_sharded_index():
+    assert runtime_devices.cuda_device_map_primary_label("balanced_cuda:2,3", "cuda:0") == "cuda:2"
+    assert runtime_devices.cuda_device_map_primary_label(None, "cuda:0") == "cuda:0"

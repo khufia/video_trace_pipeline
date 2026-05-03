@@ -15,12 +15,14 @@ class PlannerAgent(object):
         mode,
         audit_feedback,
         tool_catalog,
+        evidence_summary=None,
     ):
         prompt = build_planner_prompt(
             task=task,
             mode=mode,
             audit_feedback=audit_feedback,
             tool_catalog=tool_catalog,
+            evidence_summary=evidence_summary,
         )
         return {
             "endpoint_name": self.agent_config.endpoint or "default",
@@ -42,6 +44,7 @@ class PlannerAgent(object):
         mode,
         audit_feedback,
         tool_catalog,
+        evidence_summary=None,
     ):
         return self.complete_request(
             self.build_request(
@@ -49,5 +52,6 @@ class PlannerAgent(object):
                 mode=mode,
                 audit_feedback=audit_feedback,
                 tool_catalog=tool_catalog,
+                evidence_summary=evidence_summary,
             )
         )

@@ -46,32 +46,36 @@ def test_validate_request_payload_preserves_canonical_list_fields():
     assert payload["evidence_ids"] == ["ocr-step-3"]
 
 
-@pytest.mark.parametrize(
-    "removed_field, value",
-    [
-        ("sequence_mode", "anchor_window"),
-        ("neighbor_radius_s", 2.0),
-        ("include_anchor_neighbors", True),
-        ("sort_order", "chronological"),
-    ],
-)
-def test_frame_retriever_request_rejects_removed_fields(removed_field, value):
-    with pytest.raises(ValueError, match="Unexpected request field"):
-        _validate_request_payload(
-            {
-                "clips": [{"video_id": "video-1", "start_s": 0.0, "end_s": 10.0}],
-                "time_hints": ["00:06"],
-                removed_field: value,
-            },
-            FrameRetrieverRequest,
-        )
+def test_frame_retriever_request_accepts_sequence_fields():
+    payload = _validate_request_payload(
+        {
+            "clips": [{"video_id": "video-1", "start_s": 0.0, "end_s": 10.0}],
+            "time_hints": ["00:06"],
+            "sequence_mode": "anchor_window",
+            "neighbor_radius_s": 2.0,
+            "include_anchor_neighbors": True,
+            "sort_order": "chronological",
+        },
+        FrameRetrieverRequest,
+    )
+    request = FrameRetrieverRequest.parse_obj({"tool_name": "frame_retriever", **payload})
+
+    assert request.sequence_mode == "anchor_window"
+    assert request.sort_order == "chronological"
 
 
 def test_visual_adapters_append_frame_sequence_context(monkeypatch):
     frame = FrameRef(
         video_id="video-1",
         timestamp_s=6.0,
-        metadata={"relevance_score": 0.9},
+        metadata={
+            "requested_timestamp_s": 6.0,
+            "neighbor_radius_s": 2.0,
+            "sequence_mode": "anchor_window",
+            "sequence_role": "anchor",
+            "sequence_index": 1,
+            "sequence_sort_order": "chronological",
+        },
     )
 
     generic_seen = {}
@@ -86,9 +90,9 @@ def test_visual_adapters_append_frame_sequence_context(monkeypatch):
         GenericPurposeRequest(tool_name="generic_purpose", query="What happens?", frames=[frame]),
         context=None,
     )
-    assert "Frame timestamps: 6s" in generic_seen["text_contexts"][0]
+    assert "chronological sequence centered on timestamp 6s" in generic_seen["text_contexts"][0]
     parsed_generic = generic.parse_request({"tool_name": "generic_purpose", "query": "What happens?", "frames": [frame.dict()]})
-    assert "Frame timestamps: 6s" in parsed_generic.text_contexts[0]
+    assert "chronological sequence centered on timestamp 6s" in parsed_generic.text_contexts[0]
 
     ocr_seen = {}
     ocr = OCRProcessAdapter(name="ocr", model_name="ocr")

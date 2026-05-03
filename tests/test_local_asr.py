@@ -238,10 +238,30 @@ def test_local_asr_summary_includes_closest_quoted_phrase_match(monkeypatch):
 
     assert result.ok is True
     assert "Closest ASR match for quoted phrase" in result.summary
+    assert "0.000s-1.000s" in result.summary
     assert result.data["phrase_matches"][0]["phrase"] == "come to bill's ammunition"
+    assert result.data["phrase_matches"][0]["start_s"] == 0.0
+    assert result.data["phrase_matches"][0]["end_s"] == 1.0
+    assert result.data["phrase_matches"][0]["time_hint"] == "0.500s"
     assert "text" not in result.data
     assert "text" not in result.data["transcripts"][0]
     assert result.data["transcripts"][0]["segments"][0]["text"] == "Come to Phil's Heavy Nation today."
+
+
+def test_local_asr_phrase_matches_include_window_timestamp_for_split_quote():
+    matches = local_asr._phrase_matches(
+        "What happens when someone says 'come to bill's ammunition'?",
+        "Come to Bill's ammunition now.",
+        [
+            {"start_s": 10.0, "end_s": 10.8, "text": "Come to Bill's"},
+            {"start_s": 10.8, "end_s": 11.6, "text": "ammunition now."},
+        ],
+    )
+
+    assert matches[0]["matched_text"] == "Come to Bill's ammunition now."
+    assert matches[0]["start_s"] == 10.0
+    assert matches[0]["end_s"] == 11.6
+    assert matches[0]["time_hint"] == "10.800s"
 
 
 def test_local_asr_returns_empty_success_when_clip_collapses_after_bounds_normalization(monkeypatch):

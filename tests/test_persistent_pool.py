@@ -67,20 +67,20 @@ def test_qwen_runner_device_map_is_part_of_persistence_key(monkeypatch):
         tool_name="visual_temporal_grounder",
         model_path="/models/timelens",
         device_label="cuda:0",
-        device_map="first_two_cuda",
+        device_map="balanced_cuda:0,1",
     )
     two_gpu_again = pool.acquire_qwen_style_runner(
         tool_name="visual_temporal_grounder",
         model_path="/models/timelens",
         device_label="cuda:0",
-        device_map="first_two_cuda",
+        device_map="balanced_cuda:0,1",
     )
 
     assert single_gpu is not two_gpu
     assert two_gpu is two_gpu_again
     assert len(created) == 2
     assert created[0]["device_map"] is None
-    assert created[1]["device_map"] == "first_two_cuda"
+    assert created[1]["device_map"] == "balanced_cuda:0,1"
 
 
 def test_dense_captioner_persistence_reuses_timechat_runner(monkeypatch):

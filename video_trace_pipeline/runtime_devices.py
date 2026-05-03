@@ -4,6 +4,54 @@ import os
 from typing import List, Optional
 
 
+def parse_cuda_device_map(device_map: Optional[str]) -> Optional[List[int]]:
+    text = str(device_map or "").strip()
+    if not text or text.lower() in {"none", "null", "single", "single_cuda"}:
+        return None
+    if text == "first_two_cuda":
+        return [0, 1]
+    if text.startswith("balanced_cuda:"):
+        raw_indices = text.split(":", 1)[1]
+    elif text.startswith("cuda:") and "," in text:
+        raw_indices = text.replace("cuda:", "")
+    else:
+        raise ValueError(
+            "Unsupported CUDA device_map %r. Use null, 'first_two_cuda', or 'balanced_cuda:0,1'."
+            % text
+        )
+    indices = []
+    seen = set()
+    for item in raw_indices.split(","):
+        cleaned = item.strip()
+        if cleaned.startswith("cuda:"):
+            cleaned = cleaned.split(":", 1)[1].strip()
+        if not cleaned:
+            continue
+        try:
+            index = int(cleaned)
+        except Exception as exc:
+            raise ValueError("Invalid CUDA device_map index %r in %r." % (item, text)) from exc
+        if index < 0:
+            raise ValueError("CUDA device_map indices must be non-negative in %r." % text)
+        if index in seen:
+            continue
+        seen.add(index)
+        indices.append(index)
+    if len(indices) < 2:
+        raise ValueError(
+            "CUDA device_map %r must name at least two CUDA indices; use null for a single GPU."
+            % text
+        )
+    return indices
+
+
+def cuda_device_map_primary_label(device_map: Optional[str], fallback: str) -> str:
+    indices = parse_cuda_device_map(device_map)
+    if not indices:
+        return fallback
+    return "cuda:%d" % indices[0]
+
+
 def _env_visible_cuda_devices() -> Optional[List[str]]:
     raw = str(os.environ.get("CUDA_VISIBLE_DEVICES") or "").strip()
     if not raw:

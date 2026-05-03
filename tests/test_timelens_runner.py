@@ -1,7 +1,7 @@
 from video_trace_pipeline.tool_wrappers import timelens_runner
 
 
-def test_timelens_runner_uses_full_video_and_two_gpu_device_map(monkeypatch, tmp_path):
+def test_timelens_runner_uses_full_video_and_configured_device_map(monkeypatch, tmp_path):
     video_path = tmp_path / "full_video.mp4"
     video_path.write_bytes(b"not-a-real-video")
     calls = {}
@@ -40,12 +40,16 @@ def test_timelens_runner_uses_full_video_and_two_gpu_device_map(monkeypatch, tmp
             "runtime": {
                 "model_name": "TencentARC/TimeLens-8B",
                 "device": "cuda:0",
-                "extra": {"fps": 2.0, "max_new_tokens": 128},
+                "extra": {
+                    "fps": 2.0,
+                    "max_new_tokens": 128,
+                    "device_map": "balanced_cuda:0,1",
+                },
             },
         }
     )
 
-    assert calls["runner_kwargs"]["device_map"] == "first_two_cuda"
+    assert calls["runner_kwargs"]["device_map"] == "balanced_cuda:0,1"
     assert calls["messages"][0]["content"][0]["video"] == str(video_path)
     assert "full video" in calls["messages"][0]["content"][1]["text"]
     assert "Return at most 3 intervals" in calls["messages"][0]["content"][1]["text"]

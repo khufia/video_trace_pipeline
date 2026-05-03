@@ -156,7 +156,8 @@ class JsonProcessMixin(object):
         return (Path(context.workspace.workspace_root).expanduser().resolve() / "_scratch" / tool_name).resolve()
 
     def _runtime_payload(self, context) -> Dict[str, Any]:
-        device = resolve_device_label(context.workspace.profile.gpu_assignments.get(self.name))
+        requested_device = self.extra.get("device") or context.workspace.profile.gpu_assignments.get(self.name)
+        device = resolve_device_label(requested_device)
         device_mapping = describe_device_mapping(device)
         model_resolution = describe_model_resolution(
             self.model_name,
@@ -274,7 +275,8 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
         return self._run_command_json(context, request_payload)
 
     def _runtime_payload_for_profile(self, profile) -> Dict[str, Any]:
-        device = resolve_device_label(profile.gpu_assignments.get(self.name))
+        requested_device = self.extra.get("device") or profile.gpu_assignments.get(self.name)
+        device = resolve_device_label(requested_device)
         device_mapping = describe_device_mapping(device)
         model_resolution = describe_model_resolution(
             self.model_name,
@@ -302,6 +304,8 @@ class BaseProcessToolAdapter(ToolAdapter, JsonProcessMixin):
     ) -> Optional[Dict[str, Any]]:
         if self.model_pool is None or not self.model_pool.should_persist(self.name):
             return None
+        if device_map is None:
+            device_map = str(self.extra.get("device_map") or "").strip() or None
         runtime = self._runtime_payload_for_profile(profile)
         generation = resolve_generation_controls(runtime)
         model_path = resolve_model_path(str(runtime.get("model_name") or ""), runtime)
@@ -509,6 +513,45 @@ def _frame_rank_sort_key(frame: Dict[str, Any]) -> tuple:
     return (-numeric_score, numeric_anchor_distance, timestamp_s)
 
 
+def _frame_is_chronological_sequence(frame: Dict[str, Any]) -> bool:
+    metadata = dict(frame.get("metadata") or {})
+    return (
+        str(metadata.get("sequence_mode") or "").strip().lower() in {"anchor_window", "chronological"}
+        and str(metadata.get("sequence_sort_order") or "").strip().lower() == "chronological"
+    )
+
+
+def _frame_is_full_chronological_clip_sequence(frame: Dict[str, Any]) -> bool:
+    metadata = dict(frame.get("metadata") or {})
+    return (
+        str(metadata.get("sequence_mode") or "").strip().lower() == "chronological"
+        and str(metadata.get("sequence_role") or "").strip().lower() == "interval_frame"
+        and str(metadata.get("selection_reason") or "").strip().lower() == "chronological_clip_sequence"
+    )
+
+
+def _frame_sequence_sort_key(frame: Dict[str, Any]) -> tuple:
+    metadata = dict(frame.get("metadata") or {})
+
+    def _float_value(value: Any, default: float = float("inf")) -> float:
+        try:
+            return float(value)
+        except Exception:
+            return default
+
+    def _int_value(value: Any, default: int = 10**9) -> int:
+        try:
+            return int(value)
+        except Exception:
+            return default
+
+    timestamp_s = _float_value(frame.get("timestamp_s"), 0.0)
+    clip_start_s = _float_value(metadata.get("clip_start_s"), timestamp_s)
+    requested_timestamp_s = _float_value(metadata.get("requested_timestamp_s"), timestamp_s)
+    sequence_index = _int_value(metadata.get("sequence_index"))
+    return (clip_start_s, requested_timestamp_s, sequence_index, timestamp_s)
+
+
 def _frame_key(frame: Dict[str, Any]) -> tuple:
     return (
         str(frame.get("artifact_id") or "").strip(),
@@ -520,6 +563,9 @@ def _frame_key(frame: Dict[str, Any]) -> tuple:
 def _select_multi_clip_frames(
     frame_groups: List[Dict[str, Any]],
     frames_per_input: int,
+    *,
+    sort_order: str = "ranked",
+    sequence_mode: str = "ranked",
 ) -> List[Dict[str, Any]]:
     if frames_per_input <= 0:
         return []
@@ -527,19 +573,30 @@ def _select_multi_clip_frames(
     seen = set()
     per_input_limit = max(1, int(frames_per_input or 1))
     groups = list(frame_groups or [])
+    merged_frames = [frame for group in groups for frame in list(group.get("frames") or [])]
+    chronological = (
+        str(sort_order or "").strip().lower() == "chronological"
+        or str(sequence_mode or "").strip().lower() in {"anchor_window", "chronological"}
+        or any(_frame_is_chronological_sequence(frame) for frame in merged_frames)
+    )
+
+    group_sort_key = _frame_sequence_sort_key if chronological else _frame_rank_sort_key
+    final_sort_key = _frame_sequence_sort_key if chronological else _frame_rank_sort_key
 
     for group in groups:
         group_selected = 0
-        for frame in sorted(list(group.get("frames") or []), key=_frame_rank_sort_key):
+        group_frames = sorted(list(group.get("frames") or []), key=group_sort_key)
+        group_limit = len(group_frames) if any(_frame_is_full_chronological_clip_sequence(frame) for frame in group_frames) else per_input_limit
+        for frame in group_frames:
             key = _frame_key(frame)
             if key in seen:
                 continue
             seen.add(key)
             selected.append(frame)
             group_selected += 1
-            if group_selected >= per_input_limit:
+            if group_selected >= group_limit:
                 break
-    return sorted(selected, key=_frame_rank_sort_key)
+    return sorted(selected, key=final_sort_key)
 
 
 class VisualTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
@@ -550,7 +607,7 @@ class VisualTemporalGrounderProcessAdapter(BaseProcessToolAdapter):
         return execute_visual_temporal_grounder_payload(payload, runner_pool=self.model_pool)
 
     def persistent_preload_spec(self, profile) -> Optional[Dict[str, Any]]:
-        return self._qwen_persistent_preload_spec(profile, device_map="first_two_cuda")
+        return self._qwen_persistent_preload_spec(profile)
 
     def execute(self, request, context):
         payload, raw = self._run_json(context, request.dict())
@@ -810,6 +867,10 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                                 "query": request.query,
                                 "num_frames": request.num_frames,
                                 "time_hints": list(time_hints),
+                                "sequence_mode": request.sequence_mode,
+                                "neighbor_radius_s": request.neighbor_radius_s,
+                                "include_anchor_neighbors": request.include_anchor_neighbors,
+                                "sort_order": request.sort_order,
                             }
                         )
                     )
@@ -822,6 +883,10 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
                                 "time_hints": [time_hint],
                                 "query": request.query,
                                 "num_frames": request.num_frames,
+                                "sequence_mode": request.sequence_mode,
+                                "neighbor_radius_s": request.neighbor_radius_s,
+                                "include_anchor_neighbors": request.include_anchor_neighbors,
+                                "sort_order": request.sort_order,
                             }
                         )
                     )
@@ -882,7 +947,12 @@ class FrameRetrieverProcessAdapter(BaseProcessToolAdapter):
             if embedding_cache_ready:
                 cache_metadata["embedding_cache_ready"] = all(embedding_cache_ready)
             frames_per_input = max(1, int(request.num_frames or 1))
-            selected_frames = _select_multi_clip_frames(frame_groups, frames_per_input)
+            selected_frames = _select_multi_clip_frames(
+                frame_groups,
+                frames_per_input,
+                sort_order=request.sort_order,
+                sequence_mode=request.sequence_mode,
+            )
             cache_metadata.update(
                 {
                     "frame_count_policy": "per_clip",

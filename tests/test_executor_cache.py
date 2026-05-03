@@ -281,6 +281,57 @@ def test_asr_transcript_clip_wildcard_feeds_frame_retriever(tmp_path):
     assert registry.adapters["frame_retriever"].calls[0]["clips"][0]["end_s"] == 2.0
 
 
+def test_asr_phrase_time_hint_wildcard_feeds_frame_retriever(tmp_path):
+    workspace, task, run, context = _context(tmp_path)
+    registry = _Registry()
+    registry.adapters["asr"].output = lambda request: {
+        "clips": request["clips"],
+        "transcripts": [
+            {
+                "transcript_id": "tx_1",
+                "clip": request["clips"][0],
+                "segments": [{"start_s": 129.0, "end_s": 129.5, "text": "quoted phrase"}],
+            }
+        ],
+        "phrase_matches": [
+            {
+                "phrase": "quoted phrase",
+                "matched_text": "quoted phrase",
+                "time_hint": "129.250s",
+            }
+        ],
+    }
+    executor = _executor(workspace, registry)
+    ledger = EvidenceLedger(run)
+    plan = ExecutionPlan(
+        strategy="Use ASR phrase timestamp for visual follow-up.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="asr",
+                purpose="Transcribe clip.",
+                inputs={"clips": [ClipRef(video_id="video1", start_s=0.0, end_s=200.0).model_dump()]},
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="frame_retriever",
+                purpose="Retrieve frames at the quoted speech timestamp.",
+                inputs={"query": "visible object on the table", "num_frames": 2, "sequence_mode": "anchor_window"},
+                input_refs={
+                    "clips": [{"step_id": 1, "field_path": "transcripts[].clip"}],
+                    "time_hints": [{"step_id": 1, "field_path": "phrase_matches[].time_hint"}],
+                },
+            ),
+        ],
+    )
+
+    records = executor.execute_plan(plan, context, ledger, video_fingerprint="vid", round_index=1)
+
+    assert records[1]["result"]["ok"] is True
+    assert registry.adapters["frame_retriever"].calls[0]["clips"][0]["start_s"] == 0.0
+    assert registry.adapters["frame_retriever"].calls[0]["time_hints"] == ["129.250s"]
+
+
 def test_invalid_wiring_records_failure_before_downstream_tool_call(tmp_path):
     workspace, task, run, context = _context(tmp_path)
     registry = _Registry()

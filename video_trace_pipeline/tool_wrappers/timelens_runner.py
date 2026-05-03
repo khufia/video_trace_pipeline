@@ -213,7 +213,9 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
     sample_fps = float((runtime.get("extra") or {}).get("fps") or 2.0)
     max_new_tokens = int((runtime.get("extra") or {}).get("max_new_tokens") or 256)
     generation = resolve_generation_controls(runtime)
-    attn_implementation = str((runtime.get("extra") or {}).get("attn_implementation") or "").strip() or None
+    extra = dict(runtime.get("extra") or {})
+    attn_implementation = str(extra.get("attn_implementation") or "").strip() or None
+    device_map = str(extra.get("device_map") or "").strip() or None
     duration_s = float(get_video_duration(video_path) or 0.0)
     video_id = str(task.get("video_id") or task.get("sample_key") or "")
     top_k = max(1, int(request.get("top_k") or 5))
@@ -235,7 +237,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
             attn_implementation=attn_implementation,
-            device_map="first_two_cuda",
+            device_map=device_map,
         )
     if runner is None:
         runner = QwenStyleRunner(
@@ -244,7 +246,7 @@ def execute_payload(payload: Dict[str, Any], *, runner_pool: "PersistentModelPoo
             generate_do_sample=bool(generation.get("do_sample")),
             generate_temperature=generation.get("temperature"),
             attn_implementation=attn_implementation,
-            device_map="first_two_cuda",
+            device_map=device_map,
         )
         owns_runner = True
     try:

@@ -155,6 +155,8 @@ def _build_planner_repair_request(planner_request: Dict[str, Any], plan_payload:
             "REJECTED_PLAN:",
             json.dumps(sanitize_for_persistence(plan_payload), indent=2, sort_keys=True),
             "Rewrite the ExecutionPlan as JSON only. Keep the same evidence goal, but fix schema and wiring. "
+            "For each input_ref, use only output fields listed for the source tool in AVAILABLE_TOOLS; "
+            "never reference a prior step's inputs or expected_outputs as if they were emitted outputs. "
             "Every generic_purpose step must receive explicit clips, frames, transcripts, text_contexts, evidence_ids, "
             "or input_refs. Do not invent evidence_ids.",
         ]
@@ -591,11 +593,13 @@ class PipelineRunner(object):
                     planning_mode=planning_mode,
                     retrieved_count=0,
                 )
+            planner_evidence_summary = self._build_evidence_summary(evidence_ledger)
             planner_kwargs = dict(
                 task=task,
                 mode=planning_mode,
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
                 tool_catalog=tool_catalog,
+                evidence_summary=planner_evidence_summary,
             )
             planner_request = self.planner.build_request(**planner_kwargs)
             write_json(round_dir / "planner_request.json", sanitize_for_persistence(planner_request))
@@ -605,6 +609,7 @@ class PipelineRunner(object):
                 plan = self.plan_normalizer.normalize(
                     task,
                     plan,
+                    retrieved_context=planner_evidence_summary,
                 )
             except ValueError as exc:
                 write_json(
@@ -621,6 +626,7 @@ class PipelineRunner(object):
                 plan = self.plan_normalizer.normalize(
                     task,
                     repair_plan,
+                    retrieved_context=planner_evidence_summary,
                 )
             write_json(round_dir / "planner_plan.json", sanitize_for_persistence(plan.dict()))
             if progress_reporter is not None and hasattr(progress_reporter, "on_planner"):

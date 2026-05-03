@@ -106,17 +106,6 @@ def _frame_sort_key(frame: dict[str, Any]) -> tuple[float, float, float]:
 def _runner_request(request: Request, task: dict[str, Any]) -> dict[str, Any]:
     request_payload = request.model_dump(mode="json")
     options = dict(request.options or {})
-    removed_options = {
-        "sequence_mode",
-        "neighbor_radius_s",
-        "include_anchor_neighbors",
-        "sort_order",
-    }.intersection(options)
-    if removed_options:
-        raise RuntimeError(
-            "frame_retriever no longer accepts option(s): %s"
-            % ", ".join(sorted(removed_options))
-        )
     time_hints = [str(item).strip() for item in list(options.get("time_hints") or []) if str(item).strip()]
     clips = clips_from_request(request_payload, task) if _scope_has_clips(request_payload) else []
     if not clips and not time_hints:
@@ -127,6 +116,10 @@ def _runner_request(request: Request, task: dict[str, Any]) -> dict[str, Any]:
         "clips": clips,
         "time_hints": time_hints,
         "num_frames": int(options.get("num_frames") or 5),
+        "sequence_mode": str(options.get("sequence_mode") or "ranked"),
+        "neighbor_radius_s": float(options.get("neighbor_radius_s") or options.get("radius_s") or 2.0),
+        "include_anchor_neighbors": bool(options.get("include_anchor_neighbors", True)),
+        "sort_order": str(options.get("sort_order") or "ranked"),
     }
 
 

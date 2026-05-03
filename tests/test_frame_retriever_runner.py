@@ -132,7 +132,7 @@ def test_frame_retriever_parses_exact_timestamp_hints():
     assert frame_retriever_runner._time_hint_anchor_seconds("1:23", 0.0, 100.0) == 83.0
 
 
-def test_frame_retriever_exact_timestamp_biases_selection_without_sequence_metadata(monkeypatch):
+def test_frame_retriever_exact_timestamp_returns_chronological_neighbors(monkeypatch):
     emitted = {}
 
     class _SequenceHarness(_FakeHarness):
@@ -169,6 +169,9 @@ def test_frame_retriever_exact_timestamp_biases_selection_without_sequence_metad
                 "clips": [{"start_s": 0.0, "end_s": 10.0}],
                 "time_hints": ["00:06"],
                 "num_frames": 3,
+                "sequence_mode": "anchor_window",
+                "neighbor_radius_s": 2.0,
+                "sort_order": "chronological",
             },
             "task": {},
             "runtime": {},
@@ -184,18 +187,127 @@ def test_frame_retriever_exact_timestamp_biases_selection_without_sequence_metad
 
     frame_retriever_runner.main()
 
-    assert emitted["frames"][0]["timestamp_s"] == 6.0
-    assert len(emitted["frames"]) == 3
-    for frame in emitted["frames"]:
-        assert "sequence_role" not in frame["metadata"]
-        assert "sequence_index" not in frame["metadata"]
-        assert "sequence_mode" not in frame["metadata"]
-        assert "neighbor_radius_s" not in frame["metadata"]
-    assert "anchor_window_applied" not in emitted["cache_metadata"]
-    assert "neighbor_radius_s" not in emitted["cache_metadata"]
+    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [4.0, 5.0, 6.0, 7.0, 8.0]
+    assert emitted["frames"][2]["metadata"]["sequence_role"] == "anchor"
+    assert emitted["frames"][2]["metadata"]["requested_timestamp_s"] == 6.0
+    assert emitted["frames"][0]["metadata"]["sequence_index"] == 0
+    assert emitted["cache_metadata"]["anchor_window_applied"] is True
 
 
-def test_frame_retriever_time_hints_do_not_expand_clip_pool(monkeypatch):
+def test_frame_retriever_anchor_timestamp_narrows_full_video_pool(monkeypatch):
+    emitted = {}
+
+    class _LongHarness(_FakeHarness):
+        def _list_dense_frame_paths(self, dataset_folder, video_path):
+            return (
+                [
+                    "/tmp/frame_0.00.png",
+                    "/tmp/frame_127.00.png",
+                    "/tmp/frame_129.00.png",
+                    "/tmp/frame_131.00.png",
+                    "/tmp/frame_600.00.png",
+                ],
+                "/tmp/reference/dense_frames",
+            )
+
+        def _qwen_score_frames(self, query, bounded, top_k, *, persist_cache=True):
+            self.persist_cache = persist_cache
+            return [
+                {
+                    "frame_path": item["frame_path"],
+                    "timestamp": item["timestamp"],
+                    "relevance_score": 1.0,
+                }
+                for item in bounded
+            ]
+
+    fake_harness = _LongHarness()
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "load_request",
+        lambda: {
+            "request": {
+                "query": "visible object on the table",
+                "clips": [{"start_s": 0.0, "end_s": 1200.0}],
+                "time_hints": ["129.000s"],
+                "num_frames": 3,
+                "sequence_mode": "anchor_window",
+                "neighbor_radius_s": 2.0,
+                "sort_order": "chronological",
+            },
+            "task": {},
+            "runtime": {},
+        },
+    )
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "_reference_harness_cls",
+        lambda: (lambda *args, **kwargs: fake_harness),
+    )
+    monkeypatch.setattr(frame_retriever_runner, "emit_json", lambda payload: emitted.update(payload))
+    monkeypatch.setattr(frame_retriever_runner, "resolved_device_label", lambda runtime: "cpu")
+
+    frame_retriever_runner.main()
+
+    assert emitted["cache_metadata"]["frame_pool_start_s"] == 127.0
+    assert emitted["cache_metadata"]["frame_pool_end_s"] == 131.0
+    assert emitted["cache_metadata"]["bounded_frame_count"] == 3
+    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [127.0, 129.0, 131.0]
+
+
+def test_frame_retriever_chronological_without_anchor_returns_full_clip_sequence(monkeypatch):
+    emitted = {}
+
+    class _SequenceHarness(_FakeHarness):
+        def _list_dense_frame_paths(self, dataset_folder, video_path):
+            return (
+                [
+                    "/tmp/frame_0.00.png",
+                    "/tmp/frame_1.00.png",
+                    "/tmp/frame_2.00.png",
+                    "/tmp/frame_3.00.png",
+                    "/tmp/frame_4.00.png",
+                ],
+                "/tmp/reference/dense_frames",
+            )
+
+        def _qwen_score_frames(self, query, bounded, top_k, *, persist_cache=True):
+            raise AssertionError("full chronological clip sequence should not score frames")
+
+    fake_harness = _SequenceHarness()
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "load_request",
+        lambda: {
+            "request": {
+                "query": "visible object on the table",
+                "clips": [{"start_s": 1.0, "end_s": 3.0}],
+                "num_frames": 1,
+                "sequence_mode": "chronological",
+                "sort_order": "chronological",
+            },
+            "task": {},
+            "runtime": {},
+        },
+    )
+    monkeypatch.setattr(
+        frame_retriever_runner,
+        "_reference_harness_cls",
+        lambda: (lambda *args, **kwargs: fake_harness),
+    )
+    monkeypatch.setattr(frame_retriever_runner, "emit_json", lambda payload: emitted.update(payload))
+    monkeypatch.setattr(frame_retriever_runner, "resolved_device_label", lambda runtime: "cpu")
+
+    frame_retriever_runner.main()
+
+    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [1.0, 2.0, 3.0]
+    assert [frame["metadata"]["sequence_index"] for frame in emitted["frames"]] == [0, 1, 2]
+    assert emitted["frames"][0]["metadata"]["sequence_role"] == "interval_frame"
+    assert emitted["cache_metadata"]["chronological_clip_sequence_applied"] is True
+    assert emitted["cache_metadata"]["expanded_frame_pool_for_anchor_window"] is False
+
+
+def test_anchor_window_expands_frame_pool_beyond_short_clip(monkeypatch):
     emitted = {}
 
     class _SequenceHarness(_FakeHarness):
@@ -230,10 +342,14 @@ def test_frame_retriever_time_hints_do_not_expand_clip_pool(monkeypatch):
         "load_request",
         lambda: {
             "request": {
-                "query": "frames before during and after the impact",
+                "query": "visible impact source",
                 "clips": [{"start_s": 11.6, "end_s": 12.384}],
                 "time_hints": ["11.60s-12.384s event interval; center near 11.99s"],
                 "num_frames": 5,
+                "sequence_mode": "anchor_window",
+                "neighbor_radius_s": 2.5,
+                "include_anchor_neighbors": True,
+                "sort_order": "chronological",
             },
             "task": {},
             "runtime": {},
@@ -249,11 +365,11 @@ def test_frame_retriever_time_hints_do_not_expand_clip_pool(monkeypatch):
 
     frame_retriever_runner.main()
 
-    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [12.0]
-    assert emitted["cache_metadata"]["frame_pool_start_s"] == 11.6
-    assert emitted["cache_metadata"]["frame_pool_end_s"] == 12.384
-    assert "expanded_frame_pool_for_anchor_window" not in emitted["cache_metadata"]
-    assert emitted["frames"][0]["metadata"]["frame_pool_start_s"] == 11.6
+    assert [frame["timestamp_s"] for frame in emitted["frames"]] == [10.0, 11.0, 12.0, 13.0, 14.0]
+    assert emitted["cache_metadata"]["frame_pool_start_s"] == 9.1
+    assert emitted["cache_metadata"]["frame_pool_end_s"] == 14.884
+    assert emitted["cache_metadata"]["expanded_frame_pool_for_anchor_window"] is True
+    assert emitted["frames"][0]["metadata"]["frame_pool_start_s"] == 9.1
 
 
 def test_frame_retriever_process_adapter_merges_cache_metadata(monkeypatch):
@@ -359,7 +475,7 @@ def test_frame_retriever_process_adapter_keeps_num_frames_per_clip(monkeypatch):
     assert result.data["cache_metadata"]["returned_frame_count"] == 4
 
 
-def test_frame_retriever_process_adapter_ranked_multi_clip_keeps_each_clip(monkeypatch):
+def test_frame_retriever_process_adapter_chronological_multi_clip_keeps_each_clip(monkeypatch):
     adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
 
     def _fake_execute_single(request, context):
@@ -394,6 +510,7 @@ def test_frame_retriever_process_adapter_ranked_multi_clip_keeps_each_clip(monke
             "tool_name": "frame_retriever",
             "query": "chart frame sequence",
             "num_frames": 2,
+            "sort_order": "chronological",
             "clips": [
                 {"video_id": "video-1", "start_s": 10.0, "end_s": 20.0},
                 {"video_id": "video-1", "start_s": 110.0, "end_s": 120.0},
@@ -403,8 +520,58 @@ def test_frame_retriever_process_adapter_ranked_multi_clip_keeps_each_clip(monke
 
     result = adapter.execute(request, context=None)
 
-    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 112.0, 13.0, 114.0]
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 13.0, 112.0, 113.0]
     assert result.data["cache_metadata"]["returned_frame_count"] == 4
+
+
+def test_frame_retriever_process_adapter_keeps_full_chronological_clip_sequences(monkeypatch):
+    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
+
+    def _fake_execute_single(request, context):
+        clip = request.clips[0].dict()
+        start_s = float(clip["start_s"])
+        frames = []
+        for index, timestamp_s in enumerate((start_s, start_s + 1.0, start_s + 2.0)):
+            frames.append(
+                {
+                    "video_id": "video-1",
+                    "timestamp_s": timestamp_s,
+                    "metadata": {
+                        "clip_start_s": start_s,
+                        "sequence_mode": "chronological",
+                        "sequence_role": "interval_frame",
+                        "selection_reason": "chronological_clip_sequence",
+                        "sequence_sort_order": "chronological",
+                        "sequence_index": index,
+                    },
+                }
+            )
+        return ToolResult(
+            tool_name="frame_retriever",
+            ok=True,
+            data={"frames": frames, "cache_metadata": {}, "rationale": "full chronological sequence"},
+            summary="Retrieved %d frame(s)." % len(frames),
+        )
+
+    monkeypatch.setattr(adapter, "_execute_single", _fake_execute_single)
+    request = adapter.request_model.parse_obj(
+        {
+            "tool_name": "frame_retriever",
+            "query": "interval frames",
+            "num_frames": 1,
+            "sequence_mode": "chronological",
+            "sort_order": "chronological",
+            "clips": [
+                {"video_id": "video-1", "start_s": 10.0, "end_s": 12.0},
+                {"video_id": "video-1", "start_s": 110.0, "end_s": 112.0},
+            ],
+        }
+    )
+
+    result = adapter.execute(request, context=None)
+
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [10.0, 11.0, 12.0, 110.0, 111.0, 112.0]
+    assert result.data["cache_metadata"]["returned_frame_count"] == 6
 
 
 def test_frame_retriever_process_adapter_single_clip_uses_single_execution(monkeypatch):
@@ -440,6 +607,61 @@ def test_frame_retriever_process_adapter_single_clip_uses_single_execution(monke
 
     assert [frame["timestamp_s"] for frame in result.data["frames"]] == [12.0, 13.0, 14.0]
     assert result.data["cache_metadata"]["returned_frame_count"] == 3
+
+
+def test_frame_retriever_process_adapter_preserves_chronological_sequence_merge(monkeypatch):
+    adapter = FrameRetrieverProcessAdapter(name="frame_retriever", model_name="qwen-frame-reranker")
+
+    def _fake_execute_single(request, context):
+        frames = []
+        for timestamp_s, sequence_index in (
+            (164.0, 2),
+            (163.0, 1),
+            (165.0, 3),
+            (162.0, 0),
+            (166.0, 4),
+        ):
+            frames.append(
+                {
+                    "video_id": "video-1",
+                    "timestamp_s": timestamp_s,
+                    "metadata": {
+                        "clip_start_s": 150.0,
+                        "requested_timestamp_s": 164.0,
+                        "sequence_mode": "anchor_window",
+                        "sequence_index": sequence_index,
+                        "sequence_sort_order": "chronological",
+                        "relevance_score": 1.0,
+                    },
+                }
+            )
+        return ToolResult(
+            tool_name="frame_retriever",
+            ok=True,
+            data={
+                "frames": frames,
+                "cache_metadata": {},
+                "rationale": "chronological sequence",
+            },
+            summary="Retrieved 5 frame(s).",
+        )
+
+    monkeypatch.setattr(adapter, "_execute_single", _fake_execute_single)
+    request = adapter.request_model.parse_obj(
+        {
+            "tool_name": "frame_retriever",
+            "query": "map frames",
+            "num_frames": 5,
+            "clips": [{"video_id": "video-1", "start_s": 150.0, "end_s": 166.0}],
+            "time_hints": ["164s", "165.98s utterance"],
+            "sequence_mode": "anchor_window",
+            "sort_order": "chronological",
+        }
+    )
+
+    result = adapter.execute(request, context=None)
+
+    assert [frame["timestamp_s"] for frame in result.data["frames"]] == [162.0, 163.0, 164.0, 165.0, 166.0]
 
 
 def test_reference_adapter_installs_check_model_inputs_compat(monkeypatch):
@@ -493,7 +715,7 @@ def test_reference_adapter_loads_local_model_helper(tmp_path, monkeypatch):
     ) is helper_cls
 
 
-def test_reference_adapter_frame_embedder_uses_first_two_cuda_device_map(tmp_path, monkeypatch):
+def test_reference_adapter_frame_embedder_uses_balanced_cuda_device_map(tmp_path, monkeypatch):
     torch = pytest.importorskip("torch")
     calls = {}
     module = types.ModuleType("fake_qwen3_vl_embedding_sharded")
@@ -541,7 +763,7 @@ def test_reference_adapter_frame_embedder_uses_first_two_cuda_device_map(tmp_pat
         runtime={
             "workspace_root": str(tmp_path),
             "model_name": str(tmp_path),
-            "extra": {"device_map": "first_two_cuda"},
+            "extra": {"device_map": "balanced_cuda:0,1"},
         },
         clip_duration_s=5.0,
         embedder_model=str(tmp_path),
@@ -555,7 +777,7 @@ def test_reference_adapter_frame_embedder_uses_first_two_cuda_device_map(tmp_pat
     assert calls["model_kwargs"]["max_memory"] == {0: 1024, 1: 2048}
     assert calls["processor_kwargs"] == {"padding_side": "right"}
     assert harness._frame_embedder_device_index() == 0
-    assert harness._frame_embedder_runtime_metadata()["device_map"] == "first_two_cuda"
+    assert harness._frame_embedder_runtime_metadata()["device_map"] == "balanced_cuda:0,1"
 
 
 def test_reference_adapter_frame_embedder_default_uses_helper_constructor(tmp_path, monkeypatch):

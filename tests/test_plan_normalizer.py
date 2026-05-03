@@ -2,36 +2,42 @@ import pytest
 
 from video_trace_pipeline.orchestration.plan_normalizer import ExecutionPlanNormalizer
 from video_trace_pipeline.schemas import (
-    ASRRequest,
+    AudioTemporalGrounderOutput,
     AudioTemporalGrounderRequest,
-    DenseCaptionRequest,
+    ASRRequest,
+    ASROutput,
     ExecutionPlan,
+    FrameRetrieverOutput,
     FrameRetrieverRequest,
+    GenericPurposeOutput,
     GenericPurposeRequest,
+    OCROutput,
     OCRRequest,
     PlanStep,
+    SpatialGrounderOutput,
     SpatialGrounderRequest,
     TaskSpec,
+    VisualTemporalGrounderOutput,
     VisualTemporalGrounderRequest,
 )
 
 
 class _Adapter(object):
-    def __init__(self, request_model):
+    def __init__(self, request_model, output_model):
         self.request_model = request_model
+        self.output_model = output_model
 
 
 class _Registry(object):
     def __init__(self):
         self.adapters = {
-            "visual_temporal_grounder": _Adapter(VisualTemporalGrounderRequest),
-            "frame_retriever": _Adapter(FrameRetrieverRequest),
-            "spatial_grounder": _Adapter(SpatialGrounderRequest),
-            "ocr": _Adapter(OCRRequest),
-            "generic_purpose": _Adapter(GenericPurposeRequest),
-            "asr": _Adapter(ASRRequest),
-            "dense_captioner": _Adapter(DenseCaptionRequest),
-            "audio_temporal_grounder": _Adapter(AudioTemporalGrounderRequest),
+            "visual_temporal_grounder": _Adapter(VisualTemporalGrounderRequest, VisualTemporalGrounderOutput),
+            "audio_temporal_grounder": _Adapter(AudioTemporalGrounderRequest, AudioTemporalGrounderOutput),
+            "frame_retriever": _Adapter(FrameRetrieverRequest, FrameRetrieverOutput),
+            "spatial_grounder": _Adapter(SpatialGrounderRequest, SpatialGrounderOutput),
+            "ocr": _Adapter(OCRRequest, OCROutput),
+            "generic_purpose": _Adapter(GenericPurposeRequest, GenericPurposeOutput),
+            "asr": _Adapter(ASRRequest, ASROutput),
         }
 
     def get_adapter(self, tool_name):
@@ -181,6 +187,78 @@ def test_plan_normalizer_rejects_noncanonical_inputs_and_wiring():
     with pytest.raises(ValueError, match="time_hints"):
         normalizer.normalize(_task(), bad_time_hint_plan)
 
+    good_time_hint_plan = ExecutionPlan(
+        strategy="Use ASR phrase timestamp wiring.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="asr",
+                purpose="Transcribe and locate the quoted speech.",
+                inputs={"clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 30.0}]},
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="frame_retriever",
+                purpose="Retrieve frames at the quoted speech timestamp.",
+                inputs={
+                    "query": "visible object on the table",
+                    "num_frames": 3,
+                    "sequence_mode": "anchor_window",
+                    "sort_order": "chronological",
+                },
+                input_refs={
+                    "clips": [{"step_id": 1, "field_path": "transcripts[].clip"}],
+                    "time_hints": [{"step_id": 1, "field_path": "phrase_matches[].time_hint"}],
+                },
+            ),
+        ],
+    )
+    normalized = normalizer.normalize(_task(), good_time_hint_plan)
+    assert normalized.steps[1].input_refs["time_hints"][0].field_path == "phrase_matches[].time_hint"
+
+
+def test_plan_normalizer_rejects_placeholder_time_hints_and_asr_visual_followup_without_anchor():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    placeholder_plan = ExecutionPlan(
+        strategy="Reject placeholder hints.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="frame_retriever",
+                purpose="Retrieve quote-neighbor frames.",
+                inputs={
+                    "query": "visible object on the table",
+                    "clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 120.0}],
+                    "time_hints": ["Use the timestamp of the ASR phrase match."],
+                    "sequence_mode": "anchor_window",
+                },
+            )
+        ],
+    )
+    with pytest.raises(ValueError, match="placeholder time_hints"):
+        normalizer.normalize(_task(), placeholder_plan)
+
+    missing_anchor_plan = ExecutionPlan(
+        strategy="Reject ASR clip follow-up without phrase timestamp.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="asr",
+                purpose="Transcribe quoted speech.",
+                inputs={"clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 120.0}]},
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="frame_retriever",
+                purpose="Retrieve frames around the spoken phrase.",
+                inputs={"query": "visible object on the table", "num_frames": 3},
+                input_refs={"clips": [{"step_id": 1, "field_path": "transcripts[].clip"}]},
+            ),
+        ],
+    )
+    with pytest.raises(ValueError, match="without time_hints"):
+        normalizer.normalize(_task(), missing_anchor_plan)
+
 
 def test_plan_normalizer_rejects_asr_text_context_and_allows_transcripts():
     normalizer = ExecutionPlanNormalizer(_Registry())
@@ -249,295 +327,139 @@ def test_plan_normalizer_rejects_context_free_generic_purpose():
         normalizer.normalize(_task(), plan)
 
 
-def test_plan_normalizer_rejects_visual_grounding_frame_bridge_to_generic_purpose():
+def test_plan_normalizer_rejects_context_free_media_tools_before_execution():
     normalizer = ExecutionPlanNormalizer(_Registry())
     plan = ExecutionPlan(
-        strategy="Do broad visual count through frames.",
+        strategy="Reject context-free frame retrieval.",
         steps=[
             PlanStep(
                 step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find all candidate action intervals.",
-                inputs={"query": "all object-use intervals", "top_k": 5},
-            ),
-            PlanStep(
-                step_id=2,
                 tool_name="frame_retriever",
-                purpose="Retrieve representative frames for each candidate interval.",
-                inputs={"query": "representative frames showing the action", "num_frames": 5},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-            PlanStep(
-                step_id=3,
-                tool_name="generic_purpose",
-                purpose="Count the accepted action intervals.",
-                inputs={"query": "Count the visible action occurrences from the supplied evidence."},
-                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
-            ),
+                purpose="Try to search the full video from a query alone.",
+                inputs={"query": "the first dog in the shot", "num_frames": 3},
+            )
         ],
     )
 
-    with pytest.raises(ValueError, match="Pass grounded clips directly to generic_purpose"):
+    with pytest.raises(ValueError, match="frame_retriever.*lacks required context"):
         normalizer.normalize(_task(), plan)
 
 
-def test_plan_normalizer_rejects_dense_chronological_frame_bridge_to_generic_purpose():
+def test_plan_normalizer_rejects_audio_first_for_visual_conditioned_audio_tasks():
     normalizer = ExecutionPlanNormalizer(_Registry())
-    plan = ExecutionPlan(
-        strategy="Do state reasoning through dense frames.",
+    task = TaskSpec(
+        benchmark="adhoc",
+        sample_key="sample1",
+        question="How many different sounds are heard when the person is using the red sauce bottle?",
+        options=["A. 1", "B. 2", "C. 3", "D. 4"],
+        video_path="video.mp4",
+    )
+    bad_plan = ExecutionPlan(
+        strategy="Start from audio even though the sound is conditioned on a visible action.",
         steps=[
             PlanStep(
                 step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find all changing-state candidate clips.",
-                inputs={"query": "object changing state over time", "top_k": 5},
+                tool_name="audio_temporal_grounder",
+                purpose="Find all sound events.",
+                inputs={
+                    "query": "different sounds heard while the red sauce bottle is used",
+                    "clips": [{"video_id": "sample1", "start_s": 0.0, "end_s": 120.0}],
+                },
             ),
             PlanStep(
                 step_id=2,
-                tool_name="frame_retriever",
-                purpose="Retrieve dense chronological coverage for count and state reasoning.",
-                inputs={"query": "dense chronological visual coverage", "num_frames": 12},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-            PlanStep(
-                step_id=3,
-                tool_name="generic_purpose",
-                purpose="Resolve the count and state from the dense sequence.",
-                inputs={"query": "Count state transitions across the supplied sequence."},
-                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
+                tool_name="visual_temporal_grounder",
+                purpose="Find red sauce bottle use after audio.",
+                inputs={"query": "person using the red sauce bottle", "top_k": 5},
             ),
         ],
     )
 
-    with pytest.raises(ValueError, match="Pass grounded clips directly to generic_purpose"):
-        normalizer.normalize(_task(), plan)
+    with pytest.raises(ValueError, match="visual-conditioned audio task"):
+        normalizer.normalize(task, bad_plan)
 
-
-def test_plan_normalizer_accepts_direct_grounded_clips_to_generic_purpose():
-    normalizer = ExecutionPlanNormalizer(_Registry())
-    plan = ExecutionPlan(
-        strategy="Use grounded clips directly.",
+    good_plan = ExecutionPlan(
+        strategy="Ground visual-use candidates first, then inspect audio only inside those clips.",
         steps=[
             PlanStep(
                 step_id=1,
                 tool_name="visual_temporal_grounder",
-                purpose="Find all candidate object-state intervals.",
-                inputs={"query": "all candidate object-state intervals", "top_k": 5},
+                purpose="Find all visible red sauce bottle use candidates.",
+                inputs={"query": "person visibly using the red sauce bottle", "top_k": 8},
             ),
             PlanStep(
                 step_id=2,
-                tool_name="generic_purpose",
-                purpose="Determine which clips satisfy the state and count them.",
-                inputs={"query": "Count only clips that visibly satisfy the requested state."},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-        ],
-    )
-
-    normalized = normalizer.normalize(_task(), plan)
-
-    assert [step.tool_name for step in normalized.steps] == ["visual_temporal_grounder", "generic_purpose"]
-    assert normalized.steps[1].input_refs["clips"][0].field_path == "clips"
-
-
-def test_plan_normalizer_accepts_direct_grounded_clips_to_spatial_grounder():
-    normalizer = ExecutionPlanNormalizer(_Registry())
-    plan = ExecutionPlan(
-        strategy="Localize directly from grounded clips.",
-        steps=[
-            PlanStep(
-                step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find clips where the answer-critical object appears.",
-                inputs={"query": "object visible in the required relation", "top_k": 3},
-            ),
-            PlanStep(
-                step_id=2,
-                tool_name="spatial_grounder",
-                purpose="Localize the object inside each grounded clip.",
-                inputs={"query": "the answer-critical object"},
+                tool_name="audio_temporal_grounder",
+                purpose="Find distinct sound events only inside the visible-use candidates.",
+                inputs={"query": "distinct non-speech sounds heard during the visible red sauce bottle use"},
                 input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
             ),
         ],
     )
 
-    normalized = normalizer.normalize(_task(), plan)
-
-    assert [step.tool_name for step in normalized.steps] == ["visual_temporal_grounder", "spatial_grounder"]
-    assert normalized.steps[1].input_refs["clips"][0].field_path == "clips"
-
-
-def test_plan_normalizer_accepts_direct_grounded_clips_to_ocr():
-    normalizer = ExecutionPlanNormalizer(_Registry())
-    plan = ExecutionPlan(
-        strategy="Read visible text directly from grounded clips.",
-        steps=[
-            PlanStep(
-                step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find clips where the text is visible.",
-                inputs={"query": "visible sign text", "top_k": 3},
-            ),
-            PlanStep(
-                step_id=2,
-                tool_name="ocr",
-                purpose="Read visible text from the grounded clips.",
-                inputs={"query": "read the visible text"},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-        ],
-    )
-
-    normalized = normalizer.normalize(_task(), plan)
-
-    assert [step.tool_name for step in normalized.steps] == ["visual_temporal_grounder", "ocr"]
-    assert normalized.steps[1].input_refs["clips"][0].field_path == "clips"
-
-
-def test_plan_normalizer_rejects_visual_grounding_frame_bridge_to_spatial_without_frame_need():
-    normalizer = ExecutionPlanNormalizer(_Registry())
-    plan = ExecutionPlan(
-        strategy="Localize after unnecessary frame bridge.",
-        steps=[
-            PlanStep(
-                step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find clips where the target object appears.",
-                inputs={"query": "target object appears", "top_k": 3},
-            ),
-            PlanStep(
-                step_id=2,
-                tool_name="frame_retriever",
-                purpose="Retrieve representative frames for each candidate interval.",
-                inputs={"query": "representative object frames", "num_frames": 3},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-            PlanStep(
-                step_id=3,
-                tool_name="spatial_grounder",
-                purpose="Localize the target object.",
-                inputs={"query": "the target object"},
-                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
-            ),
-        ],
-    )
-
-    with pytest.raises(ValueError, match="Pass grounded clips directly to spatial_grounder"):
-        normalizer.normalize(_task(), plan)
-
-
-def test_plan_normalizer_rejects_spatial_grounder_to_ocr():
-    normalizer = ExecutionPlanNormalizer(_Registry())
-    plan = ExecutionPlan(
-        strategy="Reject spatial crops before OCR.",
-        steps=[
-            PlanStep(
-                step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find the sign interval.",
-                inputs={"query": "visible sign with small text", "top_k": 3},
-            ),
-            PlanStep(
-                step_id=2,
-                tool_name="frame_retriever",
-                purpose="Retrieve a readable static high-resolution frame for the sign text.",
-                inputs={"query": "readable still frame of the small sign text", "num_frames": 3},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-            PlanStep(
-                step_id=3,
-                tool_name="spatial_grounder",
-                purpose="Localize the sign text region in the readable frame.",
-                inputs={"query": "the sign text region"},
-                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
-            ),
-            PlanStep(
-                step_id=4,
-                tool_name="ocr",
-                purpose="Read the exact sign text.",
-                inputs={"query": "read the sign text exactly"},
-                input_refs={"regions": [{"step_id": 3, "field_path": "regions"}]},
-            ),
-        ],
-    )
-
-    with pytest.raises(ValueError, match="OCR must use complete frames or grounded clips directly"):
-        normalizer.normalize(_task(), plan)
-
-
-def test_plan_normalizer_accepts_explicit_frame_need_before_ocr_full_frames():
-    normalizer = ExecutionPlanNormalizer(_Registry())
-    plan = ExecutionPlan(
-        strategy="Use full frames because the sign must be readable.",
-        steps=[
-            PlanStep(
-                step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find the sign interval.",
-                inputs={"query": "visible sign with small text", "top_k": 3},
-            ),
-            PlanStep(
-                step_id=2,
-                tool_name="frame_retriever",
-                purpose="Retrieve a readable static high-resolution frame for the sign text.",
-                inputs={"query": "readable still frame of the small sign text", "num_frames": 3},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-            PlanStep(
-                step_id=3,
-                tool_name="ocr",
-                purpose="Read the exact sign text from the complete frames.",
-                inputs={"query": "read the sign text exactly from the full frame"},
-                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
-            ),
-            PlanStep(
-                step_id=4,
-                tool_name="generic_purpose",
-                purpose="Map OCR text to the answer option.",
-                inputs={"query": "Choose the option supported by the OCR text."},
-                input_refs={"text_contexts": [{"step_id": 3, "field_path": "text"}]},
-            ),
-        ],
-    )
-
-    normalized = normalizer.normalize(_task(), plan)
+    normalized = normalizer.normalize(task, good_plan)
 
     assert [step.tool_name for step in normalized.steps] == [
         "visual_temporal_grounder",
-        "frame_retriever",
-        "ocr",
-        "generic_purpose",
+        "audio_temporal_grounder",
     ]
+    assert normalized.steps[1].input_refs["clips"][0].step_id == 1
 
 
-def test_plan_normalizer_accepts_explicit_frame_need_before_generic_purpose():
+def test_plan_normalizer_rejects_unretrieved_evidence_ids():
     normalizer = ExecutionPlanNormalizer(_Registry())
     plan = ExecutionPlan(
-        strategy="Inspect an exact local frame sequence.",
+        strategy="Reuse evidence.",
         steps=[
             PlanStep(
                 step_id=1,
-                tool_name="visual_temporal_grounder",
-                purpose="Find the answer-critical action interval.",
-                inputs={"query": "action at the requested moment", "top_k": 3},
-            ),
-            PlanStep(
-                step_id=2,
-                tool_name="frame_retriever",
-                purpose="Retrieve exact neighboring frames around timestamp 00:06.",
-                inputs={"query": "frames near timestamp 00:06", "time_hints": ["00:06"], "num_frames": 5},
-                input_refs={"clips": [{"step_id": 1, "field_path": "clips"}]},
-            ),
-            PlanStep(
-                step_id=3,
                 tool_name="generic_purpose",
-                purpose="Answer from the exact timestamp-local frames.",
-                inputs={"query": "Determine the state at the timestamp from the neighboring frames."},
-                input_refs={"frames": [{"step_id": 2, "field_path": "frames"}]},
+                purpose="Answer from prior evidence.",
+                inputs={"query": "Use existing evidence.", "evidence_ids": ["ev_missing"]},
             ),
         ],
     )
 
-    normalized = normalizer.normalize(_task(), plan)
+    with pytest.raises(ValueError, match="were not retrieved"):
+        normalizer.normalize(_task(), plan, retrieved_context={"evidence": [{"evidence_id": "ev_ready"}]})
 
-    assert normalized.steps[2].tool_name == "generic_purpose"
+    normalized = normalizer.normalize(
+        _task(),
+        ExecutionPlan(
+            strategy="Reuse evidence.",
+            steps=[
+                PlanStep(
+                    step_id=1,
+                    tool_name="generic_purpose",
+                    purpose="Answer from prior evidence.",
+                    inputs={"query": "Use existing evidence.", "evidence_ids": ["ev_ready"]},
+                ),
+            ],
+        ),
+        retrieved_context={"observations": [{"observation_id": "obs_1", "evidence_id": "ev_ready"}]},
+    )
+    assert normalized.steps[0].inputs["evidence_ids"] == ["ev_ready"]
+
+
+def test_plan_normalizer_rejects_nonexistent_and_wrong_target_output_fields():
+    normalizer = ExecutionPlanNormalizer(_Registry())
+    bad_generic_transcript = ExecutionPlan(
+        strategy="Bad source field.",
+        steps=[
+            PlanStep(
+                step_id=1,
+                tool_name="generic_purpose",
+                purpose="Describe frames.",
+                inputs={"query": "Describe.", "text_contexts": ["context"]},
+            ),
+            PlanStep(
+                step_id=2,
+                tool_name="generic_purpose",
+                purpose="Use impossible transcript field.",
+                inputs={"query": "Answer."},
+                input_refs={"transcripts": [{"step_id": 1, "field_path": "transcripts"}]},
+            ),
+        ],
+    )
+    with pytest.raises(ValueError, match="emits only"):
+        normalizer.normalize(_task(), bad_generic_transcript)

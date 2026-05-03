@@ -99,6 +99,40 @@ def test_build_planner_prompt_adds_complex_temporal_decomposition_hint():
     assert "primitive/localizable sub-queries" in prompt
 
 
+def test_build_planner_prompt_includes_previous_evidence_summary():
+    prompt = build_planner_prompt(
+        task=_task(),
+        mode="refine",
+        audit_feedback=None,
+        tool_catalog={"generic_purpose": {"request_fields": ["query", "evidence_ids"]}},
+        evidence_summary={
+            "evidence_entry_count": 1,
+            "observation_count": 1,
+            "evidence_entries": [
+                {
+                    "evidence_id": "ev_1",
+                    "tool_name": "frame_retriever",
+                    "status": "candidate",
+                    "evidence_text": "Frame at 129.125s was retrieved but no visual state was described.",
+                }
+            ],
+            "recent_observations": [
+                {
+                    "observation_id": "obs_1",
+                    "evidence_id": "ev_1",
+                    "subject": "retrieved frame",
+                    "predicate": "timestamp",
+                    "value": "129.125s",
+                }
+            ],
+        },
+    )
+
+    assert "PREVIOUS_EVIDENCE:" in prompt
+    assert "ev_1" in prompt
+    assert "129.125s" in prompt
+
+
 def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "steps: list of {step_id, tool_name, purpose, inputs, input_refs, expected_outputs}" in PLANNER_SYSTEM_PROMPT
     assert "field-keyed object" in PLANNER_SYSTEM_PROMPT
@@ -143,7 +177,12 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "do not preserve the prior anchor by default" in PLANNER_SYSTEM_PROMPT
     assert "Do not downgrade a repeated organization" in PLANNER_SYSTEM_PROMPT
     assert "Example M2, repeated place phrase" in PLANNER_SYSTEM_PROMPT
-    assert "Do not bind current-plan outputs into `time_hints`" in PLANNER_SYSTEM_PROMPT
+    assert "Bind current-plan outputs into `time_hints` only for explicit timestamp strings" in PLANNER_SYSTEM_PROMPT
+    assert "Tool queries must be single-target and modality-specific" in PLANNER_SYSTEM_PROMPT
+    assert "`frame_retriever` is temporal-independent" in PLANNER_SYSTEM_PROMPT
+    assert "PREVIOUS_EVIDENCE contains text summaries" in PLANNER_SYSTEM_PROMPT
+    assert "`sort_order: \"chronological\"` orders the selected returned frames" in PLANNER_SYSTEM_PROMPT
+    assert "no point timestamp anchor" in PLANNER_SYSTEM_PROMPT
     assert "Example A, visible full-frame text" in PLANNER_SYSTEM_PROMPT
     assert "Example C, sound trigger" in PLANNER_SYSTEM_PROMPT
     assert "Example C2, non-speech sound-effect option comparison" in PLANNER_SYSTEM_PROMPT
@@ -162,11 +201,6 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert _removed_block("RETRIEVED" + "-CONTEXT") not in PLANNER_SYSTEM_PROMPT
     assert "RETRIEVED_FRAME_REFS_AVAILABLE" not in PLANNER_SYSTEM_PROMPT
     assert "PREPROCESS_PLANNING_MEMORY" not in PLANNER_SYSTEM_PROMPT
-    assert "sequence_mode" not in PLANNER_SYSTEM_PROMPT
-    assert "neighbor_radius_s" not in PLANNER_SYSTEM_PROMPT
-    assert "include_anchor_neighbors" not in PLANNER_SYSTEM_PROMPT
-    assert "sort_order" not in PLANNER_SYSTEM_PROMPT
-    assert "anchor-window" not in PLANNER_SYSTEM_PROMPT
 
 
 def test_synthesizer_prompt_is_one_shot_with_icl_examples():
@@ -230,18 +264,24 @@ def test_render_tool_catalog_includes_output_fields():
     assert "output_nested: frames[] -> frame_path: str, timestamp_s: float, relevance_score: Optional[float]" in rendered
 
 
-def test_render_frame_sequence_context_mentions_frame_timestamps():
+def test_render_frame_sequence_context_mentions_anchor_and_neighbors():
     rendered = render_frame_sequence_context(
         [
             {
                 "timestamp_s": 6.0,
-                "metadata": {"relevance_score": 0.9},
+                "metadata": {
+                    "requested_timestamp_s": 6.0,
+                    "neighbor_radius_s": 2.0,
+                    "sequence_mode": "anchor_window",
+                    "sequence_role": "anchor",
+                    "sequence_index": 1,
+                },
             }
         ]
     )
 
-    assert "Frame timestamps: 6s" in rendered
-    assert "do not infer chronology from retrieval order alone" in rendered
+    assert "chronological sequence centered on timestamp 6s" in rendered
+    assert "neighboring frames before and after" in rendered
 
 
 def test_tool_registry_catalog_exposes_new_asr_outputs():
@@ -259,11 +299,5 @@ def test_tool_registry_catalog_exposes_new_asr_outputs():
     catalog = registry.tool_catalog()
 
     assert "clips" in catalog["frame_retriever"]["request_fields"]
-    assert "time_hints" in catalog["frame_retriever"]["request_fields"]
     assert "frames" in catalog["frame_retriever"]["output_fields"]
-    schema_text = "\n".join(catalog["frame_retriever"]["request_schema"])
-    assert "time_hints: List[str]" in schema_text
-    assert "sequence_mode" not in schema_text
-    assert "neighbor_radius_s" not in schema_text
-    assert "include_anchor_neighbors" not in schema_text
-    assert "sort_order" not in schema_text
+    assert "sequence_mode: Literal[ranked, anchor_window, chronological]" in catalog["frame_retriever"]["request_schema"]

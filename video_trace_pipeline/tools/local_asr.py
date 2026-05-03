@@ -8,7 +8,7 @@ import os
 import re
 import wave
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from ..common import hash_payload
 from ..runtime_devices import resolve_device_label
@@ -66,37 +66,145 @@ def _quoted_task_phrases(question: str) -> List[str]:
     return ordered
 
 
+def _coerce_optional_seconds(value: Any) -> Optional[float]:
+    if value is None or isinstance(value, bool):
+        return None
+    try:
+        return float(value)
+    except Exception:
+        return None
+
+
+def _format_time_hint(seconds: Optional[float]) -> Optional[str]:
+    if seconds is None:
+        return None
+    return "%0.3fs" % float(seconds)
+
+
+def _phrase_candidate_records(transcript_text: str, segments: List[Dict[str, object]]) -> List[Dict[str, object]]:
+    segment_items: List[Dict[str, object]] = []
+    for segment in list(segments or []):
+        if not isinstance(segment, dict):
+            continue
+        text = str(segment.get("text") or "").strip()
+        if not text:
+            continue
+        start_s = _coerce_optional_seconds(segment.get("start_s", segment.get("start")))
+        end_s = _coerce_optional_seconds(segment.get("end_s", segment.get("end")))
+        if start_s is not None and end_s is not None and end_s < start_s:
+            end_s = start_s
+        segment_items.append(
+            {
+                "text": text,
+                "start_s": start_s,
+                "end_s": end_s,
+                "segment_count": 1,
+            }
+        )
+
+    candidates: List[Dict[str, object]] = []
+    if segment_items:
+        max_window = min(4, len(segment_items))
+        for window_size in range(1, max_window + 1):
+            for start_index in range(0, len(segment_items) - window_size + 1):
+                window = segment_items[start_index : start_index + window_size]
+                text = " ".join(str(item.get("text") or "").strip() for item in window if str(item.get("text") or "").strip())
+                if not text:
+                    continue
+                start_values = [item.get("start_s") for item in window if item.get("start_s") is not None]
+                end_values = [item.get("end_s") for item in window if item.get("end_s") is not None]
+                candidates.append(
+                    {
+                        "text": text,
+                        "start_s": min(start_values) if start_values else None,
+                        "end_s": max(end_values) if end_values else None,
+                        "segment_count": window_size,
+                    }
+                )
+    else:
+        text = str(transcript_text or "").strip()
+        if text:
+            candidates.append({"text": text, "start_s": None, "end_s": None, "segment_count": 0})
+
+    deduped: List[Dict[str, object]] = []
+    seen = set()
+    for candidate in candidates:
+        signature = (
+            _normalize_phrase_text(str(candidate.get("text") or "")),
+            candidate.get("start_s"),
+            candidate.get("end_s"),
+        )
+        if signature in seen:
+            continue
+        seen.add(signature)
+        deduped.append(candidate)
+    return deduped
+
+
+def _candidate_span_len(candidate: Dict[str, object]) -> float:
+    start_s = _coerce_optional_seconds(candidate.get("start_s"))
+    end_s = _coerce_optional_seconds(candidate.get("end_s"))
+    if start_s is None or end_s is None:
+        return float("inf")
+    return max(0.0, end_s - start_s)
+
+
+def _candidate_anchor_seconds(candidate: Dict[str, object]) -> Optional[float]:
+    start_s = _coerce_optional_seconds(candidate.get("start_s"))
+    end_s = _coerce_optional_seconds(candidate.get("end_s"))
+    if start_s is not None and end_s is not None:
+        return start_s + ((end_s - start_s) / 2.0)
+    if start_s is not None:
+        return start_s
+    return end_s
+
+
 def _phrase_matches(question: str, transcript_text: str, segments: List[Dict[str, object]]) -> List[Dict[str, object]]:
     phrases = _quoted_task_phrases(question)
     if not phrases:
         return []
-    candidates = [str(transcript_text or "").strip()]
-    candidates.extend(str(item.get("text") or "").strip() for item in list(segments or []))
-    candidates = [item for item in candidates if item]
+    candidates = _phrase_candidate_records(transcript_text, segments)
     if not candidates:
         return []
 
     matches: List[Dict[str, object]] = []
     for phrase in phrases:
         normalized_phrase = _normalize_phrase_text(phrase)
-        best_candidate = ""
+        best_candidate: Dict[str, object] = {}
         best_score = 0.0
+        best_span_len = float("inf")
         for candidate in candidates:
-            normalized_candidate = _normalize_phrase_text(candidate)
+            candidate_text = str(candidate.get("text") or "").strip()
+            normalized_candidate = _normalize_phrase_text(candidate_text)
             if not normalized_candidate:
                 continue
             score = difflib.SequenceMatcher(None, normalized_phrase, normalized_candidate).ratio()
-            if score > best_score:
+            if normalized_phrase and normalized_phrase in normalized_candidate:
+                score = max(score, 0.99)
+            span_len = _candidate_span_len(candidate)
+            if score > best_score + 1e-9 or (abs(score - best_score) <= 1e-9 and span_len < best_span_len):
                 best_score = score
                 best_candidate = candidate
+                best_span_len = span_len
         if best_candidate:
-            matches.append(
-                {
-                    "phrase": phrase,
-                    "matched_text": best_candidate,
-                    "similarity": round(float(best_score), 4),
-                }
-            )
+            start_s = _coerce_optional_seconds(best_candidate.get("start_s"))
+            end_s = _coerce_optional_seconds(best_candidate.get("end_s"))
+            anchor_s = _candidate_anchor_seconds(best_candidate)
+            match = {
+                "phrase": phrase,
+                "matched_text": str(best_candidate.get("text") or "").strip(),
+                "similarity": round(float(best_score), 4),
+            }
+            if start_s is not None:
+                match["start_s"] = round(float(start_s), 3)
+            if end_s is not None:
+                match["end_s"] = round(float(end_s), 3)
+            time_hint = _format_time_hint(anchor_s)
+            if time_hint:
+                match["time_hint"] = time_hint
+            if start_s is not None and end_s is not None:
+                match["time_range"] = "%0.3fs-%0.3fs" % (float(start_s), float(end_s))
+            matches.append(match)
     return matches
 
 
@@ -402,7 +510,7 @@ class LocalASRAdapter(ToolAdapter):
             )
             model_name = str(self.extra.get("model_name") or "large-v3")
             language = self.extra.get("language")
-            device = context.workspace.profile.gpu_assignments.get("asr", "cpu")
+            device = self.extra.get("device") or context.workspace.profile.gpu_assignments.get("asr", "cpu")
             runtime_warning = None
             try:
                 result, runtime_warning = _transcribe_with_whisperx(
@@ -464,11 +572,17 @@ class LocalASRAdapter(ToolAdapter):
             if phrase_matches:
                 data["phrase_matches"] = phrase_matches
                 best_match = dict(phrase_matches[0])
+                time_suffix = ""
+                if best_match.get("time_range"):
+                    time_suffix = " at %s" % str(best_match.get("time_range") or "")
+                elif best_match.get("time_hint"):
+                    time_suffix = " near %s" % str(best_match.get("time_hint") or "")
                 data["phrase_match_summary"] = (
-                    'Closest ASR match for quoted phrase "%s" is "%s" (similarity=%0.2f).'
+                    'Closest ASR match for quoted phrase "%s" is "%s"%s (similarity=%0.2f).'
                     % (
                         str(best_match.get("phrase") or ""),
                         str(best_match.get("matched_text") or ""),
+                        time_suffix,
                         float(best_match.get("similarity") or 0.0),
                     )
                 )

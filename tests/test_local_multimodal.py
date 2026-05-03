@@ -100,7 +100,6 @@ def test_qwen_style_runner_honors_requested_attn_implementation(monkeypatch):
     assert runner.loaded_attn_implementation == "flash_attention_2"
     runner.model = None
 
-
 def test_qwen_style_model_single_gpu_moves_model_to_device(monkeypatch):
     calls = []
 
@@ -137,7 +136,7 @@ def test_qwen_style_model_single_gpu_moves_model_to_device(monkeypatch):
     assert model.eval_called is True
 
 
-def test_qwen_style_model_first_two_cuda_uses_balanced_map_and_skips_to(monkeypatch):
+def test_qwen_style_model_balanced_cuda_uses_balanced_map_and_skips_to(monkeypatch):
     calls = []
 
     class FakeModel:
@@ -174,7 +173,7 @@ def test_qwen_style_model_first_two_cuda_uses_balanced_map_and_skips_to(monkeypa
     model = local_multimodal._qwen_style_model(
         "/tmp/demo-model",
         "cuda:0",
-        device_map="first_two_cuda",
+        device_map="balanced_cuda:0,1",
     )
 
     assert calls
@@ -185,7 +184,7 @@ def test_qwen_style_model_first_two_cuda_uses_balanced_map_and_skips_to(monkeypa
     assert model.eval_called is True
 
 
-def test_qwen_style_model_first_two_cuda_requires_two_visible_devices(monkeypatch):
+def test_qwen_style_model_balanced_cuda_requires_visible_devices(monkeypatch):
     fake_transformers = types.ModuleType("transformers")
     fake_transformers.__version__ = "5.2.0"
     fake_transformers.AutoModelForImageTextToText = object()
@@ -193,11 +192,22 @@ def test_qwen_style_model_first_two_cuda_requires_two_visible_devices(monkeypatc
     monkeypatch.setattr(torch.cuda, "is_available", lambda: True)
     monkeypatch.setattr(torch.cuda, "device_count", lambda: 1)
 
-    with pytest.raises(RuntimeError, match="at least two visible CUDA devices"):
+    with pytest.raises(RuntimeError, match="requested CUDA index"):
         local_multimodal._qwen_style_model(
             "/tmp/demo-model",
             "cuda:0",
-            device_map="first_two_cuda",
+            device_map="balanced_cuda:0,1",
+        )
+
+
+def test_qwen_style_model_rejects_flash_attention_on_cpu(monkeypatch):
+    monkeypatch.setattr(local_multimodal, "_require_supported_transformers_for_checkpoint", lambda *args, **kwargs: None)
+
+    with pytest.raises(RuntimeError, match="flash_attention_2 requires CUDA tensors"):
+        local_multimodal._qwen_style_model(
+            "/tmp/demo-model",
+            "cpu",
+            attn_implementation="flash_attention_2",
         )
 
 

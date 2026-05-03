@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Sequence
 
+from ..runtime_devices import cuda_device_map_primary_label, parse_cuda_device_map
 from .shared import cleanup_torch, move_batch_to_device, torch_dtype_for_device
 
 
@@ -340,17 +341,23 @@ def _patch_qwen35_flash_attention_position_ids() -> None:
         attention_cls._video_trace_pipeline_position_ids_patch = True
 
 
-def _first_two_cuda_max_memory() -> Dict[int, int]:
+def _cuda_device_map_max_memory(device_indices: List[int]) -> Dict[int, int]:
     import torch
 
-    if not torch.cuda.is_available() or torch.cuda.device_count() < 2:
+    if not torch.cuda.is_available():
         raise RuntimeError(
-            "device_map='first_two_cuda' requires at least two visible CUDA devices "
-            "(local cuda:0 and cuda:1)."
+            "A CUDA device_map requires visible CUDA devices."
+        )
+    device_count = torch.cuda.device_count()
+    missing = [index for index in list(device_indices or []) if index < 0 or index >= device_count]
+    if missing:
+        raise RuntimeError(
+            "device_map requested CUDA index/indices %s, but only %d CUDA device(s) are visible."
+            % (", ".join(str(item) for item in missing), device_count)
         )
     return {
-        0: int(torch.cuda.get_device_properties(0).total_memory),
-        1: int(torch.cuda.get_device_properties(1).total_memory),
+        int(index): int(torch.cuda.get_device_properties(int(index)).total_memory)
+        for index in list(device_indices or [])
     }
 
 
@@ -371,21 +378,28 @@ def _qwen_style_model(
     )
 
     normalized_device_map = str(device_map or "").strip() or None
-    if normalized_device_map not in (None, "first_two_cuda"):
-        raise RuntimeError("Unsupported Qwen-style device_map %r." % normalized_device_map)
-    sharded_first_two_cuda = normalized_device_map == "first_two_cuda"
-    primary_device_label = "cuda:0" if sharded_first_two_cuda else device_label
+    sharded_cuda_indices = parse_cuda_device_map(normalized_device_map)
+    sharded_cuda = bool(sharded_cuda_indices)
+    primary_device_label = cuda_device_map_primary_label(normalized_device_map, device_label)
+    normalized_attn = str(attn_implementation or "").strip() or None
+    if normalized_attn == "flash_attention_2" and not str(primary_device_label or "").startswith("cuda"):
+        raise RuntimeError(
+            "Qwen-style model %r requested flash_attention_2 on device %r. "
+            "flash_attention_2 requires CUDA tensors; set a CUDA gpu_assignments entry "
+            "for this tool or use a non-flash attention implementation."
+            % (model_path, primary_device_label or "cpu")
+        )
     dtype = torch_dtype_for_device(primary_device_label)
     common_kwargs = {
         "trust_remote_code": True,
         "local_files_only": True,
         "low_cpu_mem_usage": True,
     }
-    if sharded_first_two_cuda:
+    if sharded_cuda:
         common_kwargs["device_map"] = "balanced"
-        common_kwargs["max_memory"] = _first_two_cuda_max_memory()
-    if attn_implementation:
-        common_kwargs["attn_implementation"] = str(attn_implementation)
+        common_kwargs["max_memory"] = _cuda_device_map_max_memory(sharded_cuda_indices or [])
+    if normalized_attn:
+        common_kwargs["attn_implementation"] = normalized_attn
     load_attempts = [
         {
             **common_kwargs,
@@ -400,7 +414,7 @@ def _qwen_style_model(
                 model_path,
                 **kwargs,
             )
-            if sharded_first_two_cuda:
+            if sharded_cuda:
                 return model.eval()
             return model.to(device_label).eval()
         except Exception as exc:
@@ -472,7 +486,7 @@ class QwenStyleRunner:
 
         self.model_path = model_path
         self.device_map = str(device_map or "").strip() or None
-        self.device_label = "cuda:0" if self.device_map == "first_two_cuda" else device_label
+        self.device_label = cuda_device_map_primary_label(self.device_map, device_label)
         self.requested_attn_implementation = str(attn_implementation or "").strip() or None
         self.loaded_attn_implementation = None
         processor_source = str(processor_model_path or model_path)

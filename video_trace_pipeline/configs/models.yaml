@@ -61,6 +61,7 @@ tools:
       prefilter_window_budget: 16
       prefilter_neighbor_radius: 1
       dense_frame_embed_batch: 16
+      device_map: null
       attn_implementation: flash_attention_2
       temperature: 0.0
       do_sample: false
@@ -73,7 +74,7 @@ tools:
       backend_name: qwen_frame_retriever
       reranker_model: Qwen/Qwen3-VL-Reranker-8B
       use_reranker: false
-      device_map: first_two_cuda
+      device_map: null
       candidate_frames: 12
       dense_frame_embed_batch: 16
       attn_implementation: flash_attention_2
