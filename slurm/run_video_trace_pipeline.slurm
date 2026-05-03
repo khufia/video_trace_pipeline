@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=video_trace_pipeline
-#SBATCH --output=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline_preprocess_task_state/logs/video_trace_pipeline_%A_%a.out
-#SBATCH --error=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline_preprocess_task_state/logs/video_trace_pipeline_%A_%a.err
+#SBATCH --output=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%A_%a.out
+#SBATCH --error=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%A_%a.err
 #SBATCH --time=12:00:00
 #SBATCH --partition=gamma
 #SBATCH --account=gamma
