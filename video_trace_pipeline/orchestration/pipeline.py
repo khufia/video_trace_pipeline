@@ -3,19 +3,19 @@ from __future__ import annotations
 import contextlib
 import json
 import os
+from types import SimpleNamespace
 from typing import Any, Dict, List, Optional
 
 from ..agents import AtomicFactAgent, OpenAIChatClient, PlannerAgent, TraceAuditorAgent, TraceSynthesizerAgent
 from ..common import sanitize_for_persistence, write_json
 from ..config import save_runtime_snapshot
 from ..renderers import export_trace_for_benchmark, write_run_debug_bundle
-from ..schemas import InferenceStep, TracePackage
+from ..schemas import InferenceStep, PlanStep, TracePackage
 from ..storage import EvidenceLedger, WorkspaceManager
 from ..tools import ObservationExtractor, ToolRegistry
 from ..tools.base import ToolExecutionContext
 from ..tools.specs import tool_implementation
 from .executor import PlanExecutor
-from .plan_normalizer import ExecutionPlanNormalizer
 from .preprocess import DenseCaptionPreprocessor
 
 
@@ -134,36 +134,26 @@ def _compact_step_summary(execution_record: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _compact_round_summary(round_index: int, plan, execution_records, audit_report) -> Dict[str, object]:
-    return {
-        "round": int(round_index),
-        "strategy": getattr(plan, "strategy", ""),
-        "refinement_instructions": _truncate_text(getattr(plan, "refinement_instructions", ""), max_len=240),
-        "tools": [item["tool_name"] for item in execution_records],
-        "step_summaries": [_compact_step_summary(item) for item in list(execution_records or [])],
-        "verdict": audit_report.verdict if audit_report is not None else None,
-        "feedback": audit_report.feedback if audit_report is not None else "",
-        "missing_information": list(audit_report.missing_information or []) if audit_report is not None else [],
-    }
-
-
-def _build_planner_repair_request(planner_request: Dict[str, Any], plan_payload: Dict[str, Any], error: Exception) -> Dict[str, Any]:
-    repair_request = dict(planner_request or {})
-    repair_note = "\n\n".join(
-        [
-            "PLAN_VALIDATION_ERROR:",
-            str(error),
-            "REJECTED_PLAN:",
-            json.dumps(sanitize_for_persistence(plan_payload), indent=2, sort_keys=True),
-            "Rewrite the ExecutionPlan as JSON only. Keep the same evidence goal, but fix schema and wiring. "
-            "For each input_ref, use only output fields listed for the source tool in AVAILABLE_TOOLS; "
-            "never reference a prior step's inputs or expected_outputs as if they were emitted outputs. "
-            "Every generic_purpose step must receive explicit clips, frames, transcripts, text_contexts, evidence_ids, "
-            "or input_refs. Do not invent evidence_ids.",
-        ]
+def _tool_output_history(execution_record: Dict[str, Any]) -> Dict[str, Any]:
+    result_payload = dict(execution_record.get("result") or {})
+    return sanitize_for_persistence(
+        {
+            "step_id": execution_record.get("step_id"),
+            "tool_name": execution_record.get("tool_name"),
+            "purpose": execution_record.get("purpose"),
+            "request": execution_record.get("request") or {},
+            "result": {
+                "ok": result_payload.get("ok"),
+                "data": result_payload.get("data") or {},
+                "summary": result_payload.get("summary"),
+                "raw_output_text": result_payload.get("raw_output_text"),
+                "artifact_refs": result_payload.get("artifact_refs") or [],
+                "metadata": result_payload.get("metadata") or {},
+            },
+            "evidence_entry": execution_record.get("evidence_entry") or {},
+            "observations": execution_record.get("observations") or [],
+        }
     )
-    repair_request["user_prompt"] = "%s\n\n%s" % (str(repair_request.get("user_prompt") or ""), repair_note)
-    return repair_request
 
 
 def _trace_from_initial_steps(task, steps: List[str]) -> TracePackage:
@@ -181,47 +171,6 @@ def _trace_from_initial_steps(task, steps: List[str]) -> TracePackage:
         benchmark_renderings={},
         metadata={"source": "initial_trace_steps"},
     )
-
-
-def _round_synthesis_context(execution_records: List[Dict[str, Any]]) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
-    evidence_entries: List[Dict[str, Any]] = []
-    observations: List[Dict[str, Any]] = []
-    seen_evidence_ids = set()
-    seen_observation_ids = set()
-
-    for record in list(execution_records or []):
-        evidence_entry = dict(record.get("evidence_entry") or {})
-        evidence_id = str(evidence_entry.get("evidence_id") or "").strip()
-        if evidence_entry and (not evidence_id or evidence_id not in seen_evidence_ids):
-            if evidence_id:
-                seen_evidence_ids.add(evidence_id)
-            evidence_entries.append(evidence_entry)
-
-        record_observations = [
-            dict(item)
-            for item in list(record.get("observations") or [])
-            if isinstance(item, dict)
-        ]
-        referenced_ids = {
-            str(item or "").strip()
-            for item in list(evidence_entry.get("observation_ids") or [])
-            if str(item or "").strip()
-        }
-        if referenced_ids:
-            record_observations = [
-                item
-                for item in record_observations
-                if str(item.get("observation_id") or "").strip() in referenced_ids
-            ]
-        for observation in record_observations:
-            observation_id = str(observation.get("observation_id") or "").strip()
-            if observation_id and observation_id in seen_observation_ids:
-                continue
-            if observation_id:
-                seen_observation_ids.add(observation_id)
-            observations.append(observation)
-
-    return evidence_entries, observations
 
 
 def _dedupe_evidence_entries(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -254,6 +203,74 @@ def _dedupe_observations(observations: List[Dict[str, Any]]) -> List[Dict[str, A
         seen.add(signature)
         ordered.append(dict(observation))
     return ordered
+
+
+def _combined_preprocess_context(preprocess_output: Any) -> Optional[Dict[str, Any]]:
+    if not isinstance(preprocess_output, dict):
+        return None
+    planner_segments = preprocess_output.get("planner_segments")
+    if not isinstance(planner_segments, list):
+        return None
+    context = {
+        "source": "planner_segments.json",
+        "cache_dir": preprocess_output.get("cache_dir"),
+        "manifest": {
+            "video_id": preprocess_output.get("video_id"),
+            "video_fingerprint": preprocess_output.get("video_fingerprint"),
+            "clip_duration_s": preprocess_output.get("clip_duration_s"),
+            "preprocess_settings": preprocess_output.get("preprocess_settings"),
+            "metrics": preprocess_output.get("metrics"),
+        },
+        "planner_segments": planner_segments,
+    }
+    return sanitize_for_persistence(context)
+
+
+def _estimate_prompt_tokens_from_request(request: Dict[str, Any]) -> int:
+    prompt_text = "\n\n".join(
+        str(request.get(key) or "")
+        for key in ("system_prompt", "user_prompt")
+    )
+    # Cheap estimator for warning/telemetry only. We intentionally do not block on it.
+    return max(1, int(len(prompt_text) / 4))
+
+
+def _observation_text(observation: Dict[str, Any]) -> str:
+    text = (
+        observation.get("atomic_text")
+        or observation.get("text")
+        or observation.get("support")
+        or observation.get("value")
+        or ""
+    )
+    return _truncate_text(text, max_len=900)
+
+
+def _ledger_synthesis_context(ledger: EvidenceLedger) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return _dedupe_evidence_entries(ledger.entries()), _dedupe_observations(ledger.observations())
+
+
+def _unresolved_trace(task, missing_information: List[str]) -> TracePackage:
+    missing = [str(item or "").strip() for item in list(missing_information or []) if str(item or "").strip()]
+    text = "The pipeline stopped before producing a supported answer."
+    if missing:
+        text += " Missing information: %s." % "; ".join(missing[:5])
+    return TracePackage(
+        task_key=task.sample_key,
+        mode="unresolved",
+        evidence_entries=[],
+        inference_steps=[
+            InferenceStep(
+                step_id=1,
+                text=text,
+                supporting_observation_ids=[],
+                answer_relevance="high",
+            )
+        ],
+        final_answer="",
+        benchmark_renderings={},
+        metadata={"source": "planner_action_loop", "missing_information": missing},
+    )
 
 
 _BLOCKING_FINDING_CATEGORIES = {
@@ -380,7 +397,6 @@ class PipelineRunner(object):
             ),
             models_config=models_config,
         )
-        self.plan_normalizer = ExecutionPlanNormalizer(self.tool_registry)
         self.planner = PlannerAgent(self.llm_client, models_config.agents["planner"])
         self.synthesizer = TraceSynthesizerAgent(self.llm_client, models_config.agents["trace_synthesizer"])
         self.auditor = TraceAuditorAgent(self.llm_client, models_config.agents["trace_auditor"])
@@ -468,14 +484,20 @@ class PipelineRunner(object):
             "top_subjects": sorted(subjects.items(), key=lambda pair: (-pair[1], pair[0]))[:15],
             "top_predicates": sorted(predicates.items(), key=lambda pair: (-pair[1], pair[0]))[:15],
             "evidence_entries": entries[-10:],
-            "recent_observations": observations[-20:],
+            "recent_observations": [
+                {
+                    **dict(item),
+                    "text": _observation_text(dict(item)),
+                }
+                for item in observations[-20:]
+            ],
         }
 
     def run_task(
         self,
         task,
         mode: str = "generate",
-        max_rounds: int = 3,
+        max_rounds: int = 15,
         clip_duration_s: Optional[float] = None,
         initial_trace_path: Optional[str] = None,
         progress_reporter=None,
@@ -501,7 +523,7 @@ class PipelineRunner(object):
         run,
         task,
         mode: str = "generate",
-        max_rounds: int = 3,
+        max_rounds: int = 15,
         clip_duration_s: Optional[float] = None,
         initial_trace_path: Optional[str] = None,
         progress_reporter=None,
@@ -546,6 +568,11 @@ class PipelineRunner(object):
             manifest_payload["preprocess_cache"] = preprocess_output.get("cache_dir")
             manifest_payload["clip_duration_s"] = effective_clip_duration_s
             self.workspace.write_run_manifest(run, manifest_payload)
+        preprocess_context = _combined_preprocess_context(preprocess_output)
+        if preprocess_enabled and preprocess_context is None:
+            raise RuntimeError(
+                "Preprocessing is enabled, but the preprocess bundle did not contain planner_segments from planner_segments.json."
+            )
         video_fingerprint = (
             str(preprocess_output.get("video_fingerprint"))
             if isinstance(preprocess_output, dict) and preprocess_output.get("video_fingerprint")
@@ -579,6 +606,7 @@ class PipelineRunner(object):
                 task,
                 current_trace_dict,
                 initial_summary,
+                preprocess_context=preprocess_context,
             )
             write_json(initial_round_dir / "auditor_request.json", sanitize_for_persistence(initial_audit_request))
             _, latest_audit = self.auditor.complete_request(initial_audit_request)
@@ -609,11 +637,23 @@ class PipelineRunner(object):
                 return final_payload
 
         rounds_executed = 0
-        while rounds_executed < max(1, int(max_rounds)):
+        planner_turns = 0
+        synthesis_attempts = 0
+        max_synthesis_attempts = 3
+        max_tool_rounds = max(1, int(max_rounds))
+        max_planner_turns = max_tool_rounds + max_synthesis_attempts + 2
+        action_history: List[Dict[str, Any]] = []
+        stop_missing_information: List[str] = []
+        while planner_turns < max_planner_turns:
             planning_mode = "generate" if current_trace is None else "refine"
-            round_index = rounds_executed + 1
+            planner_turns += 1
+            round_index = planner_turns
             round_dir = run.round_dir(round_index)
-            tool_catalog = self.tool_registry.tool_catalog()
+            tool_catalog = {
+                name: spec
+                for name, spec in self.tool_registry.tool_catalog().items()
+                if name != "verifier"
+            }
             if progress_reporter is not None and hasattr(progress_reporter, "on_round_start"):
                 progress_reporter.on_round_start(
                     round_index=round_index,
@@ -627,62 +667,102 @@ class PipelineRunner(object):
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
                 tool_catalog=tool_catalog,
                 evidence_summary=planner_evidence_summary,
+                preprocess_context=preprocess_context,
+                action_history=action_history,
+                current_trace=sanitize_for_persistence(current_trace.dict()) if current_trace is not None else None,
             )
             planner_request = self.planner.build_request(**planner_kwargs)
+            estimated_prompt_tokens = _estimate_prompt_tokens_from_request(planner_request)
+            if estimated_prompt_tokens >= 100000:
+                warning_payload = {
+                    "type": "large_planner_prompt",
+                    "estimated_prompt_tokens": estimated_prompt_tokens,
+                    "message": "Planner prompt is large because full planner_segments preprocess context is included.",
+                }
+                manifest_payload.setdefault("warnings", []).append(warning_payload)
+                self.workspace.write_run_manifest(run, manifest_payload)
+                write_json(round_dir / "planner_prompt_warning.json", warning_payload)
             write_json(round_dir / "planner_request.json", sanitize_for_persistence(planner_request))
-            planner_raw, plan = self.planner.complete_request(planner_request)
+            planner_raw, action = self.planner.complete_request(planner_request)
             write_json(round_dir / "planner_raw.json", {"raw": planner_raw})
-            try:
-                plan = self.plan_normalizer.normalize(
-                    task,
-                    plan,
-                    retrieved_context=planner_evidence_summary,
-                )
-            except ValueError as exc:
-                write_json(
-                    round_dir / "planner_invalid_plan.json",
-                    {
-                        "error": str(exc),
-                        "plan": sanitize_for_persistence(plan.dict()),
-                    },
-                )
-                repair_request = _build_planner_repair_request(planner_request, plan.dict(), exc)
-                write_json(round_dir / "planner_repair_request.json", sanitize_for_persistence(repair_request))
-                repair_raw, repair_plan = self.planner.complete_request(repair_request)
-                write_json(round_dir / "planner_repair_raw.json", {"raw": repair_raw})
-                plan = self.plan_normalizer.normalize(
-                    task,
-                    repair_plan,
-                    retrieved_context=planner_evidence_summary,
-                )
-            write_json(round_dir / "planner_plan.json", sanitize_for_persistence(plan.dict()))
+            action_payload = sanitize_for_persistence(action.dict())
+            write_json(round_dir / "planner_action.json", action_payload)
             if progress_reporter is not None and hasattr(progress_reporter, "on_planner"):
                 progress_reporter.on_planner(
                     round_index=round_index,
-                    plan_payload=sanitize_for_persistence(plan.dict()),
+                    plan_payload=action_payload,
                     round_dir=self.workspace.relative_path(round_dir),
                 )
 
-            execution_records = self.executor.execute_plan(
-                plan=plan,
-                execution_context=execution_context,
-                evidence_ledger=evidence_ledger,
-                video_fingerprint=video_fingerprint,
-                progress_reporter=progress_reporter,
-                round_index=round_index,
-            )
+            action_record: Dict[str, Any] = {
+                "turn": round_index,
+                "mode": planning_mode,
+                "action": action_payload,
+            }
 
-            execution_evidence_entries, execution_observations = _round_synthesis_context(execution_records)
-            round_evidence_entries = _dedupe_evidence_entries(execution_evidence_entries)
-            round_observations = _dedupe_observations(execution_observations)
+            if action.action_type == "tool_call":
+                if rounds_executed >= max_tool_rounds:
+                    stop_missing_information = [
+                        "Planner requested another tool call after the max_rounds tool budget was exhausted."
+                    ]
+                    action_record["error"] = "tool_budget_exhausted"
+                    action_record["rounds_executed"] = rounds_executed
+                    action_record["max_rounds"] = max_tool_rounds
+                    action_history.append(action_record)
+                    write_json(round_dir / "action_history.json", sanitize_for_persistence(action_history))
+                    break
+                tool_request = dict(action.tool_request or {})
+                tool_request.setdefault("tool_name", action.tool_name)
+                if action.tool_name == "verifier":
+                    raise ValueError("Planner attempted to call disabled verifier tool.")
+                plan = SimpleNamespace(
+                    steps=[
+                        PlanStep(
+                            step_id=rounds_executed + 1,
+                            tool_name=str(action.tool_name),
+                            purpose=action.expected_observation or action.rationale,
+                            inputs=tool_request,
+                        )
+                    ]
+                )
+                execution_records = self.executor.execute_plan(
+                    plan=plan,
+                    execution_context=execution_context,
+                    evidence_ledger=evidence_ledger,
+                    video_fingerprint=video_fingerprint,
+                    progress_reporter=progress_reporter,
+                    round_index=round_index,
+                )
+                action_record["tool_results"] = [
+                    _compact_step_summary(record)
+                    for record in execution_records
+                ]
+                action_record["tool_outputs"] = [
+                    _tool_output_history(record)
+                    for record in execution_records
+                ]
+                action_history.append(action_record)
+                write_json(round_dir / "action_history.json", sanitize_for_persistence(action_history))
+                rounds_executed += 1
+                continue
+
+            if action.action_type == "stop_unresolved":
+                stop_missing_information = list(action.missing_information or [])
+                action_history.append(action_record)
+                write_json(round_dir / "action_history.json", sanitize_for_persistence(action_history))
+                break
+
+            synthesis_attempts += 1
+            round_evidence_entries, round_observations = _ledger_synthesis_context(evidence_ledger)
             synthesizer_request = self.synthesizer.build_request(
                 task=task,
                 mode=planning_mode,
                 round_evidence_entries=round_evidence_entries,
                 round_observations=round_observations,
                 current_trace=sanitize_for_persistence(current_trace.dict()) if current_trace is not None else None,
-                refinement_instructions=plan.refinement_instructions,
+                refinement_instructions=action.synthesis_instructions or action.rationale,
                 audit_feedback=latest_audit.dict() if latest_audit is not None else None,
+                preprocess_context=preprocess_context,
             )
             write_json(round_dir / "synthesizer_request.json", sanitize_for_persistence(synthesizer_request))
             _, trace_package = self.synthesizer.complete_request(synthesizer_request)
@@ -704,6 +784,7 @@ class PipelineRunner(object):
                 task=task,
                 trace_package=sanitize_for_persistence(trace_package.dict()),
                 evidence_summary=evidence_summary,
+                preprocess_context=preprocess_context,
             )
             write_json(round_dir / "auditor_request.json", sanitize_for_persistence(auditor_request))
             _, latest_audit = self.auditor.complete_request(auditor_request)
@@ -716,6 +797,10 @@ class PipelineRunner(object):
                 )
 
             current_trace = trace_package
+            action_record["trace_package"] = sanitize_for_persistence(trace_package.dict())
+            action_record["audit_report"] = sanitize_for_persistence(latest_audit.dict())
+            action_history.append(action_record)
+            write_json(round_dir / "action_history.json", sanitize_for_persistence(action_history))
             evidence_updates = _evidence_status_updates(
                 evidence_ledger.entries(),
                 current_trace,
@@ -723,10 +808,13 @@ class PipelineRunner(object):
             )
             if evidence_updates:
                 evidence_ledger.update_entry_statuses(evidence_updates)
-            rounds_executed += 1
             if _should_accept_audit(latest_audit):
                 break
+            if synthesis_attempts >= max_synthesis_attempts:
+                break
 
+        if current_trace is None:
+            current_trace = _unresolved_trace(task, stop_missing_information)
         export_payload = self._persist_trace(run, task, current_trace)
         final_payload = {
             "run_dir": self.workspace.relative_path(run.run_dir),
@@ -735,6 +823,9 @@ class PipelineRunner(object):
             "benchmark_export": sanitize_for_persistence(export_payload),
             "preprocess": sanitize_for_persistence(preprocess_output) if preprocess_output is not None else None,
             "rounds_executed": rounds_executed,
+            "planner_turns": planner_turns,
+            "synthesis_attempts": synthesis_attempts,
+            "action_history": sanitize_for_persistence(action_history),
         }
         write_json(run.final_result_path, final_payload)
         with contextlib.suppress(Exception):

@@ -175,6 +175,31 @@ class LiveRunReporter(object):
 
     def on_planner(self, *, round_index: int, plan_payload: Dict[str, Any], round_dir: Optional[str] = None):
         self.console.print("[bold]Planner[/bold]")
+        if plan_payload.get("action_type"):
+            action_type = str(plan_payload.get("action_type") or "").strip()
+            tool_name = str(plan_payload.get("tool_name") or "").strip()
+            rationale = _display_text(plan_payload.get("rationale") or "", limit=220)
+            label = action_type
+            if tool_name:
+                label = "%s:%s" % (action_type, tool_name)
+            self.console.print("action: %s" % label)
+            if rationale:
+                self.console.print("rationale: %s" % rationale)
+            tool_request = dict(plan_payload.get("tool_request") or {})
+            if tool_request:
+                self.console.print("request: %s" % _display_text(tool_request, limit=260))
+            expected = _display_text(plan_payload.get("expected_observation") or "", limit=220)
+            if expected:
+                self.console.print("expected: %s" % expected)
+            synthesis = _display_text(plan_payload.get("synthesis_instructions") or "", limit=260)
+            if synthesis:
+                self.console.print("synthesis: %s" % synthesis)
+            missing = [str(item).strip() for item in list(plan_payload.get("missing_information") or []) if str(item).strip()]
+            if missing:
+                self.console.print("missing: %s" % " | ".join(missing[:5]))
+            if round_dir:
+                self.console.print("round_dir: %s" % round_dir)
+            return
         self.console.print(
             "strategy: %s"
             % _display_text(plan_payload.get("strategy") or "", limit=220)

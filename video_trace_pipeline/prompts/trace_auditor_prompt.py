@@ -253,7 +253,7 @@ Return JSON only matching the `AuditReport` schema.
 """
 
 
-def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict) -> str:
+def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict, preprocess_context: dict | None = None) -> str:
     parts = [
         "QUESTION:",
         task.question,
@@ -268,6 +268,17 @@ def build_auditor_prompt(task, trace_package: dict, evidence_summary: dict) -> s
         pretty_json(evidence_summary),
         "",
     ]
+    if preprocess_context:
+        parts.extend(
+            [
+                "FULL_PREPROCESS_CONTENT:",
+                pretty_json(preprocess_context),
+                "",
+                "PREPROCESS_TRUST_POLICY:",
+                "Preprocess is candidate context and coverage background. It may reveal conflicts or missing coverage, but dense captions alone are not final proof of answer-critical claims. Check whether trace citations are backed by validated tool evidence or adequate ASR spans.",
+                "",
+            ]
+        )
     parts.extend(
         [
             "AuditReport schema reminder:",

@@ -43,6 +43,8 @@ def hf_cache_roots(explicit_hf_cache: Optional[str] = None) -> List[Path]:
                 roots.append(candidate)
 
     _add(explicit_hf_cache)
+    if str(explicit_hf_cache or "").strip():
+        return roots
     _add(os.environ.get("HUGGINGFACE_HUB_CACHE"))
     _add(os.environ.get("HF_HUB_CACHE"))
     _add(os.environ.get("HF_HOME"))

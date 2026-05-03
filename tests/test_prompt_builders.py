@@ -51,7 +51,8 @@ def test_build_planner_prompt_omits_removed_context_blocks():
     assert "artifact_context" not in prompt
     assert "PREPROCESS_PLANNING_MEMORY" not in prompt
     assert "PREVIOUS_ITERATIONS_SUMMARY" not in prompt
-    assert "- never emit arguments, depends_on, use_summary" in prompt
+    assert "PlannerAction schema reminder:" in prompt
+    assert "do not emit steps, inputs, input_refs, expected_outputs, arguments, depends_on, or use_summary" in prompt
 
 
 def test_build_planner_prompt_adds_multi_referent_relation_hint():
@@ -134,14 +135,15 @@ def test_build_planner_prompt_includes_previous_evidence_summary():
 
 
 def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
-    assert "steps: list of {step_id, tool_name, purpose, inputs, input_refs, expected_outputs}" in PLANNER_SYSTEM_PROMPT
-    assert "field-keyed object" in PLANNER_SYSTEM_PROMPT
-    assert "Omit empty literal fields from `inputs`" in PLANNER_SYSTEM_PROMPT
+    assert "choose exactly one next `PlannerAction`" in PLANNER_SYSTEM_PROMPT
+    assert 'action_type: one of "tool_call", "synthesize", "stop_unresolved"' in PLANNER_SYSTEM_PROMPT
+    assert "Return only one action" in PLANNER_SYSTEM_PROMPT
+    assert "Omit empty literal fields from `tool_request`" in PLANNER_SYSTEM_PROMPT
     assert "Do not emit removed fields" in PLANNER_SYSTEM_PROMPT
     assert "Never invent helper fields such as `query_context`" in PLANNER_SYSTEM_PROMPT
     assert "Pass ASR to generic_purpose through `transcripts`" in PLANNER_SYSTEM_PROMPT
     assert "Never bind `transcripts` from a clip/frame path" in PLANNER_SYSTEM_PROMPT
-    assert "never earlier step inputs such as `inputs.transcripts`" in PLANNER_SYSTEM_PROMPT
+    assert "copy clips from `clips`, `clips[0]`" in PLANNER_SYSTEM_PROMPT
     assert "run ASR over grounded clips" in PLANNER_SYSTEM_PROMPT
     assert "audio/count question is conditioned on a visible object, action, or state" in PLANNER_SYSTEM_PROMPT
     assert "the visible object/action is the anchor" in PLANNER_SYSTEM_PROMPT
@@ -177,7 +179,7 @@ def test_planner_system_prompt_documents_new_schema_and_icl_patterns():
     assert "do not preserve the prior anchor by default" in PLANNER_SYSTEM_PROMPT
     assert "Do not downgrade a repeated organization" in PLANNER_SYSTEM_PROMPT
     assert "Example M2, repeated place phrase" in PLANNER_SYSTEM_PROMPT
-    assert "Bind current-plan outputs into `time_hints` only for explicit timestamp strings" in PLANNER_SYSTEM_PROMPT
+    assert "Put only explicit timestamp strings" in PLANNER_SYSTEM_PROMPT
     assert "Tool queries must be single-target and modality-specific" in PLANNER_SYSTEM_PROMPT
     assert "`frame_retriever` is temporal-independent" in PLANNER_SYSTEM_PROMPT
     assert "PREVIOUS_EVIDENCE contains text summaries" in PLANNER_SYSTEM_PROMPT
@@ -212,11 +214,13 @@ def test_synthesizer_prompt_is_one_shot_with_icl_examples():
         current_trace={"final_answer": "A"},
         refinement_instructions="Replace the unsupported label claim.",
         audit_feedback={"missing_information": ["exact chart label"]},
+        preprocess_context={"planner_segments": []},
     )
 
     assert f"{_removed_block('TASK' + '-STATE')}:" not in prompt
     assert "ROUND_EVIDENCE_ENTRIES:" in prompt
     assert "ROUND_ATOMIC_OBSERVATIONS:" in prompt
+    assert "FULL_PREPROCESS_CONTENT:" in prompt
     assert "EVIDENCE_MEMORY" not in prompt
     assert "Example D, unresolved fine detail" in SYNTHESIZER_SYSTEM_PROMPT
     assert "Example J, ASR-to-visual anchor" in SYNTHESIZER_SYSTEM_PROMPT
@@ -233,11 +237,13 @@ def test_auditor_prompt_has_complex_score_icl_without_evidence_memory():
         task=_task(),
         trace_package={"final_answer": "A", "inference_steps": []},
         evidence_summary={"observations": []},
+        preprocess_context={"planner_segments": []},
     )
 
     assert f"{_removed_block('TASK' + '-STATE')}:" not in prompt
     assert "ordered, deduplicated, tool-agnostic list of atomic unresolved answer-critical needs" in prompt
     assert "diagnostics: object" in prompt
+    assert "FULL_PREPROCESS_CONTENT:" in prompt
     assert "Example A, strong multimodal PASS" in AUDITOR_SYSTEM_PROMPT
     assert "Example J, truncated task" in AUDITOR_SYSTEM_PROMPT
     assert "EVIDENCE_MEMORY" not in prompt

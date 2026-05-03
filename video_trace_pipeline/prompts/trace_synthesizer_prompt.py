@@ -141,6 +141,7 @@ def build_synthesizer_prompt(
     current_trace: Optional[dict],
     refinement_instructions: str,
     audit_feedback: Optional[dict] = None,
+    preprocess_context: Optional[dict] = None,
 ) -> str:
     parts = [
         "TASK_KEY: %s" % task.sample_key,
@@ -166,6 +167,17 @@ def build_synthesizer_prompt(
             [
                 "CURRENT_TRACE_PACKAGE:",
                 pretty_json(current_trace),
+                "",
+            ]
+        )
+    if preprocess_context:
+        parts.extend(
+            [
+                "FULL_PREPROCESS_CONTENT:",
+                pretty_json(preprocess_context),
+                "",
+                "PREPROCESS_TRUST_POLICY:",
+                "Use preprocessed ASR transcript spans as candidate transcript evidence when coverage is adequate. Do not use dense captions as final proof of answer-critical visual/audio claims; prefer validated tool evidence and explicitly note unresolved conflicts.",
                 "",
             ]
         )

@@ -391,7 +391,7 @@ def run(
     initial_trace_steps_json: Optional[str] = typer.Option(None, help="Initial trace steps as JSON list or `||`-separated string"),
     inputs_json: Optional[str] = typer.Option(None, help="JSON file containing a list of direct-input samples"),
     input_index: Optional[int] = typer.Option(None, help="Sample index inside `inputs_json`"),
-    max_rounds: int = typer.Option(3, help="Maximum generation/refinement rounds"),
+    max_rounds: int = typer.Option(15, help="Maximum planner tool-action rounds"),
     initial_trace_path: Optional[str] = typer.Option(None, help="Optional initial trace package JSON"),
     workspace_root: Optional[str] = typer.Option(None, help="Override workspace root"),
     persist_tool_models: Optional[str] = typer.Option(

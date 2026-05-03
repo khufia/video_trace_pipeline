@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -134,3 +134,69 @@ class ExecutionPlan(BaseModel):
         if not value:
             raise ValueError("strategy must be non-empty")
         return value
+
+
+class PlannerAction(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    action_type: Literal["tool_call", "synthesize", "stop_unresolved"]
+    rationale: str
+    tool_name: Optional[str] = None
+    tool_request: Dict[str, Any] = Field(default_factory=dict)
+    expected_observation: str = ""
+    synthesis_instructions: str = ""
+    missing_information: List[str] = Field(default_factory=list)
+
+    @field_validator("rationale")
+    @classmethod
+    def _validate_rationale(cls, value):  # noqa: N805
+        value = str(value or "").strip()
+        if not value:
+            raise ValueError("rationale must be non-empty")
+        return value
+
+    @field_validator("tool_name", mode="before")
+    @classmethod
+    def _normalize_optional_tool_name(cls, value):
+        text = str(value or "").strip()
+        return text or None
+
+    @field_validator("expected_observation", "synthesis_instructions", mode="before")
+    @classmethod
+    def _normalize_optional_text(cls, value):
+        return str(value or "").strip()
+
+    @field_validator("missing_information", mode="before")
+    @classmethod
+    def _normalize_missing_information(cls, value):
+        if value is None:
+            return []
+        items = value if isinstance(value, list) else [value]
+        normalized = []
+        seen = set()
+        for item in items:
+            text = str(item or "").strip()
+            if not text:
+                continue
+            key = text.casefold()
+            if key in seen:
+                continue
+            seen.add(key)
+            normalized.append(text)
+        return normalized
+
+    @model_validator(mode="after")
+    def _validate_action_contract(self):
+        if self.action_type == "tool_call":
+            if not self.tool_name:
+                raise ValueError("tool_call actions require tool_name")
+            if self.tool_name == "verifier":
+                raise ValueError("planner must not call the verifier tool")
+            if not isinstance(self.tool_request, dict) or not self.tool_request:
+                raise ValueError("tool_call actions require a non-empty tool_request")
+        else:
+            self.tool_name = None
+            self.tool_request = {}
+        if self.action_type == "synthesize" and not self.synthesis_instructions:
+            self.synthesis_instructions = self.rationale
+        return self

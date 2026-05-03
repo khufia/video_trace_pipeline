@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=video_trace_pipeline
-#SBATCH --output=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%A_%a.out
-#SBATCH --error=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline/logs/video_trace_pipeline_%A_%a.err
+#SBATCH --output=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline_preprocess_task_state/logs/video_trace_pipeline_%A_%a.out
+#SBATCH --error=/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline_preprocess_task_state/logs/video_trace_pipeline_%A_%a.err
 #SBATCH --time=12:00:00
 #SBATCH --partition=gamma
 #SBATCH --account=gamma
@@ -14,7 +14,9 @@
 set -Eeuo pipefail
 
 # Edit these values directly before running the script.
-REPO_ROOT="${REPO_ROOT:-/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEFAULT_REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="${REPO_ROOT:-$DEFAULT_REPO_ROOT}"
 COT_ROOT="${COT_ROOT:-/fs/nexus-scratch/gnanesh/cot}"
 VENV_PATH="${VENV_PATH:-/fs/nexus-scratch/gnanesh/venv_vdr3}"
 
@@ -39,7 +41,7 @@ INPUT_INDEX="${INPUT_INDEX:-0 1 2 3 4 5 6 7 8 9 10}"
 # INPUT_INDEX="${INPUT_INDEX:-3 4 5 6 7 8 9 10 11 12 13 14 15}"
 # INPUT_INDEX="${INPUT_INDEX:-16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33}"
 # INPUT_INDEX="${INPUT_INDEX:-17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33}"
-MAX_ROUNDS="${MAX_ROUNDS:-3}"
+MAX_ROUNDS="${MAX_ROUNDS:-15}"
 INITIAL_TRACE_PATH="${INITIAL_TRACE_PATH:-}"
 
 CHECK_ENV_ONLY="${CHECK_ENV_ONLY:-0}"

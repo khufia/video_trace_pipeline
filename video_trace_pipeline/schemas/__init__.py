@@ -8,7 +8,7 @@ from .config import (
     RuntimeSnapshot,
     ToolConfig,
 )
-from .plans import ExecutionPlan, InputRef, PlanStep
+from .plans import ExecutionPlan, InputRef, PlannerAction, PlanStep
 from .task import TaskSpec
 from .task_state import (
     AnswerCandidate,
@@ -104,6 +104,7 @@ __all__ = [
     "OCROutput",
     "OCRValueOccurrence",
     "PlanStep",
+    "PlannerAction",
     "RegionRef",
     "ReferentSlot",
     "RetrievalMemoryRecord",

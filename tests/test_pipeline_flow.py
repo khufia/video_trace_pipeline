@@ -1,15 +1,13 @@
-from types import SimpleNamespace
+import pytest
 
-from video_trace_pipeline.orchestration.plan_normalizer import ExecutionPlanNormalizer
 from video_trace_pipeline.orchestration.pipeline import PipelineRunner
 from video_trace_pipeline.schemas import (
     AgentConfig,
     AuditReport,
-    ExecutionPlan,
-    GenericPurposeRequest,
     InferenceStep,
     MachineProfile,
     ModelsConfig,
+    PlannerAction,
     TaskSpec,
     ToolConfig,
     TracePackage,
@@ -17,15 +15,15 @@ from video_trace_pipeline.schemas import (
 
 
 class FakePlanner(object):
-    def __init__(self, plan=None):
+    def __init__(self, action=None):
         self.calls = []
         self.completed_requests = []
-        if isinstance(plan, list):
-            self.plans = list(plan)
-        elif plan is not None:
-            self.plans = [plan]
+        if isinstance(action, list):
+            self.actions = list(action)
+        elif action is not None:
+            self.actions = [action]
         else:
-            self.plans = []
+            self.actions = []
 
     def build_request(self, **kwargs):
         self.calls.append(dict(kwargs))
@@ -33,13 +31,18 @@ class FakePlanner(object):
 
     def complete_request(self, request):
         self.completed_requests.append(dict(request))
-        plan = self.plans.pop(0) if self.plans else ExecutionPlan(strategy="No tools needed.", steps=[], refinement_instructions="")
-        return "{}", plan
+        action = self.actions.pop(0) if self.actions else PlannerAction(action_type="synthesize", rationale="No more tools needed.", synthesis_instructions="Write the trace from current evidence.")
+        return "{}", action
 
 
 class FakeExecutor(object):
+    def __init__(self, records=None):
+        self.calls = []
+        self.records = list(records or [])
+
     def execute_plan(self, **kwargs):
-        return []
+        self.calls.append(dict(kwargs))
+        return list(self.records)
 
 
 class FakeSynthesizer(object):
@@ -55,6 +58,7 @@ class FakeSynthesizer(object):
         current_trace,
         refinement_instructions,
         audit_feedback=None,
+        preprocess_context=None,
     ):
         self.calls.append(locals())
         return {"endpoint_name": "default", "model_name": "gpt-5.4", "system_prompt": "synth", "user_prompt": "prompt"}
@@ -85,8 +89,8 @@ class FakeAuditor(object):
         self.fail_first = fail_first
         self.count = 0
 
-    def build_request(self, task, trace_package, evidence_summary):
-        self.calls.append({"task": task, "trace_package": trace_package, "evidence_summary": evidence_summary})
+    def build_request(self, task, trace_package, evidence_summary, preprocess_context=None):
+        self.calls.append({"task": task, "trace_package": trace_package, "evidence_summary": evidence_summary, "preprocess_context": preprocess_context})
         return {"endpoint_name": "default", "model_name": "gpt-5.4", "system_prompt": "audit", "user_prompt": "prompt"}
 
     def complete_request(self, request):
@@ -104,11 +108,16 @@ class FakeAuditor(object):
         return "{}", AuditReport(verdict="PASS", confidence=0.9, scores={"completeness": 5}, findings=[], feedback="")
 
 
-class FakePlanRegistry(object):
-    def get_adapter(self, tool_name):
-        if tool_name != "generic_purpose":
-            raise KeyError(tool_name)
-        return SimpleNamespace(request_model=GenericPurposeRequest)
+class BrokenPreprocessor(object):
+    def is_enabled(self):
+        return True
+
+    def resolve_preprocess_settings(self, clip_duration_s=None):
+        return {"clip_duration_s": clip_duration_s or 30.0}
+
+    def get_or_build(self, task, clip_duration_s=None):
+        del task, clip_duration_s
+        return {"cache_dir": "broken-cache"}
 
 
 def _models_config():
@@ -159,6 +168,7 @@ def test_pipeline_runner_builds_first_planner_round_without_preprocess(tmp_path)
     assert call["mode"] == "generate"
     assert call["audit_feedback"] is None
     assert "tool_catalog" in call
+    assert "action_history" in call
 
 
 def test_refine_planner_receives_audit_feedback_before_plan(tmp_path):
@@ -180,33 +190,52 @@ def test_pipeline_writes_final_outputs(tmp_path):
 
     final_result_path = tmp_path / "workspace" / result["run_dir"] / "final_result.json"
     planner_request_path = tmp_path / "workspace" / result["run_dir"] / "round_01" / "planner_request.json"
+    planner_action_path = tmp_path / "workspace" / result["run_dir"] / "round_01" / "planner_action.json"
     assert final_result_path.exists()
     assert planner_request_path.exists()
+    assert planner_action_path.exists()
 
 
-def test_pipeline_retries_invalid_planner_plan_once(tmp_path):
-    invalid_plan = ExecutionPlan(
-        strategy="Invalid detached generic step.",
-        steps=[
-            {
-                "step_id": 1,
-                "tool_name": "generic_purpose",
-                "purpose": "Answer without context.",
-                "inputs": {"query": "Answer from nowhere."},
-            }
-        ],
-        refinement_instructions="",
+def test_pipeline_executes_one_tool_action_before_synthesis(tmp_path):
+    planner = FakePlanner(
+        action=[
+            PlannerAction(
+                action_type="tool_call",
+                rationale="Need one extraction.",
+                tool_name="generic_purpose",
+                tool_request={"tool_name": "generic_purpose", "query": "Inspect the evidence.", "text_contexts": ["context"]},
+                expected_observation="one extracted answer",
+            ),
+            PlannerAction(action_type="synthesize", rationale="Evidence collected.", synthesis_instructions="Write the trace."),
+        ]
     )
-    repaired_plan = ExecutionPlan(strategy="No tools needed after repair.", steps=[], refinement_instructions="")
-    planner = FakePlanner(plan=[invalid_plan, repaired_plan])
     runner = _runner(tmp_path, planner=planner)
-    runner.plan_normalizer = ExecutionPlanNormalizer(FakePlanRegistry())
+    runner.executor.records = [
+        {
+            "step_id": 1,
+            "tool_name": "generic_purpose",
+            "purpose": "one extracted answer",
+            "request": {"tool_name": "generic_purpose", "query": "Inspect the evidence.", "text_contexts": ["context"]},
+            "result": {"ok": True, "data": {"clips": [{"video_id": "video_1", "start_s": 1.0, "end_s": 2.0}]}, "summary": "Found clip."},
+            "evidence_entry": {"evidence_id": "ev_1", "tool_name": "generic_purpose", "observation_ids": ["obs_1"]},
+            "observations": [{"observation_id": "obs_1", "atomic_text": "The clip supports A."}],
+        }
+    ]
 
     result = runner.run_task(_task(tmp_path), mode="generate", max_rounds=1, clip_duration_s=30.0)
 
-    round_dir = tmp_path / "workspace" / result["run_dir"] / "round_01"
     assert len(planner.completed_requests) == 2
-    assert "PLAN_VALIDATION_ERROR" in planner.completed_requests[1]["user_prompt"]
-    assert (round_dir / "planner_invalid_plan.json").exists()
-    assert (round_dir / "planner_repair_request.json").exists()
+    assert len(runner.executor.calls) == 1
+    assert result["rounds_executed"] == 1
     assert result["trace_package"]["final_answer"] == "A"
+    history = planner.calls[1]["action_history"]
+    assert history[0]["tool_outputs"][0]["result"]["data"]["clips"][0]["start_s"] == 1.0
+    assert result["action_history"][0]["tool_outputs"][0]["observations"][0]["atomic_text"] == "The clip supports A."
+
+
+def test_pipeline_fails_loudly_when_enabled_preprocess_lacks_planner_segments(tmp_path):
+    runner = _runner(tmp_path)
+    runner.preprocessor = BrokenPreprocessor()
+
+    with pytest.raises(RuntimeError, match="planner_segments"):
+        runner.run_task(_task(tmp_path), mode="generate", max_rounds=1, clip_duration_s=30.0)

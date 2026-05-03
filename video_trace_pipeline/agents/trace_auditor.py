@@ -9,11 +9,12 @@ class TraceAuditorAgent(object):
         self.llm_client = llm_client
         self.agent_config = agent_config
 
-    def build_request(self, task, trace_package, evidence_summary):
+    def build_request(self, task, trace_package, evidence_summary, preprocess_context=None):
         prompt = build_auditor_prompt(
             task=task,
             trace_package=trace_package,
             evidence_summary=evidence_summary,
+            preprocess_context=preprocess_context,
         )
         return {
             "endpoint_name": self.agent_config.endpoint or "default",
@@ -31,11 +32,12 @@ class TraceAuditorAgent(object):
         )
         return raw, parsed
 
-    def audit(self, task, trace_package, evidence_summary):
+    def audit(self, task, trace_package, evidence_summary, preprocess_context=None):
         return self.complete_request(
             self.build_request(
                 task=task,
                 trace_package=trace_package,
                 evidence_summary=evidence_summary,
+                preprocess_context=preprocess_context,
             )
         )

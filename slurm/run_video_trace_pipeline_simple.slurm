@@ -11,6 +11,9 @@
 #SBATCH --mail-user=gnanesh@umd.edu
 #SBATCH --mail-type=END,FAIL
 
+echo "video_trace_pipeline_simple is disabled. Use slurm/run_video_trace_pipeline.slurm instead." >&2
+exit 1
+
 set -Eeuo pipefail
 
 REPO_ROOT="${REPO_ROOT:-/fs/nexus-scratch/gnanesh/cot/video_trace_pipeline}"

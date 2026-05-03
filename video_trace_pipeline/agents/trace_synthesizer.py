@@ -18,6 +18,7 @@ class TraceSynthesizerAgent(object):
         current_trace,
         refinement_instructions,
         audit_feedback=None,
+        preprocess_context=None,
     ):
         prompt = build_synthesizer_prompt(
             task=task,
@@ -27,6 +28,7 @@ class TraceSynthesizerAgent(object):
             current_trace=current_trace,
             refinement_instructions=refinement_instructions,
             audit_feedback=audit_feedback,
+            preprocess_context=preprocess_context,
         )
         return {
             "endpoint_name": self.agent_config.endpoint or "default",
@@ -53,6 +55,7 @@ class TraceSynthesizerAgent(object):
         current_trace,
         refinement_instructions,
         audit_feedback=None,
+        preprocess_context=None,
     ):
         return self.complete_request(
             self.build_request(
@@ -63,5 +66,6 @@ class TraceSynthesizerAgent(object):
                 current_trace=current_trace,
                 refinement_instructions=refinement_instructions,
                 audit_feedback=audit_feedback,
+                preprocess_context=preprocess_context,
             )
         )
